@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+// https://www.youtube.com/watch?v=pnhO8UaCgxg&list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d&index=4
+// Net Ninja
 
+import Navbar from './pages/Navbar/Navbar';
+import Home from './pages/Home/Home';
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <div className="App">
+    <div className='container'>
+      <Navbar/>
+      <Home/>
+      </div>      
+    // </div>
   );
 }
 
