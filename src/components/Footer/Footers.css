@@ -1,0 +1,48 @@
+.footer {
+  background: radial-gradient(
+    183.33% 183.33% at 52.5% -53.57%,
+    #4a0c14 0%,
+    #901626 50%,
+    #4a0c14 97.92%
+  );
+  padding-top: 80px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.footer-2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: rgba(0, 0, 0, 0.893);
+    color: rgba(255, 255, 255, 0.655);
+    padding-top: 10px;
+}
+.f-white-logo img {
+  width: 200px;
+  height: 120px;
+}
+.f-contact-us {
+  color: white;
+  font-size: 15px;
+}
+.c-heading,
+.info-heading {
+  font-size: 25px;
+}
+.further-info {
+  color: white;
+  font-size: 15px;
+}
+.social-logos img {
+  width: 20px;
+  height: 20px;
+}
+.social-logos div {
+  display: inline;
+  padding: 10px;
+}
+.social-logos {
+  margin-left: -10px;
+}
