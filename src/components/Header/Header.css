@@ -1,12 +1,13 @@
 .ribbon-top {
-  background-color: #901626e5;
+  background: radial-gradient(183.33% 183.33% at 52.5% -53.57%, #4A0C14 0%, #901626 50%, #4A0C14 97.92%);
 }
 .marquee {
-  color: #fcb514;
+  color: white;
   letter-spacing: 2px;
   font-weight: 700;
   padding: 15px;
   font-size: 15px;
+  padding-bottom: 20px;
 }
 .medi-logo {
   width: 200px;
