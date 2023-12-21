@@ -1,7 +1,3 @@
-/* font-family: 'Playfair Display', serif; */
-/* font-family: 'Open Sans', sans-serif; */
-
-
 .cop-heading {
   font-size: 3vw;
   font-family: "Playfair Display", serif;
@@ -14,27 +10,33 @@
 .table {
   border: 1px solid rgba(0, 0, 0, 0.13) !important;
 }
-.table th{
+.table th {
   padding-top: 15px;
   padding-bottom: 15px;
 }
-.academic-table{
-    padding: 3% 10% 1% 10%;
+.table td{
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
-.non-academin-table{
-    padding: 3% 10% 1% 10%;
+.academic-table {
+  padding: 3% 10% 1% 10%;
 }
-.apn-btn{
-    border: none;
-    padding: 5px 10px 5px 10px ;
-    border-radius: 10px;
+.non-academin-table {
+  padding: 3% 10% 1% 10%;
 }
-.apn-btn a{
-    color: rgba(0, 0, 0, 0.63);
+.apn-btn {
+  border: none;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
 }
-.table-heading{
-    padding-bottom: 15px;
-    font-size: 30px;
-    font-family: 'Open Sans', sans-serif;
-
+.apn-btn a {
+  color: rgba(0, 0, 0, 0.63);
+}
+.table-heading {
+  padding-bottom: 15px;
+  font-size: 30px;
+  font-family: "Open Sans", sans-serif;
+}
+.pagination{
+  float: right;
 }

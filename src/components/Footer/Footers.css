@@ -10,6 +10,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  font-family: 'Open Sans', sans-serif;
+
 }
 .footer-2{
     display: flex;
