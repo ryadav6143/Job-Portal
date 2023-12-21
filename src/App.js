@@ -1,14 +1,14 @@
-// https://www.youtube.com/watch?v=pnhO8UaCgxg&list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d&index=4
-// Net Ninja
-
 import { BrowserRouter as Main, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footers from "./components/Footer/Footers";
-import Home from "./pages/Home/Home"
-import CurrentOpening from "./pages/CurrentOpening/CurrentOpening";
-import InterviewShedule from "./pages/InterviewSchedule/InterviewSchedule"
-import FAQ from"./pages/FAQ/FAQ"
-import DropCV from "./pages/DropCV/Dropcv"
+import Home from "./admin_pages/Home/Home"
+import CurrentOpening from "./admin_pages/CurrentOpening/CurrentOpening";
+import InterviewShedule from "./admin_pages/InterviewSchedule/InterviewSchedule"
+import FAQ from"./admin_pages/FAQ/FAQ"
+import DropCV from "./admin_pages/DropCV/Dropcv"
+import Login from "./admin_pages/AdminLogin/Login";
+import UserLogin from "./candidate_pages/UserLogin/UserLogin";
+
 function App() {
   
   return (
@@ -21,6 +21,9 @@ function App() {
            <Route path="interview-schedule" element={<InterviewShedule />}></Route>
            <Route path="faq-section" element={<FAQ />}></Route>
            <Route path="drop-cv" element={<DropCV />}></Route>
+           <Route path="login" element={<Login />}></Route>
+           <Route path="userlogin" element={<UserLogin />}></Route>
+           
          </Routes>
          <Footers></Footers>
        </Main>

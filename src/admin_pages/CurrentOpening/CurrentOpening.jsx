@@ -1,5 +1,8 @@
 import React from "react";
 import "./CurrentOpening.css";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
 function CurrentOpening() {
   return (
     <>
@@ -202,6 +205,11 @@ function CurrentOpening() {
                 </tr>
               </tbody>
             </table>
+            <div className="my-pagination">
+              <Stack spacing={2} >
+                <Pagination count={10} shape="rounded" />
+              </Stack>
+            </div>
           </div>
         </div>
         <div className="non-academin-table">
@@ -229,6 +237,11 @@ function CurrentOpening() {
                 </tr>
               </tbody>
             </table>
+            <div className="my-pagination">
+              <Stack spacing={2} >
+                <Pagination count={10} shape="rounded" />
+              </Stack>
+            </div>
           </div>
         </div>
       </div>
