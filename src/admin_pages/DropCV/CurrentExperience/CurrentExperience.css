@@ -1,0 +1,70 @@
+.row1{
+    display: flex;
+    flex-wrap: wrap;
+}
+.CE-form {
+    justify-content: center;
+    margin-left: 25%; /* to be remove */
+    margin-top: 5%; /* to be remove */
+  }
+  
+  .CE-heading {
+    font-size: 24px;
+    color: #170f49;
+    font-weight: 700;
+  }
+  
+  .CE-subheading {
+    color: #6f6c90;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .set-checkbox{
+    width: auto;
+  }
+
+  .set-checkbox-span{
+    font-size: 16px;
+    font-weight: 400;
+    color: #6f6c90;
+  }
+
+  .form-section{
+    margin-top: 8%;
+}
+
+.SetLabel-Name {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.set-input {
+    width: 50%;
+    border-radius: 45px;
+    border: 1px solid;
+    border-color: #eff0f6;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    color: #6f6c90;
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .SetLabel-Name span {
+    color: red;
+  }
+  
+  .set-input:focus {
+    outline: none;
+  }
+
+  .uploadresume-subheading{
+    color: #6f6c90;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+ .uploadfile-section{
+    margin-top: 20px;
+ }

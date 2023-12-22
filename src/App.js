@@ -8,6 +8,9 @@ import FAQ from"./admin_pages/FAQ/FAQ"
 import DropCV from "./admin_pages/DropCV/Dropcv"
 import Login from "./admin_pages/AdminLogin/Login";
 import UserLogin from "./candidate_pages/UserLogin/UserLogin";
+import PersonalDeatils from "./admin_pages/DropCV/PersonalDetails/PersonalDeatils";
+import Qualification from "./admin_pages/DropCV/Qualification/Qualification"
+import CurrentExperience from "./admin_pages/DropCV/CurrentExperience/CurrentExperience"
 
 function App() {
   
@@ -23,6 +26,9 @@ function App() {
            <Route path="drop-cv" element={<DropCV />}></Route>
            <Route path="login" element={<Login />}></Route>
            <Route path="userlogin" element={<UserLogin />}></Route>
+           <Route path="personaldetails" element={<PersonalDeatils />}></Route>
+           <Route path="qualification" element={<Qualification />}></Route>
+           <Route path="currentexperience" element={<CurrentExperience />}></Route>
            
          </Routes>
          <Footers></Footers>
