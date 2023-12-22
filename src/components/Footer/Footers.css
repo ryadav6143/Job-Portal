@@ -48,3 +48,8 @@
 .social-logos {
   margin-left: -10px;
 }
+@media only screen and (max-width: 767px) {
+  .f-contact-us{
+    text-align: center;
+  }
+}

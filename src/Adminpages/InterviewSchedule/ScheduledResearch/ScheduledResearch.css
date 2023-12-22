@@ -1,0 +1,28 @@
+.table {
+    border: 1px solid rgba(0, 0, 0, 0.13) !important;
+  }
+  .table th {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .table td{
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .SCRES-table {
+    padding: 3% 10% 1% 10%;
+  }
+  .SCRES-heading {
+    font-size: 25px;
+    font-family: "Open Sans", sans-serif;
+    color: #901626;
+    font-weight: 600;
+  }
+  .table-des {
+    margin-top: -15px;
+    margin-bottom: 50px;
+    font-size: 20px;
+    font-family: "Open Sans", sans-serif;
+    color: rgba(0, 0, 0, 0.725);
+  }
+  

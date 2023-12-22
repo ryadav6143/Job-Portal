@@ -25,6 +25,8 @@
   padding-left: 70px !important;
   font-size: 15px !important;
   float: right;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif; 
 }
 .dropdown-menu[data-bs-popper] {
   /* top: 100%; */

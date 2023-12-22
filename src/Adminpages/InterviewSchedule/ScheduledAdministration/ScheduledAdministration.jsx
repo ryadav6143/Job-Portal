@@ -1,53 +1,13 @@
-import React from "react";
-import "./InterviewSchedule.css";
-import logo1 from "../../assets/logos/academic.png";
-import logo2 from "../../assets/logos/administration.png";
-import logo3 from "../../assets/logos/research.png";
-import logo4 from "../../assets/logos/technical.png";
+import React from 'react'
+import "./ScheduledAdministration.css"
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-function InterviewSchedule() {
+
+function ScheduledAdministration() {
   return (
-    <>
-      <div>
-        <div className="is-background">
-          <div className="data">
-            <p>INTERVIEW SCHEDULE</p>
-            <p className="sub-heading">
-              “ Be your true self, grow and make a difference.”
-            </p>
-          </div>
-        </div>
-        <div className="is-header ">
-          <div className="row">
-            <div className="col-md-3">
-              <span>
-                <img className="is-header-logo" src={logo1} />
-                <a href="">ACADEMICS</a>
-              </span>
-            </div>
-            <div className="col-md-3">
-              <span>
-                <img className="is-header-logo" src={logo3} />
-                <a href="">RESEARCH</a>
-              </span>
-            </div>
-            <div className="col-md-3">
-              <span>
-                <img className="is-header-logo" src={logo2} />
-                <a href="">ADMINISTRATION</a>
-              </span>
-            </div>
-            <div className="col-md-3">
-              <span>
-                <img className="is-header-logo" src={logo4} />
-                <a href="">TECHNICAL</a>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="is-academic-table">
-          <p className="is-table-heading">ACADEMICS</p>
+   <>
+    <div className="SCADM-table">
+          <p className="SCADM-heading">Administration</p>
           <p className="table-des">A descriptive body text comes here</p>
           <div className="table-responsive">
             <table className="table">
@@ -151,9 +111,8 @@ function InterviewSchedule() {
             </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+   </>
+  )
 }
 
-export default InterviewSchedule;
+export default ScheduledAdministration

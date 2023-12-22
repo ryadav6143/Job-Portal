@@ -4,11 +4,15 @@
 import { BrowserRouter as Main, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footers from "./components/Footer/Footers";
-import Home from "./pages/Home/Home"
-import CurrentOpening from "./pages/CurrentOpening/CurrentOpening";
-import InterviewShedule from "./pages/InterviewSchedule/InterviewSchedule"
-import FAQ from"./pages/FAQ/FAQ"
-import DropCV from "./pages/DropCV/Dropcv"
+import Home from "./Adminpages/Home/Home"
+import CurrentOpening from "./Adminpages/CurrentOpening/CurrentOpening";
+import InterviewShedule from "./Adminpages/InterviewSchedule/InterviewSchedule"
+import FAQ from"./Adminpages/FAQ/FAQ"
+import DropCV from "./Adminpages/DropCV/Dropcv"
+import ScheduledAcademics from "./Adminpages/InterviewSchedule/ScheduledAcademics/ScheduledAcademics";
+import ScheduledAdministration from "./Adminpages/InterviewSchedule/ScheduledAdministration/ScheduledAdministration";
+import ScheduledResearch from "./Adminpages/InterviewSchedule/ScheduledResearch/ScheduledResearch";
+import OTPVerification from "./Adminpages/DropCV/OTPVerifivation/OTPVerification";
 function App() {
   
   return (
@@ -21,6 +25,8 @@ function App() {
            <Route path="interview-schedule" element={<InterviewShedule />}></Route>
            <Route path="faq-section" element={<FAQ />}></Route>
            <Route path="drop-cv" element={<DropCV />}></Route>
+           <Route path="scheduled-academics" element={< ScheduledAcademics/>}></Route>
+           <Route path="otp-verifivation" element={< OTPVerification/>}></Route>
          </Routes>
          <Footers></Footers>
        </Main>
