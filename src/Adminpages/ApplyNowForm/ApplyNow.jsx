@@ -1,5 +1,5 @@
 import React from "react";
-import "./DropCV.css";
+import "./ApplyNow.css";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -8,9 +8,9 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const steps = ["", "", ""];
 
-function Dropcv() {
+const steps = ["", "", "", "", "", ""];
+function ApplyNow() {
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -43,30 +43,31 @@ function Dropcv() {
     // alert("Your CV has been submitted");
     navigate("/otp-verifivation");
   };
-
   return (
     <>
-      <div className="contact-forms">
+      <div className="apply-now-forms">
         <Box sx={{ width: "100%" }}>
-          <Stepper activeStep={activeStep}>
-            {steps.map((label, index) => {
-              const stepProps = {};
-              const labelProps = {};
-              if (isStepOptional(index)) {
-                labelProps.optional = (
-                  <Typography variant="caption"></Typography>
+          <div className="my-stepper">
+            <Stepper activeStep={activeStep}>
+              {steps.map((label, index) => {
+                const stepProps = {};
+                const labelProps = {};
+                if (isStepOptional(index)) {
+                  labelProps.optional = (
+                    <Typography variant="caption"></Typography>
+                  );
+                }
+                if (isStepSkipped(index)) {
+                  stepProps.completed = false;
+                }
+                return (
+                  <Step key={label} {...stepProps}>
+                    <StepLabel {...labelProps}>{label}</StepLabel>
+                  </Step>
                 );
-              }
-              if (isStepSkipped(index)) {
-                stepProps.completed = false;
-              }
-              return (
-                <Step key={label} {...stepProps}>
-                  <StepLabel {...labelProps}>{label}</StepLabel>
-                </Step>
-              );
-            })}
-          </Stepper>
+              })}
+            </Stepper>
+          </div>
           {activeStep === steps.length ? (
             <React.Fragment>
               <Typography sx={{ mt: 2, mb: 1 }}>
@@ -81,8 +82,11 @@ function Dropcv() {
           ) : (
             <React.Fragment>
               {/* {activeStep === 0 && <PersonalDetails />}
-              {activeStep === 1 && <Qualification />}
-              {activeStep === 2 && <Experience />} */}
+              {activeStep === 1 && <PersonalDetails />}
+              {activeStep === 2 && <PersonalDetails />}
+              {activeStep === 3 && <PersonalDetails />}
+              {activeStep === 4 && <PersonalDetails />}
+              {activeStep === 5 && <PersonalDetails />} */}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
                   className="prev-btn"
@@ -106,4 +110,4 @@ function Dropcv() {
   );
 }
 
-export default Dropcv;
+export default ApplyNow;

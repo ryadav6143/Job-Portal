@@ -27,7 +27,7 @@ function CurrentOpening() {
                   <td>Department Of Mechanical Engineering</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                      <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -37,7 +37,7 @@ function CurrentOpening() {
                   <td>Department Of Electronics Engineering</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -47,7 +47,7 @@ function CurrentOpening() {
                   <td>Department Of Civil Engineering</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -57,7 +57,7 @@ function CurrentOpening() {
                   <td>Department Of Electrical Engineering</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -67,7 +67,7 @@ function CurrentOpening() {
                   <td>Department Of Computer Application</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -77,7 +77,7 @@ function CurrentOpening() {
                   <td>Department Of Management</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -87,7 +87,7 @@ function CurrentOpening() {
                   <td>Department Of Commerce</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -97,7 +97,7 @@ function CurrentOpening() {
                   <td>Department Of Management</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -107,7 +107,7 @@ function CurrentOpening() {
                   <td>Department Of Pharmacy</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -117,7 +117,7 @@ function CurrentOpening() {
                   <td>Department Of Agriculture</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -127,7 +127,7 @@ function CurrentOpening() {
                   <td>Department Of Computer Science</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -137,7 +137,7 @@ function CurrentOpening() {
                   <td>Department Of Physics</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -147,7 +147,7 @@ function CurrentOpening() {
                   <td>Department Of Chemistry</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -157,7 +157,7 @@ function CurrentOpening() {
                   <td>Department Of Mathematics</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -167,7 +167,7 @@ function CurrentOpening() {
                   <td>Department Of Forensic Science</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -177,7 +177,7 @@ function CurrentOpening() {
                   <td>Department Of Forensic Science</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -187,7 +187,7 @@ function CurrentOpening() {
                   <td>Department Of Language</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
@@ -197,18 +197,18 @@ function CurrentOpening() {
                   <td>Department Of Chemistry</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
                 </tr>
               </tbody>
             </table>
-            {/* <div className="pagination"> 
-            <Stack spacing={2}>
+            <div className="pagination"> 
+            <Stack spacing={3}>
               <Pagination count={10} shape="rounded" />
             </Stack>
-            </div> */}
+            </div>
            
           </div>
         </div>
@@ -230,18 +230,18 @@ function CurrentOpening() {
                   <td>Non Teaching Staff</td>
                   <td>
                     <button type="button" className="apn-btn">
-                      <a href="">APPLY NOW</a>
+                    <a href="/apply-now">APPLY NOW</a>
                     </button>
                   </td>
                   <td>20/01/2024</td>
                 </tr>
               </tbody>
             </table>
-            {/* <div className="pagination"> 
-            <Stack spacing={2}>
+            <div className="pagination"> 
+            <Stack spacing={1}>
               <Pagination count={10} shape="rounded" />
             </Stack>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

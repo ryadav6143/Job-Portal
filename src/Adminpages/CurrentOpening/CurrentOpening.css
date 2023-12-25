@@ -14,7 +14,7 @@
   padding-top: 15px;
   padding-bottom: 15px;
 }
-.table td{
+.table td {
   padding-top: 15px;
   padding-bottom: 15px;
 }
@@ -33,10 +33,37 @@
   color: rgba(0, 0, 0, 0.63);
 }
 .table-heading {
-  padding-bottom: 15px;
+  /* padding-bottom: 15px; */
+  padding-top: 20px;
   font-size: 30px;
   font-family: "Open Sans", sans-serif;
 }
-.pagination{
+.pagination {
   float: right;
+}
+
+@media only screen and (max-width: 767px) {
+  .academic-table {
+    padding: 3% 3% 1% 3%;
+  }
+  .non-academin-table {
+    padding: 3% 3% 1% 3%;
+  }
+  .pagination {
+    float: left;
+    margin-bottom: 20px;
+  }
+  .cop-heading{
+    font-size: 25px;
+    margin-left: 72px;
+  }
+  .table-heading{
+    font-size: 20px;
+  }
+  .apn-btn {
+    border: none;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    font-size: 15px !important;
+  }
 }

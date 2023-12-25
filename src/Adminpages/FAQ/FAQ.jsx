@@ -2,11 +2,8 @@ import React from 'react'
 
 function FAQ() {
   return (
-    <>
-    <div>
-        <h1>FAQ Page</h1>
-    </div>
-    </>
+   <>
+   <div><h1>FAQ's page</h1></div></>
   )
 }
 

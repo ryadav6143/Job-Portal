@@ -6,15 +6,15 @@ import Stack from "@mui/material/Stack";
 function ScheduledResearch() {
   return (
     <>
-      <div className="SCADM-table">
-        <p className="SCADM-heading">Research</p>
+      <div className="SCARS-table">
+        <p className="SCARS-heading">Research</p>
         <p className="table-des">A descriptive body text comes here</p>
         <div className="table-responsive">
           <table className="table">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
                 <th scope="col">S.No&#x2193;</th>
-                <th scope="col">Discipline/Subject &#x2193;</th>
+                <th scope="col">Discipline / Subject &#x2193;</th>
                 <th scope="col">Eligibility criteria &#x2193;</th>
                 <th scope="col">Day 1 &#x2193;</th>
                 <th scope="col">Day 2 &#x2193;</th>

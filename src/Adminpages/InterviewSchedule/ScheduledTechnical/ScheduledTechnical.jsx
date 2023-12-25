@@ -1,4 +1,6 @@
 import React from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import "./ScheduledTechnical.css";
 
 function ScheduledTechnical() {
@@ -12,7 +14,7 @@ function ScheduledTechnical() {
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
                 <th scope="col">S.No&#x2193;</th>
-                <th scope="col">Discipline/Subject &#x2193;</th>
+                <th scope="col">Discipline / Subject &#x2193;</th>
                 <th scope="col">Eligibility criteria &#x2193;</th>
                 <th scope="col">Day 1 &#x2193;</th>
                 <th scope="col">Day 2 &#x2193;</th>

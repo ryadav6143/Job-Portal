@@ -1,12 +1,14 @@
-import React from 'react'
-import "./Academics.css"
+import React from "react";
+import "./Academics.css";
 
 function Academics() {
   return (
-    <div>
-      
-    </div>
-  )
+    <>
+      <div>
+        <h1>Academics job profile</h1>
+      </div>
+    </>
+  );
 }
 
-export default Academics
+export default Academics;

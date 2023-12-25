@@ -5,7 +5,10 @@ import logo2 from "../../assets/logos/administration.png";
 import logo3 from "../../assets/logos/research.png";
 import logo4 from "../../assets/logos/technical.png";
 import ScheduledAcademics from "./ScheduledAcademics/ScheduledAcademics";
-
+import ScheduledAdministration from"./ScheduledAdministration/ScheduledAdministration"
+import ScheduledResearch from "./ScheduledResearch/ScheduledResearch";
+import ScheduledTechnical from "./ScheduledTechnical/ScheduledTechnical";
+import { useNavigate } from "react-router-dom";
 function InterviewSchedule() {
   return (
     <>
@@ -47,6 +50,9 @@ function InterviewSchedule() {
           </div>
         </div>
         <ScheduledAcademics></ScheduledAcademics>
+        <ScheduledResearch></ScheduledResearch>
+        <ScheduledAdministration></ScheduledAdministration>
+        <ScheduledTechnical></ScheduledTechnical>
         <div className="notes">
           <p>
             NOTE:- Kindly bring 2 passport size photographs, original

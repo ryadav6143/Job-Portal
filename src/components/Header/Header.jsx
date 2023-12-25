@@ -4,11 +4,12 @@ import { Outlet, Link } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
+  let rbnsdata = '"Admission Open 2024-2025"';
   return (
     <>
       <div className="ribbon-top">
         <marquee className="marquee" behavior="scroll" direction="left">
-          "Admission Open 2024-2025"
+          {rbnsdata}
         </marquee>
       </div>
       <nav
@@ -27,6 +28,7 @@ function Header() {
             aria-controls="navbarNavDropdown"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            style={{paddingLeft:'6px',paddingRight:'6px'}}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -42,40 +44,40 @@ function Header() {
                 </Link>
               </li>
               <li className="nav-item dropdown">
-                <a
+                <Link
+                  to="/job-profile"
                   className="nav-link dropdown-toggle"
-                  href="#"
                   id="navbarDropdownMenuLink"
                   role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+                  // data-bs-toggle="dropdown"
+                  aria-current="page"
                 >
                   Job Profiles
-                </a>
+                </Link>
                 <ul
                   className="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
-                  style={{ marginTop: "31px", marginLeft: "29px" }}
+                  style={{ marginTop: "34px", marginLeft: "37px" }}
                 >
                   <li>
-                    <a className="dropdown-item" href="#">
-                      Academic
-                    </a>
+                    <Link to="/academics-jobs" className="dropdown-item">
+                      Academics
+                    </Link>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <Link to="/administrative-jobs" className="dropdown-item">
                       Administrative
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
-                      Research{" "}
-                    </a>
+                    <Link to="/research-jobs" className="dropdown-item">
+                      Research
+                    </Link>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <Link to="/technical-jobs" className="dropdown-item">
                       Technical
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>

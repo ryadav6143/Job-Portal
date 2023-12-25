@@ -1,13 +1,17 @@
 import React from "react";
 import "./OTPVerification.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 function OTPVerification() {
+  const navigate = useNavigate();
+  const submitsuccess = () => {
+    navigate("/success");
+  };
   return (
     <>
       <div className="vrf-main-container">
         <div className="vrf-page">
-          <p className="vrf-heading">Verifivation</p>
+          <p className="vrf-heading">Verification</p>
           <div className="sub-vrf-page">
             <p className="vrf-subheading">OTP Verification</p>
             <p style={{ color: "rgba(0, 0, 0, 0.666)", marginTop: "-17px" }}>
@@ -23,7 +27,9 @@ function OTPVerification() {
             </button>
           </div>
         </div>
-        <button type="button" id="otp-submit-btn">Submit</button>
+        <button onClick={submitsuccess} type="button" id="otp-submit-btn">
+          Submit
+        </button>
       </div>
     </>
   );
