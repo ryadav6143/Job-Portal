@@ -2,40 +2,29 @@ import "./Login.css";
 import React, { useState } from "react";
 import { faEyeSlash,faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import logo from "../../assets/logos/logo.png"
+import logo from "../../../assets/logos/logo.png"
 
 
-function Login() {
+function Login({ handleLogin }) {
 
-    const [formData, setFormData] = useState({
-        username: "",
-        password: "",
-      });
-      
-      const [showPassword, setShowPassword] = useState(false);
-      
-      const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
-      };
-    
-      const handleTogglePassword = () => {
-        setShowPassword((prevShowPassword) => !prevShowPassword);
-      };
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
-    
-        // You can add your authentication logic here.
-        // Typically, this involves sending the formData to a server-side script for validation.
-    
-        // For now, let's just log the values (for demonstration purposes).
-        console.log("Username:", formData.username);
-        console.log("Password:", formData.password);
-      };
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    if (username === "admin" && password === "admin") {
+      handleLogin();
+    } else {
+      alert("Invalid credentials");
+    }
+  };
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Declare handleTogglePassword function
+  const handleTogglePassword = () => {
+    // Update the state to toggle showPassword
+    setShowPassword(!showPassword);
+  };
   return (
     <>
     <div className="login-container">
@@ -47,14 +36,14 @@ function Login() {
       </div>
       
       
-      <form onSubmit={handleSubmit} className="login-form">
+      <form onSubmit={handleFormSubmit} className="login-form">
         <label htmlFor="username">Username:</label>
         <input
           type="text"
           id="username"
-          name="username"
-          value={formData.username}
-          onChange={handleInputChange}
+          name=""
+          value={username}
+          onChange={(e)=> setUsername(e.target.value)}
           required
         />
 
@@ -63,9 +52,9 @@ function Login() {
           <input
             type={showPassword ? "text" : "password"}
             id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
+            name=""
+            value={password}
+            onChange={(e)=> setPassword(e.target.value)}
             required
             className="password-input"
           />

@@ -24,7 +24,7 @@ function Qualification() {
                 <label className="SetLabel-Name">
                   <span>*</span>Exam Type
                 </label>
-                <select className="set-dropdown">
+                <select name="degree_type_master_id" className="set-dropdown">
                   <option value="">Select Type</option>
                   <option value="">Type 1</option>
                   <option value="">Type 2</option>
@@ -39,11 +39,11 @@ function Qualification() {
                 <label className="SetLabel-Name">
                   <span>*</span>Degree/Diploma Certificate
                 </label>
-                <select className="set-dropdown">
-                  <option value="Mr.">Select Degree</option>
-                  <option value="Mr.">Degree 1</option>
-                  <option value="Mrs.">Degree 2</option>
-                  <option value="Ms.">Degree 3</option>
+                <select name="degree_type_master_id" className="set-dropdown">
+                  <option value="">Select Degree</option>
+                  <option value="">Degree 1</option>
+                  <option value="">Degree 2</option>
+                  <option value="">Degree 3</option>
                 </select>
               </div>
             </div>
@@ -57,7 +57,7 @@ function Qualification() {
                 <label className="SetLabel-Name">
                   <span>*</span>Status
                 </label>
-                <select className="set-dropdown">
+                <select name="highest_education_status" className="set-dropdown">
                   <option value="">Select status</option>
                   <option value="">status 1</option>
                   <option value="">status 2</option>

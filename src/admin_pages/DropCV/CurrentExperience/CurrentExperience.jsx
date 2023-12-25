@@ -38,6 +38,10 @@ function CurrentExperience() {
                   className="set-input"
                   type="text"
                   placeholder="00 (i.e Years.Months)"
+                  name="total_experience"
+                  id=""
+                  value=""
+                  
                   required
                 ></input>
               </div>
@@ -52,6 +56,9 @@ function CurrentExperience() {
                   className="set-input"
                   type="text"
                   placeholder=""
+                  name="total_research_exp"
+                  id=""
+                  value=""
                   required
                 ></input>
               </div>
@@ -69,6 +76,9 @@ function CurrentExperience() {
                   className="set-input"
                   type="text"
                   placeholder="00 (i.e Years.Months)"
+                  name="total_industrial_exp"
+                  id=""
+                  value=""
                   required
                 ></input>
               </div>
@@ -83,6 +93,9 @@ function CurrentExperience() {
                   className="set-input"
                   type="text"
                   placeholder=""
+                  name="current_organitation"
+                  id=""
+                  value=""
                   required
                 ></input>
               </div>
@@ -94,12 +107,15 @@ function CurrentExperience() {
               {/* Designation */}
               <div className="form-section">
                 <label className="SetLabel-Name">
-                  <span></span>Designation
+                  <span></span> Current Designation
                 </label>
                 <input
                   className="set-input"
                   type="text"
                   placeholder=""
+                  name="current_designation"
+                  id=""
+                  value=""
                   required
                 ></input>
               </div>
@@ -108,12 +124,15 @@ function CurrentExperience() {
               {/* Salary */}
               <div className="form-section">
                 <label className="SetLabel-Name">
-                  <span></span>Salary
+                  <span></span>Current Salary
                 </label>
                 <input
                   className="set-input"
                   type="text"
                   placeholder=""
+                  name="current_salary"
+                  id=""
+                  value=""
                   required
                 ></input>
               </div>
@@ -135,6 +154,9 @@ function CurrentExperience() {
             className="set-choosefile-input"
             type="file"
             placeholder="00 (i.e Years.Months)"
+            name="resume_file_link"
+            id=""
+            value=""
             required
           ></input>
         </div>

@@ -1,41 +1,37 @@
-.row1{
-    display: flex;
-    flex-wrap: wrap;
-}
 .personaldetails-form {
   justify-content: center;
   margin-left: 25%; /* to be remove */
   margin-top: 5%; /* to be remove */
 }
 
-.PD-heading {
+.UD-heading {
   font-size: 24px;
   color: #170f49;
   font-weight: 700;
 }
 
-.PD-subheading {
+.UD-subheading {
   color: #6f6c90;
   font-size: 16px;
   font-weight: 400;
 }
 
-.form-section{
+.UD-form-section{
     margin-top: 8%;
 }
 
-.SetLabel-Name {
+.UD-SetLabel-Name {
   font-size: 18px;
   font-weight: 500;
   letter-spacing: 0.2px;
 }
 
-.SetLabel-Name span {
+.UD-SetLabel-Name span {
   color: red;
 }
 
-.set-dropdown {
-  width: 50%;
+.UD-set-dropdown {
+  width: 70%;
   padding: 12px;
   border-radius: 45px;
   color: #6f6c90;
@@ -43,13 +39,8 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.custom-dropdown {
-  font-size: 16px;
-  color: blue;
-}
-
-.set-input {
-  width: 50%;
+.UD-set-input {
+  width: 70%;
   border-radius: 45px;
   border: 1px solid;
   border-color: #eff0f6;
@@ -59,15 +50,15 @@
   padding: 12px;
 }
 
-.set-input:focus {
+.UD-set-input:focus {
   outline: none;
 }
-.set-dropdown:focus {
+.UD-set-dropdown:focus {
     outline: none;
   }
   
 
-  .set-icon{
+  .UD-set-icon{
     margin-left: -33px;
     color: rgba(160, 163, 189, 1);
   }
@@ -75,11 +66,11 @@
  
 
   @media only screen and (max-width: 767px) {
-    .set-input{
+    .UD-set-input{
       width: 80% !important;
     }
 
-    .set-dropdown{
+    .UD-set-dropdown{
       width: 80% !important;
     }
  
@@ -88,11 +79,11 @@
   @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
     /* Your styles for iPad Air go here */
 
-    .set-input{
+    .UD-set-input{
       width: 80% !important;
     }
 
-    .set-dropdown{
+    .UD-set-dropdown{
       width: 80% !important;
     }
   }
