@@ -20,7 +20,7 @@ function CurrentExperience() {
               type="checkbox"
               id=""
               name=""
-              value=""
+              
             />
             &nbsp; Select if you are applying as a Fresher
           </span>
@@ -40,7 +40,7 @@ function CurrentExperience() {
                   placeholder="00 (i.e Years.Months)"
                   name="total_experience"
                   id=""
-                  value=""
+                  
                   
                   required
                 ></input>
@@ -58,7 +58,7 @@ function CurrentExperience() {
                   placeholder=""
                   name="total_research_exp"
                   id=""
-                  value=""
+                  
                   required
                 ></input>
               </div>
@@ -78,7 +78,7 @@ function CurrentExperience() {
                   placeholder="00 (i.e Years.Months)"
                   name="total_industrial_exp"
                   id=""
-                  value=""
+                 
                   required
                 ></input>
               </div>
@@ -95,7 +95,7 @@ function CurrentExperience() {
                   placeholder=""
                   name="current_organitation"
                   id=""
-                  value=""
+                  
                   required
                 ></input>
               </div>
@@ -115,7 +115,7 @@ function CurrentExperience() {
                   placeholder=""
                   name="current_designation"
                   id=""
-                  value=""
+                  
                   required
                 ></input>
               </div>
@@ -132,7 +132,7 @@ function CurrentExperience() {
                   placeholder=""
                   name="current_salary"
                   id=""
-                  value=""
+                  
                   required
                 ></input>
               </div>
@@ -156,7 +156,7 @@ function CurrentExperience() {
             placeholder="00 (i.e Years.Months)"
             name="resume_file_link"
             id=""
-            value=""
+            
             required
           ></input>
         </div>

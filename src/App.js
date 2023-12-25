@@ -14,6 +14,7 @@ import CurrentExperience from "./admin_pages/DropCV/CurrentExperience/CurrentExp
 import UserDetails from "./admin_pages/CurrentOpening/ApplyNowForm/UserDetails/UserDetails";
 import Adminpanel from "./admin_pages/AdminLogin/Adminpanel";
 
+
 function App() {
   
   return (
@@ -33,6 +34,7 @@ function App() {
            <Route path="currentexperience" element={<CurrentExperience />}></Route>
            <Route path="userdetails" element={<UserDetails />}></Route>
            <Route path="adminpanel" element={<Adminpanel />}></Route>
+          
            
          </Routes>
          <Footers></Footers>

@@ -32,7 +32,7 @@ function UserDetails() {
                   placeholder="Email address"
                   name=""
                   id=""
-                  value=""
+                 
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
@@ -47,11 +47,11 @@ function UserDetails() {
                 </label>
                 <input
                   className="UD-set-input"
-                  type="number"
+                  type="tel"
                   placeholder="(123) 456 - 7890 "
                   name=""
                   id=""
-                  value=""
+                  
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
@@ -102,7 +102,7 @@ function UserDetails() {
                   placeholder=" "
                   name=""
                   id=""
-                  value=""
+                  
                   required
                 ></input>
               </div>
@@ -152,7 +152,7 @@ function UserDetails() {
                   name=""
                   placeholder="Enter First Name"
                   id=""
-                  value=""
+                  
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
@@ -171,7 +171,7 @@ function UserDetails() {
                   name=""
                   placeholder="Enter Middle Name "
                   id=""
-                  value=""
+                  
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
@@ -180,8 +180,7 @@ function UserDetails() {
           </div>
 
           <div className="row">
-
-          <div className="col-md-4">
+            <div className="col-md-4">
               {/* *Last Name  */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
@@ -194,7 +193,7 @@ function UserDetails() {
                   name=""
                   placeholder="Enter last Name"
                   id=""
-                  value=""
+               
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
@@ -214,10 +213,9 @@ function UserDetails() {
                   name=""
                   placeholder="MM/DD/YYYY "
                   id=""
-                  value=""
+                 
                   required
                 ></input>
-                
               </div>
             </div>
 
@@ -234,78 +232,175 @@ function UserDetails() {
                 </select>
               </div>
             </div>
-
-            
-         
           </div>
 
           <div className="row">
+            <div className="col-md-4">
+              {/* *Religion */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span>Religion
+                </label>
 
-<div className="col-md-4">
-    {/* *Religion */}
-    <div className="UD-form-section">
-      <label className="UD-SetLabel-Name">
-        <span>*</span>Religion
-      </label>
+                <input
+                  className="UD-set-input"
+                  type="text"
+                  name=""
+                  placeholder="Enter Religion"
+                  id=""
+                 
+                  required
+                ></input>
+              </div>
+            </div>
 
-      <input
-        className="UD-set-input"
-        type="text"
-        name=""
-        placeholder="Enter Religion"
-        id=""
-        value=""
-        required
-      ></input>
-      
-    </div>
-  </div>
+            <div className="col-md-4">
+              {/* *Category  */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span>Category
+                </label>
 
-  <div className="col-md-4">
-    {/* Date of Birth:  */}
-    <div className="UD-form-section">
-      <label className="UD-SetLabel-Name">
-        <span>*</span>Date of Birth:
-      </label>
+                <input
+                  className="UD-set-input"
+                  type="text"
+                  name=""
+                  placeholder="Enter Category"
+                  id=""
+                 
+                  required
+                ></input>
+              </div>
+            </div>
 
-      <input
-        className="UD-set-input"
-        type="date"
-        name=""
-        placeholder="MM/DD/YYYY "
-        id=""
-        value=""
-        required
-      ></input>
-      
-    </div>
-  </div>
+            <div className="col-md-4">
+              {/**Marital Status */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span>Marital Status
+                </label>
 
-  <div className="col-md-4">
-    {/* Date of Birth:  */}
-    <div className="UD-form-section">
-      <label className="UD-SetLabel-Name">
-        <span>*</span>Date of Birth:
-      </label>
+                <input
+                  className="UD-set-input"
+                  type="text"
+                  name=""
+                  placeholder="Enter Your Marital Status"
+                  id=""
+                  
+                  required
+                ></input>
+              </div>
+            </div>
+          </div>
 
-      <input
-        className="UD-set-input"
-        type="date"
-        name=""
-        placeholder="MM/DD/YYYY "
-        id=""
-        value=""
-        required
-      ></input>
-      
-    </div>
-  </div>
+          <div className="row">
+            <div className="col-md-4">
+              {/* *Current address */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span>Current address 
+                </label>
 
-  
+                <input
+                  className="UD-set-input"
+                  type="text"
+                  name=""
+                  placeholder="Enter Address "
+                  id=""
+                
+                  required
+                ></input>
+              </div>
+            </div>
 
-</div>
+            <div className="col-md-4">
+              {/* *Alternate Contact Number  */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span>Alternate Contact Number
+                </label>
 
-          
+                <input
+                  className="UD-set-input"
+                  type="tel"
+                  name=""
+                  placeholder="(123) 456 - 7890"
+                  id=""
+                  
+                  required
+                ></input><FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              {/* *Country */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span> Country
+                </label>
+                <select name="" className="UD-set-dropdown">
+                  <option value="">Select country</option>
+                  <option value=""> country</option>
+                  <option value=""> country</option>
+                  <option value=""> country</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+           
+
+            <div className="col-md-4">
+              {/* *State */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span>State
+                </label>
+                <select name="" className="UD-set-dropdown">
+                  <option value="">Select State</option>
+                  <option value=""> State</option>
+                  <option value=""> State</option>
+                  <option value=""> State</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              {/**Current Job City */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span>Current Job City
+                </label>
+                <select name="" className="UD-set-dropdown">
+                  <option value="">Select Current Job City</option>
+                  <option value=""> Job City</option>
+                  <option value=""> Job City</option>
+                  <option value=""> Job City</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              {/* **Pin Code */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span>Pin Code
+                </label>
+
+                <input
+                  className="UD-set-input"
+                  type="number"
+                  name=""
+                  placeholder="Enter Pin Code "
+                  id=""
+                 
+                  required
+                ></input>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </>
