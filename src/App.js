@@ -1,20 +1,22 @@
 import { BrowserRouter as Main, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footers from "./components/Footer/Footers";
-import Home from "./Adminpages/Home/Home"
-import CurrentOpening from "./Adminpages/CurrentOpening/CurrentOpening";
-import InterviewShedule from "./Adminpages/InterviewSchedule/InterviewSchedule"
-import FAQ from"./Adminpages/FAQ/FAQ"
-import DropCV from "./Adminpages/DropCV/Dropcv"
-import ScheduledAcademics from "./Adminpages/InterviewSchedule/ScheduledAcademics/ScheduledAcademics";
-import OTPVerification from "./Adminpages/DropCV/OTPVerifivation/OTPVerification";
-import Submitsuccess from "./Adminpages/DropCV/OTPVerifivation/Submitsuccess";
-import JobProfile from "./Adminpages/JobProfile/JobProfile";
-import Academics from "./Adminpages/JobProfile/Academics/Academics";
-import Administrative from "./Adminpages/JobProfile/Administrative/Administrative";
-import Research from "./Adminpages/JobProfile/Research/Research";
-import Technical from "./Adminpages/JobProfile/Technical/Technical";
-import ApplyNow from "./Adminpages/ApplyNowForm/ApplyNow";
+import Home from "./admin_pages/Home/Home"
+import CurrentOpening from "./admin_pages/CurrentOpening/CurrentOpening";
+import InterviewShedule from "./admin_pages/InterviewSchedule/InterviewSchedule"
+import FAQ from"./admin_pages/FAQ/FAQ"
+import DropCV from "./admin_pages/DropCV/Dropcv"
+import ScheduledAcademics from "./admin_pages/InterviewSchedule/ScheduledAcademics/ScheduledAcademics";
+import OTPVerification from "./admin_pages/DropCV/OTPVerifivation/OTPVerification";
+import Submitsuccess from "./admin_pages/DropCV/OTPVerifivation/Submitsuccess";
+import JobProfile from "./admin_pages/JobProfile/JobProfile";
+import Academics from "./admin_pages/JobProfile/Academics/Academics";
+import Administrative from "./admin_pages/JobProfile/Administrative/Administrative";
+import Research from "./admin_pages/JobProfile/Research/Research";
+import Technical from "./admin_pages/JobProfile/Technical/Technical";
+import ApplyNow from "./admin_pages/CurrentOpening/ApplyNowForm/ApplyNow";
+import PersonalDeatils from "./admin_pages/DropCV/PersonalDetails/PersonalDeatils";
+import Adminpanel from "./admin_pages/AdminLogin/Adminpanel";
 
 function App() {
   
@@ -37,6 +39,8 @@ function App() {
            <Route path="research-jobs" element={< Research/>}></Route>      
            <Route path="technical-jobs" element={< Technical/>}></Route>      
            <Route path="apply-now" element={< ApplyNow/>}></Route>      
+           <Route path="PersonalDeatils" element={< PersonalDeatils/>}></Route>      
+           <Route path="adminpanel" element={< Adminpanel/>}></Route>      
          </Routes>
          <Footers></Footers>
        </Main>

@@ -7,6 +7,9 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import PersonalDeatils from "./PersonalDetails/PersonalDeatils";
+import Qualification from "./Qualification/Qualification";
+import CurrentExperience from "./CurrentExperience/CurrentExperience"
 
 const steps = ["", "", ""];
 
@@ -80,9 +83,9 @@ function Dropcv() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {/* {activeStep === 0 && <PersonalDetails />}
+              {activeStep === 0 && <PersonalDeatils />}
               {activeStep === 1 && <Qualification />}
-              {activeStep === 2 && <Experience />} */}
+              {activeStep === 2 && <CurrentExperience />}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
                   className="prev-btn"
