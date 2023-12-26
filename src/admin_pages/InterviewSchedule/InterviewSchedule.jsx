@@ -8,7 +8,7 @@ import ScheduledAcademics from "./ScheduledAcademics/ScheduledAcademics";
 import ScheduledAdministration from"./ScheduledAdministration/ScheduledAdministration"
 import ScheduledResearch from "./ScheduledResearch/ScheduledResearch";
 import ScheduledTechnical from "./ScheduledTechnical/ScheduledTechnical";
-import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 function InterviewSchedule() {
   return (
     <>
@@ -34,6 +34,8 @@ function InterviewSchedule() {
                 <img className="is-header-logo" src={logo3} />
                 RESEARCH
               </a>
+              {/* <Link to='/component1'><img className="is-header-logo" src={logo3} />
+                RESEARCH</Link> */}
             </div>
             <div className="col-md-3">
               <a href="">
@@ -49,10 +51,10 @@ function InterviewSchedule() {
             </div>
           </div>
         </div>
-        <ScheduledAcademics></ScheduledAcademics>
+        {/* <ScheduledAcademics></ScheduledAcademics>
         <ScheduledResearch></ScheduledResearch>
         <ScheduledAdministration></ScheduledAdministration>
-        <ScheduledTechnical></ScheduledTechnical>
+        <ScheduledTechnical></ScheduledTechnical> */}
         <div className="notes">
           <p>
             NOTE:- Kindly bring 2 passport size photographs, original

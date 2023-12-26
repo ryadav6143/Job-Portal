@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PersonalDeatils from "./PersonalDetails/PersonalDeatils";
 import Qualification from "./Qualification/Qualification";
-import CurrentExperience from "./CurrentExperience/CurrentExperience"
+import CurrentExperience from "./CurrentExperience/CurrentExperience";
 
 const steps = ["", "", ""];
 
@@ -77,7 +77,7 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleVerifivation}>Next</Button>
+                <Button type="submit" onClick={handleVerifivation}>Next</Button>
                 {/* Reset butto here  */}
               </Box>
             </React.Fragment>
@@ -97,7 +97,7 @@ function Dropcv() {
                   Previous
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleNext} className="next-btn">
+                <Button onClick={handleNext} type="submit" className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>
               </Box>

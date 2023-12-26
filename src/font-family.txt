@@ -1,0 +1,8 @@
+font-family: 'Playfair Display', serif; 
+   
+font-family: 'Open Sans', sans-serif; 
+
+
+@media only screen and (max-width: 767px) {
+ 
+}

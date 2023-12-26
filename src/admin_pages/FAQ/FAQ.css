@@ -1,0 +1,81 @@
+.faq-heading {
+  text-align: center;
+  font-size: 3vw;
+  font-weight: 600;
+  font-family: "Playfair Display", serif;
+  color: #88c128;
+}
+
+.faq-section {
+  padding-top: 3%;
+  padding-bottom: 3%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+details {
+  width: 100%;
+  font-size: 16px;
+  padding-bottom: 1%;
+  font-family: "Open Sans", sans-serif;
+}
+
+details > summary {
+  font-family: "Open Sans", sans-serif;
+  padding: 10px 20px 10px 20px;
+  width: 100%;
+  background-color: white;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 0 0 15px 15px;
+}
+summary::marker {
+  color: white;
+  display: none;
+}
+
+summary::before {
+  content: "+"; /* Unicode arrow character */
+  margin-right: 5px;
+  font-weight: 600;
+  font-size: 25px;
+  margin-left: -20px;
+}
+
+details[open] summary::before {
+  content: "-"; /* Unicode down arrow character when open */
+  font-weight: 600;
+
+}
+
+details > p {
+  border-radius: 15px 15px 15px 15px;
+  background-color: #f1f1f1;
+  padding: 10px 15px 5px 15px;
+  margin: 0;
+  margin-top: 2px;
+  box-shadow: 3px 3px 4px rgba(128, 128, 128, 0.195);
+}
+
+details[open] > summary {
+  background-color: white;
+}
+#faq-p {
+  border-left: 3px solid #88c128;
+  padding-left: 15px;
+  margin-left: 1%;
+}
+.illustrations {
+  background-image: url(../../assets/images/faq-illustration.png);
+  background-size: cover;
+  background-position: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 10%;
+  padding-bottom: 30%;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-bottom: 2%;
+  background-repeat: no-repeat;
+}

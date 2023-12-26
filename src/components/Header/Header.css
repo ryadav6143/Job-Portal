@@ -6,6 +6,9 @@
     #4a0c14 97.92%
   );
 }
+.my-header{
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 .marquee {
   color: white;
   letter-spacing: 2px;
@@ -27,14 +30,13 @@
   padding-left: 3%;
 }
 .nav-link {
-  color: black !important;
+  color: rgba(0, 0, 0, 0.759) !important;
   margin-left: 70px !important;
   font-size: 15px !important;
-  float: right;
   font-weight: bold !important;
 }
 .dropdown-menu[data-bs-popper] {
-  top:0 !important;
+  top: 0 !important;
   margin-top: -0.5rem;
   margin-left: 2.5rem;
 }
@@ -44,10 +46,10 @@
 .dropdown-toggle::after {
   color: white !important;
 }
-.navbar-toggler-icon:focus{
-outline: none;
+.navbar-toggler-icon:focus {
+  outline: none;
 }
-.navbar-toggler-icon:focus:active{
+.navbar-toggler-icon:focus:active {
   outline: none;
 }
 .navbar-toggler-icon {
@@ -59,6 +61,17 @@ outline: none;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
+}
+.navbar-collapse,
+.collapse {
+  margin-left: 16%;
+}
+
+#userlogo {
+  width: 20px;
+  height: 20px;
+  /* margin-left: 15px;
+  margin-top: -10px; */
 }
 @media only screen and (max-width: 767px) {
   .medi-logo {

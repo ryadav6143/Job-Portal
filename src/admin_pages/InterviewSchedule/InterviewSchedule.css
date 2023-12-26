@@ -5,28 +5,19 @@
   margin-left: 35%;
 }
 .is-background {
-  position: relative;
-  background-image: url("../../assets/images/Background2.JPG");
+  background: radial-gradient(96.31% 96.31% at 54.31% 100%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%),url("../../assets/images/Background2.JPG");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   text-align: center;
   padding-top: 300px;
   padding-bottom: 300px;
-}
-.is-background::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.547);
+
 }
 .data {
   font-size: 50px;
   font-family: "Playfair Display", serif;
-  color: black;
+  color: white;
   text-align: center;
   letter-spacing: 1px;
 }

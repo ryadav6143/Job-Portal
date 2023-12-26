@@ -1,10 +1,10 @@
-.row1{
-    display: flex;
-    flex-wrap: wrap;
+.row1 {
+  display: flex;
+  flex-wrap: wrap;
 }
 .personaldetails-form {
   justify-content: center;
-  margin-left:10%; 
+  margin-left: 10%;
 }
 
 .PD-heading {
@@ -19,8 +19,8 @@
   font-weight: 400;
 }
 
-.form-section{
-    margin-top: 8%;
+.form-section {
+  margin-top: 8%;
 }
 
 .SetLabel-Name {
@@ -62,36 +62,32 @@
   outline: none;
 }
 .set-dropdown:focus {
-    outline: none;
-  }
-  
+  outline: none;
+}
 
-  .set-icon{
-    margin-left: -33px;
-    color: rgba(160, 163, 189, 1);
-  }
+.set-icon {
+  margin-left: -33px;
+  color: rgba(160, 163, 189, 1);
+}
 
- 
-
-  @media only screen and (max-width: 767px) {
-    .set-input{
-      width: 80% !important;
-    }
-
-    .set-dropdown{
-      width: 80% !important;
-    }
- 
+@media only screen and (max-width: 767px) {
+  .set-input {
+    width: 80% !important;
   }
 
-  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-    /* Your styles for iPad Air go here */
-
-    .set-input{
-      width: 80% !important;
-    }
-
-    .set-dropdown{
-      width: 80% !important;
-    }
+  .set-dropdown {
+    width: 80% !important;
   }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+  /* Your styles for iPad Air go here */
+
+  .set-input {
+    width: 80% !important;
+  }
+
+  .set-dropdown {
+    width: 80% !important;
+  }
+}

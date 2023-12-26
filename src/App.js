@@ -7,6 +7,7 @@ import InterviewShedule from "./admin_pages/InterviewSchedule/InterviewSchedule"
 import FAQ from"./admin_pages/FAQ/FAQ"
 import DropCV from "./admin_pages/DropCV/Dropcv"
 import ScheduledAcademics from "./admin_pages/InterviewSchedule/ScheduledAcademics/ScheduledAcademics";
+import ScheduledResearch from "./admin_pages/InterviewSchedule/ScheduledResearch/ScheduledResearch";
 import OTPVerification from "./admin_pages/DropCV/OTPVerifivation/OTPVerification";
 import Submitsuccess from "./admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 import JobProfile from "./admin_pages/JobProfile/JobProfile";
@@ -40,7 +41,9 @@ function App() {
            <Route path="technical-jobs" element={< Technical/>}></Route>      
            <Route path="apply-now" element={< ApplyNow/>}></Route>      
            <Route path="PersonalDeatils" element={< PersonalDeatils/>}></Route>      
-           <Route path="adminpanel" element={< Adminpanel/>}></Route>      
+           <Route path="adminpanel" element={< Adminpanel/>}></Route>  
+           <Route path="component1" element={< ScheduledResearch/>}></Route>  
+           
          </Routes>
          <Footers></Footers>
        </Main>
