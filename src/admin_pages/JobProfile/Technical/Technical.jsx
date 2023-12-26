@@ -3,9 +3,11 @@ import "./Technical.css"
 
 function Technical() {
   return (
-    <div>
-      
-    </div>
+    <>
+      <div>
+        <h1>Technical job profile</h1>
+      </div>
+    </>
   )
 }
 

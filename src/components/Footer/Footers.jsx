@@ -20,7 +20,7 @@ function Footers() {
             Medi-Caps University A.B. Road,Pigdamber,Rau <br /> Indore 453331
           </p>
           <p>info@medicaps.ac.in</p>
-          <p>07313111500, 07313111501</p>
+          <p>73131-11500 , 73131-11501</p>
         </div>
         <div className="further-info">
           <p className="info-heading">Further Information</p>

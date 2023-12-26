@@ -1,135 +1,79 @@
 import React from "react";
+import "./Reference.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faEnvelope,
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
-import "./UserExperience.css";
 
-function UserExperience() {
-
-  
+function Reference() {
   return (
     <>
       <div className="container">
         <div>
           <div>
-            <h5 className="UD-heading">Experience</h5>
+            <h5 className="UD-heading">Reference</h5>
             <p className="UD-subheading">
               Please fill your information so we can get in touch with you.
             </p>
           </div>
 
-          {/* Experience */}
+          <div style={{ marginTop: "40px" }}>
+            <h5 className="UD-heading">
+              Where Did You Hear About Medi-Caps University From ?
+            </h5>
+            <p className="UD-subheading">
+              Friend/ facebook/ Instagram/ LinkedIn/ Faculty Members at
+              Medi-Caps
+            </p>
 
-          <div className="row">
-            <div className="col-md-4">
-              {/* *Name of Institute / Company */}
-              <div className="UD-form-section">
-                <label className="UD-SetLabel-Name">
-                  <span>*</span>Name of Institute / Company
-                </label>
-                <input
-                  className="UD-set-input"
-                  type="text"
-                  placeholder=" "
-                  name=""
-                  id=""
-                  required
-                ></input>
-              </div>
-            </div>
-
-            <div className="col-md-4">
-              {/* *Designation */}
-              <div className="UD-form-section">
-                <label className="UD-SetLabel-Name">
-                  <span>*</span>Designation
-                </label>
-                <input
-                  className="UD-set-input"
-                  type="text"
-                  placeholder=" "
-                  name=""
-                  id=""
-                  required
-                ></input>
-              </div>
-            </div>
-
-            <div className="col-md-4">
-              {/* *Current Gross Pay (Per Month)*/}
-              <div className="UD-form-section">
-                <label className="UD-SetLabel-Name">
-                  <span>*</span>Current Gross Pay (Per Month){" "}
-                  <button className="plus-button">+</button>
-                </label>
-                <input
-                  className="UD-set-input"
-                  type="text"
-                  placeholder=" "
-                  name=""
-                  id=""
-                  required
-                ></input>
-              </div>
-            </div>
+            <input
+              style={{ width: "95%" }}
+              className="UD-set-input"
+              type="text"
+              placeholder=""
+              name=""
+              id=""
+              required
+            ></input>
           </div>
 
-          <div className="row">
-            <div className="col-md-4">
-              {/* *Date From*/}
-              <div className="UD-form-section">
-                <label className="UD-SetLabel-Name">
-                  <span>*</span>Date From
-                </label>
-                <input
-                  className="UD-set-input"
-                  type="date"
-                  placeholder=" MM/DD/YYYY"
-                  name=""
-                  id=""
-                  required
-                ></input>
-              </div>
-            </div>
-
-            <div className="col-md-4">
-              {/* *Date To */}
-              <div className="UD-form-section">
-                <label className="UD-SetLabel-Name">
-                  <span>*</span>Date To
-                </label>
-                <input
-                  className="UD-set-input"
-                  type="date"
-                  placeholder="MM/DD/YYYY "
-                  name=""
-                  id=""
-                  required
-                ></input>
-              </div>
-            </div>
-          </div>
-
-          {/* Total Experience */}
+          {/* First Reference*/}
 
           <div>
-            <p className="HS-heading">Total Experience</p>
+            <p className="HS-heading"> First Reference</p>
           </div>
 
           <div className="row" style={{ marginTop: "-30px" }}>
             <div className="col-md-4">
-              {/* *Academic Experience */}
+              {/* Name */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span>*</span>Academic Experience
+                  <span></span>Name 
                 </label>
                 <input
                   className="UD-set-input"
                   type="text"
-                  placeholder="In Years"
+                  placeholder="Enter  Name "
+                  name=""
+                  id=""
+                  required
+                ></input>
+                <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              {/* Organization */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span></span>Organization
+                </label>
+                <input
+                  className="UD-set-input"
+                  type="text"
+                  placeholder=" "
                   name=""
                   id=""
                   required
@@ -138,15 +82,16 @@ function UserExperience() {
             </div>
 
             <div className="col-md-4">
-              {/* *Industry Experience*/}
+              {/* Position*/}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span>*</span>Industry Experience
+                  <span></span>Position
+                
                 </label>
                 <input
                   className="UD-set-input"
                   type="text"
-                  placeholder="In Years"
+                  placeholder=" "
                   name=""
                   id=""
                   required
@@ -155,23 +100,85 @@ function UserExperience() {
             </div>
           </div>
 
-          {/* Other Benefits */}
+          <div className="row">
+          <div className="col-md-4">
+              {/* Email */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span>Email
+                </label>
+                <input
+                  className="UD-set-input"
+                  type="email"
+                  placeholder="Email address"
+                  name=""
+                  id=""
+                 
+                  required
+                ></input>
+                <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              {/* Phone No. */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span>*</span>Phone Number
+                </label>
+                <input
+                  className="UD-set-input"
+                  type="tel"
+                  placeholder="(123) 456 - 7890 "
+                  name=""
+                  id=""
+                  
+                  required
+                ></input>
+                <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
+              </div>
+            </div>
+
+            
+          </div>
+
+          
+
+          {/* Second Reference*/}
 
           <div>
-            <p className="HS-heading">Other Benefits</p>
+            <p className="HS-heading">Second Reference</p>
           </div>
 
           <div className="row" style={{ marginTop: "-30px" }}>
             <div className="col-md-4">
-              {/* Accommodation */}
+              {/* Name */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span></span>Accommodation
+                  <span></span>Name 
                 </label>
                 <input
                   className="UD-set-input"
                   type="text"
-                  placeholder=""
+                  placeholder="Enter  Name "
+                  name=""
+                  id=""
+                  required
+                ></input>
+                <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
+              </div>
+            </div>
+
+            <div className="col-md-4">
+              {/* Organization */}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span></span>Organization
+                </label>
+                <input
+                  className="UD-set-input"
+                  type="text"
+                  placeholder=" "
                   name=""
                   id=""
                   required
@@ -180,32 +187,16 @@ function UserExperience() {
             </div>
 
             <div className="col-md-4">
-              {/* Transportation*/}
+              {/* Position*/}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span></span>Transportation
+                  <span></span>Position
+                
                 </label>
                 <input
                   className="UD-set-input"
                   type="text"
-                  placeholder=""
-                  name=""
-                  id=""
-                  required
-                ></input>
-              </div>
-            </div>
-
-            <div className="col-md-4">
-              {/*Food*/}
-              <div className="UD-form-section">
-                <label className="UD-SetLabel-Name">
-                  <span></span>Food
-                </label>
-                <input
-                  className="UD-set-input"
-                  type="text"
-                  placeholder=""
+                  placeholder=" "
                   name=""
                   id=""
                   required
@@ -214,29 +205,56 @@ function UserExperience() {
             </div>
           </div>
 
-          <div className="row" >
-            <div className="col-md-4">
-              {/* Mediclaim */}
+          <div className="row">
+          <div className="col-md-4">
+              {/* Email */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span></span>Mediclaim
+                  <span>*</span>Email
                 </label>
                 <input
                   className="UD-set-input"
-                  type="text"
-                  placeholder=""
+                  type="email"
+                  placeholder="Email address"
                   name=""
                   id=""
+                 
                   required
                 ></input>
+                <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
               </div>
             </div>
 
             <div className="col-md-4">
-              {/* Others*/}
+              {/* Phone No. */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span></span>Others
+                  <span>*</span>Phone Number
+                </label>
+                <input
+                  className="UD-set-input"
+                  type="tel"
+                  placeholder="(123) 456 - 7890 "
+                  name=""
+                  id=""
+                  
+                  required
+                ></input>
+                <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
+              </div>
+            </div>
+
+            
+          </div>
+
+          
+  
+          <div className="row"  style={{ marginTop: "-30px" }}>
+          <div className="col-md-12">
+              {/* Statement of Purpose*/}
+              <div className="UD-form-section">
+                <label className="UD-SetLabel-Name">
+                  <span></span>Statement of Purpose
                 </label>
                 <input
                   className="UD-set-input"
@@ -244,15 +262,58 @@ function UserExperience() {
                   placeholder=""
                   name=""
                   id=""
+                 
                   required
                 ></input>
+              
               </div>
-            </div>
+            </div> 
           </div>
+
+
+   {/* Upload Resume*/}
+
+   <div>
+            <p className="HS-heading">Upload Resume</p>
+          </div>
+
+          <div className="uploadfile-section">
+          <label className="SetLabel-Name">
+            <span>*</span>Upload your Resume:
+          </label>
+          <p className="uploadresume-subheading">
+            To upload your resume here:(maximum size 2MB, PDF, DOC and DOCX
+            format only)
+          </p>
+          <input
+            className="set-choosefile-input"
+            type="file"
+            placeholder="00 (i.e Years.Months)"
+            name="resume_file_link"
+            id=""
+            
+            required
+          ></input>
+        </div>
+
+        <div>
+          <span className="set-checkbox-span">
+            {" "}
+            <input
+              className="set-checkbox"
+              type="checkbox"
+              id=""
+              name=""
+              
+            />
+            &nbsp; I confirm that the information provided here are true to my knowledge
+          </span>
+        </div>
+          
         </div>
       </div>
     </>
   );
 }
 
-export default UserExperience;
+export default Reference;

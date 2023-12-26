@@ -17,6 +17,36 @@ function PersonalDeatils() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
+  let sampleData = {
+    "title_first_name":"Mr",
+    "first_name":"anand",
+    "middle_name":"kumar",
+    "last_name":"jain",
+    "dob":"12/6/1990",
+    "gender":"male",
+    "email":"rahulkumar8@email.com",
+    "password":"@rahulg",
+    "contact_1":"9302135583",
+    "degree_types_master_id":1,
+    "subjects_master_id":1,
+    "applied_post_masters_id":1,
+    "applied_subpost_masters_id":1,
+    "job_category_id":1
+    }
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await axios.post(' http://192.168.29.155:8090/v1/api/candidates',sampleData);
+        // setCountries(response.data);
+        console.log("response",response.data)
+      } catch (error) {
+        console.error('Error fetching countries:', error);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
   // useEffect(() => {
   //   const fetchCountries = async () => {
   //     try {
@@ -68,6 +98,7 @@ function PersonalDeatils() {
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value);
   };
+  
   return (
     <>
       <div className="container">
@@ -327,7 +358,7 @@ function PersonalDeatils() {
                 </div>
               </div>
             </div>
-            <button type="submit">submit</button>
+           {/* <button type="submit">Submit</button> */}
           </form>
         </div>
       </div>

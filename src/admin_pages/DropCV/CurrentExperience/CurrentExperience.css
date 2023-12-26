@@ -4,12 +4,11 @@
 }
 .CE-form {
     justify-content: center;
-    margin-left: 25%; /* to be remove */
     margin-top: 5%; /* to be remove */
   }
   
   .CE-heading {
-    font-size: 24px;
+    font-size: 22px;
     color: #170f49;
     font-weight: 700;
   }
@@ -25,7 +24,7 @@
   }
 
   .set-checkbox-span{
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     color: #6f6c90;
   }
@@ -35,13 +34,13 @@
 }
 
 .SetLabel-Name {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.2px;
 }
 
 .set-input {
-    width: 50%;
+    width: 75%;
     border-radius: 45px;
     border: 1px solid;
     border-color: #eff0f6;
@@ -61,7 +60,7 @@
 
   .uploadresume-subheading{
     color: #6f6c90;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
   }
 
