@@ -15,12 +15,14 @@ import Administrative from "./admin_pages/JobProfile/Administrative/Administrati
 import Research from "./admin_pages/JobProfile/Research/Research";
 import Technical from "./admin_pages/JobProfile/Technical/Technical";
 import ApplyNow from "./admin_pages/CurrentOpening/ApplyNowForm/ApplyNow";
-import PersonalDeatils from "./admin_pages/DropCV/PersonalDetails/PersonalDeatils";
+import PersonalDetails from "./admin_pages/DropCV/PersonalDetails/PersonalDeatils"
 import Adminpanel from "./admin_pages/AdminLogin/Adminpanel";
 import Login from "./admin_pages/AdminLogin/Login/Login";
 import Qualification from "./admin_pages/DropCV/Qualification/Qualification";
 import CurrentExperience from "./admin_pages/DropCV/CurrentExperience/CurrentExperience";
 import UserDetails from "./admin_pages/CurrentOpening/ApplyNowForm/UserDetails/UserDetails";
+import UserLogin from "./candidate_pages/UserLogin/UserLogin";
+import CountryDemo from "./admin_pages/DropCV/PersonalDetails/CountryDemo";
 
 
 function App() {
@@ -37,7 +39,7 @@ function App() {
            <Route path="faq-section" element={<FAQ />}></Route>
            <Route path="drop-cv" element={<DropCV />}></Route>
            <Route path="login" element={<Login />}></Route>
-           <Route path="personaldetails" element={<PersonalDeatils />}></Route>
+           <Route path="personaldetails" element={<PersonalDetails />}></Route>
            <Route path="qualification" element={<Qualification />}></Route>
            <Route path="currentexperience" element={<CurrentExperience />}></Route>
            <Route path="userdetails" element={<UserDetails />}></Route>
@@ -50,8 +52,10 @@ function App() {
            <Route path="research-jobs" element={< Research/>}></Route>      
            <Route path="technical-jobs" element={< Technical/>}></Route>      
            <Route path="apply-now" element={< ApplyNow/>}></Route>      
-           <Route path="PersonalDeatils" element={< PersonalDeatils/>}></Route>      
+           <Route path="PersonalDeatils" element={< PersonalDetails />}></Route>      
            <Route path="adminpanel" element={< Adminpanel/>}></Route>      
+           <Route path="userlogin" element={< UserLogin/>}></Route>      
+           <Route path="countrydemo" element={< CountryDemo/>}></Route>      
          </Routes>
          <Footers></Footers>
        </Main>

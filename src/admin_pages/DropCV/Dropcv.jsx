@@ -97,7 +97,7 @@ function Dropcv() {
                   Previous
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleNext} className="next-btn">
+                <Button onClick={handleNext} type="submit" className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>
               </Box>
