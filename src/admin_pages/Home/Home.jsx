@@ -7,7 +7,7 @@ function Home() {
   return (
     <>
       <div className="home-page">
-        <div>
+        <div className="medi-home-heading">
           <p id="uni-name">MEDI-CAPS CARRER</p>
           <p>CONNECT THE DOTS OF YOUR CARRER</p>
           <button type="button" id="join-medi-btn">

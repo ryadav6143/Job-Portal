@@ -31,6 +31,7 @@
   padding: 10px;
   width: 180px;
   font-family: "Open Sans", sans-serif;
+  border-radius: 5px;
 }
 #join-medi-btn a {
   text-decoration: none;
@@ -101,4 +102,29 @@
   transform: translateY(-20px);
   color: maroon;
   transition: 0.4s ease;
+}
+@media only screen and (max-width: 767px) {
+  .medi-home-heading {
+    margin-top: -20px;
+    text-align: center;
+  }
+  #uni-name {
+    font-size: 30px;
+    font-weight: 600;
+  }
+  .medi-home-heading p:nth-child(2) {
+    font-size: 15px;
+  }
+  .subs p:nth-child(1) {
+    font-size: 15px;
+  }
+  .subs p:nth-child(2) {
+    margin-top: -8px;
+    font-size: 15px;
+    font-family: "Open Sans", sans-serif;
+  }
+  .subs p:nth-child(3) {
+    margin-top: -8px;
+    font-size: 15px;
+  }
 }

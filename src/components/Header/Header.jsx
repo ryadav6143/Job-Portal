@@ -59,7 +59,7 @@ function Header() {
                   <ul
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdownMenuLink"
-                    style={{ marginLeft: "37px" }}
+                    style={{ marginLeft: "25px" }}
                   >
                     <li>
                       <Link to="/academics-jobs" className="dropdown-item">
@@ -100,7 +100,12 @@ function Header() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/" className="nav-link">
+                  <Link to="/contact-us" className="nav-link">
+                    Contact Us
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/userlogin" className="nav-link user-link">
                     <img src={user} id="userlogo" alt="medi-logo" />
                   </Link>
                 </li>

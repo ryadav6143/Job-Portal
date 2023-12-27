@@ -1,8 +1,9 @@
 .apply-for-dean {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   margin-top: 50px;
+  /* justify-content: space-between; */
+  justify-content: space-around;
 }
 .apply-for-dean p {
   font-size: 50px;
@@ -19,15 +20,15 @@
   font-weight: bold;
 }
 .courses {
-  margin-left: 12%;
-  margin-right: 12%;
+  margin-left: 10.3%;
+  margin-right: 10.3%;
   font-family: "Open Sans", sans-serif;
   color: rgba(0, 0, 0, 0.759);
 }
 .my-table {
   align-items: center;
-  margin-left: 12%;
-  margin-right: 35%;
+  margin-left: 10.3%;
+  margin-right: 10.3%;
 }
 .table thead th,
 .table tbody td {
@@ -70,8 +71,8 @@ details[open] > summary {
   background-color: white;
 }
 .table-dropdown {
-  margin-left: 12%;
-  margin-right: 35%;
+  margin-left: 10.3%;
+  margin-right: 10.3%;
 }
 .drp-table {
   margin-top: -10px;

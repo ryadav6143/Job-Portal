@@ -18,6 +18,8 @@ import Technical from "./admin_pages/JobProfile/Technical/Technical";
 import ApplyNow from "./admin_pages/CurrentOpening/ApplyNowForm/ApplyNow";
 import PersonalDeatils from "./admin_pages/DropCV/PersonalDetails/PersonalDeatils";
 import Adminpanel from "./admin_pages/AdminLogin/Adminpanel";
+import UserLogin from "./candidate_pages/Login/UserLogin/UserLogin"
+import ContactUs from "./admin_pages/Contactus/ContactUs";
 
 function App() {
   
@@ -42,7 +44,10 @@ function App() {
            <Route path="apply-now" element={< ApplyNow/>}></Route>      
            <Route path="PersonalDeatils" element={< PersonalDeatils/>}></Route>      
            <Route path="adminpanel" element={< Adminpanel/>}></Route>  
-           <Route path="component1" element={< ScheduledResearch/>}></Route>  
+           <Route path="userlogin" element={< UserLogin/>}></Route>  
+           <Route path="contact-us" element={< ContactUs/>}></Route>  
+         
+
            
          </Routes>
          <Footers></Footers>

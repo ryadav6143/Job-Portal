@@ -5,11 +5,12 @@ import logo2 from "../../assets/logos/administration.png";
 import logo3 from "../../assets/logos/research.png";
 import logo4 from "../../assets/logos/technical.png";
 import ScheduledAcademics from "./ScheduledAcademics/ScheduledAcademics";
-import ScheduledAdministration from"./ScheduledAdministration/ScheduledAdministration"
+import ScheduledAdministration from "./ScheduledAdministration/ScheduledAdministration";
 import ScheduledResearch from "./ScheduledResearch/ScheduledResearch";
 import ScheduledTechnical from "./ScheduledTechnical/ScheduledTechnical";
-import { Link } from 'react-router-dom';
+
 function InterviewSchedule() {
+  const openAcademics = () => {};
   return (
     <>
       <div>
@@ -25,7 +26,13 @@ function InterviewSchedule() {
           <div className="row">
             <div className="col-md-3">
               <a href="">
-                <img className="is-header-logo" src={logo1} />
+                <img
+                  className="is-header-logo"
+                  src={logo1}
+                  onClick={() => {
+                    openAcademics();
+                  }}
+                />
                 ACADEMICS
               </a>
             </div>
@@ -51,10 +58,10 @@ function InterviewSchedule() {
             </div>
           </div>
         </div>
-        {/* <ScheduledAcademics></ScheduledAcademics>
+        <ScheduledAcademics></ScheduledAcademics>
         <ScheduledResearch></ScheduledResearch>
         <ScheduledAdministration></ScheduledAdministration>
-        <ScheduledTechnical></ScheduledTechnical> */}
+        <ScheduledTechnical></ScheduledTechnical>
         <div className="notes">
           <p>
             NOTE:- Kindly bring 2 passport size photographs, original
@@ -66,8 +73,14 @@ function InterviewSchedule() {
             AMVenue:-Medi-Caps University A.B. Road, Pigdamber, Rau Indore
             453331
           </p>
-          <p>Contact Number:- 73131-11500, 73131-11501 (Monday to Saturday) 9 am to 5 pm</p>
-          <p>Facilities:- Residential, Medical, Transport, Pre-Primary School and Creche facilities available on campus</p>
+          <p>
+            Contact Number:- 73131-11500, 73131-11501 (Monday to Saturday) 9 am
+            to 5 pm
+          </p>
+          <p>
+            Facilities:- Residential, Medical, Transport, Pre-Primary School and
+            Creche facilities available on campus
+          </p>
           <p>Salary Shall not be constraint for deserving condidates.</p>
         </div>
       </div>

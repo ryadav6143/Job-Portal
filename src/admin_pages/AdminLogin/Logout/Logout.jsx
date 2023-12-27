@@ -1,6 +1,6 @@
 import React from "react";
 import "./Logout.css";
-import CurrentOpening from "../../CurrentOpening/CurrentOpening";
+import AdminDashboard from "../AdminDashboard/AdminDashboard";
 
 function Logout({ handleLogout }) {
   return (
@@ -9,7 +9,7 @@ function Logout({ handleLogout }) {
         <button onClick={handleLogout}>LOGOUT</button>
       </div>
       <div>
-      <CurrentOpening></CurrentOpening>
+     <AdminDashboard></AdminDashboard>
       </div>
     </>
   );

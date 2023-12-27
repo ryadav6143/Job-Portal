@@ -8,6 +8,8 @@ function Research() {
         <div className="post-name">
           <p>DEAN</p>
         </div>
+        <div></div>
+        <div></div>
         <div>
           <button type="button">Apply Now</button>
         </div>
@@ -16,8 +18,8 @@ function Research() {
         <p>
           Engineering | Management | Computer Applications Journalism | Film
           Production | Pharmacy | Physiotherapy | Hotel Management | Design |
-          Multimedia & Animation | Education | Physical Education | Sciences |
-          Law | Fashion | Research & Development | Polytechnic
+          Education| Law | Multimedia & Animation | Physical Education |
+          Sciences | Fashion | Research & Development | Polytechnic
         </p>
       </div>
       <div className="my-table table-responsive">
