@@ -47,7 +47,7 @@ function Header() {
                 </li>
                 <li className="nav-item dropdown">
                   <Link
-                    to="/job-profile"
+                    // to="/job-profile"
                     className="nav-link dropdown-toggle"
                     id="navbarDropdownMenuLink"
                     role="button"

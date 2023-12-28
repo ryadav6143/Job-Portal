@@ -1,9 +1,12 @@
 import React from 'react'
+import Headers from "../../../components/Header/Header"
+import Footers from "../../../components/Footer/Footers"
 import "./Technical.css"
 
 function Technical() {
   return (
     <>
+    <Headers></Headers>
       <div className="apply-for-dean">
         <div className="post-name">
           <p>DEAN</p>
@@ -573,6 +576,8 @@ function Technical() {
           </div>
         </details>
       </div>
+    <Footers></Footers>
+
     </>
   );
 }

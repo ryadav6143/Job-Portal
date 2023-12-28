@@ -1,5 +1,7 @@
 import React from "react";
 import "./ContactUs.css";
+import Header from "../../components/Header/Header";
+import Footers from "../../components/Footer/Footers";
 import phonelogo from "../../assets/logos/phone.png";
 import emaillogo from "../../assets/logos/email.png";
 import locationlogo from "../../assets/logos/location.png";
@@ -10,6 +12,7 @@ function ContactUs() {
   var location = "A.B.Road,pigdamber,Rau Indore 453331";
   return (
     <>
+      <Header></Header>
       <div className="contact-container ">
         <div className="contact-detail ">
           <div>
@@ -66,13 +69,14 @@ function ContactUs() {
             <div className="row">
               <div className="col-12">
                 <label>Message</label>
-                <input type="text" placeholder="Message"  required/>
+                <input type="text" placeholder="Write a Message" required />
               </div>
             </div>
             <button type="submit">Submit</button>
           </form>
         </div>
       </div>
+      <Footers></Footers>
     </>
   );
 }

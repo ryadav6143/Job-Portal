@@ -49,6 +49,8 @@ details {
   background-color: #ececec;
   margin-bottom: 10px;
   color: rgba(0, 0, 0, 0.548);
+  padding-right: 10px;
+  padding-left: 1px;
 }
 #my-dropdown::marker {
   display: none;

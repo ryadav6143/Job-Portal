@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import Header from "../../components/Header/Header";
+import Footers from "../../components/Footer/Footers";
 import "./InterviewSchedule.css";
 import logo1 from "../../assets/logos/academic.png";
 import logo2 from "../../assets/logos/administration.png";
@@ -11,8 +13,10 @@ import ScheduledTechnical from "./ScheduledTechnical/ScheduledTechnical";
 
 function InterviewSchedule() {
   const openAcademics = () => {};
+
   return (
     <>
+      <Header></Header>
       <div>
         <div className="is-background">
           <div className="data">
@@ -41,8 +45,6 @@ function InterviewSchedule() {
                 <img className="is-header-logo" src={logo3} />
                 RESEARCH
               </a>
-              {/* <Link to='/component1'><img className="is-header-logo" src={logo3} />
-                RESEARCH</Link> */}
             </div>
             <div className="col-md-3">
               <a href="">
@@ -84,6 +86,7 @@ function InterviewSchedule() {
           <p>Salary Shall not be constraint for deserving condidates.</p>
         </div>
       </div>
+      <Footers></Footers>
     </>
   );
 }

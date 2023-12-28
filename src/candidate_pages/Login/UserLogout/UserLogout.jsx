@@ -1,4 +1,5 @@
 import React from "react";
+import UserDashboard from "../UserDashboard/UserDashboard"
 import "./UserLogout.css";
 
 function UserLogout({ handleLogout }) {
@@ -7,7 +8,7 @@ function UserLogout({ handleLogout }) {
       <div id="logout-btn">
         <button onClick={handleLogout}>LOGOUT</button>
       </div>
-      <div>{/* After Login Dashboard */}</div>
+      <div><UserDashboard></UserDashboard></div>
     </>
   );
 }

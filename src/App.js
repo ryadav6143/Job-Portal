@@ -20,13 +20,14 @@ import PersonalDeatils from "./admin_pages/DropCV/PersonalDetails/PersonalDeatil
 import Adminpanel from "./admin_pages/AdminLogin/Adminpanel";
 import UserLogin from "./candidate_pages/Login/UserLogin/UserLogin"
 import ContactUs from "./admin_pages/Contactus/ContactUs";
+import UserDashboard from "./candidate_pages/Login/UserDashboard/UserDashboard";
 
 function App() {
   
   return (
     <>
       <Main>
-        <Header></Header>
+        {/* <Header></Header> */}
          <Routes>
            <Route exact path="/" element={<Home />}></Route>
            <Route path="current-opening" element={<CurrentOpening />}></Route>
@@ -46,11 +47,9 @@ function App() {
            <Route path="adminpanel" element={< Adminpanel/>}></Route>  
            <Route path="userlogin" element={< UserLogin/>}></Route>  
            <Route path="contact-us" element={< ContactUs/>}></Route>  
-         
-
-           
+           <Route path="dashboard" element={< UserDashboard/>}></Route>  
          </Routes>
-         <Footers></Footers>
+         {/* <Footers></Footers> */}
        </Main>
     </>
    );

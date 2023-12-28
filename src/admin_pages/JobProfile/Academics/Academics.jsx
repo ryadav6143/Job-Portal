@@ -1,9 +1,13 @@
 import React from "react";
 import "./Academics.css";
+import Header from "../../../components/Header/Header";
+import Footers from "../../../components/Footer/Footers";
 
 function Academics() {
   return (
     <>
+      <Header></Header>
+
       <div className="apply-for-dean">
         <div className="post-name">
           <p>DEAN</p>
@@ -573,6 +577,7 @@ function Academics() {
           </div>
         </details>
       </div>
+      <Footers></Footers>
     </>
   );
 }

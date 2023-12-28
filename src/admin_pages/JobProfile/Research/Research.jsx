@@ -1,9 +1,13 @@
 import React from "react";
+import Headers from "../../../components/Header/Header"
+import Footers from "../../../components/Footer/Footers"
 import "./Research.css";
 
 function Research() {
   return (
     <>
+    <Headers></Headers>
+
       <div className="apply-for-dean">
         <div className="post-name">
           <p>DEAN</p>
@@ -573,6 +577,8 @@ function Research() {
           </div>
         </details>
       </div>
+    <Footers></Footers>
+
     </>
   );
 }

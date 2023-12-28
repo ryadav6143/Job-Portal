@@ -9,31 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function PersonalDeatils() {
-  // ..........................................................
-  // const [countries, setCountries] = useState([]);
-  // const [selectedCountry, setSelectedCountry] = useState('');
-
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-
-  // useEffect(() => {
-  //   const fetchCountries = async () => {
-  //     try {
-  //       const response = await axios.get('https://restcountries.com/v3.1/all');
-  //       setCountries(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching countries:', error);
-  //     }
-  //   };
-
-  //   fetchCountries();
-  // }, []);
-
-  // const handleChange = (event) => {
-  //   setSelectedCountry(event.target.value);
-  // };
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -110,7 +89,7 @@ function PersonalDeatils() {
                     placeholder="Enter Name"
                     id=""
                     value=""
-                    {...("First name", {required: true, maxLength: 80})}
+                    {...("First name", { required: true, maxLength: 80 })}
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faUser} />
                 </div>
@@ -332,6 +311,7 @@ function PersonalDeatils() {
                 </div>
               </div>
             </div>
+            {/* <button type="submit">submit</button> */}
           </form>
         </div>
       </div>

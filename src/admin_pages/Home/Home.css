@@ -103,6 +103,32 @@
   color: maroon;
   transition: 0.4s ease;
 }
+.perks-heading {
+  font-size: 2.5vw;
+  color: white;
+}
+.perks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  background: url("../../assets/images/Banner.JPG");
+  background-position: center;
+  background-size: cover;
+  padding-top: 5%;
+}
+.perks span {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+#disktype {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+.lists ul li {
+  list-style: none;
+}
+
 @media only screen and (max-width: 767px) {
   .medi-home-heading {
     margin-top: -20px;

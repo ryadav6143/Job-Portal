@@ -1,4 +1,6 @@
 import React from "react";
+import Header from "../../components/Header/Header";
+import Footers from "../../components/Footer/Footers";
 import "./DropCV.css";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -26,7 +28,6 @@ function Dropcv() {
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };
-
   const handleNext = () => {
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
@@ -37,7 +38,6 @@ function Dropcv() {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
   };
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
@@ -49,6 +49,7 @@ function Dropcv() {
 
   return (
     <>
+      <Header></Header>
       <div className="contact-forms">
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
@@ -77,7 +78,9 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button type="submit" onClick={handleVerifivation}>Next</Button>
+                <Button type="button" onClick={handleVerifivation}>
+                  Next
+                </Button>
                 {/* Reset butto here  */}
               </Box>
             </React.Fragment>
@@ -105,6 +108,7 @@ function Dropcv() {
           )}
         </Box>
       </div>
+      <Footers></Footers>
     </>
   );
 }

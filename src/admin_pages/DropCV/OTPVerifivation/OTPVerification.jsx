@@ -18,7 +18,7 @@ function OTPVerification() {
               Enter OTP sent to xxxxxxxx90
             </p>
             <div className="otp-form">
-              <form action="">
+              <form action="" method="post">
                 <input
                   type="text"
                   name="otp"
@@ -27,7 +27,7 @@ function OTPVerification() {
                 />
               </form>
             </div>
-            <button type="button" id="resend-btn">
+            <button type="submit" id="resend-btn">
               Resend OTP
             </button>
           </div>
