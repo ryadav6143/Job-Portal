@@ -7,13 +7,43 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+// import PersonalDeatils from "./PersonalDetails/PersonalDeatils";
 import PersonalDeatils from "./PersonalDetails/PersonalDeatils";
 import Qualification from "./Qualification/Qualification";
-import CurrentExperience from "./CurrentExperience/CurrentExperience"
+import CurrentExperience from "./CurrentExperience/CurrentExperience";
+import  { useState } from 'react';
+// import ApiServices from './Services/ApiServices';
+import apiService from "../../Services/ApiServices";
+
 
 const steps = ["", "", ""];
 
 function Dropcv() {
+
+
+
+
+  const [formData, setFormData] = useState({
+    personalDetails: {},
+    qualification: {},
+    currentExperience: {},
+  });
+
+  const handleSubmit = async () => {
+    try {
+      // Use the ApiServices to make a POST request
+      const response = await apiService.postFormData('http://192.168.29.155:8090/v1/api/candidates', formData);
+
+      // Handle the response as needed
+      console.log('Form submitted successfully:', response);
+
+      // You can redirect or perform other actions based on the response
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // Handle errors
+    }
+  };
+
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -77,15 +107,16 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleVerifivation}>Next</Button>
-                {/* Reset butto here  */}
+                {/* <Button onClick={handleVerifivation} type="submit">Next</Button> */}
+                <Button onClick={handleSubmit} type="submit">Next</Button>
+               
               </Box>
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {activeStep === 0 && <PersonalDeatils />}
-              {activeStep === 1 && <Qualification />}
-              {activeStep === 2 && <CurrentExperience />}
+              {activeStep === 0 && <PersonalDeatils updateFormData={(data) => setFormData({ ...formData, personalDetails: data })} />}
+              {activeStep === 1 && <Qualification updateFormData={(data) => setFormData({ ...formData, qualification: data })} />}
+              {activeStep === 2 && <CurrentExperience updateFormData={(data) => setFormData({ ...formData, currentExperience: data })}/>}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
                   className="prev-btn"
@@ -97,10 +128,10 @@ function Dropcv() {
                   Previous
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleNext} type="submit" className="next-btn">
+                <Button onClick={handleNext}  className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>
-              </Box>
+              </Box>           
             </React.Fragment>
           )}
         </Box>

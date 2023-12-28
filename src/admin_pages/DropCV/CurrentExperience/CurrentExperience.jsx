@@ -1,7 +1,16 @@
-import React from "react";
+import { useState } from "react";
+import React  from "react";
 import "./CurrentExperience.css";
 
 function CurrentExperience() {
+
+  
+  const [isFresher, setIsFresher] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsFresher(!isFresher);
+  };
+
   return (
     <>
     <div className="container">
@@ -20,12 +29,14 @@ function CurrentExperience() {
               type="checkbox"
               id=""
               name=""
-              
+              checked={isFresher}
+              onChange={handleCheckboxChange}
             />
             &nbsp; Select if you are applying as a Fresher
           </span>
         </div>
-
+        {!isFresher && (
+            <>
         
           <div className="row">
             <div className="col-md-6">
@@ -140,7 +151,8 @@ function CurrentExperience() {
           </div>
       
 
-        
+          </>
+          )}
 
         <div className="uploadfile-section">
           <label className="SetLabel-Name">
