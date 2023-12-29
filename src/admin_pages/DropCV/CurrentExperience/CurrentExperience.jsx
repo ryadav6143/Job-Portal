@@ -6,14 +6,36 @@ function CurrentExperience() {
 
   
   const [isFresher, setIsFresher] = useState(false);
-
+  const [formData, setFormData] = useState({
+    total_experience: "",
+    total_research_exp: "",
+    total_industrial_exp: "",
+    current_organization: "",
+    current_designation: "",
+    current_salary: "",
+    resume_file_link: "",
+  });
   const handleCheckboxChange = () => {
     setIsFresher(!isFresher);
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("Form submitted:", formData);
   };
 
   return (
     <>
     <div className="container">
+      <form  onSubmit={handleSubmit} method="post">
       <div className="CE-form">
         <div>
           <h5 className="CE-heading">Current Experience / Upload Resume</h5>
@@ -51,7 +73,8 @@ function CurrentExperience() {
                   placeholder="00 (i.e Years.Months)"
                   name="total_experience"
                   id=""
-                  
+                  onChange={handleInputChange}
+                  value={formData.total_experience}
                   
                   required
                 ></input>
@@ -69,7 +92,8 @@ function CurrentExperience() {
                   placeholder=""
                   name="total_research_exp"
                   id=""
-                  
+                  onChange={handleInputChange}
+                  value={formData.total_research_exp}
                   required
                 ></input>
               </div>
@@ -89,7 +113,8 @@ function CurrentExperience() {
                   placeholder="00 (i.e Years.Months)"
                   name="total_industrial_exp"
                   id=""
-                 
+                  onChange={handleInputChange}
+                  value={formData.total_industrial_exp}
                   required
                 ></input>
               </div>
@@ -104,9 +129,10 @@ function CurrentExperience() {
                   className="set-input"
                   type="text"
                   placeholder=""
-                  name="current_organitation"
+                  name="current_organization"
                   id=""
-                  
+                  onChange={handleInputChange}
+                  value={formData.current_organization}
                   required
                 ></input>
               </div>
@@ -126,7 +152,8 @@ function CurrentExperience() {
                   placeholder=""
                   name="current_designation"
                   id=""
-                  
+                  onChange={handleInputChange}
+                  value={formData.current_designation}
                   required
                 ></input>
               </div>
@@ -143,7 +170,8 @@ function CurrentExperience() {
                   placeholder=""
                   name="current_salary"
                   id=""
-                  
+                  onChange={handleInputChange}
+                  value={formData.current_salary}
                   required
                 ></input>
               </div>
@@ -169,10 +197,14 @@ function CurrentExperience() {
             name="resume_file_link"
             id=""
             
-            required
+           
           ></input>
         </div>
       </div>
+      <button type="submit" className="submit-button">
+            Submit
+          </button>
+      </form>
       </div>
     </>
   );

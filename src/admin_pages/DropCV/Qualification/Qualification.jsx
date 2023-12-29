@@ -7,7 +7,11 @@ function Qualification() {
   const [degrees, setDegrees] = useState([]);
   const [selectedDegree, setSelectedDegree] = useState("");
   const [data, setData] = useState([]);
-
+  const [formData, setFormData] = useState({
+    degree_types_master_id: "",
+    exam_types_master_id: "",
+    highest_education_status: "",
+  });
   useEffect(() => {
     apiService
       .getExamTypes()
@@ -37,20 +41,64 @@ function Qualification() {
 
   const handleExamChange = (event) => {
     const selectedExam = event.target.value;
+    const selectedExamName = event.target.value;
     setSelectedExam(selectedExam);
+    const selectedExamObject = data.find(item => item.exam_name === selectedExamName);
+    const selectedExamId = selectedExamObject ? selectedExamObject.id : '';
+    setSelectedExam(selectedExamName);
+    // Extract degree names for the second dropdown based on the selected exam
     const degreesForSelectedExam = data
-      .filter((item) => item.exam_name === selectedExam)
-      .map((item) =>
-        item.degree_types_master ? item.degree_types_master.degree_name : null
-      );
+      .filter(item => item.exam_name === selectedExam)
+      .map(item => item.degree_types_master ? item.degree_types_master.degree_name : null);
+
     setDegrees(degreesForSelectedExam.filter(Boolean));
+
+    // Set the default selected degree (if needed)
     setSelectedDegree(degreesForSelectedExam[0]);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      exam_types_master_id: selectedExamId,
+    }));
+
   };
 
   const handleDegreeChange = (event) => {
-    const selectedDegree = event.target.value;
-    setSelectedDegree(selectedDegree);
+    const selectedDegreeName = event.target.value;
+  
+    // Find the corresponding object from data based on the selected degree name
+    const selectedDegreeObject = data.find(item => item.degree_types_master && item.degree_types_master.degree_name === selectedDegreeName);
+  
+    // Now, use the selectedDegreeObject to get the id property
+    const selectedDegreeId = selectedDegreeObject ? selectedDegreeObject.degree_types_master.id : '';
+  
+    setSelectedDegree(selectedDegreeName);
+  
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      degree_types_master_id: selectedDegreeId,
+    }));
   };
+  
+
+  
+  const handleStatusChange = (event) => {
+    const selectedStatus = event.target.value;
+    
+    // Update the formData state
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      highest_education_status: selectedStatus,
+    }));
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("Form submitted:", formData);
+  };
+
+
+  
 
   return (
     <>
@@ -65,6 +113,8 @@ function Qualification() {
             </p>
           </div>
 
+
+<form method="post" onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-md-6">
               {/* *Exam Type */}
@@ -121,14 +171,24 @@ function Qualification() {
                 <select
                   name="highest_education_status"
                   className="set-dropdown"
+                  onChange={handleStatusChange}
+                  value={formData.highest_education_status}
                 >
                   <option value="">Select status</option>
-                  <option value="">Completed</option>
-                  <option value="">Pursuing</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Pursuing">Pursuing</option>
                 </select>
               </div>
             </div>
           </div>
+
+
+          <button type="submit" className="submit-button">
+                    Submit
+                  </button>
+
+                  </form>
+
         </div>
       </div>
     </>

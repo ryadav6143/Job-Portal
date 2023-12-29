@@ -3,11 +3,11 @@
 // apiService.js
 import axios from "axios";
 
-const BASE_URL = "http://192.168.29.155:8090/v1/api"; // Set your base API URL here
+const BASE_URL = "http://192.168.1.15:8090/v1/api"; // Set your base API URL here
 
 const apiService = {
   getJobCategories: () => {
-    return axios.get(`${BASE_URL}/jobCategory`);
+    return axios.get(`${BASE_URL}/jobCategory`);  
   },
 
   getSubjectMaster: () => {
@@ -25,6 +25,8 @@ const apiService = {
   getExamTypes: () => {
     return axios.get(`${BASE_URL}/examTypeMaster`);
   },
+
+  
 };
 
 

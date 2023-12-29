@@ -19,6 +19,7 @@ function PersonalDeatils() {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
   const [subposts, setSubposts] = useState([]);
+  const [selectedSubpost, setSelectedSubpost] = useState("");
 
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
@@ -48,12 +49,17 @@ function PersonalDeatils() {
       setSubposts([]);
     }
   }, [selectedPost, posts]);
+
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
     const selectedCategoryData = categories.find(
       (category) => category.category_name === selectedCategory
     );
+    setFormData((prevData) => ({
+      ...prevData,
+      job_category_id: selectedCategoryData ? selectedCategoryData.id : "",
+    }));
     setPosts(
       selectedCategoryData ? selectedCategoryData.applied_post_masters : []
     );
@@ -67,10 +73,32 @@ function PersonalDeatils() {
     const selectedPostData = posts.find(
       (post) => post.post_name === selectedPost
     );
+    setFormData((prevData) => ({
+      ...prevData,
+      applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
+    }));
     setSubposts(
       selectedPostData ? selectedPostData.applied_subpost_masters : []
     );
   };
+  const handleSubpostChange = (event) => {
+    const selectedSubpostName = event.target.value;
+    setSelectedSubpost(selectedSubpostName);
+
+    // Find the selected subpost object
+    const selectedSubpostData = subposts.find(
+      (subpost) => subpost.subpost_name === selectedSubpostName
+    );
+
+    // Set applied_subpost_masters_id in the formData
+    setFormData((prevData) => ({
+      ...prevData,
+      applied_subpost_masters_id: selectedSubpostData
+        ? selectedSubpostData.id
+        : "",
+    }));
+  };
+
   // ---------------end of category ,post ,subpost--------------------------
 
   // -------------------subject api source--------------
@@ -85,8 +113,21 @@ function PersonalDeatils() {
       });
   }, []);
   const handleSubjectChange = (event) => {
-    setSelectedSubject(event.target.value);
+    const selectedSubjectName = event.target.value;
+    setSelectedSubject(selectedSubjectName);
+
+    // Find the selected subject object
+    const selectedSubjectData = subjects.find(
+      (subject) => subject.subject_name === selectedSubjectName
+    );
+
+    // Set subjects_master_id in the formData
+    setFormData((prevData) => ({
+      ...prevData,
+      subjects_master_id: selectedSubjectData ? selectedSubjectData.id : "",
+    }));
   };
+
   // --------------------end of subject api source----------------------
 
   // -------------------country api source----------------------
@@ -106,7 +147,21 @@ function PersonalDeatils() {
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
     setSelectedCity("");
+    setFormData((prevData) => ({
+      ...prevData,
+      country: countryValue,
+      city: "", // Reset city when country changes
+    }));
   };
+  const handleCityChange = (event) => {
+    const cityValue = event.target.value;
+    setSelectedCity(cityValue);
+    setFormData((prevData) => ({
+      ...prevData,
+      city: cityValue,
+    }));
+  };
+
   // ----------------end of counrty API source-------------
 
   // -------------------candidate api source----------------
@@ -126,28 +181,30 @@ function PersonalDeatils() {
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      city: selectedCity,
     }));
   };
 
   // ------------------end of candidate source-----------
 
+  // -------------------
   const [formData, setFormData] = useState({
     title_first_name: "",
     first_name: "",
-    // middle_name: "",
-    // last_name: "",
+    middle_name: "",
+    last_name: "",
     dob: "",
     gender: "",
     email: "",
     password: "",
     contact_1: "",
-    country:"",
-    city:"",
-    // degree_types_master_id: 1,
-    // subjects_master_id: 1,
-    // applied_post_masters_id: 1,
-    // applied_subpost_masters_id: 1,
-    // job_category_id: 1,
+    country: selectedCountry,
+    city: selectedCity,
+    degree_types_master_id: "",
+    subjects_master_id: "",
+    applied_post_masters_id: "",
+    applied_subpost_masters_id: "",
+    job_category_id: "",
   });
 
   // ---------------------------
@@ -204,7 +261,7 @@ function PersonalDeatils() {
                     id=""
                     onChange={handleInputChange}
                     value={formData.first_name}
-                required
+                    required
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faUser} />
                 </div>
@@ -296,8 +353,8 @@ function PersonalDeatils() {
 
             <div className="row">
               <div className="col-md-6">
-               {/* Country */}
-               <div className="form-section">
+                {/* Country */}
+                <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Country
                   </label>
@@ -324,18 +381,17 @@ function PersonalDeatils() {
               </div>
 
               <div className="col-md-6">
-              
-
- {/* City */}
- <div className="form-section">
+                {/* City */}
+                <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>City
                   </label>
+
                   <select
                     name="city"
                     className="set-dropdown"
                     value={selectedCity}
-                    onChange={(event) => setSelectedCity(event.target.value)}
+                    onChange={handleCityChange}
                     required
                   >
                     <option key="" value="">
@@ -352,8 +408,6 @@ function PersonalDeatils() {
                     ))}
                   </select>
                 </div>
-
-
               </div>
             </div>
 
@@ -417,7 +471,12 @@ function PersonalDeatils() {
                   <label className="SetLabel-Name">
                     <span> </span> Sub Post Applied For
                   </label>
-                  <select id="subpostDropdown" className="set-dropdown" required>
+                  <select
+                    id="subpostDropdown"
+                    className="set-dropdown"
+                    value={selectedSubpost}
+                    onChange={handleSubpostChange}
+                  >
                     <option value="">Select a subpost</option>
                     {subposts.map((subpost) => (
                       <option
@@ -444,9 +503,7 @@ function PersonalDeatils() {
                     onChange={handleSubjectChange}
                     required
                   >
-                    <option value="" disabled>
-                      Select a subject
-                    </option>
+                    <option value="">Select a subject</option>
                     {subjects.map((subject) => (
                       <option key={subject.id} value={subject.subject_name}>
                         {subject.subject_name}
@@ -456,9 +513,9 @@ function PersonalDeatils() {
                 </div>
               </div>
             </div>
-            {/* <button style={{ width: "100px" }} type="submit">
+            <button style={{ width: "100px" }} type="submit">
               Submit
-            </button> */}
+            </button>
           </form>
         </div>
       </div>
