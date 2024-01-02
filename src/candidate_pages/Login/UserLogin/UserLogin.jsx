@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../assets/logos/logo.png";
+import logo from "../../../assets/logos/medi-logo.png";
 
 function UserLogin() {
     const [formData, setFormData] = useState({

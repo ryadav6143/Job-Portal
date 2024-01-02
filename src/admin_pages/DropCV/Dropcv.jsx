@@ -44,6 +44,11 @@ function Dropcv() {
     }
   };
 
+  const handleFormSubmit = (formData) => {
+    // Handle the form data in DropCV component
+    console.log("Form data received in DropCV:", formData);
+    // Perform any additional actions based on the form data
+  };
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -114,7 +119,7 @@ function Dropcv() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {activeStep === 0 && <PersonalDeatils updateFormData={(data) => setFormData({ ...formData, personalDetails: data })} />}
+              {activeStep === 0 && <PersonalDeatils  onFormSubmit={handleFormSubmit} />}
               {activeStep === 1 && <Qualification updateFormData={(data) => setFormData({ ...formData, qualification: data })} />}
               {activeStep === 2 && <CurrentExperience updateFormData={(data) => setFormData({ ...formData, currentExperience: data })}/>}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Qualification.css";
 import apiService from "../../../Services/ApiServices";
-function Qualification() {
+function Qualification({ onSubmit }) {
   const [examTypes, setExamTypes] = useState([]);
   const [selectedExam, setSelectedExam] = useState("");
   const [degrees, setDegrees] = useState([]);
@@ -93,7 +93,7 @@ function Qualification() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    onSubmit(formData);
     console.log("Form submitted:", formData);
   };
 

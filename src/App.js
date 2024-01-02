@@ -21,8 +21,9 @@ import Login from "./admin_pages/AdminLogin/Login/Login";
 import Qualification from "./admin_pages/DropCV/Qualification/Qualification";
 import CurrentExperience from "./admin_pages/DropCV/CurrentExperience/CurrentExperience";
 import UserDetails from "./admin_pages/CurrentOpening/ApplyNowForm/UserDetails/UserDetails";
-import UserLogin from "./candidate_pages/UserLogin/UserLogin";
+import UserLogin from "./candidate_pages/Login/UserLogin/UserLogin";
 import CountryDemo from "./admin_pages/DropCV/PersonalDetails/CountryDemo";
+import UserDashboard from "./candidate_pages/Login/UserDashboard/UserDashboard"
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
            <Route path="adminpanel" element={< Adminpanel/>}></Route>      
            <Route path="userlogin" element={< UserLogin/>}></Route>      
            <Route path="countrydemo" element={< CountryDemo/>}></Route>      
+           <Route path="dashboard" element={< UserDashboard/>}></Route>      
          </Routes>
          <Footers></Footers>
        </Main>

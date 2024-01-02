@@ -9,7 +9,7 @@ import {
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
 
-function PersonalDeatils() {
+function PersonalDeatils({onFormSubmit}) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -196,7 +196,7 @@ function PersonalDeatils() {
     dob: "",
     gender: "",
     email: "",
-    password: "",
+    password: "rahul@patani",
     contact_1: "",
     country: selectedCountry,
     city: selectedCity,
@@ -210,9 +210,11 @@ function PersonalDeatils() {
   // ---------------------------
   const handleSubmit = (e) => {
     e.preventDefault();
-
     console.log("Form submitted:", formData);
+
+    onFormSubmit("personalDetails", formData);
   };
+
   return (
     <>
       <div className="container">

@@ -2,7 +2,7 @@ import { useState } from "react";
 import React  from "react";
 import "./CurrentExperience.css";
 
-function CurrentExperience() {
+function CurrentExperience({ onSubmit }) {
 
   
   const [isFresher, setIsFresher] = useState(false);
@@ -28,7 +28,7 @@ function CurrentExperience() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    onSubmit(formData);
     console.log("Form submitted:", formData);
   };
 
