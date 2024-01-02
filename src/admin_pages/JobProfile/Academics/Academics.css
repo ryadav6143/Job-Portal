@@ -53,8 +53,9 @@ details {
   padding-left: 1px;
 }
 #my-dropdown::marker {
-  display: none;
+  display: none !important;
   color: #ececec;
+  margin-left: -10px !important;
 }
 
 #my-dropdown::before {
@@ -63,10 +64,13 @@ details {
   font-size: 15px;
   float: right;
   color: rgba(0, 0, 0, 0.718);
+  padding: 2px;
+  margin: 2px;
 }
 details[open] #my-dropdown::before {
   content: "▼";
   rotate: 180deg;
+
 }
 
 details[open] > summary {
@@ -88,5 +92,9 @@ details[open] > summary {
   .table-dropdown {
     margin-left: 5%;
     margin-right: 5%;
+  }
+  #my-dropdown {
+  
+    text-align: center;
   }
 }

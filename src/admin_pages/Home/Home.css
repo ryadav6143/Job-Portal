@@ -104,17 +104,24 @@
   transition: 0.4s ease;
 }
 .perks-heading {
-  font-size: 2.5vw;
+  font-size: 40px;
   color: white;
+  letter-spacing: 1px;
 }
 .perks {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  background: url("../../assets/images/Banner.JPG");
+  background: radial-gradient(
+      186.03% 1135.93% at 5.56% 21.36%,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0) 81.75%
+    ),
+    url("../../assets/images/Banner.JPG");
   background-position: center;
   background-size: cover;
   padding-top: 5%;
+  padding-bottom: 5%;
 }
 .perks span {
   font-family: "Playfair Display", serif;
@@ -127,7 +134,268 @@
 }
 .lists ul li {
   list-style: none;
+  background-color: white !important;
+  margin: 20px;
+  padding: 12px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 40px;
+  padding-left: 5% !important;
+  text-align: justify;
 }
+.lists {
+  margin-left: -8%;
+}
+.side-left {
+  margin-left: 20% !important;
+}
+.staff-heading {
+  font-size: 25px;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  span {
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    font-family: "Playfair Display", serif;
+  }
+}
+
+.purpose {
+  margin-top: 5%;
+}
+.purpose-headings {
+  text-align: center;
+}
+.purpose-headings p:nth-child(1) {
+  font-family: "Playfair Display", serif;
+  font-size: 3vw;
+  letter-spacing: 2px;
+}
+.purpose-headings p:nth-child(2) {
+  font-size: 20px;
+  color: rgba(128, 128, 128, 0.9);
+}
+.purpose-data {
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  div {
+    margin: 2px;
+    width: 19%;
+    height: 295px;
+    background-color: grey;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+}
+.big-img {
+  width: 37% !important;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.purpose-quotes {
+  font-family: "Playfair Display", serif;
+  font-size: 25px;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  padding: 4.2% 2% 4.2% 2%;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.quote-small {
+  padding-top: 8%;
+  padding-bottom: 6%;
+}
+.women {
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.mask3 {
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.circular-logo {
+  padding-top: 4.2%;
+  padding-bottom: 4.5%;
+  img {
+    width: 90%;
+    height: 90%;
+  }
+}
+/* ....................................MEDICAPS STAFF SECTION............................... */
+.staff-section {
+  margin-top: 2%;
+}
+.medi-heading {
+  text-align: center;
+  font-size: 30px;
+  font-family: "Open Sans", sans-serif;
+  span {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+}
+
+.row-1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  cursor: pointer;
+
+  div {
+    width: 27%;
+    height: 410px;
+    background-color: grey;
+    margin: 2px;
+  }
+}
+
+.row-1 div:nth-child(1) {
+  border-top-right-radius: 50%;
+  padding: 5px;
+  p {
+    font-size: 30px;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    font-size: 50px;
+    font-weight: 400;
+    margin-top: 55%;
+  }
+}
+.row-1 div:nth-child(1):hover {
+  border-top-right-radius: 0% !important;
+  border-bottom-right-radius: 50%;
+  transition: ease 0.3s;
+}
+.row-1 div:nth-child(2) {
+  background-color: transparent !important;
+  background-image: url("../../assets/images/Chinmay\ Arondekar.jfif");
+  background-size: cover;
+  background-position: center;
+}
+.row-1 div:nth-child(2):hover {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  transition: ease 0.3s;
+}
+.row-1 div:nth-child(3) {
+  text-align: end;
+  padding: 5px;
+  border-bottom-left-radius: 50%;
+  p {
+    font-size: 30px;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    font-size: 50px;
+    font-weight: 400;
+    margin-top: 55%;
+  }
+}
+.row-1 div:nth-child(3):hover {
+  border-top-left-radius: 50%;
+  transition: ease 0.3s;
+}
+/* ............................Row-2.................... */
+.row-2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  cursor: pointer;
+
+  div {
+    width: 27%;
+    height: 410px;
+    background-color: grey;
+    margin: 2px;
+  }
+}
+.row-2 div:nth-child(1) {
+  border-bottom-right-radius: 50%;
+  padding: 5px;
+  p {
+    font-size: 30px;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    font-size: 50px;
+    font-weight: 400;
+    margin-top: 55%;
+  }
+}
+.row-2 div:nth-child(1):hover {
+  border-top-right-radius: 0% !important;
+  border-radius: 50px !important;
+  transition: ease 0.3s;
+  padding: 10px;
+}
+.row-2 div:nth-child(2) {
+  border-radius: 50%;
+  background-image: url("../../assets/images/Hemant\ pal.jfif");
+  background-size: cover;
+  background-position: center;
+}
+.row-2 div:nth-child(2):hover {
+  border-radius: 50px;
+  transition: ease 0.3s;
+}
+.row-2 div:nth-child(3) {
+  height: 820px;
+  border-top-right-radius: 45%;
+  border-top-left-radius: 45%;
+  background-image: url("../../assets/images/Ruby\ Bhat.jfif");
+  background-size: cover;
+  background-position: center;
+}
+.row-2 div:nth-child(3):hover {
+  height: 820px;
+  border-bottom-right-radius: 45%;
+  border-bottom-left-radius: 45%;
+  transition: all 0.3s;
+}
+/* ..................Row-3.................................... */
+.row-3 {
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
+  margin-left: 9.1%;
+  margin-top: -27% !important;
+
+  div {
+    width: 818px;
+    height: 410px;
+    background-color: grey;
+    margin: 2px;
+    border-top-right-radius: 200px;
+    border-bottom-left-radius: 200px;
+    background-image: url(../../assets/images/Mohsin\ Ali.jpg);
+    background-size: cover;
+    background-position: top;
+  }
+}
+.row-3 div:hover {
+  transition: 0.3s ease;
+  border-radius: 0 !important;
+  border-top-left-radius: 200px !important;
+  border-bottom-right-radius: 200px !important;
+}
+/* ....................................MEDICAPS STAFF SECTION............................... */
 
 @media only screen and (max-width: 767px) {
   .medi-home-heading {
@@ -152,5 +420,99 @@
   .subs p:nth-child(3) {
     margin-top: -8px;
     font-size: 15px;
+  }
+  .perks-heading {
+    text-align: center;
+  }
+  .purpose-data {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 2%;
+    margin-right: 1%;
+    div {
+      margin: 1px;
+      width: 30%;
+      height: 155px;
+      background-color: grey;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+  }
+  .purpose-headings p:nth-child(1) {
+    font-size: 20px;
+  }
+  .purpose-headings p:nth-child(2) {
+    font-size: 10px;
+  }
+
+  .purpose-data div:nth-child(15) {
+    width: 60.5% !important;
+  }
+  .big-img {
+    width: 60.5% !important;
+  }
+  .circular-logo {
+    img {
+      width: 90%;
+      height: 90%;
+    }
+  }
+  .big-img {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .women {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .mask3 {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .purpose-quotes {
+    p {
+      font-size: 15px;
+    }
+  }
+  .row-1,
+  .row-2 {
+    div {
+      width: 160px;
+      height: 180px;
+    }
+  }
+  .row-1 div:nth-child(1),
+  .row-2 div:nth-child(1),
+  .row-1 div:nth-child(3) {
+    p {
+      font-size: 15px;
+    }
+    button {
+      font-size: 40px;
+      margin-top: 40% !important;
+    }
+  }
+  .row-1 div:nth-child(3) {
+    position: absolute;
+    display: none;
+  }
+
+  .row-2 div:nth-child(3) {
+    height: 384px;
+  }
+  .row-3 {
+    div {
+      display: none;
+    }
+  }
+  .medi-staff {
+    margin-bottom: 30%;
   }
 }

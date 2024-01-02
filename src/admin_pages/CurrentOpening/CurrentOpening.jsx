@@ -11,7 +11,7 @@ function CurrentOpening() {
     <Header></Header>
       <div>
         <div className="cop-heading">
-          <p>CURRENT OPENING</p>
+          <p> <span>CURRENT OPENING</span></p>
         </div>
         <div className="academic-table">
           <p className="table-heading">ACADEMICS</p>
@@ -209,7 +209,7 @@ function CurrentOpening() {
               </tbody>
             </table>
             <div className="pagination">
-              <Stack spacing={3}>
+              <Stack spacing={2}>
                 <Pagination count={10} shape="rounded" />
               </Stack>
             </div>

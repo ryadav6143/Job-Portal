@@ -43,7 +43,6 @@ function Dropcv() {
   };
 
   const handleVerifivation = () => {
-    // alert("Your CV has been submitted");
     navigate("/otp-verifivation");
   };
 
@@ -81,7 +80,6 @@ function Dropcv() {
                 <Button type="button" onClick={handleVerifivation}>
                   Next
                 </Button>
-                {/* Reset butto here  */}
               </Box>
             </React.Fragment>
           ) : (
@@ -100,7 +98,7 @@ function Dropcv() {
                   Previous
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleNext} type="submit" className="next-btn">
+                <Button onClick={handleNext} type="button" className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>
               </Box>

@@ -12,7 +12,34 @@ import ScheduledResearch from "./ScheduledResearch/ScheduledResearch";
 import ScheduledTechnical from "./ScheduledTechnical/ScheduledTechnical";
 
 function InterviewSchedule() {
-  const openAcademics = () => {};
+  const component1 = () => <ScheduledAcademics></ScheduledAcademics>;
+  const component2 = () => <ScheduledResearch></ScheduledResearch>;
+  const component3 = () => <ScheduledAdministration></ScheduledAdministration>;
+  const component4 = () => <ScheduledTechnical></ScheduledTechnical>;
+
+
+  const [selectedComponent, setSelectedComponent] = useState();
+  const showComponent = (componentName) => {
+    setSelectedComponent(componentName);
+  };
+  let componentToShow;
+  switch (selectedComponent) {
+    case "Component1":
+      componentToShow = <ScheduledAcademics />;
+      break;
+    case "Component2":
+      componentToShow = <ScheduledResearch />;
+      break;
+    case "Component3":
+      componentToShow = <ScheduledAdministration />;
+      break;
+    case "Component4":
+      componentToShow = <ScheduledTechnical />;
+      break;
+    default:
+      componentToShow = null;
+      break;
+  }
 
   return (
     <>
@@ -27,39 +54,35 @@ function InterviewSchedule() {
           </div>
         </div>
         <div className="is-header ">
-          <div className="row">
+          <div className="row header-item">
             <div className="col-md-3">
-              <a href="">
-                <img
-                  className="is-header-logo"
-                  src={logo1}
-                  onClick={() => {
-                    openAcademics();
-                  }}
-                />
+              <a href="" className="a1 a11" onClick={() => showComponent(component1)}>
+                <img className="is-header-logo" src={logo1} />
                 ACADEMICS
               </a>
             </div>
             <div className="col-md-3">
-              <a href="">
+              <a href="" className="a1" onClick={() => showComponent(component2)}>
                 <img className="is-header-logo" src={logo3} />
                 RESEARCH
               </a>
             </div>
             <div className="col-md-3">
-              <a href="">
+              <a href="" onClick={() => showComponent(component3)}>
                 <img className="is-header-logo" src={logo2} />
                 ADMINISTRATION
               </a>
             </div>
             <div className="col-md-3">
-              <a href="">
+              <a href="" className="a1" onClick={() => showComponent(component4)}>
                 <img className="is-header-logo" src={logo4} />
                 TECHNICAL
               </a>
             </div>
           </div>
+         
         </div>
+        <div>{componentToShow}</div>
         <ScheduledAcademics></ScheduledAcademics>
         <ScheduledResearch></ScheduledResearch>
         <ScheduledAdministration></ScheduledAdministration>
