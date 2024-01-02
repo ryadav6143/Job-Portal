@@ -1,22 +1,50 @@
-import React from "react";
+
+import "./EditPersonalDetails.css"
+// import React, { useState } from 'react';
+// import profileimg from "../../../../../assets/images/images.jpeg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faEnvelope,
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
-import "./UserDetails.css";
 
-function UserDetails() {
+function EditPersonalDetails() {
+  // const [profileImage, setProfileImage] = useState(null);
+
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+
+  //   if (file) {
+  //     const reader = new FileReader();
+
+  //     reader.onloadend = () => {
+  //       setProfileImage(reader.result);
+  //     };
+
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
   return (
     <>
-      <div className="container">
+     {/* <div>
+      
+      {profileimg && (
+        <img src={profileimg} alt="Profile" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
+      )}
+      <input  type="file" accept="image/*" onChange={handleImageChange} />
+    </div> */}
+
+
+<div className="container">
         <div>
           <div>
-            <h5 className="UD-heading">Personal Details</h5>
+            <h5 className="UD-heading">Personal Details </h5>
             <p className="UD-subheading">
               Please fill your information so we can get in touch with you.
             </p>
+
+            {/* Add edit profile button */}
           </div>
 
           <div className="row">
@@ -401,10 +429,14 @@ function UserDetails() {
             </div>
           </div>
 
+
+<div>
+  <button className="savebtn" type="button">Save Changes</button>
+</div>
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default UserDetails;
+export default EditPersonalDetails

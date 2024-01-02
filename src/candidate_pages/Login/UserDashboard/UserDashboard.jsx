@@ -1,16 +1,16 @@
-import React from "react";
-import UserHeader from "./UserHeader/UserHeader";
-import "./UserDashboard.css";
+import React from 'react'
+import UserHeader from './UserHeader/UserHeader'
+
+
 
 function UserDashboard() {
   return (
     <>
-      <UserHeader></UserHeader>
-      <div>
-        {/* <h1>User Dashboard</h1> */}
-      </div>
+    <UserHeader></UserHeader>
+
     </>
-  );
+  
+  )
 }
 
-export default UserDashboard;
+export default UserDashboard

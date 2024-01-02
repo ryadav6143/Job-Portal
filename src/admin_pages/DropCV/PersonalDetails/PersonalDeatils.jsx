@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./PersonalDeatils.css";
+import apiService from "../../../Services/ApiServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -8,46 +9,212 @@ import {
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
 
-function PersonalDeatils() {
+function PersonalDeatils({ onFormSubmit }) {
   const [countries, setCountries] = useState([]);
-  const [cities, setCities] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const response = await axios.get("https://restcountries.com/v3.1/all");
-        setCountries(response.data);
-      } catch (error) {
-        console.error("Error fetching countries:", error);
-      }
-    };
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState("");
+  const [subposts, setSubposts] = useState([]);
+  const [selectedSubpost, setSelectedSubpost] = useState("");
 
-    fetchCountries();
+  const [subjects, setSubjects] = useState([]);
+  const [selectedSubject, setSelectedSubject] = useState("");
+
+  // -------------for jobcategory, post applies , sub post  ---------------
+  useEffect(() => {
+    apiService
+      .getJobCategories()
+      .then((response) => {
+        const data = response.data;
+        setCategories(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching job categories:", error);
+      });
+  }, []);
+  useEffect(() => {
+    if (selectedPost) {
+      const selectedPostData = posts.find(
+        (post) => post.post_name === selectedPost
+      );
+      setSubposts(
+        selectedPostData ? selectedPostData.applied_subpost_masters : []
+      );
+      console.log(subposts);
+    } else {
+      setSubposts([]);
+    }
+  }, [selectedPost, posts]);
+
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+    setSelectedCategory(selectedCategory);
+    const selectedCategoryData = categories.find(
+      (category) => category.category_name === selectedCategory
+    );
+    setFormData((prevData) => ({
+      ...prevData,
+      job_category_id: selectedCategoryData ? selectedCategoryData.id : "",
+    }));
+    setPosts(
+      selectedCategoryData ? selectedCategoryData.applied_post_masters : []
+    );
+    // Reset selected post and subposts
+    setSelectedPost("");
+    setSubposts([]);
+  };
+  const handlePostChange = (event) => {
+    const selectedPost = event.target.value;
+    setSelectedPost(selectedPost);
+    const selectedPostData = posts.find(
+      (post) => post.post_name === selectedPost
+    );
+    setFormData((prevData) => ({
+      ...prevData,
+      applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
+    }));
+    setSubposts(
+      selectedPostData ? selectedPostData.applied_subpost_masters : []
+    );
+  };
+  const handleSubpostChange = (event) => {
+    const selectedSubpostName = event.target.value;
+    setSelectedSubpost(selectedSubpostName);
+
+    // Find the selected subpost object
+    const selectedSubpostData = subposts.find(
+      (subpost) => subpost.subpost_name === selectedSubpostName
+    );
+
+    // Set applied_subpost_masters_id in the formData
+    setFormData((prevData) => ({
+      ...prevData,
+      applied_subpost_masters_id: selectedSubpostData
+        ? selectedSubpostData.id
+        : "",
+    }));
+  };
+
+  // ---------------end of category ,post ,subpost--------------------------
+
+  // -------------------subject api source--------------
+  useEffect(() => {
+    apiService
+      .getSubjectMaster()
+      .then((response) => {
+        setSubjects(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching subjects:", error);
+      });
+  }, []);
+  const handleSubjectChange = (event) => {
+    const selectedSubjectName = event.target.value;
+    setSelectedSubject(selectedSubjectName);
+
+    // Find the selected subject object
+    const selectedSubjectData = subjects.find(
+      (subject) => subject.subject_name === selectedSubjectName
+    );
+
+    // Set subjects_master_id in the formData
+    setFormData((prevData) => ({
+      ...prevData,
+      subjects_master_id: selectedSubjectData ? selectedSubjectData.id : "",
+    }));
+  };
+
+  // --------------------end of subject api source----------------------
+
+  // -------------------country api source----------------------
+  useEffect(() => {
+    // Fetch data from the API using the service
+    apiService
+      .getCountries()
+      .then((response) => {
+        setCountries(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching countries:", error);
+      });
   }, []);
 
-  const fetchCitiesByCountry = async (countryCode) => {
-    try {
-      const response = await axios.get(
-        `http://api.geonames.org/searchJSON?country=${countryCode}&maxRows=10&username=YOUR_GEONAMES_USERNAME`
-      );
-      setCities(response.data.geonames);
-    } catch (error) {
-      console.error("Error fetching cities:", error);
-    }
-  };
-
   const handleCountryChange = (event) => {
-    const selectedCountryCode = event.target.value;
-    setSelectedCountry(selectedCountryCode);
-    // Fetch cities for the selected country
-    fetchCitiesByCountry(selectedCountryCode);
+    const countryValue = event.target.value;
+    setSelectedCountry(countryValue);
+    setSelectedCity("");
+    setFormData((prevData) => ({
+      ...prevData,
+      country: countryValue,
+      city: "", // Reset city when country changes
+    }));
+  };
+  const handleCityChange = (event) => {
+    const cityValue = event.target.value;
+    setSelectedCity(cityValue);
+    setFormData((prevData) => ({
+      ...prevData,
+      city: cityValue,
+    }));
   };
 
-  const handleCityChange = (event) => {
-    setSelectedCity(event.target.value);
+  // ----------------end of counrty API source-------------
+
+  // -------------------candidate api source----------------
+  useEffect(() => {
+    // Fetch data from the API using the service
+    apiService
+      .getCandidates()
+      .then((response) => {
+        console.log("response", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching candidates:", error);
+      });
+  }, []);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+      city: selectedCity,
+    }));
   };
+
+  // ------------------end of candidate source-----------
+
+  // -------------------
+  const [formData, setFormData] = useState({
+    title_first_name: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    dob: "",
+    gender: "",
+    email: "",
+    password: "rahul@patani",
+    contact_1: "",
+    country: selectedCountry,
+    city: selectedCity,
+    degree_types_master_id: "",
+    subjects_master_id: "",
+    applied_post_masters_id: "",
+    applied_subpost_masters_id: "",
+    job_category_id: "",
+  });
+
+  // ---------------------------
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+
+    onFormSubmit("personalDetails", formData);
+  };
+
   return (
     <>
       <div className="container">
@@ -59,7 +226,7 @@ function PersonalDeatils() {
             </p>
           </div>
 
-          <form>
+          <form method="post" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-6">
                 {/* Title */}
@@ -67,7 +234,13 @@ function PersonalDeatils() {
                   <label className="SetLabel-Name">
                     <span>*</span>Title
                   </label>
-                  <select name="title_first_name" className="set-dropdown">
+                  <select
+                    name="title_first_name"
+                    className="set-dropdown"
+                    onChange={handleInputChange}
+                    value={formData.title_first_name}
+                    required
+                  >
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
@@ -88,8 +261,9 @@ function PersonalDeatils() {
                     name="first_name"
                     placeholder="Enter Name"
                     id=""
-                    value=""
-                    {...("First name", { required: true, maxLength: 80 })}
+                    onChange={handleInputChange}
+                    value={formData.first_name}
+                    required
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faUser} />
                 </div>
@@ -110,7 +284,8 @@ function PersonalDeatils() {
                     placeholder="MM/DD/YYYY"
                     name="dob"
                     id=""
-                    value=""
+                    onChange={handleInputChange}
+                    value={formData.dob}
                     required
                   ></input>
                 </div>
@@ -121,7 +296,13 @@ function PersonalDeatils() {
                   <label className="SetLabel-Name">
                     <span>*</span>Gender
                   </label>
-                  <select name="gender" className="set-dropdown">
+                  <select
+                    name="gender"
+                    className="set-dropdown"
+                    onChange={handleInputChange}
+                    value={formData.gender}
+                    required
+                  >
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="others">Others</option>
@@ -129,7 +310,6 @@ function PersonalDeatils() {
                 </div>
               </div>
             </div>
-
             <div className="row">
               <div className="col-md-6">
                 {/* Email */}
@@ -143,7 +323,8 @@ function PersonalDeatils() {
                     placeholder="Email address"
                     name="email"
                     id=""
-                    value=""
+                    onChange={handleInputChange}
+                    value={formData.email}
                     required
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faEnvelope} />
@@ -158,11 +339,12 @@ function PersonalDeatils() {
                   </label>
                   <input
                     className="set-input"
-                    type="number"
+                    type="tel"
                     placeholder="(123) 456 - 7890 "
                     name="contact_1"
                     id=""
-                    value=""
+                    value={formData.contact_1}
+                    onChange={handleInputChange}
                     required
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faMobile} />
@@ -172,26 +354,27 @@ function PersonalDeatils() {
 
             <div className="row">
               <div className="col-md-6">
-                {/* City */}
+                {/* Country */}
                 <div className="form-section">
                   <label className="SetLabel-Name">
-                    <span>*</span>City
+                    <span>*</span>Country
                   </label>
-                  {/* <select name="city" className="set-dropdown">
-                  <option value="">Select city</option>
-                  <option value="">Indore</option>
-                  <option value="">Ujjain</option>
-                  <option value="">Dewas</option>
-                </select> */}
                   <select
-                    name="city"
+                    name="country"
                     className="set-dropdown"
-                    onChange={handleCityChange}
+                    value={selectedCountry}
+                    onChange={handleCountryChange}
+                    required
                   >
-                    <option value="">Select city</option>
-                    {cities.map((city) => (
-                      <option key={city.geonameId} value={city.name}>
-                        {city.name}
+                    <option key="" value="">
+                      Select a country
+                    </option>
+                    {countries.map((countryData) => (
+                      <option
+                        key={countryData.iso2}
+                        value={countryData.country}
+                      >
+                        {countryData.country}
                       </option>
                     ))}
                   </select>
@@ -199,37 +382,29 @@ function PersonalDeatils() {
               </div>
 
               <div className="col-md-6">
-                {/* Country */}
+                {/* City */}
                 <div className="form-section">
                   <label className="SetLabel-Name">
-                    <span></span>Country
+                    <span>*</span>City
                   </label>
-                  {/* <select value={selectedCountry} onChange={handleChange} name="country" className="set-dropdown">
-                  <option value="">Select country</option>
-                  <option value="">United States</option>
-                  <option value="">Japan</option>
-                  <option value="">Brazil</option>
-                  <option value="">India</option>
-                </select> */}
-
-                  {/* <select name="country" className="set-dropdown" value={selectedCountry} onChange={handleChange}>
-        <option value="">Select a country</option>
-        {countries.map((country) => (
-          <option key={country.cca2} value={country.name.common}>
-            {country.name.common}
-          </option>
-        ))}
-      </select> */}
 
                   <select
-                    name="country"
+                    name="city"
                     className="set-dropdown"
-                    onChange={handleCountryChange}
+                    value={selectedCity}
+                    onChange={handleCityChange}
+                    required
                   >
-                    <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.cca2} value={country.cca2}>
-                        {country.name.common}
+                    <option key="" value="">
+                      Select a city
+                    </option>
+                    {(
+                      countries.find(
+                        (country) => country.country === selectedCountry
+                      )?.cities || []
+                    ).map((city) => (
+                      <option key={city} value={city}>
+                        {city}
                       </option>
                     ))}
                   </select>
@@ -245,11 +420,22 @@ function PersonalDeatils() {
                   <label className="SetLabel-Name">
                     <span>*</span>Category of Appointment
                   </label>
-                  <select name="job_category" className="set-dropdown">
-                    <option value="">Select Category</option>
-                    <option value="">Category 1</option>
-                    <option value="">Category 2</option>
-                    <option value="">Category 3</option>
+                  <select
+                    id="categoryDropdown"
+                    className="set-dropdown"
+                    value={selectedCategory}
+                    onChange={handleCategoryChange}
+                    required
+                  >
+                    <option value="">Select a category</option>
+                    {categories.map((category) => (
+                      <option
+                        key={category.category_name}
+                        value={category.category_name}
+                      >
+                        {category.category_name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -262,14 +448,17 @@ function PersonalDeatils() {
                     <span>*</span>Post Applied For
                   </label>
                   <select
-                    name="applied_post_masters_id"
+                    id="postDropdown"
+                    onChange={handlePostChange}
                     className="set-dropdown"
+                    required
                   >
-                    <option value="">Select Post</option>
-                    <option value="">Software Engineer</option>
-                    <option value="">Marketing Specialist</option>
-                    <option value="">Project Manager</option>
-                    <option value="">Data Analyst</option>
+                    <option value="">Select a post</option>
+                    {posts.map((post) => (
+                      <option key={post.post_name} value={post.post_name}>
+                        {post.post_name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -284,13 +473,20 @@ function PersonalDeatils() {
                     <span> </span> Sub Post Applied For
                   </label>
                   <select
-                    name="applied_subpost_masters_id"
+                    id="subpostDropdown"
                     className="set-dropdown"
+                    value={selectedSubpost}
+                    onChange={handleSubpostChange}
                   >
-                    <option value="">Select Sub Post</option>
-                    <option value="">Sub Post 1</option>
-                    <option value="">Sub Post 2</option>
-                    <option value="">Sub Post 3</option>
+                    <option value="">Select a subpost</option>
+                    {subposts.map((subpost) => (
+                      <option
+                        key={subpost.subpost_name}
+                        value={subpost.subpost_name}
+                      >
+                        {subpost.subpost_name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -301,22 +497,30 @@ function PersonalDeatils() {
                   <label className="SetLabel-Name">
                     <span>*</span>Subject
                   </label>
-                  <select name="subjects_master_id" className="set-dropdown">
-                    <option value="">Select Subject</option>
-                    <option value="">Mathematics</option>
-                    <option value="">Physics</option>
-                    <option value="">Computer Science</option>
-                    <option value="">English Literature</option>
+                  <select
+                    id="subjectDropdown"
+                    className="set-dropdown"
+                    value={selectedSubject}
+                    onChange={handleSubjectChange}
+                    required
+                  >
+                    <option value="">Select a subject</option>
+                    {subjects.map((subject) => (
+                      <option key={subject.id} value={subject.subject_name}>
+                        {subject.subject_name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
             </div>
-            {/* <button type="submit">submit</button> */}
+            <button style={{ width: "100px" }} type="submit">
+              Submit
+            </button>
           </form>
         </div>
       </div>
     </>
   );
 }
-
 export default PersonalDeatils;

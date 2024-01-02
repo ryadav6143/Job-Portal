@@ -1,22 +1,24 @@
 import React from 'react'
+import "./EditQualificationForm.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faEnvelope,
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
-import "./UserQualification.css";
 
-function UserQualification() {
+function EditQualificationForm() {
   return (
-    <>
-      <div className="container">
+   <>
+    <div className="container">
         <div>
           <div>
             <h5 className="UD-heading">Academic Professional Qualifications</h5>
             <p className="UD-subheading">
             Please fill your information so we can get in touch with you.
             </p>
+
+            {/* Add edit button */}
           </div>
 
           {/* High School */}
@@ -1069,8 +1071,8 @@ function UserQualification() {
 
         </div>
       </div>
-    </>
+   </>
   )
 }
 
-export default UserQualification
+export default EditQualificationForm
