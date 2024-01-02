@@ -264,7 +264,7 @@
 
 .row-1 div:nth-child(1) {
   border-top-right-radius: 50%;
-  padding: 5px;
+  padding-left: 20px;
   p {
     font-size: 30px;
   }
@@ -285,7 +285,6 @@
   background-color: transparent !important;
   background-image: url("../../assets/images/Chinmay\ Arondekar.jfif");
   background-size: cover;
-  background-position: center;
 }
 .row-1 div:nth-child(2):hover {
   border-top-right-radius: 50%;
@@ -294,7 +293,7 @@
 }
 .row-1 div:nth-child(3) {
   text-align: end;
-  padding: 5px;
+  padding-right: 20px;
   border-bottom-left-radius: 50%;
   p {
     font-size: 30px;
@@ -327,7 +326,7 @@
 }
 .row-2 div:nth-child(1) {
   border-bottom-right-radius: 50%;
-  padding: 5px;
+  padding-left: 20px;
   p {
     font-size: 30px;
   }
@@ -343,7 +342,7 @@
   border-top-right-radius: 0% !important;
   border-radius: 50px !important;
   transition: ease 0.3s;
-  padding: 10px;
+  padding: 20px;
 }
 .row-2 div:nth-child(2) {
   border-radius: 50%;
@@ -357,44 +356,38 @@
 }
 .row-2 div:nth-child(3) {
   height: 820px;
-  border-top-right-radius: 45%;
-  border-top-left-radius: 45%;
-  background-image: url("../../assets/images/Ruby\ Bhat.jfif");
+  /* border-top-right-radius: 45%;
+  border-top-left-radius: 45%; */
+  background-image: url("../../assets/images/Ruby\ Bhat.jpg");
   background-size: cover;
   background-position: center;
+  border-radius: 200px 200px 200px 0px;
 }
 .row-2 div:nth-child(3):hover {
   height: 820px;
-  border-bottom-right-radius: 45%;
-  border-bottom-left-radius: 45%;
+  border-radius: 200px;
   transition: all 0.3s;
 }
-/* ..................Row-3.................................... */
-.row-3 {
-  display: flex;
-  flex-wrap: wrap;
-  cursor: pointer;
-  margin-left: 9.1%;
-  margin-top: -27% !important;
-
-  div {
-    width: 818px;
-    height: 410px;
-    background-color: grey;
-    margin: 2px;
-    border-top-right-radius: 200px;
-    border-bottom-left-radius: 200px;
-    background-image: url(../../assets/images/Mohsin\ Ali.jpg);
-    background-size: cover;
-    background-position: top;
-  }
+.row-2 div:nth-child(4) {
+  margin-top: -407px;
+  border-top-right-radius: 200px;
+  border-bottom-left-radius: 200px;
+  background-image: url(../../assets/images/Mohsin\ Ali.jpg);
+  background-size: cover;
+  background-position: top;
+  padding-left: 54% !important;
+  margin-left: -27.5%;
 }
-.row-3 div:hover {
+.row-2 div:nth-child(4):hover {
   transition: 0.3s ease;
   border-radius: 0 !important;
   border-top-left-radius: 200px !important;
   border-bottom-right-radius: 200px !important;
 }
+.row-2 div:nth-child(5) {
+  display: none;
+}
+
 /* ....................................MEDICAPS STAFF SECTION............................... */
 
 @media only screen and (max-width: 767px) {
@@ -484,6 +477,7 @@
   .row-1,
   .row-2 {
     div {
+      padding-left: 5px !important;
       width: 160px;
       height: 180px;
     }
@@ -502,17 +496,37 @@
   .row-1 div:nth-child(3) {
     position: absolute;
     display: none;
+    background-color: green;
+    /* margin-left: 43%; */
+  }
+  .row-2 div:nth-child(1):hover {
+    border-radius: 0 !important;
+    padding: 0;
+    border-bottom-right-radius: 50% !important;
+
   }
 
   .row-2 div:nth-child(3) {
-    height: 384px;
+    height: 364px;
   }
-  .row-3 {
-    div {
-      display: none;
-    }
+  .row-2 div:nth-child(3):hover {
+    height: 364px;
   }
   .medi-staff {
     margin-bottom: 30%;
+  }
+  .row-2 div:nth-child(4) {
+    border-radius: 0 !important;
+    border-top-right-radius: 70px !important;
+    border-bottom-left-radius: 70px !important;
+    margin-top: 0px;
+    padding-left: 0 !important;
+    margin-left: 0;
+  }
+  .row-2 div:nth-child(5) {
+    display: block;
+    margin-left: 44%;
+    margin-top: -49%;
+    border-bottom-left-radius: 50%;
   }
 }

@@ -107,37 +107,37 @@ function Home() {
           </p>
         </div>
         <div className="medi-staff">
-        <div className="row-1">
-          <div>
-            <p>
-              THE <br /> HEADLINE
-            </p>
-            <button type="button">+</button>
+          <div className="row-1">
+            <div>
+              <p>
+                THE <br /> HEADLINE
+              </p>
+              <button type="button">+</button>
+            </div>
+            <div></div>
+            <div>
+              <p>
+                THE <br /> HEADLINE
+              </p>
+              <button type="button">+</button>
+            </div>
           </div>
-          <div>
-    
+          <div className="row-2">
+            <div>
+              <p>
+                THE <br /> HEADLINE
+              </p>
+              <button type="button">+</button>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            {/* <div></div> */}
           </div>
-          <div>
-            <p>
-              THE <br /> HEADLINE
-            </p>
-            <button type="button">+</button>
+          <div className="row-3">
+            <div></div>
           </div>
         </div>
-        <div className="row-2">
-          <div>
-            <p>
-              THE <br /> HEADLINE
-            </p>
-            <button type="button">+</button>
-          </div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-      <div className="row-3">
-        <div></div>
-      </div>
       </div>
 
       <div className="purpose">
