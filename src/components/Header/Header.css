@@ -6,6 +6,9 @@
     #4a0c14 97.92%
   );
 }
+.my-header {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 .marquee {
   color: white;
   letter-spacing: 2px;
@@ -27,14 +30,22 @@
   padding-left: 3%;
 }
 .nav-link {
-  color: black !important;
-  margin-left: 70px !important;
+  color: grey !important;
+  margin-left: 50px !important;
   font-size: 15px !important;
-  float: right;
   font-weight: bold !important;
 }
+.nav-link:focus {
+  background-color: rgba(0, 0, 0, 0.838);
+  color: white !important;
+  border-radius: 50px;
+}
+.user-link:focus {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: white !important;
+}
 .dropdown-menu[data-bs-popper] {
-  top:0 !important;
+  top: 0 !important;
   margin-top: -0.5rem;
   margin-left: 2.5rem;
 }
@@ -42,12 +53,13 @@
   display: block;
 }
 .dropdown-toggle::after {
-  color: white !important;
+  display: none;
 }
-.navbar-toggler-icon:focus{
-outline: none;
+
+.navbar-toggler-icon:focus {
+  outline: none;
 }
-.navbar-toggler-icon:focus:active{
+.navbar-toggler-icon:focus:active {
   outline: none;
 }
 .navbar-toggler-icon {
@@ -60,10 +72,66 @@ outline: none;
   background-position: center;
   background-size: 100%;
 }
+.navbar-collapse,
+.collapse {
+  margin-left: 16%;
+}
+
+#userlogo {
+  width: 20px;
+  height: 20px;
+}
 @media only screen and (max-width: 767px) {
   .medi-logo {
     width: 165px;
     height: 45px;
     margin-left: -13px;
+  }
+  .nav-link {
+    margin-left: 140px !important;
+    text-align: end;
+    margin-right: 10px;
+  }
+  .nav-link:focus {
+    background-color: transparent;
+    color: black !important;
+  }
+  .user-link:focus {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .dropdown-menu {
+    width: 150px;
+    float: right;
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .nav-link {
+    /* margin-left:140px !important; */
+    text-align: end;
+    margin-right: 10px;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  .nav-link {
+    text-align: end;
+    margin-right: 10px;
+  }
+}
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: landscape) {
+  .nav-link {
+    color: grey !important;
+    margin-left: -1px !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+  }
+}
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
+  .nav-link {
+    color: grey !important;
+    margin-left:-1px!important;
+    font-size: 12px !important;
+    font-weight: bold !important;
   }
 }

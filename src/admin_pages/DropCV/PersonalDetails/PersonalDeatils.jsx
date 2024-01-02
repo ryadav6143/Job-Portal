@@ -143,6 +143,17 @@ function PersonalDeatils({onFormSubmit}) {
       });
   }, []);
 
+  const fetchCitiesByCountry = async (countryCode) => {
+    try {
+      const response = await axios.get(
+        `http://api.geonames.org/searchJSON?country=${countryCode}&maxRows=10&username=YOUR_GEONAMES_USERNAME`
+      );
+      // setCities(response.data.geonames);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
+  };
+
   const handleCountryChange = (event) => {
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
@@ -309,8 +320,7 @@ function PersonalDeatils({onFormSubmit}) {
                   </select>
                 </div>
               </div>
-            </div>
-
+</div>
             <div className="row">
               <div className="col-md-6">
                 {/* Email */}

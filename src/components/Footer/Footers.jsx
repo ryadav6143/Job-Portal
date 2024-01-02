@@ -2,7 +2,7 @@ import React from "react";
 import "./Footers.css";
 import whitelogo from "../../assets/logos/med-logo-white.png";
 import facebook from "../../assets/logos/facebook.png";
-import instagram from "../../assets/logos/instagram-1.png";
+import instagram from "../../assets/logos/instagram.png";
 import twitter from "../../assets/logos/twitter.png";
 import youtube from "../../assets/logos/youtube.png";
 import linkedin from "../../assets/logos/linkedin.png";

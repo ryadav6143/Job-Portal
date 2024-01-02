@@ -18,16 +18,21 @@ function OTPVerification() {
               Enter OTP sent to xxxxxxxx90
             </p>
             <div className="otp-form">
-              <form action="">
-                <input type="text" placeholder="Enter OTP" />
+              <form action="" method="post">
+                <input
+                  type="text"
+                  name="otp"
+                  placeholder="Enter OTP"
+                  required
+                />
               </form>
             </div>
-            <button type="button" id="resend-btn">
+            <button type="submit" id="resend-btn">
               Resend OTP
             </button>
           </div>
         </div>
-        <button onClick={submitsuccess} type="button" id="otp-submit-btn">
+        <button onClick={submitsuccess} type="submit" id="otp-submit-btn">
           Submit
         </button>
       </div>

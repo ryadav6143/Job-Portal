@@ -5,8 +5,12 @@
   margin-left: 35%;
 }
 .is-background {
-  position: relative;
-  background-image: url("../../assets/images/Background2.JPG");
+  background: radial-gradient(
+      96.31% 96.31% at 54.31% 100%,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    url("../../assets/images/Background2.JPG");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -14,19 +18,10 @@
   padding-top: 300px;
   padding-bottom: 300px;
 }
-.is-background::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.547);
-}
 .data {
   font-size: 50px;
   font-family: "Playfair Display", serif;
-  color: black;
+  color: white;
   text-align: center;
   letter-spacing: 1px;
 }
@@ -54,18 +49,9 @@
 .is-header-logo {
   width: 25px;
   height: 25px;
-  margin-right: 1%;
+  margin-right: 2%;
 }
 .is-header a {
-  padding: 5%;
-  text-decoration: none;
-  color: black;
-  font-family: "Open Sans", sans-serif;
-  font-weight: bold;
-  font-size: 15px;
-}
-.is-header Link {
-  padding: 5%;
   text-decoration: none;
   color: black;
   font-family: "Open Sans", sans-serif;
@@ -113,10 +99,71 @@
   font-weight: 600;
 }
 @media only screen and (max-width: 767px) {
-.is-header{
-  text-align: left;
+  .is-header {
+    text-align: left;
+  }
+  .row div {
+    padding-bottom: 15px;
+  }
+  .is-header {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    text-align: start !important;
+  }
+  .header-item a {
+    margin-top: 10px;
+    font-size: 10px !important;
+    border: 1px solid rgba(128, 128, 128, 0.515);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .header-item div {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 15%;
+  }
+  .a1 {
+    padding-right: 49px !important;
+  }
+  .a11 {
+    padding-right: 42x !important;
+  }
 }
-.row div{
-  padding-bottom: 15px;
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .is-header {
+    margin-left: 10% !important;
+    margin-right: 10% !important;
+  }
 }
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  /* Your tablet styles for portrait orientation here */
+  .is-header {
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+  }
+  .is-header a {
+    font-size: 10px !important;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: landscape) {
+  .is-header {
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+  }
+  .is-header a {
+    font-size: 10px !important;
+  }
+}
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
+  .is-header {
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+  }
+  .is-header a {
+    font-size: 10px !important;
+  }
 }

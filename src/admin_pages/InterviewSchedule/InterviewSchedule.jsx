@@ -1,17 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import Header from "../../components/Header/Header";
+import Footers from "../../components/Footer/Footers";
 import "./InterviewSchedule.css";
 import logo1 from "../../assets/logos/academic.png";
 import logo2 from "../../assets/logos/administration.png";
 import logo3 from "../../assets/logos/research.png";
 import logo4 from "../../assets/logos/technical.png";
 import ScheduledAcademics from "./ScheduledAcademics/ScheduledAcademics";
-import ScheduledAdministration from"./ScheduledAdministration/ScheduledAdministration"
+import ScheduledAdministration from "./ScheduledAdministration/ScheduledAdministration";
 import ScheduledResearch from "./ScheduledResearch/ScheduledResearch";
 import ScheduledTechnical from "./ScheduledTechnical/ScheduledTechnical";
-import { useNavigate } from "react-router-dom";
+
 function InterviewSchedule() {
+  const component1 = () => <ScheduledAcademics></ScheduledAcademics>;
+  const component2 = () => <ScheduledResearch></ScheduledResearch>;
+  const component3 = () => <ScheduledAdministration></ScheduledAdministration>;
+  const component4 = () => <ScheduledTechnical></ScheduledTechnical>;
+
+
+  const [selectedComponent, setSelectedComponent] = useState();
+  const showComponent = (componentName) => {
+    setSelectedComponent(componentName);
+  };
+  let componentToShow;
+  switch (selectedComponent) {
+    case "Component1":
+      componentToShow = <ScheduledAcademics />;
+      break;
+    case "Component2":
+      componentToShow = <ScheduledResearch />;
+      break;
+    case "Component3":
+      componentToShow = <ScheduledAdministration />;
+      break;
+    case "Component4":
+      componentToShow = <ScheduledTechnical />;
+      break;
+    default:
+      componentToShow = null;
+      break;
+  }
+
   return (
     <>
+      <Header></Header>
       <div>
         <div className="is-background">
           <div className="data">
@@ -22,33 +54,35 @@ function InterviewSchedule() {
           </div>
         </div>
         <div className="is-header ">
-          <div className="row">
+          <div className="row header-item">
             <div className="col-md-3">
-              <a href="">
+              <a href="" className="a1 a11" onClick={() => showComponent(component1)}>
                 <img className="is-header-logo" src={logo1} />
                 ACADEMICS
               </a>
             </div>
             <div className="col-md-3">
-              <a href="">
+              <a href="" className="a1" onClick={() => showComponent(component2)}>
                 <img className="is-header-logo" src={logo3} />
                 RESEARCH
               </a>
             </div>
             <div className="col-md-3">
-              <a href="">
+              <a href="" onClick={() => showComponent(component3)}>
                 <img className="is-header-logo" src={logo2} />
                 ADMINISTRATION
               </a>
             </div>
             <div className="col-md-3">
-              <a href="">
+              <a href="" className="a1" onClick={() => showComponent(component4)}>
                 <img className="is-header-logo" src={logo4} />
                 TECHNICAL
               </a>
             </div>
           </div>
+         
         </div>
+        <div>{componentToShow}</div>
         <ScheduledAcademics></ScheduledAcademics>
         <ScheduledResearch></ScheduledResearch>
         <ScheduledAdministration></ScheduledAdministration>
@@ -64,11 +98,18 @@ function InterviewSchedule() {
             AMVenue:-Medi-Caps University A.B. Road, Pigdamber, Rau Indore
             453331
           </p>
-          <p>Contact Number:- 73131-11500, 73131-11501 (Monday to Saturday) 9 am to 5 pm</p>
-          <p>Facilities:- Residential, Medical, Transport, Pre-Primary School and Creche facilities available on campus</p>
+          <p>
+            Contact Number:- 73131-11500, 73131-11501 (Monday to Saturday) 9 am
+            to 5 pm
+          </p>
+          <p>
+            Facilities:- Residential, Medical, Transport, Pre-Primary School and
+            Creche facilities available on campus
+          </p>
           <p>Salary Shall not be constraint for deserving condidates.</p>
         </div>
       </div>
+      <Footers></Footers>
     </>
   );
 }

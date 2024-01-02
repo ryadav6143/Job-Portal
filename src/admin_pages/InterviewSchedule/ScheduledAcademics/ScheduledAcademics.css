@@ -10,9 +10,11 @@
 .table td {
   padding-top: 15px;
   padding-bottom: 15px;
+  text-align: center;
 }
 .SCA-table {
   padding: 3% 10% 1% 10%;
+  
 }
 .SCA-heading {
   font-size: 25px;

@@ -19,6 +19,10 @@
   }
   .logs {
     margin-right: 3%;
+    button{
+      background-color: transparent;
+      border: none;
+    }
   }
  
 
@@ -48,3 +52,67 @@
     }
   }
   
+
+.user-logo {
+  width: 200px;
+  height: 60px;
+}
+.logo-coloured {
+  margin-left: 3%;
+}
+.log-res {
+  width: 25px;
+  height: 25px;
+  margin: 15px;
+}
+.logs {
+  margin-right: 3%;
+}
+/* .......................................... */
+
+.set-menu a{
+  text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(112 112 112 / 78%);
+    padding-left: 10px;
+    letter-spacing: 0.5px;
+}
+.set-menu{
+  padding-left: 10% !important;
+  padding-right: 5px;
+}
+.set-menu li{
+  padding-top:15px;
+  padding-bottom: 15px;
+}
+
+.set-menu-icon{
+  color: rgb(112 112 112 / 78%);
+  font-size: 18px;
+}
+
+.set-menu a:focus{
+  color: maroon;
+}
+
+
+
+@media only screen and (max-width: 767px) {
+  .logo-coloured {
+    margin-left: 1%;
+  }
+  .logs {
+    margin-right: 0.1%;
+  }
+
+  .log-res {
+    width: 20px;
+    height: 20px;
+    margin: 15px;
+  }
+}
+
+
+
+

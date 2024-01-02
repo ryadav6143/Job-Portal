@@ -7,6 +7,7 @@ import InterviewShedule from "./admin_pages/InterviewSchedule/InterviewSchedule"
 import FAQ from"./admin_pages/FAQ/FAQ"
 import DropCV from "./admin_pages/DropCV/Dropcv"
 import ScheduledAcademics from "./admin_pages/InterviewSchedule/ScheduledAcademics/ScheduledAcademics";
+import ScheduledResearch from "./admin_pages/InterviewSchedule/ScheduledResearch/ScheduledResearch";
 import OTPVerification from "./admin_pages/DropCV/OTPVerifivation/OTPVerification";
 import Submitsuccess from "./admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 import JobProfile from "./admin_pages/JobProfile/JobProfile";
@@ -26,12 +27,20 @@ import CountryDemo from "./admin_pages/DropCV/PersonalDetails/CountryDemo";
 import UserDashboard from "./candidate_pages/Login/UserDashboard/UserDashboard"
 
 
+import ContactUs from "./admin_pages/Contactus/ContactUs";
+import EditPersonalDetails from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditPersonalDetails/EditPersonalDetails";
+import EditQualificationForm from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditQualificationForm/EditQualificationForm";
+import EditExperience from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditExperienceForm/EditExperience"; 
+import EditResearch from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditResearchForm/EditResearchForm";
+import EditProgramsForm from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditProgramsForm/EditProgramsForm";
+import EditReference from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditReference/EditReference";
+
 function App() {
   
   return (
     <>
       <Main>
-        <Header></Header>
+        {/* <Header></Header> */}
          <Routes>
            <Route exact path="/" element={<Home />}></Route>
            <Route path="current-opening" element={<CurrentOpening />}></Route>
@@ -56,10 +65,24 @@ function App() {
            <Route path="PersonalDeatils" element={< PersonalDetails />}></Route>      
            <Route path="adminpanel" element={< Adminpanel/>}></Route>      
            <Route path="userlogin" element={< UserLogin/>}></Route>      
-           <Route path="countrydemo" element={< CountryDemo/>}></Route>      
+           <Route path="countrydemo" element={< CountryDemo/>}></Route> 
+           {/* ----------------UserDashboard Routing source ---------------     */}
            <Route path="dashboard" element={< UserDashboard/>}></Route>      
+           <Route path="editpersonaldetails" element={< EditPersonalDetails/>}></Route>      
+           <Route path="editqualification" element={< EditQualificationForm/>}></Route>      
+           <Route path="editexperience" element={<EditExperience/>}></Route>      
+           <Route path="editresearch" element={< EditResearch/>}></Route>      
+           <Route path="editprogram" element={< EditProgramsForm/>}></Route>      
+           <Route path="editreference" element={< EditReference/>}></Route>      
+           {/* ------------------ end UserDashboard Routing source--------------- */}
+         
+           <Route path="adminpanel" element={< Adminpanel/>}></Route>  
+         
+           <Route path="contact-us" element={< ContactUs/>}></Route>  
+         
+         
          </Routes>
-         <Footers></Footers>
+         {/* <Footers></Footers> */}
        </Main>
     </>
    );

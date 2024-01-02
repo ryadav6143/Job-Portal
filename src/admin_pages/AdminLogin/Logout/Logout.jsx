@@ -1,14 +1,18 @@
-import React from 'react'
-import "./Logout.css"
+import React from "react";
+import "./Logout.css";
+import AdminDashboard from "../AdminDashboard/AdminDashboard";
 
-
-function Logout({handleLogout}) {
-  
+function Logout({ handleLogout }) {
   return (
-    <div>
-        <button onClick={handleLogout}>LogOut</button>
-    </div>
-  )
+    <>
+      <div id="logout-btn">
+        <button onClick={handleLogout}>LOGOUT</button>
+      </div>
+      <div>
+     <AdminDashboard></AdminDashboard>
+      </div>
+    </>
+  );
 }
 
-export default Logout
+export default Logout;
