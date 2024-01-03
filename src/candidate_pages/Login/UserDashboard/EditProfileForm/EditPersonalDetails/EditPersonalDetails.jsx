@@ -1,45 +1,79 @@
 
 import "./EditPersonalDetails.css"
-// import React, { useState } from 'react';
-// import profileimg from "../../../../../assets/images/images.jpeg"
+import React, { useState, useRef } from 'react';
+
+import profileimg from "../../../../../assets/images/images.jpeg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faEnvelope,
   faMobile,
+
 } from "@fortawesome/free-solid-svg-icons";
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+
 
 function EditPersonalDetails() {
-  // const [profileImage, setProfileImage] = useState(null);
+ 
 
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
+  const [selectedImage, setSelectedImage] = useState(null);
+  const fileInputRef = useRef(null);
 
-  //   if (file) {
-  //     const reader = new FileReader();
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
 
-  //     reader.onloadend = () => {
-  //       setProfileImage(reader.result);
-  //     };
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
+    }
+  };
 
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
+  const handleChoosePictureClick = () => {
+    fileInputRef.current.click();
+  };
   return (
     <>
-     {/* <div>
+    <div style={{ marginTop:"7%"}}>
+
+   
+     <div style={{paddingLeft:"70px"}}>
       
       {profileimg && (
-        <img src={profileimg} alt="Profile" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
+        <img src={profileimg} alt="Profile" style={{ width: '120px', height: '120px', borderRadius: '50%' }} />
+        
       )}
-      <input  type="file" accept="image/*" onChange={handleImageChange} />
-    </div> */}
+       <div>
+      {/* Hidden file input */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*"
+        onChange={handleImageChange}
+        style={{ display: 'none' }}
+      />
+
+      {/* Button to trigger file input */}
+      <button className="choose-img" onClick={handleChoosePictureClick}>
+      Change Profile Picture
+      </button>
+
+      {selectedImage && (
+        <div>
+          <p>Selected Profile Picture:</p>
+          <img
+            src={selectedImage}
+            alt="Selected Profile"
+            style={{ maxWidth: '200px' }}
+          />
+        </div>
+      )}
+    </div>
+    </div>
 
 
-<div className="container">
+<div className="container" style={{marginTop:"30px",paddingLeft:"50px"}}>
         <div>
           <div>
-            <h5 className="UD-heading">Personal Details </h5>
+            <h5 className="UD-heading">Personal Details &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} /></h5>
             <p className="UD-subheading">
               Please fill your information so we can get in touch with you.
             </p>
@@ -92,7 +126,7 @@ function EditPersonalDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Post Applied For (If Others, Please Specify)
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select name="" className="UD-set-dropdown" >
                   <option value="">Select Post</option>
                   <option value="">Sub Post 1</option>
                   <option value="">Sub Post 2</option>
@@ -434,6 +468,8 @@ function EditPersonalDetails() {
   <button className="savebtn" type="button">Save Changes</button>
 </div>
         </div>
+      </div>
+
       </div>
     </>
   )

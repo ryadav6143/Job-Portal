@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "../../components/Header/Header";
 import Footers from "../../components/Footer/Footers";
 import "./Home.css";
@@ -6,10 +6,6 @@ import disktype from "../../assets/logos/bullet.png";
 import logo1 from "../../assets/logos/academic.png";
 import logo2 from "../../assets/logos/research.png";
 import logo3 from "../../assets/logos/administration.png";
-import ChinmayArondekar from "../../assets/images/Chinmay Arondekar.jfif";
-import Hemantpal from "../../assets/images/Hemant pal.jfif";
-import rubybhat from "../../assets/images/Ruby Bhat.jfif";
-import mohsinali from "../../assets/images/Mohsin Ali.jpg";
 import medicircular from "../../assets/logos/medi-circular-logo.png";
 import women from "../../assets/images/women.png";
 import men from "../../assets/images/men.png";
@@ -18,6 +14,39 @@ import mask2 from "../../assets/images/mask2.png";
 import mask3 from "../../assets/images/mask3.png";
 
 function Home() {
+  const [activeCard, setActiveCard] = useState(0); // Initialize with card2 as active
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  // ..............................................
+  useEffect(() => {
+    const checkMobileView = () => {
+      const mediaQuery = window.matchMedia(
+        "(max-width: 767px),(min-device-width: 768px) and (max-device-width: 1024px)and (orientation: landscape),(min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait),(min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: landscape)(min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait)"
+      );
+      setIsMobileView(mediaQuery.matches);
+    };
+
+    checkMobileView(); // Check on initial render
+
+    const resizeHandler = () => {
+      checkMobileView(); // Check whenever window is resized
+    };
+
+    window.addEventListener("resize", resizeHandler);
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler); // Clean up event listener
+    };
+  }, []);
+  // ..............................................
+
+  const next = () => {
+    setActiveCard((activeCard % 4) + 1);
+  };
+
+  const previous = () => {
+    setActiveCard(activeCard === 1 ? 4 : activeCard - 1);
+  };
   return (
     <>
       <Header></Header>
@@ -67,10 +96,9 @@ function Home() {
       <div className="perks">
         <div className="perks-heading">
           <p>
-            PERKS OF JOINING <br />{" "}
+            PERKS OF JOINING <br />
             <span>
-              {" "}
-              MEDI-CAPS <br /> UNIVERSITY{" "}
+              MEDI-CAPS <br /> UNIVERSITY
             </span>
           </p>
         </div>
@@ -139,7 +167,50 @@ function Home() {
           </div>
         </div>
       </div>
-
+      <div className="hr-corner">
+        <div className="hr-conrer-heading">
+          <p>HUMAN RESOURCE</p>
+          <p>
+            INSIGHT INTO HUMAN <br /> RESOURCES
+          </p>
+        </div>
+        <div className="buttons">
+          <div>
+            <button data-actin="next" onClick={next}>
+              &#8592;
+            </button>
+          </div>
+          <div>
+            <button data-actin="previous" onClick={previous}>
+              &#8594;
+            </button>
+          </div>
+        </div>
+        <div className="slider-imgs">
+          {isMobileView ? (
+            <div className={`card${activeCard} active-card`}></div>
+          ) : (
+            <>
+              <div className={`card${(activeCard % 4) + 1}`}></div>
+              <div
+                className={`card${
+                  (activeCard % 4) + 2 === 5 ? 1 : (activeCard % 4) + 2
+                } active-card`}
+              ></div>
+              <div
+                className={`card${
+                  (activeCard % 4) + 3 === 5 ? 1 : (activeCard % 4) + 3
+                }`}
+              ></div>
+              <div
+                className={`card${
+                  (activeCard % 4) + 4 === 5 ? 1 : (activeCard % 4) + 4
+                }`}
+              ></div>
+            </>
+          )}
+        </div>
+      </div>
       <div className="purpose">
         <div className="purpose-headings">
           <p>OUR PEOPLE WITH PURPOSE</p>

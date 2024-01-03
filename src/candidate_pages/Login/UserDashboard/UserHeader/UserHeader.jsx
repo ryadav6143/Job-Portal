@@ -1,64 +1,167 @@
-import React from 'react'
-import "./UserHeader.css"
-
+import React, { useEffect, useState } from "react";
 import "./UserHeader.css";
 import logo from "../../../../assets/logos/medi-logo.png";
 import logout from "../../../../assets/logos/Logout.png";
 import reset from "../../../../assets/logos/Reset.png";
-import EditPersonalDetails from '../EditProfileForm/EditPersonalDetails/EditPersonalDetails';
-import pdicon from "../../../../assets/logos/pdicon.png"
+import EditPersonalDetails from "../EditProfileForm/EditPersonalDetails/EditPersonalDetails";
+import pdicon from "../../../../assets/logos/pdicon.png";
 import { Link } from 'react-router-dom';
+import { Button } from "@mui/material";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faIdCardClip,
+  faBuildingColumns,
+  faBriefcase,
+  faSearch,
+  faUsers,
+  faFile,
+} from "@fortawesome/free-solid-svg-icons";
+import EditQualificationForm from "../EditProfileForm/EditQualificationForm/EditQualificationForm";
+import EditExperience from "../EditProfileForm/EditExperienceForm/EditExperience";
+import EditResearchForm from "../EditProfileForm/EditResearchForm/EditResearchForm";
+import EditProgramsForm from "../EditProfileForm/EditProgramsForm/EditProgramsForm";
+import EditReference from "../EditProfileForm/EditReference/EditReference";
 
 
 
-function UserHeader({ isOpen, onClose }){
+
+
+
+function UserHeader() {
+
+  const [screen, setScreen] = useState(0);
+  const [isOpen, setIsOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(()=> {
+    if(window.innerWidth < 768){
+      setIsOpen(false)
+      setIsMobile(true)
+    }
+  },[])
+
+  const handleSideBar = () => {
+    if(isOpen){
+      setIsOpen(false)
+    }else {
+      setIsOpen(true)
+    }
+  }
+
+  const renderComponent = ()=> {
+    switch (screen) {
+      case 0:
+        return <EditPersonalDetails />;
+        break;
+      case 1:
+        return <EditQualificationForm />;
+        break;
+      case 2:
+        return <EditExperience />;
+        break;
+      case 3:
+        return <EditResearchForm />;
+        break;
+        case 4:
+          return  <EditProgramsForm />;
+          break;
+          case 5:
+            return  <EditReference />;
+            break;
+      default:
+        return  <EditPersonalDetails />;
+        break;
+    }
+  }
+  
   return (
     <>
-
-    {/* ---------------header start------------ */}
-    <div className="user-header">
-    <div className="logo-coloured">
-      <img src={logo} className="user-logo" />
-    </div>
-    <div className="logs">
-      <img src={reset} className="log-res" />
-      <img src={logout} className="log-res" />
-    </div>
-  </div>
-  {/* ---------header end----------- */}
-
-
-<div className='row1'>
-  <div className='col-md-2'>
-    
-  <div className='set-sidebar'>
-    <div>
-
-    <ul style={{listStyle:'none'}}>
-    <Link to="" ><img src={pdicon}></img>Personal  Details</Link>
-    <Link to="" >Academic Professional Qualifications</Link>
-    <Link to="" >Experience</Link>
-    <Link to="" >Research Work</Link>
-    <Link to="" >Seminars/Short Term Courses/Summer Schools/Winter Schools</Link>
-    <Link to="" >Reference/ Resume</Link>
-    <Link to="" >Current  Openings</Link>
-   </ul>
-    </div>
-   
-  </div>
-  </div>
-  <div className='col-md-10'>
-  <EditPersonalDetails></EditPersonalDetails>
-  </div>
-
-</div>
- 
-
-  
-</>
-);
-
-  
+     
+        {/* ---------------header start------------ */}
+        <div className="user-header">
+          <div className="logo-coloured">
+            <img src={logo} className="user-logo" />
+          </div>
+          <div className="logs">
+            <button type="reset">
+              <img src={reset} className="log-res" />
+            </button>
+            <img src={logout} className="log-res" />
+          </div>
+        </div>
+        {/* ---------header end----------- */}
+        {isMobile && <Button onClick={()=> handleSideBar()}>Sidebar</Button>}
+        <div className={`row1 ${isOpen ? "isClose" : ""}`}>
+          <div className="col-md-2">
+            <div className="set-sidebar">
+              <div>
+                <nav>
+                  <ul className="set-menu" style={{ listStyle: "none" }}>
+                    <li>
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faIdCardClip}
+                      />
+                      <a onClick={()=> setScreen(0)}>
+                        &nbsp; Personal Details
+                      </a>
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faBuildingColumns}
+                      />
+                      <a onClick={()=> setScreen(1)}>
+                        &nbsp; Academic Professional Qualifications
+                      </a>
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faBriefcase}
+                      />
+                      <a onClick={()=> setScreen(2)}>&nbsp; Experience</a>
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faSearch}
+                      />
+                      <a onClick={()=> setScreen(3)}>&nbsp; Research Work</a>
+                    </li>
+                    <li>
+                      {" "}
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faUsers}
+                      />
+                      <a onClick={()=> setScreen(4)}>
+                        &nbsp; Seminars/Short Term Courses/Summer Schools/Winter
+                        Schools
+                      </a>
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faFile}
+                      />
+                      <a onClick={()=> setScreen(5)}>&nbsp; Reference/ Resume</a>
+                    </li>
+                    <li>
+                      <a href="/current-opening">Current Openings</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-10">
+            {renderComponent()}
+          </div>
+        </div>
+     
+    </>
+  );
 }
-
-export default UserHeader
+export default UserHeader;

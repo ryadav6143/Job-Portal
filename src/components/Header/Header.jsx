@@ -105,7 +105,7 @@ function Header() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/userlogin" className="nav-link user-link">
+                  <Link to="/user-login" className="nav-link user-link">
                     <img src={user} id="userlogo" alt="medi-logo" />
                   </Link>
                 </li>

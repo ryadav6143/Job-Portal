@@ -6,14 +6,17 @@ import {
   faEnvelope,
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
+import UserHeader from '../../UserHeader/UserHeader';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 function EditQualificationForm() {
   return (
    <>
+ 
     <div className="container">
         <div>
           <div>
-            <h5 className="UD-heading">Academic Professional Qualifications</h5>
+            <h5 className="UD-heading">Academic Professional Qualifications &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} /></h5>
             <p className="UD-subheading">
             Please fill your information so we can get in touch with you.
             </p>
@@ -1067,7 +1070,9 @@ function EditQualificationForm() {
            </div>
  
           
-          
+           <div>
+  <button className="savebtn" type="button">Save Changes</button>
+</div>
 
         </div>
       </div>

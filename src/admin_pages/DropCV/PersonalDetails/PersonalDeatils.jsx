@@ -9,7 +9,7 @@ import {
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
 
-function PersonalDeatils({ onFormSubmit }) {
+function PersonalDeatils({onFormSubmit}) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -142,6 +142,17 @@ function PersonalDeatils({ onFormSubmit }) {
         console.error("Error fetching countries:", error);
       });
   }, []);
+
+  const fetchCitiesByCountry = async (countryCode) => {
+    try {
+      const response = await axios.get(
+        `http://api.geonames.org/searchJSON?country=${countryCode}&maxRows=10&username=YOUR_GEONAMES_USERNAME`
+      );
+      // setCities(response.data.geonames);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
+  };
 
   const handleCountryChange = (event) => {
     const countryValue = event.target.value;
@@ -309,7 +320,7 @@ function PersonalDeatils({ onFormSubmit }) {
                   </select>
                 </div>
               </div>
-            </div>
+</div>
             <div className="row">
               <div className="col-md-6">
                 {/* Email */}
