@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UserHeader.css";
 import logo from "../../../../assets/logos/medi-logo.png";
 import logout from "../../../../assets/logos/Logout.png";
@@ -6,6 +6,7 @@ import reset from "../../../../assets/logos/Reset.png";
 import EditPersonalDetails from "../EditProfileForm/EditPersonalDetails/EditPersonalDetails";
 import pdicon from "../../../../assets/logos/pdicon.png";
 import { Link } from 'react-router-dom';
+import { Button } from "@mui/material";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,46 +22,66 @@ import EditExperience from "../EditProfileForm/EditExperienceForm/EditExperience
 import EditResearchForm from "../EditProfileForm/EditResearchForm/EditResearchForm";
 import EditProgramsForm from "../EditProfileForm/EditProgramsForm/EditProgramsForm";
 import EditReference from "../EditProfileForm/EditReference/EditReference";
-import CurrentOpening from "../../../../admin_pages/CurrentOpening/CurrentOpening";
-
-
-
 
 
 
 function UserHeader() {
-  const [selectedComponent, setSelectedComponent] = useState();
-  const showComponent = (componentName) => {
-    setSelectedComponent(componentName);
+
+  const [screen, setScreen] = useState(0);
+  const [isOpen, setIsOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  
+  const handleReset = () => {
+    const form = document.getElementById("myForm");
+
+    if (form) {
+      form.reset();
+    }
   };
-  let componentToShow;
-  switch (selectedComponent) {
-    case "Component1":
-      componentToShow = <EditPersonalDetails />;
-      break;
-    case "Component2":
-      componentToShow = <EditQualificationForm />;
-      break;
-    case "Component3":
-      componentToShow = <EditExperience />;
-      break;
-    case "Component4":
-      componentToShow = <EditResearchForm />;
-      break;
-      
-    case "Component5":
-      componentToShow = <EditProgramsForm />;
-      break;
-      
-    case "Component6":
-      componentToShow = <EditReference />;
-      break;
-      
- 
-      
-    default:
-      componentToShow = <EditPersonalDetails />;
-      break;
+
+
+
+
+  useEffect(()=> {
+    if(window.innerWidth < 768){
+      setIsOpen(false)
+      setIsMobile(true)
+    }
+  },[])
+
+  const handleSideBar = () => {
+    if(isOpen){
+      setIsOpen(false)
+    }else {
+      setIsOpen(true)
+    }
+  }
+
+  const renderComponent = ()=> {
+    switch (screen) {
+      case 0:
+        return <EditPersonalDetails />;
+        break;
+      case 1:
+        return <EditQualificationForm />;
+        break;
+      case 2:
+        return <EditExperience />;
+        break;
+      case 3:
+        return <EditResearchForm />;
+        break;
+        case 4:
+          return  <EditProgramsForm />;
+          break;
+          case 5:
+            return  <EditReference />;
+            break;
+      default:
+        return  <EditPersonalDetails />;
+        break;
+    }
   }
   
   return (
@@ -72,16 +93,21 @@ function UserHeader() {
             <img src={logo} className="user-logo" />
           </div>
           <div className="logs">
-            <button type="reset">
+            <button onClick={handleReset} type="reset">
               <img src={reset} className="log-res" />
             </button>
+            <button>
             <img src={logout} className="log-res" />
+            </button>
+            
           </div>
         </div>
         {/* ---------header end----------- */}
+        {isMobile && <Button className="sidebar-btn"  onClick={()=> handleSideBar()}>☰ </Button>}
 
+        {/* ------------sidebar start----------------- */}
         <div className="row1">
-          <div className="col-md-2">
+          <div className={`col-md-2 ${isOpen ? "isClose" : ""}`}>
             <div className="set-sidebar">
               <div>
                 <nav>
@@ -91,7 +117,7 @@ function UserHeader() {
                         className="set-menu-icon"
                         icon={faIdCardClip}
                       />
-                      <a href=""  onClick={() => showComponent("Component1")}>
+                      <a onClick={()=> setScreen(0)}>
                         &nbsp; Personal Details
                        
                       </a>
@@ -101,7 +127,7 @@ function UserHeader() {
                         className="set-menu-icon"
                         icon={faBuildingColumns}
                       />
-                      <a href=""  onClick={() => showComponent("Component2")}>
+                      <a onClick={()=> setScreen(1)}>
                         &nbsp; Academic Professional Qualifications
                        
                       </a>
@@ -111,14 +137,14 @@ function UserHeader() {
                         className="set-menu-icon"
                         icon={faBriefcase}
                       />
-                      <a href="/editexperience">&nbsp; Experience</a>
+                      <a onClick={()=> setScreen(2)}>&nbsp; Experience</a>
                     </li>
                     <li>
                       <FontAwesomeIcon
                         className="set-menu-icon"
                         icon={faSearch}
                       />
-                      <a href="/editresearch">&nbsp; Research Work</a>
+                      <a onClick={()=> setScreen(3)}>&nbsp; Research Work</a>
                     </li>
                     <li>
                       {" "}
@@ -126,7 +152,7 @@ function UserHeader() {
                         className="set-menu-icon"
                         icon={faUsers}
                       />
-                      <a href="/editprogram">
+                      <a onClick={()=> setScreen(4)}>
                         &nbsp; Seminars/Short Term Courses/Summer Schools/Winter
                         Schools
                       </a>
@@ -136,22 +162,21 @@ function UserHeader() {
                         className="set-menu-icon"
                         icon={faFile}
                       />
-                      <a href="/editreference">&nbsp; Reference/ Resume</a>
+                      <a onClick={()=> setScreen(5)}>&nbsp; Reference/ Resume</a>
                     </li>
                     <li>
-                      <a href="/current-opening">Current Openings</a>
+                      <a href="/current-opening" style={{textDecoration:"underline"}}>Current Openings</a>
                     </li>
                   </ul>
                 </nav>
               </div>
             </div>
           </div>
-          <div className="col-md-10">
-            <EditPersonalDetails></EditPersonalDetails>
-          
+          <div className="col-md-10" >
+            {renderComponent()}
           </div>
         </div>
-
+{/* --------------------sidebar end------------------------------ */}
         
      
     </>

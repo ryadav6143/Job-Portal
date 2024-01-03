@@ -12,8 +12,8 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 function EditQualificationForm() {
   return (
    <>
- 
-    <div className="container">
+ <form id="myForm">
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
         <div>
           <div>
             <h5 className="UD-heading">Academic Professional Qualifications &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} /></h5>
@@ -37,7 +37,7 @@ function EditQualificationForm() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Country
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select required name="" className="UD-set-dropdown">
                   <option value="">Select country</option>
                   <option value=""> country</option>
                   <option value=""> country</option>
@@ -180,7 +180,7 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span>*</span> Country
                  </label>
-                 <select name="" className="UD-set-dropdown">
+                 <select required name="" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
@@ -364,8 +364,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+              
                  ></input>
               
                </div>
@@ -384,7 +383,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                   
                  ></input>
               
                </div>
@@ -405,7 +404,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                  
                  ></input>
               
                </div>
@@ -424,7 +423,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                   
                  ></input>
               
                </div>
@@ -443,7 +442,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                   
                  ></input>
               
                </div>
@@ -464,7 +463,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                   
                  ></input>
               
                </div>
@@ -483,7 +482,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                   
                  ></input>
               
                </div>
@@ -528,7 +527,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                   
                  ></input>
               
                </div>
@@ -547,7 +546,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                  
                  ></input>
               
                </div>
@@ -567,8 +566,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+                 
                  ></input>
               
                </div>
@@ -587,7 +585,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                
                  ></input>
               
                </div>
@@ -606,7 +604,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                  
                  ></input>
               
                </div>
@@ -627,7 +625,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                   
                  ></input>
               
                </div>
@@ -646,7 +644,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                
                  ></input>
               
                </div>
@@ -691,7 +689,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                   
                  ></input>
               
                </div>
@@ -709,8 +707,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+                  
                  ></input>
               
                </div>
@@ -731,7 +728,6 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
                  ></input>
               
                </div>
@@ -750,7 +746,6 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
                  ></input>
               
                </div>
@@ -769,7 +764,6 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
                  ></input>
               
                </div>
@@ -789,8 +783,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+           
                  ></input>
               
                </div>
@@ -809,7 +802,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                 
                  ></input>
               
                </div>
@@ -852,8 +845,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+              
                  ></input>
               
                </div>
@@ -871,8 +863,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+              
                  ></input>
               
                </div>
@@ -892,8 +883,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+                  
                  ></input>
               
                </div>
@@ -911,8 +901,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+                  
                  ></input>
               
                </div>
@@ -930,8 +919,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+                 
                  ></input>
               
                </div>
@@ -951,8 +939,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+                  
                  ></input>
               
                </div>
@@ -971,7 +958,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                 
                  ></input>
               
                </div>
@@ -1001,7 +988,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                  
                  ></input>
               
                </div>
@@ -1020,7 +1007,7 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
+                  
                  ></input>
               
                </div>
@@ -1039,7 +1026,6 @@ function EditQualificationForm() {
                    name=""
                    id=""
                    
-                   required
                  ></input>
               
                </div>
@@ -1059,8 +1045,7 @@ function EditQualificationForm() {
                    placeholder=" "
                    name=""
                    id=""
-                   
-                   required
+                
                  ></input>
               
                </div>
@@ -1076,6 +1061,7 @@ function EditQualificationForm() {
 
         </div>
       </div>
+      </form>
    </>
   )
 }

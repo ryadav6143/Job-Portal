@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import "./EditResearchForm.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,17 +8,39 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 function EditResearchForm() {
+  const [identifiers, setIdentifiers] = useState([{}]);
+  const [publications, setPublications] = useState([{}]);
+  const [applications, setApplications] = useState([{}]);
+ 
+
+  const handleAddIdentifier = () => {
+    setIdentifiers([...identifiers, {}]);
+  };
+
+  const handleAddPublication = () => {
+    setPublications([...publications, {}]);
+  };
+
+  const handleAddApplication = () => {
+    setApplications([...applications, {}]);
+  };
+
+ 
   return (
     <>
-    <div className="container">
+    <form id='myForm'>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
       <div>
         <div>
-          <h5 className="UD-heading">Research Work &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} /></h5>
+          <h5 className="UD-heading">Research Work &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} />  
+          <button  onClick={handleAddIdentifier} style={{marginRight:"30px"}} type="button" className="plus-button">+</button></h5>
           <p className="UD-subheading">
             Please fill your information so we can get in touch with you.
           </p>
         </div>
 
+        {identifiers.map((identifier, index) => (
+<div key={index}>
         <div className="row">
           <div className="col-md-4">
             {/* ORCID Id*/}
@@ -26,7 +48,7 @@ function EditResearchForm() {
               <label className="UD-SetLabel-Name">
                 <span></span> ORCID Id
               </label>
-              <select name="" className="UD-set-dropdown">
+              <select name={`orcidId_${index}`}className="UD-set-dropdown">
                 <option value="">Select Id</option>
                 <option value=""> Id 1</option>
                 <option value=""> Id 2</option>
@@ -45,9 +67,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`scopusId_${index}`}
+                id={`scopusId_${index}`}
+               
               ></input>
             </div>
           </div>
@@ -62,21 +84,28 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`researchId_${index}`}
+                id={`researchId_${index}`}
+                
               ></input>
             </div>
           </div>
         </div>
+        </div>
+        ))}
 
         {/* Journal Publication */}
 
+
+
         <div>
-          <p className="HS-heading">Journal Publication</p>
+          <p className="HS-heading">Journal Publication <button onClick={handleAddPublication}
+ type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        {publications.map((publication, index) => (
+<div key={index}>
+        <div className="row" >
           <div className="col-md-4">
             {/* Year*/}
             <div className="UD-form-section">
@@ -87,9 +116,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`year_${index}`}
+                id={`year_${index}`}
+               
               ></input>
             </div>
           </div>
@@ -104,9 +133,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`title_${index}`}
+                id={`title_${index}`}
+                
               ></input>
             </div>
           </div>
@@ -116,22 +145,22 @@ function EditResearchForm() {
             <div className="UD-form-section">
               <label className="UD-SetLabel-Name">
                 <span></span>Author Role/ Inventor
-                <button type="button" className="plus-button">+</button>
+              
               </label>
               
               <input
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`authorRole_${index}`}
+                id={`authorRole_${index}`}
+             
               ></input>
             </div>
           </div>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        <div className="row">
           <div className="col-md-4">
             {/* Indexing*/}
             <div className="UD-form-section">
@@ -142,9 +171,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`indexing_${index}`}
+                id={`indexing_${index}`}
+              
               ></input>
             </div>
           </div>
@@ -159,9 +188,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`journalName_${index}`}
+                id={`journalName_${index}`}
+               
               ></input>
             </div>
           </div>
@@ -176,9 +205,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`issn_${index}`}
+                id={`issn_${index}`}
+               
               ></input>
             </div>
           </div>
@@ -195,9 +224,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`volume_${index}`}
+                id={`volume_${index}`}
+               
               ></input>
             </div>
           </div>
@@ -212,21 +241,25 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`issue_${index}`}
+                id={`issue_${index}`}
+                
               ></input>
             </div>
           </div>
         </div>
+        </div>
+        ))}
 
         {/* Conference Publication */}
 
         <div>
-          <p className="HS-heading">Conference Publication</p>
+          <p className="HS-heading">Conference Publication <button onClick={handleAddPublication} type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        {publications.map((publication, index) => (
+<div key={index}>
+        <div className="row" >
           <div className="col-md-4">
             {/* Year*/}
             <div className="UD-form-section">
@@ -239,7 +272,7 @@ function EditResearchForm() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+               
               ></input>
             </div>
           </div>
@@ -256,7 +289,7 @@ function EditResearchForm() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+               
               ></input>
             </div>
           </div>
@@ -266,7 +299,7 @@ function EditResearchForm() {
             <div className="UD-form-section">
               <label className="UD-SetLabel-Name">
                 <span></span>Author Role/ Inventor
-                <button type="button" className="plus-button">+</button>
+                
               </label>
              
               <input
@@ -275,13 +308,13 @@ function EditResearchForm() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+              
               ></input>
             </div>
           </div>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        <div className="row" >
           <div className="col-md-4">
             {/* Indexing*/}
             <div className="UD-form-section">
@@ -294,7 +327,7 @@ function EditResearchForm() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -311,7 +344,7 @@ function EditResearchForm() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -328,7 +361,7 @@ function EditResearchForm() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -347,7 +380,7 @@ function EditResearchForm() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+              
               ></input>
             </div>
           </div>
@@ -364,19 +397,23 @@ function EditResearchForm() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
         </div>
+        </div>
+        ))}
 
         {/* Patent*/}
 
         <div>
-          <p className="HS-heading">Patent</p>
+          <p className="HS-heading">Patent <button   onClick={handleAddApplication} type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        {applications.map((application, index) => (
+<div key={index}>
+        <div className="row" >
           <div className="col-md-4">
             {/* Application ID*/}
             <div className="UD-form-section">
@@ -387,9 +424,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`applicationId_${index}`}
+                id={`applicationId_${index}`}
+               
               ></input>
             </div>
           </div>
@@ -404,9 +441,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`title_${index}`}
+                id={`title_${index}`}
+               
               ></input>
             </div>
           </div>
@@ -416,16 +453,16 @@ function EditResearchForm() {
             <div className="UD-form-section">
               <label className="UD-SetLabel-Name">
                 <span></span>Year
-                <button type="button" className="plus-button">+</button>
+               
               </label>
              
               <input
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`year_${index}`}
+                id={`year_${index}`}
+               
               ></input>
             </div>
           </div>
@@ -442,9 +479,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`publishedGranted_${index}`}
+                id={`publishedGranted_${index}`}
+              
               ></input>
             </div>
           </div>
@@ -459,21 +496,25 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`country_${index}`}
+                id={`country_${index}`}
+                
               ></input>
             </div>
           </div>
         </div>
+        </div>
+        ))}
 
         {/* Copyright*/}
 
         <div>
-          <p className="HS-heading">Copyright</p>
+          <p className="HS-heading">Copyright <button onClick={handleAddApplication} type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        {applications.map((application, index) => (
+<div key={index}>
+        <div className="row" >
           <div className="col-md-4">
             {/* Application ID*/}
             <div className="UD-form-section">
@@ -484,9 +525,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`applicationId_${index}`}
+                id={`applicationId_${index}`}
+                
               ></input>
             </div>
           </div>
@@ -501,9 +542,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`title_${index}`}
+                id={`title_${index}`}
+                
               ></input>
             </div>
           </div>
@@ -514,16 +555,15 @@ function EditResearchForm() {
               <label className="UD-SetLabel-Name">
                 <span></span>Year
 
-                <button type="button" className="plus-button">+</button>
               </label>
               
               <input
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`year_${index}`}
+                id={`year_${index}`}
+               
               ></input>
             </div>
           </div>
@@ -540,9 +580,9 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`publishedGranted_${index}`}
+                id={`publishedGranted_${index}`}
+               
               ></input>
             </div>
           </div>
@@ -557,19 +597,22 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`country_${index}`}
+                id={`country_${index}`}
+              
               ></input>
             </div>
           </div>
         </div>
+        </div>
+        ))}
 
         <div>
   <button className="savebtn" type="button">Save Changes</button>
 </div>
       </div>
     </div>
+    </form>
   </>
   )
 }

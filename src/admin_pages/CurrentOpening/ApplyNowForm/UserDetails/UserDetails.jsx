@@ -11,7 +11,7 @@ function UserDetails() {
   return (
     <>
       <div className="container">
-        <div>
+        <div style={{marginTop:"20px"}}>
           <div>
             <h5 className="UD-heading">Personal Details</h5>
             <p className="UD-subheading">

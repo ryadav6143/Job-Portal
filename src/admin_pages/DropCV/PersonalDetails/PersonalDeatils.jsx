@@ -534,5 +534,4 @@ function PersonalDeatils({onFormSubmit}) {
     </>
   );
 }
-
 export default PersonalDeatils;
