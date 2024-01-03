@@ -16,11 +16,52 @@ import {
   faUsers,
   faFile,
 } from "@fortawesome/free-solid-svg-icons";
+import EditQualificationForm from "../EditProfileForm/EditQualificationForm/EditQualificationForm";
+import EditExperience from "../EditProfileForm/EditExperienceForm/EditExperience";
+import EditResearchForm from "../EditProfileForm/EditResearchForm/EditResearchForm";
+import EditProgramsForm from "../EditProfileForm/EditProgramsForm/EditProgramsForm";
+import EditReference from "../EditProfileForm/EditReference/EditReference";
+import CurrentOpening from "../../../../admin_pages/CurrentOpening/CurrentOpening";
+
+
 
 
 
 
 function UserHeader() {
+  const [selectedComponent, setSelectedComponent] = useState();
+  const showComponent = (componentName) => {
+    setSelectedComponent(componentName);
+  };
+  let componentToShow;
+  switch (selectedComponent) {
+    case "Component1":
+      componentToShow = <EditPersonalDetails />;
+      break;
+    case "Component2":
+      componentToShow = <EditQualificationForm />;
+      break;
+    case "Component3":
+      componentToShow = <EditExperience />;
+      break;
+    case "Component4":
+      componentToShow = <EditResearchForm />;
+      break;
+      
+    case "Component5":
+      componentToShow = <EditProgramsForm />;
+      break;
+      
+    case "Component6":
+      componentToShow = <EditReference />;
+      break;
+      
+ 
+      
+    default:
+      componentToShow = <EditPersonalDetails />;
+      break;
+  }
   
   return (
     <>
@@ -50,8 +91,9 @@ function UserHeader() {
                         className="set-menu-icon"
                         icon={faIdCardClip}
                       />
-                      <a href="/editpersonaldetails">
+                      <a href=""  onClick={() => showComponent("Component1")}>
                         &nbsp; Personal Details
+                       
                       </a>
                     </li>
                     <li>
@@ -59,8 +101,9 @@ function UserHeader() {
                         className="set-menu-icon"
                         icon={faBuildingColumns}
                       />
-                      <a href="/editqualification">
+                      <a href=""  onClick={() => showComponent("Component2")}>
                         &nbsp; Academic Professional Qualifications
+                       
                       </a>
                     </li>
                     <li>
@@ -108,6 +151,8 @@ function UserHeader() {
           
           </div>
         </div>
+
+        
      
     </>
   );

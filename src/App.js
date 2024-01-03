@@ -34,6 +34,7 @@ import EditExperience from "./candidate_pages/Login/UserDashboard/EditProfileFor
 import EditResearch from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditResearchForm/EditResearchForm";
 import EditProgramsForm from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditProgramsForm/EditProgramsForm";
 import EditReference from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditReference/EditReference";
+import { Switch } from "@mui/material";
 
 function App() {
   
@@ -67,18 +68,22 @@ function App() {
            <Route path="userlogin" element={< UserLogin/>}></Route>      
            <Route path="countrydemo" element={< CountryDemo/>}></Route> 
            {/* ----------------UserDashboard Routing source ---------------     */}
+         
            <Route path="dashboard" element={< UserDashboard/>}></Route>      
            <Route path="editpersonaldetails" element={< EditPersonalDetails/>}></Route>      
            <Route path="editqualification" element={< EditQualificationForm/>}></Route>      
            <Route path="editexperience" element={<EditExperience/>}></Route>      
            <Route path="editresearch" element={< EditResearch/>}></Route>      
            <Route path="editprogram" element={< EditProgramsForm/>}></Route>      
-           <Route path="editreference" element={< EditReference/>}></Route>      
+           <Route path="editreference" element={< EditReference/>}></Route>   
+            
            {/* ------------------ end UserDashboard Routing source--------------- */}
          
            <Route path="adminpanel" element={< Adminpanel/>}></Route>  
          
            <Route path="contact-us" element={< ContactUs/>}></Route>  
+         
+
          
          
          </Routes>
