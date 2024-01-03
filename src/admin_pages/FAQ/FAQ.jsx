@@ -5,14 +5,10 @@ import "./FAQ.css";
 import mark from "../../assets/logos/mark.png";
 
 function FAQ() {
-  const [openIndex, setOpenIndex] = useState(-1);
+  const [openIndex, setOpenIndex] = useState(null);
 
-  const toggleDetails = (index) => {
-    if (openIndex === index) {
-      setOpenIndex(-1); // Close the clicked summary if it's already open
-    } else {
-      setOpenIndex(index); // Open the clicked summary
-    }
+  const handleToggle = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
   };
   return (
     <>
@@ -178,30 +174,35 @@ function FAQ() {
         </div>
       </div>
 
-      {/* <div className="marks-left">
+      <div className="marks-left">
         <img src={mark} style={{ rotate: "35deg" }} />
         <img src={mark} style={{ rotate: "-35deg" }} />
         <img src={mark} style={{ rotate: "180deg" }} />
-        <img src={mark} style={{ rotate: "48deg" }} />
-        <img src={mark} style={{ rotate: "-48deg" }} />
         <img src={mark} style={{ rotate: "128deg" }} />
       </div>
       <div className="marks-right">
         <img src={mark} style={{ rotate: "-35deg" }} />
         <img src={mark} style={{ rotate: "35deg" }} />
         <img src={mark} style={{ rotate: "180deg" }} />
-        <img src={mark} style={{ rotate: "128deg" }} />
-        <img src={mark} style={{ rotate: "48deg" }} />
         <img src={mark} style={{ rotate: "-48deg" }} />
       </div>
       <div className="mark-bottom">
-        <img src={mark} style={{ rotate: "-35deg"}} />
+        <img src={mark} style={{ rotate: "-35deg" }} />
         <img src={mark} style={{ rotate: "35deg" }} />
         <img src={mark} style={{ rotate: "180deg" }} />
         <img src={mark} style={{ rotate: "128deg" }} />
         <img src={mark} style={{ rotate: "48deg" }} />
         <img src={mark} style={{ rotate: "-48deg" }} />
-      </div> */}
+      </div>
+
+      <div className="mark-bottom-2">
+        <img src={mark} style={{ rotate: "-180deg" }} />
+        <img src={mark} style={{ rotate: "-35deg" }} />
+        <img src={mark} style={{ rotate: "130deg" }} />
+        <img src={mark} style={{ rotate: "320deg" }} />
+        <img src={mark} style={{ rotate: "140deg" }} />
+        <img src={mark} style={{ rotate: "-48deg" }} />
+      </div>
 
       <Footers></Footers>
     </>

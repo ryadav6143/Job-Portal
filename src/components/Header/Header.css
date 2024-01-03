@@ -35,7 +35,7 @@
   font-size: 15px !important;
   font-weight: bold !important;
 }
-.nav-link:focus {
+/* .nav-link:focus {
   background-color: rgba(0, 0, 0, 0.838);
   color: white !important;
   border-radius: 50px;
@@ -43,7 +43,7 @@
 .user-link:focus {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   background-color: white !important;
-}
+} */
 .dropdown-menu[data-bs-popper] {
   top: 0 !important;
   margin-top: -0.5rem;

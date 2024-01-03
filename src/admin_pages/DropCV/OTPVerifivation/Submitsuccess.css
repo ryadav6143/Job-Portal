@@ -32,6 +32,17 @@
 .success-logo {
   padding-top: 10px;
 }
+.back-to-home a{
+  text-decoration: none;
+  color:rgba(128, 128, 128, 0.896);
+  font-family: 'Open Sans', sans-serif; 
+  font-size: 20px;
+}
+.back-to-home a {
+  span{
+    font-size: 30px;
+  }
+}
 @media only screen and (max-width: 767px) {
   .success-logo img {
     width: 100px;

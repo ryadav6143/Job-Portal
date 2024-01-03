@@ -25,6 +25,7 @@ import EditProgramsForm from "./candidate_pages/Login/UserDashboard/EditProfileF
 import EditReference from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditReference/EditReference";
 import UserDashboard from "./candidate_pages/Login/UserDashboard/UserDashboard"
 import UserLogin from "./candidate_pages/Login/UserLogin/UserLogin";
+import Submitsuccess from "./admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 
 function App() {
   return (
@@ -59,12 +60,12 @@ function App() {
            <Route path="editprogram" element={< EditProgramsForm/>}></Route>      
            <Route path="editreference" element={< EditReference/>}></Route>  
            <Route path="user-login" element={< UserLogin/>}></Route>  
-             
-
+           
            {/* ------------------ end UserDashboard Routing source--------------- */}
          
            <Route path="adminpanel" element={< Adminpanel/>}></Route>  
            <Route path="contact-us" element={< ContactUs/>}></Route>  
+           <Route path="submit" element={< Submitsuccess/>}></Route>  
          
          
          </Routes>
@@ -74,3 +75,4 @@ function App() {
 }
 
 export default App;
+  

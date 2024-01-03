@@ -19,12 +19,14 @@
   padding-top: 15px;
   padding-bottom: 15px;
 }
-.academic-table {
-  padding: 3% 10% 1% 10%;
+.table-responsive{
   text-align: center;
 }
+.academic-table {
+  padding: 3% 10% 1% 10%;
+  
+}
 .non-academin-table {
-  text-align: center;
   padding: 3% 10% 1% 10%;
 }
 .apn-btn {
