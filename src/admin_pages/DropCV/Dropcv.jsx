@@ -109,7 +109,7 @@ function Dropcv() {
   // };
 
   const handleVerifivation = () => {
-    navigate("/otp-verifivation");
+    navigate("/verify");
   };
 
   return (
@@ -143,10 +143,10 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                {/* <Button onClick={handleVerifivation} type="submit">Next</Button> */}
-                <Button onClick={handleSubmit} type="submit">
+                <Button onClick={handleVerifivation} type="submit">Next</Button>
+                {/* <Button onClick={handleSubmit} type="submit">
                   Next
-                </Button>
+                </Button> */}
               </Box>
             </React.Fragment>
           ) : (

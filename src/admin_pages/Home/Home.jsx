@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footers from "../../components/Footer/Footers";
 import "./Home.css";
@@ -14,10 +14,14 @@ import mask2 from "../../assets/images/mask2.png";
 import mask3 from "../../assets/images/mask3.png";
 
 function Home() {
+  var cardHeadline = "Departments of Management Studies";
   const [activeCard, setActiveCard] = useState(0); // Initialize with card2 as active
   const [isMobileView, setIsMobileView] = useState(false);
-  var cardHeadline = "Departments of Management Studies";
   // ..............................................
+  const elementRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  // ..............................................
+
   useEffect(() => {
     const checkMobileView = () => {
       const mediaQuery = window.matchMedia(
@@ -47,6 +51,10 @@ function Home() {
   const previous = () => {
     setActiveCard((activeCard - 1 + 4) % 4);
   };
+
+  // ................................................
+
+  // ................................................
   return (
     <>
       <Header></Header>
@@ -94,7 +102,8 @@ function Home() {
         </div>
       </div>
       <div className="perks">
-        <div className="perks-heading">
+        {/* <div className="perks-heading"> */}
+        <div ref={elementRef} className="perks-heading">
           <p>
             PERKS OF JOINING <br />
             <span>
@@ -188,15 +197,23 @@ function Home() {
         </div>
         <div className="slider-imgs">
           {isMobileView ? (
-            <div className={`card${activeCard + 1} active-card`} ><p>{cardHeadline}</p></div>
+            <div className={`card${activeCard + 1} active-card`}>
+              <p>{cardHeadline}</p>
+            </div>
           ) : (
             <>
-              <div className={`card${(activeCard % 4) + 1}`}><p>{cardHeadline}</p></div>
-              <div
-                className={`card${((activeCard + 1) % 4) + 1} active-card`}
-              ><p>{cardHeadline}</p></div>
-              <div className={`card${((activeCard + 2) % 4) + 1}`} ><p>{cardHeadline}</p></div>
-              <div className={`card${((activeCard + 3) % 4) + 1}`} ><p>{cardHeadline}</p></div>
+              <div className={`card${(activeCard % 4) + 1}`}>
+                <p>{cardHeadline}</p>
+              </div>
+              <div className={`card${((activeCard + 1) % 4) + 1} active-card`}>
+                <p>{cardHeadline}</p>
+              </div>
+              <div className={`card${((activeCard + 2) % 4) + 1}`}>
+                <p>{cardHeadline}</p>
+              </div>
+              <div className={`card${((activeCard + 3) % 4) + 1}`}>
+                <p>{cardHeadline}</p>
+              </div>
             </>
           )}
         </div>

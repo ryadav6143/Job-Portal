@@ -31,8 +31,7 @@ details > summary {
   border-radius: 0 0 15px 15px;
 }
 summary::marker {
-  color: white;
-  display: none;
+  appearance: none;
 }
 
 summary::before {
@@ -42,11 +41,13 @@ summary::before {
   font-size: 25px;
   margin-left: -20px;
   margin-right: 15px;
+  padding-left: 20px !important;
 }
 
 details[open] summary::before {
   content: "-";
   font-weight: 600;
+  padding-left: 20px !important;
 }
 
 details > p {
@@ -54,7 +55,6 @@ details > p {
   background-color: #f1f1f1;
   padding: 10px 15px 5px 15px;
   margin: 0;
-  margin-top: 2px;
   box-shadow: 3px 3px 4px rgba(128, 128, 128, 0.195);
 }
 
@@ -125,7 +125,8 @@ details[open] > summary {
   margin-left: 5%;
   margin-right: 5%;
 }
-.mark-bottom ,.mark-bottom-2{
+.mark-bottom,
+.mark-bottom-2 {
   img:nth-child(1) {
     margin-top: 5%;
   }
@@ -145,7 +146,6 @@ details[open] > summary {
     margin-top: -5%;
   }
 }
-
 
 @media only screen and (max-width: 767px) {
   .water-marks {

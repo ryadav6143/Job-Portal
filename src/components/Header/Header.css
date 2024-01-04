@@ -5,9 +5,14 @@
     #901626 50%,
     #4a0c14 97.92%
   );
+  /* position: fixed;
+  width: 100%; */
 }
 .my-header {
+  /* margin-top: 5%; */
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  /* position: fixed;
+  width: 100%; */
 }
 .marquee {
   color: white;
@@ -130,7 +135,7 @@
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
   .nav-link {
     color: grey !important;
-    margin-left:-1px!important;
+    margin-left: -1px !important;
     font-size: 12px !important;
     font-weight: bold !important;
   }

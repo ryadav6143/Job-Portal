@@ -3,11 +3,11 @@
   flex-wrap: wrap;
 }
 
-
 .personaldetails-form {
   justify-content: center;
-  margin-top: 4%; 
+  margin-top: 4%;
   margin-left: 10%;
+  font-family: "Open Sans", sans-serif;
 }
 
 .PD-heading {
