@@ -5,6 +5,7 @@ import {
   faUser,
   faEnvelope,
   faMobile,
+  faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import UserHeader from '../../UserHeader/UserHeader';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
@@ -43,6 +44,7 @@ function EditQualificationForm() {
                   <option value=""> country</option>
                   <option value=""> country</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
 
@@ -186,6 +188,7 @@ function EditQualificationForm() {
                    <option value=""> country</option>
                    <option value=""> country</option>
                  </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
  
@@ -349,6 +352,7 @@ function EditQualificationForm() {
                    <option value=""> country</option>
                    <option value=""> country</option>
                  </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
  
@@ -511,6 +515,7 @@ function EditQualificationForm() {
                    <option value=""> country</option>
                    <option value=""> country</option>
                  </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
  
@@ -673,6 +678,7 @@ function EditQualificationForm() {
                    <option value=""> country</option>
                    <option value=""> country</option>
                  </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
  
@@ -830,6 +836,7 @@ function EditQualificationForm() {
                    <option value=""> country</option>
                    <option value=""> country</option>
                  </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
  

@@ -28,7 +28,7 @@
 
 .UD-set-dropdown {
   width: 85%;
-  padding: 12px;
+  padding: 14px;
   border-radius: 45px;
   color: #6f6c90;
   border-color: #eff0f6;
@@ -43,7 +43,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   color: #6f6c90;
   font-size: 16px;
-  padding: 12px;
+  padding: 14px;
 }
 
 .UD-set-input:focus {

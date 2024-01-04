@@ -1,24 +1,45 @@
-import React from "react";
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faEnvelope,
   faMobile,
+  faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import "./ResearchWorks.css";
 
 function ResearchWorks() {
+  const [identifiers, setIdentifiers] = useState([{}]);
+  const [publications, setPublications] = useState([{}]);
+  const [applications, setApplications] = useState([{}]);
+ 
+
+  const handleAddIdentifier = () => {
+    setIdentifiers([...identifiers, {}]);
+  };
+
+  const handleAddPublication = () => {
+    setPublications([...publications, {}]);
+  };
+
+  const handleAddApplication = () => {
+    setApplications([...applications, {}]);
+  };
   return (
     <>
       <div className="container">
         <div style={{marginTop:"20px"}}>
           <div>
-            <h5 className="UD-heading">Research Work</h5>
+            <h5 className="UD-heading">Research Work  
+            <button onClick={handleAddIdentifier} className="editprofile-plus-button">+</button></h5>
+
             <p className="UD-subheading">
               Please fill your information so we can get in touch with you.
             </p>
           </div>
 
+          {identifiers.map((identifier, index) => (
+<div key={index}>
           <div className="row">
             <div className="col-md-4">
               {/* ORCID Id*/}
@@ -26,12 +47,13 @@ function ResearchWorks() {
                 <label className="UD-SetLabel-Name">
                   <span></span> ORCID Id
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select name="orcid" className="UD-set-dropdown">
                   <option value="">Select Id</option>
                   <option value=""> Id 1</option>
                   <option value=""> Id 2</option>
                   <option value=""> Id 3</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
 
@@ -45,7 +67,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="scopusid"
                   id=""
                   required
                 ></input>
@@ -62,21 +84,25 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="researchid"
                   id=""
                   required
                 ></input>
               </div>
             </div>
           </div>
+          </div>
+          ))}
 
           {/* Journal Publication */}
 
           <div>
-            <p className="HS-heading">Journal Publication   <button type="button" className="plus-button">+</button></p>
+            <p className="HS-heading">Journal Publication   <button onClick={handleAddPublication}
+ type="button" className="editprofile-plus-button">+</button></p>
           </div>
 
-
+          {publications.map((publication, index) => (
+<div key={index}>
           <div className="row">
             <div className="col-md-4">
               {/* Year*/}
@@ -88,7 +114,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="journal_publication_year"
                   id=""
                   required
                 ></input>
@@ -105,7 +131,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="journal_publication_title"
                   id=""
                   required
                 ></input>
@@ -124,7 +150,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="journal_publication_author"
                   id=""
                   required
                 ></input>
@@ -143,7 +169,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="journal_publication_index"
                   id=""
                   required
                 ></input>
@@ -160,7 +186,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="journal_publication_name"
                   id=""
                   required
                 ></input>
@@ -177,7 +203,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="journal_publication_issn"
                   id=""
                   required
                 ></input>
@@ -196,7 +222,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="journal_publication_volume"
                   id=""
                   required
                 ></input>
@@ -213,20 +239,24 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="journal_publication_issue"
                   id=""
                   required
                 ></input>
               </div>
             </div>
           </div>
+          </div>
+          ))}
 
           {/* Conference Publication */}
 
           <div>
-            <p className="HS-heading">Conference Publication  <button type="button" className="plus-button">+</button></p>
+            <p className="HS-heading">Conference Publication  <button onClick={handleAddPublication} type="button" className="editprofile-plus-button">+</button></p>
           </div>
 
+          {publications.map((publication, index) => (
+<div key={index}>
           <div className="row" >
             <div className="col-md-4">
               {/* Year*/}
@@ -238,7 +268,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="conference_publication_year"
                   id=""
                   required
                 ></input>
@@ -255,7 +285,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="conference_publication_title"
                   id=""
                   required
                 ></input>
@@ -274,7 +304,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="conference_publication_author"
                   id=""
                   required
                 ></input>
@@ -293,7 +323,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="conference_publication_index"
                   id=""
                   required
                 ></input>
@@ -310,7 +340,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="conference_publication_name"
                   id=""
                   required
                 ></input>
@@ -327,7 +357,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="conference_publication_issn"
                   id=""
                   required
                 ></input>
@@ -346,7 +376,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="conference_publication_volume"
                   id=""
                   required
                 ></input>
@@ -363,20 +393,24 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="conference_publication_issue"
                   id=""
                   required
                 ></input>
               </div>
             </div>
           </div>
+          </div>
+          ))}
 
           {/* Patent*/}
 
           <div>
-            <p className="HS-heading">Patent <button type="button" className="plus-button">+</button></p>
+            <p className="HS-heading">Patent <button   onClick={handleAddApplication} type="button" className="editprofile-plus-button">+</button></p>
           </div>
 
+          {applications.map((application, index) => (
+<div key={index}>
           <div className="row" >
             <div className="col-md-4">
               {/* Application ID*/}
@@ -388,7 +422,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="patent_applicationid"
                   id=""
                   required
                 ></input>
@@ -405,7 +439,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="patent_application_title"
                   id=""
                   required
                 ></input>
@@ -425,7 +459,7 @@ function ResearchWorks() {
                   type="text"
                   placeholder=" "
                   name=""
-                  id=""
+                  id="patent_application_year"
                   required
                 ></input>
               </div>
@@ -443,7 +477,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="patent_granted_by"
                   id=""
                   required
                 ></input>
@@ -460,21 +494,25 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="patent_incountry"
                   id=""
                   required
                 ></input>
               </div>
             </div>
           </div>
+          </div>
+          ))}
 
           {/* Copyright*/}
 
           <div>
             <p className="HS-heading">Copyright 
-                  <button type="button" className="plus-button">+</button></p>
+            <button onClick={handleAddApplication} type="button" className="editprofile-plus-button">+</button></p>
           </div>
 
+          {applications.map((application, index) => (
+<div key={index}>
           <div className="row" >
             <div className="col-md-4">
               {/* Application ID*/}
@@ -486,7 +524,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="copyright_applicationid"
                   id=""
                   required
                 ></input>
@@ -503,7 +541,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="copyright_title"
                   id=""
                   required
                 ></input>
@@ -522,7 +560,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="copyright_year"
                   id=""
                   required
                 ></input>
@@ -541,7 +579,7 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="copyright_granted_by"
                   id=""
                   required
                 ></input>
@@ -558,13 +596,15 @@ function ResearchWorks() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="patent_incountry"
                   id=""
                   required
                 ></input>
               </div>
             </div>
           </div>
+          </div>
+          ))}
         </div>
       </div>
     </>

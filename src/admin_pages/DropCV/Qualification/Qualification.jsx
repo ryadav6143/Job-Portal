@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Qualification.css";
 import apiService from "../../../Services/ApiServices";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+
+
 function Qualification({ onSubmit }) {
   const [examTypes, setExamTypes] = useState([]);
   const [selectedExam, setSelectedExam] = useState("");
@@ -135,6 +139,7 @@ function Qualification({ onSubmit }) {
                     </option>
                   ))}
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
 
@@ -156,6 +161,7 @@ function Qualification({ onSubmit }) {
                     </option>
                   ))}
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
           </div>
@@ -178,6 +184,7 @@ function Qualification({ onSubmit }) {
                   <option value="Completed">Completed</option>
                   <option value="Pursuing">Pursuing</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
           </div>

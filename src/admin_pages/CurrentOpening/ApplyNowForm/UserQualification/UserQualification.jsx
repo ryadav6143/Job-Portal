@@ -4,6 +4,7 @@ import {
   faUser,
   faEnvelope,
   faMobile,
+  faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserQualification.css";
 
@@ -24,7 +25,7 @@ function UserQualification() {
               <p className='HS-heading'>High School</p>
               </div>
 
-          <div className="row"  style={{marginTop :"-40px"}}>
+          <div className="row"  style={{marginTop :"-30px"}}>
            
           <div className="col-md-4">
               {/* *Country */}
@@ -32,12 +33,13 @@ function UserQualification() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Country
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select name="country" className="UD-set-dropdown">
                   <option value="">Select country</option>
                   <option value=""> country</option>
                   <option value=""> country</option>
                   <option value=""> country</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
 
@@ -51,7 +53,7 @@ function UserQualification() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name=" year_start"
                   id=""
                   
                   required
@@ -70,7 +72,7 @@ function UserQualification() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="institute_name"
                   id=""
                   
                   required
@@ -91,7 +93,7 @@ function UserQualification() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="board_university_name"
                   id=""
                   
                   required
@@ -110,7 +112,7 @@ function UserQualification() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="year_end"
                   id=""
                   
                   required
@@ -129,7 +131,7 @@ function UserQualification() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="grade_division"
                   id=""
                   
                   required
@@ -150,7 +152,7 @@ function UserQualification() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="grade_percent:{"
                   id=""
                   
                   required
@@ -167,7 +169,7 @@ function UserQualification() {
               <p className='HS-heading'>Higher secondary</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-30px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -175,12 +177,13 @@ function UserQualification() {
                  <label className="UD-SetLabel-Name">
                    <span>*</span> Country
                  </label>
-                 <select name="" className="UD-set-dropdown">
+                 <select name="country" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
                  </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
  
@@ -194,7 +197,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_start"
                    id=""
                    
                    required
@@ -213,7 +216,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="institute_name"
                    id=""
                    
                    required
@@ -234,7 +237,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="board_university_name"
                    id=""
                    
                    required
@@ -253,7 +256,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_end"
                    id=""
                    
                    required
@@ -272,7 +275,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_division"
                    id=""
                    
                    required
@@ -293,7 +296,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_percent"
                    id=""
                    
                    required
@@ -312,7 +315,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="stream"
                    id=""
                    
                    required
@@ -330,7 +333,7 @@ function UserQualification() {
               <p className='HS-heading'>Graduation</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-30px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -338,12 +341,13 @@ function UserQualification() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="" className="UD-set-dropdown">
+                 <select name="country" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
                  </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
  
@@ -357,7 +361,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_start"
                    id=""
                    
                    required
@@ -376,7 +380,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="board_university_name"
                    id=""
                    
                    required
@@ -397,7 +401,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="institute_name"
                    id=""
                    
                    required
@@ -416,7 +420,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="degree_types_name"
                    id=""
                    
                    required
@@ -435,7 +439,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_end"
                    id=""
                    
                    required
@@ -456,7 +460,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="specialization_area_1"
                    id=""
                    
                    required
@@ -475,7 +479,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_percent"
                    id=""
                    
                    required
@@ -493,7 +497,7 @@ function UserQualification() {
               <p className='HS-heading'>Post Graduation</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-30px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -501,12 +505,13 @@ function UserQualification() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="" className="UD-set-dropdown">
+                 <select name="country" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
                  </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
  
@@ -520,7 +525,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_start"
                    id=""
                    
                    required
@@ -539,7 +544,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="board_university_name"
                    id=""
                    
                    required
@@ -560,7 +565,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="institute_name"
                    id=""
                    
                    required
@@ -579,7 +584,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name=" degree_types_name"
                    id=""
                    
                    required
@@ -598,7 +603,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_end"
                    id=""
                    
                    required
@@ -619,7 +624,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="specialization_area_1"
                    id=""
                    
                    required
@@ -638,7 +643,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_percent"
                    id=""
                    
                    required
@@ -656,7 +661,7 @@ function UserQualification() {
               <p className='HS-heading'>M. Phil</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-30px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -664,12 +669,13 @@ function UserQualification() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="" className="UD-set-dropdown">
+                 <select name="country" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
                  </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
  
@@ -683,7 +689,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_start"
                    id=""
                    
                    required
@@ -702,7 +708,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name=" board_university_name:{"
                    id=""
                    
                    required
@@ -723,7 +729,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="institute_name"
                    id=""
                    
                    required
@@ -742,7 +748,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="degree_types_name"
                    id=""
                    
                    required
@@ -761,7 +767,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_end"
                    id=""
                    
                    required
@@ -782,7 +788,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="specialization_area_1"
                    id=""
                    
                    required
@@ -801,7 +807,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_percent"
                    id=""
                    
                    required
@@ -818,7 +824,7 @@ function UserQualification() {
               <p className='HS-heading'>PhD</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-30px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -826,12 +832,13 @@ function UserQualification() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="" className="UD-set-dropdown">
+                 <select name="country" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
                  </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
  
@@ -845,7 +852,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_start"
                    id=""
                    
                    required
@@ -864,7 +871,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="board_university_name"
                    id=""
                    
                    required
@@ -885,7 +892,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="institute_name"
                    id=""
                    
                    required
@@ -904,7 +911,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="degree_types_name"
                    id=""
                    
                    required
@@ -923,7 +930,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_end"
                    id=""
                    
                    required
@@ -944,7 +951,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="specialization_area_1"
                    id=""
                    
                    required
@@ -963,7 +970,7 @@ function UserQualification() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_percent"
                    id=""
                    
                    required
@@ -981,7 +988,7 @@ function UserQualification() {
               <p className='HS-heading'>Qualified Examination</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-30px"}}>
            
               <div className="col-md-4">
                {/* Gate*/}

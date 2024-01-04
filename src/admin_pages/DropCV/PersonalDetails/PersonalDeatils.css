@@ -7,7 +7,8 @@
 .personaldetails-form {
   justify-content: center;
   margin-top: 4%; 
-  margin-left: 10%;
+  margin-left: 5%;
+  font-family: 'Open Sans', sans-serif; 
 }
 
 .PD-heading {

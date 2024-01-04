@@ -7,6 +7,7 @@ import {
   faUser,
   faEnvelope,
   faMobile,
+  faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,9 +27,11 @@ function EditPersonalDetails() {
     fileInputRef.current.click();
   };
 
+
+  
   return (
     <>
-      <form id="myForm">
+      <form id="myForm" >
         <div style={{ marginTop: "7%" }}>
           <div style={{ paddingLeft: "50px" }}>
             {selectedImage && (
@@ -134,6 +137,7 @@ function EditPersonalDetails() {
                       <option value="">Sub Post 2</option>
                       <option value="">Sub Post 3</option>
                     </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div>
               </div>
@@ -151,6 +155,7 @@ function EditPersonalDetails() {
                       <option value="">Departments</option>
                       <option value="">Departments</option>
                     </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div>
 
@@ -183,6 +188,7 @@ function EditPersonalDetails() {
                       <option value="">Nature of Job 2</option>
                       <option value="">Nature of Job 3</option>
                     </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div>
               </div>
@@ -199,6 +205,7 @@ function EditPersonalDetails() {
                       <option value="Mrs.">Mrs.</option>
                       <option value="Ms.">Ms.</option>
                     </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div>
 
@@ -289,6 +296,7 @@ function EditPersonalDetails() {
                       <option value="Mrs.">Female</option>
                       <option value="Ms.">Others</option>
                     </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div>
               </div>
@@ -399,6 +407,7 @@ function EditPersonalDetails() {
                       <option value=""> country</option>
                       <option value=""> country</option>
                     </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div>
               </div>
@@ -416,6 +425,7 @@ function EditPersonalDetails() {
                       <option value=""> State</option>
                       <option value=""> State</option>
                     </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div>
 
@@ -431,6 +441,7 @@ function EditPersonalDetails() {
                       <option value=""> Job City</option>
                       <option value=""> Job City</option>
                     </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div>
 

@@ -17,6 +17,8 @@ function Home() {
   const [activeCard, setActiveCard] = useState(0); // Initialize with card2 as active
   const [isMobileView, setIsMobileView] = useState(false);
 
+  
+
   // ..............................................
   useEffect(() => {
     const checkMobileView = () => {
@@ -140,7 +142,7 @@ function Home() {
               <p>
                 THE <br /> HEADLINE
               </p>
-              <button type="button">+</button>
+              <button  type="button">+</button>
             </div>
             <div></div>
             <div>

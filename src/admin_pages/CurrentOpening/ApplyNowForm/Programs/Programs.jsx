@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import "./Programs.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,8 +9,15 @@ import {
 
 
 function Programs() {
+  const [courses, setCourses] = useState([{}]);
+
+
+  const handleAddCourse = () => {
+    setCourses([...courses, {}]);
+  };
   return (
     <>
+    <form>
     <div className="container">
       <div style={{marginTop:"20px"}}>
         <div>
@@ -25,9 +32,11 @@ function Programs() {
         {/* Organized*/}
 
         <div>
-          <p className="HS-heading">Organized  <button type="button" className="plus-button">+</button></p>
+          <p className="HS-heading">Organized  <button onClick={handleAddCourse} type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
+        {courses.map((course, index) => (
+<div key={index}>
         <div className="row">
           <div className="col-md-4">
             {/* Date From*/}
@@ -155,13 +164,17 @@ function Programs() {
 
         
         </div>
+        </div>
+        ))}
 
           {/* Attended*/}
 
           <div>
-          <p className="HS-heading">Attended   <button type="button" className="plus-button">+</button></p>
+          <p className="HS-heading">Attended   <button onClick={handleAddCourse} type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
+        {courses.map((course, index) => (
+<div key={index}>
         <div className="row" >
           <div className="col-md-4">
             {/* Date From*/}
@@ -236,6 +249,8 @@ function Programs() {
 
 
         </div>
+        </div>
+        ))}
 
  {/* Other Information*/}
 
@@ -463,6 +478,7 @@ function Programs() {
        
       </div>
     </div>
+    </form>
   </>
   )
 }

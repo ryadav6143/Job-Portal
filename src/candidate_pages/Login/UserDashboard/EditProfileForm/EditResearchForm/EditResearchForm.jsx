@@ -5,6 +5,7 @@ import {
   faUser,
   faEnvelope,
   faMobile,
+  faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 function EditResearchForm() {
@@ -54,6 +55,7 @@ function EditResearchForm() {
                 <option value=""> Id 2</option>
                 <option value=""> Id 3</option>
               </select>
+              <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
             </div>
           </div>
 

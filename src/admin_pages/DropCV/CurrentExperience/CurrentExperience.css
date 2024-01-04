@@ -1,3 +1,5 @@
+
+
 .row1{
     display: flex;
     flex-wrap: wrap;
@@ -40,14 +42,14 @@
 }
 
 .set-input {
-    width: 75%;
+    width: 85%;
     border-radius: 45px;
     border: 1px solid;
     border-color: #eff0f6;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     color: #6f6c90;
     font-size: 14px;
-    padding: 12px;
+    padding: 14px;
   }
 
   .SetLabel-Name span {

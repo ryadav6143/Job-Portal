@@ -16,7 +16,7 @@ function EditExperience() {
   };
   return (
     <>
-    <form id='myForm'></form>
+    <form id='myForm'>
     <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
       <div>
         <div>
@@ -266,6 +266,7 @@ function EditExperience() {
 </div>
       </div>
     </div>
+    </form>
   </>
   )
 }

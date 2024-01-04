@@ -1,13 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faEnvelope,
   faMobile,
+  faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserDetails.css";
 
+
+
 function UserDetails() {
+  const [formData, setFormData] = useState({
+    email: "",
+    contact_1: "",
+    postAppliedFor: "",
+    department: "",
+    specialization: "",
+    natureOfJob: "",
+    title: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    dob: "",
+    gender: "",
+    religion: "",
+    category: "",
+    maritalStatus: "",
+    address: "",
+    contact_2: "",
+    country: "",
+    state: "",
+    currentJobCity: "",
+    pinCode: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    console.log("Form Data:", formData);
+    // Add your logic for submitting data here
+  }
+
   return (
     <>
       <div className="container">
@@ -30,9 +67,9 @@ function UserDetails() {
                   className="UD-set-input"
                   type="email"
                   placeholder="Email address"
-                  name=""
+                  name="email"
                   id=""
-                 
+                  onChange={handleInputChange}
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
@@ -49,9 +86,9 @@ function UserDetails() {
                   className="UD-set-input"
                   type="tel"
                   placeholder="(123) 456 - 7890 "
-                  name=""
+                  name="  contact_1"
                   id=""
-                  
+                  onChange={handleInputChange}
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
@@ -64,12 +101,13 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Post Applied For (If Others, Please Specify)
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select  onChange={handleInputChange} name="" className="UD-set-dropdown">
                   <option value="">Select Post</option>
                   <option value="">Sub Post 1</option>
                   <option value="">Sub Post 2</option>
                   <option value="">Sub Post 3</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
           </div>
@@ -81,12 +119,13 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Departments
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select  onChange={handleInputChange} name="" className="UD-set-dropdown">
                   <option value="">Select Departments</option>
                   <option value="">Departments</option>
                   <option value="">Departments</option>
                   <option value="">Departments</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
 
@@ -102,7 +141,7 @@ function UserDetails() {
                   placeholder=" "
                   name=""
                   id=""
-                  
+                  onChange={handleInputChange}
                   required
                 ></input>
               </div>
@@ -114,12 +153,13 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Nature of Job
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select  onChange={handleInputChange} name="" className="UD-set-dropdown">
                   <option value="">Nature of Job</option>
                   <option value="">Nature of Job 1</option>
                   <option value="">Nature of Job 2</option>
                   <option value="">Nature of Job 3</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
           </div>
@@ -131,11 +171,12 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span></span>Title
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select  onChange={handleInputChange} name=" title_first_name" className="UD-set-dropdown">
                   <option value="Mr.">Mr.</option>
                   <option value="Mrs.">Mrs.</option>
                   <option value="Ms.">Ms.</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
 
@@ -149,10 +190,10 @@ function UserDetails() {
                 <input
                   className="UD-set-input"
                   type="text"
-                  name=""
+                  name="first_name"
                   placeholder="Enter First Name"
                   id=""
-                  
+                  onChange={handleInputChange}
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
@@ -162,17 +203,17 @@ function UserDetails() {
               {/* Middle Name  */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span>*</span>Middle Name
+                  <span></span>Middle Name
                 </label>
 
                 <input
                   className="UD-set-input"
                   type="text"
-                  name=""
+                  name=" middle_name"
                   placeholder="Enter Middle Name "
                   id=""
-                  
-                  required
+                  onChange={handleInputChange}
+          
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
               </div>
@@ -190,10 +231,10 @@ function UserDetails() {
                 <input
                   className="UD-set-input"
                   type="text"
-                  name=""
+                  name="last_name"
                   placeholder="Enter last Name"
                   id=""
-               
+                  onChange={handleInputChange}
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
@@ -210,10 +251,10 @@ function UserDetails() {
                 <input
                   className="UD-set-input"
                   type="date"
-                  name=""
+                  name="dob"
                   placeholder="MM/DD/YYYY "
                   id=""
-                 
+                  onChange={handleInputChange}
                   required
                 ></input>
               </div>
@@ -225,11 +266,12 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span>Gender
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select  onChange={handleInputChange} name="gender" className="UD-set-dropdown">
                   <option value="Mr.">Male</option>
                   <option value="Mrs.">Female</option>
                   <option value="Ms.">Others</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
           </div>
@@ -245,10 +287,10 @@ function UserDetails() {
                 <input
                   className="UD-set-input"
                   type="text"
-                  name=""
+                  name="religion"
                   placeholder="Enter Religion"
                   id=""
-                 
+                  onChange={handleInputChange}
                   required
                 ></input>
               </div>
@@ -264,10 +306,10 @@ function UserDetails() {
                 <input
                   className="UD-set-input"
                   type="text"
-                  name=""
+                  name="cast_category_name"
                   placeholder="Enter Category"
                   id=""
-                 
+                  onChange={handleInputChange}
                   required
                 ></input>
               </div>
@@ -283,10 +325,10 @@ function UserDetails() {
                 <input
                   className="UD-set-input"
                   type="text"
-                  name=""
+                  name="marital_status"
                   placeholder="Enter Your Marital Status"
                   id=""
-                  
+                  onChange={handleInputChange}
                   required
                 ></input>
               </div>
@@ -304,10 +346,10 @@ function UserDetails() {
                 <input
                   className="UD-set-input"
                   type="text"
-                  name=""
+                  name="address_1"
                   placeholder="Enter Address "
                   id=""
-                
+                  onChange={handleInputChange}
                   required
                 ></input>
               </div>
@@ -323,10 +365,10 @@ function UserDetails() {
                 <input
                   className="UD-set-input"
                   type="tel"
-                  name=""
+                  name="contact_2"
                   placeholder="(123) 456 - 7890"
                   id=""
-                  
+                  onChange={handleInputChange}
                   required
                 ></input><FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
               </div>
@@ -338,12 +380,13 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Country
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select  onChange={handleInputChange} name="country" className="UD-set-dropdown">
                   <option value="">Select country</option>
                   <option value=""> country</option>
                   <option value=""> country</option>
                   <option value=""> country</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
           </div>
@@ -357,12 +400,13 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span>State
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select  onChange={handleInputChange} name="state_province" className="UD-set-dropdown">
                   <option value="">Select State</option>
                   <option value=""> State</option>
                   <option value=""> State</option>
                   <option value=""> State</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
 
@@ -372,12 +416,13 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span>Current Job City
                 </label>
-                <select name="" className="UD-set-dropdown">
+                <select  onChange={handleInputChange} name="" className="UD-set-dropdown">
                   <option value="">Select Current Job City</option>
                   <option value=""> Job City</option>
                   <option value=""> Job City</option>
                   <option value=""> Job City</option>
                 </select>
+                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
 
@@ -391,10 +436,10 @@ function UserDetails() {
                 <input
                   className="UD-set-input"
                   type="number"
-                  name=""
+                  name="pin_code"
                   placeholder="Enter Pin Code "
                   id=""
-                 
+                  onChange={handleInputChange}
                   required
                 ></input>
               </div>
@@ -403,6 +448,8 @@ function UserDetails() {
 
         </div>
       </div>
+      <button onClick={handleSubmit} type="submit">Submit</button>
+    
     </>
   );
 }

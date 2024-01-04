@@ -9,6 +9,8 @@ import {
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+
 function PersonalDeatils({onFormSubmit}) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -251,11 +253,13 @@ function PersonalDeatils({onFormSubmit}) {
                     onChange={handleInputChange}
                     value={formData.title_first_name}
                     required
+
                   >
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -318,6 +322,7 @@ function PersonalDeatils({onFormSubmit}) {
                     <option value="Female">Female</option>
                     <option value="others">Others</option>
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 </div>
@@ -389,6 +394,7 @@ function PersonalDeatils({onFormSubmit}) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -419,6 +425,7 @@ function PersonalDeatils({onFormSubmit}) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
             </div>
@@ -448,6 +455,7 @@ function PersonalDeatils({onFormSubmit}) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -471,6 +479,7 @@ function PersonalDeatils({onFormSubmit}) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
             </div>
@@ -499,6 +508,7 @@ function PersonalDeatils({onFormSubmit}) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -522,6 +532,7 @@ function PersonalDeatils({onFormSubmit}) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
             </div>

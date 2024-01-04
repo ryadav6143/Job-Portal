@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -9,13 +9,18 @@ import "./UserExperience.css";
 
 function UserExperience() {
 
-  
+  const [educations, setEducations] = useState([{}]);
+
+  const handleAddEducation = () => {
+    setEducations([...educations, {}]);
+  };
   return (
     <>
+    <form action="">
       <div className="container">
         <div style={{marginTop:"20px"}}>
           <div>
-            <h5 className="UD-heading">Experience  <button className="plus-button">+</button></h5>
+            <h5 className="UD-heading">Experience  <button onClick={handleAddEducation} className="plus-button">+</button></h5>
            
             
             <p className="UD-subheading">
@@ -25,6 +30,9 @@ function UserExperience() {
 
           {/* Experience */}
 
+
+          {educations.map((education, index) => (
+<div key={index}>
           <div className="row">
             <div className="col-md-4">
               {/* *Name of Institute / Company */}
@@ -36,7 +44,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="company_experience_name"
                   id=""
                   required
                 ></input>
@@ -53,7 +61,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="designation"
                   id=""
                   required
                 ></input>
@@ -71,7 +79,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="gross_pay"
                   id=""
                   required
                 ></input>
@@ -90,7 +98,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="date"
                   placeholder=" MM/DD/YYYY"
-                  name=""
+                  name="exp_work_from"
                   id=""
                   required
                 ></input>
@@ -107,13 +115,15 @@ function UserExperience() {
                   className="UD-set-input"
                   type="date"
                   placeholder="MM/DD/YYYY "
-                  name=""
+                  name="exp_work_to"
                   id=""
                   required
                 ></input>
               </div>
             </div>
           </div>
+          </div>
+          ))}
 
           {/* Total Experience */}
 
@@ -132,7 +142,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="text"
                   placeholder="In Years"
-                  name=""
+                  name="total_academic_exp"
                   id=""
                   required
                 ></input>
@@ -149,7 +159,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="text"
                   placeholder="In Years"
-                  name=""
+                  name="total_industrial_exp"
                   id=""
                   required
                 ></input>
@@ -174,7 +184,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="text"
                   placeholder=""
-                  name=""
+                  name="accommodation"
                   id=""
                   required
                 ></input>
@@ -191,7 +201,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="text"
                   placeholder=""
-                  name=""
+                  name="transportation"
                   id=""
                   required
                 ></input>
@@ -208,7 +218,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="text"
                   placeholder=""
-                  name=""
+                  name="food"
                   id=""
                   required
                 ></input>
@@ -227,7 +237,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="text"
                   placeholder=""
-                  name=""
+                  name="mediclaim"
                   id=""
                   required
                 ></input>
@@ -244,7 +254,7 @@ function UserExperience() {
                   className="UD-set-input"
                   type="text"
                   placeholder=""
-                  name=""
+                  name="exp_others"
                   id=""
                   required
                 ></input>
@@ -253,6 +263,7 @@ function UserExperience() {
           </div>
         </div>
       </div>
+      </form>
     </>
   );
 }
