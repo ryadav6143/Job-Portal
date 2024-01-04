@@ -17,10 +17,7 @@ box-shadow: rgb(100 100 111 / 17%) 0px 7px 29px 0px;
     font-weight: 400;
 }
 
-.UD-set-dropdown-large {
-    padding: 10px;
-    width: 200px;
-  }
+
 
 /* Media query for screens smaller than 600px (adjust the breakpoint as needed) */
 @media (max-width: 600px) {

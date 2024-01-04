@@ -11,7 +11,7 @@ function ResearchWorks() {
   return (
     <>
       <div className="container">
-        <div>
+        <div style={{marginTop:"20px"}}>
           <div>
             <h5 className="UD-heading">Research Work</h5>
             <p className="UD-subheading">
@@ -73,10 +73,11 @@ function ResearchWorks() {
           {/* Journal Publication */}
 
           <div>
-            <p className="HS-heading">Journal Publication</p>
+            <p className="HS-heading">Journal Publication   <button type="button" className="plus-button">+</button></p>
           </div>
 
-          <div className="row" style={{ marginTop: "-30px" }}>
+
+          <div className="row">
             <div className="col-md-4">
               {/* Year*/}
               <div className="UD-form-section">
@@ -116,7 +117,7 @@ function ResearchWorks() {
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
                   <span></span>Author Role/ Inventor
-                  <button type="button" className="plus-button">+</button>
+                  {/* <button type="button" className="plus-button">+</button> */}
                 </label>
                 
                 <input
@@ -131,7 +132,7 @@ function ResearchWorks() {
             </div>
           </div>
 
-          <div className="row" style={{ marginTop: "-30px" }}>
+          <div className="row" >
             <div className="col-md-4">
               {/* Indexing*/}
               <div className="UD-form-section">
@@ -223,10 +224,10 @@ function ResearchWorks() {
           {/* Conference Publication */}
 
           <div>
-            <p className="HS-heading">Conference Publication</p>
+            <p className="HS-heading">Conference Publication  <button type="button" className="plus-button">+</button></p>
           </div>
 
-          <div className="row" style={{ marginTop: "-30px" }}>
+          <div className="row" >
             <div className="col-md-4">
               {/* Year*/}
               <div className="UD-form-section">
@@ -266,7 +267,7 @@ function ResearchWorks() {
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
                   <span></span>Author Role/ Inventor
-                  <button type="button" className="plus-button">+</button>
+                  
                 </label>
                
                 <input
@@ -281,7 +282,7 @@ function ResearchWorks() {
             </div>
           </div>
 
-          <div className="row" style={{ marginTop: "-30px" }}>
+          <div className="row" >
             <div className="col-md-4">
               {/* Indexing*/}
               <div className="UD-form-section">
@@ -373,10 +374,10 @@ function ResearchWorks() {
           {/* Patent*/}
 
           <div>
-            <p className="HS-heading">Patent</p>
+            <p className="HS-heading">Patent <button type="button" className="plus-button">+</button></p>
           </div>
 
-          <div className="row" style={{ marginTop: "-30px" }}>
+          <div className="row" >
             <div className="col-md-4">
               {/* Application ID*/}
               <div className="UD-form-section">
@@ -416,7 +417,7 @@ function ResearchWorks() {
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
                   <span></span>Year
-                  <button type="button" className="plus-button">+</button>
+                  
                 </label>
                
                 <input
@@ -470,10 +471,11 @@ function ResearchWorks() {
           {/* Copyright*/}
 
           <div>
-            <p className="HS-heading">Copyright</p>
+            <p className="HS-heading">Copyright 
+                  <button type="button" className="plus-button">+</button></p>
           </div>
 
-          <div className="row" style={{ marginTop: "-30px" }}>
+          <div className="row" >
             <div className="col-md-4">
               {/* Application ID*/}
               <div className="UD-form-section">
@@ -514,7 +516,6 @@ function ResearchWorks() {
                 <label className="UD-SetLabel-Name">
                   <span></span>Year
 
-                  <button type="button" className="plus-button">+</button>
                 </label>
                 
                 <input

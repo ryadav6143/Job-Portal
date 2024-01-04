@@ -11,7 +11,8 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 function EditReference() {
   return (
     <>
-    <div className="container">
+    <form id='myForm'>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
       <div>
         <div>
           <h5 className="UD-heading">Reference &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} /></h5>
@@ -59,7 +60,7 @@ function EditReference() {
                 placeholder="Enter  Name "
                 name=""
                 id=""
-                required
+              
               ></input>
               <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
             </div>
@@ -77,7 +78,7 @@ function EditReference() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+              
               ></input>
             </div>
           </div>
@@ -95,7 +96,7 @@ function EditReference() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -164,7 +165,7 @@ function EditReference() {
                 placeholder="Enter  Name "
                 name=""
                 id=""
-                required
+             
               ></input>
               <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
             </div>
@@ -182,7 +183,7 @@ function EditReference() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -200,7 +201,7 @@ function EditReference() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+               
               ></input>
             </div>
           </div>
@@ -263,8 +264,7 @@ function EditReference() {
                 placeholder=""
                 name=""
                 id=""
-               
-                required
+              
               ></input>
             
             </div>
@@ -315,6 +315,7 @@ function EditReference() {
 </div>
       </div>
     </div>
+    </form>
   </>
   )
 }

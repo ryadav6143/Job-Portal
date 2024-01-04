@@ -52,6 +52,7 @@ function App() {
            <Route path="PersonalDeatils" element={< PersonalDetails />}></Route>      
            <Route path="adminpanel" element={< Adminpanel/>}></Route>      
            {/* ----------------UserDashboard Routing source ---------------     */}
+         
            <Route path="dashboard" element={< UserDashboard/>}></Route>      
            <Route path="editpersonaldetails" element={< EditPersonalDetails/>}></Route>      
            <Route path="editqualification" element={< EditQualificationForm/>}></Route>      
@@ -66,6 +67,8 @@ function App() {
            <Route path="adminpanel" element={< Adminpanel/>}></Route>  
            <Route path="contact-us" element={< ContactUs/>}></Route>  
            <Route path="submit" element={< Submitsuccess/>}></Route>  
+         
+
          
          
          </Routes>

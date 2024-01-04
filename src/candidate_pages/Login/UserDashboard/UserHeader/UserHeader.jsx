@@ -25,14 +25,23 @@ import EditReference from "../EditProfileForm/EditReference/EditReference";
 
 
 
-
-
-
 function UserHeader() {
 
   const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+
+  
+  const handleReset = () => {
+    const form = document.getElementById("myForm");
+
+    if (form) {
+      form.reset();
+    }
+  };
+
+
+
 
   useEffect(()=> {
     if(window.innerWidth < 768){
@@ -84,16 +93,21 @@ function UserHeader() {
             <img src={logo} className="user-logo" />
           </div>
           <div className="logs">
-            <button type="reset">
+            <button onClick={handleReset} type="reset">
               <img src={reset} className="log-res" />
             </button>
+            <button>
             <img src={logout} className="log-res" />
+            </button>
+            
           </div>
         </div>
         {/* ---------header end----------- */}
-        {isMobile && <Button onClick={()=> handleSideBar()}>Sidebar</Button>}
-        <div className={`row1 ${isOpen ? "isClose" : ""}`}>
-          <div className="col-md-2">
+        {isMobile && <Button className="sidebar-btn"  onClick={()=> handleSideBar()}>☰ </Button>}
+
+        {/* ------------sidebar start----------------- */}
+        <div className="row1">
+          <div className={`col-md-2 ${isOpen ? "isClose" : ""}`}>
             <div className="set-sidebar">
               <div>
                 <nav>
@@ -105,6 +119,7 @@ function UserHeader() {
                       />
                       <a onClick={()=> setScreen(0)}>
                         &nbsp; Personal Details
+                       
                       </a>
                     </li>
                     <li>
@@ -114,6 +129,7 @@ function UserHeader() {
                       />
                       <a onClick={()=> setScreen(1)}>
                         &nbsp; Academic Professional Qualifications
+                       
                       </a>
                     </li>
                     <li>
@@ -149,17 +165,19 @@ function UserHeader() {
                       <a onClick={()=> setScreen(5)}>&nbsp; Reference/ Resume</a>
                     </li>
                     <li>
-                      <a href="/current-opening">Current Openings</a>
+                      <a href="/current-opening" style={{textDecoration:"underline"}}>Current Openings</a>
                     </li>
                   </ul>
                 </nav>
               </div>
             </div>
           </div>
-          <div className="col-md-10">
+          <div className="col-md-10" >
             {renderComponent()}
           </div>
         </div>
+{/* --------------------sidebar end------------------------------ */}
+        
      
     </>
   );

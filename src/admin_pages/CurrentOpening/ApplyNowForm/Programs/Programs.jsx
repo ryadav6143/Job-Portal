@@ -12,7 +12,7 @@ function Programs() {
   return (
     <>
     <div className="container">
-      <div>
+      <div style={{marginTop:"20px"}}>
         <div>
           <h5 className="UD-heading">Seminars/Short Term Courses/Summer Schools/Winter Schools</h5>
           <p className="UD-subheading">
@@ -25,10 +25,10 @@ function Programs() {
         {/* Organized*/}
 
         <div>
-          <p className="HS-heading">Organized</p>
+          <p className="HS-heading">Organized  <button type="button" className="plus-button">+</button></p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        <div className="row">
           <div className="col-md-4">
             {/* Date From*/}
             <div className="UD-form-section">
@@ -68,7 +68,7 @@ function Programs() {
             <div className="UD-form-section">
               <label className="UD-SetLabel-Name">
                 <span></span>Name of the Course
-                <button type="button" className="plus-button">+</button>
+               
               </label>
               <input
                 className="UD-set-input"
@@ -159,10 +159,10 @@ function Programs() {
           {/* Attended*/}
 
           <div>
-          <p className="HS-heading">Attended</p>
+          <p className="HS-heading">Attended   <button type="button" className="plus-button">+</button></p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        <div className="row" >
           <div className="col-md-4">
             {/* Date From*/}
             <div className="UD-form-section">
@@ -202,7 +202,7 @@ function Programs() {
             <div className="UD-form-section">
               <label className="UD-SetLabel-Name">
                 <span></span>Name of the Course
-                <button type="button" className="plus-button">+</button>
+              
               </label>
               <input
                 className="UD-set-input"

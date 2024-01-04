@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import "./EditExperience.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,18 +9,28 @@ import {
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 function EditExperience() {
+  const [educations, setEducations] = useState([{}]);
+
+  const handleAddEducation = () => {
+    setEducations([...educations, {}]);
+  };
   return (
     <>
-    <div className="container">
+    <form id='myForm'></form>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
       <div>
         <div>
-          <h5 className="UD-heading">Experience &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} /></h5>
+          <h5 className="UD-heading">Experience &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} />
+          <button     onClick={handleAddEducation} style={{marginRight:"30px"}} className="plus-button">+</button></h5>
           <p className="UD-subheading">
             Please fill your information so we can get in touch with you.
           </p>
         </div>
 
         {/* Experience */}
+
+        {educations.map((education, index) => (
+        <div key={index}>
 
         <div className="row">
           <div className="col-md-4">
@@ -33,8 +43,8 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
+                name={`name_${index}`}
+                id={`name_${index}`}
                 required
               ></input>
             </div>
@@ -50,8 +60,8 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
+                name={`designation_${index}`}
+                id={`designation_${index}`}
                 required
               ></input>
             </div>
@@ -62,14 +72,14 @@ function EditExperience() {
             <div className="UD-form-section">
               <label className="UD-SetLabel-Name">
                 <span>*</span>Current Gross Pay (Per Month){" "}
-                <button className="plus-button">+</button>
+                
               </label>
               <input
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
+                name={`grossPay_${index}`}
+                id={`grossPay_${index}`}
                 required
               ></input>
             </div>
@@ -87,8 +97,8 @@ function EditExperience() {
                 className="UD-set-input"
                 type="date"
                 placeholder=" MM/DD/YYYY"
-                name=""
-                id=""
+                name={`dateFrom_${index}`}
+                id={`dateFrom_${index}`}
                 required
               ></input>
             </div>
@@ -104,13 +114,15 @@ function EditExperience() {
                 className="UD-set-input"
                 type="date"
                 placeholder="MM/DD/YYYY "
-                name=""
-                id=""
+                name={`dateTo_${index}`}
+                id={`dateTo_${index}`}
                 required
               ></input>
             </div>
           </div>
         </div>
+        </div>
+        ))}
 
         {/* Total Experience */}
 
@@ -173,7 +185,7 @@ function EditExperience() {
                 placeholder=""
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -190,7 +202,7 @@ function EditExperience() {
                 placeholder=""
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -207,7 +219,7 @@ function EditExperience() {
                 placeholder=""
                 name=""
                 id=""
-                required
+              
               ></input>
             </div>
           </div>
@@ -226,7 +238,7 @@ function EditExperience() {
                 placeholder=""
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -243,7 +255,7 @@ function EditExperience() {
                 placeholder=""
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>

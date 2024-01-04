@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import "./EditProgramsForm.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,9 +9,16 @@ import {
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 function EditProgramsForm() {
+  const [courses, setCourses] = useState([{}]);
+
+
+  const handleAddCourse = () => {
+    setCourses([...courses, {}]);
+  };
   return (
     <>
-    <div className="container">
+    <form id='myForm'>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
       <div>
         <div>
           <h5 className="UD-heading">Seminars/Short Term Courses/Summer Schools/Winter Schools &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} /></h5>
@@ -25,10 +32,12 @@ function EditProgramsForm() {
         {/* Organized*/}
 
         <div>
-          <p className="HS-heading">Organized</p>
+          <p className="HS-heading">Organized <button onClick={handleAddCourse} type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        {courses.map((course, index) => (
+<div key={index}>
+        <div className="row" >
           <div className="col-md-4">
             {/* Date From*/}
             <div className="UD-form-section">
@@ -39,9 +48,9 @@ function EditProgramsForm() {
                 className="UD-set-input"
                 type="date"
                 placeholder="MM/DD/YYYY "
-                name=""
-                id=""
-                required
+                name={`dateFrom_${index}`}
+                id={`dateFrom_${index}`}
+                
               ></input>
             </div>
           </div>
@@ -56,9 +65,9 @@ function EditProgramsForm() {
                 className="UD-set-input"
                 type="date"
                 placeholder=" MM/DD/YYYY"
-                name=""
-                id=""
-                required
+                name={`dateTo_${index}`}
+                id={`dateTo_${index}`}
+                
               ></input>
             </div>
           </div>
@@ -68,15 +77,15 @@ function EditProgramsForm() {
             <div className="UD-form-section">
               <label className="UD-SetLabel-Name">
                 <span></span>Name of the Course
-                <button type="button" className="plus-button">+</button>
+                
               </label>
               <input
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`courseName_${index}`}
+                id={`courseName_${index}`}
+                
               ></input>
             </div>
           </div>
@@ -93,9 +102,9 @@ function EditProgramsForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`sponsoredBy_${index}`}
+                id={`sponsoredBy_${index}`}
+                
               ></input>
             </div>
           </div>
@@ -110,9 +119,9 @@ function EditProgramsForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`participants_${index}`}
+                id={`participants_${index}`}
+                
               ></input>
             </div>
           </div>
@@ -127,9 +136,9 @@ function EditProgramsForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`fromInstitutes_${index}`}
+                id={`fromInstitutes_${index}`}
+                
               ></input>
             </div>
           </div>
@@ -146,23 +155,28 @@ function EditProgramsForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`fromIndustry_${index}`}
+                id={`fromIndustry_${index}`}
+                
               ></input>
             </div>
           </div>
 
         
         </div>
+        </div>
+        ))}
 
           {/* Attended*/}
 
           <div>
-          <p className="HS-heading">Attended</p>
+          <p className="HS-heading">Attended <button onClick={handleAddCourse} type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+
+        {courses.map((course, index) => (
+<div key={index}>
+        <div className="row" >
           <div className="col-md-4">
             {/* Date From*/}
             <div className="UD-form-section">
@@ -173,9 +187,11 @@ function EditProgramsForm() {
                 className="UD-set-input"
                 type="date"
                 placeholder="MM/DD/YYYY "
-                name=""
-                id=""
-                required
+                name={`dateFrom_${index}`}
+
+                id={`dateFrom_${index}`}
+
+                
               ></input>
             </div>
           </div>
@@ -190,9 +206,9 @@ function EditProgramsForm() {
                 className="UD-set-input"
                 type="date"
                 placeholder=" MM/DD/YYYY"
-                name=""
-                id=""
-                required
+                name={`dateTo_${index}`}
+                id={`dateTo_${index}`}
+              
               ></input>
             </div>
           </div>
@@ -202,15 +218,15 @@ function EditProgramsForm() {
             <div className="UD-form-section">
               <label className="UD-SetLabel-Name">
                 <span></span>Name of the Course
-                <button type="button" className="plus-button">+</button>
+         
               </label>
               <input
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`courseName_${index}`}
+                id={`courseName_${index}`}
+              
               ></input>
             </div>
           </div>
@@ -227,15 +243,17 @@ function EditProgramsForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
-                id=""
-                required
+                name={`sponsoredBy_${index}`}
+                id={`sponsoredBy_${index}`}
+              
               ></input>
             </div>
           </div>
 
 
         </div>
+        </div>
+        ))}
 
  {/* Other Information*/}
 
@@ -465,6 +483,7 @@ function EditProgramsForm() {
        
       </div>
     </div>
+    </form>
   </>
   )
 }

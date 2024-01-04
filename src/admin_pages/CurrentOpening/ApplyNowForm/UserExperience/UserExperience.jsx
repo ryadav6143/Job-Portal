@@ -13,9 +13,11 @@ function UserExperience() {
   return (
     <>
       <div className="container">
-        <div>
+        <div style={{marginTop:"20px"}}>
           <div>
-            <h5 className="UD-heading">Experience</h5>
+            <h5 className="UD-heading">Experience  <button className="plus-button">+</button></h5>
+           
+            
             <p className="UD-subheading">
               Please fill your information so we can get in touch with you.
             </p>
@@ -63,7 +65,7 @@ function UserExperience() {
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
                   <span>*</span>Current Gross Pay (Per Month){" "}
-                  <button className="plus-button">+</button>
+                 
                 </label>
                 <input
                   className="UD-set-input"
