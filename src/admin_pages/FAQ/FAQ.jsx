@@ -130,35 +130,36 @@ function FAQ() {
           ))}
         </div>
       </div>
+      <div className="water-marks">
+        <div className="marks-left">
+          <img src={mark} style={{ rotate: "35deg" }} />
+          <img src={mark} style={{ rotate: "-35deg" }} />
+          <img src={mark} style={{ rotate: "180deg" }} />
+          <img src={mark} style={{ rotate: "128deg" }} />
+        </div>
+        <div className="marks-right">
+          <img src={mark} style={{ rotate: "-35deg" }} />
+          <img src={mark} style={{ rotate: "35deg" }} />
+          <img src={mark} style={{ rotate: "180deg" }} />
+          <img src={mark} style={{ rotate: "-48deg" }} />
+        </div>
+        <div className="mark-bottom">
+          <img src={mark} style={{ rotate: "-35deg" }} />
+          <img src={mark} style={{ rotate: "35deg" }} />
+          <img src={mark} style={{ rotate: "180deg" }} />
+          <img src={mark} style={{ rotate: "128deg" }} />
+          <img src={mark} style={{ rotate: "48deg" }} />
+          <img src={mark} style={{ rotate: "-48deg" }} />
+        </div>
 
-      <div className="marks-left">
-        <img src={mark} style={{ rotate: "35deg" }} />
-        <img src={mark} style={{ rotate: "-35deg" }} />
-        <img src={mark} style={{ rotate: "180deg" }} />
-        <img src={mark} style={{ rotate: "128deg" }} />
-      </div>
-      <div className="marks-right">
-        <img src={mark} style={{ rotate: "-35deg" }} />
-        <img src={mark} style={{ rotate: "35deg" }} />
-        <img src={mark} style={{ rotate: "180deg" }} />
-        <img src={mark} style={{ rotate: "-48deg" }} />
-      </div>
-      <div className="mark-bottom">
-        <img src={mark} style={{ rotate: "-35deg" }} />
-        <img src={mark} style={{ rotate: "35deg" }} />
-        <img src={mark} style={{ rotate: "180deg" }} />
-        <img src={mark} style={{ rotate: "128deg" }} />
-        <img src={mark} style={{ rotate: "48deg" }} />
-        <img src={mark} style={{ rotate: "-48deg" }} />
-      </div>
-
-      <div className="mark-bottom-2">
-        <img src={mark} style={{ rotate: "-180deg" }} />
-        <img src={mark} style={{ rotate: "-35deg" }} />
-        <img src={mark} style={{ rotate: "130deg" }} />
-        <img src={mark} style={{ rotate: "320deg" }} />
-        <img src={mark} style={{ rotate: "140deg" }} />
-        <img src={mark} style={{ rotate: "-48deg" }} />
+        <div className="mark-bottom-2">
+          <img src={mark} style={{ rotate: "-180deg" }} />
+          <img src={mark} style={{ rotate: "-35deg" }} />
+          <img src={mark} style={{ rotate: "130deg" }} />
+          <img src={mark} style={{ rotate: "320deg" }} />
+          <img src={mark} style={{ rotate: "140deg" }} />
+          <img src={mark} style={{ rotate: "-48deg" }} />
+        </div>
       </div>
 
       <Footers></Footers>

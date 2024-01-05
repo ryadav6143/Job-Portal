@@ -103,7 +103,7 @@ function Home() {
       </div>
       <div className="perks">
         {/* <div className="perks-heading"> */}
-        <div ref={elementRef} className="perks-heading">
+        <div className="perks-heading">
           <p>
             PERKS OF JOINING <br />
             <span>
@@ -169,12 +169,12 @@ function Home() {
             <div></div>
             <div></div>
             <div></div>
-            {/* <div></div> */}
           </div>
           <div className="row-3">
             <div></div>
           </div>
         </div>
+      
       </div>
       <div className="hr-corner">
         <div className="hr-conrer-heading">
@@ -230,49 +230,49 @@ function Home() {
           <div className="circular-logo">
             <img src={medicircular} />
           </div>
-          <div className="big-img">
+          <div className="big-img remove-bg">
             <img src={men} />
           </div>
-          <div className="mask3">
+          <div className="mask3 remove-bg">
             <img src={mask3} />
           </div>
           <div className="purpose-quotes">
             <p>"Self-belief and hard work will always earn you success."</p>
           </div>
-          <div className="women">
+          <div className="women remove-bg">
             <img src={women} />
           </div>
           <div className="purpose-quotes">
             <p>"Self-belief and hard work will always earn you success."</p>
           </div>
-          <div className="big-img">
+          <div className="big-img remove-bg">
             <img src={mask} />
           </div>
-          <div className="women">
+          <div className="women remove-bg">
             <img src={women} />
           </div>
-          <div className="mask3">
+          <div className="mask3 remove-bg">
             <img src={mask3} />
           </div>
           <div className="purpose-quotes quote-small">
             <p>“Where can I get some”</p>
           </div>
-          <div className="women">
+          <div className="women remove-bg">
             <img src={women} />
           </div>
-          <div className="big-img">
+          <div className="big-img remove-bg">
             <img src={mask2} />
           </div>
           <div className="circular-logo">
             <img src={medicircular} />
           </div>
-          <div className="big-img">
+          <div className="big-img remove-bg">
             <img src={men} />
           </div>
           <div className="purpose-quotes quote-small">
             <p>“Where can I get some”</p>
           </div>
-          <div className="women">
+          <div className="women remove-bg">
             <img src={women} />
           </div>
         </div>

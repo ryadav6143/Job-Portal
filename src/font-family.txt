@@ -23,3 +23,7 @@ font-family: 'Open Sans', sans-serif;
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
   /* Your styles for the larger iPad Pro portrait orientation here */
 }
+
+@media screen and (min-width: 1200px) {
+  /* Your styles for big screens here */
+}

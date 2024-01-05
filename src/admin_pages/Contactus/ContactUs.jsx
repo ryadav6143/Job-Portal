@@ -45,7 +45,6 @@ function ContactUs() {
                 <input type="text" placeholder="Enter First Name " required />
               </div>
               <div className="col-6">
-                {" "}
                 <label htmlFor="">Last Name</label>
                 <input type="text" placeholder="Enter Last Name " required />
               </div>
@@ -56,7 +55,6 @@ function ContactUs() {
                 <input type="email" placeholder="Enter First Name " required />
               </div>
               <div className="col-6">
-                {" "}
                 <label htmlFor="">Phone Number</label>
                 <input
                   type="number"
@@ -76,11 +74,13 @@ function ContactUs() {
           </form>
         </div>
       </div>
-      <div className="map-to-medi" >
-        <p><span id="our-address">Find Our Address On Map</span></p>
+      <div className="map-to-medi">
+        <p>
+          <span id="our-address">Find Our Address On Map</span>
+        </p>
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.8780860615793!2d75.8010157747586!3d22.621027331194718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962f958dcb7169d%3A0xd877c12078e50f0f!2sMedi-Caps%20University!5e0!3m2!1sen!2sin!4v1703826878658!5m2!1sen!2sin"
-          style={{border:'0'}}
+          style={{ border: "0" }}
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
