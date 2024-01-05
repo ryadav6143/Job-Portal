@@ -4,51 +4,53 @@ import {
   faUser,
   faEnvelope,
   faMobile,
-  faAngleDown
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserDetails.css";
 
-
-
 function UserDetails() {
-  const [formData, setFormData] = useState({
-    email: "",
-    contact_1: "",
-    postAppliedFor: "",
-    department: "",
-    specialization: "",
-    natureOfJob: "",
-    title: "",
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    dob: "",
-    gender: "",
-    religion: "",
-    category: "",
-    maritalStatus: "",
-    address: "",
-    contact_2: "",
-    country: "",
-    state: "",
-    currentJobCity: "",
-    pinCode: "",
+  const [formValues, setFormValues] = useState({
+    email:'',
+    contact_1:'',
+    title_first_name:'',
+    first_name:'',
+    middle_name:'',
+    last_name:'',
+    dob:'',
+    gender:'',
+    religion:'',
+    cast_category_name:'',
+    marital_status:'',
+    address_1:'',
+    contact_2:'',
+    country:'',
+    state_province:'',
+    pin_code:'',
+
+
+    // ... (add other fields from the Personal Details section)
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
   };
 
-  const handleSubmit = () => {
-    console.log("Form Data:", formData);
-    // Add your logic for submitting data here
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form Values:', formValues);
+
+    // You can also perform any additional actions or API calls here
+  };
 
   return (
     <>
+    <form method="post" onSubmit={handleSubmit}>
       <div className="container">
-        <div style={{marginTop:"20px"}}>
+        <div style={{ marginTop: "20px" }}>
           <div>
             <h5 className="UD-heading">Personal Details</h5>
             <p className="UD-subheading">
@@ -86,7 +88,7 @@ function UserDetails() {
                   className="UD-set-input"
                   type="tel"
                   placeholder="(123) 456 - 7890 "
-                  name="  contact_1"
+                  name="contact_1"
                   id=""
                   onChange={handleInputChange}
                   required
@@ -101,7 +103,12 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Post Applied For (If Others, Please Specify)
                 </label>
-                <select  onChange={handleInputChange} name="" className="UD-set-dropdown">
+                <select
+                  onChange={handleInputChange}
+                  name=""
+                  className="UD-set-dropdown"
+                  required
+                >
                   <option value="">Select Post</option>
                   <option value="">Sub Post 1</option>
                   <option value="">Sub Post 2</option>
@@ -119,11 +126,16 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Departments
                 </label>
-                <select  onChange={handleInputChange} name="" className="UD-set-dropdown">
+                <select
+                  onChange={handleInputChange}
+                  name=""
+                  className="UD-set-dropdown"
+                  required
+                >
                   <option value="">Select Departments</option>
-                  <option value="">Departments</option>
-                  <option value="">Departments</option>
-                  <option value="">Departments</option>
+                  <option value="">Departments 1</option>
+                  <option value="">Departments 2</option>
+                  <option value="">Departments 3</option>
                 </select>
                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
@@ -153,7 +165,12 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Nature of Job
                 </label>
-                <select  onChange={handleInputChange} name="" className="UD-set-dropdown">
+                <select
+                  onChange={handleInputChange}
+                  name=""
+                  className="UD-set-dropdown"
+                  required
+                >
                   <option value="">Nature of Job</option>
                   <option value="">Nature of Job 1</option>
                   <option value="">Nature of Job 2</option>
@@ -171,7 +188,11 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span></span>Title
                 </label>
-                <select  onChange={handleInputChange} name=" title_first_name" className="UD-set-dropdown">
+                <select
+                  onChange={handleInputChange}
+                  name=" title_first_name"
+                  className="UD-set-dropdown"
+                >
                   <option value="Mr.">Mr.</option>
                   <option value="Mrs.">Mrs.</option>
                   <option value="Ms.">Ms.</option>
@@ -213,7 +234,6 @@ function UserDetails() {
                   placeholder="Enter Middle Name "
                   id=""
                   onChange={handleInputChange}
-          
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
               </div>
@@ -266,10 +286,15 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span>Gender
                 </label>
-                <select  onChange={handleInputChange} name="gender" className="UD-set-dropdown">
-                  <option value="Mr.">Male</option>
-                  <option value="Mrs.">Female</option>
-                  <option value="Ms.">Others</option>
+                <select
+                  onChange={handleInputChange}
+                  name="gender"
+                  className="UD-set-dropdown"
+                  required
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Others">Others</option>
                 </select>
                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
@@ -340,7 +365,7 @@ function UserDetails() {
               {/* *Current address */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span>*</span>Current address 
+                  <span>*</span>Current address
                 </label>
 
                 <input
@@ -370,7 +395,8 @@ function UserDetails() {
                   id=""
                   onChange={handleInputChange}
                   required
-                ></input><FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
+                ></input>
+                <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
               </div>
             </div>
 
@@ -380,11 +406,16 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Country
                 </label>
-                <select  onChange={handleInputChange} name="country" className="UD-set-dropdown">
-                  <option value="">Select country</option>
-                  <option value=""> country</option>
-                  <option value=""> country</option>
-                  <option value=""> country</option>
+                <select
+                  onChange={handleInputChange}
+                  name="country"
+                  className="UD-set-dropdown"
+                  required
+                >
+                  <option value="country">Select country</option>
+                  <option value="country 1"> country 1</option>
+                  <option value=" country 2"> country 2</option>
+                  <option value="country 3"> country 3</option>
                 </select>
                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
@@ -392,19 +423,22 @@ function UserDetails() {
           </div>
 
           <div className="row">
-           
-
             <div className="col-md-4">
               {/* *State */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
                   <span>*</span>State
                 </label>
-                <select  onChange={handleInputChange} name="state_province" className="UD-set-dropdown">
-                  <option value="">Select State</option>
-                  <option value=""> State</option>
-                  <option value=""> State</option>
-                  <option value=""> State</option>
+                <select
+                  onChange={handleInputChange}
+                  name="state_province"
+                  className="UD-set-dropdown"
+                  required
+                >
+                  <option value="State">Select State</option>
+                  <option value="State 1"> State 1</option>
+                  <option value="State 2"> State 2</option>
+                  <option value="State 3"> State 3</option>
                 </select>
                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
@@ -416,11 +450,16 @@ function UserDetails() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span>Current Job City
                 </label>
-                <select  onChange={handleInputChange} name="" className="UD-set-dropdown">
+                <select
+                  onChange={handleInputChange}
+                  name=""
+                  className="UD-set-dropdown"
+                  required
+                >
                   <option value="">Select Current Job City</option>
-                  <option value=""> Job City</option>
-                  <option value=""> Job City</option>
-                  <option value=""> Job City</option>
+                  <option value="Job City 1"> Job City 1</option>
+                  <option value="Job City 2"> Job City 2</option>
+                  <option value="Job City 3"> Job City 3</option>
                 </select>
                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
@@ -435,7 +474,7 @@ function UserDetails() {
 
                 <input
                   className="UD-set-input"
-                  type="number"
+                  type="text"
                   name="pin_code"
                   placeholder="Enter Pin Code "
                   id=""
@@ -445,11 +484,12 @@ function UserDetails() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
-      <button onClick={handleSubmit} type="submit">Submit</button>
-    
+      <button  type="submit">
+        Submit
+      </button>
+      </form>
     </>
   );
 }

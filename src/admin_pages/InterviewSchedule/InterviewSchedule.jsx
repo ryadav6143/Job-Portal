@@ -47,7 +47,7 @@ function InterviewSchedule() {
             </p>
           </div>
         </div>
-        <div className="is-header ">
+        <div className="is-header pc">
           <div className="row header-item">
             <div className="col-md-3">
               <a className="a1 a11" onClick={() => showComponent("Component1")}>
@@ -90,6 +90,50 @@ function InterviewSchedule() {
               </a>
             </div>
           </div>
+        </div>
+        <div className="for-mobile">
+          <ul>
+            <li>
+              <a onClick={() => showComponent("Component1")}>
+                <img
+                  className="is-header-logo"
+                  src={logo1}
+                  alt="Academics Logo"
+                />
+                ACADEMICS
+              </a>
+            </li>
+            <li>
+              <a onClick={() => showComponent("Component2")}>
+                <img
+                  className="is-header-logo"
+                  src={logo3}
+                  alt="Research Logo"
+                />
+                RESEARCH
+              </a>
+            </li>
+            <li>
+              <a onClick={() => showComponent("Component3")}>
+                <img
+                  className="is-header-logo"
+                  src={logo2}
+                  alt="Administration Logo"
+                />
+                ADMINISTRATION
+              </a>
+            </li>
+            <li>
+              <a onClick={() => showComponent("Component4")}>
+                <img
+                  className="is-header-logo"
+                  src={logo4}
+                  alt="Technical Logo"
+                />
+                TECHNICAL
+              </a>
+            </li>
+          </ul>
         </div>
         <div>{componentToShow}</div>
         <div className="notes">

@@ -38,7 +38,7 @@ function EditQualificationForm() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Country
                 </label>
-                <select required name="" className="UD-set-dropdown">
+                <select required name="country" className="UD-set-dropdown">
                   <option value="">Select country</option>
                   <option value=""> country</option>
                   <option value=""> country</option>
@@ -58,7 +58,7 @@ function EditQualificationForm() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="year_start"
                   id=""
                   
                   required
@@ -77,7 +77,7 @@ function EditQualificationForm() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="institute_name"
                   id=""
                   
                   required
@@ -98,7 +98,7 @@ function EditQualificationForm() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="board_university_name"
                   id=""
                   
                   required
@@ -117,7 +117,7 @@ function EditQualificationForm() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="year_end"
                   id=""
                   
                   required
@@ -136,7 +136,7 @@ function EditQualificationForm() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="grade_division"
                   id=""
                   
                   required
@@ -157,7 +157,7 @@ function EditQualificationForm() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="grade_percent"
                   id=""
                   
                   required
@@ -182,7 +182,7 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span>*</span> Country
                  </label>
-                 <select required name="" className="UD-set-dropdown">
+                 <select required name="country" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
@@ -202,7 +202,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_start"
                    id=""
                    
                    required
@@ -221,7 +221,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="institute_name"
                    id=""
                    
                    required
@@ -242,7 +242,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="board_university_name"
                    id=""
                    
                    required
@@ -261,7 +261,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_end"
                    id=""
                    
                    required
@@ -280,7 +280,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_division"
                    id=""
                    
                    required
@@ -301,7 +301,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_percent"
                    id=""
                    
                    required
@@ -320,7 +320,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="stream"
                    id=""
                    
                    required
@@ -346,7 +346,7 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="" className="UD-set-dropdown">
+                 <select name="country" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
@@ -366,7 +366,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_start"
                    id=""
               
                  ></input>
@@ -384,7 +384,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="board_university_name"
                    id=""
                    
                    
@@ -405,7 +405,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="institute_name"
                    id=""
                    
                   
@@ -424,7 +424,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="degree_types_name"
                    id=""
                    
                    
@@ -443,7 +443,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_end"
                    id=""
                    
                    
@@ -464,7 +464,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="specialization_area_1"
                    id=""
                    
                    
@@ -483,7 +483,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_percent"
                    id=""
                    
                    
@@ -509,7 +509,7 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="" className="UD-set-dropdown">
+                 <select name="country" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
@@ -529,7 +529,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_start"
                    id=""
                    
                    
@@ -548,7 +548,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="board_university_name"
                    id=""
                    
                   
@@ -569,7 +569,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="institute_name"
                    id=""
                  
                  ></input>
@@ -587,7 +587,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="degree_types_name"
                    id=""
                    
                 
@@ -606,7 +606,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_end"
                    id=""
                    
                   
@@ -627,7 +627,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="specialization_area_1"
                    id=""
                    
                    
@@ -646,7 +646,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_percent"
                    id=""
                    
                 
@@ -672,7 +672,7 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="" className="UD-set-dropdown">
+                 <select name="country" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
@@ -692,7 +692,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_start"
                    id=""
                    
                    
@@ -711,7 +711,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="board_university_name"
                    id=""
                   
                  ></input>
@@ -731,7 +731,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="institute_name"
                    id=""
                    
                  ></input>
@@ -749,7 +749,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="degree_types_name"
                    id=""
                    
                  ></input>
@@ -767,7 +767,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_end"
                    id=""
                    
                  ></input>
@@ -787,7 +787,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="specialization_area_1"
                    id=""
            
                  ></input>
@@ -805,7 +805,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_percent"
                    id=""
                    
                  
@@ -830,7 +830,7 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="" className="UD-set-dropdown">
+                 <select name="country" className="UD-set-dropdown">
                    <option value="">Select country</option>
                    <option value=""> country</option>
                    <option value=""> country</option>
@@ -850,7 +850,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_start"
                    id=""
               
                  ></input>
@@ -868,7 +868,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="board_university_name"
                    id=""
               
                  ></input>
@@ -888,7 +888,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="institute_name"
                    id=""
                   
                  ></input>
@@ -906,7 +906,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="degree_types_name"
                    id=""
                   
                  ></input>
@@ -924,7 +924,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="year_end"
                    id=""
                  
                  ></input>
@@ -944,7 +944,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="specialization_area_1"
                    id=""
                   
                  ></input>
@@ -962,7 +962,7 @@ function EditQualificationForm() {
                    className="UD-set-input"
                    type="text"
                    placeholder=" "
-                   name=""
+                   name="grade_percent"
                    id=""
                    
                  

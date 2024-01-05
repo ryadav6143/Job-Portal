@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -9,8 +10,66 @@ import {
 import "./UserQualification.css";
 
 function UserQualification() {
+
+  const [formValues, setFormValues] = useState({
+    country1: '',
+    country2: '',
+    country3: '',
+    country4: '',
+    country5: '',
+    country6: '',
+    year_start: '',
+    institute_name:'',
+    board_university_name:'',
+    year_end: '',
+    grade_division:'',
+    grade_percent: '',
+    stream:'',
+    degree_types_name:'',
+    specialization_area_1:'',
+
+  });
+
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    // Fetch countries from the API
+    fetch('https://countriesnow.space/api/v0.1/countries')
+      .then((response) => response.json())
+      .then((data) => {
+        setCountries(data.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching countries:', error);
+      });
+  }, []);
+
+  const handleInputChange = (e, dropdownName) => {
+    const { value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [dropdownName]: value,
+    }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form Data:', formValues);
+    // Add any additional logic for form submission or data processing here
+  };
+
+  
   return (
     <>
+    <form method='post' onSubmit={handleSubmit} >
       <div className="container">
         <div style={{marginTop:"20px"}}>
           <div>
@@ -33,12 +92,20 @@ function UserQualification() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Country
                 </label>
-                <select name="country" className="UD-set-dropdown">
-                  <option value="">Select country</option>
-                  <option value=""> country</option>
-                  <option value=""> country</option>
-                  <option value=""> country</option>
-                </select>
+                <select
+          onChange={(e) => handleInputChange(e, 'country1')}
+          name="country1"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country1}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
@@ -152,7 +219,7 @@ function UserQualification() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name="grade_percent:{"
+                  name="grade_percent"
                   id=""
                   
                   required
@@ -177,12 +244,20 @@ function UserQualification() {
                  <label className="UD-SetLabel-Name">
                    <span>*</span> Country
                  </label>
-                 <select name="country" className="UD-set-dropdown">
-                   <option value="">Select country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                 </select>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country2')}
+          name="country2"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country2}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
@@ -341,12 +416,20 @@ function UserQualification() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="country" className="UD-set-dropdown">
-                   <option value="">Select country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                 </select>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country3')}
+          name="country1"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country3}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
@@ -364,7 +447,7 @@ function UserQualification() {
                    name="year_start"
                    id=""
                    
-                   required
+            
                  ></input>
               
                </div>
@@ -383,7 +466,7 @@ function UserQualification() {
                    name="board_university_name"
                    id=""
                    
-                   required
+                  
                  ></input>
               
                </div>
@@ -404,7 +487,7 @@ function UserQualification() {
                    name="institute_name"
                    id=""
                    
-                   required
+                 
                  ></input>
               
                </div>
@@ -423,7 +506,7 @@ function UserQualification() {
                    name="degree_types_name"
                    id=""
                    
-                   required
+                
                  ></input>
               
                </div>
@@ -442,7 +525,7 @@ function UserQualification() {
                    name="year_end"
                    id=""
                    
-                   required
+                 
                  ></input>
               
                </div>
@@ -463,7 +546,7 @@ function UserQualification() {
                    name="specialization_area_1"
                    id=""
                    
-                   required
+            
                  ></input>
               
                </div>
@@ -481,8 +564,7 @@ function UserQualification() {
                    placeholder=" "
                    name="grade_percent"
                    id=""
-                   
-                   required
+              
                  ></input>
               
                </div>
@@ -505,12 +587,20 @@ function UserQualification() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="country" className="UD-set-dropdown">
-                   <option value="">Select country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                 </select>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country4')}
+          name="country1"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country4}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
@@ -528,7 +618,7 @@ function UserQualification() {
                    name="year_start"
                    id=""
                    
-                   required
+            
                  ></input>
               
                </div>
@@ -547,7 +637,7 @@ function UserQualification() {
                    name="board_university_name"
                    id=""
                    
-                   required
+             
                  ></input>
               
                </div>
@@ -568,7 +658,7 @@ function UserQualification() {
                    name="institute_name"
                    id=""
                    
-                   required
+              
                  ></input>
               
                </div>
@@ -587,7 +677,7 @@ function UserQualification() {
                    name=" degree_types_name"
                    id=""
                    
-                   required
+                   
                  ></input>
               
                </div>
@@ -606,7 +696,7 @@ function UserQualification() {
                    name="year_end"
                    id=""
                    
-                   required
+                  
                  ></input>
               
                </div>
@@ -627,7 +717,7 @@ function UserQualification() {
                    name="specialization_area_1"
                    id=""
                    
-                   required
+                
                  ></input>
               
                </div>
@@ -646,7 +736,7 @@ function UserQualification() {
                    name="grade_percent"
                    id=""
                    
-                   required
+            
                  ></input>
               
                </div>
@@ -669,12 +759,20 @@ function UserQualification() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="country" className="UD-set-dropdown">
-                   <option value="">Select country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                 </select>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country5')}
+          name="country1"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country5}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
@@ -692,7 +790,7 @@ function UserQualification() {
                    name="year_start"
                    id=""
                    
-                   required
+              
                  ></input>
               
                </div>
@@ -711,7 +809,7 @@ function UserQualification() {
                    name=" board_university_name:{"
                    id=""
                    
-                   required
+                
                  ></input>
               
                </div>
@@ -732,7 +830,7 @@ function UserQualification() {
                    name="institute_name"
                    id=""
                    
-                   required
+                  
                  ></input>
               
                </div>
@@ -751,7 +849,7 @@ function UserQualification() {
                    name="degree_types_name"
                    id=""
                    
-                   required
+                 
                  ></input>
               
                </div>
@@ -770,7 +868,7 @@ function UserQualification() {
                    name="year_end"
                    id=""
                    
-                   required
+                  
                  ></input>
               
                </div>
@@ -791,7 +889,7 @@ function UserQualification() {
                    name="specialization_area_1"
                    id=""
                    
-                   required
+             
                  ></input>
               
                </div>
@@ -810,7 +908,7 @@ function UserQualification() {
                    name="grade_percent"
                    id=""
                    
-                   required
+                
                  ></input>
               
                </div>
@@ -832,12 +930,20 @@ function UserQualification() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="country" className="UD-set-dropdown">
-                   <option value="">Select country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                 </select>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country6')}
+          name="country1"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country6}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
@@ -855,7 +961,7 @@ function UserQualification() {
                    name="year_start"
                    id=""
                    
-                   required
+                  
                  ></input>
               
                </div>
@@ -873,8 +979,7 @@ function UserQualification() {
                    placeholder=" "
                    name="board_university_name"
                    id=""
-                   
-                   required
+               
                  ></input>
               
                </div>
@@ -895,7 +1000,7 @@ function UserQualification() {
                    name="institute_name"
                    id=""
                    
-                   required
+                 
                  ></input>
               
                </div>
@@ -913,8 +1018,7 @@ function UserQualification() {
                    placeholder=" "
                    name="degree_types_name"
                    id=""
-                   
-                   required
+                
                  ></input>
               
                </div>
@@ -933,7 +1037,7 @@ function UserQualification() {
                    name="year_end"
                    id=""
                    
-                   required
+           
                  ></input>
               
                </div>
@@ -953,8 +1057,7 @@ function UserQualification() {
                    placeholder=" "
                    name="specialization_area_1"
                    id=""
-                   
-                   required
+             
                  ></input>
               
                </div>
@@ -972,8 +1075,7 @@ function UserQualification() {
                    placeholder=" "
                    name="grade_percent"
                    id=""
-                   
-                   required
+                
                  ></input>
               
                </div>
@@ -1003,7 +1105,7 @@ function UserQualification() {
                    name=""
                    id=""
                    
-                   required
+                
                  ></input>
               
                </div>
@@ -1022,7 +1124,7 @@ function UserQualification() {
                    name=""
                    id=""
                    
-                   required
+                   
                  ></input>
               
                </div>
@@ -1041,7 +1143,6 @@ function UserQualification() {
                    name=""
                    id=""
                    
-                   required
                  ></input>
               
                </div>
@@ -1062,7 +1163,7 @@ function UserQualification() {
                    name=""
                    id=""
                    
-                   required
+             
                  ></input>
               
                </div>
@@ -1076,6 +1177,9 @@ function UserQualification() {
 
         </div>
       </div>
+
+      <button type="submit">Submit</button>
+      </form>
     </>
   )
 }

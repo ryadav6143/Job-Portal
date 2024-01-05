@@ -36,11 +36,31 @@ function UserHeader() {
     }
   };
 
+  // useEffect(()=> {
+  //   if(window.innerWidth < 768){
+  //     setIsOpen(false)
+  //     setIsMobile(true)
+  //   }
+  // },[])
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      setIsOpen(false);
-      setIsMobile(true);
-    }
+    // Update isOpen state only if the window width is less than 768
+    const checkIsMobile = () => {
+      if (window.innerWidth < 768) {
+        setIsOpen(false); // Close sidebar by default on mobile
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+
+    checkIsMobile(); // Call on initial render
+
+    // Event listener to check window width and update isOpen state
+    window.addEventListener("resize", checkIsMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkIsMobile); // Clean up the event listener
+    };
   }, []);
 
   const handleSideBar = () => {
@@ -106,21 +126,20 @@ function UserHeader() {
           <div className="set-sidebar">
             <div>
               <nav>
-                <ul className="set-menu" style={{ listStyle: "none", }}>
-                  <li > 
+                <ul className="set-menu" style={{ listStyle: "none" }}>
+                  <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faIdCardClip}
                     />
-                    <a  activeClassName="active-link"  onClick={() => setScreen(0)}>&nbsp; Personal Details</a>
+                    <a onClick={() => setScreen(0)}>&nbsp; Personal Details</a>
                   </li>
-
                   <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faBuildingColumns}
                     />
-                    <a   onClick={() => setScreen(1)}>
+                    <a onClick={() => setScreen(1)}>
                       &nbsp; Academic Professional Qualifications
                     </a>
                   </li>
@@ -129,7 +148,7 @@ function UserHeader() {
                       className="set-menu-icon"
                       icon={faBriefcase}
                     />
-                    <a   onClick={() => setScreen(2)}>&nbsp; Experience</a>
+                    <a onClick={() => setScreen(2)}>&nbsp; Experience</a>
                   </li>
                   <li>
                     <FontAwesomeIcon

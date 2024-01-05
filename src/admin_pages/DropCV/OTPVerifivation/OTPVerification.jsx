@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 function OTPVerification() {
   const navigate = useNavigate();
   const submitsuccess = () => {
-    navigate("/success");
+    
+    navigate("/verification-successfull");
   };
   return (
     <>

@@ -9,9 +9,9 @@ import {
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
-function PersonalDeatils({onFormSubmit}) {
+function PersonalDeatils({ onFormSubmit }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -253,7 +253,6 @@ function PersonalDeatils({onFormSubmit}) {
                     onChange={handleInputChange}
                     value={formData.title_first_name}
                     required
-
                   >
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
@@ -325,7 +324,7 @@ function PersonalDeatils({onFormSubmit}) {
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
-</div>
+            </div>
             <div className="row">
               <div className="col-md-6">
                 {/* Email */}

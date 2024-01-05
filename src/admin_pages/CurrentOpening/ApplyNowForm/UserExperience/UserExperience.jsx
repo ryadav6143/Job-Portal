@@ -186,7 +186,7 @@ function UserExperience() {
                   placeholder=""
                   name="accommodation"
                   id=""
-                  required
+                 
                 ></input>
               </div>
             </div>
@@ -203,7 +203,7 @@ function UserExperience() {
                   placeholder=""
                   name="transportation"
                   id=""
-                  required
+                
                 ></input>
               </div>
             </div>
@@ -220,7 +220,7 @@ function UserExperience() {
                   placeholder=""
                   name="food"
                   id=""
-                  required
+              
                 ></input>
               </div>
             </div>
@@ -239,7 +239,7 @@ function UserExperience() {
                   placeholder=""
                   name="mediclaim"
                   id=""
-                  required
+                 
                 ></input>
               </div>
             </div>
@@ -256,7 +256,7 @@ function UserExperience() {
                   placeholder=""
                   name="exp_others"
                   id=""
-                  required
+               
                 ></input>
               </div>
             </div>

@@ -7,7 +7,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import UserDetails from "../ApplyNowForm/UserDetails/UserDetails"
+import UserDetails from "../ApplyNowForm/UserDetails/UserDetails";
 import UserExperience from "./UserExperience/UserExperience";
 import ResearchWorks from "./ResearchWorks/ResearchWorks";
 import UserQualification from "./UserQualification/UserQualification";
@@ -15,8 +15,8 @@ import Programs from "./Programs/Programs";
 import Reference from "./Reference/Reference";
 import OTPVerification from "../../DropCV/OTPVerifivation/OTPVerification";
 import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
-
-
+import Header from "../../../components/Header/Header";
+import Footers from "../../../components/Footer/Footers";
 
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
@@ -54,6 +54,7 @@ function ApplyNow() {
   };
   return (
     <>
+      <Header></Header>
       <div className="apply-now-forms">
         <Box sx={{ width: "100%" }}>
           <div className="my-stepper">
@@ -94,10 +95,10 @@ function ApplyNow() {
               {activeStep === 1 && <UserQualification />}
               {activeStep === 2 && <UserExperience />}
               {activeStep === 3 && <ResearchWorks />}
-               {activeStep === 4 && <Programs />}
-              {activeStep === 5 && <Reference />}  
-              {activeStep === 6 && <OTPVerification />}  
-              {activeStep === 7 && <Submitsuccess />}  
+              {activeStep === 4 && <Programs />}
+              {activeStep === 5 && <Reference />}
+              {activeStep === 6 && <OTPVerification />}
+              {activeStep === 7 && <Submitsuccess />}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
                   className="prev-btn"
@@ -117,6 +118,7 @@ function ApplyNow() {
           )}
         </Box>
       </div>
+      <Footers></Footers>
     </>
   );
 }

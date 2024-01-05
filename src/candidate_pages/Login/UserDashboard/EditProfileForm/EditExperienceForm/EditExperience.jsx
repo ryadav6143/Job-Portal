@@ -43,8 +43,8 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`name_${index}`}
-                id={`name_${index}`}
+                name="company_experience_name"
+                id=""
                 required
               ></input>
             </div>
@@ -60,8 +60,8 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`designation_${index}`}
-                id={`designation_${index}`}
+                name="designation"
+                id=""
                 required
               ></input>
             </div>
@@ -78,8 +78,8 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`grossPay_${index}`}
-                id={`grossPay_${index}`}
+                name="gross_pay"
+                id=""
                 required
               ></input>
             </div>
@@ -97,8 +97,8 @@ function EditExperience() {
                 className="UD-set-input"
                 type="date"
                 placeholder=" MM/DD/YYYY"
-                name={`dateFrom_${index}`}
-                id={`dateFrom_${index}`}
+                name="exp_work_from"
+                id=""
                 required
               ></input>
             </div>
@@ -114,8 +114,8 @@ function EditExperience() {
                 className="UD-set-input"
                 type="date"
                 placeholder="MM/DD/YYYY "
-                name={`dateTo_${index}`}
-                id={`dateTo_${index}`}
+                name="exp_work_to"
+                id=""
                 required
               ></input>
             </div>
@@ -141,7 +141,7 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder="In Years"
-                name=""
+                name="total_academic_exp"
                 id=""
                 required
               ></input>
@@ -158,7 +158,7 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder="In Years"
-                name=""
+                name="total_industrial_exp"
                 id=""
                 required
               ></input>
@@ -183,7 +183,7 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder=""
-                name=""
+                name="accommodation"
                 id=""
                 
               ></input>
@@ -200,7 +200,7 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder=""
-                name=""
+                name="transportation"
                 id=""
                 
               ></input>
@@ -217,7 +217,7 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder=""
-                name=""
+                name="food"
                 id=""
               
               ></input>
@@ -236,7 +236,7 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder=""
-                name=""
+                name="mediclaim"
                 id=""
                 
               ></input>
@@ -253,7 +253,7 @@ function EditExperience() {
                 className="UD-set-input"
                 type="text"
                 placeholder=""
-                name=""
+                name="exp_others"
                 id=""
                 
               ></input>

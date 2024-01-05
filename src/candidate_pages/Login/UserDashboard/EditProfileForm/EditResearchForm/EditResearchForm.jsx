@@ -49,7 +49,7 @@ function EditResearchForm() {
               <label className="UD-SetLabel-Name">
                 <span></span> ORCID Id
               </label>
-              <select name={`orcidId_${index}`}className="UD-set-dropdown">
+              <select name="orcid" className="UD-set-dropdown">
                 <option value="">Select Id</option>
                 <option value=""> Id 1</option>
                 <option value=""> Id 2</option>
@@ -69,8 +69,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`scopusId_${index}`}
-                id={`scopusId_${index}`}
+                name="scopusid"
+                id=""
                
               ></input>
             </div>
@@ -86,8 +86,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`researchId_${index}`}
-                id={`researchId_${index}`}
+                name="researchid"
+                id=""
                 
               ></input>
             </div>
@@ -118,8 +118,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`year_${index}`}
-                id={`year_${index}`}
+                  name="journal_publication_year"
+                id=""
                
               ></input>
             </div>
@@ -135,8 +135,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`title_${index}`}
-                id={`title_${index}`}
+                name="journal_publication_title"
+                id=""
                 
               ></input>
             </div>
@@ -154,8 +154,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`authorRole_${index}`}
-                id={`authorRole_${index}`}
+                name="journal_publication_author"
+                id=""
              
               ></input>
             </div>
@@ -173,8 +173,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`indexing_${index}`}
-                id={`indexing_${index}`}
+                name="journal_publication_index"
+                id=""
               
               ></input>
             </div>
@@ -190,8 +190,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`journalName_${index}`}
-                id={`journalName_${index}`}
+                name="journal_publication_name"
+                id=""
                
               ></input>
             </div>
@@ -207,8 +207,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`issn_${index}`}
-                id={`issn_${index}`}
+                name="journal_publication_issn"
+                id=""
                
               ></input>
             </div>
@@ -226,8 +226,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`volume_${index}`}
-                id={`volume_${index}`}
+                name="journal_publication_volume"
+                id=""
                
               ></input>
             </div>
@@ -243,8 +243,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`issue_${index}`}
-                id={`issue_${index}`}
+                name="journal_publication_issue"
+                id=""
                 
               ></input>
             </div>
@@ -272,7 +272,7 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="conference_publication_year"
                 id=""
                
               ></input>
@@ -289,7 +289,7 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="conference_publication_title"
                 id=""
                
               ></input>
@@ -308,7 +308,7 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="conference_publication_author"
                 id=""
               
               ></input>
@@ -327,7 +327,7 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="conference_publication_index"
                 id=""
                 
               ></input>
@@ -344,7 +344,7 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="conference_publication_name"
                 id=""
                 
               ></input>
@@ -361,7 +361,7 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="conference_publication_issn"
                 id=""
                 
               ></input>
@@ -380,7 +380,7 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="conference_publication_volume"
                 id=""
               
               ></input>
@@ -397,7 +397,7 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="conference_publication_issue"
                 id=""
                 
               ></input>
@@ -426,8 +426,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`applicationId_${index}`}
-                id={`applicationId_${index}`}
+                name="patent_applicationid"
+                id=""
                
               ></input>
             </div>
@@ -443,8 +443,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`title_${index}`}
-                id={`title_${index}`}
+                name="patent_application_title"
+                id=""
                
               ></input>
             </div>
@@ -462,8 +462,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`year_${index}`}
-                id={`year_${index}`}
+                name="patent_application_year"
+                id=""
                
               ></input>
             </div>
@@ -481,8 +481,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`publishedGranted_${index}`}
-                id={`publishedGranted_${index}`}
+                name="patent_granted_by"
+                id=""
               
               ></input>
             </div>
@@ -498,9 +498,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`country_${index}`}
-                id={`country_${index}`}
-                
+                name="patent_incountry"
+                id=""
               ></input>
             </div>
           </div>
@@ -527,8 +526,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`applicationId_${index}`}
-                id={`applicationId_${index}`}
+                name="copyright_applicationid"
+                id=""
                 
               ></input>
             </div>
@@ -544,8 +543,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`title_${index}`}
-                id={`title_${index}`}
+                name="copyright_title"
+                id=""
                 
               ></input>
             </div>
@@ -563,8 +562,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`year_${index}`}
-                id={`year_${index}`}
+                name="copyright_year"
+                id=""
                
               ></input>
             </div>
@@ -582,8 +581,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`publishedGranted_${index}`}
-                id={`publishedGranted_${index}`}
+                name="copyright_granted_by"
+                id=""
                
               ></input>
             </div>
@@ -599,8 +598,8 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name={`country_${index}`}
-                id={`country_${index}`}
+                name="patent_incountry"
+                id=""
               
               ></input>
             </div>

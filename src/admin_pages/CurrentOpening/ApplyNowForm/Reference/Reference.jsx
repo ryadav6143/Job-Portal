@@ -11,7 +11,7 @@ function Reference() {
   return (
     <>
       <div className="container">
-        <div style={{marginTop:"20px"}}>
+        <div style={{ marginTop: "20px" }}>
           <div>
             <h5 className="UD-heading">Reference</h5>
             <p className="UD-subheading">
@@ -35,7 +35,6 @@ function Reference() {
               placeholder=""
               name=""
               id=""
-              required
             ></input>
           </div>
 
@@ -50,7 +49,7 @@ function Reference() {
               {/* Name */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span></span>Name 
+                  <span></span>Name
                 </label>
                 <input
                   className="UD-set-input"
@@ -58,7 +57,6 @@ function Reference() {
                   placeholder="Enter  Name "
                   name=""
                   id=""
-                  required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
               </div>
@@ -76,7 +74,6 @@ function Reference() {
                   placeholder=" "
                   name=""
                   id=""
-                  required
                 ></input>
               </div>
             </div>
@@ -86,7 +83,6 @@ function Reference() {
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
                   <span></span>Position
-                
                 </label>
                 <input
                   className="UD-set-input"
@@ -94,14 +90,13 @@ function Reference() {
                   placeholder=" "
                   name=""
                   id=""
-                  required
                 ></input>
               </div>
             </div>
           </div>
 
           <div className="row">
-          <div className="col-md-4">
+            <div className="col-md-4">
               {/* Email */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
@@ -113,7 +108,6 @@ function Reference() {
                   placeholder="Email address"
                   name=""
                   id=""
-                 
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
@@ -132,17 +126,12 @@ function Reference() {
                   placeholder="(123) 456 - 7890 "
                   name=""
                   id=""
-                  
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
               </div>
             </div>
-
-            
           </div>
-
-          
 
           {/* Second Reference*/}
 
@@ -155,7 +144,7 @@ function Reference() {
               {/* Name */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span></span>Name 
+                  <span></span>Name
                 </label>
                 <input
                   className="UD-set-input"
@@ -181,7 +170,6 @@ function Reference() {
                   placeholder=" "
                   name=""
                   id=""
-                  required
                 ></input>
               </div>
             </div>
@@ -191,7 +179,6 @@ function Reference() {
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
                   <span></span>Position
-                
                 </label>
                 <input
                   className="UD-set-input"
@@ -199,14 +186,13 @@ function Reference() {
                   placeholder=" "
                   name=""
                   id=""
-                  required
                 ></input>
               </div>
             </div>
           </div>
 
           <div className="row">
-          <div className="col-md-4">
+            <div className="col-md-4">
               {/* Email */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
@@ -218,7 +204,6 @@ function Reference() {
                   placeholder="Email address"
                   name=""
                   id=""
-                 
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
@@ -237,79 +222,64 @@ function Reference() {
                   placeholder="(123) 456 - 7890 "
                   name=""
                   id=""
-                  
                   required
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
               </div>
             </div>
-
-            
           </div>
 
-          
-  
-          <div className="row"  style={{ marginTop: "-30px" }}>
-          <div className="col-md-12">
+          <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="col-md-12">
               {/* Statement of Purpose*/}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
                   <span></span>Statement of Purpose
                 </label>
                 <input
+                style={{width:"95%"}}
                   className="UD-set-input"
                   type="text"
                   placeholder=""
                   name=""
                   id=""
-                 
-                  required
                 ></input>
-              
               </div>
-            </div> 
+            </div>
           </div>
 
+          {/* Upload Resume*/}
 
-   {/* Upload Resume*/}
-
-   <div>
+          <div>
             <p className="HS-heading">Upload Resume</p>
           </div>
 
           <div className="uploadfile-section">
-          <label className="SetLabel-Name">
-            <span>*</span>Upload your Resume:
-          </label>
-          <p className="uploadresume-subheading">
-            To upload your resume here:(maximum size 2MB, PDF, DOC and DOCX
-            format only)
-          </p>
-          <input
-            className="set-choosefile-input"
-            type="file"
-            placeholder="00 (i.e Years.Months)"
-            name="resume_file_link"
-            id=""
-            
-            required
-          ></input>
-        </div>
-
-        <div>
-          <span className="set-checkbox-span">
-            {" "}
+            <label className="SetLabel-Name">
+              <span>*</span>Upload your Resume:
+            </label>
+            <p className="uploadresume-subheading">
+              To upload your resume here:(maximum size 2MB, PDF, DOC and DOCX
+              format only)
+            </p>
             <input
-              className="set-checkbox"
-              type="checkbox"
+              className="set-choosefile-input"
+              type="file"
+              placeholder="00 (i.e Years.Months)"
+              name="resume_file_link"
               id=""
-              name=""
-              
-            />
-            &nbsp; I confirm that the information provided here are true to my knowledge
-          </span>
-        </div>
-          
+              required
+            ></input>
+          </div>
+
+          <div>
+            <span className="set-checkbox-span">
+              {" "}
+              <input className="set-checkbox" type="checkbox" id="" name="" />
+              &nbsp; I confirm that the information provided here are true to my
+              knowledge
+            </span>
+          </div>
         </div>
       </div>
     </>

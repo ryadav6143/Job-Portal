@@ -50,7 +50,7 @@ function Programs() {
                 placeholder="MM/DD/YYYY "
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -67,7 +67,7 @@ function Programs() {
                 placeholder=" MM/DD/YYYY"
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -85,7 +85,7 @@ function Programs() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -104,7 +104,7 @@ function Programs() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -121,7 +121,7 @@ function Programs() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+               
               ></input>
             </div>
           </div>
@@ -138,7 +138,7 @@ function Programs() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+              
               ></input>
             </div>
           </div>
@@ -157,7 +157,7 @@ function Programs() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+              
               ></input>
             </div>
           </div>
@@ -188,7 +188,7 @@ function Programs() {
                 placeholder="MM/DD/YYYY "
                 name=""
                 id=""
-                required
+               
               ></input>
             </div>
           </div>
@@ -205,7 +205,7 @@ function Programs() {
                 placeholder=" MM/DD/YYYY"
                 name=""
                 id=""
-                required
+             
               ></input>
             </div>
           </div>
@@ -223,7 +223,7 @@ function Programs() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+             
               ></input>
             </div>
           </div>
@@ -242,7 +242,7 @@ function Programs() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+               
               ></input>
             </div>
           </div>
@@ -272,7 +272,7 @@ function Programs() {
                 placeholder=""
                 name=""
                 id=""
-                required
+               
               ></input>
             </div>
           </div>
@@ -294,7 +294,7 @@ function Programs() {
                 placeholder=""
                 name=""
                 id=""
-                required
+                
               ></input>
             </div>
           </div>
@@ -322,7 +322,7 @@ function Programs() {
                 placeholder="MM/DD/YYYY "
                 name=""
                 id=""
-                required
+              
               ></input>
             </div>
           </div>
@@ -339,7 +339,7 @@ function Programs() {
                 placeholder=" MM/DD/YYYY"
                 name=""
                 id=""
-                required
+              
               ></input>
             </div>
           </div>
@@ -357,7 +357,7 @@ function Programs() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+              
               ></input>
             </div>
           </div>
@@ -376,7 +376,7 @@ function Programs() {
                 placeholder=" "
                 name=""
                 id=""
-                required
+               
               ></input>
             </div>
           </div>
@@ -395,7 +395,7 @@ function Programs() {
                 placeholder=""
                 name=""
                 id=""
-                required
+             
               ></input>
             </div>
           </div>
@@ -417,7 +417,7 @@ function Programs() {
                 placeholder=""
                 name=""
                 id=""
-                required
+            
               ></input>
             </div>
           </div>
@@ -439,7 +439,7 @@ function Programs() {
                 placeholder=""
                 name=""
                 id=""
-                required
+              
               ></input>
             </div>
           </div>
@@ -461,7 +461,7 @@ function Programs() {
                 placeholder=""
                 name=""
                 id=""
-                required
+             
               ></input>
             </div>
           </div>

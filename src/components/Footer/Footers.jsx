@@ -27,19 +27,27 @@ function Footers() {
           <p>Contact Us</p>
           <div className="social-logos">
             <div>
-              <img src={facebook} />
+              <a href=""><img src={facebook} /></a>
             </div>
             <div>
-              <img src={instagram} />
+              <a href="">
+                <img src={instagram} />
+              </a>
             </div>
             <div>
-              <img src={linkedin} />
+              <a href="">
+                <img src={linkedin} />
+              </a>
             </div>
             <div>
-              <img src={twitter} />
+              <a href="">
+                <img src={twitter} />
+              </a>
             </div>
             <div>
-              <img src={youtube} />
+              <a href="">
+                <img src={youtube} />
+              </a>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 280px;
+  padding-top: 250px;
   padding-bottom: 310px;
   padding-left: 10%;
 }
@@ -107,6 +107,17 @@
   font-size: 40px;
   color: white;
   letter-spacing: 1px;
+  pointer-events: none;
+  opacity: 0;
+  animation: fade ease-in-out 2s forwards;
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .perks {
   display: flex;
@@ -148,6 +159,7 @@
 }
 .side-left {
   margin-left: 20% !important;
+  margin-right: -10% !important;
 }
 .staff-heading {
   font-size: 25px;
@@ -253,7 +265,6 @@
   flex-wrap: wrap;
   justify-content: center;
   cursor: pointer;
-
   div {
     width: 27%;
     height: 410px;
@@ -273,7 +284,8 @@
     border: none;
     font-size: 50px;
     font-weight: 400;
-    margin-top: 55%;
+    margin-top: 200px;
+    border-radius: 50%;
   }
 }
 .row-1 div:nth-child(1):hover {
@@ -283,7 +295,7 @@
 }
 .row-1 div:nth-child(2) {
   background-color: transparent !important;
-  background-image: url("../../assets/images/Chinmay\ Arondekar.jfif");
+  background-image: url("../../assets/images/ChinmayArondekar.jpg");
   background-size: cover;
 }
 .row-1 div:nth-child(2):hover {
@@ -346,7 +358,7 @@
 }
 .row-2 div:nth-child(2) {
   border-radius: 50%;
-  background-image: url("../../assets/images/Hemant\ pal.jfif");
+  background-image: url("../../assets/images/Hemantpal.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -356,9 +368,7 @@
 }
 .row-2 div:nth-child(3) {
   height: 820px;
-  /* border-top-right-radius: 45%;
-  border-top-left-radius: 45%; */
-  background-image: url("../../assets/images/Ruby\ Bhat.jpg");
+  background-image: url("../../assets/images/RubyBhat.jpg");
   background-size: cover;
   background-position: center;
   border-radius: 200px 200px 200px 0px;
@@ -387,7 +397,7 @@
 .row-2 div:nth-child(5) {
   display: none;
 }
-
+/* ....................................MEDICAPS STAFF SECTION............................... */
 .hr-corner {
   background: linear-gradient(180.71deg, rgba(0, 0, 0, 0) 3.39%, #000000 94.22%),
     linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
@@ -442,32 +452,56 @@
     height: 290px;
     border-radius: 35px;
     overflow: hidden;
+    p {
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.758);
+      padding-left: 20px;
+      width: 250px;
+      letter-spacing: 2px;
+      font-family: "Open Sans", sans-serif;
+      margin-top: 80%;
+    }
   }
 }
 .card1,
+.card2,
 .card3,
 .card4 {
   cursor: pointer;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36.91%, #000000 92.74%),
-    url("../../assets/images/slider2.JPG") !important;
   background-size: cover !important;
   overflow: hidden;
 }
+.card1 {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36.91%, #000000 100.74%),
+    url("../../assets/images/slider2.JPG");
+}
 .card2 {
-  cursor: pointer;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36.91%, #000000 92.74%),
-    url("../../assets/images/slider1.JPG") !important;
-  background-size: cover !important;
-  background-position: center !important;
-  overflow: hidden;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36.91%, #000000 100.74%),
+    url("../../assets/images/slider1.JPG");
+}
+
+.card3 {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36.91%, #000000 100.74%),
+    url("../../assets/images/ChinmayArondekar.jpg");
+}
+.card4 {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36.91%, #000000 100.74%),
+    url("../../assets/images/Mohsin\ Ali.jpg");
 }
 .active-card {
   margin-top: -100px;
   height: 400px !important;
+  background-size: cover;
+  background-position: center;
+  p {
+    margin-top: 115% !important;
+  }
 }
-/* ....................................MEDICAPS STAFF SECTION............................... */
 
 @media only screen and (max-width: 767px) {
+  #join-medi-btn a {
+    font-size: 15px;
+  }
   .medi-home-heading {
     margin-top: -20px;
     text-align: center;
@@ -492,8 +526,10 @@
     font-size: 15px;
   }
   .perks-heading {
+    font-size: 20px;
     text-align: center;
   }
+
   .purpose-data {
     display: flex;
     flex-wrap: wrap;
@@ -506,6 +542,10 @@
       place-items: center;
       overflow: hidden;
     }
+  }
+  .side-left {
+    margin-left: 5% !important;
+    margin-right: 5% !important;
   }
   .purpose-headings p:nth-child(1) {
     font-size: 20px;
@@ -551,6 +591,7 @@
   }
   .row-1,
   .row-2 {
+    /* justify-content: start; */
     div {
       padding-left: 5px !important;
       width: 160px;
@@ -570,9 +611,8 @@
   }
   .row-1 div:nth-child(3) {
     position: absolute;
-    /* display: none; */
-    background-color: green;
-    margin-left: 44%;
+    bottom: 0;
+    margin-left: 44vw;
   }
   .row-2 div:nth-child(1):hover {
     border-radius: 0 !important;
@@ -587,6 +627,7 @@
     height: 364px;
   }
   .medi-staff {
+    position: relative !important;
     margin-bottom: 30%;
   }
   .row-2 div:nth-child(4) {
@@ -623,6 +664,10 @@
   .slider-imgs {
     margin-top: 100px;
   }
+  /* .side-left {
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+  } */
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
@@ -649,6 +694,6 @@
     justify-content: center;
   }
   .slider-imgs {
-    margin-top: 15%;
+    margin-top: 10%;
   }
 }

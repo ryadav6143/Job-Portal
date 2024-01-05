@@ -5,12 +5,12 @@ import { Outlet, Link } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
-  let rbnsdata = '"Admission Open 2024-2025"';
+  let rbndata = '"Admission Open 2024-2025"';
   return (
     <>
       <div className="ribbon-top">
         <marquee className="marquee" behavior="scroll" direction="left">
-          {rbnsdata}
+          {rbndata}
         </marquee>
       </div>
       <div className="my-header">
