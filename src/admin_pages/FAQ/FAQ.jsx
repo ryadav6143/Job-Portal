@@ -109,7 +109,7 @@ function FAQ() {
             </div>
           ))}
         </div> */}
-        <div className="section">
+        <div className="my-section">
           <p className="faq-heading">FAQ's</p>
           {sections.map((section, index) => (
             <div key={index}>

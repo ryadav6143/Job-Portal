@@ -8,8 +8,9 @@ function Logout({ handleLogout }) {
       <div id="logout-btn">
         <button onClick={handleLogout}>LOGOUT</button>
       </div>
-      <div>
-     <AdminDashboard></AdminDashboard>
+      
+      <div className="show-dashboard">
+        <AdminDashboard></AdminDashboard>
       </div>
     </>
   );

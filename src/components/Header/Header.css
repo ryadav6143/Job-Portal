@@ -35,7 +35,7 @@
   padding-left: 3%;
 }
 .nav-link {
-  color: grey !important;
+  color: rgba(128, 128, 128, 0.766) !important;
   margin-left: 50px;
   font-size: 15px !important;
   font-weight: bold !important;

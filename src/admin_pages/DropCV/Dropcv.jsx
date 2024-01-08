@@ -15,6 +15,7 @@ import Qualification from "./Qualification/Qualification";
 import CurrentExperience from "./CurrentExperience/CurrentExperience";
 // import ApiServices from './Services/ApiServices';
 import apiService from "../../Services/ApiServices";
+import { data } from "jquery";
 
 const steps = ["", "", ""];
 
@@ -25,6 +26,29 @@ function Dropcv() {
   const [formDataQualification, setFormDataQualification] = useState({});
   const [formDataExperience, setFormDataExperience] = useState({});
 
+  const [step1Completed, setStep1Completed] = useState(false);
+  const [step2Completed, setStep2Completed] = useState(false);
+
+  const isStep1Complete = () => {
+    return (
+      data.title_first_name &&
+      data.first_name &&
+      data.dob &&
+      data.gender &&
+      data.email &&
+      data.contact_1 &&
+      data.country &&
+      data.city
+    );
+  };
+
+  const isStep2Complete = (data) => {
+    return (
+      data.selectedExam &&
+      data.selectedDegree &&
+      data.formData.highest_education_status
+    );
+  };
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -35,12 +59,18 @@ function Dropcv() {
 
   const handlePersonalSubmit = (data) => {
     setFormDataPersonal(data);
-    handleNext();
+    if (isStep1Complete(data)) {
+      setStep1Completed(true);
+      handleNext();
+    }
   };
 
   const handleQualificationSubmit = (data) => {
     setFormDataQualification(data);
-    handleNext();
+    if (isStep2Complete(data)) {
+      setStep2Completed(true);
+      handleNext();
+    }
   };
 
   const handleExperienceSubmit = (data) => {
@@ -94,19 +124,6 @@ function Dropcv() {
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };
-  // const handleNext = () => {
-  //   let newSkipped = skipped;
-  //   if (isStepSkipped(activeStep)) {
-  //     newSkipped = new Set(newSkipped.values());
-  //     newSkipped.delete(activeStep);
-  //   }
-
-  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  //   setSkipped(newSkipped);
-  // };
-  // const handleBack = () => {
-  //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  // };
 
   const handleVerifivation = () => {
     navigate("/verify");
@@ -143,10 +160,9 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleVerifivation} type="submit">Next</Button>
-                {/* <Button onClick={handleSubmit} type="submit">
+                <Button onClick={handleVerifivation} type="submit">
                   Next
-                </Button> */}
+                </Button>
               </Box>
             </React.Fragment>
           ) : (
@@ -178,7 +194,20 @@ function Dropcv() {
                   Previous
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleNext} className="next-btn">
+                <Button
+                  onClick={() => {
+                    if (
+                      (activeStep === 0 && isStep1Complete(formDataPersonal)) ||
+                      (activeStep === 1 &&
+                        isStep2Complete(formDataQualification))
+                    ) {
+                      handleNext();
+                    } else {
+                      console.log(data.toString);
+                    }
+                  }}
+                  className="next-btn"
+                >
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>
               </Box>

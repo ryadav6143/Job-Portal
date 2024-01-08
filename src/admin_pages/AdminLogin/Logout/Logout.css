@@ -1,16 +1,24 @@
 #logout-btn {
-  float: right;
-  margin-right: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 1%;
+  margin-right: 1%;
+  
 }
 #logout-btn button {
   background-color: transparent;
   padding: 3px 15px 3px 15px;
   font-weight: 600;
   font-size: 15px;
+  letter-spacing: 1px;
   border: 2px solid black;
   transition: background-color 0.8s ease;
 }
 #logout-btn button:hover {
   background-color: black;
   color: white;
+}
+.show-dashboard {
+  margin-top: 50px;
 }

@@ -12,6 +12,7 @@ import men from "../../assets/images/men.png";
 import mask from "../../assets/images/mask.png";
 import mask2 from "../../assets/images/mask2.png";
 import mask3 from "../../assets/images/mask3.png";
+import MediStaff from "./Design/MediStaff";
 
 function Home() {
   var cardHeadline = "Departments of Management Studies";
@@ -111,7 +112,7 @@ function Home() {
             </span>
           </p>
         </div>
-        <div className="lists">
+        <div className="perks-list">
           <ul>
             <li>
               <img src={disktype} id="disktype" />
@@ -143,38 +144,7 @@ function Home() {
             <span>MEDI-CAPS STAFF</span>
           </p>
         </div>
-        <div className="medi-staff">
-          <div className="row-1">
-            <div>
-              <p>
-                THE <br /> HEADLINE
-              </p>
-              <button type="button">+</button>
-            </div>
-            <div></div>
-            <div>
-              <p>
-                THE <br /> HEADLINE
-              </p>
-              <button type="button">+</button>
-            </div>
-          </div>
-          <div className="row-2">
-            <div>
-              <p>
-                THE <br /> HEADLINE
-              </p>
-              <button type="button">+</button>
-            </div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          <div className="row-3">
-            <div></div>
-          </div>
-        </div>
-      
+        <MediStaff></MediStaff>
       </div>
       <div className="hr-corner">
         <div className="hr-conrer-heading">
