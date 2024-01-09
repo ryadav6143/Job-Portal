@@ -194,20 +194,7 @@ function Dropcv() {
                   Previous
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button
-                  onClick={() => {
-                    if (
-                      (activeStep === 0 && isStep1Complete(formDataPersonal)) ||
-                      (activeStep === 1 &&
-                        isStep2Complete(formDataQualification))
-                    ) {
-                      handleNext();
-                    } else {
-                      console.log(data.toString);
-                    }
-                  }}
-                  className="next-btn"
-                >
+                <Button className="next-btn" type="submit">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>
               </Box>

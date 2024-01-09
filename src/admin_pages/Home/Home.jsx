@@ -83,7 +83,7 @@ function Home() {
         <div className="card">
           <img src={logo2} />
           <p>UAS</p>
-          <p>(UNIVERSITY ADMINISTRATIVE SERVICES)</p>
+          {/* <p>(UNIVERSITY ADMINISTRATIVE SERVICES)</p> */}
           <a href="">View Vacancies</a>
         </div>
         <div className="card">

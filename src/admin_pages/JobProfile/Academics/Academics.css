@@ -55,7 +55,7 @@ details {
 #my-dropdown::marker {
   display: none !important;
   color: #ececec;
-  margin-left: -10px !important;
+  /* margin-left: -10px !important; */
 }
 
 #my-dropdown::before {
@@ -70,7 +70,7 @@ details {
 details[open] #my-dropdown::before {
   content: "▼";
   rotate: 180deg;
-
+  margin-right: -15px;
 }
 
 details[open] > summary {
@@ -94,7 +94,6 @@ details[open] > summary {
     margin-right: 5%;
   }
   #my-dropdown {
-  
     text-align: center;
   }
 }

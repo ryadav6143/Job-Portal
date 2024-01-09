@@ -52,7 +52,9 @@ function InterviewSchedule() {
       <div>
         <div className="is-background">
           <div className="data">
-            <p>INTERVIEW SCHEDULE</p>
+            <p>
+              <span>INTERVIEW SCHEDULE</span>
+            </p>
             <p className="sub-heading">
               “ Be your true self, grow and make a difference.”
             </p>

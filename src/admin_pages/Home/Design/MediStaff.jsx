@@ -3,12 +3,10 @@ import "./MediStaff.css";
 import $ from "jquery";
 function MediStaff() {
   useEffect(() => {
-    // Function to toggle "hover" class on mouse enter/leave
     const toggleHover = (element) => {
       $(element).toggleClass("hover");
     };
 
-    // Hover effects for specific elements
     $(".block-02, .block-05, .big-horizontal, .big-vertical").hover(
       function () {
         toggleHover(this);
@@ -17,41 +15,43 @@ function MediStaff() {
         toggleHover(this);
       }
     );
-
-    // Scroll into view effects for the anim-trigger-block
-    $(".anim-trigger-block").on(".inview", function (event, isInView) {
-      const blocks = $(".block-01, .block-03, .block-04");
-      if (isInView) {
-        blocks.removeClass(".anim-01");
-        setTimeout(() => {
-          $(".block-03").removeClass(".anim-01");
-        }, 300);
-        setTimeout(() => {
-          $(".block-04").removeClass(".anim-01");
-        }, 500);
-      } else {
-        blocks.addClass(".anim-01");
+    const isInViewport = (elem) => {
+      const bounding = elem.getBoundingClientRect();
+      return (
+        bounding.top >= 0 &&
+        bounding.left >= 0 &&
+        bounding.bottom <=
+          (window.innerHeight || document.documentElement.clientHeight) &&
+        bounding.right <=
+          (window.innerWidth || document.documentElement.clientWidth)
+      );
+    };
+    // ------------------ Adding active class on click--------------------------
+    $(".block-01, .block-03, .block-04, .subtitles, .values-paragraph ").on(
+      "click",
+      function () {
+        $(this).toggleClass("active");
+        $(this).find(".casse-tete-home").toggleClass("turn45");
+        console.log("clicked");
       }
+    );
+    //  ------------------ Adding active class on click-------------------------- F
+    $(window).on("scroll", function () {
+      const blocks = $(".block-01, .block-03, .block-04");
+
+      blocks.each(function () {
+        const $this = $(this);
+        const isInView = isInViewport(this);
+
+        if (isInView) {
+          $this.removeClass("anim-01");
+        } else {
+          $this.addClass("anim-01");
+        }
+      });
     });
 
-    // Handle input field changes
-    $("#myname").on("keyup", function () {
-      const value = $(this).val();
-      $("#yourname, #yourname2, #yourname3").text(value);
-    });
-
-    // Form submission prevention
-    $(".submit-form").click(function () {
-      $(this).closest("form").submit();
-    });
-
-    // Click effects for block elements
-    $(".block-01, .block-03, .block-04").on("click", function () {
-      $(this).toggleClass("active");
-      $(this).find(".casse-tete-home").toggleClass(".turn45");
-    });
-
-    // Z-index handling on mouse enter/leave
+    //
     $(".block-01, .block-03, .block-04")
       .on("mouseenter", function () {
         $(this).css("z-index", "20");
@@ -59,16 +59,14 @@ function MediStaff() {
       .on("mouseleave", function () {
         $(this).css("z-index", "10");
       });
-
-    // Cleanup - remove event listeners on unmount
     return () => {
-      // Remove all event listeners added by jQuery to avoid memory leaks
       $(window).off("scroll");
       $(
-        ".block-02, .block-05, .big-horizontal, .big-vertical, .anim-trigger-block, #myname, .submit-form, .block-01, .block-03, .block-04, .burger, .close-menu"
+        ".block-02, .block-05, .big-horizontal, .big-vertical, #myname, .submit-form, .block-01, .block-03, .block-04"
       ).off();
     };
   }, []);
+
   return (
     <div>
       <div className="section">
@@ -87,23 +85,11 @@ function MediStaff() {
                   className="plus bigger"
                 />
               </div>
-              <div
-                className="subtitles values-paragraph padding-left"
-                style={{
-                  transform: "translate3d(0px, 2vw, 0px)",
-                  scale3d: "(1, 1, 1)",
-                  rotateX: "(0deg)",
-                  rotateY: "(0deg)",
-                  rotateZ: "(0deg)",
-                  skew: "(0deg, 0deg)",
-                  transformstyle: "preserve-3d",
-                  opacity: "0",
-                }}
-              >
-                that companies that do good, do better in the long run. Our
-                brand family consists of forward-thinking, beautifully designed
-                products that address social and environmental issues meet the
-                needs and expectations of today’s consumers.
+              <div className="subtitles values-paragraph padding-left">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Quaerat sint error nisi a itaque dicta reprehenderit, cum
+                molestias iste earum enim suscipit iusto quidem facere deserunt
+                magni sequi ullam quae.
               </div>
               <div className="anim-trigger-block"></div>
             </div>
@@ -120,37 +106,27 @@ function MediStaff() {
                       https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15c8060207075a7e1406_instagram.fymq2-1.fna.fbcdn%201-p-500.jpg 500w,
                       https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15c8060207075a7e1406_instagram.fymq2-1.fna.fbcdn%201.jpg       914w
                     "
-                      class="image-7"
+                      className="image-7"
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <div class="blocks block-03" style={{ zindex: "10" }}>
-              <div class="blocks-title">
+            <div className="blocks block-03" style={{ zindex: "10" }}>
+              <div className="blocks-title">
                 THE HEADLINE
                 <br />
               </div>
-              <div
-                class="subtitles values-paragraph padding-right"
-                style={{
-                  transform: "translate3d(0px, 2vw, 0px) ",
-                  scale3d: "(1, 1, 1)",
-                  rotateX: "(0deg)",
-                  rotateY: "(0deg)",
-                  rotateZ: "(0deg)",
-                  skew: "(0deg, 0deg)",
-                  transformstyle: "preserve-3d",
-                  opacity: "0",
-                }}
-              >
+
+              <div className="subtitles values-paragraph padding-right">
                 <p>
-                  about people and everyday products that can make their lives
-                  better. We are passionate about our brands and conduct
-                  business in an honest and transparent way. We cherish our
-                  relationships with founders, customers, and suppliers.
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Maiores a praesentium eius enim adipisci, voluptatum eveniet
+                  laboriosam cum voluptates quibusdam. Ipsum consectetur dolor,
+                  quae magni delectus inventore et consequuntur accusamus?
                 </p>
               </div>
+
               <div className="plus-container casse-tete-home align-right">
                 <img
                   src="https://assets-global.website-files.com/610c251287ec86f4848cd877/61119bb129a12a1b8e96b4cd_%2B.png"
@@ -170,9 +146,10 @@ function MediStaff() {
                     <br />
                   </div>
                   <div className="subtitles values-paragraph padding-left">
-                    what it’s like to start small, grow fast and then hit a
-                    wall. The founders of nolk have been there, having started
-                    and sold companies with exits totalling over $500M.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Vero recusandae sapiente aut hic quos obcaecati et corporis
+                    quo. Mollitia ex quod obcaecati, eos sapiente minima optio
+                    quas repellat omnis tempore!
                   </div>
                   <div className="plus-container casse-tete-home">
                     <img
@@ -186,10 +163,7 @@ function MediStaff() {
                 <div className="blocks block-05">
                   <div className="collection-list-wrapper-4 w-dyn-list">
                     <div role="list" className="collection-list-3 w-dyn-items">
-                      <div
-                        role="listitem"
-                        className="collection-item-2 w-dyn-item"
-                      >
+                      <div role="listitem" class="collection-item-2 w-dyn-item">
                         <img
                           src="https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15cddd506376ed514658_instagram.fymq2-1.fna.fbcdn%202.jpg"
                           loading="lazy"
@@ -275,10 +249,11 @@ function MediStaff() {
                   className="plus bigger"
                 />
               </div>
-              <div class="subtitles values-paragraph padding-left">
-                that companies that do good, do better in the long run. Our
-                brand family consists of forward-thinking, beautifully designed
-                products meet the needs and expectations of today’s consumers.
+              <div className="subtitles values-paragraph padding-left">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Explicabo sit tenetur illo quod tempore! Voluptatem animi harum,
+                facere fuga dolorem quas, facilis tempore et similique officiis
+                dolor at eligendi dolores!
               </div>
             </div>
             <div className="blocks block-02">
@@ -310,11 +285,12 @@ function MediStaff() {
                     <br />
                   </div>
                   <div className="subtitles values-paragraph padding-left">
-                    what it’s like to start small, grow fast and then hit a
-                    wall. The founders of nolk have been there, having started
-                    and sold companies with exits totalling over $500M.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Vitae corporis quis cupiditate aspernatur minima autem fuga
+                    quod distinctio, ipsum omnis esse aliquam ad officiis nobis
+                    commodi quae rerum error minus!
                   </div>
-                  <div class="plus-container casse-tete-home">
+                  <div className="plus-container casse-tete-home">
                     <img
                       src="https://assets-global.website-files.com/610c251287ec86f4848cd877/6122dc3cc8ee4c0c4a57e73a_%2Bblue.png"
                       loading="lazy"
@@ -403,7 +379,7 @@ function MediStaff() {
                 THE HEADLINE
                 <br />
               </div>
-              <div class="plus-container casse-tete-home align-right">
+              <div className="plus-container casse-tete-home align-right">
                 <img
                   src="https://assets-global.website-files.com/610c251287ec86f4848cd877/61119bb129a12a1b8e96b4cd_%2B.png"
                   loading="lazy"
@@ -411,10 +387,11 @@ function MediStaff() {
                   className="plus bigger"
                 />
               </div>
-              <div class="subtitles values-paragraph padding-right">
-                that companies that do good, do better in the long run. Our
-                brand family consists of forward-thinking, beautifully designed
-                products meet the needs and expectations of today’s consumers.
+              <div className="subtitles values-paragraph padding-right">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Reiciendis, ea. Quod adipisci consectetur atque rem deserunt,
+                nulla pariatur eveniet tempore non minima laborum a dolores est,
+                sint cumque nemo dolorem.
               </div>
             </div>
           </div>
