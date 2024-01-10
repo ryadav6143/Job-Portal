@@ -53,7 +53,22 @@ function Dropcv() {
     },
   });
 
-
+  // const handleSubmit = async () => {  
+  //   try {
+  //     const response = await axios.post("http://192.168.1.15:8090/v1/api/candidates/drop_cv",
+  //      formData.personalDetails,
+  //     );     
+  //      if (response) {
+  //       console.log("Form data successfully posted to the API");
+   
+  //       // navigate("/otp-verifivation");
+  //     } else {
+  //       console.error("Failed to post form data to the API");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error while posting form data:", error.response || error);
+  //   }      
+  // };
 
   const handleSubmit = async () => {
     try {
@@ -155,9 +170,9 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleVerifivation} type="submit">Next</Button>
-             
-             
+                {/* <Button onClick={handleVerifivation} type="submit">Next</Button> */}
+                <Button onClick={handleSubmit} type="submit">Next</Button>
+                {/* <Button>Next</Button> */}
 
 
               </Box>
