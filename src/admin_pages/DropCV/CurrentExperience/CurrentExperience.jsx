@@ -1,41 +1,64 @@
 import { useState } from "react";
 import React  from "react";
 import "./CurrentExperience.css";
-
-function CurrentExperience({ onSubmit }) {
+import axios from 'axios';
+function CurrentExperience({formData, setFormData}) {
 
   
   const [isFresher, setIsFresher] = useState(false);
-  const [formData, setFormData] = useState({
-    total_experience: "",
-    total_research_exp: "",
-    total_industrial_exp: "",
-    current_organization: "",
-    current_designation: "",
-    current_salary: "",
-    resume_file_link: "",
-  });
+// const [formData, setFormData] = useState(null);
   const handleCheckboxChange = () => {
     setIsFresher(!isFresher);
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      personalDetails: {
+        ...prevFormData.personalDetails,
+        [name]: value,
+      },
+    }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(formData);
-    console.log("Form submitted:", formData);
-  };
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
 
+  //   setFormData((prevFormData) => ({
+  //     // ...prevFormData,
+  //     personalDetails: {
+  //       ...prevFormData.personalDetails,
+  //       candidate_cv: file,
+  //     },
+  //   }));
+  // };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+  
+    // Check if the file has a valid extension
+    const allowedExtensions = ["pdf", "doc", "docx"];
+    const fileExtension = file.name.split(".").pop().toLowerCase();
+  
+    if (!allowedExtensions.includes(fileExtension)) {
+      // Display an alert message for invalid file format
+      alert("Invalid file format. Please upload a PDF, DOC, or DOCX file.");
+      // Optionally, you can clear the input field
+      e.target.value = null;
+      return;
+    }
+  
+    setFormData((prevFormData) => ({
+      personalDetails: {
+        ...prevFormData.personalDetails,
+        candidate_cv: file,
+      },
+    }));
+  };
   return (
     <>
     <div className="container">
-      <form method="post">
+      <form   method="post" >
       <div className="CE-form">
         <div>
           <h5 className="CE-heading">Current Experience / Upload Resume</h5>
@@ -190,20 +213,11 @@ function CurrentExperience({ onSubmit }) {
             To upload your resume here:(maximum size 2MB, PDF, DOC and DOCX
             format only)
           </p>
-          <input
-            className="set-choosefile-input"
-            type="file"
-            placeholder="00 (i.e Years.Months)"
-            name="resume_file_link"
-            id=""
-            
-           
-          ></input>
+          {/* <input type="file" name="candidate_cv" onChange={handleFileChange} /> */}
+          <input type="file" name="candidate_cv" onChange={handleFileChange} accept=".pdf, .doc, .docx" />
+
         </div>
       </div>
-      {/* <button type="submit" className="submit-button">
-            Submit
-          </button> */}
       </form>
       </div>
     </>

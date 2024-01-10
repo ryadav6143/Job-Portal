@@ -97,15 +97,21 @@ function Dropcv() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  // const handlePersonalSubmit = (data) => {
-  //   setFormDataPersonal(data);
-  //   handleNext();
-  // };
+  const handlePersonalSubmit = (data) => {
+    setFormDataPersonal(data);
+    if (isStep1Complete(data)) {
+      setStep1Completed(true);
+      handleNext();
+    }
+  };
 
-  // const handleQualificationSubmit = (data) => {
-  //   setFormDataQualification(data);
-  //   handleNext();
-  // };
+  const handleQualificationSubmit = (data) => {
+    setFormDataQualification(data);
+    if (isStep2Complete(data)) {
+      setStep2Completed(true);
+      handleNext();
+    }
+  };
 
   // const handleExperienceSubmit = (data) => {
   //   setFormDataExperience(data);
@@ -195,8 +201,7 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                {/* <Button onClick={handleVerifivation} type="submit">Next</Button> */}
-                <Button onClick={handleSubmit} type="submit">
+                <Button onClick={handleVerifivation} type="submit">
                   Next
                 </Button>
               </Box>

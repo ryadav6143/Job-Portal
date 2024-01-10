@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Qualification.css";
 import apiService from "../../../Services/ApiServices";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
-
-function Qualification({ onSubmit }) {
+function Qualification({ formData, setFormData }) {
   const [examTypes, setExamTypes] = useState([]);
   const [selectedExam, setSelectedExam] = useState("");
   const [degrees, setDegrees] = useState([]);
   const [selectedDegree, setSelectedDegree] = useState("");
   const [data, setData] = useState([]);
-  const [formData, setFormData] = useState({
-    degree_types_master_id: "",
-    exam_types_master_id: "",
-    highest_education_status: "",
-  });
+
   useEffect(() => {
     apiService
       .getExamTypes()
@@ -60,49 +53,75 @@ function Qualification({ onSubmit }) {
     // Set the default selected degree (if needed)
     setSelectedDegree(degreesForSelectedExam[0]);
     setFormData((prevFormData) => ({
-      ...prevFormData,
-      exam_types_master_id: selectedExamId,
+  
+      
+      personalDetails: {
+        ...prevFormData.personalDetails,
+        educations: [
+          {
+            ...prevFormData.personalDetails.educations[0], // Update the first education object
+             exam_types_master_id: selectedExamId,
+          },
+          // ... you can add more education objects if needed
+        ],
+      
+        // Add additional fields related to category if needed
+      },
     }));
 
   };
 
   const handleDegreeChange = (event) => {
     const selectedDegreeName = event.target.value;
-  
+
     // Find the corresponding object from data based on the selected degree name
     const selectedDegreeObject = data.find(item => item.degree_types_master && item.degree_types_master.degree_name === selectedDegreeName);
-  
+
     // Now, use the selectedDegreeObject to get the id property
     const selectedDegreeId = selectedDegreeObject ? selectedDegreeObject.degree_types_master.id : '';
-  
+
     setSelectedDegree(selectedDegreeName);
-  
+
     setFormData((prevFormData) => ({
-      ...prevFormData,
-      degree_types_master_id: selectedDegreeId,
+        personalDetails: {
+        ...prevFormData.personalDetails,
+        educations: [
+          {
+            ...prevFormData.personalDetails.educations[0], // Update the first education object
+            degree_types_master_id: selectedDegreeId,
+          },
+          // ... you can add more education objects if needed
+        ],
+        
+        // Add additional fields related to category if needed
+      },
+
     }));
   };
-  
 
-  
-  const handleStatusChange = (event) => {
+
+  const [selectedOption, setSelectedOption] = useState(null);
+  const handleDropdownChange = (event) => {
     const selectedStatus = event.target.value;
     
     // Update the formData state
     setFormData((prevFormData) => ({
-      ...prevFormData,
-      highest_education_status: selectedStatus,
+   
+      personalDetails: {
+        ...prevFormData.personalDetails,
+        educations: [
+          {
+            ...prevFormData.personalDetails.educations[0], // Update the first education object
+            degree_status: selectedStatus,
+          },
+          // ... you can add more education objects if needed
+        ],
+      },
+
     }));
   };
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(formData);
-    console.log("Form submitted:", formData);
-  };
 
-
-  
+ 
 
   return (
     <>
@@ -118,83 +137,75 @@ function Qualification({ onSubmit }) {
           </div>
 
 
-<form method="post" onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="col-md-6">
-              {/* *Exam Type */}
+          <form method="post">
+            <div className="row">
+              <div className="col-md-6">
+                {/* *Exam Type */}
 
-              <div className="form-section">
-                <label className="SetLabel-Name">
-                  <span>*</span>Exam Type
-                </label>
-                <select
-                  value={selectedExam}
-                  onChange={handleExamChange}
-                  className="set-dropdown"
-                >
-                  <option value="">Select Type</option>
-                  {examTypes.map((exam, index) => (
-                    <option key={`exam-${index}`} value={exam}>
-                      {exam}
-                    </option>
-                  ))}
-                </select>
-                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                <div className="form-section">
+                  <label className="SetLabel-Name">
+                    <span>*</span>Exam Type
+                  </label>
+                  <select
+                    value={selectedExam}
+                    onChange={handleExamChange}
+                    className="set-dropdown"
+                  >
+                    <option value="">Select Type</option>
+                    {examTypes.map((exam, index) => (
+                      <option key={`exam-${index}`} value={exam}>
+                        {exam}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="col-md-6">
+                {/* Degree/Diploma Certificate */}
+                <div className="form-section">
+                  <label className="SetLabel-Name">
+                    <span>*</span>Degree/Diploma Certificate
+                  </label>
+                  <select
+                    value={selectedDegree}
+                    onChange={handleDegreeChange}
+                    className="set-dropdown"
+                  >
+                    <option value="">Select Degree</option>
+                    {degrees.map((degree, index) => (
+                      <option key={`degree-${index}`} value={degree}>
+                        {degree}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
 
-            <div className="col-md-6">
-              {/* Degree/Diploma Certificate */}
-              <div className="form-section">
-                <label className="SetLabel-Name">
-                  <span>*</span>Degree/Diploma Certificate
-                </label>
-                <select
-                  value={selectedDegree}
-                  onChange={handleDegreeChange}
-                  className="set-dropdown"
-                >
-                  <option value="">Select Degree</option>
-                  {degrees.map((degree, index) => (
-                    <option key={`degree-${index}`} value={degree}>
-                      {degree}
-                    </option>
-                  ))}
-                </select>
-                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-              </div>
-            </div>
-          </div>
+            <div className="row">
+              <div className="col-md-6">
+                {/* *Status */}
 
-          <div className="row">
-            <div className="col-md-6">
-              {/* *Status */}
-
-              <div className="form-section">
-                <label className="SetLabel-Name">
-                  <span>*</span>Status
-                </label>
-                <select
-                  name="highest_education_status"
+                <div className="form-section">
+                  <label className="SetLabel-Name">
+                    <span>*</span>Status
+                  </label>
+                  <select
+                  name="degree_status"
                   className="set-dropdown"
-                  onChange={handleStatusChange}
-                  value={formData.highest_education_status}
+                  onChange={handleDropdownChange}
+                 value={selectedOption}
                 >
                   <option value="">Select status</option>
                   <option value="Completed">Completed</option>
                   <option value="Pursuing">Pursuing</option>
                 </select>
-                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                </div>
               </div>
             </div>
-          </div>
 
-
-          {/* <button type="submit" className="submit-button">
-                    Submit
-                  </button> */}
-
-                  </form>
+          </form>
 
         </div>
       </div>
