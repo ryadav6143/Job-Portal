@@ -4,8 +4,6 @@ import logo from "../../../../assets/logos/medi-logo.png";
 import logout from "../../../../assets/logos/Logout.png";
 import reset from "../../../../assets/logos/Reset.png";
 import EditPersonalDetails from "../EditProfileForm/EditPersonalDetails/EditPersonalDetails";
-import pdicon from "../../../../assets/logos/pdicon.png";
-import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -53,7 +51,7 @@ function UserHeader() {
       }
     };
 
-    checkIsMobile(); // Call on initial render
+    checkIsMobile();
 
     // Event listener to check window width and update isOpen state
     window.addEventListener("resize", checkIsMobile);

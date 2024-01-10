@@ -6,7 +6,6 @@ import "./CurrentOpening.css";
 function Academictable() {
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
-
   const AcademicTable = [
     {
       category: "Assistant Professor, Associate Professor and Professor",

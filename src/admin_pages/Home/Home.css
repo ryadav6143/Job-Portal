@@ -56,17 +56,17 @@
 }
 .cards {
   margin-top: 50px;
-  margin-bottom: 50px; /* can be removed  */
+  margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
 .card {
-  border-radius: 20px;
-  width: 234px;
-  height: 240px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  text-align: center;
+  border-radius: 20px !important;
+  width: 234px !important;
+  height: 240px !important;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+  text-align: center !important;
   margin: auto;
   align-items: center;
   padding-top: 60px;
@@ -103,22 +103,13 @@
   color: maroon;
   transition: 0.4s ease;
 }
-.perks-heading {
-  font-size: 40px;
+.perks-heading p {
+  font-size: 30px;
   color: white;
   letter-spacing: 1px;
   pointer-events: none;
-  opacity: 0;
-  animation: fade ease-in-out 2s forwards;
 }
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+
 .perks {
   display: flex;
   flex-wrap: wrap;
@@ -128,35 +119,37 @@
       rgba(0, 0, 0, 0.8) 0%,
       rgba(0, 0, 0, 0) 81.75%
     ),
-    url("../../assets/images/Banner.JPG");
-  background-position: center;
-  background-size: cover;
-  padding-top: 5%;
-  padding-bottom: 5%;
+    url("../../assets/images/Banner.JPG") !important;
+  background-position: center !important;
+  background-size: cover !important;
+  padding-top: 5% !important;
+  padding-bottom: 5% !important;
 }
 .perks span {
   font-family: "Playfair Display", serif;
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 #disktype {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
+  width: 15px !important;
+  height: 15px !important;
+  margin-right: 10px !important;
 }
-.lists ul li {
+.perks-list ul li {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
   list-style: none;
   background-color: white !important;
+  font-weight: normal !important;
   margin: 20px;
-  padding: 12px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 40px;
+  padding: 12px !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  border-bottom-left-radius: 40px !important;
   padding-left: 5% !important;
-  text-align: justify;
+  text-align: justify !important;
+  line-height: 1.5;
 }
-.lists {
-  margin-left: -8%;
-}
+
 .side-left {
   margin-left: 20% !important;
   margin-right: -10% !important;
@@ -196,7 +189,7 @@
     margin: 2px;
     width: 19%;
     height: 295px;
-    background-color: grey;
+    background-color: #d9d9d9;
     display: grid;
     place-items: center;
     overflow: hidden;
@@ -220,6 +213,7 @@
   padding: 4.2% 2% 4.2% 2%;
   font-weight: 500;
   letter-spacing: 1px;
+  color: black;
 }
 .quote-small {
   padding-top: 8%;
@@ -245,18 +239,26 @@
     height: 90%;
   }
 }
+.remove-bg {
+  background-color: transparent !important;
+}
 /* ....................................MEDICAPS STAFF SECTION............................... */
 .staff-section {
   margin-top: 2%;
 }
 .medi-heading {
   text-align: center;
-  font-size: 30px;
+  font-size: 25px;
+  letter-spacing: 2px;
+  margin-bottom: -30px;
   font-family: "Open Sans", sans-serif;
+  line-height: 1;
   span {
+    letter-spacing: 2px !important;
     font-family: "Playfair Display", serif;
     font-weight: 600;
     letter-spacing: 2px;
+    font-size: 30px;
   }
 }
 
@@ -268,7 +270,7 @@
   div {
     width: 27%;
     height: 410px;
-    background-color: grey;
+    background-color: #d9d9d9;
     margin: 2px;
   }
 }
@@ -332,7 +334,7 @@
   div {
     width: 27%;
     height: 410px;
-    background-color: grey;
+    background-color: #d9d9d9;
     margin: 2px;
   }
 }
@@ -529,7 +531,6 @@
     font-size: 20px;
     text-align: center;
   }
-
   .purpose-data {
     display: flex;
     flex-wrap: wrap;
@@ -537,7 +538,7 @@
       margin: 1px;
       width: 30%;
       height: 155px;
-      background-color: grey;
+      background-color: #d9d9d9;
       display: grid;
       place-items: center;
       overflow: hidden;
@@ -664,10 +665,6 @@
   .slider-imgs {
     margin-top: 100px;
   }
-  /* .side-left {
-    margin-left: 5% !important;
-    margin-right: 5% !important;
-  } */
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
@@ -677,6 +674,7 @@
   }
   .buttons {
     margin: auto;
+
     justify-content: center;
   }
   .slider-imgs {
@@ -694,6 +692,13 @@
     justify-content: center;
   }
   .slider-imgs {
-    margin-top: 10%;
+    margin-top: 15%;
+  }
+  .side-left {
+    margin-left: 2% !important;
+    margin-right: 2% !important;
+  }
+  .perks-heading {
+    text-align: center;
   }
 }

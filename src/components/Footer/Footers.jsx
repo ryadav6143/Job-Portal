@@ -27,7 +27,9 @@ function Footers() {
           <p>Contact Us</p>
           <div className="social-logos">
             <div>
-              <a href=""><img src={facebook} /></a>
+              <a href="">
+                <img src={facebook} />
+              </a>
             </div>
             <div>
               <a href="">
@@ -39,14 +41,15 @@ function Footers() {
                 <img src={linkedin} />
               </a>
             </div>
+
             <div>
               <a href="">
-                <img src={twitter} />
+                <img src={youtube} style={{width:"35px",height:"35px"}} />
               </a>
             </div>
             <div>
               <a href="">
-                <img src={youtube} />
+                <img src={twitter} style={{width:"20px",height:"20px"}} />
               </a>
             </div>
           </div>

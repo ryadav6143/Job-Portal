@@ -85,31 +85,7 @@ function FAQ() {
       <div className="faq-section">
         <div className="illustrations"></div>
 
-        {/* <div className="section">
-          <p className="faq-heading">FAQ's</p>
-          {sections.map((section, index) => (
-            <div key={index}>
-              <details>
-                <summary>
-                  <div
-                    onClick={() => toggleSection(index)}
-                    style={{ display: "inline" }}
-                  >
-                    {section.summary}
-                  </div>
-                </summary>
-                {openIndex === index && (
-                  <div className="details">
-                    <p>
-                      <p id="faq-p">{section.detail}</p>
-                    </p>
-                  </div>
-                )}
-              </details>
-            </div>
-          ))}
-        </div> */}
-        <div className="section">
+        <div className="my-section">
           <p className="faq-heading">FAQ's</p>
           {sections.map((section, index) => (
             <div key={index}>
@@ -130,35 +106,36 @@ function FAQ() {
           ))}
         </div>
       </div>
+      <div className="water-marks">
+        <div className="marks-left">
+          <img src={mark} style={{ rotate: "35deg" }} />
+          <img src={mark} style={{ rotate: "-35deg" }} />
+          <img src={mark} style={{ rotate: "180deg" }} />
+          <img src={mark} style={{ rotate: "128deg" }} />
+        </div>
+        <div className="marks-right">
+          <img src={mark} style={{ rotate: "-35deg" }} />
+          <img src={mark} style={{ rotate: "35deg" }} />
+          <img src={mark} style={{ rotate: "180deg" }} />
+          <img src={mark} style={{ rotate: "-48deg" }} />
+        </div>
+        <div className="mark-bottom">
+          <img src={mark} style={{ rotate: "-35deg" }} />
+          <img src={mark} style={{ rotate: "35deg" }} />
+          <img src={mark} style={{ rotate: "180deg" }} />
+          <img src={mark} style={{ rotate: "128deg" }} />
+          <img src={mark} style={{ rotate: "48deg" }} />
+          <img src={mark} style={{ rotate: "-48deg" }} />
+        </div>
 
-      <div className="marks-left">
-        <img src={mark} style={{ rotate: "35deg" }} />
-        <img src={mark} style={{ rotate: "-35deg" }} />
-        <img src={mark} style={{ rotate: "180deg" }} />
-        <img src={mark} style={{ rotate: "128deg" }} />
-      </div>
-      <div className="marks-right">
-        <img src={mark} style={{ rotate: "-35deg" }} />
-        <img src={mark} style={{ rotate: "35deg" }} />
-        <img src={mark} style={{ rotate: "180deg" }} />
-        <img src={mark} style={{ rotate: "-48deg" }} />
-      </div>
-      <div className="mark-bottom">
-        <img src={mark} style={{ rotate: "-35deg" }} />
-        <img src={mark} style={{ rotate: "35deg" }} />
-        <img src={mark} style={{ rotate: "180deg" }} />
-        <img src={mark} style={{ rotate: "128deg" }} />
-        <img src={mark} style={{ rotate: "48deg" }} />
-        <img src={mark} style={{ rotate: "-48deg" }} />
-      </div>
-
-      <div className="mark-bottom-2">
-        <img src={mark} style={{ rotate: "-180deg" }} />
-        <img src={mark} style={{ rotate: "-35deg" }} />
-        <img src={mark} style={{ rotate: "130deg" }} />
-        <img src={mark} style={{ rotate: "320deg" }} />
-        <img src={mark} style={{ rotate: "140deg" }} />
-        <img src={mark} style={{ rotate: "-48deg" }} />
+        <div className="mark-bottom-2">
+          <img src={mark} style={{ rotate: "-180deg" }} />
+          <img src={mark} style={{ rotate: "-35deg" }} />
+          <img src={mark} style={{ rotate: "130deg" }} />
+          <img src={mark} style={{ rotate: "320deg" }} />
+          <img src={mark} style={{ rotate: "140deg" }} />
+          <img src={mark} style={{ rotate: "-48deg" }} />
+        </div>
       </div>
 
       <Footers></Footers>

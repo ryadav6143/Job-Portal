@@ -19,15 +19,18 @@
   padding-bottom: 300px;
 }
 .data {
-  font-size: 50px;
+  font-size: 3vw;
   font-family: "Playfair Display", serif;
   color: white;
   text-align: center;
   letter-spacing: 1px;
+  span {
+    border-bottom: 2px solid maroon;
+  }
 }
 
 .sub-heading {
-  margin-top: -20px;
+  margin-top: -15px;
   font-size: 15px;
   letter-spacing: 2px;
   font-style: italic;
@@ -155,6 +158,12 @@
   }
   .for-mobile {
     display: block;
+  }
+  .data {
+    span {
+      font-size: 5vw;
+      border-bottom: 2px solid maroon;
+    }
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {

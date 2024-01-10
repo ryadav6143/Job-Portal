@@ -12,6 +12,7 @@ import men from "../../assets/images/men.png";
 import mask from "../../assets/images/mask.png";
 import mask2 from "../../assets/images/mask2.png";
 import mask3 from "../../assets/images/mask3.png";
+import MediStaff from "./Design/MediStaff";
 
 function Home() {
   var cardHeadline = "Departments of Management Studies";
@@ -82,7 +83,7 @@ function Home() {
         <div className="card">
           <img src={logo2} />
           <p>UAS</p>
-          <p>(UNIVERSITY ADMINISTRATIVE SERVICES)</p>
+          {/* <p>(UNIVERSITY ADMINISTRATIVE SERVICES)</p> */}
           <a href="">View Vacancies</a>
         </div>
         <div className="card">
@@ -103,7 +104,7 @@ function Home() {
       </div>
       <div className="perks">
         {/* <div className="perks-heading"> */}
-        <div ref={elementRef} className="perks-heading">
+        <div className="perks-heading">
           <p>
             PERKS OF JOINING <br />
             <span>
@@ -111,7 +112,7 @@ function Home() {
             </span>
           </p>
         </div>
-        <div className="lists">
+        <div className="perks-list">
           <ul>
             <li>
               <img src={disktype} id="disktype" />
@@ -143,6 +144,7 @@ function Home() {
             <span>MEDI-CAPS STAFF</span>
           </p>
         </div>
+<<<<<<< HEAD
         <div className="medi-staff">
           <div className="row-1">
             <div>
@@ -175,6 +177,9 @@ function Home() {
             <div></div>
           </div>
         </div>
+=======
+        <MediStaff></MediStaff>
+>>>>>>> ac6a65b719787a9da8e45f17dda48aa069be7c17
       </div>
       <div className="hr-corner">
         <div className="hr-conrer-heading">
@@ -230,49 +235,49 @@ function Home() {
           <div className="circular-logo">
             <img src={medicircular} />
           </div>
-          <div className="big-img">
+          <div className="big-img remove-bg">
             <img src={men} />
           </div>
-          <div className="mask3">
+          <div className="mask3 remove-bg">
             <img src={mask3} />
           </div>
           <div className="purpose-quotes">
             <p>"Self-belief and hard work will always earn you success."</p>
           </div>
-          <div className="women">
+          <div className="women remove-bg">
             <img src={women} />
           </div>
           <div className="purpose-quotes">
             <p>"Self-belief and hard work will always earn you success."</p>
           </div>
-          <div className="big-img">
+          <div className="big-img remove-bg">
             <img src={mask} />
           </div>
-          <div className="women">
+          <div className="women remove-bg">
             <img src={women} />
           </div>
-          <div className="mask3">
+          <div className="mask3 remove-bg">
             <img src={mask3} />
           </div>
           <div className="purpose-quotes quote-small">
             <p>“Where can I get some”</p>
           </div>
-          <div className="women">
+          <div className="women remove-bg">
             <img src={women} />
           </div>
-          <div className="big-img">
+          <div className="big-img remove-bg">
             <img src={mask2} />
           </div>
           <div className="circular-logo">
             <img src={medicircular} />
           </div>
-          <div className="big-img">
+          <div className="big-img remove-bg">
             <img src={men} />
           </div>
           <div className="purpose-quotes quote-small">
             <p>“Where can I get some”</p>
           </div>
-          <div className="women">
+          <div className="women remove-bg">
             <img src={women} />
           </div>
         </div>

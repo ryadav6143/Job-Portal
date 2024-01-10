@@ -35,20 +35,19 @@
   padding-left: 3%;
 }
 .nav-link {
-  color: grey !important;
-  margin-left: 50px !important;
+  color: rgba(128, 128, 128, 0.766) !important;
+  margin-left: 50px;
   font-size: 15px !important;
   font-weight: bold !important;
 }
-/* .nav-link:focus {
-  background-color: rgba(0, 0, 0, 0.838);
-  color: white !important;
-  border-radius: 50px;
-}
-.user-link:focus {
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+/* ................................................................. */
+.navbar-nav{
+  position: absolute !important;
+  right: 0;
+  margin-right: 30px;
   background-color: white !important;
-} */
+}
+/* ................................................................. */
 .dropdown-menu[data-bs-popper] {
   top: 0 !important;
   margin-top: -0.5rem;
@@ -87,6 +86,10 @@
   height: 20px;
 }
 @media only screen and (max-width: 767px) {
+  .navbar-nav{
+    position: relative !important;
+    margin-right: 0px;
+  }
   .medi-logo {
     width: 165px;
     height: 45px;
@@ -112,9 +115,12 @@
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   .nav-link {
-    /* margin-left:140px !important; */
     text-align: end;
     margin-right: 10px;
+  }
+  .navbar-nav{
+    position: relative !important;
+    margin-right: 0px;
   }
 }
 
@@ -122,6 +128,10 @@
   .nav-link {
     text-align: end;
     margin-right: 10px;
+  }
+  .navbar-nav{
+    position: relative !important;
+    margin-right: 0px;
   }
 }
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: landscape) {
@@ -131,6 +141,10 @@
     font-size: 12px !important;
     font-weight: bold !important;
   }
+  .navbar-nav{
+    position: relative !important;
+    margin-right: 0px;
+  }
 }
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
   .nav-link {
@@ -138,5 +152,9 @@
     margin-left: -1px !important;
     font-size: 12px !important;
     font-weight: bold !important;
+  }
+  .navbar-nav{
+    position: relative !important;
+    margin-right: 0px;
   }
 }

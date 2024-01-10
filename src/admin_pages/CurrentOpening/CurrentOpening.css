@@ -19,7 +19,7 @@
   padding-top: 15px;
   padding-bottom: 15px;
 }
-.table-responsive{
+.table-responsive {
   text-align: center;
 }
 .academic-table {
@@ -62,7 +62,6 @@
   }
   .cop-heading {
     font-size: 25px;
-    margin-left: 72px;
   }
   .table-heading {
     font-size: 20px;
