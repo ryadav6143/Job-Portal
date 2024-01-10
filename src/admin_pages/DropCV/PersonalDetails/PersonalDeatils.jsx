@@ -535,9 +535,9 @@ function PersonalDeatils({ onFormSubmit }) {
                 </div>
               </div>
             </div>
-            <button style={{ width: "100px" }} type="submit">
+            {/* <button style={{ width: "100px" }} type="submit">
               Submit
-            </button>
+            </button> */}
           </form>
         </div>
       </div>

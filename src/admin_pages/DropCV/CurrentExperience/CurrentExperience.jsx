@@ -35,7 +35,7 @@ function CurrentExperience({ onSubmit }) {
   return (
     <>
     <div className="container">
-      <form  onSubmit={handleSubmit} method="post">
+      <form method="post">
       <div className="CE-form">
         <div>
           <h5 className="CE-heading">Current Experience / Upload Resume</h5>
@@ -201,9 +201,9 @@ function CurrentExperience({ onSubmit }) {
           ></input>
         </div>
       </div>
-      <button type="submit" className="submit-button">
+      {/* <button type="submit" className="submit-button">
             Submit
-          </button>
+          </button> */}
       </form>
       </div>
     </>

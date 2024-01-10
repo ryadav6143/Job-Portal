@@ -9,6 +9,11 @@ import {
 import "./UserDetails.css";
 
 function UserDetails() {
+
+
+
+
+  
   const [formValues, setFormValues] = useState({
     email:'',
     contact_1:'',
@@ -46,9 +51,10 @@ function UserDetails() {
     // You can also perform any additional actions or API calls here
   };
 
+  
   return (
     <>
-    <form method="post" onSubmit={handleSubmit}>
+    <form method="post" >
       <div className="container">
         <div style={{ marginTop: "20px" }}>
           <div>
@@ -112,7 +118,7 @@ function UserDetails() {
                   <option value="">Select Post</option>
                   <option value="">Sub Post 1</option>
                   <option value="">Sub Post 2</option>
-                  <option value="">Sub Post 3</option>
+                  <option value="">others</option>
                 </select>
                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
@@ -486,9 +492,9 @@ function UserDetails() {
           </div>
         </div>
       </div>
-      <button  type="submit">
+      {/* <button  type="submit">
         Submit
-      </button>
+      </button> */}
       </form>
     </>
   );

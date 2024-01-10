@@ -19,6 +19,46 @@ import apiService from "../../Services/ApiServices";
 const steps = ["", "", ""];
 
 function Dropcv() {
+  
+
+
+  
+
+  const [formData, setFormData] = useState({
+    personalDetails: {},
+    qualification: {},
+    currentExperience: {},
+  });
+
+  const handlePersonalSubmit = (data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      personalDetails: data,
+    }));
+  };
+
+  const handleQualificationSubmit = (data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      qualification: data,
+    }));
+  };
+
+  const handleExperienceSubmit = (data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      currentExperience: data,
+    }));
+  };
+
+  const handleSubmit = () => {
+    console.log("Combined Form Data:", formData);
+
+    // Perform any additional actions based on the combined form data
+  };
+
+
+
   // .......................................................................................................
   const navigate = useNavigate();
   const [formDataPersonal, setFormDataPersonal] = useState({});
@@ -33,50 +73,50 @@ function Dropcv() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handlePersonalSubmit = (data) => {
-    setFormDataPersonal(data);
-    handleNext();
-  };
+  // const handlePersonalSubmit = (data) => {
+  //   setFormDataPersonal(data);
+  //   handleNext();
+  // };
 
-  const handleQualificationSubmit = (data) => {
-    setFormDataQualification(data);
-    handleNext();
-  };
+  // const handleQualificationSubmit = (data) => {
+  //   setFormDataQualification(data);
+  //   handleNext();
+  // };
 
-  const handleExperienceSubmit = (data) => {
-    setFormDataExperience(data);
-    handleNext();
-  };
-  // .......................................................................................................
+  // const handleExperienceSubmit = (data) => {
+  //   setFormDataExperience(data);
+  //   handleNext();
+  // };
+  // // .......................................................................................................
 
-  const [formData, setFormData] = useState({
-    personalDetails: {},
-    qualification: {},
-    currentExperience: {},
-  });
+  // const [formData, setFormData] = useState({
+  //   personalDetails: {},
+  //   qualification: {},
+  //   currentExperience: {},
+  // });
 
-  const handleSubmit = async () => {
-    const combinedFormData = {
-      personalDetails: formDataPersonal,
-      qualification: formDataQualification,
-      currentExperience: formDataExperience,
-    };
-    try {
-      // Use the ApiServices to make a POST request
-      const response = await apiService.postFormData(
-        "http://192.168.1.15:8090/v1/api/candidates",
-        formData
-      );
+  // const handleSubmit = async () => {
+  //   const combinedFormData = {
+  //     personalDetails: formDataPersonal,
+  //     qualification: formDataQualification,
+  //     currentExperience: formDataExperience,
+  //   };
+  //   try {
+  //     // Use the ApiServices to make a POST request
+  //     const response = await apiService.postFormData(
+  //       "http://192.168.1.15:8090/v1/api/candidates",
+  //       combinedFormData
+  //     );
 
-      // Handle the response as needed
-      console.log("Form submitted successfully:", response);
+  //     // Handle the response as needed
+  //     console.log("Form submitted successfully:", response);
 
-      // You can redirect or perform other actions based on the response
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      // Handle errors
-    }
-  };
+  //     // You can redirect or perform other actions based on the response
+  //   } catch (error) {
+  //     console.error("Error submitting form:", error);
+  //     // Handle errors
+  //   }
+  // };
 
   const handleFormSubmit = (formData) => {
     // Handle the form data in DropCV component
@@ -113,6 +153,7 @@ function Dropcv() {
   };
 
   return (
+    
     <>
       <Header></Header>
       <div className="contact-forms">
@@ -143,10 +184,10 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleVerifivation} type="submit">Next</Button>
-                {/* <Button onClick={handleSubmit} type="submit">
+                {/* <Button onClick={handleVerifivation} type="submit">Next</Button> */}
+                <Button onClick={handleSubmit} type="submit">
                   Next
-                </Button> */}
+                </Button>
               </Box>
             </React.Fragment>
           ) : (
@@ -156,13 +197,13 @@ function Dropcv() {
               )}
               {activeStep === 1 && (
                 <Qualification
-                  onFormSubmit={handleQualificationSubmit}
+                onFormSubmit={handleQualificationSubmit}
                   formData={formDataQualification}
                 />
               )}
               {activeStep === 2 && (
                 <CurrentExperience
-                  onFormSubmit={handleExperienceSubmit}
+                onFormSubmit={handleExperienceSubmit} 
                   formData={formDataExperience}
                 />
               )}

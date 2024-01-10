@@ -190,9 +190,9 @@ function Qualification({ onSubmit }) {
           </div>
 
 
-          <button type="submit" className="submit-button">
+          {/* <button type="submit" className="submit-button">
                     Submit
-                  </button>
+                  </button> */}
 
                   </form>
 

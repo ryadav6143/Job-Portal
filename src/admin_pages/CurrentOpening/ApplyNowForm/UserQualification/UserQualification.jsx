@@ -69,7 +69,7 @@ function UserQualification() {
   
   return (
     <>
-    <form method='post' onSubmit={handleSubmit} >
+    <form method='post'  >
       <div className="container">
         <div style={{marginTop:"20px"}}>
           <div>
@@ -1178,7 +1178,7 @@ function UserQualification() {
         </div>
       </div>
 
-      <button type="submit">Submit</button>
+    
       </form>
     </>
   )
