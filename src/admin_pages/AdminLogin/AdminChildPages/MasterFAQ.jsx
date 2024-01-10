@@ -3,7 +3,7 @@ import React from 'react'
 function MasterFAQ() {
   return (
     <div>
-      <p>hello FAQ</p>
+      <p>hello FAQ hello FAQ hello FAQ hello FAQ hello FAQ</p>
     </div>
   )
 }

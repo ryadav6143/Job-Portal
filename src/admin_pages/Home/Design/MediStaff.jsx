@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
 import "./MediStaff.css";
+import Laxshmikant from "../../../assets/images/Laxmikant Soni.jpg";
+import Hemant from "../../../assets/images/Hemantpal.jpg";
+import Ruby from "../../../assets/images/RubyBhat.jpg";
+import Mohsin from "../../../assets/images/Mohsin Ali.jpg";
 import $ from "jquery";
 function MediStaff() {
   useEffect(() => {
@@ -77,10 +81,11 @@ function MediStaff() {
               </div>
               <div className="plus-container casse-tete-home">
                 <img
-                  src="https://assets-global.website-files.com/610c251287ec86f4848cd877/61119bb129a12a1b8e96b4cd_%2B.png"
+                  src="https://img.icons8.com/ios/50/plus--v1.png"
                   loading="lazy"
-                  alt=""
+                  alt="plus--v1"
                   className="plus bigger"
+                  style={{ width: "50px", height: "50px" }}
                 />
               </div>
               <div className="subtitles values-paragraph padding-left">
@@ -96,14 +101,10 @@ function MediStaff() {
                 <div role="list" className="collection-list-3 w-dyn-items">
                   <div role="listitem" className="collection-item-2 w-dyn-item">
                     <img
-                      src="https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15c8060207075a7e1406_instagram.fymq2-1.fna.fbcdn%201.jpg"
+                      src={Laxshmikant}
                       loading="lazy"
                       alt=""
                       sizes="(max-width: 767px) 100vw, 307.515625px"
-                      srcset="
-                      https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15c8060207075a7e1406_instagram.fymq2-1.fna.fbcdn%201-p-500.jpg 500w,
-                      https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15c8060207075a7e1406_instagram.fymq2-1.fna.fbcdn%201.jpg       914w
-                    "
                       className="image-7"
                     />
                   </div>
@@ -127,10 +128,11 @@ function MediStaff() {
 
               <div className="plus-container casse-tete-home align-right">
                 <img
-                  src="https://assets-global.website-files.com/610c251287ec86f4848cd877/61119bb129a12a1b8e96b4cd_%2B.png"
+                  src="https://img.icons8.com/ios/50/plus--v1.png"
                   loading="lazy"
-                  alt=""
+                  alt="plus--v1"
                   className="plus bigger"
+                  style={{ width: "50px", height: "50px" }}
                 />
               </div>
             </div>
@@ -151,10 +153,11 @@ function MediStaff() {
                   </div>
                   <div className="plus-container casse-tete-home">
                     <img
-                      src="https://assets-global.website-files.com/610c251287ec86f4848cd877/6122dc3cc8ee4c0c4a57e73a_%2Bblue.png"
+                      src="https://img.icons8.com/ios/50/plus--v1.png"
                       loading="lazy"
-                      alt=""
+                      alt="plus--v1"
                       className="plus bigger"
+                      style={{ width: "50px", height: "50px" }}
                     />
                   </div>
                 </div>
@@ -163,15 +166,10 @@ function MediStaff() {
                     <div role="list" className="collection-list-3 w-dyn-items">
                       <div role="listitem" class="collection-item-2 w-dyn-item">
                         <img
-                          src="https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15cddd506376ed514658_instagram.fymq2-1.fna.fbcdn%202.jpg"
+                          src={Laxshmikant}
                           loading="lazy"
                           alt=""
                           sizes="(max-width: 767px) 100vw, 307.515625px"
-                          srcset="
-                          https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15cddd506376ed514658_instagram.fymq2-1.fna.fbcdn%202-p-500.jpg 500w,
-                          https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15cddd506376ed514658_instagram.fymq2-1.fna.fbcdn%202-p-800.jpg 800w,
-                          https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15cddd506376ed514658_instagram.fymq2-1.fna.fbcdn%202.jpg       943w
-                        "
                           className="image-7"
                         />
                       </div>
@@ -188,7 +186,7 @@ function MediStaff() {
                         className="collection-item-2 w-dyn-item"
                       >
                         <img
-                          src="https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141185171b9146964ee65aa_6127e389b2162ee4a12da5a4_kana_1.jpeg"
+                          src={Laxshmikant}
                           loading="lazy"
                           alt=""
                           sizes="(max-width: 767px) 100vw, 615.03125px"
@@ -209,16 +207,10 @@ function MediStaff() {
                       className="collection-item-2 w-dyn-item"
                     >
                       <img
-                        src="https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141184cf4697559e2ca2ca6_613aa6009e67a7829337191d_RachelImage.jpeg"
+                        src={Laxshmikant}
                         loading="lazy"
                         alt=""
                         sizes="(max-width: 767px) 100vw, 307.515625px"
-                        srcset="
-                        https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141184cf4697559e2ca2ca6_613aa6009e67a7829337191d_RachelImage-p-500.jpeg   500w,
-                        https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141184cf4697559e2ca2ca6_613aa6009e67a7829337191d_RachelImage-p-800.jpeg   800w,
-                        https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141184cf4697559e2ca2ca6_613aa6009e67a7829337191d_RachelImage-p-1080.jpeg 1080w,
-                        https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141184cf4697559e2ca2ca6_613aa6009e67a7829337191d_RachelImage.jpeg        1287w
-                      "
                         className="image-7"
                       />
                     </div>
@@ -237,10 +229,11 @@ function MediStaff() {
               </div>
               <div className="plus-container casse-tete-home">
                 <img
-                  src="https://assets-global.website-files.com/610c251287ec86f4848cd877/61119bb129a12a1b8e96b4cd_%2B.png"
+                  src="https://img.icons8.com/ios/50/plus--v1.png"
                   loading="lazy"
-                  alt=""
+                  alt="plus--v1"
                   className="plus bigger"
+                  style={{ width: "50px", height: "50px" }}
                 />
               </div>
               <div className="subtitles values-paragraph padding-left">
@@ -255,14 +248,10 @@ function MediStaff() {
                 <div role="list" className="collection-list-3 w-dyn-items">
                   <div role="listitem" className="collection-item-2 w-dyn-item">
                     <img
-                      src="https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15c8060207075a7e1406_instagram.fymq2-1.fna.fbcdn%201.jpg"
+                      src={Laxshmikant}
                       loading="lazy"
                       alt=""
                       sizes="(max-width: 767px) 211.1875px, 100vw"
-                      srcset="
-                      https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15c8060207075a7e1406_instagram.fymq2-1.fna.fbcdn%201-p-500.jpg 500w,
-                      https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15c8060207075a7e1406_instagram.fymq2-1.fna.fbcdn%201.jpg       914w
-                    "
                       className="image-7"
                     />
                   </div>
@@ -286,10 +275,11 @@ function MediStaff() {
                   </div>
                   <div className="plus-container casse-tete-home">
                     <img
-                      src="https://assets-global.website-files.com/610c251287ec86f4848cd877/6122dc3cc8ee4c0c4a57e73a_%2Bblue.png"
+                      src="https://img.icons8.com/ios/50/plus--v1.png"
                       loading="lazy"
-                      alt=""
+                      alt="plus--v1"
                       className="plus bigger"
+                      style={{ width: "50px", height: "50px" }}
                     />
                   </div>
                 </div>
@@ -301,15 +291,10 @@ function MediStaff() {
                         className="collection-item-2 w-dyn-item"
                       >
                         <img
-                          src="https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15cddd506376ed514658_instagram.fymq2-1.fna.fbcdn%202.jpg"
+                          src={Laxshmikant}
                           loading="lazy"
                           alt=""
                           sizes="(max-width: 767px) 211.1875px, 100vw"
-                          srcset="
-                          https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15cddd506376ed514658_instagram.fymq2-1.fna.fbcdn%202-p-500.jpg 500w,
-                          https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15cddd506376ed514658_instagram.fymq2-1.fna.fbcdn%202-p-800.jpg 800w,
-                          https://assets-global.website-files.com/6113db8b6628664e9136dbfd/632d15cddd506376ed514658_instagram.fymq2-1.fna.fbcdn%202.jpg       943w
-                        "
                           className="image-7"
                         />
                       </div>
@@ -326,14 +311,10 @@ function MediStaff() {
                         className="collection-item-2 w-dyn-item"
                       >
                         <img
-                          src="https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141185171b9146964ee65aa_6127e389b2162ee4a12da5a4_kana_1.jpeg"
+                          src={Laxshmikant}
                           loading="lazy"
                           alt=""
                           sizes="(max-width: 767px) 211.1875px, 100vw"
-                          srcset="
-                          https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141185171b9146964ee65aa_6127e389b2162ee4a12da5a4_kana_1-p-800.jpeg 800w,
-                          https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141185171b9146964ee65aa_6127e389b2162ee4a12da5a4_kana_1.jpeg       929w
-                        "
                           className="image-7"
                         />
                       </div>
@@ -351,16 +332,10 @@ function MediStaff() {
                       className="collection-item-2 w-dyn-item"
                     >
                       <img
-                        src="https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141184cf4697559e2ca2ca6_613aa6009e67a7829337191d_RachelImage.jpeg"
+                        src={Laxshmikant}
                         loading="lazy"
                         alt=""
                         sizes="(max-width: 767px) 211.1875px, 100vw"
-                        srcset="
-                        https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141184cf4697559e2ca2ca6_613aa6009e67a7829337191d_RachelImage-p-500.jpeg   500w,
-                        https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141184cf4697559e2ca2ca6_613aa6009e67a7829337191d_RachelImage-p-800.jpeg   800w,
-                        https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141184cf4697559e2ca2ca6_613aa6009e67a7829337191d_RachelImage-p-1080.jpeg 1080w,
-                        https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141184cf4697559e2ca2ca6_613aa6009e67a7829337191d_RachelImage.jpeg        1287w
-                      "
                         className="image-7"
                       />
                     </div>
@@ -375,10 +350,11 @@ function MediStaff() {
               </div>
               <div className="plus-container casse-tete-home align-right">
                 <img
-                  src="https://assets-global.website-files.com/610c251287ec86f4848cd877/61119bb129a12a1b8e96b4cd_%2B.png"
+                  src="https://img.icons8.com/ios/50/plus--v1.png"
                   loading="lazy"
-                  alt=""
+                  alt="plus--v1"
                   className="plus bigger"
+                  style={{ width: "50px", height: "50px" }}
                 />
               </div>
               <div className="subtitles values-paragraph padding-right">
