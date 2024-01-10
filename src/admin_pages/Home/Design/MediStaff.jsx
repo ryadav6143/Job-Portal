@@ -27,14 +27,12 @@ function MediStaff() {
       );
     };
     // ------------------ Adding active class on click--------------------------
-    $(".block-01, .block-03, .block-04, .subtitles, .values-paragraph ").on(
-      "click",
-      function () {
-        $(this).toggleClass("active");
-        $(this).find(".casse-tete-home").toggleClass("turn45");
-        console.log("clicked");
-      }
-    );
+    $(".block-01, .block-03, .block-04 ").on("click", function () {
+      $(this).toggleClass("active");
+      $(this).find(".casse-tete-home").toggleClass("turn45");
+      $(this).find(".subtitles, .values-paragraph ").toggleClass("active");
+      console.log("clicked");
+    });
     //  ------------------ Adding active class on click-------------------------- F
     $(window).on("scroll", function () {
       const blocks = $(".block-01, .block-03, .block-04");
@@ -194,10 +192,6 @@ function MediStaff() {
                           loading="lazy"
                           alt=""
                           sizes="(max-width: 767px) 100vw, 615.03125px"
-                          srcset="
-                          https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141185171b9146964ee65aa_6127e389b2162ee4a12da5a4_kana_1-p-800.jpeg 800w,
-                          https://assets-global.website-files.com/6113db8b6628664e9136dbfd/6141185171b9146964ee65aa_6127e389b2162ee4a12da5a4_kana_1.jpeg       929w
-                        "
                           className="image-7"
                         />
                       </div>
