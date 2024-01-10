@@ -9,9 +9,7 @@ import {
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-
-function PersonalDeatils({ onFormSubmit }) {
+function PersonalDeatils({ formData, setFormData }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -51,6 +49,41 @@ function PersonalDeatils({ onFormSubmit }) {
       setSubposts([]);
     }
   }, [selectedPost, posts]);
+  useEffect(() => {
+    apiService
+      .getSubjectMaster()
+      .then((response) => {
+        setSubjects(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching subjects:", error);
+      });
+  }, []);
+  useEffect(() => {
+    // Fetch data from the API using the service
+    apiService
+      .getCountries()
+      .then((response) => {
+        setCountries(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching countries:", error);
+      });
+  }, []);
+  useEffect(() => {
+    // Fetch data from the API using the service
+    apiService
+      .getCandidates()
+      .then((response) => {
+        console.log("response", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching candidates:", error);
+      });
+  }, []);
+
+
+
 
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
@@ -58,9 +91,11 @@ function PersonalDeatils({ onFormSubmit }) {
     const selectedCategoryData = categories.find(
       (category) => category.category_name === selectedCategory
     );
-    setFormData((prevData) => ({
-      ...prevData,
-      job_category_id: selectedCategoryData ? selectedCategoryData.id : "",
+    setFormData((prevData) => ({     
+      personalDetails: {
+        ...prevData.personalDetails,
+        job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",    
+      },
     }));
     setPosts(
       selectedCategoryData ? selectedCategoryData.applied_post_masters : []
@@ -76,8 +111,13 @@ function PersonalDeatils({ onFormSubmit }) {
       (post) => post.post_name === selectedPost
     );
     setFormData((prevData) => ({
-      ...prevData,
-      applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
+      
+   
+      personalDetails: {
+        ...prevData.personalDetails,
+        applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
+        // Add additional fields related to category if needed
+      },
     }));
     setSubposts(
       selectedPostData ? selectedPostData.applied_subpost_masters : []
@@ -94,26 +134,15 @@ function PersonalDeatils({ onFormSubmit }) {
 
     // Set applied_subpost_masters_id in the formData
     setFormData((prevData) => ({
-      ...prevData,
-      applied_subpost_masters_id: selectedSubpostData
+            personalDetails: {
+          ...prevData.personalDetails,
+          applied_subpost_master_id: selectedSubpostData
         ? selectedSubpostData.id
         : "",
+          // Add additional fields related to category if needed
+        },
     }));
   };
-
-  // ---------------end of category ,post ,subpost--------------------------
-
-  // -------------------subject api source--------------
-  useEffect(() => {
-    apiService
-      .getSubjectMaster()
-      .then((response) => {
-        setSubjects(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching subjects:", error);
-      });
-  }, []);
   const handleSubjectChange = (event) => {
     const selectedSubjectName = event.target.value;
     setSelectedSubject(selectedSubjectName);
@@ -124,110 +153,55 @@ function PersonalDeatils({ onFormSubmit }) {
     );
 
     // Set subjects_master_id in the formData
-    setFormData((prevData) => ({
-      ...prevData,
-      subjects_master_id: selectedSubjectData ? selectedSubjectData.id : "",
+    setFormData((prevData) => ({    
+      personalDetails: {
+        ...prevData.personalDetails,
+        subjects_master_id: selectedSubjectData ? selectedSubjectData.id : "",
+        // Add additional fields related to category if needed
+      },
     }));
   };
-
-  // --------------------end of subject api source----------------------
-
-  // -------------------country api source----------------------
-  useEffect(() => {
-    // Fetch data from the API using the service
-    apiService
-      .getCountries()
-      .then((response) => {
-        setCountries(response.data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching countries:", error);
-      });
-  }, []);
-
-  const fetchCitiesByCountry = async (countryCode) => {
-    try {
-      const response = await axios.get(
-        `http://api.geonames.org/searchJSON?country=${countryCode}&maxRows=10&username=YOUR_GEONAMES_USERNAME`
-      );
-      // setCities(response.data.geonames);
-    } catch (error) {
-      console.error("Error fetching cities:", error);
-    }
-  };
-
   const handleCountryChange = (event) => {
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
     setSelectedCity("");
     setFormData((prevData) => ({
-      ...prevData,
-      country: countryValue,
-      city: "", // Reset city when country changes
+
+      personalDetails: {
+        ...prevData.personalDetails,
+        country: countryValue,
+      city: "",
+        // Add additional fields if needed
+      },
     }));
   };
   const handleCityChange = (event) => {
     const cityValue = event.target.value;
     setSelectedCity(cityValue);
     setFormData((prevData) => ({
-      ...prevData,
-      city: cityValue,
+      // ...prevData,
+      personalDetails: {
+        ...prevData.personalDetails,
+        city: cityValue,
+     
+      },
     }));
   };
-
-  // ----------------end of counrty API source-------------
-
-  // -------------------candidate api source----------------
-  useEffect(() => {
-    // Fetch data from the API using the service
-    apiService
-      .getCandidates()
-      .then((response) => {
-        console.log("response", response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching candidates:", error);
-      });
-  }, []);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
-      city: selectedCity,
+      personalDetails: {
+        ...prevData.personalDetails,
+        [name]: value,
+      },
     }));
   };
 
-  // ------------------end of candidate source-----------
 
-  // -------------------
-  const [formData, setFormData] = useState({
-    title_first_name: "",
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    dob: "",
-    gender: "",
-    email: "",
-    password: "rahul@patani",
-    contact_1: "",
-    country: selectedCountry,
-    city: selectedCity,
-    degree_types_master_id: "",
-    subjects_master_id: "",
-    applied_post_masters_id: "",
-    applied_subpost_masters_id: "",
-    job_category_id: "",
-  });
 
-  // ---------------------------
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-
-    onFormSubmit("personalDetails", formData);
-  };
-
+  
+  
   return (
     <>
       <div className="container">
@@ -239,7 +213,7 @@ function PersonalDeatils({ onFormSubmit }) {
             </p>
           </div>
 
-          <form method="post" onSubmit={handleSubmit}>
+          <form method="post" >
             <div className="row">
               <div className="col-md-6">
                 {/* Title */}
@@ -258,7 +232,6 @@ function PersonalDeatils({ onFormSubmit }) {
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
                   </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -321,10 +294,10 @@ function PersonalDeatils({ onFormSubmit }) {
                     <option value="Female">Female</option>
                     <option value="others">Others</option>
                   </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
             </div>
+
             <div className="row">
               <div className="col-md-6">
                 {/* Email */}
@@ -393,7 +366,6 @@ function PersonalDeatils({ onFormSubmit }) {
                       </option>
                     ))}
                   </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -424,7 +396,6 @@ function PersonalDeatils({ onFormSubmit }) {
                       </option>
                     ))}
                   </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
             </div>
@@ -454,7 +425,6 @@ function PersonalDeatils({ onFormSubmit }) {
                       </option>
                     ))}
                   </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -478,7 +448,6 @@ function PersonalDeatils({ onFormSubmit }) {
                       </option>
                     ))}
                   </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
             </div>
@@ -507,7 +476,6 @@ function PersonalDeatils({ onFormSubmit }) {
                       </option>
                     ))}
                   </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -531,17 +499,15 @@ function PersonalDeatils({ onFormSubmit }) {
                       </option>
                     ))}
                   </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
             </div>
-            {/* <button style={{ width: "100px" }} type="submit">
-              Submit
-            </button> */}
+           
           </form>
         </div>
       </div>
     </>
   );
 }
+
 export default PersonalDeatils;
