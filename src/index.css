@@ -15,10 +15,9 @@ body {
   background-color: white !important;
 }
 
-/* code {
+code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-<<<<<<< HEAD
 }
 
 .container{
@@ -30,8 +29,8 @@ select{
   
 }
 
-=======
-} */
+
+
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -44,4 +43,3 @@ select{
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
->>>>>>> ac6a65b719787a9da8e45f17dda48aa069be7c17

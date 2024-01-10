@@ -144,42 +144,7 @@ function Home() {
             <span>MEDI-CAPS STAFF</span>
           </p>
         </div>
-<<<<<<< HEAD
-        <div className="medi-staff">
-          <div className="row-1">
-            <div>
-              <p>
-                THE <br /> HEADLINE
-              </p>
-              <button  type="button">+</button>
-            </div>
-            <div></div>
-            <div>
-              <p>
-                THE <br /> HEADLINE
-              </p>
-              <button type="button">+</button>
-            </div>
-          </div>
-          <div className="row-2">
-            <div>
-              <p>
-                THE <br /> HEADLINE
-              </p>
-              <button type="button">+</button>
-            </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            {/* <div></div> */}
-          </div>
-          <div className="row-3">
-            <div></div>
-          </div>
-        </div>
-=======
         <MediStaff></MediStaff>
->>>>>>> ac6a65b719787a9da8e45f17dda48aa069be7c17
       </div>
       <div className="hr-corner">
         <div className="hr-conrer-heading">

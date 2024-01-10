@@ -12,12 +12,13 @@ import {
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 function EditPersonalDetails() {
+  
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
 
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
     }
@@ -33,7 +34,7 @@ function EditPersonalDetails() {
     <>
       <form id="myForm" >
         <div style={{ marginTop: "7%" }}>
-          <div style={{ paddingLeft: "50px" }}>
+          <div   style={{ paddingLeft: "50px" }}>
             {selectedImage && (
               <div>
                 <img
@@ -73,7 +74,7 @@ function EditPersonalDetails() {
                 <h5 className="UD-heading">
                   Personal Details &nbsp;{" "}
                   <FontAwesomeIcon
-                    style={{ color: "rgb(112 112 112 / 78%)" }}
+                  className="edit-pen-icon"
                     icon={faPen}
                   />
                 </h5>
@@ -136,11 +137,32 @@ function EditPersonalDetails() {
                       <option value="">Sub Post 1</option>
                       <option value="">Sub Post 2</option>
                       <option value="">Sub Post 3</option>
+                      <option value="">Others</option>
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div>
               </div>
+
+              {/* <div className="row">
+              <div className="col-md-4">
+                   *Others *
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span>*</span>Others
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name=""
+                      id=""
+                      required
+                    ></input>
+                  </div>
+                </div>
+
+              </div> */}
 
               <div className="row">
                 <div className="col-md-4">
@@ -231,7 +253,7 @@ function EditPersonalDetails() {
                   {/* Middle Name  */}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span>*</span>Middle Name
+                      <span></span>Middle Name
                     </label>
 
                     <input
@@ -240,7 +262,7 @@ function EditPersonalDetails() {
                       name="middle_name"
                       placeholder="Enter Middle Name "
                       id=""
-                      required
+                     
                     ></input>
                     <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                   </div>
@@ -465,7 +487,7 @@ function EditPersonalDetails() {
               </div>
 
               <div>
-                <button className="savebtn" type="button">
+                <button className="savebtn" type="button" >
                   Save Changes
                 </button>
               </div>

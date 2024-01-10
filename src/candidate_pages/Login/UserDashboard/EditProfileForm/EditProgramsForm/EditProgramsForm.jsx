@@ -26,7 +26,7 @@ function EditProgramsForm() {
               <h5 className="UD-heading">
                 Seminars/Short Term Courses/Summer Schools/Winter Schools &nbsp;{" "}
                 <FontAwesomeIcon
-                  style={{ color: "rgb(112 112 112 / 78%)" }}
+              className="edit-pen-icon"
                   icon={faPen}
                 />
               </h5>

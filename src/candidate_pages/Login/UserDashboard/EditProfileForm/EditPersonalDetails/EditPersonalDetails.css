@@ -18,6 +18,11 @@ box-shadow: rgb(100 100 111 / 17%) 0px 7px 29px 0px;
 }
 
 
+.edit-pen-icon{
+  cursor: pointer;
+  color: rgb(112 112 112 / 78%); 
+}
+
 
 /* Media query for screens smaller than 600px (adjust the breakpoint as needed) */
 @media (max-width: 600px) {
@@ -29,3 +34,5 @@ box-shadow: rgb(100 100 111 / 17%) 0px 7px 29px 0px;
       margin-bottom: 100px;
     }
   }
+
+ 

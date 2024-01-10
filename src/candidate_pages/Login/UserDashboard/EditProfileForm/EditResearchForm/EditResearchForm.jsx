@@ -33,7 +33,7 @@ function EditResearchForm() {
     <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
       <div>
         <div>
-          <h5 className="UD-heading">Research Work &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} />  
+          <h5 className="UD-heading">Research Work &nbsp; <FontAwesomeIcon   className="edit-pen-icon" icon={faPen} />  
           <button  onClick={handleAddIdentifier} style={{marginRight:"30px"}} type="button" className="plus-button">+</button></h5>
           <p className="UD-subheading">
             Please fill your information so we can get in touch with you.

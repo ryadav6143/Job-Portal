@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import "./EditQualificationForm.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,13 +11,69 @@ import UserHeader from '../../UserHeader/UserHeader';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 function EditQualificationForm() {
+  
+  const [formValues, setFormValues] = useState({
+    country1: '',
+    country2: '',
+    country3: '',
+    country4: '',
+    country5: '',
+    country6: '',
+    year_start: '',
+    institute_name:'',
+    board_university_name:'',
+    year_end: '',
+    grade_division:'',
+    grade_percent: '',
+    stream:'',
+    degree_types_name:'',
+    specialization_area_1:'',
+
+  });
+
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    // Fetch countries from the API
+    fetch('https://countriesnow.space/api/v0.1/countries')
+      .then((response) => response.json())
+      .then((data) => {
+        setCountries(data.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching countries:', error);
+      });
+  }, []);
+
+  const handleInputChange = (e, dropdownName) => {
+    const { value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [dropdownName]: value,
+    }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form Data:', formValues);
+    // Add any additional logic for form submission or data processing here
+  };
+
   return (
    <>
  <form id="myForm">
     <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
         <div>
           <div>
-            <h5 className="UD-heading">Academic Professional Qualifications &nbsp; <FontAwesomeIcon style={{color:"rgb(112 112 112 / 78%)"}} icon={faPen} /></h5>
+            <h5 className="UD-heading">Academic Professional Qualifications &nbsp; <FontAwesomeIcon   className="edit-pen-icon" icon={faPen} /></h5>
             <p className="UD-subheading">
             Please fill your information so we can get in touch with you.
             </p>
@@ -38,12 +94,20 @@ function EditQualificationForm() {
                 <label className="UD-SetLabel-Name">
                   <span>*</span> Country
                 </label>
-                <select required name="country" className="UD-set-dropdown">
-                  <option value="">Select country</option>
-                  <option value=""> country</option>
-                  <option value=""> country</option>
-                  <option value=""> country</option>
-                </select>
+                <select
+          onChange={(e) => handleInputChange(e, 'country1')}
+          name="country1"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country1}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
               </div>
             </div>
@@ -182,12 +246,20 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span>*</span> Country
                  </label>
-                 <select required name="country" className="UD-set-dropdown">
-                   <option value="">Select country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                 </select>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country2')}
+          name="country2"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country2}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
@@ -346,12 +418,20 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="country" className="UD-set-dropdown">
-                   <option value="">Select country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                 </select>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country3')}
+          name="country1"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country3}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
@@ -509,12 +589,20 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="country" className="UD-set-dropdown">
-                   <option value="">Select country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                 </select>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country4')}
+          name="country1"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country4}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
@@ -672,12 +760,20 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="country" className="UD-set-dropdown">
-                   <option value="">Select country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                 </select>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country5')}
+          name="country1"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country5}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
@@ -830,12 +926,20 @@ function EditQualificationForm() {
                  <label className="UD-SetLabel-Name">
                    <span></span> Country
                  </label>
-                 <select name="country" className="UD-set-dropdown">
-                   <option value="">Select country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                   <option value=""> country</option>
-                 </select>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country6')}
+          name="country1"
+          className="UD-set-dropdown"
+          required
+          value={formValues.country6}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                </div>
              </div>
