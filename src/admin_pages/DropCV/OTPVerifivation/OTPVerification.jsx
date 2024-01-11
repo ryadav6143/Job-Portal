@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function OTPVerification() {
   const navigate = useNavigate();
+  // const { formDataToSend } = useAppContext();
   const submitsuccess = () => {
     
     navigate("/verification-successfull");
