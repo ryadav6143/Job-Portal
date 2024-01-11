@@ -20,6 +20,8 @@ import OTPVerification from "./OTPVerifivation/OTPVerification";
 const steps = ["", "", ""];
 
 function Dropcv() {
+  const [otpButtonClicked, setOtpButtonClicked] = useState(false);
+
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -51,42 +53,40 @@ function Dropcv() {
       current_salary: "",
     },
   });
-  const [formDataToSend, setformDataToSend] = useState(); 
+  const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
-const transferAllData =()=>{
-  try {
-    // Create FormData object
-    const formDataToSend = new FormData();
+  const transferAllData = () => {
+    try {
+      // Create FormData object
+      const formDataToSend = new FormData();
 
-    Object.entries(formData.personalDetails).forEach(([key, value]) => {
-      // Check if the value is an array (specifically 'educations')
-      if (key === "educations" && Array.isArray(value)) {
-        formDataToSend.append(key, JSON.stringify(value));
-      } else {
-        // If not an array, append as usual
-        formDataToSend.append(key, value);
-      }
-    });
+      Object.entries(formData.personalDetails).forEach(([key, value]) => {
+        // Check if the value is an array (specifically 'educations')
+        if (key === "educations" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } else {
+          // If not an array, append as usual
+          formDataToSend.append(key, value);
+        }
+      });
 
-    setformDataToSend(formDataToSend);
+      setformDataToSend(formDataToSend);
+      setOtpButtonClicked(true);
 
-    console.log("formDataToSend", formDataToSend);
-
-   
-  } catch (error) {
-    console.error(
-      "Error while posting form data and file:",
-      error.response || error
-    );
-    console.log(error.response.data);
-  }
-  setSelectedComponent("OTPVerification");
-}
+      console.log("formDataToSend", formDataToSend);
+    } catch (error) {
+      console.error(
+        "Error while posting form data and file:",
+        error.response || error
+      );
+      console.log(error.response.data);
+    }
+    setSelectedComponent("OTPVerification");
+  };
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
- 
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -96,11 +96,9 @@ const transferAllData =()=>{
     return skipped.has(step);
   };
 
-  const handleNext = () => {  
-      
+  const handleNext = () => {
     console.log("Form Data:", formData);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-
   };
 
   const handleBack = () => {
@@ -112,24 +110,24 @@ const transferAllData =()=>{
     navigate("/verify");
   };
   // ----------------------------------------------------------
-  
+
   // const showComponent = async (componentName) => {
   //   setSelectedComponent(componentName);
-  
+
   // };
   let componentToShow;
   switch (selectedComponent) {
     case "OTPVerification":
       componentToShow = <OTPVerification transferAllData={formDataToSend} />;
       break;
-      default:
-        componentToShow=null;
+    default:
+      componentToShow = null;
   }
   // ----------------------------------------------------------
   return (
     <>
       <Header></Header>
-      <div className="contact-forms">
+      <div className={otpButtonClicked ? "contact-forms hidden" : "contact-forms"}>
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
@@ -157,11 +155,7 @@ const transferAllData =()=>{
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button
-                  onClick={transferAllData}                
-                >
-                  Get OTP
-                </Button>
+                <Button onClick={transferAllData}>Get OTP</Button>
                 {/* <Button type="button"  onClick={handleGetOTP}>Get OTP</Button> */}
                 {/* <Button>Next</Button> */}
               </Box>
