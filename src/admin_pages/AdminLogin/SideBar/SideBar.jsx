@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import MasterCurrentOpening from "../AdminChildPages/MasterCurrentOpening";
-import MasterJobProfile from "../AdminChildPages/MasterJobProfile";
-import MasterInterviewSchedule from "../AdminChildPages/MasterInterviewSchedule";
-import MasterFAQ from "../AdminChildPages/MasterFAQ";
+import MasterCurrentOpening from "../AdminChildPages/MasterCurrentOpening/MasterCurrentOpening";
+import MasterJobProfile from "../AdminChildPages/MasterJobProfile/MasterJobProfile";
+import MasterInterviewSchedule from "../AdminChildPages/MasterInterviewSchedule/MasterInterviewSchedule";
+import MasterFAQ from "../AdminChildPages/MasterFAQ/MasterFAQ";
 import "./SideBar.css";
 import { Button } from "@mui/material";
 function SideBar() {

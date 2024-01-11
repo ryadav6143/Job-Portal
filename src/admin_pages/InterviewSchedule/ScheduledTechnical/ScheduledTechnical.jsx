@@ -145,11 +145,7 @@ function ScheduledTechnical() {
                     <b> {data["S.No"]} </b>
                   </td>
                   <td>{data["Discipline / Subject"]}</td>
-                  <td>
-                    <button type="button" className="apn-btn">
-                      <a href={data.applyLink}>APPLY NOW</a>
-                    </button>
-                  </td>
+                  <td>{data["Eligibility criteria"]}</td>
                   <td>{data["Day 1"]}</td>
                   <td>{data["Day 2"]}</td>
                   <td>{data["Day 3"]}</td>

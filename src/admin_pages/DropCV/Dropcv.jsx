@@ -160,6 +160,7 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
+                
                 <Button onClick={handleVerifivation} type="submit">
                   Next
                 </Button>
