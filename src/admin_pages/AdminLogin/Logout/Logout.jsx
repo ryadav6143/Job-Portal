@@ -1,14 +1,20 @@
 import React from "react";
 import "./Logout.css";
+import medilogo from "../../../assets/logos/medi-logo.png";
 import AdminDashboard from "../AdminDashboard/AdminDashboard";
 
 function Logout({ handleLogout }) {
   return (
     <>
-      <div id="logout-btn">
-        <button onClick={handleLogout}>LOGOUT</button>
+      <div className="admin-header">
+        <div>
+          <img className="admin-logo" src={medilogo} alt="" />
+        </div>
+        <div id="logout-btn">
+          <button onClick={handleLogout}>LOGOUT</button>
+        </div>
       </div>
-      
+
       <div className="show-dashboard">
         <AdminDashboard></AdminDashboard>
       </div>
