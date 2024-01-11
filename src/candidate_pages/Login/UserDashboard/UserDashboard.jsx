@@ -7,9 +7,7 @@ function UserDashboard() {
   return (
     <>
       <UserHeader></UserHeader>
-      <div>
-        {/* <h1>User Dashboard</h1> */}
-      </div>
+ 
       <Footers></Footers>
     </>
   );

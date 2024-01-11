@@ -228,6 +228,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     value={formData.title_first_name}
                     required
                   >
+                    <option value="">Select Titel</option>
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>

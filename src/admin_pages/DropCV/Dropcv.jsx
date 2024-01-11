@@ -20,6 +20,8 @@ import OTPVerification from "./OTPVerifivation/OTPVerification";
 const steps = ["", "", ""];
 
 function Dropcv() {
+  const [otpButtonClicked, setOtpButtonClicked] = useState(false);
+
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -53,7 +55,6 @@ function Dropcv() {
   });
   const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
-
   const transferAllData = () => {
     try {
       // Create FormData object
@@ -70,6 +71,7 @@ function Dropcv() {
       });
 
       setformDataToSend(formDataToSend);
+      setOtpButtonClicked(true);
 
       console.log("formDataToSend", formDataToSend);
     } catch (error) {
@@ -125,7 +127,7 @@ function Dropcv() {
   return (
     <>
       <Header></Header>
-      <div className="contact-forms">
+      <div className={otpButtonClicked ? "contact-forms hidden" : "contact-forms"}>
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
