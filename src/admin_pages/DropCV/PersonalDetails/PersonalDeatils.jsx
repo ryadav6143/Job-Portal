@@ -413,7 +413,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     className="set-dropdown"
                     value={selectedCategory}
                     onChange={handleCategoryChange}
-                    // required
+                    required
                   >
                     <option value="">Select a category</option>
                     {categories.map((category) => (
@@ -439,7 +439,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     id="postDropdown"
                     onChange={handlePostChange}
                     className="set-dropdown"
-                    // required
+                    required
                   >
                     <option value="">Select a post</option>
                     {posts.map((post) => (
@@ -490,7 +490,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     className="set-dropdown"
                     value={selectedSubject}
                     onChange={handleSubjectChange}
-                    // required
+                    required
                   >
                     <option value="">Select a subject</option>
                     {subjects.map((subject) => (

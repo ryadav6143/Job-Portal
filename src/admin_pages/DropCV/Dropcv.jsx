@@ -13,13 +13,12 @@ import CurrentExperience from "./CurrentExperience/CurrentExperience";
 import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footers";
-// import apiService from "../../Services/ApiServices";
-import axios from "axios";
 import OTPVerification from "./OTPVerifivation/OTPVerification";
-
+import apiService from "../../Services/ApiServices";
 const steps = ["", "", ""];
 
 function Dropcv() {
+  const [otpData,setOtpData]=useState({});
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -53,13 +52,13 @@ function Dropcv() {
   });
   const [formDataToSend, setformDataToSend] = useState(); 
   const [selectedComponent, setSelectedComponent] = useState();
-const transferAllData =()=>{
+const transferAllData =async ()=>{
   try {
     // Create FormData object
     const formDataToSend = new FormData();
 
     Object.entries(formData.personalDetails).forEach(([key, value]) => {
-      // Check if the value is an array (specifically 'educations')
+
       if (key === "educations" && Array.isArray(value)) {
         formDataToSend.append(key, JSON.stringify(value));
       } else {
@@ -67,12 +66,8 @@ const transferAllData =()=>{
         formDataToSend.append(key, value);
       }
     });
-
-    setformDataToSend(formDataToSend);
-
     console.log("formDataToSend", formDataToSend);
-
-   
+    setformDataToSend(formDataToSend);
   } catch (error) {
     console.error(
       "Error while posting form data and file:",
@@ -80,7 +75,16 @@ const transferAllData =()=>{
     );
     console.log(error.response.data);
   }
+  const otpData={
+    email: formData.personalDetails.email,
+    contact_1: formData.personalDetails.contact_1,
+  }
+  setOtpData(otpData)
+  
+  const response = await apiService.generateOTP(otpData);
+  console.log("API Response:", response);
   setSelectedComponent("OTPVerification");
+
 }
   const navigate = useNavigate();
 
@@ -113,14 +117,11 @@ const transferAllData =()=>{
   };
   // ----------------------------------------------------------
   
-  // const showComponent = async (componentName) => {
-  //   setSelectedComponent(componentName);
   
-  // };
   let componentToShow;
   switch (selectedComponent) {
     case "OTPVerification":
-      componentToShow = <OTPVerification transferAllData={formDataToSend} />;
+      componentToShow = <OTPVerification otpData={otpData} transferAllData={formDataToSend} />;
       break;
       default:
         componentToShow=null;
@@ -162,8 +163,7 @@ const transferAllData =()=>{
                 >
                   Get OTP
                 </Button>
-                {/* <Button type="button"  onClick={handleGetOTP}>Get OTP</Button> */}
-                {/* <Button>Next</Button> */}
+             
               </Box>
             </React.Fragment>
           ) : (

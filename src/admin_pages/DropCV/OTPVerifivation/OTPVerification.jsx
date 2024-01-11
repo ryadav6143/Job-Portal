@@ -1,32 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import "./OTPVerification.css";
 import { useNavigate } from "react-router-dom";
+import apiService from "../../../Services/ApiServices";
 
-import axios from "axios";
-function OTPVerification({transferAllData}) {
-  console.log("AllData",transferAllData);
+function OTPVerification({ transferAllData, otpData }) {
+  console.log("AllData", otpData);
   const navigate = useNavigate();
-  
-   
+  const [otp, setOtp] = useState("");
+  const [verificationError, setVerificationError] = useState(null);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
 
-  const submitsuccess = async () => {
+  const { contact_1 } = otpData;
+  let digit = contact_1 ? contact_1.slice(-2) : "";
+  const verifyOtp = async () => {
+    try {
+      console.log("Contact 1:", otp, otpData);
 
-  
-   
-    const response =  await axios.post(
-      "http://192.168.1.15:8090/v1/api/candidates/drop_cv",
-      transferAllData
-    );
+      const response = await apiService.verifyContactOTP({
+        ...otpData,
+        input_otp: parseInt(otp),
+      });
 
-    if (response) {
-      console.log("Form data and file successfully posted to the API");
-
-      // navigate("/otp-verifivation");
-    } else {
-      console.error("Failed to post form data and file to the API");
+      if (response) {
+        setIsOtpVerified(true);
+        alert("OTP Verified Successfully!");
+      } else {
+        setVerificationError("Invalid OTP. Please try again.");
+        setIsOtpVerified(false);
+      }
+    } catch (error) {
+      console.error("Error during OTP verification", error);
+      setVerificationError("An error occurred during OTP verification.");
+      setIsOtpVerified(false);
     }
+  };
+  const resendOTP = async () => {
+    try {
+      const response = await apiService.generateOTP({
+        ...otpData,
 
-    // navigate("/verification-successfull");
+      });
+
+      console.log("API Response:", response);
+      alert("OTP Resent Successfully!");
+    } catch (error) {
+      console.error("Error during OTP generation", error);
+      alert("Failed to resend OTP. Please try again.");
+    }
+  };
+  const submitsuccess = async () => {
+    if (isOtpVerified) {
+      try {
+        const response = await apiService.submitCandidateData(transferAllData);
+
+        if (response) {
+          console.log("Form data and file successfully posted to the API");
+          navigate("/verification-successful");
+        } else {
+          console.error("Failed to post form data and file to the API");
+        }
+      } catch (error) {
+        console.error("Failed to post form data and file to the API", error);
+      }
+    } else {
+      alert("Please verify OTP first!");
+    }
   };
   return (
     <>
@@ -36,19 +74,25 @@ function OTPVerification({transferAllData}) {
           <div className="sub-vrf-page">
             <p className="vrf-subheading">OTP Verification</p>
             <p style={{ color: "rgba(0, 0, 0, 0.666)", marginTop: "-17px" }}>
-              Enter OTP sent to xxxxxxxx90
+              {`Enter OTP sent to xxxxxxxx${digit}`}
             </p>
             <div className="otp-form">
               <form action="" method="post">
                 <input
-                  type="text"
+                  type="number"
                   name="otp"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
                   placeholder="Enter OTP"
                   required
                 />
               </form>
+
             </div>
-            <button type="submit" id="resend-btn">
+            <button onClick={verifyOtp} type="button" id="verify-otp-btn">
+              Verify OTP
+            </button>
+            <button onClick={resendOTP} type="button" id="resend-btn">
               Resend OTP
             </button>
           </div>
