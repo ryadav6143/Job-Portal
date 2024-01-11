@@ -10,17 +10,16 @@ import Typography from "@mui/material/Typography";
 import PersonalDeatils from "./PersonalDetails/PersonalDeatils";
 import Qualification from "./Qualification/Qualification";
 import CurrentExperience from "./CurrentExperience/CurrentExperience";
-import { useState, useEffect  } from 'react';
+import { useState, useEffect } from "react";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footers";
 // import apiService from "../../Services/ApiServices";
 import axios from "axios";
-import Header from "../../components/Header/Header"
-import Footers from "../../components/Footer/Footers"
-
+import OTPVerification from "./OTPVerifivation/OTPVerification";
 
 const steps = ["", "", ""];
 
 function Dropcv() {
-  const [candidates, setCandidates] = useState([]);
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -40,61 +39,54 @@ function Dropcv() {
       country: "",
       city: "",
       subjects_master_id: "",
-      applied_post_masters_id: "",        
+      applied_post_masters_id: "",
       applied_subpost_master_id: "",
       job_category_master_id: "",
-      educations: [initialEducation], 
+      educations: [initialEducation],
       total_experience: "",
       total_research_exp: "",
       total_industrial_exp: "",
       current_organization: "",
       current_designation: "",
       current_salary: "",
- 
     },
   });
+  const [formDataToSend, setformDataToSend] = useState(); 
+  const [selectedComponent, setSelectedComponent] = useState();
+const transferAllData =()=>{
+  try {
+    // Create FormData object
+    const formDataToSend = new FormData();
 
-
-  const handleSubmit = async () => {
-    try {
-      // Create FormData object
-      const formDataToSend = new FormData();
-  
- 
-      Object.entries(formData.personalDetails).forEach(([key, value]) => {
-          // Check if the value is an array (specifically 'educations')
-    if (key === 'educations' && Array.isArray(value)) {
-    
-      formDataToSend.append(key, JSON.stringify(value));
-    } else {
-      // If not an array, append as usual
-      formDataToSend.append(key, value);
-    }
-  });
-
-  console.log("formDataToSend", formDataToSend);
-      const response = await axios.post("http://192.168.1.15:8090/v1/api/candidates/drop_cv", formDataToSend);
-  
-
-      if (response) {
-        console.log("Form data and file successfully posted to the API");
-  
-        // navigate("/otp-verifivation");
+    Object.entries(formData.personalDetails).forEach(([key, value]) => {
+      // Check if the value is an array (specifically 'educations')
+      if (key === "educations" && Array.isArray(value)) {
+        formDataToSend.append(key, JSON.stringify(value));
       } else {
-        console.error("Failed to post form data and file to the API");
+        // If not an array, append as usual
+        formDataToSend.append(key, value);
       }
-    } catch (error) {
-      console.error("Error while posting form data and file:", error.response || error);
-      console.log(error.response.data);
-    }
-  };
-  
-  
+    });
 
+    setformDataToSend(formDataToSend);
+
+    console.log("formDataToSend", formDataToSend);
+
+   
+  } catch (error) {
+    console.error(
+      "Error while posting form data and file:",
+      error.response || error
+    );
+    console.log(error.response.data);
+  }
+  setSelectedComponent("OTPVerification");
+}
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+ 
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -104,12 +96,11 @@ function Dropcv() {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
-
+  const handleNext = () => {  
+      
     console.log("Form Data:", formData);
-
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
   };
 
   const handleBack = () => {
@@ -118,12 +109,26 @@ function Dropcv() {
 
   const handleVerifivation = () => {
     // alert("Your CV has been submitted");
-    navigate("/otp-verifivation");
+    navigate("/verify");
   };
-
+  // ----------------------------------------------------------
+  
+  // const showComponent = async (componentName) => {
+  //   setSelectedComponent(componentName);
+  
+  // };
+  let componentToShow;
+  switch (selectedComponent) {
+    case "OTPVerification":
+      componentToShow = <OTPVerification transferAllData={formDataToSend} />;
+      break;
+      default:
+        componentToShow=null;
+  }
+  // ----------------------------------------------------------
   return (
     <>
-    <Header></Header>
+      <Header></Header>
       <div className="contact-forms">
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
@@ -152,18 +157,37 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                {/* {/ <Button onClick={handleVerifivation} type="submit">Next</Button> /} */}
-                <Button onClick={handleSubmit} type="submit">Next</Button>
-                {/* {/ <Button>Next</Button> /} */}
-
-
+                <Button
+                  onClick={transferAllData}                
+                >
+                  Get OTP
+                </Button>
+                {/* <Button type="button"  onClick={handleGetOTP}>Get OTP</Button> */}
+                {/* <Button>Next</Button> */}
               </Box>
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {activeStep === 0 && <PersonalDeatils formData={formData.personalDetails} setFormData={setFormData} />}
-              {activeStep === 1 && <Qualification formData={formData.personalDetails} setFormData={setFormData} />}
-              {activeStep === 2 && <CurrentExperience formData={formData.personalDetails} setFormData={setFormData} />}
+              {activeStep === 0 && (
+                <PersonalDeatils
+                  formData={formData.personalDetails}
+                  setFormData={setFormData}
+                />
+              )}
+              {activeStep === 1 && (
+                <Qualification
+                  formData={formData.personalDetails}
+                  setFormData={setFormData}
+                />
+              )}
+              {activeStep === 2 && (
+                <CurrentExperience
+                  formData={formData.personalDetails}
+                  setFormData={setFormData}
+                />
+              )}
+              {activeStep === 3 && <OTPVerification />}
+
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Button
                   className="prev-btn"
@@ -183,8 +207,8 @@ function Dropcv() {
           )}
         </Box>
       </div>
-<Footers></Footers>
-
+      <div>{componentToShow}</div>
+      <Footer></Footer>
     </>
   );
 }

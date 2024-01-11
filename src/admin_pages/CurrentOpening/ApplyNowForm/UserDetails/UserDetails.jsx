@@ -107,7 +107,7 @@ function UserDetails() {
               {/* *Post Applied For (If Others, Please Specify) */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span>*</span> Post Applied For (If Others, Please Specify)
+                  <span>*</span> Post Applied For<span className="set-others">&nbsp;(If Others, Please Specify)</span> 
                 </label>
                 <select
                   onChange={handleInputChange}

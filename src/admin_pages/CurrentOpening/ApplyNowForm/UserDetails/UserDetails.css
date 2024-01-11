@@ -22,6 +22,11 @@
   letter-spacing: 0.2px;
 }
 
+.set-others{
+  font-size: 14px;
+  color: black !important;
+}
+
 .UD-SetLabel-Name span {
   color: red;
 }
@@ -65,23 +70,25 @@
 
   @media only screen and (max-width: 767px) {
     .UD-set-input{
-      width: 80% !important;
+      width: 100% !important;
     }
 
     .UD-set-dropdown{
-      width: 80% !important;
+      width: 100% !important;
     }
  
   }
 
   @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-    /* Your styles for iPad Air go here */
+  
 
     .UD-set-input{
-      width: 80% !important;
+      width: 100% !important;
+      font-size: 14px;
     }
 
     .UD-set-dropdown{
-      width: 80% !important;
+      width: 100% !important;
+      font-size: 14px;
     }
   }

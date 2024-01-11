@@ -2,11 +2,31 @@ import React from "react";
 import "./OTPVerification.css";
 import { useNavigate } from "react-router-dom";
 
-function OTPVerification() {
+import axios from "axios";
+function OTPVerification({transferAllData}) {
+  console.log("AllData",transferAllData);
   const navigate = useNavigate();
-  const submitsuccess = () => {
-    
-    navigate("/verification-successfull");
+  
+   
+
+  const submitsuccess = async () => {
+
+  
+   
+    const response =  await axios.post(
+      "http://192.168.1.15:8090/v1/api/candidates/drop_cv",
+      transferAllData
+    );
+
+    if (response) {
+      console.log("Form data and file successfully posted to the API");
+
+      // navigate("/otp-verifivation");
+    } else {
+      console.error("Failed to post form data and file to the API");
+    }
+
+    // navigate("/verification-successfull");
   };
   return (
     <>
