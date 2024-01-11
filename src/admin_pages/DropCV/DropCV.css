@@ -38,10 +38,14 @@
   background-color: rgba(211, 211, 211, 0.558) !important;
   font-family: "Open Sans", sans-serif !important;
 }
-@media only screen and (max-width: 767px) {
-.contact-forms{
-  padding: 35px 20px 35px 20px;
-  margin: 5% 10% 5% 10%;
+.hidden {
+  Box {
+    display: none;
+  }
 }
-
+@media only screen and (max-width: 767px) {
+  .contact-forms {
+    padding: 35px 20px 35px 20px;
+    margin: 5% 10% 5% 10%;
+  }
 }

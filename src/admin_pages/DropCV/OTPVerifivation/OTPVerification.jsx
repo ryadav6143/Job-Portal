@@ -3,17 +3,12 @@ import "./OTPVerification.css";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
-function OTPVerification({transferAllData}) {
-  console.log("AllData",transferAllData);
+function OTPVerification({ transferAllData }) {
+  console.log("AllData", transferAllData);
   const navigate = useNavigate();
-  
-   
 
   const submitsuccess = async () => {
-
-  
-   
-    const response =  await axios.post(
+    const response = await axios.post(
       "http://192.168.1.15:8090/v1/api/candidates/drop_cv",
       transferAllData
     );
