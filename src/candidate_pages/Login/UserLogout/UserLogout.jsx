@@ -14,7 +14,7 @@ function UserLogout({}) {
     localStorage.removeItem("user");
 
     // Navigate to the login page
-    navigate("/user-login");
+    navigate("/user-login", { replace: true });
   };
   const handleReset = () => {
     const form = document.getElementById("myForm");
@@ -29,13 +29,7 @@ function UserLogout({}) {
         <div>
           <img className="admin-logo" src={medilogo} alt="" />
         </div>
-        {/* <div  className="logs">
-          <button
-           onClick={handleLogout}
-          >
-            <img src={logout} className="log-res" />
-          </button>
-        </div> */}
+    
         <div className="logs">
           <button onClick={handleReset} type="reset">
             <img src={reset} className="log-res" />
@@ -46,7 +40,7 @@ function UserLogout({}) {
         </div>
       </div>
 
-      <div>{/* <UserDashboard></UserDashboard> */}</div>
+      <div><UserDashboard></UserDashboard></div>
     </>
   );
 }

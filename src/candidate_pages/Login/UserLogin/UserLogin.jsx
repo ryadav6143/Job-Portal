@@ -60,31 +60,7 @@ function UserLogin() {
       console.log("Invalid credentials");
     }
   };
-  // const [formData, setFormData] = useState({
-  //   username: "",
-  //   password: "",
-  // });
 
-  // const [showPassword, setShowPassword] = useState(false);
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
-
-  // const handleTogglePassword = () => {
-  //   setShowPassword((prevShowPassword) => !prevShowPassword);
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   console.log("Username:", formData.username);
-  //   console.log("Password:", formData.password);
-  // };
   return (
     <>
       <div className="login-container">
