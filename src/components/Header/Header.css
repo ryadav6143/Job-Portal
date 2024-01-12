@@ -41,7 +41,7 @@
   font-weight: bold !important;
 }
 /* ................................................................. */
-.navbar-nav{
+.navbar-nav {
   position: absolute !important;
   right: 0;
   margin-right: 30px;
@@ -86,7 +86,7 @@
   height: 20px;
 }
 @media only screen and (max-width: 767px) {
-  .navbar-nav{
+  .navbar-nav {
     position: relative !important;
     margin-right: 0px;
   }
@@ -118,7 +118,7 @@
     text-align: end;
     margin-right: 10px;
   }
-  .navbar-nav{
+  .navbar-nav {
     position: relative !important;
     margin-right: 0px;
   }
@@ -129,7 +129,7 @@
     text-align: end;
     margin-right: 10px;
   }
-  .navbar-nav{
+  .navbar-nav {
     position: relative !important;
     margin-right: 0px;
   }
@@ -141,10 +141,10 @@
     font-size: 12px !important;
     font-weight: bold !important;
   }
-  .navbar-nav{
+  /* .navbar-nav{
     position: relative !important;
     margin-right: 0px;
-  }
+  } */
 }
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
   .nav-link {
@@ -153,8 +153,10 @@
     font-size: 12px !important;
     font-weight: bold !important;
   }
-  .navbar-nav{
+  /* .navbar-nav{
     position: relative !important;
     margin-right: 0px;
-  }
+  } */
 }
+
+/* line 144 to 147  */

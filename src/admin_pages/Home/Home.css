@@ -150,10 +150,10 @@
   line-height: 1.5;
 }
 
-.side-left {
+/* .side-left {
   margin-left: 20% !important;
   margin-right: -10% !important;
-}
+} */
 .staff-heading {
   font-size: 25px;
   text-align: center;
@@ -544,10 +544,10 @@
       overflow: hidden;
     }
   }
-  .side-left {
+  /* .side-left {
     margin-left: 5% !important;
     margin-right: 5% !important;
-  }
+  } */
   .purpose-headings p:nth-child(1) {
     font-size: 20px;
   }
@@ -694,10 +694,10 @@
   .slider-imgs {
     margin-top: 15%;
   }
-  .side-left {
+  /* .side-left {
     margin-left: 2% !important;
     margin-right: 2% !important;
-  }
+  } */
   .perks-heading {
     text-align: center;
   }

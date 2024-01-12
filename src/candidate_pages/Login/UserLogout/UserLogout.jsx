@@ -14,7 +14,7 @@ function UserLogout({}) {
     localStorage.removeItem("user");
 
     // Navigate to the login page
-    navigate("/user-login", { replace: true });
+    navigate("/user-login",{replace:true});
   };
   const handleReset = () => {
     const form = document.getElementById("myForm");

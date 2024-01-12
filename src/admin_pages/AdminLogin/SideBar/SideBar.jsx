@@ -7,17 +7,17 @@ import "./SideBar.css";
 import { Button } from "@mui/material";
 function SideBar() {
   // ---------------------------------------------------------------------------------------
-  const [screen, setScreen] = useState(0);
+  // const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const handleReset = () => {
-    const form = document.getElementById("myForm");
+  // const handleReset = () => {
+  //   const form = document.getElementById("myForm");
 
-    if (form) {
-      form.reset();
-    }
-  };
+  //   if (form) {
+  //     form.reset();
+  //   }
+  // };
   useEffect(() => {
     // Update isOpen state only if the window width is less than 768
     const checkIsMobile = () => {

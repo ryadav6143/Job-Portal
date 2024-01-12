@@ -23,13 +23,7 @@ function Adminpanel() {
   const handleLogout = () => {
     setIsLoggedIn(false);
   };
-  // const handleLogin = () => {
-  //   setIsLoggedIn(true);
-  // };
 
-  // const handleLogout = () => {
-  //   setIsLoggedIn(false);
-  // };
   return (
     <div className="admin-container1">
       <div className="admin-data">

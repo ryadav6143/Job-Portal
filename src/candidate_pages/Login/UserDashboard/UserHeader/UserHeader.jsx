@@ -161,7 +161,6 @@ function UserHeader() {
         <div className="col-md-10">{renderComponent()}</div>
       </div>
       {/* --------------------sidebar end------------------------------ */}
-
       <Footers></Footers>
     </>
   );
