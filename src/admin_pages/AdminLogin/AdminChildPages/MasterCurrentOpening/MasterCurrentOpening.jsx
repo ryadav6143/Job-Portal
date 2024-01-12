@@ -155,18 +155,8 @@ function MasterCurrentOpening() {
             <form action="">
               <div className="row">
                 <div className="col-6">
-                  <label htmlFor="">Job Type</label>
-                  <select
-                    id="dropdown"
-                    value={jobType}
-                    onChange={handleJobType}
-                  >
-                    <option value="">-- Select Job Type --</option>
-                    <option value="option1">Academic</option>
-                    <option value="option2">Administrative</option>
-                    <option value="option3">Research</option>
-                    <option value="option4">Technical</option>
-                  </select>
+                  <label htmlFor="">No. Of Openings</label>
+                  <input type="number" placeholder="Add No. Of Openings"/>
                 </div>
 
                 <div className="col-6">
@@ -176,7 +166,7 @@ function MasterCurrentOpening() {
                     value={category}
                     onChange={handleCategory}
                   >
-                    <option value="">-- select Category --</option>
+                    <option value="">-- Select Category --</option>
                     <option value="optionA">Category 1</option>
                     <option value="optionB">Category 2</option>
                     <option value="optionC">Category 3</option>
@@ -191,7 +181,7 @@ function MasterCurrentOpening() {
                     value={departmant}
                     onChange={handleDepartmant}
                   >
-                    <option value="">-- select Department --</option>
+                    <option value="">-- Select Department --</option>
                     <option value="optionA">Department 1</option>
                     <option value="optionB">Department 2</option>
                     <option value="optionC">Department 3</option>
@@ -216,7 +206,7 @@ function MasterCurrentOpening() {
                     value={subPost}
                     onChange={handleSubPost}
                   >
-                    <option value="">-- select SubPost --</option>
+                    <option value="">-- Select SubPost --</option>
                     <option value="optionA">SubPost 1</option>
                     <option value="optionB">SubPost 2</option>
                     <option value="optionC">SubPost 3</option>
@@ -241,6 +231,47 @@ function MasterCurrentOpening() {
                 <div className="col-6">
                   <label htmlFor="">Last Date</label>
                   <input type="date" />
+                </div>
+              </div>
+              <div>
+                <p id="master-sub-headings">
+                  Required Fields For Interview Schedule
+                </p>
+              </div>
+              <div className="row">
+                <div className="col-12">
+                  <label htmlFor="">Eligibility criteria</label>
+                  <input type="text" placeholder="Add Eligibility Criteria" />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-4">
+                  <label htmlFor="">Day-1</label>
+                  <input type="date" />
+                </div>
+                <div className="col-4">
+                  <label htmlFor="">Day-2</label>
+                  <input type="date" />
+                </div>
+                <div className="col-4">
+                  <label htmlFor="">Day-3</label>
+                  <input type="date" />
+                </div>
+              </div>
+              <div className="row toggle-btns">
+                <div className="col-6">
+                  <p>Add To Current Opening</p>
+                  <label class="switch">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                  </label>
+                </div>
+                <div className="col-6">
+                  <p>Add to Interview Schedule</p>
+                  <label class="switch">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                  </label>
                 </div>
               </div>
               <div>
@@ -301,14 +332,8 @@ function MasterCurrentOpening() {
 
 export default MasterCurrentOpening;
 
-
-
 {
-
-
   // delete functionality
-
-  
   /*import React, { useState, useEffect } from 'react';
 
 const YourComponent = () => {

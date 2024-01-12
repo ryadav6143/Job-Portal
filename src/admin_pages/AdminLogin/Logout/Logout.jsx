@@ -11,7 +11,14 @@ function Logout({ handleLogout }) {
           <img className="admin-logo" src={medilogo} alt="" />
         </div>
         <div id="logout-btn">
-          <button onClick={handleLogout}>LOGOUT</button>
+          <button
+            onClick={() => {
+              handleLogout();
+              localStorage.setItem("isLoggedIn", false);
+            }}
+          >
+            LOGOUT
+          </button>
         </div>
       </div>
 
