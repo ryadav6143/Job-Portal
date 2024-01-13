@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
 import "./Programs.css"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faEnvelope,
-  faMobile,
-} from "@fortawesome/free-solid-svg-icons";
 
 
 function Programs() {

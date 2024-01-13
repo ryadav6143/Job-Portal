@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
 import "./PersonalDeatils.css";
 import apiService from "../../../Services/ApiServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import {
   faMobile,
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
+
 
 function PersonalDeatils({ formData, setFormData }) {
   const [countries, setCountries] = useState([]);
@@ -226,6 +227,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     <option value="Ms.">Ms.</option>
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                
                 </div>
               </div>
 
@@ -499,6 +501,7 @@ function PersonalDeatils({ formData, setFormData }) {
           </form>
         </div>
       </div>
+    
     </>
   );
 }
