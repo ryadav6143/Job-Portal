@@ -7,6 +7,7 @@ import {
   faUser,
   faEnvelope,
   faMobile,
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 
 function PersonalDeatils({ formData, setFormData }) {
@@ -82,19 +83,18 @@ function PersonalDeatils({ formData, setFormData }) {
       });
   }, []);
 
-
-
-
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
     const selectedCategoryData = categories.find(
       (category) => category.category_name === selectedCategory
     );
-    setFormData((prevData) => ({     
+    setFormData((prevData) => ({
       personalDetails: {
         ...prevData.personalDetails,
-        job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",    
+        job_category_master_id: selectedCategoryData
+          ? selectedCategoryData.id
+          : "",
       },
     }));
     setPosts(
@@ -111,8 +111,6 @@ function PersonalDeatils({ formData, setFormData }) {
       (post) => post.post_name === selectedPost
     );
     setFormData((prevData) => ({
-      
-   
       personalDetails: {
         ...prevData.personalDetails,
         applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
@@ -134,13 +132,13 @@ function PersonalDeatils({ formData, setFormData }) {
 
     // Set applied_subpost_masters_id in the formData
     setFormData((prevData) => ({
-            personalDetails: {
-          ...prevData.personalDetails,
-          applied_subpost_master_id: selectedSubpostData
-        ? selectedSubpostData.id
-        : "",
-          // Add additional fields related to category if needed
-        },
+      personalDetails: {
+        ...prevData.personalDetails,
+        applied_subpost_master_id: selectedSubpostData
+          ? selectedSubpostData.id
+          : "",
+        // Add additional fields related to category if needed
+      },
     }));
   };
   const handleSubjectChange = (event) => {
@@ -153,7 +151,7 @@ function PersonalDeatils({ formData, setFormData }) {
     );
 
     // Set subjects_master_id in the formData
-    setFormData((prevData) => ({    
+    setFormData((prevData) => ({
       personalDetails: {
         ...prevData.personalDetails,
         subjects_master_id: selectedSubjectData ? selectedSubjectData.id : "",
@@ -166,11 +164,10 @@ function PersonalDeatils({ formData, setFormData }) {
     setSelectedCountry(countryValue);
     setSelectedCity("");
     setFormData((prevData) => ({
-
       personalDetails: {
         ...prevData.personalDetails,
         country: countryValue,
-      city: "",
+        city: "",
         // Add additional fields if needed
       },
     }));
@@ -183,7 +180,6 @@ function PersonalDeatils({ formData, setFormData }) {
       personalDetails: {
         ...prevData.personalDetails,
         city: cityValue,
-     
       },
     }));
   };
@@ -198,10 +194,6 @@ function PersonalDeatils({ formData, setFormData }) {
     }));
   };
 
-
-
-  
-  
   return (
     <>
       <div className="container">
@@ -213,7 +205,7 @@ function PersonalDeatils({ formData, setFormData }) {
             </p>
           </div>
 
-          <form method="post" >
+          <form method="post">
             <div className="row">
               <div className="col-md-6">
                 {/* Title */}
@@ -228,11 +220,12 @@ function PersonalDeatils({ formData, setFormData }) {
                     value={formData.title_first_name}
                     required
                   >
-                    <option value="">Select Titel</option>
+                    <option value="">Select Title</option>
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -414,7 +407,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     className="set-dropdown"
                     value={selectedCategory}
                     onChange={handleCategoryChange}
-                    // required
+                    required
                   >
                     <option value="">Select a category</option>
                     {categories.map((category) => (
@@ -440,7 +433,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     id="postDropdown"
                     onChange={handlePostChange}
                     className="set-dropdown"
-                    // required
+                    required
                   >
                     <option value="">Select a post</option>
                     {posts.map((post) => (
@@ -491,7 +484,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     className="set-dropdown"
                     value={selectedSubject}
                     onChange={handleSubjectChange}
-                    // required
+                    required
                   >
                     <option value="">Select a subject</option>
                     {subjects.map((subject) => (
@@ -503,7 +496,6 @@ function PersonalDeatils({ formData, setFormData }) {
                 </div>
               </div>
             </div>
-           
           </form>
         </div>
       </div>

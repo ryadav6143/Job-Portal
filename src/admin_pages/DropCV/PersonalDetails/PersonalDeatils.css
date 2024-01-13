@@ -75,23 +75,31 @@
 
 @media only screen and (max-width: 767px) {
   .set-input {
-    width: 80% !important;
+    width: 100% !important;
+    font-size: 12px !important;
   }
 
   .set-dropdown {
-    width: 80% !important;
+    width: 100% !important;
+    font-size: 12px !important;
+  }
+
+  .SetLabel-Name {
+    font-size: 11px !important;
   }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-  /* Your styles for iPad Air go here */
+  
 
   .set-input {
     width: 80% !important;
+    font-size: 12px !important;
   }
 
   .set-dropdown {
     width: 80% !important;
+    font-size: 12px !important;
   }
 }
 
@@ -105,5 +113,5 @@
     margin-bottom: 15px;
   }
 
-  /* Add more responsive styles as needed */
+ 
 }

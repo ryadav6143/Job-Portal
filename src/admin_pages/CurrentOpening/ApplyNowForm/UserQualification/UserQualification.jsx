@@ -1131,10 +1131,10 @@ function UserQualification() {
              </div>
  
              <div className="col-md-4">
-               {/* NET*/}
+               {/* NEET*/}
                <div className="UD-form-section">
                  <label className="UD-SetLabel-Name">
-                   <span></span>NET
+                   <span></span>NEET
                  </label>
                  <input
                    className="UD-set-input"

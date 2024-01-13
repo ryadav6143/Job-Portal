@@ -13,15 +13,14 @@ import CurrentExperience from "./CurrentExperience/CurrentExperience";
 import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footers";
-// import apiService from "../../Services/ApiServices";
-import axios from "axios";
 import OTPVerification from "./OTPVerifivation/OTPVerification";
-
+import apiService from "../../Services/ApiServices";
 const steps = ["", "", ""];
 
 function Dropcv() {
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
 
+  const [otpData,setOtpData]=useState({});
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -55,34 +54,42 @@ function Dropcv() {
   });
   const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
-  const transferAllData = () => {
-    try {
-      // Create FormData object
-      const formDataToSend = new FormData();
+  
+const transferAllData =async ()=>{
+  try {
+    // Create FormData object
+    const formDataToSend = new FormData();
 
-      Object.entries(formData.personalDetails).forEach(([key, value]) => {
-        // Check if the value is an array (specifically 'educations')
-        if (key === "educations" && Array.isArray(value)) {
-          formDataToSend.append(key, JSON.stringify(value));
-        } else {
-          // If not an array, append as usual
-          formDataToSend.append(key, value);
-        }
-      });
+    Object.entries(formData.personalDetails).forEach(([key, value]) => {
 
-      setformDataToSend(formDataToSend);
-      setOtpButtonClicked(true);
+      if (key === "educations" && Array.isArray(value)) {
+        formDataToSend.append(key, JSON.stringify(value));
+      } else {
+        // If not an array, append as usual
+        formDataToSend.append(key, value);
+      }
+    });
+    console.log("formDataToSend", formDataToSend);
+    setformDataToSend(formDataToSend);
+  } catch (error) {
+    console.error(
+      "Error while posting form data and file:",
+      error.response || error
+    );
+    console.log(error.response.data);
+  }
+  const otpData={
+    email: formData.personalDetails.email,
+    contact_1: formData.personalDetails.contact_1,
+  }
+  setOtpData(otpData);
+  setOtpButtonClicked(true)
+  
+  const response = await apiService.generateOTP(otpData);
+  console.log("API Response:", response);
+  setSelectedComponent("OTPVerification");
 
-      console.log("formDataToSend", formDataToSend);
-    } catch (error) {
-      console.error(
-        "Error while posting form data and file:",
-        error.response || error
-      );
-      console.log(error.response.data);
-    }
-    setSelectedComponent("OTPVerification");
-  };
+}
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -97,6 +104,7 @@ function Dropcv() {
   };
 
   const handleNext = () => {
+    
     console.log("Form Data:", formData);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -115,10 +123,12 @@ function Dropcv() {
   //   setSelectedComponent(componentName);
 
   // };
+  
+  
   let componentToShow;
   switch (selectedComponent) {
     case "OTPVerification":
-      componentToShow = <OTPVerification transferAllData={formDataToSend} />;
+      componentToShow = <OTPVerification otpData={otpData} transferAllData={formDataToSend} />;
       break;
     default:
       componentToShow = null;
@@ -155,9 +165,15 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={transferAllData}>Get OTP</Button>
+                {/* <Button onClick={transferAllData}>Get OTP</Button> */}
                 {/* <Button type="button"  onClick={handleGetOTP}>Get OTP</Button> */}
                 {/* <Button>Next</Button> */}
+                <Button
+                  onClick={transferAllData}                
+                >
+                  Get OTP
+                </Button>
+             
               </Box>
             </React.Fragment>
           ) : (

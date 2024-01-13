@@ -218,12 +218,13 @@ function UserDetails() {
                 {/* Title */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Title
+                    <span>*</span>Title
                   </label>
                   <select
                     onChange={handleInputChange}
                     name=" title_first_name"
                     className="UD-set-dropdown"
+                    required
                   >
                     <option value="Select Title">Select Title</option>
                     <option value="Mr.">Mr.</option>

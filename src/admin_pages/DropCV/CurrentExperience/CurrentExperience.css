@@ -73,11 +73,11 @@
  
  @media only screen and (max-width: 767px) {
   .set-input{
-    width: 80% !important;
+    width: 100% !important;
   }
 
   .set-dropdown{
-    width: 80% !important;
+    width: 100% !important;
   }
 
 }
@@ -86,10 +86,14 @@
   /* Your styles for iPad Air go here */
 
   .set-input{
-    width: 80% !important;
+    width: 100% !important;
   }
 
   .set-dropdown{
-    width: 80% !important;
+    width: 100% !important;
+  }
+
+  .SetLabel-Name {
+    font-size: 11px !important;
   }
 }
