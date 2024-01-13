@@ -69,7 +69,7 @@ function App() {
            <Route path="contact-us" element={< ContactUs/>}></Route>  
            <Route path="submit" element={< Submitsuccess/>}></Route>  
            <Route path="verify" element={< OTPVerification/>}></Route>  
-           <Route path="verification-successfull" element={< Submitsuccess/>}></Route>  
+          
          
 
          

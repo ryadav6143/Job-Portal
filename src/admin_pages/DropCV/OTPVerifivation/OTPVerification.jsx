@@ -55,10 +55,11 @@ function OTPVerification({ transferAllData, otpData }) {
 
         if (response) {
           console.log("Form data and file successfully posted to the API");
-          navigate("/verification-successful");
+          
         } else {
           console.error("Failed to post form data and file to the API");
         }
+        navigate("/submit");
       } catch (error) {
         console.error("Failed to post form data and file to the API", error);
       }
@@ -79,7 +80,7 @@ function OTPVerification({ transferAllData, otpData }) {
             <div className="otp-form">
               <form action="" method="post">
                 <input
-                  type="number"
+                  type="text"
                   name="otp"
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}

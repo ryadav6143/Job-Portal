@@ -465,6 +465,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     className="set-dropdown"
                     value={selectedSubpost}
                     onChange={handleSubpostChange}
+                   
                   >
                     <option value="">Select a subpost</option>
                     {subposts.map((subpost) => (
