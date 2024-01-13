@@ -26,7 +26,15 @@ const apiService = {
     return axios.get(`${BASE_URL}/examTypeMaster`);
   },
 
-  
+  generateOTP: (otpData) => {
+    return axios.post(`${BASE_URL}/otp/generateOTP`, otpData);
+  },
+  verifyContactOTP: (verificationData) => {
+    return axios.post(`${BASE_URL}/otp/verifyCandidateContactOTP`, verificationData);
+  },
+  submitCandidateData: (formData) => {
+    return axios.post(`${BASE_URL}/candidates/drop_cv`, formData);
+  },
 };
 
 

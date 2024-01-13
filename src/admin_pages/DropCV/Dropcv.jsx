@@ -13,14 +13,14 @@ import CurrentExperience from "./CurrentExperience/CurrentExperience";
 import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footers";
-// import apiService from "../../Services/ApiServices";
-import axios from "axios";
 import OTPVerification from "./OTPVerifivation/OTPVerification";
-
+import apiService from "../../Services/ApiServices";
 const steps = ["", "", ""];
 
 function Dropcv() {
+
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
+  const [otpData, setOtpData] = useState("");
 
   const initialEducation = {
     degree_types_master_id: "",
@@ -98,7 +98,7 @@ function Dropcv() {
 
   const handleNext = () => {
     const isCurrentStepValid = validateCurrentStep();
-  
+
     if (isCurrentStepValid) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
@@ -124,7 +124,6 @@ function Dropcv() {
       applied_post_masters_id,
       applied_subpost_master_id,
       job_category_master_id,
-   
     } = formData.personalDetails;
 
     switch (activeStep) {
@@ -140,7 +139,7 @@ function Dropcv() {
           country &&
           city
         );
-  
+
       case 1:
         // Validation for Qualification step
         return (
@@ -153,16 +152,16 @@ function Dropcv() {
           applied_post_masters_id &&
           subjects_master_id
         );
-  
+
       case 2:
         // Validation for Current Experience step
         return (
           formData.personalDetails.current_organization &&
           formData.personalDetails.current_designation
         );
-  
+
       // Add additional cases as needed for more steps
-  
+
       default:
         return true;
     }
@@ -187,7 +186,9 @@ function Dropcv() {
   let componentToShow;
   switch (selectedComponent) {
     case "OTPVerification":
-      componentToShow = <OTPVerification transferAllData={formDataToSend} />;
+      componentToShow = (
+        <OTPVerification otpData={otpData} transferAllData={formDataToSend} />
+      );
       break;
     default:
       componentToShow = null;

@@ -8,7 +8,8 @@ import {
   faEnvelope,
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
-
+import { useForm } from "react-hook-form";
+import FormValidation from "../FormValidation/FormValidation";
 function PersonalDeatils({ formData, setFormData }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -191,30 +192,37 @@ function PersonalDeatils({ formData, setFormData }) {
         [name]: value,
       },
     }));
-    setFormErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: value ? "" : "This field is required",
-    }));
+    // setFormErrors((prevErrors) => ({
+    //   ...prevErrors,
+    //   [name]: value ? "" : "This field is required",
+    // }));
   };
 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
-  const [formErrors, setFormErrors] = useState({
-    title_first_name: "",
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    dob: "",
-    gender: "",
-    email: "",
-    password: "",
-    contact_1: "",
-    country: "",
-    city: "",
-    subjects_master_id: "",
-    applied_post_masters_id: "",
-    applied_subpost_master_id: "",
-    job_category_master_id: "",
+  // const [formErrors, setFormErrors] = useState({
+  //   title_first_name: "",
+  //   first_name: "",
+  //   middle_name: "",
+  //   last_name: "",
+  //   dob: "",
+  //   gender: "",
+  //   email: "",
+  //   password: "",
+  //   contact_1: "",
+  //   country: "",
+  //   city: "",
+  //   subjects_master_id: "",
+  //   applied_post_masters_id: "",
+  //   applied_subpost_master_id: "",
+  //   job_category_master_id: "",
+  // });
+
+  const { register, handleSubmit, errors } = useForm({
+    FormValidation: FormValidation,
   });
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
 
   return (
@@ -228,7 +236,7 @@ function PersonalDeatils({ formData, setFormData }) {
             </p>
           </div>
 
-          <form method="post">
+          <form method="post" onSubmit={handleSubmit(onSubmit)}>
             <div className="row">
               <div className="col-md-6">
                 {/* Title */}
@@ -242,15 +250,16 @@ function PersonalDeatils({ formData, setFormData }) {
                     onChange={handleInputChange}
                     value={formData.title_first_name}
                     required
+                    ref={register({ required: "Title is required" })}
                   >
                     <option value="">Select Titel</option>
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
                   </select>
-                  <span className="error-message">
-                    {formErrors.title_first_name}
-                  </span>
+                  {/* <span className="error-message">
+                    {errors.title_first_name?.message}
+                  </span> */}
                 </div>
               </div>
 
@@ -272,7 +281,6 @@ function PersonalDeatils({ formData, setFormData }) {
                     required
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faUser} />
-                  <span className="error-message">{formErrors.first_name}</span>
                 </div>
               </div>
             </div>
@@ -433,7 +441,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     className="set-dropdown"
                     value={selectedCategory}
                     onChange={handleCategoryChange}
-                    // required
+                    required
                   >
                     <option value="">Select a category</option>
                     {categories.map((category) => (
@@ -459,7 +467,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     id="postDropdown"
                     onChange={handlePostChange}
                     className="set-dropdown"
-                    // required
+                    required
                   >
                     <option value="">Select a post</option>
                     {posts.map((post) => (
@@ -510,7 +518,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     className="set-dropdown"
                     value={selectedSubject}
                     onChange={handleSubjectChange}
-                    // required
+                    required
                   >
                     <option value="">Select a subject</option>
                     {subjects.map((subject) => (
@@ -522,6 +530,17 @@ function PersonalDeatils({ formData, setFormData }) {
                 </div>
               </div>
             </div>
+            {errors?.length > 0 && (
+              <div style={{ color: "red", marginTop: "10px" }}>
+                Please fix the following errors:
+                <ul>
+                  {Object.keys(errors).map((fieldName, index) => (
+                    <li key={index}>{errors[fieldName]?.message}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <button type="submit"> Submit</button>
           </form>
         </div>
       </div>
