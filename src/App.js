@@ -28,6 +28,7 @@ import UserLogin from "./candidate_pages/Login/UserLogin/UserLogin";
 import Submitsuccess from "./admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 import OTPVerification from "./admin_pages/DropCV/OTPVerifivation/OTPVerification";
 import TestPages from "./admin_pages/TestPages/TestPages";
+import AddOpenings from "./admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 
 function App() {
   return (
@@ -90,6 +91,7 @@ function App() {
             element={<Submitsuccess />}
           ></Route>
 
+          <Route path="add-openings" element={<AddOpenings />}></Route>
           <Route path="test" element={<TestPages />}></Route>
         </Routes>
       </Main>

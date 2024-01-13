@@ -82,19 +82,18 @@ function PersonalDeatils({ formData, setFormData }) {
       });
   }, []);
 
-
-
-
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
     const selectedCategoryData = categories.find(
       (category) => category.category_name === selectedCategory
     );
-    setFormData((prevData) => ({     
+    setFormData((prevData) => ({
       personalDetails: {
         ...prevData.personalDetails,
-        job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",    
+        job_category_master_id: selectedCategoryData
+          ? selectedCategoryData.id
+          : "",
       },
     }));
     setPosts(
@@ -111,8 +110,6 @@ function PersonalDeatils({ formData, setFormData }) {
       (post) => post.post_name === selectedPost
     );
     setFormData((prevData) => ({
-      
-   
       personalDetails: {
         ...prevData.personalDetails,
         applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
@@ -134,13 +131,13 @@ function PersonalDeatils({ formData, setFormData }) {
 
     // Set applied_subpost_masters_id in the formData
     setFormData((prevData) => ({
-            personalDetails: {
-          ...prevData.personalDetails,
-          applied_subpost_master_id: selectedSubpostData
-        ? selectedSubpostData.id
-        : "",
-          // Add additional fields related to category if needed
-        },
+      personalDetails: {
+        ...prevData.personalDetails,
+        applied_subpost_master_id: selectedSubpostData
+          ? selectedSubpostData.id
+          : "",
+        // Add additional fields related to category if needed
+      },
     }));
   };
   const handleSubjectChange = (event) => {
@@ -153,7 +150,7 @@ function PersonalDeatils({ formData, setFormData }) {
     );
 
     // Set subjects_master_id in the formData
-    setFormData((prevData) => ({    
+    setFormData((prevData) => ({
       personalDetails: {
         ...prevData.personalDetails,
         subjects_master_id: selectedSubjectData ? selectedSubjectData.id : "",
@@ -166,11 +163,10 @@ function PersonalDeatils({ formData, setFormData }) {
     setSelectedCountry(countryValue);
     setSelectedCity("");
     setFormData((prevData) => ({
-
       personalDetails: {
         ...prevData.personalDetails,
         country: countryValue,
-      city: "",
+        city: "",
         // Add additional fields if needed
       },
     }));
@@ -183,7 +179,6 @@ function PersonalDeatils({ formData, setFormData }) {
       personalDetails: {
         ...prevData.personalDetails,
         city: cityValue,
-     
       },
     }));
   };
@@ -196,12 +191,32 @@ function PersonalDeatils({ formData, setFormData }) {
         [name]: value,
       },
     }));
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : "This field is required",
+    }));
   };
 
+  // --------------------------------------------------FORM VALIDATION-------------------------------------------
+  const [formErrors, setFormErrors] = useState({
+    title_first_name: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    dob: "",
+    gender: "",
+    email: "",
+    password: "",
+    contact_1: "",
+    country: "",
+    city: "",
+    subjects_master_id: "",
+    applied_post_masters_id: "",
+    applied_subpost_master_id: "",
+    job_category_master_id: "",
+  });
+  // --------------------------------------------------FORM VALIDATION-------------------------------------------
 
-
-  
-  
   return (
     <>
       <div className="container">
@@ -213,7 +228,7 @@ function PersonalDeatils({ formData, setFormData }) {
             </p>
           </div>
 
-          <form method="post" >
+          <form method="post">
             <div className="row">
               <div className="col-md-6">
                 {/* Title */}
@@ -233,6 +248,9 @@ function PersonalDeatils({ formData, setFormData }) {
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
                   </select>
+                  <span className="error-message">
+                    {formErrors.title_first_name}
+                  </span>
                 </div>
               </div>
 
@@ -254,6 +272,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     required
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faUser} />
+                  <span className="error-message">{formErrors.first_name}</span>
                 </div>
               </div>
             </div>
@@ -503,7 +522,6 @@ function PersonalDeatils({ formData, setFormData }) {
                 </div>
               </div>
             </div>
-           
           </form>
         </div>
       </div>

@@ -97,9 +97,78 @@ function Dropcv() {
   };
 
   const handleNext = () => {
-    console.log("Form Data:", formData);
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const isCurrentStepValid = validateCurrentStep();
+  
+    if (isCurrentStepValid) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+      alert("Please fill in all required fields before proceeding.");
+    }
   };
+
+  // --------------------------------------------------------------------------------
+  const validateCurrentStep = () => {
+    const {
+      title_first_name,
+      first_name,
+      middle_name,
+      last_name,
+      dob,
+      gender,
+      email,
+      password,
+      contact_1,
+      country,
+      city,
+      subjects_master_id,
+      applied_post_masters_id,
+      applied_subpost_master_id,
+      job_category_master_id,
+   
+    } = formData.personalDetails;
+
+    switch (activeStep) {
+      case 0:
+        // Validation for Personal Details step
+        return (
+          title_first_name &&
+          first_name &&
+          dob &&
+          gender &&
+          email &&
+          contact_1 &&
+          country &&
+          city
+        );
+  
+      case 1:
+        // Validation for Qualification step
+        return (
+          formData.personalDetails.educations.every(
+            (education) =>
+              education.degree_types_master_id &&
+              education.exam_types_master_id &&
+              education.degree_status
+          ) &&
+          applied_post_masters_id &&
+          subjects_master_id
+        );
+  
+      case 2:
+        // Validation for Current Experience step
+        return (
+          formData.personalDetails.current_organization &&
+          formData.personalDetails.current_designation
+        );
+  
+      // Add additional cases as needed for more steps
+  
+      default:
+        return true;
+    }
+  };
+
+  // --------------------------------------------------------------------------------
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -127,7 +196,9 @@ function Dropcv() {
   return (
     <>
       <Header></Header>
-      <div className={otpButtonClicked ? "contact-forms hidden" : "contact-forms"}>
+      <div
+        className={otpButtonClicked ? "contact-forms hidden" : "contact-forms"}
+      >
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
