@@ -19,8 +19,8 @@ const steps = ["", "", ""];
 
 function Dropcv() {
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
+  const [otpData, setOtpData] = useState("");
 
-  const [otpData,setOtpData]=useState({});
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -52,44 +52,39 @@ function Dropcv() {
       current_salary: "",
     },
   });
+  // new state for errors in all steps
+  const [errors, setErrors] = useState({});
+
   const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
-  
-const transferAllData =async ()=>{
-  try {
-    // Create FormData object
-    const formDataToSend = new FormData();
+  const transferAllData = () => {
+    try {
+      // Create FormData object
+      const formDataToSend = new FormData();
 
-    Object.entries(formData.personalDetails).forEach(([key, value]) => {
+      Object.entries(formData.personalDetails).forEach(([key, value]) => {
+        // Check if the value is an array (specifically 'educations')
+        if (key === "educations" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } else {
+          // If not an array, append as usual
+          formDataToSend.append(key, value);
+        }
+      });
 
-      if (key === "educations" && Array.isArray(value)) {
-        formDataToSend.append(key, JSON.stringify(value));
-      } else {
-        // If not an array, append as usual
-        formDataToSend.append(key, value);
-      }
-    });
-    console.log("formDataToSend", formDataToSend);
-    setformDataToSend(formDataToSend);
-  } catch (error) {
-    console.error(
-      "Error while posting form data and file:",
-      error.response || error
-    );
-    console.log(error.response.data);
-  }
-  const otpData={
-    email: formData.personalDetails.email,
-    contact_1: formData.personalDetails.contact_1,
-  }
-  setOtpData(otpData);
-  setOtpButtonClicked(true)
-  
-  const response = await apiService.generateOTP(otpData);
-  console.log("API Response:", response);
-  setSelectedComponent("OTPVerification");
+      setformDataToSend(formDataToSend);
+      setOtpButtonClicked(true);
 
-}
+      console.log("formDataToSend", formDataToSend);
+    } catch (error) {
+      console.error(
+        "Error while posting form data and file:",
+        error.response || error
+      );
+      console.log(error.response.data);
+    }
+    setSelectedComponent("OTPVerification");
+  };
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -104,10 +99,141 @@ const transferAllData =async ()=>{
   };
 
   const handleNext = () => {
-    
-    console.log("Form Data:", formData);
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const isCurrentStepValid = validateCurrentStep();
+
+    if (isCurrentStepValid) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+      // alert("Please fill in all required fields before proceeding.");
+    }
   };
+
+  // --------------------------------------------------------------------------------
+  const validateCurrentStep = () => {
+    // modified validation function for all steps
+    const {
+      title_first_name,
+      first_name,
+      middle_name,
+      last_name,
+      dob,
+      gender,
+      email,
+      password,
+      contact_1,
+      country,
+      city,
+      subjects_master_id,
+      applied_post_masters_id,
+      applied_subpost_master_id,
+      job_category_master_id,
+    } = formData.personalDetails;
+
+    let errors = {};
+
+    switch (activeStep) {
+      case 0:
+        // Validation for Personal Details step
+        if (!title_first_name) {
+          errors.title_first_name = "! Title is required.";
+        }
+
+        if (!first_name) {
+          errors.first_name = "! First name is required.";
+        }
+
+        if (!dob) {
+          errors.dob = "! Date of birth is required.";
+        }
+
+        if (!gender) {
+          errors.gender = "! Gender is required.";
+        }
+
+        if (!email) {
+          errors.email = "! Email is required.";
+        }
+
+        if (!contact_1) {
+          errors.contact_1 = "! Contact number is required.";
+        }
+
+        if (!country) {
+          errors.country = "! Country is required.";
+        }
+
+        if (!city) {
+          errors.city = "! City is required.";
+        }
+        if (!job_category_master_id) {
+          errors.category_name = "! Category is required";
+        }
+        if (!applied_post_masters_id) {
+          errors.post_name = "! Post is required";
+        }
+
+        if (!subjects_master_id) {
+          errors.subject_name = "! Subject is required";
+        }
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          // If no errors, clear the state and return true
+          setErrors({});
+          return true;
+        }
+
+      case 1:
+        // Validation for Qualification step
+        if (
+          formData.personalDetails.educations.some(
+            (education) =>
+              !education.degree_types_master_id ||
+              !education.exam_types_master_id ||
+              !education.degree_status
+          )
+        ) {
+          // If any education field is incomplete, set the state with error messages
+          setErrors({ qualification: "Education details are incomplete." });
+          return false;
+        } else if (!applied_post_masters_id || !subjects_master_id) {
+          // If post masters or subjects are not selected, set the state with error messages
+          setErrors({
+            qualification: "Applied Post Masters and Subjects are required.",
+          });
+          return false;
+        } else {
+          // If no errors, clear the state and return true
+          setErrors({});
+          return true;
+        }
+
+      case 2:
+        // Validation for Current Experience step
+        if (!formData.personalDetails.current_organization) {
+          setErrors({
+            currentExperience: "Current Organization is required.",
+          });
+          return false;
+        } else if (!formData.personalDetails.current_designation) {
+          setErrors({
+            currentExperience: "Current Designation is required.",
+          });
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
+
+      default:
+        return true;
+    }
+  };
+
+  // --------------------------------------------------------------------------------
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -123,12 +249,12 @@ const transferAllData =async ()=>{
   //   setSelectedComponent(componentName);
 
   // };
-  
-  
   let componentToShow;
   switch (selectedComponent) {
     case "OTPVerification":
-      componentToShow = <OTPVerification otpData={otpData} transferAllData={formDataToSend} />;
+      componentToShow = (
+        <OTPVerification otpData={otpData} transferAllData={formDataToSend} />
+      );
       break;
     default:
       componentToShow = null;
@@ -137,7 +263,9 @@ const transferAllData =async ()=>{
   return (
     <>
       <Header></Header>
-      <div className={otpButtonClicked ? "contact-forms hidden" : "contact-forms"}>
+      <div
+        className={otpButtonClicked ? "contact-forms hidden" : "contact-forms"}
+      >
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
@@ -165,15 +293,9 @@ const transferAllData =async ()=>{
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                {/* <Button onClick={transferAllData}>Get OTP</Button> */}
+                <Button onClick={transferAllData}>Get OTP</Button>
                 {/* <Button type="button"  onClick={handleGetOTP}>Get OTP</Button> */}
                 {/* <Button>Next</Button> */}
-                <Button
-                  onClick={transferAllData}                
-                >
-                  Get OTP
-                </Button>
-             
               </Box>
             </React.Fragment>
           ) : (
@@ -182,12 +304,18 @@ const transferAllData =async ()=>{
                 <PersonalDeatils
                   formData={formData.personalDetails}
                   setFormData={setFormData}
+                  // passed errors and set errors states as props
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 1 && (
                 <Qualification
                   formData={formData.personalDetails}
                   setFormData={setFormData}
+                  // passed errors and set errors states as props
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 2 && (

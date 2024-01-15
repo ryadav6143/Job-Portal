@@ -10,8 +10,7 @@ import {
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 
-
-function PersonalDeatils({ formData, setFormData }) {
+function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -161,6 +160,11 @@ function PersonalDeatils({ formData, setFormData }) {
     }));
   };
   const handleCountryChange = (event) => {
+    // set errors to null for country when changed
+    setErrors({
+      ...errors,
+      country: "",
+    });
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
     setSelectedCity("");
@@ -174,6 +178,11 @@ function PersonalDeatils({ formData, setFormData }) {
     }));
   };
   const handleCityChange = (event) => {
+    // set errors to null for city when changed
+    setErrors({
+      ...errors,
+      city: "",
+    });
     const cityValue = event.target.value;
     setSelectedCity(cityValue);
     setFormData((prevData) => ({
@@ -193,7 +202,36 @@ function PersonalDeatils({ formData, setFormData }) {
         [name]: value,
       },
     }));
+    // set errors to null for input fields when changed
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : "This field is required",
+    }));
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : "This field is required",
+    }));
   };
+
+  // --------------------------------------------------FORM VALIDATION-------------------------------------------
+  const [formErrors, setFormErrors] = useState({
+    title_first_name: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    dob: "",
+    gender: "",
+    email: "",
+    password: "",
+    contact_1: "",
+    country: "",
+    city: "",
+    subjects_master_id: "",
+    applied_post_masters_id: "",
+    applied_subpost_master_id: "",
+    job_category_master_id: "",
+  });
+  // --------------------------------------------------FORM VALIDATION-------------------------------------------
 
   return (
     <>
@@ -229,6 +267,7 @@ function PersonalDeatils({ formData, setFormData }) {
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 
                 </div>
+                <span className="error-message">{errors.title_first_name}</span>
               </div>
 
               <div className="col-md-6">
@@ -250,6 +289,7 @@ function PersonalDeatils({ formData, setFormData }) {
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">{errors.first_name}</span>
               </div>
             </div>
 
@@ -272,6 +312,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     required
                   ></input>
                 </div>
+                <span className="error-message">{errors.dob}</span>
               </div>
               <div className="col-md-6">
                 {/* Gender */}
@@ -292,6 +333,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     <option value="others">Others</option>
                   </select>
                 </div>
+                <span className="error-message">{errors.gender}</span>
               </div>
             </div>
 
@@ -314,6 +356,7 @@ function PersonalDeatils({ formData, setFormData }) {
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faEnvelope} />
                 </div>
+                <span className="error-message">{errors.email}</span>
               </div>
 
               <div className="col-md-6">
@@ -325,7 +368,7 @@ function PersonalDeatils({ formData, setFormData }) {
                   <input
                     className="set-input"
                     type="tel"
-                    placeholder="(123) 456 - 7890 "
+                    placeholder="(123)456-7890 "
                     name="contact_1"
                     id=""
                     value={formData.contact_1}
@@ -334,6 +377,7 @@ function PersonalDeatils({ formData, setFormData }) {
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">{errors.contact_1}</span>
               </div>
             </div>
 
@@ -364,6 +408,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.country}</span>
               </div>
 
               <div className="col-md-6">
@@ -394,6 +439,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.city}</span>
               </div>
             </div>
 
@@ -423,6 +469,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.category_name}</span>
               </div>
 
               <div className="col-md-6">
@@ -446,6 +493,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.post_name}</span>
               </div>
             </div>
 
@@ -497,6 +545,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.subject_name}</span>
               </div>
             </div>
           </form>

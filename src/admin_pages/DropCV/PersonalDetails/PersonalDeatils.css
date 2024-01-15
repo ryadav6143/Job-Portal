@@ -2,12 +2,18 @@
   display: flex;
   flex-wrap: wrap;
 }
-
+.error-message {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  color: red;
+  margin-left: 10px;
+  font-weight: 600;
+}
 .personaldetails-form {
   justify-content: center;
-  margin-top: 4%; 
+  margin-top: 4%;
   margin-left: 5%;
-  font-family: 'Open Sans', sans-serif; 
+  font-family: "Open Sans", sans-serif;
 }
 
 .PD-heading {
@@ -59,6 +65,7 @@
   color: #6f6c90;
   font-size: 14px;
   padding: 12px;
+  margin-bottom: 1px;
 }
 
 .set-input:focus {
@@ -103,7 +110,6 @@
   }
 }
 
-
 @media only screen and (max-width: 820px) {
   .container {
     padding: 10px;
@@ -113,7 +119,5 @@
     margin-bottom: 15px;
   }
 
- 
+  /* Add more responsive styles as needed */
 }
-
-

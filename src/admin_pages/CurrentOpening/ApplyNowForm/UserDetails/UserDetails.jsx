@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -8,9 +8,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserDetails.css";
 
+import axios from "axios";
 function UserDetails() {
+  const [posts, setPosts] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [maritalStatus, setMaritalStatus] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const [otherValue, setOtherValue] = useState("");
+
 
   const handleDropdownChange = (event) => {
     const selectedValue = event.target.value;
@@ -44,9 +51,76 @@ function UserDetails() {
     country: "",
     state_province: "",
     pin_code: "",
-
-    // ... (add other fields from the Personal Details section)
   });
+
+  useEffect(() => {
+    // Fetch data from the API using Axios
+    axios
+      .get("http://192.168.1.15:8090/v1/api/appliedPost")
+      .then((response) => {
+        // Update the state with the fetched data
+        setPosts(response.data);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await axios.get(
+          "http://192.168.1.15:8090/v1/api/departmentMaster"
+        );
+        setDepartments(response.data);
+      } catch (error) {
+        console.error("Error fetching departments:", error);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
+
+  const handleDepartmentChange = (event) => {
+    const selectedDeptName = event.target.value;
+    const selectedDepartmentObject = departments.find(
+      (department) => department.dept_name === selectedDeptName
+    );
+
+    if (selectedDepartmentObject) {
+      setSelectedDepartment(selectedDepartmentObject.id);
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        department_master_id: selectedDepartmentObject.id,
+      }));
+    } else {
+      console.error("Selected department not found");
+    }
+  };
+
+  const handlePostChange = (event) => {
+    const selectedPostName = event.target.value;
+    const selectedPostObject = posts.find(
+      (post) => post.post_name === selectedPostName
+    );
+
+    if (selectedPostObject) {
+      setSelectedPost(selectedPostObject.id);
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        applied_post_masters_id: selectedPostObject.id,
+      }));
+    } else {
+      console.error("Selected post not found");
+    }
+  };
+
+  const handleMaritalStatusChange = (event) => {
+    const selectedMaritalStatus = event.target.value;
+    setMaritalStatus(selectedMaritalStatus);
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      marital_status: selectedMaritalStatus,
+    }));
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -137,16 +211,21 @@ function UserDetails() {
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   {selectedOption === "others" && (
                     <div>
-                      <label style={{marginTop:"20px"}} className="UD-SetLabel-Name">  <span>*</span>Please specify</label>
+                      <label
+                        style={{ marginTop: "20px" }}
+                        className="UD-SetLabel-Name"
+                      >
+                        {" "}
+                        <span>*</span>Please specify
+                      </label>
                       <input
-                     className="UD-set-input"
+                        className="UD-set-input"
                         type="text"
                         value={otherValue}
                         onChange={handleOtherInputChange}
                       />
                     </div>
                   )}
-                 
                 </div>
               </div>
             </div>
