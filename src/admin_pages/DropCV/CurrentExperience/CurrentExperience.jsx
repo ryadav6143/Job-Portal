@@ -99,7 +99,7 @@ function CurrentExperience({formData, setFormData}) {
                   onChange={handleInputChange}
                   value={formData.total_experience}
                   
-                  required
+            
                 ></input>
               </div>
             </div>
@@ -117,7 +117,7 @@ function CurrentExperience({formData, setFormData}) {
                   id=""
                   onChange={handleInputChange}
                   value={formData.total_research_exp}
-                  required
+               
                 ></input>
               </div>
             </div>
@@ -138,7 +138,7 @@ function CurrentExperience({formData, setFormData}) {
                   id=""
                   onChange={handleInputChange}
                   value={formData.total_industrial_exp}
-                  required
+           
                 ></input>
               </div>
             </div>
@@ -156,7 +156,7 @@ function CurrentExperience({formData, setFormData}) {
                   id=""
                   onChange={handleInputChange}
                   value={formData.current_organization}
-                  required
+            
                 ></input>
               </div>
             </div>
@@ -177,7 +177,7 @@ function CurrentExperience({formData, setFormData}) {
                   id=""
                   onChange={handleInputChange}
                   value={formData.current_designation}
-                  required
+              
                 ></input>
               </div>
             </div>
@@ -195,7 +195,7 @@ function CurrentExperience({formData, setFormData}) {
                   id=""
                   onChange={handleInputChange}
                   value={formData.current_salary}
-                  required
+                
                 ></input>
               </div>
             </div>
@@ -214,7 +214,7 @@ function CurrentExperience({formData, setFormData}) {
             format only)
           </p>
           {/* <input type="file" name="candidate_cv" onChange={handleFileChange} /> */}
-          <input type="file" name="candidate_cv" onChange={handleFileChange} accept=".pdf, .doc, .docx" />
+          <input type="file" name="candidate_cv" onChange={handleFileChange} accept=".pdf, .doc, .docx"  required/>
 
         </div>
       </div>
