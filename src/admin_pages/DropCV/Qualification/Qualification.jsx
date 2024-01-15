@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Qualification.css";
 import apiService from "../../../Services/ApiServices";
 
-function Qualification({ formData, setFormData }) {
+function Qualification({ formData, setFormData, errors, setErrors }) {
   const [examTypes, setExamTypes] = useState([]);
   const [selectedExam, setSelectedExam] = useState("");
   const [degrees, setDegrees] = useState([]);
@@ -37,53 +37,68 @@ function Qualification({ formData, setFormData }) {
   }, []);
 
   const handleExamChange = (event) => {
+    setErrors({
+      ...errors,
+      qualification: "",
+    });
     const selectedExam = event.target.value;
     const selectedExamName = event.target.value;
     setSelectedExam(selectedExam);
-    const selectedExamObject = data.find(item => item.exam_name === selectedExamName);
-    const selectedExamId = selectedExamObject ? selectedExamObject.id : '';
+    const selectedExamObject = data.find(
+      (item) => item.exam_name === selectedExamName
+    );
+    const selectedExamId = selectedExamObject ? selectedExamObject.id : "";
     setSelectedExam(selectedExamName);
     // Extract degree names for the second dropdown based on the selected exam
     const degreesForSelectedExam = data
-      .filter(item => item.exam_name === selectedExam)
-      .map(item => item.degree_types_master ? item.degree_types_master.degree_name : null);
+      .filter((item) => item.exam_name === selectedExam)
+      .map((item) =>
+        item.degree_types_master ? item.degree_types_master.degree_name : null
+      );
 
     setDegrees(degreesForSelectedExam.filter(Boolean));
 
     // Set the default selected degree (if needed)
     setSelectedDegree(degreesForSelectedExam[0]);
     setFormData((prevFormData) => ({
-  
-      
       personalDetails: {
         ...prevFormData.personalDetails,
         educations: [
           {
             ...prevFormData.personalDetails.educations[0], // Update the first education object
-             exam_types_master_id: selectedExamId,
+            exam_types_master_id: selectedExamId,
           },
           // ... you can add more education objects if needed
         ],
-      
+
         // Add additional fields related to category if needed
       },
     }));
-
   };
 
   const handleDegreeChange = (event) => {
+    setErrors({
+      ...errors,
+      qualification: "",
+    });
     const selectedDegreeName = event.target.value;
 
     // Find the corresponding object from data based on the selected degree name
-    const selectedDegreeObject = data.find(item => item.degree_types_master && item.degree_types_master.degree_name === selectedDegreeName);
+    const selectedDegreeObject = data.find(
+      (item) =>
+        item.degree_types_master &&
+        item.degree_types_master.degree_name === selectedDegreeName
+    );
 
     // Now, use the selectedDegreeObject to get the id property
-    const selectedDegreeId = selectedDegreeObject ? selectedDegreeObject.degree_types_master.id : '';
+    const selectedDegreeId = selectedDegreeObject
+      ? selectedDegreeObject.degree_types_master.id
+      : "";
 
     setSelectedDegree(selectedDegreeName);
 
     setFormData((prevFormData) => ({
-        personalDetails: {
+      personalDetails: {
         ...prevFormData.personalDetails,
         educations: [
           {
@@ -92,21 +107,22 @@ function Qualification({ formData, setFormData }) {
           },
           // ... you can add more education objects if needed
         ],
-        
+
         // Add additional fields related to category if needed
       },
-
     }));
   };
 
-
   const [selectedOption, setSelectedOption] = useState(null);
   const handleDropdownChange = (event) => {
+    setErrors({
+      ...errors,
+      qualification: "",
+    });
     const selectedStatus = event.target.value;
-    
+
     // Update the formData state
     setFormData((prevFormData) => ({
-   
       personalDetails: {
         ...prevFormData.personalDetails,
         educations: [
@@ -117,11 +133,8 @@ function Qualification({ formData, setFormData }) {
           // ... you can add more education objects if needed
         ],
       },
-
     }));
   };
-
- 
 
   return (
     <>
@@ -135,7 +148,6 @@ function Qualification({ formData, setFormData }) {
               Please fill your information so we can get in touch with you.
             </p>
           </div>
-
 
           <form method="post">
             <div className="row">
@@ -159,6 +171,7 @@ function Qualification({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.qualification}</span>
               </div>
 
               <div className="col-md-6">
@@ -180,6 +193,7 @@ function Qualification({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.qualification}</span>
               </div>
             </div>
 
@@ -192,21 +206,21 @@ function Qualification({ formData, setFormData }) {
                     <span>*</span>Status
                   </label>
                   <select
-                  name="degree_status"
-                  className="set-dropdown"
-                  onChange={handleDropdownChange}
-                 value={selectedOption}
-                >
-                  <option value="">Select status</option>
-                  <option value="Completed">Completed</option>
-                  <option value="Pursuing">Pursuing</option>
-                </select>
+                    name="degree_status"
+                    className="set-dropdown"
+                    onChange={handleDropdownChange}
+                    value={selectedOption}
+                  >
+                    <option value="">Select status</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pursuing">Pursuing</option>
+                  </select>
                 </div>
               </div>
             </div>
 
+            <span className="error-message">{errors.qualification}</span>
           </form>
-
         </div>
       </div>
     </>

@@ -35,7 +35,7 @@
 .sub-vrf-page {
   padding-top: 15%;
 }
-#resend-btn {
+#resend-btn ,#verify-otp-btn {
   margin-top: 50px;
   border: none;
   padding: 10px;

@@ -8,9 +8,8 @@ import {
   faEnvelope,
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
-import { useForm } from "react-hook-form";
-import FormValidation from "../FormValidation/FormValidation";
-function PersonalDeatils({ formData, setFormData }) {
+
+function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -160,6 +159,11 @@ function PersonalDeatils({ formData, setFormData }) {
     }));
   };
   const handleCountryChange = (event) => {
+    // set errors to null for country when changed
+    setErrors({
+      ...errors,
+      country: "",
+    });
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
     setSelectedCity("");
@@ -173,6 +177,11 @@ function PersonalDeatils({ formData, setFormData }) {
     }));
   };
   const handleCityChange = (event) => {
+    // set errors to null for city when changed
+    setErrors({
+      ...errors,
+      city: "",
+    });
     const cityValue = event.target.value;
     setSelectedCity(cityValue);
     setFormData((prevData) => ({
@@ -192,37 +201,35 @@ function PersonalDeatils({ formData, setFormData }) {
         [name]: value,
       },
     }));
-    // setFormErrors((prevErrors) => ({
-    //   ...prevErrors,
-    //   [name]: value ? "" : "This field is required",
-    // }));
+    // set errors to null for input fields when changed
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : "This field is required",
+    }));
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : "This field is required",
+    }));
   };
 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
-  // const [formErrors, setFormErrors] = useState({
-  //   title_first_name: "",
-  //   first_name: "",
-  //   middle_name: "",
-  //   last_name: "",
-  //   dob: "",
-  //   gender: "",
-  //   email: "",
-  //   password: "",
-  //   contact_1: "",
-  //   country: "",
-  //   city: "",
-  //   subjects_master_id: "",
-  //   applied_post_masters_id: "",
-  //   applied_subpost_master_id: "",
-  //   job_category_master_id: "",
-  // });
-
-  const { register, handleSubmit, errors } = useForm({
-    FormValidation: FormValidation,
+  const [formErrors, setFormErrors] = useState({
+    title_first_name: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    dob: "",
+    gender: "",
+    email: "",
+    password: "",
+    contact_1: "",
+    country: "",
+    city: "",
+    subjects_master_id: "",
+    applied_post_masters_id: "",
+    applied_subpost_master_id: "",
+    job_category_master_id: "",
   });
-  const onSubmit = (data) => {
-    console.log(data);
-  };
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
 
   return (
@@ -236,7 +243,7 @@ function PersonalDeatils({ formData, setFormData }) {
             </p>
           </div>
 
-          <form method="post" onSubmit={handleSubmit(onSubmit)}>
+          <form method="post">
             <div className="row">
               <div className="col-md-6">
                 {/* Title */}
@@ -250,17 +257,14 @@ function PersonalDeatils({ formData, setFormData }) {
                     onChange={handleInputChange}
                     value={formData.title_first_name}
                     required
-                    ref={register({ required: "Title is required" })}
                   >
-                    <option value="">Select Titel</option>
+                    <option value="">Select Title</option>
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
                   </select>
-                  {/* <span className="error-message">
-                    {errors.title_first_name?.message}
-                  </span> */}
                 </div>
+                <span className="error-message">{errors.title_first_name}</span>
               </div>
 
               <div className="col-md-6">
@@ -282,6 +286,7 @@ function PersonalDeatils({ formData, setFormData }) {
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">{errors.first_name}</span>
               </div>
             </div>
 
@@ -304,6 +309,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     required
                   ></input>
                 </div>
+                <span className="error-message">{errors.dob}</span>
               </div>
               <div className="col-md-6">
                 {/* Gender */}
@@ -318,11 +324,13 @@ function PersonalDeatils({ formData, setFormData }) {
                     value={formData.gender}
                     required
                   >
+                    <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="others">Others</option>
                   </select>
                 </div>
+                <span className="error-message">{errors.gender}</span>
               </div>
             </div>
 
@@ -345,6 +353,7 @@ function PersonalDeatils({ formData, setFormData }) {
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faEnvelope} />
                 </div>
+                <span className="error-message">{errors.email}</span>
               </div>
 
               <div className="col-md-6">
@@ -356,7 +365,7 @@ function PersonalDeatils({ formData, setFormData }) {
                   <input
                     className="set-input"
                     type="tel"
-                    placeholder="(123) 456 - 7890 "
+                    placeholder="(123)456-7890 "
                     name="contact_1"
                     id=""
                     value={formData.contact_1}
@@ -365,6 +374,7 @@ function PersonalDeatils({ formData, setFormData }) {
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">{errors.contact_1}</span>
               </div>
             </div>
 
@@ -395,6 +405,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.country}</span>
               </div>
 
               <div className="col-md-6">
@@ -425,6 +436,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.city}</span>
               </div>
             </div>
 
@@ -454,6 +466,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.category_name}</span>
               </div>
 
               <div className="col-md-6">
@@ -477,6 +490,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.post_name}</span>
               </div>
             </div>
 
@@ -528,19 +542,9 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.subject_name}</span>
               </div>
             </div>
-            {errors?.length > 0 && (
-              <div style={{ color: "red", marginTop: "10px" }}>
-                Please fix the following errors:
-                <ul>
-                  {Object.keys(errors).map((fieldName, index) => (
-                    <li key={index}>{errors[fieldName]?.message}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <button type="submit"> Submit</button>
           </form>
         </div>
       </div>

@@ -18,7 +18,6 @@ import apiService from "../../Services/ApiServices";
 const steps = ["", "", ""];
 
 function Dropcv() {
-
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
   const [otpData, setOtpData] = useState("");
 
@@ -53,6 +52,9 @@ function Dropcv() {
       current_salary: "",
     },
   });
+  // new state for errors in all steps
+  const [errors, setErrors] = useState({});
+
   const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
   const transferAllData = () => {
@@ -102,12 +104,13 @@ function Dropcv() {
     if (isCurrentStepValid) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
-      alert("Please fill in all required fields before proceeding.");
+      // alert("Please fill in all required fields before proceeding.");
     }
   };
 
   // --------------------------------------------------------------------------------
   const validateCurrentStep = () => {
+    // modified validation function for all steps
     const {
       title_first_name,
       first_name,
@@ -126,41 +129,104 @@ function Dropcv() {
       job_category_master_id,
     } = formData.personalDetails;
 
+    let errors = {};
+
     switch (activeStep) {
       case 0:
         // Validation for Personal Details step
-        return (
-          title_first_name &&
-          first_name &&
-          dob &&
-          gender &&
-          email &&
-          contact_1 &&
-          country &&
-          city
-        );
+        if (!title_first_name) {
+          errors.title_first_name = "! Title is required.";
+        }
+
+        if (!first_name) {
+          errors.first_name = "! First name is required.";
+        }
+
+        if (!dob) {
+          errors.dob = "! Date of birth is required.";
+        }
+
+        if (!gender) {
+          errors.gender = "! Gender is required.";
+        }
+
+        if (!email) {
+          errors.email = "! Email is required.";
+        }
+
+        if (!contact_1) {
+          errors.contact_1 = "! Contact number is required.";
+        }
+
+        if (!country) {
+          errors.country = "! Country is required.";
+        }
+
+        if (!city) {
+          errors.city = "! City is required.";
+        }
+        if (!job_category_master_id) {
+          errors.category_name = "! Category is required";
+        }
+        if (!applied_post_masters_id) {
+          errors.post_name = "! Post is required";
+        }
+
+        if (!subjects_master_id) {
+          errors.subject_name = "! Subject is required";
+        }
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          // If no errors, clear the state and return true
+          setErrors({});
+          return true;
+        }
 
       case 1:
         // Validation for Qualification step
-        return (
-          formData.personalDetails.educations.every(
+        if (
+          formData.personalDetails.educations.some(
             (education) =>
-              education.degree_types_master_id &&
-              education.exam_types_master_id &&
-              education.degree_status
-          ) &&
-          applied_post_masters_id &&
-          subjects_master_id
-        );
+              !education.degree_types_master_id ||
+              !education.exam_types_master_id ||
+              !education.degree_status
+          )
+        ) {
+          // If any education field is incomplete, set the state with error messages
+          setErrors({ qualification: "Education details are incomplete." });
+          return false;
+        } else if (!applied_post_masters_id || !subjects_master_id) {
+          // If post masters or subjects are not selected, set the state with error messages
+          setErrors({
+            qualification: "Applied Post Masters and Subjects are required.",
+          });
+          return false;
+        } else {
+          // If no errors, clear the state and return true
+          setErrors({});
+          return true;
+        }
 
       case 2:
         // Validation for Current Experience step
-        return (
-          formData.personalDetails.current_organization &&
-          formData.personalDetails.current_designation
-        );
-
-      // Add additional cases as needed for more steps
+        if (!formData.personalDetails.current_organization) {
+          setErrors({
+            currentExperience: "Current Organization is required.",
+          });
+          return false;
+        } else if (!formData.personalDetails.current_designation) {
+          setErrors({
+            currentExperience: "Current Designation is required.",
+          });
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
 
       default:
         return true;
@@ -238,12 +304,18 @@ function Dropcv() {
                 <PersonalDeatils
                   formData={formData.personalDetails}
                   setFormData={setFormData}
+                  // passed errors and set errors states as props
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 1 && (
                 <Qualification
                   formData={formData.personalDetails}
                   setFormData={setFormData}
+                  // passed errors and set errors states as props
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 2 && (
