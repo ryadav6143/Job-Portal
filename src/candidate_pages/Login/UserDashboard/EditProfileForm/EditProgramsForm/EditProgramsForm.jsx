@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import "./EditProgramsForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faEnvelope,
-  faMobile,
-} from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 function EditProgramsForm() {

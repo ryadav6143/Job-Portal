@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import "./EditQualificationForm.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
-  faEnvelope,
-  faMobile,
+ 
   faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
-import UserHeader from '../../UserHeader/UserHeader';
+
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 function EditQualificationForm() {
@@ -402,6 +400,173 @@ function EditQualificationForm() {
              </div>
  
            </div>
+
+
+                 {/* Diploma */}
+
+          <div>
+              <p className='HS-heading'>Diploma</p>
+              </div>
+
+              <div className="row"  style={{marginTop :"-40px"}}>
+           
+           <div className="col-md-4">
+               {/* *Country */}
+               <div className="UD-form-section">
+                 <label className="UD-SetLabel-Name">
+                   <span></span> Country
+                 </label>
+                 <select
+          onChange={(e) => handleInputChange(e, 'country2')}
+          name="country2"
+          className="UD-set-dropdown"
+          
+          value={formValues.country2}
+        >
+          <option value="">Select country</option>
+          {countries.map((country) => (
+            <option key={country.country} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
+                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+               </div>
+             </div>
+ 
+             <div className="col-md-4">
+               {/* *Year of Joining */}
+               <div className="UD-form-section">
+                 <label className="UD-SetLabel-Name">
+                   <span></span>Year of Joining
+                 </label>
+                 <input
+                   className="UD-set-input"
+                   type="text"
+                   placeholder=" "
+                   name="year_start"
+                   id=""
+                  
+                 ></input>
+              
+               </div>
+             </div>
+ 
+             <div className="col-md-4">
+               {/* *School*/}
+               <div className="UD-form-section">
+                 <label className="UD-SetLabel-Name">
+                   <span></span>School
+                 </label>
+                 <input
+                   className="UD-set-input"
+                   type="text"
+                   placeholder=" "
+                   name="institute_name"
+                   id=""
+                  
+                 ></input>
+              
+               </div>
+             </div>
+           </div>
+ 
+           <div className="row">
+           <div className="col-md-4">
+               {/* *Board*/}
+               <div className="UD-form-section">
+                 <label className="UD-SetLabel-Name">
+                   <span></span>Board
+                 </label>
+                 <input
+                   className="UD-set-input"
+                   type="text"
+                   placeholder=" "
+                   name="board_university_name"
+                   id=""
+                  
+                 ></input>
+              
+               </div>
+             </div>
+ 
+             <div className="col-md-4">
+               {/* *Passing Year*/}
+               <div className="UD-form-section">
+                 <label className="UD-SetLabel-Name">
+                   <span></span>Passing Year
+                 </label>
+                 <input
+                   className="UD-set-input"
+                   type="text"
+                   placeholder=" "
+                   name="year_end"
+                   id=""
+                   
+                 ></input>
+              
+               </div>
+             </div>
+ 
+             <div className="col-md-4">
+               {/* *Division (First/Second/Third)*/}
+               <div className="UD-form-section">
+                 <label className="UD-SetLabel-Name">
+                   <span></span>Division (First/Second/Third)
+                 </label>
+                 <input
+                   className="UD-set-input"
+                   type="text"
+                   placeholder=" "
+                   name="grade_division"
+                   id=""
+                   
+                 ></input>
+              
+               </div>
+             </div>
+           </div>
+ 
+           <div className="row">
+           <div className="col-md-4">
+               {/* *Aggregate Percentage/CGPA*/}
+               <div className="UD-form-section">
+                 <label className="UD-SetLabel-Name">
+                   <span></span>Aggregate Percentage/CGPA
+                 </label>
+                 <input
+                   className="UD-set-input"
+                   type="text"
+                   placeholder=" "
+                   name="grade_percent"
+                   id=""
+                 
+                 ></input>
+              
+               </div>
+             </div>
+
+             <div className="col-md-4">
+               {/* *Stream*/}
+               <div className="UD-form-section">
+                 <label className="UD-SetLabel-Name">
+                   <span></span>Stream
+                 </label>
+                 <input
+                   className="UD-set-input"
+                   type="text"
+                   placeholder=" "
+                   name="stream"
+                   id=""
+                   
+                   
+                 ></input>
+              
+               </div>
+             </div>
+ 
+           </div>
+
 
 
            {/* Graduation*/}

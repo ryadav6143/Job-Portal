@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
 import "./PersonalDeatils.css";
 import apiService from "../../../Services/ApiServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +7,7 @@ import {
   faUser,
   faEnvelope,
   faMobile,
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 
 function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
@@ -70,17 +71,17 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         console.error("Error fetching countries:", error);
       });
   }, []);
-  useEffect(() => {
-    // Fetch data from the API using the service
-    apiService
-      .getCandidates()
-      .then((response) => {
-        console.log("response", response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching candidates:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // Fetch data from the API using the service
+  //   apiService
+  //     .getCandidates()
+  //     .then((response) => {
+  //       console.log("response", response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching candidates:", error);
+  //     });
+  // }, []);
 
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
@@ -232,6 +233,11 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   });
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
 
+
+
+
+
+
   return (
     <>
       <div className="container">
@@ -263,6 +269,8 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                
                 </div>
                 <span className="error-message">{errors.title_first_name}</span>
               </div>
@@ -548,6 +556,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
           </form>
         </div>
       </div>
+    
     </>
   );
 }

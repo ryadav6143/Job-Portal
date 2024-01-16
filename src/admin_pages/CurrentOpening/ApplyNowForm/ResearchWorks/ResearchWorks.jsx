@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
-  faEnvelope,
-  faMobile,
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import "./ResearchWorks.css";

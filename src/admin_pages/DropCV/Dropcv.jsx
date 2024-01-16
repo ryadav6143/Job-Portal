@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footers";
 import OTPVerification from "./OTPVerifivation/OTPVerification";
-import apiService from "../../Services/ApiServices";
+
 const steps = ["", "", ""];
 
 function Dropcv() {
@@ -229,7 +229,7 @@ function Dropcv() {
 
       default:
         return true;
-    }
+      }
   };
 
   // --------------------------------------------------------------------------------

@@ -301,7 +301,7 @@ function UserDetails(errors, setErrors) {
                 {/* Title */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Title
+                    <span>*</span>Title
                   </label>
                   <select
                     onChange={handleInputChange}
@@ -413,6 +413,7 @@ function UserDetails(errors, setErrors) {
                     className="UD-set-dropdown"
                     required
                   >
+                    <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Others">Others</option>
@@ -510,7 +511,7 @@ function UserDetails(errors, setErrors) {
                 {/* *Alternate Contact Number  */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span>*</span>Alternate Contact Number
+                    <span></span>Alternate Contact Number
                   </label>
 
                   <input
@@ -520,7 +521,7 @@ function UserDetails(errors, setErrors) {
                     placeholder="(123) 456 - 7890"
                     id=""
                     onChange={handleInputChange}
-                    required
+               
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>

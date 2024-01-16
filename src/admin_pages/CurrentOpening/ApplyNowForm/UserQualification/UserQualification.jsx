@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  // faUser,
-  // faEnvelope,
-  // faMobile,
   faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserQualification.css";
@@ -480,6 +476,214 @@ function UserQualification() {
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
                     <span>*</span>Stream
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="stream"
+                    id=""
+
+                        onChange={handleChange}
+                  ></input>
+
+                </div>
+              </div>
+
+            </div>
+
+
+
+              {/* Diploma */}
+
+              <div>
+              <p className='HS-heading'>Diploma</p>
+            </div>
+
+            <div className="row" style={{ marginTop: "-30px" }}>
+
+            <div className="col-md-4"  style={{display:"none"}}>
+                {/* HIGH SCHOOL exam type */}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span> HIGH SCHOOL exam type
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="year_start"
+                    id=""
+                    value= {8}
+                        onChange={handleChange}
+                  ></input>      
+                </div>
+              </div>
+              <div className="col-md-4"  style={{display:"none"}}>
+                {/* HIGH SCHOOL degree Type*/}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span> HIGHER SECONDRY degree Type
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="year_start"
+                    id=""
+                    value= {16}
+                        onChange={handleChange}
+                  ></input>
+                
+                </div>
+              </div>
+              <div className="col-md-4">
+                {/* *Country */}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span> Country
+                  </label>
+                  <select
+                    onChange={(e) => handleInputChange(e, 'country')}
+                    name="country2"
+                    className="UD-set-dropdown"
+               
+                    value={formValues.country}
+                  >
+                    <option value="">Select country</option>
+                    {countries.map((country) => (
+                      <option key={country.country} value={country.country}>
+                        {country.country}
+                      </option>
+                    ))}
+                  </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                </div>
+              </div>
+
+              <div className="col-md-4">
+                {/* *Year of Joining */}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>Year of Joining
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="year_start"
+                    id=""
+
+                        onChange={handleChange}
+                  ></input>
+
+                </div>
+              </div>
+
+              <div className="col-md-4">
+                {/* *School*/}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>School
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="institute_name"
+                    id=""
+
+                        onChange={handleChange}
+                  ></input>
+
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-4">
+                {/* *Board*/}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>Board
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="board_university_name"
+                    id=""
+
+                        onChange={handleChange}
+                  ></input>
+
+                </div>
+              </div>
+
+              <div className="col-md-4">
+                {/* *Passing Year*/}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>Passing Year
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="year_end"
+                    id=""
+
+                        onChange={handleChange}
+                  ></input>
+
+                </div>
+              </div>
+
+              <div className="col-md-4">
+                {/* *Division (First/Second/Third)*/}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>Division (First/Second/Third)
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="grade_division"
+                    id=""
+
+                        onChange={handleChange}
+                  ></input>
+
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-4">
+                {/* *Aggregate Percentage/CGPA*/}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>Aggregate Percentage/CGPA
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="grade_percent"
+                    id=""
+
+                        onChange={handleChange}
+                  ></input>
+
+                </div>
+              </div>
+
+              <div className="col-md-4">
+                {/* *Stream*/}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>Stream
                   </label>
                   <input
                     className="UD-set-input"
@@ -1385,9 +1589,6 @@ function UserQualification() {
           </div>
         </div>
 
-        <button type="submit">
-          Submit
-        </button>
       </form>
     </>
   )

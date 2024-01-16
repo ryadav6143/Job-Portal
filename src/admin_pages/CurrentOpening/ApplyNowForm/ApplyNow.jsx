@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React,{useState} from "react";
 import "./ApplyNow.css";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -34,13 +34,14 @@ function ApplyNow() {
   };
 
   const handleNext = () => {
-    const isCurrentStepValid = validateSteps();
-
-    if (isCurrentStepValid) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    } else {
-      // alert("Please fill in all required fields before proceeding.");
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
     }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
   };
 
   const handleBack = () => {
@@ -198,54 +199,12 @@ function ApplyNow() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {activeStep === 0 && (
-                <UserDetails
-                  formData={formData.UserDetails}
-                  setFormData={setFormData}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-              )}
-              {activeStep === 1 && (
-                <UserQualification
-                  formData={formData.UserDetails}
-                  setFormData={setFormData}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-              )}
-              {activeStep === 2 && (
-                <UserExperience
-                  formData={formData.UserDetails}
-                  setFormData={setFormData}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-              )}
-              {activeStep === 3 && (
-                <ResearchWorks
-                  formData={formData.UserDetails}
-                  setFormData={setFormData}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-              )}
-              {activeStep === 4 && (
-                <Programs
-                  formData={formData.UserDetails}
-                  setFormData={setFormData}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-              )}
-              {activeStep === 5 && (
-                <Reference
-                  formData={formData.UserDetails}
-                  setFormData={setFormData}
-                  errors={errors}
-                  setErrors={setErrors}
-                />
-              )}
+              {activeStep === 0 && <UserDetails />}
+              {activeStep === 1 && <UserQualification />}
+              {activeStep === 2 && <UserExperience />}
+              {activeStep === 3 && <ResearchWorks />}
+              {activeStep === 4 && <Programs />}
+              {activeStep === 5 && <Reference />}
               {activeStep === 6 && <OTPVerification />}
               {activeStep === 7 && <Submitsuccess />}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>

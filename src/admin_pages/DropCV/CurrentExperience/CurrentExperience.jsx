@@ -1,14 +1,8 @@
 import { useState } from "react";
 import React from "react";
 import "./CurrentExperience.css";
-import axios from "axios";
-function CurrentExperience({
-  formData,
-  setFormData,
-  errors,
-  setErrors,
-  setFormErrors,
-}) {
+
+function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErrors }) {
   const [isFresher, setIsFresher] = useState(false);
   // const [formData, setFormData] = useState(null);
   const handleCheckboxChange = () => {
@@ -33,17 +27,6 @@ function CurrentExperience({
     }));
   };
 
-  // const handleFileChange = (e) => {
-  //   const file = e.target.files[0];
-
-  //   setFormData((prevFormData) => ({
-  //     // ...prevFormData,
-  //     personalDetails: {
-  //       ...prevFormData.personalDetails,
-  //       candidate_cv: file,
-  //     },
-  //   }));
-  // };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import "./EditResearchForm.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
-  faEnvelope,
-  faMobile,
   faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from '@fortawesome/free-solid-svg-icons';
