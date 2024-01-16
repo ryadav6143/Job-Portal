@@ -145,7 +145,7 @@ function UserDetails(errors, setErrors) {
   return (
     <>
       <form method="post">
-        <div className="container">
+        <div className="custom-container">
           <div style={{ marginTop: "20px" }}>
             <div>
               <h5 className="UD-heading">Personal Details</h5>
@@ -617,9 +617,6 @@ function UserDetails(errors, setErrors) {
             </div>
           </div>
         </div>
-        {/* <button  type="submit">
-        Submit
-      </button> */}
       </form>
     </>
   );
