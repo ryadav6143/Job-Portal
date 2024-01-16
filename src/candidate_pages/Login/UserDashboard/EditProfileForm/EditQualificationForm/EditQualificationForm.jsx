@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import "./EditQualificationForm.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
-  faEnvelope,
-  faMobile,
+ 
   faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
-import UserHeader from '../../UserHeader/UserHeader';
+
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 function EditQualificationForm() {

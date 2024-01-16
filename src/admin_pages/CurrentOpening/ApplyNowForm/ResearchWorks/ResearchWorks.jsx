@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
-  faEnvelope,
-  faMobile,
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import "./ResearchWorks.css";
@@ -31,12 +28,7 @@ function ResearchWorks() {
           <div>
             <h5 className="UD-heading">
               Research Work
-              <button
-                onClick={handleAddIdentifier}
-                className="editprofile-plus-button"
-              >
-                +
-              </button>
+  
             </h5>
 
             <p className="UD-subheading">
