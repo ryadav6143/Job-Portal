@@ -9,7 +9,8 @@ import {
 import "./UserDetails.css";
 
 import axios from "axios";
-function UserDetails() {
+import { error } from "jquery";
+function UserDetails(errors, setErrors) {
   const [posts, setPosts] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
@@ -17,7 +18,6 @@ function UserDetails() {
   const [maritalStatus, setMaritalStatus] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const [otherValue, setOtherValue] = useState("");
-
 
   const handleDropdownChange = (event) => {
     const selectedValue = event.target.value;
@@ -33,25 +33,6 @@ function UserDetails() {
   const handleOtherInputChange = (event) => {
     setOtherValue(event.target.value);
   };
-
-  const [formValues, setFormValues] = useState({
-    email: "",
-    contact_1: "",
-    title_first_name: "",
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    dob: "",
-    gender: "",
-    religion: "",
-    cast_category_name: "",
-    marital_status: "",
-    address_1: "",
-    contact_2: "",
-    country: "",
-    state_province: "",
-    pin_code: "",
-  });
 
   useEffect(() => {
     // Fetch data from the API using Axios
@@ -128,14 +109,38 @@ function UserDetails() {
       ...formValues,
       [name]: value,
     });
+    setFormValues((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : "This field is required",
+    }));
+    setFormValues((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : "This field is required",
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Values:", formValues);
-
-    // You can also perform any additional actions or API calls here
   };
+  const [formValues, setFormValues] = useState({
+    email: "",
+    contact_1: "",
+    title_first_name: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    dob: "",
+    gender: "",
+    religion: "",
+    cast_category_name: "",
+    marital_status: "",
+    address_1: "",
+    contact_2: "",
+    country: "",
+    state_province: "",
+    pin_code: "",
+  });
 
   return (
     <>
@@ -167,6 +172,7 @@ function UserDetails() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
+                <span className="error-message">{errors.email}</span>
               </div>
 
               <div className="col-md-4">
@@ -186,10 +192,10 @@ function UserDetails() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">{errors.contact_1}</span>
               </div>
 
               <div className="col-md-4">
-                {/* *Post Applied For (If Others, Please Specify) */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
                     <span>*</span> Post Applied For
@@ -209,7 +215,7 @@ function UserDetails() {
                     <option value="others">Others</option>
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                  {selectedOption === "others" && (
+                  {/* {selectedOption === "others" && (
                     <div>
                       <label
                         style={{ marginTop: "20px" }}
@@ -225,7 +231,7 @@ function UserDetails() {
                         onChange={handleOtherInputChange}
                       />
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
@@ -280,7 +286,6 @@ function UserDetails() {
                     onChange={handleInputChange}
                     name=""
                     className="UD-set-dropdown"
-                    required
                   >
                     <option value="">Nature of Job</option>
                     <option value="">Nature of Job 1</option>
@@ -303,6 +308,7 @@ function UserDetails() {
                     onChange={handleInputChange}
                     name=" title_first_name"
                     className="UD-set-dropdown"
+                    required
                   >
                     <option value="Select Title">Select Title</option>
                     <option value="Mr.">Mr.</option>
@@ -311,6 +317,7 @@ function UserDetails() {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.title_first_name}</span>
               </div>
 
               <div className="col-md-4">
@@ -331,6 +338,7 @@ function UserDetails() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">{errors.first_name}</span>
               </div>
               <div className="col-md-4">
                 {/* Middle Name  */}
@@ -371,6 +379,7 @@ function UserDetails() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">{errors.last_name}</span>
               </div>
 
               <div className="col-md-4">
@@ -390,6 +399,7 @@ function UserDetails() {
                     required
                   ></input>
                 </div>
+                <span className="error-message">{errors.dob}</span>
               </div>
 
               <div className="col-md-4">
@@ -410,6 +420,7 @@ function UserDetails() {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.gender}</span>
               </div>
             </div>
 
@@ -431,6 +442,7 @@ function UserDetails() {
                     required
                   ></input>
                 </div>
+                <span className="error-message">{errors.religion}</span>
               </div>
 
               <div className="col-md-4">
@@ -450,6 +462,7 @@ function UserDetails() {
                     required
                   ></input>
                 </div>
+                <span className="error-message">{errors.cast}</span>
               </div>
 
               <div className="col-md-4">
@@ -469,6 +482,7 @@ function UserDetails() {
                     required
                   ></input>
                 </div>
+                <span className="error-message">{errors.marital_status}</span>
               </div>
             </div>
 
@@ -490,6 +504,7 @@ function UserDetails() {
                     required
                   ></input>
                 </div>
+                <span className="error-message">{errors.address_1}</span>
               </div>
 
               <div className="col-md-4">
@@ -510,6 +525,7 @@ function UserDetails() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">{errors.contact_2}</span>
               </div>
 
               <div className="col-md-4">
@@ -531,6 +547,7 @@ function UserDetails() {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.country}</span>
               </div>
             </div>
 
@@ -554,6 +571,7 @@ function UserDetails() {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.state_province}</span>
               </div>
 
               <div className="col-md-4">
@@ -594,6 +612,7 @@ function UserDetails() {
                     required
                   ></input>
                 </div>
+                <span className="error-message">{errors.pin_code}</span>
               </div>
             </div>
           </div>

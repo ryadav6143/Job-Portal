@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ApplyNow.css";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -34,14 +34,13 @@ function ApplyNow() {
   };
 
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
+    const isCurrentStepValid = validateSteps();
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+    if (isCurrentStepValid) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+      // alert("Please fill in all required fields before proceeding.");
+    }
   };
 
   const handleBack = () => {
@@ -51,6 +50,112 @@ function ApplyNow() {
   const handleVerifivation = () => {
     // alert("Your CV has been submitted");
     navigate("/otp-verifivation");
+  };
+  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    UserDetails: {
+      email: "",
+      contact_1: "",
+      title_first_name: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      dob: "",
+      gender: "",
+      religion: "",
+      cast_category_name: "",
+      marital_status: "",
+      address_1: "",
+      contact_2: "",
+      country: "",
+      state_province: "",
+      pin_code: "",
+    },
+  });
+  const validateSteps = () => {
+    const {
+      email,
+      contact_1,
+      title_first_name,
+      first_name,
+      middle_name,
+      last_name,
+      dob,
+      gender,
+      religion,
+      cast_category_name,
+      marital_status,
+      address_1,
+      contact_2,
+      country,
+      state_province,
+      pin_code,
+    } = formData.UserDetails;
+    let errors = {};
+
+    switch (activeStep) {
+      case 0:
+        if (!email) {
+          errors.email = "! Email is Required";
+        }
+        if (!contact_1) {
+          errors.contact_1 = "! Contact Number is Required";
+        }
+        if (!title_first_name) {
+          errors.title = "! Title is Required";
+        }
+        if (!first_name) {
+          errors.first_name = "! First Name is Required";
+        }
+        if (!middle_name) {
+          errors.middle_name = "! middle Name is Required";
+        }
+        if (!last_name) {
+          errors.last_name = "! last Name is Required";
+        }
+        if (!dob) {
+          errors.dob = "! Date of Birth is Required";
+        }
+        if (!gender) {
+          errors.gender = "! Gender is Required";
+        }
+        if (!religion) {
+          errors.religion = "! Religion is Required";
+        }
+        if (!cast_category_name) {
+          errors.cast = "! Cast Category is Required";
+        }
+        if (!marital_status) {
+          errors.maratial_status = "! Maratial Status is Required";
+        }
+        if (!address_1) {
+          errors.address = "! Address Status is Required";
+        }
+        if (!contact_2) {
+          errors.other_contact = "! Other Contact Status is Required";
+        }
+        if (!country) {
+          errors.country = "! Country is Required";
+        }
+        if (!state_province) {
+          errors.state_province = "! State is Required";
+        }
+        if (!pin_code) {
+          errors.pincode = "! Pin Code is Required";
+        }
+      case 1:
+      // validation for Academic Professional Qualifications
+      case 2:
+      // validatiob for Experience
+      case 3:
+      // validation for Research Work
+      case 4:
+      // validation for Seminars/Short Term Courses/Summer Schools/Winter Schools
+      case 5:
+      // validation for Reference 
+      default:
+        return true;
+    }
   };
   return (
     <>
@@ -91,12 +196,54 @@ function ApplyNow() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {activeStep === 0 && <UserDetails />}
-              {activeStep === 1 && <UserQualification />}
-              {activeStep === 2 && <UserExperience />}
-              {activeStep === 3 && <ResearchWorks />}
-              {activeStep === 4 && <Programs />}
-              {activeStep === 5 && <Reference />}
+              {activeStep === 0 && (
+                <UserDetails
+                  formData={formData.UserDetails}
+                  setFormData={setFormData}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
+              {activeStep === 1 && (
+                <UserQualification
+                  formData={formData.UserDetails}
+                  setFormData={setFormData}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
+              {activeStep === 2 && (
+                <UserExperience
+                  formData={formData.UserDetails}
+                  setFormData={setFormData}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
+              {activeStep === 3 && (
+                <ResearchWorks
+                  formData={formData.UserDetails}
+                  setFormData={setFormData}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
+              {activeStep === 4 && (
+                <Programs
+                  formData={formData.UserDetails}
+                  setFormData={setFormData}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
+              {activeStep === 5 && (
+                <Reference
+                  formData={formData.UserDetails}
+                  setFormData={setFormData}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
               {activeStep === 6 && <OTPVerification />}
               {activeStep === 7 && <Submitsuccess />}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>

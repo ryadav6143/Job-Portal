@@ -133,7 +133,6 @@ function Dropcv() {
 
     switch (activeStep) {
       case 0:
-        // Validation for Personal Details step
         if (!title_first_name) {
           errors.title_first_name = "! Title is required.";
         }
