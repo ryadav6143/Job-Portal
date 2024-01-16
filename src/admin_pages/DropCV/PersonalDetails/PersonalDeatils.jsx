@@ -71,17 +71,17 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         console.error("Error fetching countries:", error);
       });
   }, []);
-  useEffect(() => {
-    // Fetch data from the API using the service
-    apiService
-      .getCandidates()
-      .then((response) => {
-        console.log("response", response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching candidates:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // Fetch data from the API using the service
+  //   apiService
+  //     .getCandidates()
+  //     .then((response) => {
+  //       console.log("response", response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching candidates:", error);
+  //     });
+  // }, []);
 
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
@@ -232,6 +232,11 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     job_category_master_id: "",
   });
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
+
+
+
+
+
 
   return (
     <>

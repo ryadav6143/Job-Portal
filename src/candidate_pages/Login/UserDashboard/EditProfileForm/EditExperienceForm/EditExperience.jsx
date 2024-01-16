@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./EditExperience.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from '@fortawesome/free-solid-svg-icons';
+import plusicon from "../../../../../assets/logos/plus.png"
 
 function EditExperience() {
   const [educations, setEducations] = useState([{}]);
@@ -16,7 +17,10 @@ function EditExperience() {
       <div>
         <div>
           <h5 className="UD-heading">Experience &nbsp; <FontAwesomeIcon   className="edit-pen-icon"icon={faPen} />
-          <button     onClick={handleAddEducation} style={{marginRight:"30px"}} className="plus-button">+</button></h5>
+          <button     onClick={handleAddEducation} style={{marginRight:"30px"}} className="plus-buttons">
+          <img src={plusicon} />
+            
+            </button></h5>
           <p className="UD-subheading">
             Please fill your information so we can get in touch with you.
           </p>

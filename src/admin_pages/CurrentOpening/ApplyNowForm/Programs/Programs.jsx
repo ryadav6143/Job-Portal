@@ -275,8 +275,8 @@ function Programs() {
                 {/* Membership of University/Institute/Industry Bodies*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Membership of University/Institute/Industry
-                    Bodies
+                    <span></span>Membership of University/Institute/Industry Bodies
+                  
                   </label>
                   <input
                     style={{ width: "95%" }}
@@ -365,10 +365,10 @@ function Programs() {
 
               <div className="row" style={{ marginTop: "-30px" }}>
                 <div className="col-md-12">
-                  {/* Membership of Professional Bodies*/}
+                  {/* Awards/Recognitions Won, If any*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span></span>Membership of Professional Bodies
+                      <span></span>Awards/Recognitions Won, If any
                     </label>
                     <input
                       style={{ width: "95%" }}
@@ -384,11 +384,11 @@ function Programs() {
 
               <div className="row" style={{ marginTop: "-30px" }}>
                 <div className="col-md-12">
-                  {/* Membership of University/Institute/Industry Bodies*/}
+                  {/* Brief Description of Co-curricular and Extra-Curricular Activities*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span></span>Membership of University/Institute/Industry
-                      Bodies
+                      <span></span>Brief Description of Co-curricular and Extra-Curricular Activities
+                      
                     </label>
                     <input
                       style={{ width: "95%" }}
@@ -404,10 +404,10 @@ function Programs() {
 
               <div className="row" style={{ marginTop: "-30px" }}>
                 <div className="col-md-12">
-                  {/* Membership of Professional Bodies*/}
+                  {/* Any Other Relevant Information You May Like To Furnish Especially About Citation Of Your Research Work*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span></span>Membership of Professional Bodies
+                      <span></span>Any Other Relevant Information You May Like To Furnish Especially About Citation Of Your Research Work
                     </label>
                     <input
                       style={{ width: "95%" }}
@@ -423,11 +423,11 @@ function Programs() {
 
               <div className="row" style={{ marginTop: "-30px" }}>
                 <div className="col-md-12">
-                  {/* Membership of University/Institute/Industry Bodies*/}
+                  {/* Period For Joining The Post, If Selected*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span></span>Membership of University/Institute/Industry
-                      Bodies
+                      <span></span>Period For Joining The Post, If Selected
+                     
                     </label>
                     <input
                       style={{ width: "95%" }}

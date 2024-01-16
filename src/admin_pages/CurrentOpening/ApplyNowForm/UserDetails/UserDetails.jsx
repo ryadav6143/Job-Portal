@@ -102,7 +102,10 @@ function UserDetails(errors, setErrors) {
       marital_status: selectedMaritalStatus,
     }));
   };
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Values:", formValues);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -119,10 +122,6 @@ function UserDetails(errors, setErrors) {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Values:", formValues);
-  };
   const [formValues, setFormValues] = useState({
     email: "",
     contact_1: "",
@@ -512,7 +511,7 @@ function UserDetails(errors, setErrors) {
                 {/* *Alternate Contact Number  */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span>*</span>Alternate Contact Number
+                    <span></span>Alternate Contact Number
                   </label>
 
                   <input
@@ -522,7 +521,7 @@ function UserDetails(errors, setErrors) {
                     placeholder="(123) 456 - 7890"
                     id=""
                     onChange={handleInputChange}
-                    required
+               
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>

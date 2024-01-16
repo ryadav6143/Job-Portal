@@ -100,7 +100,7 @@ function Reference() {
               {/* Email */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span>*</span>Email
+                  <span></span>Email
                 </label>
                 <input
                   className="UD-set-input"
@@ -108,7 +108,7 @@ function Reference() {
                   placeholder="Email address"
                   name=""
                   id=""
-                  required
+                  
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
               </div>
@@ -118,7 +118,7 @@ function Reference() {
               {/* Phone No. */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span>*</span>Phone Number
+                  <span></span>Phone Number
                 </label>
                 <input
                   className="UD-set-input"
@@ -126,7 +126,7 @@ function Reference() {
                   placeholder="(123) 456 - 7890 "
                   name=""
                   id=""
-                  required
+                
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
               </div>
@@ -196,7 +196,7 @@ function Reference() {
               {/* Email */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span>*</span>Email
+                  <span></span>Email
                 </label>
                 <input
                   className="UD-set-input"
@@ -204,7 +204,7 @@ function Reference() {
                   placeholder="Email address"
                   name=""
                   id=""
-                  required
+                
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
               </div>
@@ -214,7 +214,7 @@ function Reference() {
               {/* Phone No. */}
               <div className="UD-form-section">
                 <label className="UD-SetLabel-Name">
-                  <span>*</span>Phone Number
+                  <span></span>Phone Number
                 </label>
                 <input
                   className="UD-set-input"
@@ -222,7 +222,7 @@ function Reference() {
                   placeholder="(123) 456 - 7890 "
                   name=""
                   id=""
-                  required
+                 
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
               </div>
