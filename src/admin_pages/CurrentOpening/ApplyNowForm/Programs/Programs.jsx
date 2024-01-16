@@ -6,7 +6,7 @@ import {
   faEnvelope,
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
-import plusbutton from "../../../../assets/logos/plus.png"
+import plusbutton from "../../../../assets/logos/plus.png";
 function Programs() {
   const [courses, setCourses] = useState([{}]);
 
@@ -37,7 +37,7 @@ function Programs() {
                   type="button"
                   className="plus-buttons"
                 >
-                  <img src={plusbutton}/>
+                  <img src={plusbutton} />
                 </button>
               </p>
             </div>
@@ -374,7 +374,7 @@ function Programs() {
                   {/* Membership of Professional Bodies*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span></span>Membership of Professional Bodies
+                      Awards/Recognitions Won, If any
                     </label>
                     <input
                       style={{ width: "95%" }}
@@ -393,8 +393,7 @@ function Programs() {
                   {/* Membership of University/Institute/Industry Bodies*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span></span>Membership of University/Institute/Industry
-                      Bodies
+                      Membership of University/Institute/Industry
                     </label>
                     <input
                       style={{ width: "95%" }}
@@ -413,7 +412,8 @@ function Programs() {
                   {/* Membership of Professional Bodies*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span></span>Membership of Professional Bodies
+                      Any Other Relevant Information You May Like To Furnish
+                      Especially About Citation Of Your Research Work
                     </label>
                     <input
                       style={{ width: "95%" }}
@@ -432,8 +432,7 @@ function Programs() {
                   {/* Membership of University/Institute/Industry Bodies*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span></span>Membership of University/Institute/Industry
-                      Bodies
+                      Period For Joining The Post, If Selecte
                     </label>
                     <input
                       style={{ width: "95%" }}

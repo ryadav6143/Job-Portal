@@ -103,7 +103,6 @@ function Home() {
         </div>
       </div>
       <div className="perks">
-        {/* <div className="perks-heading"> */}
         <div className="perks-heading">
           <p>
             PERKS OF JOINING <br />
@@ -144,7 +143,9 @@ function Home() {
             <span>MEDI-CAPS STAFF</span>
           </p>
         </div>
-        <MediStaff></MediStaff>
+        <div className="staff-design">
+          <MediStaff></MediStaff>
+        </div>
       </div>
       <div className="hr-corner">
         <div className="hr-conrer-heading">

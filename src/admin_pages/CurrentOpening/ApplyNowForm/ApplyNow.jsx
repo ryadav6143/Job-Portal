@@ -249,15 +249,16 @@ function ApplyNow() {
               {activeStep === 6 && <OTPVerification />}
               {activeStep === 7 && <Submitsuccess />}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Button
-                  className="prev-btn"
-                  color="inherit"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}
-                >
-                  Previous
-                </Button>
+                {activeStep > 0 && (
+                  <Button
+                    className="prev-btn"
+                    color="inherit"
+                    onClick={handleBack}
+                    sx={{ mr: 1 }}
+                  >
+                    Previous
+                  </Button>
+                )}
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={handleNext} className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
