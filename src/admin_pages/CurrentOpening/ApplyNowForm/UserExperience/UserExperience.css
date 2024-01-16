@@ -1,9 +1,11 @@
-.plus-button {
-  padding: 2px 7px 2px 7px;
-  float: right;
-  img {
-    width: 20px;
-    height: 20px;
+.plus-buttons {
+    padding: 2px 7px 2px 7px;
+    float: right;
+    border: none;
+    background-color: transparent;
+    img {
+      width: 20px;
+      height: 20px;
+    }
   }
-  border: none;
-}
+  

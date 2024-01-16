@@ -22,7 +22,7 @@ function UserExperience() {
             <div>
               <h5 className="UD-heading">
                 Experience
-                <button onClick={handleAddEducation} className="plus-button">
+                <button onClick={handleAddEducation} className="plus-buttons">
                   <img src={plusicon} />
                 </button>
               </h5>

@@ -4,6 +4,7 @@ import {
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import "./ResearchWorks.css";
+import plusbutton from "../../../../assets/logos/plus.png";
 
 function ResearchWorks() {
   const [identifiers, setIdentifiers] = useState([{}]);
@@ -27,15 +28,7 @@ function ResearchWorks() {
         <div style={{ marginTop: "20px" }}>
           <form action="">
             <div>
-              <h5 className="UD-heading">
-                Research Work
-                <button
-                  onClick={handleAddIdentifier}
-                  className="editprofile-plus-button"
-                >
-                  +
-                </button>
-              </h5>
+              <h5 className="UD-heading">Research Work</h5>
 
               <p className="UD-subheading">
                 Please fill your information so we can get in touch with you.
@@ -107,9 +100,9 @@ function ResearchWorks() {
                 <button
                   onClick={handleAddPublication}
                   type="button"
-                  className="editprofile-plus-button"
+                  className="plus-buttons"
                 >
-                  +
+                  <img src={plusbutton} />
                 </button>
               </p>
             </div>
@@ -154,7 +147,6 @@ function ResearchWorks() {
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span></span>Author Role/ Inventor
-                        {/* <button type="button" className="plus-button">+</button> */}
                       </label>
 
                       <input
@@ -262,9 +254,9 @@ function ResearchWorks() {
                 <button
                   onClick={handleAddPublication}
                   type="button"
-                  className="editprofile-plus-button"
+                  className="plus-buttons"
                 >
-                  +
+                  <img src={plusbutton} />
                 </button>
               </p>
             </div>
@@ -416,9 +408,9 @@ function ResearchWorks() {
                 <button
                   onClick={handleAddApplication}
                   type="button"
-                  className="editprofile-plus-button"
+                  className="plus-buttons"
                 >
-                  +
+                  <img src={plusbutton} />
                 </button>
               </p>
             </div>
@@ -520,9 +512,9 @@ function ResearchWorks() {
                 <button
                   onClick={handleAddApplication}
                   type="button"
-                  className="editprofile-plus-button"
+                  className="plus-buttons"
                 >
-                  +
+                  <img src={plusbutton} />
                 </button>
               </p>
             </div>
