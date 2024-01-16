@@ -72,10 +72,12 @@ function ApplyNow() {
       pin_code: "",
     },
   });
+
+  // from fields for step 1
   const validateSteps = () => {
     const {
-      email,
       contact_1,
+      email,
       title_first_name,
       first_name,
       middle_name,
@@ -152,7 +154,7 @@ function ApplyNow() {
       case 4:
       // validation for Seminars/Short Term Courses/Summer Schools/Winter Schools
       case 5:
-      // validation for Reference 
+      // validation for Reference
       default:
         return true;
     }

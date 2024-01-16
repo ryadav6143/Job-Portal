@@ -102,7 +102,10 @@ function UserDetails(errors, setErrors) {
       marital_status: selectedMaritalStatus,
     }));
   };
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Values:", formValues);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -119,10 +122,6 @@ function UserDetails(errors, setErrors) {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Values:", formValues);
-  };
   const [formValues, setFormValues] = useState({
     email: "",
     contact_1: "",
