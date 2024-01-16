@@ -12,19 +12,19 @@
 .personaldetails-form {
   justify-content: center;
   margin-top: 4%;
-  margin-left: 4%;
+  /* margin-left: 5%; */
   font-family: "Open Sans", sans-serif;
 }
 
 .PD-heading {
-  font-size: 22px;
+  font-size: 23px;
   color: #170f49;
   font-weight: 700;
 }
 
 .PD-subheading {
   color: #6f6c90;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 400;
 }
 
