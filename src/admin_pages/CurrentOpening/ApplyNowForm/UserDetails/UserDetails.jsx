@@ -8,7 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserDetails.css";
 
-import axios from "axios";
+
+import apiService from "../../../../Services/ApiServices";
 function UserDetails() {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState('');
@@ -45,7 +46,7 @@ function UserDetails() {
 
   useEffect(() => {
     // Fetch data from the API using Axios
-    axios.get('http://192.168.1.15:8090/v1/api/appliedPost')
+    apiService.getAppliedPosts()
       .then(response => {
         // Update the state with the fetched data
         setPosts(response.data);
@@ -56,7 +57,7 @@ function UserDetails() {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get('http://192.168.1.15:8090/v1/api/departmentMaster');
+        const response = await apiService.getDepartments();
         setDepartments(response.data);
       } catch (error) {
         console.error('Error fetching departments:', error);

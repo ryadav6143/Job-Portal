@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
 import "./PersonalDeatils.css";
 import apiService from "../../../Services/ApiServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -60,7 +60,7 @@ function PersonalDeatils({ formData, setFormData }) {
       });
   }, []);
   useEffect(() => {
-    // Fetch data from the API using the service
+    
     apiService
       .getCountries()
       .then((response) => {
@@ -70,17 +70,17 @@ function PersonalDeatils({ formData, setFormData }) {
         console.error("Error fetching countries:", error);
       });
   }, []);
-  useEffect(() => {
-    // Fetch data from the API using the service
-    apiService
-      .getCandidates()
-      .then((response) => {
-        console.log("response", response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching candidates:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  
+  //   apiService
+  //     .getCandidates()
+  //     .then((response) => {
+  //       console.log("response", response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching candidates:", error);
+  //     });
+  // }, []);
 
 
 

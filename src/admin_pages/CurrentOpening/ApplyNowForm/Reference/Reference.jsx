@@ -1,6 +1,7 @@
 import React from "react";
 import "./Reference.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import  { useState } from 'react'; 
 import {
   faUser,
   faEnvelope,
@@ -8,8 +9,44 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Reference() {
+  const [ReferenceData, setReferenceData] = useState({
+   
+    reference_person_1:'',
+    reference_person_2:'',
+    ref_org_1:'',
+    ref_org_2:'',
+    ref_person_position_1:'',
+    ref_person_position_2:'',
+    hearing_source_about_us:'',
+    application_purpose:'',
+    ref_person_1_email:'',
+    ref_person_2_email:'',
+    ref_person_1_contact:'',
+    ref_person_2_contact:'',
+   
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setReferenceData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+
+  const handleFileChange = (e) => {
+    // Handle file change logic here if needed
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form ReferenceData:', ReferenceData);
+  };
+
   return (
+
     <>
+    <form  onSubmit={handleSubmit}>
       <div className="container">
         <div style={{ marginTop: "20px" }}>
           <div>
@@ -33,8 +70,10 @@ function Reference() {
               className="UD-set-input"
               type="text"
               placeholder=""
-              name=""
+              name="hearing_source_about_us"
               id=""
+              onChange={handleChange}
+        value={ReferenceData.hearing_source_about_us}
             ></input>
           </div>
 
@@ -55,8 +94,10 @@ function Reference() {
                   className="UD-set-input"
                   type="text"
                   placeholder="Enter  Name "
-                  name=""
+                  name="reference_person_1"
                   id=""
+                  onChange={handleChange}
+        value={ReferenceData.reference_person_1}
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
               </div>
@@ -72,8 +113,10 @@ function Reference() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="ref_org_1"
                   id=""
+                  onChange={handleChange}
+                  value={ReferenceData.ref_org_1}
                 ></input>
               </div>
             </div>
@@ -88,8 +131,10 @@ function Reference() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="ref_person_position_1"
                   id=""
+                  onChange={handleChange}
+                  value={ReferenceData.ref_person_position_1}
                 ></input>
               </div>
             </div>
@@ -106,9 +151,11 @@ function Reference() {
                   className="UD-set-input"
                   type="email"
                   placeholder="Email address"
-                  name=""
+                  name="ref_person_1_email"
                   id=""
-                  required
+                  onChange={handleChange}
+                  value={ReferenceData.ref_person_1_email}
+                  
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
               </div>
@@ -124,9 +171,11 @@ function Reference() {
                   className="UD-set-input"
                   type="tel"
                   placeholder="(123) 456 - 7890 "
-                  name=""
+                  name="ref_person_1_contact"
                   id=""
-                  required
+                  onChange={handleChange}
+                  value={ReferenceData.ref_person_1_contact}
+                  
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
               </div>
@@ -150,9 +199,11 @@ function Reference() {
                   className="UD-set-input"
                   type="text"
                   placeholder="Enter  Name "
-                  name=""
+                  name="reference_person_2"
                   id=""
-                  required
+                  onChange={handleChange}
+                  value={ReferenceData.reference_person_2}
+                  
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
               </div>
@@ -168,8 +219,10 @@ function Reference() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="ref_org_2"
                   id=""
+                  onChange={handleChange}
+                  value={ReferenceData.ref_org_2}
                 ></input>
               </div>
             </div>
@@ -184,8 +237,10 @@ function Reference() {
                   className="UD-set-input"
                   type="text"
                   placeholder=" "
-                  name=""
+                  name="ref_person_position_2"
                   id=""
+                  onChange={handleChange}
+                  value={ReferenceData.ref_person_position_2}
                 ></input>
               </div>
             </div>
@@ -202,9 +257,11 @@ function Reference() {
                   className="UD-set-input"
                   type="email"
                   placeholder="Email address"
-                  name=""
+                  name="ref_person_2_email"
                   id=""
-                  required
+                  onChange={handleChange}
+                  value={ReferenceData.ref_person_2_email}
+                  
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
               </div>
@@ -220,9 +277,11 @@ function Reference() {
                   className="UD-set-input"
                   type="tel"
                   placeholder="(123) 456 - 7890 "
-                  name=""
+                  name="ref_person_2_contact"
                   id=""
-                  required
+                  
+                  onChange={handleChange}
+                  value={ReferenceData.ref_person_2_contact}
                 ></input>
                 <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
               </div>
@@ -241,8 +300,10 @@ function Reference() {
                   className="UD-set-input"
                   type="text"
                   placeholder=""
-                  name=""
+                  name="application_purpose"
                   id=""
+                  onChange={handleChange}
+                  value={ReferenceData.application_purpose}
                 ></input>
               </div>
             </div>
@@ -268,7 +329,9 @@ function Reference() {
               placeholder="00 (i.e Years.Months)"
               name="resume_file_link"
               id=""
-              required
+              // onChange={handleFileChange} 
+              accept=".pdf, .doc, .docx" 
+              
             ></input>
           </div>
 
@@ -282,6 +345,11 @@ function Reference() {
           </div>
         </div>
       </div>
+      
+      <button type="submit">
+          Submit
+        </button>
+      </form>
     </>
   );
 }

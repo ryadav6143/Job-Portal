@@ -35,11 +35,8 @@ function CurrentExperience({formData, setFormData}) {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-  
-    // Check if the file has a valid extension
-    const allowedExtensions = ["pdf", "doc", "docx"];
-    const fileExtension = file.name.split(".").pop().toLowerCase();
-  
+      const allowedExtensions = ["pdf", "doc", "docx"];
+    const fileExtension = file.name.split(".").pop().toLowerCase();  
     if (!allowedExtensions.includes(fileExtension)) {
       // Display an alert message for invalid file format
       alert("Invalid file format. Please upload a PDF, DOC, or DOCX file.");
@@ -47,8 +44,7 @@ function CurrentExperience({formData, setFormData}) {
       e.target.value = null;
       return;
     }
-  
-    setFormData((prevFormData) => ({
+      setFormData((prevFormData) => ({
       personalDetails: {
         ...prevFormData.personalDetails,
         candidate_cv: file,
