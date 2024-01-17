@@ -1,11 +1,9 @@
 import { useState } from "react";
 import React from "react";
 import "./CurrentExperience.css";
-<<<<<<< HEAD
 
-=======
 import axios from "axios";
->>>>>>> parent of e8922eb (16-01-2024)
+
 function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErrors }) {
   const [isFresher, setIsFresher] = useState(false);
   // const [formData, setFormData] = useState(null);

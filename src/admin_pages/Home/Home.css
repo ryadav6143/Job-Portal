@@ -103,12 +103,11 @@
   transition: 0.4s ease;
 }
 .perks-heading p {
-<<<<<<< HEAD
   padding-top: 1px;
   font-size: 40px;
-=======
   font-size: 30px;
->>>>>>> parent of e8922eb (16-01-2024)
+  font-size: 30px;
+
   color: white;
   letter-spacing: 2px;
   pointer-events: none;
@@ -266,8 +265,6 @@
     font-size: 30px;
   }
 }
-<<<<<<< HEAD
-=======
 
 .row-1 {
   display: flex;
@@ -281,7 +278,6 @@
     margin: 2px;
   }
 }
->>>>>>> parent of e8922eb (16-01-2024)
 
 /* ....................................MEDICAPS STAFF SECTION............................... */
 .hr-corner {
@@ -385,12 +381,6 @@
 }
 
 @media only screen and (max-width: 767px) {
-<<<<<<< HEAD
-  .subs {
-    margin-top: 50px;
-  }
-=======
->>>>>>> parent of e8922eb (16-01-2024)
   #join-medi-btn a {
     font-size: 15px;
   }
@@ -435,17 +425,16 @@
       overflow: hidden;
     }
   }
-<<<<<<< HEAD
   .side-left {
     margin-left: 5% !important;
     margin-right: 5% !important;
   }
-=======
+
   /* .side-left {
     margin-left: 5% !important;
     margin-right: 5% !important;
   } */
->>>>>>> parent of e8922eb (16-01-2024)
+
   .purpose-headings p:nth-child(1) {
     font-size: 20px;
   }
@@ -488,7 +477,6 @@
       font-size: 15px;
     }
   }
- 
 
   .hr-conrer-heading {
     width: auto;
