@@ -33,6 +33,12 @@ const apiService = {
   submitCandidateData: (formData) => {
     return axios.post(`${BASE_URL}/candidates/drop_cv`, formData);
   },
+  getAppliedPosts: () => {
+    return axios.get(`${BASE_URL}/appliedPost`);
+  },
+  getDepartments: () => {
+    return axios.get(`${BASE_URL}/departmentMaster`);
+  },
 };
 
 

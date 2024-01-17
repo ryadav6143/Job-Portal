@@ -25,6 +25,14 @@ function ApplyNow() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
+  // const [formData, setFormData] = useState({
+  //   AllData: {
+     
+  //   },
+  // });
+
+
+
   const isStepOptional = (step) => {
     return step === 1;
   };
