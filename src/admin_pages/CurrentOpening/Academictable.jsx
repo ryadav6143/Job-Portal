@@ -130,9 +130,7 @@ function Academictable() {
             <tbody>
               {AcademicData.map((data, index) => (
                 <tr key={index}>
-                  <td>
-                    <b> {data.category} </b>
-                  </td>
+                  <td>{data.category}</td>
                   <td>{data.department}</td>
                   <td>
                     <button type="button" className="apn-btn">

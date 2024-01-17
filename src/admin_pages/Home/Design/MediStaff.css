@@ -9,6 +9,8 @@
 }
 
 .section {
+  margin-top: -9.6% !important;
+  margin-bottom: -12.5% !important;
   width: 100%;
   height: 100%;
   padding: 10em 3.5em;
@@ -382,7 +384,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background-position: center;
 }
 
 @media screen and (max-width: 991px) {

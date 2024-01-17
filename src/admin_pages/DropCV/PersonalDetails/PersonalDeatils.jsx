@@ -124,8 +124,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   const handleSubpostChange = (event) => {
     const selectedSubpostName = event.target.value;
     setSelectedSubpost(selectedSubpostName);
-
-    // Find the selected subpost object
     const selectedSubpostData = subposts.find(
       (subpost) => subpost.subpost_name === selectedSubpostName
     );
@@ -145,17 +143,15 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     const selectedSubjectName = event.target.value;
     setSelectedSubject(selectedSubjectName);
 
-    // Find the selected subject object
+   
     const selectedSubjectData = subjects.find(
       (subject) => subject.subject_name === selectedSubjectName
     );
 
-    // Set subjects_master_id in the formData
     setFormData((prevData) => ({
       personalDetails: {
         ...prevData.personalDetails,
         subjects_master_id: selectedSubjectData ? selectedSubjectData.id : "",
-        // Add additional fields related to category if needed
       },
     }));
   };
@@ -202,15 +198,14 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         [name]: value,
       },
     }));
-    // set errors to null for input fields when changed
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: value ? "" : "This field is required",
     }));
-    setFormErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: value ? "" : "This field is required",
-    }));
+    // setFormErrors((prevErrors) => ({
+    //   ...prevErrors,
+    //   [name]: value ? "" : "This field is required",
+    // }));
   };
 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
@@ -232,11 +227,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     job_category_master_id: "",
   });
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
-
-
-
-
-
 
   return (
     <>
@@ -270,7 +260,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     <option value="Ms.">Ms.</option>
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                
                 </div>
                 <span className="error-message">{errors.title_first_name}</span>
               </div>
@@ -372,7 +361,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   </label>
                   <input
                     className="set-input"
-                    type="tel"
+                    type="number"
                     placeholder="(123)456-7890 "
                     name="contact_1"
                     id=""
@@ -450,7 +439,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
             <div className="row">
               <div className="col-md-6">
-                {/* Category Appointment */}
 
                 <div className="form-section">
                   <label className="SetLabel-Name">
@@ -478,7 +466,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
               </div>
 
               <div className="col-md-6">
-                {/* Post Applied For */}
 
                 <div className="form-section">
                   <label className="SetLabel-Name">
@@ -504,8 +491,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
             <div className="row">
               <div className="col-md-6">
-                {/* Sub Post Applied For */}
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span> </span> Sub Post Applied For
@@ -530,7 +515,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
               </div>
 
               <div className="col-md-6">
-                {/* Subject */}
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Subject
@@ -556,7 +540,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
           </form>
         </div>
       </div>
-    
     </>
   );
 }

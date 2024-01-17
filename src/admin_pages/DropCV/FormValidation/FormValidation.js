@@ -34,7 +34,6 @@ function FormValidation({  formData,  }) {
   };
 
   const validateEmail = (email) => {
-    // Simple email validation using regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };

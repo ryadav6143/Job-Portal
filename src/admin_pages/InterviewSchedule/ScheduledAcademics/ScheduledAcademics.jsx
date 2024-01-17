@@ -128,7 +128,7 @@ function ScheduledAcademics() {
         <p className="table-des">A descriptive body text comes here</p>
 
         <div className="table-responsive">
-          <table className="table">
+          <table className="table is-table">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
                 <th scope="col">S.No &#x2193;</th>

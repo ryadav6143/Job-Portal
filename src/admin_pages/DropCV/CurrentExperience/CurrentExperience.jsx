@@ -27,17 +27,6 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
     }));
   };
 
-  // const handleFileChange = (e) => {
-  //   const file = e.target.files[0];
-
-  //   setFormData((prevFormData) => ({
-  //     // ...prevFormData,
-  //     personalDetails: {
-  //       ...prevFormData.personalDetails,
-  //       candidate_cv: file,
-  //     },
-  //   }));
-  // };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

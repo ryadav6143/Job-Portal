@@ -39,12 +39,14 @@
   font-size: 15px;
 }
 .social-logos img {
+  object-fit: contain;
   width: 30px;
   height: 30px;
 }
 .social-logos div {
   display: inline;
   padding: 10px;
+  object-fit: contain;
 }
 .social-logos {
   margin-left: -10px;

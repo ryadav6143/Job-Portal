@@ -20,6 +20,7 @@
 }
 .home-page p:nth-child(2) {
   font-family: "Open Sans", sans-serif;
+  letter-spacing: 3px;
 }
 #uni-name {
   font-size: 4vw;
@@ -40,7 +41,7 @@
   color: white;
 }
 .subs {
-  margin-top: 20px;
+  margin-top: 50px;
   text-align: center;
   font-family: "Playfair Display", serif;
 }
@@ -55,7 +56,7 @@
   font-weight: 600;
 }
 .cards {
-  margin-top: 50px;
+  margin-top: 25px;
   margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
@@ -71,7 +72,6 @@
   align-items: center;
   padding-top: 60px;
   border: 1px solid rgba(0, 0, 0, 0.082);
-  margin-bottom: 15px;
 }
 .card img {
   width: 40px;
@@ -104,12 +104,17 @@
   transition: 0.4s ease;
 }
 .perks-heading p {
-  font-size: 30px;
+  padding-top: 1px;
+  font-size: 40px;
   color: white;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   pointer-events: none;
 }
-
+.perks span {
+  font-size: 50px;
+  font-family: "Playfair Display", serif;
+  font-weight: 600 !important;
+}
 .perks {
   display: flex;
   flex-wrap: wrap;
@@ -122,13 +127,10 @@
     url("../../assets/images/Banner.JPG") !important;
   background-position: center !important;
   background-size: cover !important;
-  padding-top: 5% !important;
-  padding-bottom: 5% !important;
+  padding-top: 50px !important;
+  padding-bottom: 50px !important;
 }
-.perks span {
-  font-family: "Playfair Display", serif;
-  font-weight: 600 !important;
-}
+
 #disktype {
   width: 15px !important;
   height: 15px !important;
@@ -136,7 +138,7 @@
 }
 .perks-list ul li {
   font-family: "Open Sans", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   list-style: none;
   background-color: white !important;
   font-weight: normal !important;
@@ -150,10 +152,10 @@
   line-height: 1.5;
 }
 
-/* .side-left {
+.side-left {
   margin-left: 20% !important;
   margin-right: -10% !important;
-} */
+}
 .staff-heading {
   font-size: 25px;
   text-align: center;
@@ -167,10 +169,13 @@
 }
 
 .purpose {
-  margin-top: 5%;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 .purpose-headings {
   text-align: center;
+  margin-bottom: 25px;
+  line-height: 1;
 }
 .purpose-headings p:nth-child(1) {
   font-family: "Playfair Display", serif;
@@ -185,8 +190,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 3px;
   div {
-    margin: 2px;
     width: 19%;
     height: 295px;
     background-color: #d9d9d9;
@@ -199,6 +204,7 @@
 .big-img {
   width: 37% !important;
   img {
+    object-fit: cover;
     width: 100%;
     height: 100%;
   }
@@ -221,6 +227,7 @@
 }
 .women {
   img {
+    object-fit: cover;
     width: 100%;
     height: 100%;
   }
@@ -232,9 +239,8 @@
   }
 }
 .circular-logo {
-  padding-top: 4.2%;
-  padding-bottom: 4.5%;
   img {
+    object-fit: contain;
     width: 90%;
     height: 90%;
   }
@@ -242,163 +248,24 @@
 .remove-bg {
   background-color: transparent !important;
 }
-/* ....................................MEDICAPS STAFF SECTION............................... */
 .staff-section {
-  margin-top: 2%;
+  margin-top: 50px;
 }
 .medi-heading {
   text-align: center;
-  font-size: 25px;
-  letter-spacing: 2px;
-  margin-bottom: -30px;
+  font-size: 30px;
+  letter-spacing: 3px;
   font-family: "Open Sans", sans-serif;
   line-height: 1;
   span {
-    letter-spacing: 2px !important;
+    letter-spacing: 3px !important;
     font-family: "Playfair Display", serif;
     font-weight: 600;
     letter-spacing: 2px;
-    font-size: 30px;
+    font-size: 40px;
   }
 }
 
-.row-1 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  cursor: pointer;
-  div {
-    width: 27%;
-    height: 410px;
-    background-color: #d9d9d9;
-    margin: 2px;
-  }
-}
-
-.row-1 div:nth-child(1) {
-  border-top-right-radius: 50%;
-  padding-left: 20px;
-  p {
-    font-size: 30px;
-  }
-  button {
-    background-color: transparent;
-    border: none;
-    font-size: 50px;
-    font-weight: 400;
-    margin-top: 200px;
-    border-radius: 50%;
-  }
-}
-.row-1 div:nth-child(1):hover {
-  border-top-right-radius: 0% !important;
-  border-bottom-right-radius: 50%;
-  transition: ease 0.3s;
-}
-.row-1 div:nth-child(2) {
-  background-color: transparent !important;
-  background-image: url("../../assets/images/ChinmayArondekar.jpg");
-  background-size: cover;
-}
-.row-1 div:nth-child(2):hover {
-  border-top-right-radius: 50%;
-  border-bottom-right-radius: 50%;
-  transition: ease 0.3s;
-}
-.row-1 div:nth-child(3) {
-  text-align: end;
-  padding-right: 20px;
-  border-bottom-left-radius: 50%;
-  p {
-    font-size: 30px;
-  }
-  button {
-    background-color: transparent;
-    border: none;
-    font-size: 50px;
-    font-weight: 400;
-    margin-top: 55%;
-  }
-}
-.row-1 div:nth-child(3):hover {
-  border-top-left-radius: 50%;
-  transition: ease 0.3s;
-}
-/* ............................Row-2.................... */
-.row-2 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  cursor: pointer;
-
-  div {
-    width: 27%;
-    height: 410px;
-    background-color: #d9d9d9;
-    margin: 2px;
-  }
-}
-.row-2 div:nth-child(1) {
-  border-bottom-right-radius: 50%;
-  padding-left: 20px;
-  p {
-    font-size: 30px;
-  }
-  button {
-    background-color: transparent;
-    border: none;
-    font-size: 50px;
-    font-weight: 400;
-    margin-top: 55%;
-  }
-}
-.row-2 div:nth-child(1):hover {
-  border-top-right-radius: 0% !important;
-  border-radius: 50px !important;
-  transition: ease 0.3s;
-  padding: 20px;
-}
-.row-2 div:nth-child(2) {
-  border-radius: 50%;
-  background-image: url("../../assets/images/Hemantpal.jpg");
-  background-size: cover;
-  background-position: center;
-}
-.row-2 div:nth-child(2):hover {
-  border-radius: 50px;
-  transition: ease 0.3s;
-}
-.row-2 div:nth-child(3) {
-  height: 820px;
-  background-image: url("../../assets/images/RubyBhat.jpg");
-  background-size: cover;
-  background-position: center;
-  border-radius: 200px 200px 200px 0px;
-}
-.row-2 div:nth-child(3):hover {
-  height: 820px;
-  border-radius: 200px;
-  transition: all 0.3s;
-}
-.row-2 div:nth-child(4) {
-  margin-top: -407px;
-  border-top-right-radius: 200px;
-  border-bottom-left-radius: 200px;
-  background-image: url(../../assets/images/Mohsin\ Ali.jpg);
-  background-size: cover;
-  background-position: top;
-  padding-left: 54% !important;
-  margin-left: -27.5%;
-}
-.row-2 div:nth-child(4):hover {
-  transition: 0.3s ease;
-  border-radius: 0 !important;
-  border-top-left-radius: 200px !important;
-  border-bottom-right-radius: 200px !important;
-}
-.row-2 div:nth-child(5) {
-  display: none;
-}
 /* ....................................MEDICAPS STAFF SECTION............................... */
 .hr-corner {
   background: linear-gradient(180.71deg, rgba(0, 0, 0, 0) 3.39%, #000000 94.22%),
@@ -441,9 +308,10 @@
 }
 .hr-conrer-heading p:nth-child(2) {
   margin-top: -15px;
-  font-size: 30px;
+  font-size: 40px;
   font-family: "Playfair Display", serif;
   letter-spacing: 2px;
+  font-weight: 600;
 }
 .slider-imgs {
   display: flex;
@@ -501,6 +369,9 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .subs {
+    margin-top: 50px;
+  }
   #join-medi-btn a {
     font-size: 15px;
   }
@@ -531,11 +402,18 @@
     font-size: 20px;
     text-align: center;
   }
+  .perks-heading p {
+    font-size: 30px;
+  }
+  .perks-list {
+    margin-left: -8%;
+  }
   .purpose-data {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px;
     div {
-      margin: 1px;
       width: 30%;
       height: 155px;
       background-color: #d9d9d9;
@@ -544,10 +422,10 @@
       overflow: hidden;
     }
   }
-  /* .side-left {
+  .side-left {
     margin-left: 5% !important;
     margin-right: 5% !important;
-  } */
+  }
   .purpose-headings p:nth-child(1) {
     font-size: 20px;
   }
@@ -590,66 +468,8 @@
       font-size: 15px;
     }
   }
-  .row-1,
-  .row-2 {
-    /* justify-content: start; */
-    div {
-      padding-left: 5px !important;
-      width: 160px;
-      height: 180px;
-    }
-  }
-  .row-1 div:nth-child(1),
-  .row-2 div:nth-child(1),
-  .row-1 div:nth-child(3) {
-    p {
-      font-size: 15px;
-    }
-    button {
-      font-size: 40px;
-      margin-top: 40% !important;
-    }
-  }
-  .row-1 div:nth-child(3) {
-    position: absolute;
-    bottom: 0;
-    margin-left: 44vw;
-  }
-  .row-2 div:nth-child(1):hover {
-    border-radius: 0 !important;
-    padding: 0;
-    border-bottom-right-radius: 50% !important;
-  }
+ 
 
-  .row-2 div:nth-child(3) {
-    height: 364px;
-  }
-  .row-2 div:nth-child(3):hover {
-    height: 364px;
-  }
-  .medi-staff {
-    position: relative !important;
-    margin-bottom: 30%;
-  }
-  .row-2 div:nth-child(4) {
-    border-radius: 0 !important;
-    border-top-right-radius: 70px !important;
-    border-bottom-left-radius: 70px !important;
-    margin-top: 0px;
-    padding-left: 0 !important;
-    margin-left: 0;
-  }
-  .row-2 div:nth-child(5) {
-    display: block;
-    margin-left: 44%;
-    margin-top: -49%;
-    border-bottom-left-radius: 50%;
-  }
-  .row-2 div:nth-child(4):hover {
-    border-radius: 0 !important;
-    border-top-left-radius: 70px !important;
-    border-bottom-right-radius: 70px !important;
-  }
   .hr-conrer-heading {
     width: auto;
     margin-left: 0%;

@@ -31,7 +31,7 @@ function Programs() {
                   type="button"
                   className="plus-buttons"
                 >
-                  <img src={plusbutton}/>
+                  <img src={plusbutton} />
                 </button>
               </p>
             </div>

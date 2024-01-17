@@ -1,20 +1,24 @@
-.table {
-  border: 1px solid rgba(0, 0, 0, 0.13) !important;
+.is-table {
+  th {
+    font-size: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #667085 !important;
+    font-weight: 500;
+    font-family: "Open Sans", sans-serif;
+    background-color: #fcfcfd;
+  }
+  td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #667085 !important;
+    font-weight: 400;
+    font-family: "Open Sans", sans-serif;
+  }
 }
-.table th {
-  font-size: 15px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  text-align: center;
-}
-.table td {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  text-align: center;
-}
+
 .SCA-table {
   padding: 3% 10% 1% 10%;
-  
 }
 .SCA-heading {
   font-size: 25px;
@@ -31,7 +35,7 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .SCA-table  {
+  .SCA-table {
     padding: 3% 3% 1% 3%;
   }
 
