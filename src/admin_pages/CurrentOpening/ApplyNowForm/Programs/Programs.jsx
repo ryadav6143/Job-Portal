@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import "./Programs.css";
+<<<<<<< HEAD
+=======
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faEnvelope,
+  faMobile,
+} from "@fortawesome/free-solid-svg-icons";
+>>>>>>> parent of e8922eb (16-01-2024)
 import plusbutton from "../../../../assets/logos/plus.png"
 function Programs() {
   const [courses, setCourses] = useState([{}]);
@@ -31,7 +40,7 @@ function Programs() {
                   type="button"
                   className="plus-buttons"
                 >
-                  <img src={plusbutton} />
+                  <img src={plusbutton}/>
                 </button>
               </p>
             </div>
@@ -368,7 +377,11 @@ function Programs() {
                   {/* Awards/Recognitions Won, If any*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
+<<<<<<< HEAD
                       <span></span>Awards/Recognitions Won, If any
+=======
+                      <span></span>Membership of Professional Bodies
+>>>>>>> parent of e8922eb (16-01-2024)
                     </label>
                     <input
                       style={{ width: "95%" }}
@@ -387,8 +400,13 @@ function Programs() {
                   {/* Brief Description of Co-curricular and Extra-Curricular Activities*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
+<<<<<<< HEAD
                       <span></span>Brief Description of Co-curricular and Extra-Curricular Activities
                       
+=======
+                      <span></span>Membership of University/Institute/Industry
+                      Bodies
+>>>>>>> parent of e8922eb (16-01-2024)
                     </label>
                     <input
                       style={{ width: "95%" }}
@@ -407,7 +425,11 @@ function Programs() {
                   {/* Any Other Relevant Information You May Like To Furnish Especially About Citation Of Your Research Work*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
+<<<<<<< HEAD
                       <span></span>Any Other Relevant Information You May Like To Furnish Especially About Citation Of Your Research Work
+=======
+                      <span></span>Membership of Professional Bodies
+>>>>>>> parent of e8922eb (16-01-2024)
                     </label>
                     <input
                       style={{ width: "95%" }}
@@ -426,8 +448,13 @@ function Programs() {
                   {/* Period For Joining The Post, If Selected*/}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
+<<<<<<< HEAD
                       <span></span>Period For Joining The Post, If Selected
                      
+=======
+                      <span></span>Membership of University/Institute/Industry
+                      Bodies
+>>>>>>> parent of e8922eb (16-01-2024)
                     </label>
                     <input
                       style={{ width: "95%" }}

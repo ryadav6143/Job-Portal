@@ -86,6 +86,7 @@ function FAQ() {
         <div className="illustrations"></div>
 
         <div className="my-section">
+          <p className="faq-heading">FAQ's</p>
           {sections.map((section, index) => (
             <div key={index}>
               <details>

@@ -20,7 +20,7 @@ const steps = ["", "", ""];
 function Dropcv() {
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
   const [otpData, setOtpData] = useState("");
-  const [formErrors, setFormErrors] = useState({});
+
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -318,24 +318,20 @@ function Dropcv() {
                 <CurrentExperience
                   formData={formData.personalDetails}
                   setFormData={setFormData}
-                  errors={errors}
-                  setErrors={setErrors} // Make sure you pass setErrors as a prop
-                  setFormErrors={setFormErrors}
                 />
               )}
               {activeStep === 3 && <OTPVerification />}
 
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                {activeStep > 0 && (
-                  <Button
-                    className="prev-btn"
-                    color="inherit"
-                    onClick={handleBack}
-                    sx={{ mr: 1 }}
-                  >
-                    Previous
-                  </Button>
-                )}
+                <Button
+                  className="prev-btn"
+                  color="inherit"
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  sx={{ mr: 1 }}
+                >
+                  Previous
+                </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={handleNext} className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}

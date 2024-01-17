@@ -150,21 +150,11 @@ function InterviewSchedule() {
         </div>
         <div>{componentToShow}</div>
         <div className="notes">
-          <p>
-            NOTE :- <span> {note}</span>
-          </p>
-          <p>
-            Reporting Time :- <span>{repTime}</span>
-          </p>
-          <p>
-            AMVenue :- <span>{venue}</span>
-          </p>
-          <p>
-            Contact Number :- <span>{contactNo}</span>
-          </p>
-          <p>
-            Facilities :- <span>{facalities}</span>{" "}
-          </p>
+          <p>NOTE :- {note}</p>
+          <p>Reporting Time :- {repTime}</p>
+          <p>AMVenue :-{venue}</p>
+          <p>Contact Number :- {contactNo}</p>
+          <p>Facilities :- {facalities} </p>
           <p>Salary Shall not be constraint for deserving condidates.</p>
         </div>
       </div>

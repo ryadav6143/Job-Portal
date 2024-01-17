@@ -1,4 +1,6 @@
-
+.table {
+  border: 1px solid rgba(0, 0, 0, 0.13) !important;
+}
 .table th {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -6,7 +8,7 @@
 .table td {
   padding-top: 15px;
   padding-bottom: 15px;
- 
+  text-align: center;
 }
 .SCTEC-table {
   padding: 3% 10% 1% 10%;

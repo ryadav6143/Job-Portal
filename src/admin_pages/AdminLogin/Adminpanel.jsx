@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Logout from "./Logout/Logout";
 import Login from "./Login/Login";
-
 import "./Adminpanel.css";
 
 function Adminpanel() {

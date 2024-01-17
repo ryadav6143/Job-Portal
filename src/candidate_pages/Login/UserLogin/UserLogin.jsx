@@ -1,70 +1,27 @@
 import React, { useState } from "react";
+import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../../assets/logos/medi-logo.png";
-import { useNavigate } from "react-router-dom";
+import logo from "../../../assets/logos/logo.png";
+import "./UserLogin.css";
 
-function UserLogin() {
-  const navigate = useNavigate();
+function UserLogin({ handleLogin }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  React.useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
-    const storedPassword = localStorage.getItem("password");
-
-    if (storedUsername && storedPassword) {
-      setFormData({
-        username: storedUsername,
-        password: storedPassword,
-      });
-    }
-  }, []);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleTogglePassword = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
-  };
-
-  const handleSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    // Add your authentication logic here (e.g., call an API)
-    // For demo purposes, let's assume a simple check
-    const actualUsername = "user"; // Replace with the actual username
-    const actualPassword = "user"; // Replace with the actual password
-
-    if (
-      formData.username === actualUsername &&
-      formData.password === actualPassword
-    ) {
-      // Save username and password to localStorage
-      localStorage.setItem("username", formData.username);
-      localStorage.setItem("password", formData.password);
-
-      // Successful login, navigate to the dashboard
-      try {
-        navigate("/dashboard");
-      } catch (error) {
-        console.error("Error navigating to /dashboard:", error);
-      }
-      
+    if (username === "user" && password === "user") {
+      handleLogin(); // Ensure handleLogin is called as a function
+      localStorage.setItem("isLoggedIn", true);
     } else {
-      // Display an error message or handle unsuccessful login
-      console.log("Invalid credentials");
+      alert("Invalid credentials");
     }
+  };
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
   };
   return (
     <>
@@ -73,17 +30,18 @@ function UserLogin() {
           <img className="logo-img" src={logo} />
         </div>
         <div style={{ textAlign: "center" }}>
-          <p className="login-content"> LOGIN TO PORTFOLIO</p>
+          <p className="login-content"> User Login Panel</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="login-form">
-          <label htmlFor="username">Email:</label>
+        <form onSubmit={handleFormSubmit} className="login-form">
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
+            name=""
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
           />
 
           <label htmlFor="password">Password:</label>
@@ -91,17 +49,13 @@ function UserLogin() {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
+              name=""
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
               className="password-input"
             />
-            <div>
-              <a className="reset-pass" type="submit">
-                Forget Password?
-              </a>
-            </div>
-            <span className="password-toggle1" onClick={handleTogglePassword}>
+            <span className="password-toggle" onClick={handleTogglePassword}>
               <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
             </span>
           </div>

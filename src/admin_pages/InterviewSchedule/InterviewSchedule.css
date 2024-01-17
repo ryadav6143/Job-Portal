@@ -66,7 +66,6 @@
   font-family: "Open Sans", sans-serif;
   margin-left: 15%;
   margin-top: 10%;
-  margin-bottom: 10%;
   ul {
     list-style: none;
     margin: auto;
@@ -88,7 +87,33 @@
     margin-right: 12px;
   }
 }
-
+.table {
+  border: 1px solid rgba(0, 0, 0, 0.13) !important;
+}
+.table th {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.table td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.is-academic-table {
+  padding: 3% 10% 1% 10%;
+}
+.is-table-heading {
+  font-size: 25px;
+  font-family: "Open Sans", sans-serif;
+  color: #901626;
+  font-weight: 600;
+}
+.table-des {
+  margin-top: -15px;
+  margin-bottom: 50px;
+  font-size: 20px;
+  font-family: "Open Sans", sans-serif;
+  color: rgba(0, 0, 0, 0.725);
+}
 .notes {
   margin-top: 2%;
   margin-left: 10%;
@@ -97,30 +122,13 @@
   font-family: "Open Sans", sans-serif;
   color: rgba(0, 0, 0, 0.615);
   font-weight: 600;
-  span {
-    font-weight: 400;
-  }
 }
 @media only screen and (max-width: 767px) {
   .is-header {
     text-align: left;
     display: none;
   }
-  .is-background {
-    background: radial-gradient(
-        96.31% 96.31% at 54.31% 100%,
-        rgba(0, 0, 0, 0.6) 0%,
-        rgba(0, 0, 0, 0) 100%
-      ),
-      url("../../assets/images/Background2.JPG");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    text-align: center;
-    padding-top: 300px;
-    padding-bottom: 300px;
-  }
-  .header-item div {
+  .row div {
     padding-bottom: 15px;
   }
   .is-header {
