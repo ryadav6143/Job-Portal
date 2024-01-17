@@ -1,77 +1,50 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "./UserExperience.css";
 
-function UserExperience() {
+function UserExperience({ formValues, setFormValues }) {
 
-
-  const [allExperience, setallExperience] = useState({
-    experiences: [
-      {
-        company_experience_name: '',
-        designation: '',
-        gross_pay: '',
-        exp_work_from: '',
-        exp_work_to: ''
+  const handleAddExperience = (e) => {
+    e.preventDefault();
+    setFormValues(prevExperience => ({
+      UserDetails: {
+        ...prevExperience.UserDetails,
+        experiences: [...prevExperience.UserDetails.experiences, {
+          company_experience_name: '',
+          designation: '',
+          gross_pay: '',
+          exp_work_from: '',
+          exp_work_to: ''
+        }]
       }
-    ],
-    total_academic_exp: '',
-    total_industrial_exp: '',
-    accommodation: '',
-    transportation: '',
-    food: '',
-    mediclaim: '',
-    others: ''
-  });
-
-  const handleAddExperience = () => {
-    setallExperience(prevExperience => ({
-      ...prevExperience,
-      experiences: [...prevExperience.experiences, {
-        company_experience_name: '',
-        designation: '',
-        gross_pay: '',
-        exp_work_from: '',
-        exp_work_to: ''
-      }]
     }));
   };
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
-    setallExperience(prevExperience => ({
-      ...prevExperience,
-      experiences: prevExperience.experiences.map((experience, i) =>
-        i === index ? { ...experience, [name]: value } : experience
-      )
+    setFormValues(prevExperience => ({
+      UserDetails: {
+        ...prevExperience.UserDetails,
+        experiences: prevExperience.UserDetails.experiences.map((experience, i) =>
+          i === index ? { ...experience, [name]: value } : experience
+        )
+      }
     }));
   };
- 
+
   const handleTotalExperienceChange = (event) => {
     const { name, value } = event.target;
-    setallExperience(prevExperience => ({
-      ...prevExperience,
-      [name]: value
+    setFormValues(prevExperience => ({
+      UserDetails: {
+        ...prevExperience.UserDetails,
+        [name]: value
+      }
     }));
   };
-
-  // const handleOtherBenefitsChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setallExperience(prevExperience => ({
-  //     ...prevExperience,
-  //     [name]: value
-  //   }));
-  // };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Values:', allExperience);
-  };
-
 
 
   return (
     <>
-      <form method="post" onSubmit={handleSubmit}>
+      <form method="post">
         <div className="container">
           <div style={{ marginTop: "20px" }}>
             <div>
@@ -82,7 +55,7 @@ function UserExperience() {
             </div>
 
             {/* Experience */}
-            {allExperience.experiences.map((experience, index) => (
+            {formValues.experiences.map((experience, index) => (
               <div key={index}>
                 <div className="row">
                   <div className="col-md-4">
@@ -199,8 +172,8 @@ function UserExperience() {
                     type="text"
                     placeholder="In Years"
                     name="total_academic_exp"
-                    value={allExperience.total_academic_exp}
-onChange={handleTotalExperienceChange}
+                    value={formValues.total_academic_exp}
+                    onChange={handleTotalExperienceChange}
 
 
                   ></input>
@@ -218,9 +191,9 @@ onChange={handleTotalExperienceChange}
                     type="text"
                     placeholder="In Years"
                     name="total_industrial_exp"
-                    value={allExperience.total_industrial_exp}
+                    value={formValues.total_industrial_exp}
                     onChange={handleTotalExperienceChange}
-                    
+
 
                   ></input>
                 </div>
@@ -244,7 +217,7 @@ onChange={handleTotalExperienceChange}
                     type="text"
                     placeholder=""
                     name="accommodation"
-                    value={allExperience.accommodation}
+                    value={formValues.accommodation}
                     onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
@@ -261,7 +234,7 @@ onChange={handleTotalExperienceChange}
                     type="text"
                     placeholder=""
                     name="transportation"
-                    value={allExperience.transportation}
+                    value={formValues.transportation}
                     onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
@@ -278,7 +251,7 @@ onChange={handleTotalExperienceChange}
                     type="text"
                     placeholder=""
                     name="food"
-                    value={allExperience.food}
+                    value={formValues.food}
                     onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
@@ -297,7 +270,7 @@ onChange={handleTotalExperienceChange}
                     type="text"
                     placeholder=""
                     name="mediclaim"
-                    value={allExperience.mediclaim}
+                    value={formValues.mediclaim}
                     onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
@@ -314,7 +287,7 @@ onChange={handleTotalExperienceChange}
                     type="text"
                     placeholder=""
                     name="others"
-                    value={allExperience.others}
+                    value={formValues.others}
                     onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
@@ -322,9 +295,9 @@ onChange={handleTotalExperienceChange}
             </div>
           </div>
         </div>
-        <button type="submit">
+        {/* <button type="submit">
           Submit
-        </button>
+        </button> */}
       </form>
     </>
   );

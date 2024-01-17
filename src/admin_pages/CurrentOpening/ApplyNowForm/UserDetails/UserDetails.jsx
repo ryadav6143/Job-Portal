@@ -118,16 +118,6 @@ function UserDetails({formValues, setFormValues}) {
     }));
   };
 
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormValues({ 
-  //     ...formValues,
-  //     [name]: value,
-  //   });
-  // };
-
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevValues) => ({

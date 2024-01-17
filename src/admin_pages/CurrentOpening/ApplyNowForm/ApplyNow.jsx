@@ -1,6 +1,5 @@
 import React from "react";
 import "./ApplyNow.css";
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -18,9 +17,11 @@ import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
 import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
 import { useState } from "react";
+import apiService from "../../../Services/ApiServices";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
-  const navigate = useNavigate();
+  const [otpData,setOtpData]=useState({});
+
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -137,15 +138,142 @@ function ApplyNow() {
         stream: '',
       },// educations[8] mein Diploma ka data
     ],
+    experiences: [
+          {
+            company_experience_name: '',
+            designation: '',
+            gross_pay: '',
+            exp_work_from: '',
+            exp_work_to: ''
+          }
+        ],
+        total_academic_exp: '',
+        total_industrial_exp: '',
+        accommodation: '',
+        transportation: '',
+        food: '',
+        mediclaim: '',
+        others: '',
+// --------------------------------------------------------------------
+researches: [{ orcid: '', scopusid: '', researchid: '' }],
+journal_publications: [{
+  journal_publication_year: '',
+  journal_publication_title: '',
+  journal_publication_author: '',
+  journal_publication_index: '',
+  journal_publication_name: '',
+  journal_publication_issn: '',
+  journal_publication_volume: '',
+  journal_publication_issue: ''
+}],
+conference_publications: [{
+  conference_publication_year: '',
+  conference_publication_title: '',
+  conference_publication_author: '',
+  conference_publication_index: '',
+  conference_publication_name: '',
+  conference_publication_issn: '',
+  conference_publication_volume: '',
+  conference_publication_issue: ''
+}],
+patents: [{
+  patent_applicationid: '',
+  patent_application_title: '',
+  patent_application_year: '',
+  patent_granted_by: '',
+  patent_incountry: ''
+}],
+copyrights: [{
+  copyright_applicationid: '',
+  copyright_title: '',
+  copyright_year: '',
+  copyright_granted_by: '',
+  copyright_incountry: '',
 
 
+}],
     
+
+seminar_organised: [{
+  organise_date_from: '',
+  organise_date_to: '',
+  name_of_course: '',
+  sponsered_by: '',
+  participants_number: '',
+  name_of_institute: '',
+  name_of_industry: '',
+  
+}],
+seminar_attend: [{
+  attend_date_from: '',
+  attend_date_to: '',
+  name_of_course: '',
+  sponsered_by: '',
+  
+}],
+other_membership_info: [{
+  member_of_institute_name: '',
+  membership_date_from: '',
+  membership_date_to: '',
+  position_held: '',
+  contribution: ''
+}],
+awards_won:'',
+extra_activities:'',
+any_other_info:'',
+expected_joining_time:'',
+
+reference_person_1:'',
+    reference_person_2:'',
+    ref_org_1:'',
+    ref_org_2:'',
+    ref_person_position_1:'',
+    ref_person_position_2:'',
+    hearing_source_about_us:'',
+    application_purpose:'',
+    ref_person_1_email:'',
+    ref_person_2_email:'',
+    ref_person_1_contact:'',
+    ref_person_2_contact:'',
+    
+
     },
     
   });
+  const [selectedComponent, setSelectedComponent] = useState();
+  const [formValuesToSend, setformValuesToSend] = useState();
 
 
 
+
+  const transferAllData =async ()=>{
+    try {      
+      const formValuesToSend = new formValues();
+        Object.entries(formValues.UserDetails).forEach(([key, value]) => {
+                formValuesToSend.append(key, JSON.stringify(value));      
+      
+               });
+      console.log("formValuesToSend", formValuesToSend);
+      setformValuesToSend(formValuesToSend);
+    } catch (error) {
+      console.error(
+        "Error while posting form data and file:",
+        error.response || error
+      );
+      console.log(error.response);
+    }
+    const otpData={
+      email: formValues.UserDetails.email,
+      contact_1: formValues.UserDetails.contact_1,
+    }
+    setOtpData(otpData)
+    
+    const response = await apiService.generateOTP(otpData);
+    console.log("API Response:", response);
+    setSelectedComponent("OTPVerification");
+  
+  }
+  
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -171,10 +299,16 @@ function ApplyNow() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleVerifivation = () => {
-    // alert("Your CV has been submitted");
-    navigate("/otp-verifivation");
-  };
+
+
+  let componentToShow;
+  switch (selectedComponent) {
+    case "OTPVerification":
+      componentToShow = <OTPVerification otpData={otpData} transferAllData={formValuesToSend} />;
+      break;
+      default:
+        componentToShow=null;
+  }
   return (
     <>
       <Header></Header>
@@ -208,7 +342,7 @@ function ApplyNow() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleVerifivation}>Next</Button>
+                <Button onClick={transferAllData}>Get OTP</Button>
                 {/* Reset butto here  */}
               </Box>
             </React.Fragment>
@@ -216,10 +350,10 @@ function ApplyNow() {
             <React.Fragment>
               {activeStep === 0 && <UserDetails  formValues={formValues.UserDetails} setFormValues={setFormValues}/>}
               {activeStep === 1 && <UserQualification  formValues={formValues.UserDetails} setFormValues={setFormValues}/>}
-              {activeStep === 2 && <UserExperience />}
-              {activeStep === 3 && <ResearchWorks />}
-              {activeStep === 4 && <Programs />}
-              {activeStep === 5 && <Reference />}
+              {activeStep === 2 && <UserExperience formValues={formValues.UserDetails} setFormValues={setFormValues}/>}
+              {activeStep === 3 && <ResearchWorks formValues={formValues.UserDetails} setFormValues={setFormValues}/>}
+              {activeStep === 4 && <Programs formValues={formValues.UserDetails} setFormValues={setFormValues}/>}
+              {activeStep === 5 && <Reference formValues={formValues.UserDetails} setFormValues={setFormValues}/>}
               {activeStep === 6 && <OTPVerification />}
               {activeStep === 7 && <Submitsuccess />}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -241,6 +375,7 @@ function ApplyNow() {
           )}
         </Box>
       </div>
+      <div>{componentToShow}</div>
       <Footers></Footers>
     </>
   );

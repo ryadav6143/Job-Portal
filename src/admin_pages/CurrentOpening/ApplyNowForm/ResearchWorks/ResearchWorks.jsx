@@ -1,63 +1,65 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "./ResearchWorks.css";
 
-function ResearchWorks() {
+function ResearchWorks({formValues, setFormValues}) {
 
-  const [researchData, setResearchData] = useState({
-    researches: [{ orcid: '', scopusid: '', researchid: '' }],
-    journal_publications: [{
-      journal_publication_year: '',
-      journal_publication_title: '',
-      journal_publication_author: '',
-      journal_publication_index: '',
-      journal_publication_name: '',
-      journal_publication_issn: '',
-      journal_publication_volume: '',
-      journal_publication_issue: ''
-    }],
-    conference_publications: [{
-      conference_publication_year: '',
-      conference_publication_title: '',
-      conference_publication_author: '',
-      conference_publication_index: '',
-      conference_publication_name: '',
-      conference_publication_issn: '',
-      conference_publication_volume: '',
-      conference_publication_issue: ''
-    }],
-    patents: [{
-      patent_applicationid: '',
-      patent_application_title: '',
-      patent_application_year: '',
-      patent_granted_by: '',
-      patent_incountry: ''
-    }],
-    copyrights: [{
-      copyright_applicationid: '',
-      copyright_title: '',
-      copyright_year: '',
-      copyright_granted_by: '',
-      copyright_incountry: '',
-
-
-    }]
-  });
+  // const [formValues, setFormValues] = useState({
+  //   researches: [{ orcid: '', scopusid: '', researchid: '' }],
+  //   journal_publications: [{
+  //     journal_publication_year: '',
+  //     journal_publication_title: '',
+  //     journal_publication_author: '',
+  //     journal_publication_index: '',
+  //     journal_publication_name: '',
+  //     journal_publication_issn: '',
+  //     journal_publication_volume: '',
+  //     journal_publication_issue: ''
+  //   }],
+  //   conference_publications: [{
+  //     conference_publication_year: '',
+  //     conference_publication_title: '',
+  //     conference_publication_author: '',
+  //     conference_publication_index: '',
+  //     conference_publication_name: '',
+  //     conference_publication_issn: '',
+  //     conference_publication_volume: '',
+  //     conference_publication_issue: ''
+  //   }],
+  //   patents: [{
+  //     patent_applicationid: '',
+  //     patent_application_title: '',
+  //     patent_application_year: '',
+  //     patent_granted_by: '',
+  //     patent_incountry: ''
+  //   }],
+  //   copyrights: [{
+  //     copyright_applicationid: '',
+  //     copyright_title: '',
+  //     copyright_year: '',
+  //     copyright_granted_by: '',
+  //     copyright_incountry: '',
 
 
-  const handleAddIdentifier = () => {
-    setResearchData((prevData) => ({
-      ...prevData,
-      researches: [...prevData.researches, { orcid: '', scopusid: '', researchid: '' }]
+  //   }]
+  // });
+
+
+  const handleAddIdentifier = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+      ...prevData.UserDetails,
+      researches: [...prevData.UserDetails.researches, { orcid: '', scopusid: '', researchid: '' }]
+      }
     }));
   };
-
-
-
-  const handleAddPublication = () => {
-    setResearchData((prevData) => ({
-      ...prevData,
-      journal_publications: [...prevData.journal_publications, {
+  const handleAddPublication = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+      ...prevData.UserDetails,
+      journal_publications: [...prevData.UserDetails.journal_publications, {
         journal_publication_year: '',
         journal_publication_title: '',
         journal_publication_author: '',
@@ -67,13 +69,16 @@ function ResearchWorks() {
         journal_publication_volume: '',
         journal_publication_issue: ''
       }]
+    }
     }));
   };
 
-  const handleAddConference = () => {
-    setResearchData((prevData) => ({
-      ...prevData,
-      conference_publications: [...prevData.conference_publications, {
+  const handleAddConference = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+      // ...prevData.UserDetails,
+      conference_publications: [...prevData.UserDetails.conference_publications, {
         conference_publication_year: '',
         conference_publication_title: '',
         conference_publication_author: '',
@@ -83,39 +88,70 @@ function ResearchWorks() {
         conference_publication_volume: '',
         conference_publication_issue: ''
       }]
+    }
     }));
   };
-  const handleAddPatent = () => {
-    setResearchData((prevData) => ({
-      ...prevData,
-      patents: [...prevData.patents, {
+  const handleAddPatent = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+      ...prevData.UserDetails,
+      patents: [...prevData.UserDetails.patents, {
         patent_applicationid: '',
         patent_application_title: '',
         patent_application_year: '',
         patent_granted_by: '',
         patent_incountry: ''
       }]
+    }
     }));
   };
-  const handleAddCopyright = () => {
-    setResearchData((prevData) => ({
-      ...prevData,
-      copyrights: [...prevData.copyrights, {
+  const handleAddCopyright = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+      ...prevData.UserDetails,
+      copyrights: [...prevData.UserDetails.copyrights, {
         copyright_applicationid: '',
         copyright_title: '',
         copyright_year: '',
         copyright_granted_by: '',
         copyright_incountry: ''
       }]
+    }
     }));
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Values:', researchData);
+
+  const handleInputJournalChange = (e, index, field) => {
+    const newJournalPublications = [...formValues.journal_publications];
+    newJournalPublications[index][field] = e.target.value;
+    setFormValues((prevData) => ({ ...prevData, journal_publications: newJournalPublications }));
   };
+  const handleInputConferenceChange = (e, index, field) => {
+    const newConferencePublications = [...formValues.conference_publications];
+    newConferencePublications[index][field] = e.target.value;
+    setFormValues((prevData) => ({
+      UserDetails: {
+       ...prevData.UserDetails, conference_publications: newConferencePublications 
+      }
+      }));
+  };
+
+  const handleInputPatentChange = (e, index, field) => {
+    const newPatents = [...formValues.patents];
+    newPatents[index][field] = e.target.value;
+    setFormValues((prevData) => ({ UserDetails: { ...prevData.UserDetails, patents: newPatents} }));
+  };
+  const handleInputCopyrightChange = (e, index, field) => {
+    const newCopyrights = [...formValues.copyrights];
+    newCopyrights[index][field] = e.target.value;
+    setFormValues((prevData) => ({ UserDetails: { ...prevData.UserDetails, copyrights: newCopyrights} }));
+  };
+
+ 
   return (
 
-    <form method="post" onSubmit={handleSubmit}>
+    <form method="post" >
       <div className="container">
         <div style={{ marginTop: "20px" }}>
           <div>
@@ -134,7 +170,7 @@ function ResearchWorks() {
             </p>
           </div>
 
-          {researchData.researches.map((researches, index) => (
+          {formValues.researches.map((researches, index) => (
             <div key={index}>
               <div className="row">
                 <div className="col-md-4">
@@ -146,9 +182,9 @@ function ResearchWorks() {
                     {/* <select name="orcid" className="UD-set-dropdown"
                       value={identifier.orcid}
                       onChange={(e) => {
-                        const newIdentifiers = [...researchData.identifiers];
+                        const newIdentifiers = [...formValues.identifiers];
                         newIdentifiers[index].orcid = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, identifiers: newIdentifiers }));
+                        setFormValues((prevData) => ({ ...prevData, identifiers: newIdentifiers }));
                       }}
                     >
 
@@ -165,9 +201,9 @@ function ResearchWorks() {
                       id=""
                       value={researches.orcid}
                       onChange={(e) => {
-                        const newresearches = [...researchData.researches];
+                        const newresearches = [...formValues.researches];
                         newresearches[index].orcid = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, researches: newresearches }));
+                        setFormValues((prevData) => ({ ...prevData, researches: newresearches }));
                       }}
                     ></input>
 
@@ -188,9 +224,9 @@ function ResearchWorks() {
                       id=""
                       value={researches.scopusid}
                       onChange={(e) => {
-                        const newresearches = [...researchData.researches];
+                        const newresearches = [...formValues.researches];
                         newresearches[index].scopusid = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, researches: newresearches }));
+                        setFormValues((prevData) => ({ ...prevData, researches: newresearches }));
                       }}
                     ></input>
                   </div>
@@ -210,9 +246,9 @@ function ResearchWorks() {
                       id=""
                       value={researches.researchid}
                       onChange={(e) => {
-                        const newresearches = [...researchData.researches];
+                        const newresearches = [...formValues.researches];
                         newresearches[index].researchid = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, researches: newresearches }));
+                        setFormValues((prevData) => ({ ...prevData, researches: newresearches }));
                       }}
                     ></input>
                   </div>
@@ -236,7 +272,7 @@ function ResearchWorks() {
             </p>
           </div>
 
-          {researchData.journal_publications.map((journal_publications, index) => (
+          {formValues.journal_publications.map((journal_publications, index) => (
             <div key={index}>
               <div className="row">
                 <div className="col-md-4">
@@ -252,11 +288,7 @@ function ResearchWorks() {
                       name="journal_publication_year"
                       id=""
                       value={journal_publications.journal_publication_year}
-                      onChange={(e) => {
-                        const newjournal_publications = [...researchData.journal_publications];
-                        newjournal_publications[index].journal_publication_year = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, journal_publications: newjournal_publications }));
-                      }}
+                      onChange={(e) => handleInputJournalChange(e, index, 'journal_publication_year')}
                     ></input>
                   </div>
                 </div>
@@ -274,11 +306,7 @@ function ResearchWorks() {
                       name="journal_publication_title"
                       id=""
                       value={journal_publications.journal_publication_title}
-                      onChange={(e) => {
-                        const newjournal_publications = [...researchData.journal_publications];
-                        newjournal_publications[index].journal_publication_title = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, journal_publications: newjournal_publications }));
-                      }}
+                      onChange={(e) => handleInputJournalChange(e, index, 'journal_publication_title')}
                     ></input>
                   </div>
                 </div>
@@ -298,11 +326,7 @@ function ResearchWorks() {
                       name="journal_publication_author"
                       id=""
                       value={journal_publications.journal_publication_author}
-                      onChange={(e) => {
-                        const newjournal_publications = [...researchData.journal_publications];
-                        newjournal_publications[index].journal_publication_author = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, journal_publications: newjournal_publications }));
-                      }}
+                      onChange={(e) => handleInputJournalChange(e, index, 'journal_publication_author')}
                     ></input>
                   </div>
                 </div>
@@ -322,11 +346,7 @@ function ResearchWorks() {
                       name="journal_publication_index"
                       id=""
                       value={journal_publications.journal_publication_index}
-                      onChange={(e) => {
-                        const newjournal_publications = [...researchData.journal_publications];
-                        newjournal_publications[index].journal_publication_index = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, journal_publications: newjournal_publications }));
-                      }}
+                      onChange={(e) => handleInputJournalChange(e, index, 'journal_publication_index')}
                     ></input>
                   </div>
                 </div>
@@ -344,11 +364,7 @@ function ResearchWorks() {
                       name="journal_publication_name"
                       id=""
                       value={journal_publications.journal_publication_name}
-                      onChange={(e) => {
-                        const newjournal_publications = [...researchData.journal_publications];
-                        newjournal_publications[index].journal_publication_name = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, journal_publications: newjournal_publications }));
-                      }}
+                      onChange={(e) => handleInputJournalChange(e, index, 'journal_publication_name')}
                     ></input>
                   </div>
                 </div>
@@ -366,11 +382,7 @@ function ResearchWorks() {
                       name="journal_publication_issn"
                       id=""
                       value={journal_publications.journal_publication_issn}
-                      onChange={(e) => {
-                        const newjournal_publications = [...researchData.journal_publications];
-                        newjournal_publications[index].journal_publication_issn = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, journal_publications: newjournal_publications }));
-                      }}
+                      onChange={(e) => handleInputJournalChange(e, index, 'journal_publication_issn')}
                     ></input>
                   </div>
                 </div>
@@ -390,11 +402,7 @@ function ResearchWorks() {
                       name="journal_publication_volume"
                       id=""
                       value={journal_publications.journal_publication_volume}
-                      onChange={(e) => {
-                        const newjournal_publications = [...researchData.journal_publications];
-                        newjournal_publications[index].journal_publication_volume = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, journal_publications: newjournal_publications }));
-                      }}
+                      onChange={(e) => handleInputJournalChange(e, index, 'journal_publication_volume')}
                     ></input>
                   </div>
                 </div>
@@ -412,11 +420,7 @@ function ResearchWorks() {
                       name="journal_publication_issue"
                       id=""
                       value={journal_publications.journal_publication_issue}
-                      onChange={(e) => {
-                        const newjournal_publications = [...researchData.journal_publications];
-                        newjournal_publications[index].journal_publication_issue = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, journal_publications: newjournal_publications }));
-                      }}
+                      onChange={(e) => handleInputJournalChange(e, index, 'journal_publication_issue')}
                     ></input>
                   </div>
                 </div>
@@ -439,7 +443,7 @@ function ResearchWorks() {
             </p>
           </div>
 
-          {researchData.conference_publications.map((conference_publications, index) => (
+          {formValues.conference_publications.map((conference_publications, index) => (
             <div key={index}>
               <div className="row">
                 <div className="col-md-4">
@@ -454,11 +458,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="conference_publication_year"
                       value={conference_publications.conference_publication_year}
-                      onChange={(e) => {
-                        const newconference_publications = [...researchData.conference_publications];
-                        newconference_publications[index].conference_publication_year = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, conference_publications: newconference_publications }));
-                      }}
+                      onChange={(e) => handleInputConferenceChange(e, index, 'conference_publication_year')}
                     />
                   </div>
                 </div>
@@ -475,11 +475,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="conference_publication_title"
                       value={conference_publications.conference_publication_title}
-                      onChange={(e) => {
-                        const newconference_publications = [...researchData.conference_publications];
-                        newconference_publications[index].conference_publication_title = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, conference_publications: newconference_publications }));
-                      }}
+                      onChange={(e) => handleInputConferenceChange(e, index, 'conference_publication_title')}
                     />
                   </div>
                 </div>
@@ -496,11 +492,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="conference_publication_author"
                       value={conference_publications.conference_publication_author}
-                      onChange={(e) => {
-                        const newconference_publications = [...researchData.conference_publications];
-                        newconference_publications[index].conference_publication_author = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, conference_publications: newconference_publications }));
-                      }}
+                      onChange={(e) => handleInputConferenceChange(e, index, 'conference_publication_author')}
                     />
                   </div>
                 </div>
@@ -523,11 +515,7 @@ function ResearchWorks() {
                       name="conference_publication_index"
                       id=""
                       value={conference_publications.conference_publication_index}
-                      onChange={(e) => {
-                        const newconference_publications = [...researchData.conference_publications];
-                        newconference_publications[index].conference_publication_index = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, conference_publications: newconference_publications }));
-                      }}
+                      onChange={(e) => handleInputConferenceChange(e, index, 'conference_publication_index')}
                     ></input>
                   </div>
                 </div>
@@ -545,11 +533,7 @@ function ResearchWorks() {
                       name="conference_publication_name"
                       id=""
                       value={conference_publications.conference_publication_name}
-                      onChange={(e) => {
-                        const newconference_publications = [...researchData.conference_publications];
-                        newconference_publications[index].conference_publication_name = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, conference_publications: newconference_publications }));
-                      }}
+                      onChange={(e) => handleInputConferenceChange(e, index, 'conference_publication_name')}
                     ></input>
                   </div>
                 </div>
@@ -567,11 +551,7 @@ function ResearchWorks() {
                       name="conference_publication_issn"
                       id=""
                       value={conference_publications.conference_publication_issn}
-                      onChange={(e) => {
-                        const newconference_publications = [...researchData.conference_publications];
-                        newconference_publications[index].conference_publication_issn = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, conference_publications: newconference_publications }));
-                      }}
+                      onChange={(e) => handleInputConferenceChange(e, index, 'conference_publication_issn')}
                     ></input>
                   </div>
                 </div>
@@ -590,11 +570,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="conference_publication_volume"
                       value={conference_publications.conference_publication_volume}
-                      onChange={(e) => {
-                        const newconference_publications = [...researchData.conference_publications];
-                        newconference_publications[index].conference_publication_volume = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, conference_publications: newconference_publications }));
-                      }}
+                      onChange={(e) => handleInputConferenceChange(e, index, 'conference_publication_volume')}
                     />
                   </div>
                 </div>
@@ -611,11 +587,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="conference_publication_issue"
                       value={conference_publications.conference_publication_issue}
-                      onChange={(e) => {
-                        const newconference_publications = [...researchData.conference_publications];
-                        newconference_publications[index].conference_publication_issue = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, conference_publications: newconference_publications }));
-                      }}
+                      onChange={(e) => handleInputConferenceChange(e, index, 'conference_publication_issue')}
                     />
                   </div>
                 </div>
@@ -639,7 +611,7 @@ function ResearchWorks() {
             </p>
           </div>
 
-          {researchData.patents.map((patent, index) => (
+          {formValues.patents.map((patent, index) => (
             <div key={index}>
               <div className="row">
                 <div className="col-md-4">
@@ -654,11 +626,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="patent_applicationid"
                       value={patent.patent_applicationid}
-                      onChange={(e) => {
-                        const newPatents = [...researchData.patents];
-                        newPatents[index].patent_applicationid = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, patents: newPatents }));
-                      }}
+                      onChange={(e) => handleInputPatentChange(e, index, 'patent_applicationid')}
                     />
                   </div>
                 </div>
@@ -675,11 +643,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="patent_application_title"
                       value={patent.patent_application_title}
-                      onChange={(e) => {
-                        const newPatents = [...researchData.patents];
-                        newPatents[index].patent_application_title = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, patents: newPatents }));
-                      }}
+                      onChange={(e) => handleInputPatentChange(e, index, 'patent_application_title')}
                     />
                   </div>
                 </div>
@@ -696,11 +660,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="patent_application_year"
                       value={patent.patent_application_year}
-                      onChange={(e) => {
-                        const newPatents = [...researchData.patents];
-                        newPatents[index].patent_application_year = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, patents: newPatents }));
-                      }}
+                      onChange={(e) => handleInputPatentChange(e, index, 'patent_application_year')}
                     />
                   </div>
                 </div>
@@ -719,11 +679,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="patent_granted_by"
                       value={patent.patent_granted_by}
-                      onChange={(e) => {
-                        const newPatents = [...researchData.patents];
-                        newPatents[index].patent_granted_by = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, patents: newPatents }));
-                      }}
+                      onChange={(e) => handleInputPatentChange(e, index, 'patent_granted_by')}
                     />
                   </div>
                 </div>
@@ -740,11 +696,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="patent_incountry"
                       value={patent.patent_incountry}
-                      onChange={(e) => {
-                        const newPatents = [...researchData.patents];
-                        newPatents[index].patent_incountry = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, patents: newPatents }));
-                      }}
+                      onChange={(e) => handleInputPatentChange(e, index, 'patent_incountry')}
                     />
                   </div>
                 </div>
@@ -768,7 +720,7 @@ function ResearchWorks() {
             </p>
           </div>
 
-          {researchData.copyrights.map((copyright, index) => (
+          {formValues.copyrights.map((copyright, index) => (
             <div key={index}>
               <div className="row">
                 <div className="col-md-4">
@@ -783,11 +735,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="copyright_applicationid"
                       value={copyright.copyright_applicationid}
-                      onChange={(e) => {
-                        const newCopyrights = [...researchData.copyrights];
-                        newCopyrights[index].copyright_applicationid = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, copyrights: newCopyrights }));
-                      }}
+                      onChange={(e) => handleInputCopyrightChange(e, index, 'copyright_applicationid')}
                     />
                   </div>
                 </div>
@@ -804,11 +752,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="copyright_title"
                       value={copyright.copyright_title}
-                      onChange={(e) => {
-                        const newCopyrights = [...researchData.copyrights];
-                        newCopyrights[index].copyright_title = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, copyrights: newCopyrights }));
-                      }}
+                      onChange={(e) => handleInputCopyrightChange(e, index, 'copyright_title')}
                     />
                   </div>
                 </div>
@@ -825,11 +769,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="copyright_year"
                       value={copyright.copyright_year}
-                      onChange={(e) => {
-                        const newCopyrights = [...researchData.copyrights];
-                        newCopyrights[index].copyright_year = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, copyrights: newCopyrights }));
-                      }}
+                      onChange={(e) => handleInputCopyrightChange(e, index, 'copyright_year')}
                     />
                   </div>
                 </div>
@@ -848,11 +788,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="copyright_granted_by"
                       value={copyright.copyright_granted_by}
-                      onChange={(e) => {
-                        const newCopyrights = [...researchData.copyrights];
-                        newCopyrights[index].copyright_granted_by = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, copyrights: newCopyrights }));
-                      }}
+                      onChange={(e) => handleInputCopyrightChange(e, index, 'copyright_granted_by')}
                     />
                   </div>
                 </div>
@@ -869,11 +805,7 @@ function ResearchWorks() {
                       placeholder=" "
                       name="copyright_incountry"
                       value={copyright.copyright_incountry}
-                      onChange={(e) => {
-                        const newCopyrights = [...researchData.copyrights];
-                        newCopyrights[index].copyright_incountry = e.target.value;
-                        setResearchData((prevData) => ({ ...prevData, copyrights: newCopyrights }));
-                      }}
+                      onChange={(e) => handleInputCopyrightChange(e, index, 'copyright_incountry')}
                     />
                   </div>
                 </div>
@@ -882,9 +814,7 @@ function ResearchWorks() {
           ))}
         </div>
       </div>
-      <button type="submit">
-        Submit
-      </button>
+
 
     </form>
   );

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserQualification.css";
 import apiService from '../../../../Services/ApiServices';
-function UserQualification({formValues, setFormValues}) {
+function UserQualification({ formValues, setFormValues }) {
 
   // const [formValues, setFormValues] = useState({
   //   educations: [
@@ -103,19 +102,7 @@ function UserQualification({formValues, setFormValues}) {
 
   const [countries, setCountries] = useState([]);
 
-  // useEffect(() => {
-  //   fetch('https://countriesnow.space/api/v0.1/countries')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setCountries(data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching countries:', error);
-  //     });
-  // }, []);
-
   useEffect(() => {
-    
     apiService
       .getCountries()
       .then((response) => {
@@ -126,156 +113,143 @@ function UserQualification({formValues, setFormValues}) {
       });
   }, []);
 
-  
-
   const handleHighSchoolChange = (field, value) => {
     setFormValues((prevFormValues) => ({
       UserDetails: {
-      ...prevFormValues.UserDetails,
-      educations: [
-        {
-          ...prevFormValues.UserDetails.educations[0],
-          [field]: value,
+        ...prevFormValues.UserDetails,
+        educations: [
+          {
+            ...prevFormValues.UserDetails.educations[0],
+            [field]: value,
 
-        },
-        ...prevFormValues.UserDetails.educations.slice(1),
-      ],
-    }
+          },
+          ...prevFormValues.UserDetails.educations.slice(1),
+        ],
+      }
     }));
   };
   const handleHigherSecondaryChange = (field, value) => {
     setFormValues((prevFormValues) => ({
       UserDetails: {
-      ...prevFormValues.UserDetails,
-      educations: [
-        ...prevFormValues.UserDetails.educations.slice(0, 1),
-        {
-          ...prevFormValues.UserDetails.educations[1], // Higher Secondary ke data ko update karo
-          [field]: value,
-        },
-        ...prevFormValues.UserDetails.educations.slice(2), // Baaki ke education categories rehne do
-      ],
-    }
+        ...prevFormValues.UserDetails,
+        educations: [
+          ...prevFormValues.UserDetails.educations.slice(0, 1),
+          {
+            ...prevFormValues.UserDetails.educations[1], // Higher Secondary ke data ko update karo
+            [field]: value,
+          },
+          ...prevFormValues.UserDetails.educations.slice(2), // Baaki ke education categories rehne do
+        ],
+      }
     }));
   };
   const handleGraduationChange = (field, value) => {
     setFormValues((prevFormValues) => ({
       UserDetails: {
-      ...prevFormValues.UserDetails,
-      educations: [
-        ...prevFormValues.UserDetails.educations.slice(0, 2), // High School and Higher Secondary ke data rehne do
-        {
-          ...prevFormValues.UserDetails.educations[2], // Graduation ke data ko update karo
-          [field]: value,
-        },
-        ...prevFormValues.UserDetails.educations.slice(3), // Baaki ke education categories rehne do
-      ],
-    }
+        ...prevFormValues.UserDetails,
+        educations: [
+          ...prevFormValues.UserDetails.educations.slice(0, 2), // High School and Higher Secondary ke data rehne do
+          {
+            ...prevFormValues.UserDetails.educations[2], // Graduation ke data ko update karo
+            [field]: value,
+          },
+          ...prevFormValues.UserDetails.educations.slice(3), // Baaki ke education categories rehne do
+        ],
+      }
     }));
   };
   const handlePostGraduationChange = (field, value) => {
     setFormValues((prevFormValues) => ({
       UserDetails: {
-      ...prevFormValues.UserDetails,
-      educations: [
-        ...prevFormValues.UserDetails.educations.slice(0, 3), // High School, Higher Secondary, and Graduation ke data rehne do
-        {
-          ...prevFormValues.UserDetails.educations[3], // PostGraduation ke data ko update karo
-          [field]: value,
-        },
-        ...prevFormValues.UserDetails.educations.slice(4), // Baaki ke education categories rehne do
-      ],
-    }
+        ...prevFormValues.UserDetails,
+        educations: [
+          ...prevFormValues.UserDetails.educations.slice(0, 3), // High School, Higher Secondary, and Graduation ke data rehne do
+          {
+            ...prevFormValues.UserDetails.educations[3], // PostGraduation ke data ko update karo
+            [field]: value,
+          },
+          ...prevFormValues.UserDetails.educations.slice(4), // Baaki ke education categories rehne do
+        ],
+      }
     }));
   };
   const handleMPHILChange = (field, value) => {
     setFormValues((prevFormValues) => ({
       UserDetails: {
-      ...prevFormValues.UserDetails,
-      educations: [
-        ...prevFormValues.UserDetails.educations.slice(0, 4), // High School, Higher Secondary, Graduation, and PostGraduation ke data rehne do
-        {
-          ...prevFormValues.UserDetails.educations[4], // MPHIL ke data ko update karo
-          [field]: value,
-        },
-        ...prevFormValues.UserDetails.educations.slice(5), // Baaki ke education categories rehne do
-      ],
-    }
+        ...prevFormValues.UserDetails,
+        educations: [
+          ...prevFormValues.UserDetails.educations.slice(0, 4), // High School, Higher Secondary, Graduation, and PostGraduation ke data rehne do
+          {
+            ...prevFormValues.UserDetails.educations[4], // MPHIL ke data ko update karo
+            [field]: value,
+          },
+          ...prevFormValues.UserDetails.educations.slice(5), // Baaki ke education categories rehne do
+        ],
+      }
     }));
-  
+
   };
   const handlePhdChange = (field, value) => {
     setFormValues((prevFormValues) => ({
       UserDetails: {
-      ...prevFormValues.UserDetails,
-      educations: [
-        ...prevFormValues.UserDetails.educations.slice(0, 5), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
-        {
-          ...prevFormValues.UserDetails.educations[5], // Phd ke data ko update karo
-          [field]: value,
-        },
-        ...prevFormValues.UserDetails.educations.slice(6), // Baaki ke education categories rehne do
-      ],
-    }
+        ...prevFormValues.UserDetails,
+        educations: [
+          ...prevFormValues.UserDetails.educations.slice(0, 5), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
+          {
+            ...prevFormValues.UserDetails.educations[5], // Phd ke data ko update karo
+            [field]: value,
+          },
+          ...prevFormValues.UserDetails.educations.slice(6), // Baaki ke education categories rehne do
+        ],
+      }
     }));
   };
   const handleGateChange = (field, value) => {
     setFormValues((prevFormValues) => ({
       UserDetails: {
-      ...prevFormValues.UserDetails,
-      educations: [
-        ...prevFormValues.UserDetails.educations.slice(0, 6), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
-        {
-          ...prevFormValues.UserDetails.educations[6], // Phd ke data ko update karo
-          [field]: value,
+        ...prevFormValues.UserDetails,
+        educations: [
+          ...prevFormValues.UserDetails.educations.slice(0, 6), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
+          {
+            ...prevFormValues.UserDetails.educations[6], // Phd ke data ko update karo
+            [field]: value,
 
-        },
-        ...prevFormValues.UserDetails.educations.slice(7), // Baaki ke education categories rehne do
-      ],
-    }
+          },
+          ...prevFormValues.UserDetails.educations.slice(7), // Baaki ke education categories rehne do
+        ],
+      }
     }));
   };
   const handleNeetChange = (field, value) => {
     setFormValues((prevFormValues) => ({
       UserDetails: {
-      ...prevFormValues.UserDetails,
-      educations: [
-        ...prevFormValues.UserDetails.educations.slice(0, 7), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
-        {
-          ...prevFormValues.UserDetails.educations[7], // Phd ke data ko update karo
-          [field]: value,
-        },
-        ...prevFormValues.UserDetails.educations.slice(8), // Baaki ke education categories rehne do
-      ],
-    }
+        ...prevFormValues.UserDetails,
+        educations: [
+          ...prevFormValues.UserDetails.educations.slice(0, 7), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
+          {
+            ...prevFormValues.UserDetails.educations[7], // Phd ke data ko update karo
+            [field]: value,
+          },
+          ...prevFormValues.UserDetails.educations.slice(8), // Baaki ke education categories rehne do
+        ],
+      }
     }));
   };
   const handleDiplomaChange = (field, value) => {
     setFormValues((prevFormValues) => ({
       UserDetails: {
-      ...prevFormValues.UserDetails,
-      educations: [
-        ...prevFormValues.UserDetails.educations.slice(0, 8), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
-        {
-          ...prevFormValues.UserDetails.educations[8], // Phd ke data ko update karo
-          [field]: value,
-        },
-        ...prevFormValues.UserDetails.educations.slice(9), // Baaki ke education categories rehne do
-      ],
-    }
+        ...prevFormValues.UserDetails,
+        educations: [
+          ...prevFormValues.UserDetails.educations.slice(0, 8), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
+          {
+            ...prevFormValues.UserDetails.educations[8], // Phd ke data ko update karo
+            [field]: value,
+          },
+          ...prevFormValues.UserDetails.educations.slice(9), // Baaki ke education categories rehne do
+        ],
+      }
     }));
   };
-
-
-
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   console.log('Form formValues:', formValues);
-  // };
-
-
 
   return (
     <>
@@ -610,10 +584,10 @@ function UserQualification({formValues, setFormValues}) {
               </div>
 
             </div>
-{/* ----------------------------------------------------------------------- */}
-{/* Diploma */}
+            {/* ----------------------------------------------------------------------- */}
+            {/* Diploma */}
 
-<div>
+            <div>
               <p className='HS-heading'>Diploma</p>
             </div>
             <div className="row" style={{ marginTop: "-30px" }}>
@@ -1495,49 +1469,49 @@ function UserQualification({formValues, setFormValues}) {
               </div>
             </div>
             <div className="row" style={{ marginTop: "-30px" }}>
-          <div className="col-md-12">
-         
-            <div className="UD-form-section">
-              <label className="UD-SetLabel-Name">
-                <span></span>Topic of Research (Post-Doctoral), If Applicable
-              </label>
-              <input
-              style={{width:"95%"}}
-                className="UD-set-input"
-                type="text"
-                placeholder=""
-                name="specialization_area_2"
-                id=""
-                value={formValues.educations[5].specialization_area_2}
-                onChange={(e) => handlePhdChange('specialization_area_2', e.target.value)}
-              ></input>
+              <div className="col-md-12">
+
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>Topic of Research (Post-Doctoral), If Applicable
+                  </label>
+                  <input
+                    style={{ width: "95%" }}
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=""
+                    name="specialization_area_2"
+                    id=""
+                    value={formValues.educations[5].specialization_area_2}
+                    onChange={(e) => handlePhdChange('specialization_area_2', e.target.value)}
+                  ></input>
+                </div>
+              </div>
+
+
             </div>
-          </div>
+
+            <div className="row" style={{ marginTop: "-30px" }}>
+              <div className="col-md-12">
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>Topic of Research (Doctoral), If Applicable
+                  </label>
+                  <input
+                    style={{ width: "95%" }}
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=""
+                    name="specialization_area_3"
+                    id=""
+                    value={formValues.educations[5].specialization_area_3}
+                    onChange={(e) => handlePhdChange('specialization_area_3', e.target.value)}
+                  ></input>
+                </div>
+              </div>
 
 
-        </div>
-
-        <div className="row" style={{ marginTop: "-30px" }}>
-          <div className="col-md-12">           
-            <div className="UD-form-section">
-              <label className="UD-SetLabel-Name">
-                <span></span>Topic of Research (Doctoral), If Applicable
-              </label>
-              <input
-              style={{width:"95%"}}
-                className="UD-set-input"
-                type="text"
-                placeholder=""
-                name="specialization_area_3"
-                id=""
-                value={formValues.educations[5].specialization_area_3}
-                onChange={(e) => handlePhdChange('specialization_area_3', e.target.value)}
-              ></input>
             </div>
-          </div>
-
-
-        </div>
             {/* Qualified Examination*/}
 
             <div>
@@ -1555,7 +1529,7 @@ function UserQualification({formValues, setFormValues}) {
                     id="gateDropdown"
                     name="exam_name"
                     value={formValues.educations[6].exam_name}
-                    onChange={(e) => handleGateChange('exam_name', e.target.value)}        
+                    onChange={(e) => handleGateChange('exam_name', e.target.value)}
                   >
                     <option value="">Select Yes/No</option>
                     <option value="Yes">Yes</option>
@@ -1628,7 +1602,7 @@ function UserQualification({formValues, setFormValues}) {
         </div>
 
 
-       
+
       </form>
     </>
   )
