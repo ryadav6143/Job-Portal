@@ -214,23 +214,6 @@ function UserDetails(errors, setErrors) {
                     <option value="others">Others</option>
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                  {/* {selectedOption === "others" && (
-                    <div>
-                      <label
-                        style={{ marginTop: "20px" }}
-                        className="UD-SetLabel-Name"
-                      >
-                        {" "}
-                        <span>*</span>Please specify
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        value={otherValue}
-                        onChange={handleOtherInputChange}
-                      />
-                    </div>
-                  )} */}
                 </div>
               </div>
             </div>
