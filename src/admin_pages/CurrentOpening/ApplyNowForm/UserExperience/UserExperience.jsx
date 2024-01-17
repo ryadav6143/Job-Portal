@@ -54,13 +54,13 @@ function UserExperience() {
     }));
   };
 
-  const handleOtherBenefitsChange = (event) => {
-    const { name, value } = event.target;
-    setallExperience(prevExperience => ({
-      ...prevExperience,
-      [name]: value
-    }));
-  };
+  // const handleOtherBenefitsChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setallExperience(prevExperience => ({
+  //     ...prevExperience,
+  //     [name]: value
+  //   }));
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();

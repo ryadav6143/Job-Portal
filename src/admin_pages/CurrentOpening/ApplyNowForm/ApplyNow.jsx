@@ -17,7 +17,7 @@ import OTPVerification from "../../DropCV/OTPVerifivation/OTPVerification";
 import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
 import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
-
+import { useState } from "react";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
   const navigate = useNavigate();
@@ -25,11 +25,124 @@ function ApplyNow() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
-  // const [formData, setFormData] = useState({
-  //   AllData: {
-     
-  //   },
-  // });
+  const [formValues, setFormValues] = useState({
+    UserDetails: {
+        email: '',
+    contact_1: '',
+    title_first_name: '',
+    first_name: '',
+    middle_name: '',
+    last_name: '',
+    dob: '',
+    gender: '',
+    religion: '',
+    city: '',
+    cast_category_name: '',
+    marital_status: '',
+    address_1: '',
+    contact_2: '',
+    country: '',
+    state_province: '',
+    applied_post_masters_id: "",
+    nature_of_job: '',
+    department_master_id: '',
+    pin_code: '',
+    educations: [
+      {
+        exam_types_master_id: 7,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        year_end: '',
+        grade_division: '',
+        grade_percent: '',
+      }, // educations[0] mein highSchool ka data
+      {
+        exam_types_master_id: 8,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        year_end: '',
+        grade_division: '',
+        grade_percent: '',
+        stream: '',
+      }, // educations[1] mein higherSecondary ka data
+      {
+        exam_types_master_id: 2,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        degree_types_name: '',
+        year_end: '',
+        grade_percent: '',
+        specialization_area_1: '',
+      }, // educations[2] mein Graduation ka data
+      {
+        exam_types_master_id: 3,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        degree_types_name: '',
+        year_end: '',
+        grade_percent: '',
+        specialization_area_1: '',
+      }, // educations[3] mein PostGraduation ka data
+      {
+        exam_types_master_id: 5,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        degree_types_name: '',
+        year_end: '',
+        grade_percent: '',
+        specialization_area_1: '',
+      }, // educations[4] mein MPHIL ka data
+      {
+        exam_types_master_id: 4,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        degree_types_name: '',
+        year_end: '',
+        grade_percent: '',
+        specialization_area_1: '',
+        specialization_area_2: '',
+        specialization_area_3: '',
+      }, // educations[5] mein Phd ka data
+      {
+        exam_types_master_id: 11,
+
+        year_end: '',
+      }, // educations[6] mein Gate ka data
+      {
+        exam_types_master_id: 9,
+
+        year_end: '',
+      },// educations[7] mein Neet ka data
+      {
+        exam_types_master_id: 1,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        year_end: '',
+        grade_division: '',
+        grade_percent: '',
+        stream: '',
+      },// educations[8] mein Diploma ka data
+    ],
+
+
+    
+    },
+    
+  });
 
 
 
@@ -42,10 +155,12 @@ function ApplyNow() {
   };
 
   const handleNext = () => {
+    console.log("Form formValues:", formValues);
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
+
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -99,8 +214,8 @@ function ApplyNow() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {activeStep === 0 && <UserDetails />}
-              {activeStep === 1 && <UserQualification />}
+              {activeStep === 0 && <UserDetails  formValues={formValues.UserDetails} setFormValues={setFormValues}/>}
+              {activeStep === 1 && <UserQualification  formValues={formValues.UserDetails} setFormValues={setFormValues}/>}
               {activeStep === 2 && <UserExperience />}
               {activeStep === 3 && <ResearchWorks />}
               {activeStep === 4 && <Programs />}

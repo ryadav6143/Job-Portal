@@ -10,7 +10,7 @@ import "./UserDetails.css";
 
 
 import apiService from "../../../../Services/ApiServices";
-function UserDetails() {
+function UserDetails({formValues, setFormValues}) {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState('');
   const [departments, setDepartments] = useState([]);
@@ -18,31 +18,31 @@ function UserDetails() {
   const [maritalStatus, setMaritalStatus] = useState('');
 
 
-  const [formValues, setFormValues] = useState({
-    email: '',
-    contact_1: '',
-    title_first_name: '',
-    first_name: '',
-    middle_name: '',
-    last_name: '',
-    dob: '',
-    gender: '',
-    religion: '',
-    city: '',
-    cast_category_name: '',
-    marital_status: '',
-    address_1: '',
-    contact_2: '',
-    country: '',
-    state_province: '',
-    applied_post_masters_id: "",
-    nature_of_job: '',
-    department_master_id: '',
-    pin_code: '',
+  // const [formValues, setFormValues] = useState({
+  //   email: '',
+  //   contact_1: '',
+  //   title_first_name: '',
+  //   first_name: '',
+  //   middle_name: '',
+  //   last_name: '',
+  //   dob: '',
+  //   gender: '',
+  //   religion: '',
+  //   city: '',
+  //   cast_category_name: '',
+  //   marital_status: '',
+  //   address_1: '',
+  //   contact_2: '',
+  //   country: '',
+  //   state_province: '',
+  //   applied_post_masters_id: "",
+  //   nature_of_job: '',
+  //   department_master_id: '',
+  //   pin_code: '',
 
 
 
-  });
+  // });
 
   useEffect(() => {
     // Fetch data from the API using Axios
@@ -76,9 +76,12 @@ function UserDetails() {
     if (selectedDepartmentObject) {
       setSelectedDepartment(selectedDepartmentObject.id);
       setFormValues((prevValues) => ({
-        ...prevValues,
+        UserDetails: {
+        ...prevValues.UserDetails,
         department_master_id: selectedDepartmentObject.id,
+        }
       }));
+    
     } else {
       console.error('Selected department not found');
     }
@@ -93,8 +96,10 @@ function UserDetails() {
     if (selectedPostObject) {
       setSelectedPost(selectedPostObject.id);
       setFormValues((prevValues) => ({
-        ...prevValues,
+        UserDetails: {
+        ...prevValues.UserDetails,
         applied_post_masters_id: selectedPostObject.id,
+        }
       }));
     } else {
       console.error('Selected post not found');
@@ -106,31 +111,40 @@ function UserDetails() {
     const selectedMaritalStatus = event.target.value;
     setMaritalStatus(selectedMaritalStatus);
     setFormValues((prevValues) => ({
-      ...prevValues,
+      UserDetails: {
+      ...prevValues.UserDetails,
       marital_status: selectedMaritalStatus,
+      }
     }));
   };
 
 
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormValues({ 
+  //     ...formValues,
+  //     [name]: value,
+  //   });
+  // };
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      UserDetails: {
+        ...prevValues.UserDetails,
+        [name]: value,
+      },
+    }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Values:', formValues);
-
-    // You can also perform any additional actions or API calls here
-  };
+  
 
 
   return (
     <>
-      <form method="post" onSubmit={handleSubmit}>
+      <form method="post" >
         <div className="container">
           <div style={{ marginTop: "20px" }}>
             <div>
@@ -598,9 +612,9 @@ function UserDetails() {
             </div>
           </div>
         </div>
-        <button type="submit">
+        {/* <button type="submit">
           Submit
-        </button>
+        </button> */}
       </form>
     </>
   );

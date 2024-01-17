@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import PersonalDeatils from "./PersonalDetails/PersonalDeatils";
 import Qualification from "./Qualification/Qualification";
 import CurrentExperience from "./CurrentExperience/CurrentExperience";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footers";
 import OTPVerification from "./OTPVerifivation/OTPVerification";

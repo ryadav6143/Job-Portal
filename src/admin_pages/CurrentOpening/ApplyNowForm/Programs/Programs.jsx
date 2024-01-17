@@ -188,7 +188,7 @@ function Programs() {
                 name="name_of_course"
                 id=""
                 value={seminar_organised.name_of_course}
-  onChange={(e) => handleOrganisedInputChange(index, 'name_of_course', e.target.value)}
+                onChange={(e) => handleOrganisedInputChange(index, 'name_of_course', e.target.value)}
               ></input>
             </div>
           </div>
@@ -365,7 +365,7 @@ function Programs() {
 
  {/* Other Information*/}
 
- <div>
+          <div>
           <p className="HS-heading">Other Information<button onClick={handleAddother_membership_info} type="button" className="editprofile-plus-button">+</button></p>
         </div>
         {ProgramsData.other_membership_info.map((other_membership_info, index) => (

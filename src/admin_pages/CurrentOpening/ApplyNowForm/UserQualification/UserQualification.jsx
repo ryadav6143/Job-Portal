@@ -6,100 +6,100 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserQualification.css";
 import apiService from '../../../../Services/ApiServices';
-function UserQualification() {
+function UserQualification({formValues, setFormValues}) {
 
-  const [formValues, setFormValues] = useState({
-    educations: [
-      {
-        exam_types_master_id: 7,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        year_end: '',
-        grade_division: '',
-        grade_percent: '',
-      }, // educations[0] mein highSchool ka data
-      {
-        exam_types_master_id: 8,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        year_end: '',
-        grade_division: '',
-        grade_percent: '',
-        stream: '',
-      }, // educations[1] mein higherSecondary ka data
-      {
-        exam_types_master_id: 2,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        degree_types_name: '',
-        year_end: '',
-        grade_percent: '',
-        specialization_area_1: '',
-      }, // educations[2] mein Graduation ka data
-      {
-        exam_types_master_id: 3,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        degree_types_name: '',
-        year_end: '',
-        grade_percent: '',
-        specialization_area_1: '',
-      }, // educations[3] mein PostGraduation ka data
-      {
-        exam_types_master_id: 5,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        degree_types_name: '',
-        year_end: '',
-        grade_percent: '',
-        specialization_area_1: '',
-      }, // educations[4] mein MPHIL ka data
-      {
-        exam_types_master_id: 4,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        degree_types_name: '',
-        year_end: '',
-        grade_percent: '',
-        specialization_area_1: '',
-        specialization_area_2: '',
-        specialization_area_3: '',
-      }, // educations[5] mein Phd ka data
-      {
-        exam_types_master_id: 11,
+  // const [formValues, setFormValues] = useState({
+  //   educations: [
+  //     {
+  //       exam_types_master_id: 7,
+  //       country: '',
+  //       year_start: '',
+  //       institute_name: '',
+  //       board_university_name: '',
+  //       year_end: '',
+  //       grade_division: '',
+  //       grade_percent: '',
+  //     }, // educations[0] mein highSchool ka data
+  //     {
+  //       exam_types_master_id: 8,
+  //       country: '',
+  //       year_start: '',
+  //       institute_name: '',
+  //       board_university_name: '',
+  //       year_end: '',
+  //       grade_division: '',
+  //       grade_percent: '',
+  //       stream: '',
+  //     }, // educations[1] mein higherSecondary ka data
+  //     {
+  //       exam_types_master_id: 2,
+  //       country: '',
+  //       year_start: '',
+  //       institute_name: '',
+  //       board_university_name: '',
+  //       degree_types_name: '',
+  //       year_end: '',
+  //       grade_percent: '',
+  //       specialization_area_1: '',
+  //     }, // educations[2] mein Graduation ka data
+  //     {
+  //       exam_types_master_id: 3,
+  //       country: '',
+  //       year_start: '',
+  //       institute_name: '',
+  //       board_university_name: '',
+  //       degree_types_name: '',
+  //       year_end: '',
+  //       grade_percent: '',
+  //       specialization_area_1: '',
+  //     }, // educations[3] mein PostGraduation ka data
+  //     {
+  //       exam_types_master_id: 5,
+  //       country: '',
+  //       year_start: '',
+  //       institute_name: '',
+  //       board_university_name: '',
+  //       degree_types_name: '',
+  //       year_end: '',
+  //       grade_percent: '',
+  //       specialization_area_1: '',
+  //     }, // educations[4] mein MPHIL ka data
+  //     {
+  //       exam_types_master_id: 4,
+  //       country: '',
+  //       year_start: '',
+  //       institute_name: '',
+  //       board_university_name: '',
+  //       degree_types_name: '',
+  //       year_end: '',
+  //       grade_percent: '',
+  //       specialization_area_1: '',
+  //       specialization_area_2: '',
+  //       specialization_area_3: '',
+  //     }, // educations[5] mein Phd ka data
+  //     {
+  //       exam_types_master_id: 11,
 
-        year_end: '',
-      }, // educations[6] mein Gate ka data
-      {
-        exam_types_master_id: 9,
+  //       year_end: '',
+  //     }, // educations[6] mein Gate ka data
+  //     {
+  //       exam_types_master_id: 9,
 
-        year_end: '',
-      },// educations[7] mein Neet ka data
-      {
-        exam_types_master_id: 1,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        year_end: '',
-        grade_division: '',
-        grade_percent: '',
-        stream: '',
-      },// educations[8] mein Diploma ka data
-    ],
-  });
+  //       year_end: '',
+  //     },// educations[7] mein Neet ka data
+  //     {
+  //       exam_types_master_id: 1,
+  //       country: '',
+  //       year_start: '',
+  //       institute_name: '',
+  //       board_university_name: '',
+  //       year_end: '',
+  //       grade_division: '',
+  //       grade_percent: '',
+  //       stream: '',
+  //     },// educations[8] mein Diploma ka data
+  //   ],
+  // });
 
   const [countries, setCountries] = useState([]);
 
@@ -130,137 +130,156 @@ function UserQualification() {
 
   const handleHighSchoolChange = (field, value) => {
     setFormValues((prevFormValues) => ({
-      ...prevFormValues,
+      UserDetails: {
+      ...prevFormValues.UserDetails,
       educations: [
         {
-          ...prevFormValues.educations[0],
+          ...prevFormValues.UserDetails.educations[0],
           [field]: value,
 
         },
-        ...prevFormValues.educations.slice(1),
+        ...prevFormValues.UserDetails.educations.slice(1),
       ],
+    }
     }));
   };
   const handleHigherSecondaryChange = (field, value) => {
     setFormValues((prevFormValues) => ({
-      ...prevFormValues,
+      UserDetails: {
+      ...prevFormValues.UserDetails,
       educations: [
-        ...prevFormValues.educations.slice(0, 1),
+        ...prevFormValues.UserDetails.educations.slice(0, 1),
         {
-          ...prevFormValues.educations[1], // Higher Secondary ke data ko update karo
+          ...prevFormValues.UserDetails.educations[1], // Higher Secondary ke data ko update karo
           [field]: value,
         },
-        ...prevFormValues.educations.slice(2), // Baaki ke education categories rehne do
+        ...prevFormValues.UserDetails.educations.slice(2), // Baaki ke education categories rehne do
       ],
+    }
     }));
   };
   const handleGraduationChange = (field, value) => {
     setFormValues((prevFormValues) => ({
-      ...prevFormValues,
+      UserDetails: {
+      ...prevFormValues.UserDetails,
       educations: [
-        ...prevFormValues.educations.slice(0, 2), // High School and Higher Secondary ke data rehne do
+        ...prevFormValues.UserDetails.educations.slice(0, 2), // High School and Higher Secondary ke data rehne do
         {
-          ...prevFormValues.educations[2], // Graduation ke data ko update karo
+          ...prevFormValues.UserDetails.educations[2], // Graduation ke data ko update karo
           [field]: value,
         },
-        ...prevFormValues.educations.slice(3), // Baaki ke education categories rehne do
+        ...prevFormValues.UserDetails.educations.slice(3), // Baaki ke education categories rehne do
       ],
+    }
     }));
   };
   const handlePostGraduationChange = (field, value) => {
     setFormValues((prevFormValues) => ({
-      ...prevFormValues,
+      UserDetails: {
+      ...prevFormValues.UserDetails,
       educations: [
-        ...prevFormValues.educations.slice(0, 3), // High School, Higher Secondary, and Graduation ke data rehne do
+        ...prevFormValues.UserDetails.educations.slice(0, 3), // High School, Higher Secondary, and Graduation ke data rehne do
         {
-          ...prevFormValues.educations[3], // PostGraduation ke data ko update karo
+          ...prevFormValues.UserDetails.educations[3], // PostGraduation ke data ko update karo
           [field]: value,
         },
-        ...prevFormValues.educations.slice(4), // Baaki ke education categories rehne do
+        ...prevFormValues.UserDetails.educations.slice(4), // Baaki ke education categories rehne do
       ],
+    }
     }));
   };
   const handleMPHILChange = (field, value) => {
     setFormValues((prevFormValues) => ({
-      ...prevFormValues,
+      UserDetails: {
+      ...prevFormValues.UserDetails,
       educations: [
-        ...prevFormValues.educations.slice(0, 4), // High School, Higher Secondary, Graduation, and PostGraduation ke data rehne do
+        ...prevFormValues.UserDetails.educations.slice(0, 4), // High School, Higher Secondary, Graduation, and PostGraduation ke data rehne do
         {
-          ...prevFormValues.educations[4], // MPHIL ke data ko update karo
+          ...prevFormValues.UserDetails.educations[4], // MPHIL ke data ko update karo
           [field]: value,
         },
-        ...prevFormValues.educations.slice(5), // Baaki ke education categories rehne do
+        ...prevFormValues.UserDetails.educations.slice(5), // Baaki ke education categories rehne do
       ],
+    }
     }));
+  
   };
   const handlePhdChange = (field, value) => {
     setFormValues((prevFormValues) => ({
-      ...prevFormValues,
+      UserDetails: {
+      ...prevFormValues.UserDetails,
       educations: [
-        ...prevFormValues.educations.slice(0, 5), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
+        ...prevFormValues.UserDetails.educations.slice(0, 5), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
         {
-          ...prevFormValues.educations[5], // Phd ke data ko update karo
+          ...prevFormValues.UserDetails.educations[5], // Phd ke data ko update karo
           [field]: value,
         },
-        ...prevFormValues.educations.slice(6), // Baaki ke education categories rehne do
+        ...prevFormValues.UserDetails.educations.slice(6), // Baaki ke education categories rehne do
       ],
+    }
     }));
   };
   const handleGateChange = (field, value) => {
     setFormValues((prevFormValues) => ({
-      ...prevFormValues,
+      UserDetails: {
+      ...prevFormValues.UserDetails,
       educations: [
-        ...prevFormValues.educations.slice(0, 6), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
+        ...prevFormValues.UserDetails.educations.slice(0, 6), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
         {
-          ...prevFormValues.educations[6], // Phd ke data ko update karo
+          ...prevFormValues.UserDetails.educations[6], // Phd ke data ko update karo
           [field]: value,
 
         },
-        ...prevFormValues.educations.slice(7), // Baaki ke education categories rehne do
+        ...prevFormValues.UserDetails.educations.slice(7), // Baaki ke education categories rehne do
       ],
+    }
     }));
   };
   const handleNeetChange = (field, value) => {
     setFormValues((prevFormValues) => ({
-      ...prevFormValues,
+      UserDetails: {
+      ...prevFormValues.UserDetails,
       educations: [
-        ...prevFormValues.educations.slice(0, 7), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
+        ...prevFormValues.UserDetails.educations.slice(0, 7), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
         {
-          ...prevFormValues.educations[7], // Phd ke data ko update karo
+          ...prevFormValues.UserDetails.educations[7], // Phd ke data ko update karo
           [field]: value,
         },
-        ...prevFormValues.educations.slice(8), // Baaki ke education categories rehne do
+        ...prevFormValues.UserDetails.educations.slice(8), // Baaki ke education categories rehne do
       ],
+    }
     }));
   };
   const handleDiplomaChange = (field, value) => {
     setFormValues((prevFormValues) => ({
-      ...prevFormValues,
+      UserDetails: {
+      ...prevFormValues.UserDetails,
       educations: [
-        ...prevFormValues.educations.slice(0, 8), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
+        ...prevFormValues.UserDetails.educations.slice(0, 8), // High School, Higher Secondary, Graduation, PostGraduation, and MPHIL ke data rehne do
         {
-          ...prevFormValues.educations[8], // Phd ke data ko update karo
+          ...prevFormValues.UserDetails.educations[8], // Phd ke data ko update karo
           [field]: value,
         },
-        ...prevFormValues.educations.slice(9), // Baaki ke education categories rehne do
+        ...prevFormValues.UserDetails.educations.slice(9), // Baaki ke education categories rehne do
       ],
+    }
     }));
   };
 
 
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    console.log('Form formValues:', formValues);
-  };
+  //   console.log('Form formValues:', formValues);
+  // };
 
 
 
   return (
     <>
-      <form method='post' onSubmit={handleSubmit} >
+      <form method='post' >
         <div className="container">
           <div style={{ marginTop: "20px" }}>
             <div>
@@ -1609,9 +1628,7 @@ function UserQualification() {
         </div>
 
 
-        <button type="submit">
-          Submit
-        </button>
+       
       </form>
     </>
   )
