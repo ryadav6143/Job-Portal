@@ -65,7 +65,8 @@ function App() {
           <Route path="adminpanel" element={<Adminpanel />}></Route>
           {/* ----------------UserDashboard Routing source ---------------     */}
 
-          <Route path="dashboard" element={<UserDashboard />}></Route>
+          <Route path="/dashboard" element={<UserDashboard />}></Route>
+          
           <Route
             path="editpersonaldetails"
             element={<EditPersonalDetails />}

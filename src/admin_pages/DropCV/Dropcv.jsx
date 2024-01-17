@@ -180,13 +180,11 @@ function Dropcv() {
           setErrors(errors);
           return false;
         } else {
-          // If no errors, clear the state and return true
           setErrors({});
           return true;
         }
 
       case 1:
-        // Validation for Qualification step
         if (
           formData.personalDetails.educations.some(
             (education) =>
@@ -195,47 +193,46 @@ function Dropcv() {
               !education.degree_status
           )
         ) {
-          // If any education field is incomplete, set the state with error messages
           setErrors({ qualification: "Education details are incomplete." });
           return false;
         } else if (!applied_post_masters_id || !subjects_master_id) {
-          // If post masters or subjects are not selected, set the state with error messages
           setErrors({
             qualification: "Applied Post Masters and Subjects are required.",
           });
           return false;
         } else {
-          // If no errors, clear the state and return true
           setErrors({});
           return true;
         }
 
       case 2:
-        // Validation for Current Experience step
-        if (!formData.personalDetails.current_organization) {
-          setErrors({
-            currentExperience: "Current Organization is required.",
-          });
-          return false;
-        } else if (!formData.personalDetails.current_designation) {
-          setErrors({
-            currentExperience: "Current Designation is required.",
-          });
-          return false;
-        } else {
-          setErrors({});
-          return true;
-        }
+      // if (!formData.personalDetails.current_organization) {
+      //   setErrors({
+      //     currentExperience: "Current Organization is required.",
+      //   });
+      //   return false;
+      // } else if (!formData.personalDetails.current_designation) {
+      //   setErrors({
+      //     currentExperience: "Current Designation is required.",
+      //   });
+      //   return false;
+      // } else {
+      //   setErrors({});
+      //   return true;
+      // }
+
+      case 2:
 
       default:
         return true;
-      }
+    }
   };
 
   // --------------------------------------------------------------------------------
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setErrors({});
   };
 
   const handleVerifivation = () => {

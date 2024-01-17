@@ -26,6 +26,10 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   const [selectedSubject, setSelectedSubject] = useState("");
 
   // -------------for jobcategory, post applies , sub post  ---------------
+
+  // -------------------------------------dob----------------------
+
+  // -------------------------------------dob----------------------
   useEffect(() => {
     apiService
       .getJobCategories()
@@ -143,7 +147,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     const selectedSubjectName = event.target.value;
     setSelectedSubject(selectedSubjectName);
 
-   
     const selectedSubjectData = subjects.find(
       (subject) => subject.subject_name === selectedSubjectName
     );
@@ -289,8 +292,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
             <div className="row">
               <div className="col-md-6">
-                {/* DOB */}
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Date of Birth:
@@ -439,7 +440,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
             <div className="row">
               <div className="col-md-6">
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Category of Appointment
@@ -466,7 +466,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
               </div>
 
               <div className="col-md-6">
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Post Applied For

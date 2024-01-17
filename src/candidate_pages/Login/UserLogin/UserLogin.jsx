@@ -5,8 +5,6 @@ import logo from "../../../assets/logos/medi-logo.png";
 import { useNavigate } from "react-router-dom";
 
 function UserLogin() {
-
-
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -42,25 +40,32 @@ function UserLogin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     // Add your authentication logic here (e.g., call an API)
     // For demo purposes, let's assume a simple check
     const actualUsername = "user"; // Replace with the actual username
     const actualPassword = "user"; // Replace with the actual password
-  
-    if (formData.username === actualUsername && formData.password === actualPassword) {
+
+    if (
+      formData.username === actualUsername &&
+      formData.password === actualPassword
+    ) {
       // Save username and password to localStorage
       localStorage.setItem("username", formData.username);
       localStorage.setItem("password", formData.password);
-  
+
       // Successful login, navigate to the dashboard
-      navigate("/dashboard");
+      try {
+        navigate("/dashboard");
+      } catch (error) {
+        console.error("Error navigating to /dashboard:", error);
+      }
+      
     } else {
       // Display an error message or handle unsuccessful login
       console.log("Invalid credentials");
     }
   };
-
   return (
     <>
       <div className="login-container">
@@ -79,7 +84,6 @@ function UserLogin() {
             name="username"
             value={formData.username}
             onChange={handleInputChange}
-            required
           />
 
           <label htmlFor="password">Password:</label>
@@ -90,7 +94,6 @@ function UserLogin() {
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              required
               className="password-input"
             />
             <div>
