@@ -133,16 +133,18 @@ function Dropcv() {
 
     switch (activeStep) {
       case 0:
+        const currentYear = new Date().getFullYear();
+        const dobYear = dob ? new Date(dob).getFullYear() : null;
         if (!title_first_name) {
           errors.title_first_name = "! Title is required.";
         }
 
         if (!first_name) {
-          errors.first_name = "! First name is required.";
+          errors.first_name = "! Name is required.";
         }
 
-        if (!dob) {
-          errors.dob = "! Date of birth is required.";
+        if (!dob || dobYear < currentYear - 150 || dobYear > currentYear) {
+          errors.dob = "! Please enter a valid date of birth.";
         }
 
         if (!gender) {
@@ -151,11 +153,14 @@ function Dropcv() {
 
         if (!email) {
           errors.email = "! Email is required.";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+          errors.email = "! Please enter a valid email address.";
         }
 
         if (!contact_1) {
           errors.contact_1 = "! Contact number is required.";
-        }
+        } else if (contact_1.length !== 10)
+          errors.contact_1 = "! Please enter a valid 10-digit contact number.";
 
         if (!country) {
           errors.country = "! Country is required.";
@@ -236,7 +241,6 @@ function Dropcv() {
   };
 
   const handleVerifivation = () => {
-    // alert("Your CV has been submitted");
     navigate("/verify");
   };
   // ----------------------------------------------------------

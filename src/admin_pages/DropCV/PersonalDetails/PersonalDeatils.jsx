@@ -205,10 +205,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       ...prevErrors,
       [name]: value ? "" : "This field is required",
     }));
-    // setFormErrors((prevErrors) => ({
-    //   ...prevErrors,
-    //   [name]: value ? "" : "This field is required",
-    // }));
   };
 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
