@@ -2,8 +2,6 @@ import { useState } from "react";
 import React from "react";
 import "./CurrentExperience.css";
 
-import axios from "axios";
-
 function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErrors }) {
   const [isFresher, setIsFresher] = useState(false);
   // const [formData, setFormData] = useState(null);

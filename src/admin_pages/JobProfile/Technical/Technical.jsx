@@ -1,12 +1,12 @@
-import React from 'react'
-import Headers from "../../../components/Header/Header"
-import Footers from "../../../components/Footer/Footers"
-import "./Technical.css"
+import React from "react";
+import Headers from "../../../components/Header/Header";
+import Footers from "../../../components/Footer/Footers";
+import "./Technical.css";
 
 function Technical() {
   return (
     <>
-    <Headers></Headers>
+      <Headers></Headers>
       <div className="apply-for-dean">
         <div className="post-name">
           <p>DEAN</p>
@@ -14,7 +14,9 @@ function Technical() {
         <div></div>
         <div></div>
         <div>
-          <button type="button">Apply Now</button>
+          <button type="button">
+            <a href="/apply-now">Apply Now</a>{" "}
+          </button>
         </div>
       </div>
       <div className="courses">
@@ -576,10 +578,9 @@ function Technical() {
           </div>
         </details>
       </div>
-    <Footers></Footers>
-
+      <Footers></Footers>
     </>
   );
 }
 
-export default Technical
+export default Technical;

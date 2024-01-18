@@ -29,6 +29,8 @@ import Submitsuccess from "./admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 import OTPVerification from "./admin_pages/DropCV/OTPVerifivation/OTPVerification";
 import TestPages from "./admin_pages/TestPages/TestPages";
 import AddOpenings from "./admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
+import CandidatePanel from "./candidate_pages/CandidateLogin/CandidatePanel";
+import CandidateLogin from "./candidate_pages/CandidateLogin/CandidateLogin/CandidateLogin";
 
 function App() {
   return (
@@ -65,8 +67,7 @@ function App() {
           <Route path="adminpanel" element={<Adminpanel />}></Route>
           {/* ----------------UserDashboard Routing source ---------------     */}
 
-          <Route path="/dashboard" element={<UserDashboard />}></Route>
-          
+          <Route path="dashboard" element={<UserDashboard />}></Route>
           <Route
             path="editpersonaldetails"
             element={<EditPersonalDetails />}
@@ -79,7 +80,7 @@ function App() {
           <Route path="editresearch" element={<EditResearch />}></Route>
           <Route path="editprogram" element={<EditProgramsForm />}></Route>
           <Route path="editreference" element={<EditReference />}></Route>
-          <Route path="user-login" element={<UserLogin />}></Route>
+          <Route path="user-login" element={<CandidatePanel />}></Route>
 
           {/* ------------------ end UserDashboard Routing source--------------- */}
 
@@ -93,6 +94,7 @@ function App() {
           ></Route>
 
           <Route path="add-openings" element={<AddOpenings />}></Route>
+
           <Route path="test" element={<TestPages />}></Route>
         </Routes>
       </Main>

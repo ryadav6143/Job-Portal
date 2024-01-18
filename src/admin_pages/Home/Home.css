@@ -20,6 +20,7 @@
 }
 .home-page p:nth-child(2) {
   font-family: "Open Sans", sans-serif;
+  letter-spacing: 3px;
 }
 #uni-name {
   font-size: 4vw;
@@ -40,7 +41,7 @@
   color: white;
 }
 .subs {
-  margin-top: 20px;
+  margin-top: 50px;
   text-align: center;
   font-family: "Playfair Display", serif;
 }
@@ -55,7 +56,7 @@
   font-weight: 600;
 }
 .cards {
-  margin-top: 50px;
+  margin-top: 25px;
   margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
@@ -105,9 +106,6 @@
 .perks-heading p {
   padding-top: 1px;
   font-size: 40px;
-  font-size: 30px;
-  font-size: 30px;
-
   color: white;
   letter-spacing: 2px;
   pointer-events: none;
@@ -154,10 +152,10 @@
   line-height: 1.5;
 }
 
-/* .side-left {
+.side-left {
   margin-left: 20% !important;
   margin-right: -10% !important;
-} */
+}
 .staff-heading {
   font-size: 25px;
   text-align: center;
@@ -171,10 +169,13 @@
 }
 
 .purpose {
-  margin-top: 5%;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 .purpose-headings {
   text-align: center;
+  margin-bottom: 25px;
+  line-height: 1;
 }
 .purpose-headings p:nth-child(1) {
   font-family: "Playfair Display", serif;
@@ -248,34 +249,20 @@
   background-color: transparent !important;
 }
 .staff-section {
-  margin-top: 2%;
+  margin-top: 50px;
 }
 .medi-heading {
   text-align: center;
-  font-size: 25px;
-  letter-spacing: 2px;
-  margin-bottom: -30px;
+  font-size: 30px;
+  letter-spacing: 3px;
   font-family: "Open Sans", sans-serif;
   line-height: 1;
   span {
-    letter-spacing: 2px !important;
+    letter-spacing: 3px !important;
     font-family: "Playfair Display", serif;
     font-weight: 600;
     letter-spacing: 2px;
-    font-size: 30px;
-  }
-}
-
-.row-1 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  cursor: pointer;
-  div {
-    width: 27%;
-    height: 410px;
-    background-color: #d9d9d9;
-    margin: 2px;
+    font-size: 40px;
   }
 }
 
@@ -321,9 +308,10 @@
 }
 .hr-conrer-heading p:nth-child(2) {
   margin-top: -15px;
-  font-size: 30px;
+  font-size: 40px;
   font-family: "Playfair Display", serif;
   letter-spacing: 2px;
+  font-weight: 600;
 }
 .slider-imgs {
   display: flex;
@@ -381,6 +369,9 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .subs {
+    margin-top: 50px;
+  }
   #join-medi-btn a {
     font-size: 15px;
   }
@@ -411,6 +402,12 @@
     font-size: 20px;
     text-align: center;
   }
+  .perks-heading p {
+    font-size: 30px;
+  }
+  .perks-list {
+    margin-left: -8%;
+  }
   .purpose-data {
     display: flex;
     flex-wrap: wrap;
@@ -429,12 +426,6 @@
     margin-left: 5% !important;
     margin-right: 5% !important;
   }
-
-  /* .side-left {
-    margin-left: 5% !important;
-    margin-right: 5% !important;
-  } */
-
   .purpose-headings p:nth-child(1) {
     font-size: 20px;
   }
@@ -477,6 +468,7 @@
       font-size: 15px;
     }
   }
+ 
 
   .hr-conrer-heading {
     width: auto;

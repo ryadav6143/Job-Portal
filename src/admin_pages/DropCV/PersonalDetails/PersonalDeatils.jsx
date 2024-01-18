@@ -366,6 +366,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     placeholder="(123)456-7890 "
                     name="contact_1"
                     id=""
+                    maxLength={10}
                     value={formData.contact_1}
                     onChange={handleInputChange}
                     required
