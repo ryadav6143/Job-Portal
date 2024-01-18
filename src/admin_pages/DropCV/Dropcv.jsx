@@ -10,16 +10,18 @@ import Typography from "@mui/material/Typography";
 import PersonalDeatils from "./PersonalDetails/PersonalDeatils";
 import Qualification from "./Qualification/Qualification";
 import CurrentExperience from "./CurrentExperience/CurrentExperience";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footers";
 import OTPVerification from "./OTPVerifivation/OTPVerification";
+import apiService from "../../Services/ApiServices";
 
 const steps = ["", "", ""];
 
 function Dropcv() {
+  const [otpData, setOtpData] = useState({});
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
-  const [otpData, setOtpData] = useState("");
+
   const [formErrors, setFormErrors] = useState({});
   const initialEducation = {
     degree_types_master_id: "",
@@ -39,10 +41,10 @@ function Dropcv() {
       contact_1: "",
       country: "",
       city: "",
-      subjects_master_id: "",
-      applied_post_masters_id: "",
-      applied_subpost_master_id: "",
-      job_category_master_id: "",
+      subjects_master_id: 0,
+      applied_post_masters_id: 0,
+      applied_subpost_master_id: 0,
+      job_category_master_id: 0,
       educations: [initialEducation],
       total_experience: "",
       total_research_exp: "",
@@ -50,6 +52,7 @@ function Dropcv() {
       current_organization: "",
       current_designation: "",
       current_salary: "",
+      candidate_cv: "",
     },
   });
   // new state for errors in all steps
@@ -57,13 +60,12 @@ function Dropcv() {
 
   const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
-  const transferAllData = () => {
+  const transferAllData = async () => {
     try {
       // Create FormData object
       const formDataToSend = new FormData();
 
       Object.entries(formData.personalDetails).forEach(([key, value]) => {
-        // Check if the value is an array (specifically 'educations')
         if (key === "educations" && Array.isArray(value)) {
           formDataToSend.append(key, JSON.stringify(value));
         } else {
@@ -76,6 +78,7 @@ function Dropcv() {
       setOtpButtonClicked(true);
 
       console.log("formDataToSend", formDataToSend);
+      setformDataToSend(formDataToSend);
     } catch (error) {
       console.error(
         "Error while posting form data and file:",
@@ -83,6 +86,14 @@ function Dropcv() {
       );
       console.log(error.response.data);
     }
+    const otpData = {
+      email: formData.personalDetails.email,
+      contact_1: formData.personalDetails.contact_1,
+    };
+    setOtpData(otpData);
+
+    const response = await apiService.generateOTP(otpData);
+    console.log("API Response:", response);
     setSelectedComponent("OTPVerification");
   };
   const navigate = useNavigate();
@@ -127,6 +138,7 @@ function Dropcv() {
       applied_post_masters_id,
       applied_subpost_master_id,
       job_category_master_id,
+      candidate_cv,
     } = formData.personalDetails;
 
     let errors = {};
@@ -212,20 +224,27 @@ function Dropcv() {
         }
 
       case 2:
-      // if (!formData.personalDetails.current_organization) {
-      //   setErrors({
-      //     currentExperience: "Current Organization is required.",
-      //   });
-      //   return false;
-      // } else if (!formData.personalDetails.current_designation) {
-      //   setErrors({
-      //     currentExperience: "Current Designation is required.",
-      //   });
-      //   return false;
-      // } else {
-      //   setErrors({});
-      //   return true;
-      // }
+        // if (!formData.personalDetails.current_organization) {
+        //   setErrors({
+        //     currentExperience: "Current Organization is required.",
+        //   });
+        //   return false;
+        // } else if (!formData.personalDetails.current_designation) {
+        //   setErrors({
+        //     currentExperience: "Current Designation is required.",
+        //   });
+        //   return false;
+        // } else {
+        //   setErrors({});
+        //   return true;
+        // }
+
+        if (!formData.personalDetails.candidate_cv) {
+          setErrors({
+            candidate_cv: "!CV is Required",
+          });
+          return false;
+        }
 
       case 2:
 
@@ -233,7 +252,6 @@ function Dropcv() {
         return true;
     }
   };
-
   // --------------------------------------------------------------------------------
 
   const handleBack = () => {

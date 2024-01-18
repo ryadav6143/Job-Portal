@@ -65,7 +65,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       });
   }, []);
   useEffect(() => {
-    // Fetch data from the API using the service
+    
     apiService
       .getCountries()
       .then((response) => {
@@ -76,7 +76,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       });
   }, []);
   // useEffect(() => {
-  //   // Fetch data from the API using the service
+  
   //   apiService
   //     .getCandidates()
   //     .then((response) => {
@@ -86,6 +86,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   //       console.error("Error fetching candidates:", error);
   //     });
   // }, []);
+
 
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;

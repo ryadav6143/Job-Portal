@@ -1,40 +1,62 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faEnvelope,
-  faMobile,
-} from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
 import "./UserExperience.css";
 import plusicon from "../../../../assets/logos/plus.png";
 
-function UserExperience() {
-  const [educations, setEducations] = useState([{}]);
+function UserExperience({ formValues, setFormValues }) {
 
-  const handleAddEducation = () => {
-    setEducations([...educations, {}]);
+  const handleAddExperience = (e) => {
+    e.preventDefault();
+    setFormValues(prevExperience => ({
+      UserDetails: {
+        ...prevExperience.UserDetails,
+        experiences: [...prevExperience.UserDetails.experiences, {
+          company_experience_name: '',
+          designation: '',
+          gross_pay: '',
+          exp_work_from: '',
+          exp_work_to: ''
+        }]
+      }
+    }));
   };
+
+  const handleInputChange = (index, event) => {
+    const { name, value } = event.target;
+    setFormValues(prevExperience => ({
+      UserDetails: {
+        ...prevExperience.UserDetails,
+        experiences: prevExperience.UserDetails.experiences.map((experience, i) =>
+          i === index ? { ...experience, [name]: value } : experience
+        )
+      }
+    }));
+  };
+
+  const handleTotalExperienceChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues(prevExperience => ({
+      UserDetails: {
+        ...prevExperience.UserDetails,
+        [name]: value
+      }
+    }));
+  };
+
+
   return (
     <>
-      <form action="">
+      <form method="post">
         <div className="container">
           <div style={{ marginTop: "20px" }}>
             <div>
-              <h5 className="UD-heading">
-                Experience
-                <button onClick={handleAddEducation} className="plus-buttons">
-                  <img src={plusicon} />
-                </button>
-              </h5>
-
+              <h5 className="UD-heading">Experience <button onClick={handleAddExperience} className="plus-button">+</button></h5>
               <p className="UD-subheading">
                 Please fill your information so we can get in touch with you.
               </p>
             </div>
 
             {/* Experience */}
-
-            {educations.map((education, index) => (
+            {formValues.experiences.map((experience, index) => (
               <div key={index}>
                 <div className="row">
                   <div className="col-md-4">
@@ -48,8 +70,9 @@ function UserExperience() {
                         type="text"
                         placeholder=" "
                         name="company_experience_name"
-                        id=""
-                        required
+                        value={experience.company_experience_name}
+                        onChange={(e) => handleInputChange(index, e)}
+
                       ></input>
                     </div>
                   </div>
@@ -65,25 +88,27 @@ function UserExperience() {
                         type="text"
                         placeholder=" "
                         name="designation"
-                        id=""
-                        required
+                        value={experience.designation}
+                        onChange={(e) => handleInputChange(index, e)}
+
                       ></input>
                     </div>
                   </div>
 
                   <div className="col-md-4">
-                    {/* *Current Gross Pay (Per Month)*/}
+                    {/* *Current Gross Pay (Per Month) */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
-                        <span>*</span>Current Gross Pay (Per Month){" "}
+                        <span>*</span>Current Gross Pay (Per Month)
                       </label>
                       <input
                         className="UD-set-input"
                         type="text"
                         placeholder=" "
                         name="gross_pay"
-                        id=""
-                        required
+                        value={experience.gross_pay}
+                        onChange={(e) => handleInputChange(index, e)}
+
                       ></input>
                     </div>
                   </div>
@@ -101,8 +126,9 @@ function UserExperience() {
                         type="date"
                         placeholder=" MM/DD/YYYY"
                         name="exp_work_from"
-                        id=""
-                        required
+                        value={experience.exp_work_from}
+                        onChange={(e) => handleInputChange(index, e)}
+
                       ></input>
                     </div>
                   </div>
@@ -118,8 +144,9 @@ function UserExperience() {
                         type="date"
                         placeholder="MM/DD/YYYY "
                         name="exp_work_to"
-                        id=""
-                        required
+                        value={experience.exp_work_to}
+                        onChange={(e) => handleInputChange(index, e)}
+
                       ></input>
                     </div>
                   </div>
@@ -127,8 +154,11 @@ function UserExperience() {
               </div>
             ))}
 
-            {/* Total Experience */}
+            {/* Experience */}
 
+            {/* Experience */}
+
+            {/* Total Experience */}
             <div>
               <p className="HS-heading">Total Experience</p>
             </div>
@@ -145,8 +175,10 @@ function UserExperience() {
                     type="text"
                     placeholder="In Years"
                     name="total_academic_exp"
-                    id=""
-                    required
+                    value={formValues.total_academic_exp}
+                    onChange={handleTotalExperienceChange}
+
+
                   ></input>
                 </div>
               </div>
@@ -162,15 +194,16 @@ function UserExperience() {
                     type="text"
                     placeholder="In Years"
                     name="total_industrial_exp"
-                    id=""
-                    required
+                    value={formValues.total_industrial_exp}
+                    onChange={handleTotalExperienceChange}
+
+
                   ></input>
                 </div>
               </div>
             </div>
 
             {/* Other Benefits */}
-
             <div>
               <p className="HS-heading">Other Benefits</p>
             </div>
@@ -187,7 +220,8 @@ function UserExperience() {
                     type="text"
                     placeholder=""
                     name="accommodation"
-                    id=""
+                    value={formValues.accommodation}
+                    onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
               </div>
@@ -203,7 +237,8 @@ function UserExperience() {
                     type="text"
                     placeholder=""
                     name="transportation"
-                    id=""
+                    value={formValues.transportation}
+                    onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
               </div>
@@ -219,7 +254,8 @@ function UserExperience() {
                     type="text"
                     placeholder=""
                     name="food"
-                    id=""
+                    value={formValues.food}
+                    onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
               </div>
@@ -237,7 +273,8 @@ function UserExperience() {
                     type="text"
                     placeholder=""
                     name="mediclaim"
-                    id=""
+                    value={formValues.mediclaim}
+                    onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
               </div>
@@ -252,14 +289,18 @@ function UserExperience() {
                     className="UD-set-input"
                     type="text"
                     placeholder=""
-                    name="exp_others"
-                    id=""
+                    name="others"
+                    value={formValues.others}
+                    onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {/* <button type="submit">
+          Submit
+        </button> */}
       </form>
     </>
   );

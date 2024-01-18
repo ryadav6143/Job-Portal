@@ -1,38 +1,36 @@
-
-
-.row1{
-    display: flex;
-    flex-wrap: wrap;
+.row1 {
+  display: flex;
+  flex-wrap: wrap;
 }
 .CE-form {
-    justify-content: center;
-    margin-top: 5%; /* to be remove */
-  }
-  
-  .CE-heading {
-    font-size: 22px;
-    color: #170f49;
-    font-weight: 700;
-  }
-  
-  .CE-subheading {
-    color: #6f6c90;
-    font-size: 16px;
-    font-weight: 400;
-  }
+  justify-content: center;
+  margin-top: 5%; /* to be remove */
+}
 
-  .set-checkbox{
-    width: auto;
-  }
+.CE-heading {
+  font-size: 22px;
+  color: #170f49;
+  font-weight: 700;
+}
 
-  .set-checkbox-span{
-    font-size: 14px;
-    font-weight: 400;
-    color: #6f6c90;
-  }
+.CE-subheading {
+  color: #6f6c90;
+  font-size: 16px;
+  font-weight: 400;
+}
 
-  .form-section{
-    margin-top: 8%;
+.set-checkbox {
+  width: auto;
+}
+
+.set-checkbox-span {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6f6c90;
+}
+
+.form-section {
+  margin-top: 8%;
 }
 
 .SetLabel-Name {
@@ -42,55 +40,54 @@
 }
 
 .set-input {
-    width: 99.5%;
-    height: 55px;
-    border-radius: 45px;
-    border: 1px solid;
-    border-color: #eff0f6;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    color: #6f6c90;
-    font-size: 15px;
-    padding: 14px;
-  }
+  width: 99.5%;
+  height: 55px;
+  border-radius: 45px;
+  border: 1px solid;
+  border-color: #eff0f6;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: #6f6c90;
+  font-size: 15px;
+  padding: 14px;
+}
 
-  .SetLabel-Name span {
-    color: red;
-  }
-  
-  .set-input:focus {
-    outline: none;
-  }
+.SetLabel-Name span {
+  color: red;
+}
 
-  .uploadresume-subheading{
-    color: #6f6c90;
-    font-size: 14px;
-    font-weight: 400;
-  }
+.set-input:focus {
+  outline: none;
+}
 
- .uploadfile-section{
-    margin-top: 20px;
- }
+.uploadresume-subheading {
+  font-family: "Open Sans", sans-serif;
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
+}
 
- 
- @media only screen and (max-width: 767px) {
-  .set-input{
+.uploadfile-section {
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+  .set-input {
     width: 100% !important;
   }
 
-  .set-dropdown{
+  .set-dropdown {
     width: 100% !important;
   }
-
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
   /* Your styles for iPad Air go here */
 
-  .set-input{
+  .set-input {
     width: 100% !important;
   }
 
-  .set-dropdown{
+  .set-dropdown {
     width: 100% !important;
   }
 

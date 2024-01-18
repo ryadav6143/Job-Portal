@@ -8,36 +8,42 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserDetails.css";
 
-import axios from "axios";
-import { error } from "jquery";
-function UserDetails(errors, setErrors) {
+import apiService from "../../../../Services/ApiServices";
+function UserDetails({ formValues, setFormValues }) {
   const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState("");
   const [departments, setDepartments] = useState([]);
-  const [selectedDepartment, setSelectedDepartment] = useState(null);
-  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
-  const [otherValue, setOtherValue] = useState("");
 
-  const handleDropdownChange = (event) => {
-    const selectedValue = event.target.value;
+  // const [formValues, setFormValues] = useState({
+  //   email: '',
+  //   contact_1: '',
+  //   title_first_name: '',
+  //   first_name: '',
+  //   middle_name: '',
+  //   last_name: '',
+  //   dob: '',
+  //   gender: '',
+  //   religion: '',
+  //   city: '',
+  //   cast_category_name: '',
+  //   marital_status: '',
+  //   address_1: '',
+  //   contact_2: '',
+  //   country: '',
+  //   state_province: '',
+  //   applied_post_masters_id: "",
+  //   nature_of_job: '',
+  //   department_master_id: '',
+  //   pin_code: '',
 
-    if (selectedValue === "others") {
-      // If "Others" is selected, show the input field
-      setOtherValue("");
-    }
-
-    setSelectedOption(selectedValue);
-  };
-
-  const handleOtherInputChange = (event) => {
-    setOtherValue(event.target.value);
-  };
+  // });
 
   useEffect(() => {
     // Fetch data from the API using Axios
-    axios
-      .get("http://192.168.1.15:8090/v1/api/appliedPost")
+    apiService
+      .getAppliedPosts()
       .then((response) => {
         // Update the state with the fetched data
         setPosts(response.data);
@@ -48,9 +54,7 @@ function UserDetails(errors, setErrors) {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get(
-          "http://192.168.1.15:8090/v1/api/departmentMaster"
-        );
+        const response = await apiService.getDepartments();
         setDepartments(response.data);
       } catch (error) {
         console.error("Error fetching departments:", error);
@@ -69,8 +73,10 @@ function UserDetails(errors, setErrors) {
     if (selectedDepartmentObject) {
       setSelectedDepartment(selectedDepartmentObject.id);
       setFormValues((prevValues) => ({
-        ...prevValues,
-        department_master_id: selectedDepartmentObject.id,
+        UserDetails: {
+          ...prevValues.UserDetails,
+          department_master_id: selectedDepartmentObject.id,
+        },
       }));
     } else {
       console.error("Selected department not found");
@@ -86,8 +92,10 @@ function UserDetails(errors, setErrors) {
     if (selectedPostObject) {
       setSelectedPost(selectedPostObject.id);
       setFormValues((prevValues) => ({
-        ...prevValues,
-        applied_post_masters_id: selectedPostObject.id,
+        UserDetails: {
+          ...prevValues.UserDetails,
+          applied_post_masters_id: selectedPostObject.id,
+        },
       }));
     } else {
       console.error("Selected post not found");
@@ -98,53 +106,28 @@ function UserDetails(errors, setErrors) {
     const selectedMaritalStatus = event.target.value;
     setMaritalStatus(selectedMaritalStatus);
     setFormValues((prevValues) => ({
-      ...prevValues,
-      marital_status: selectedMaritalStatus,
-    }));
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Values:", formValues);
-  };
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-    setFormValues((prevErrors) => ({
-      ...prevErrors,
-      [name]: value ? "" : "This field is required",
-    }));
-    setFormValues((prevErrors) => ({
-      ...prevErrors,
-      [name]: value ? "" : "This field is required",
+      UserDetails: {
+        ...prevValues.UserDetails,
+        marital_status: selectedMaritalStatus,
+      },
     }));
   };
 
-  const [formValues, setFormValues] = useState({
-    email: "",
-    contact_1: "",
-    title_first_name: "",
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    dob: "",
-    gender: "",
-    religion: "",
-    cast_category_name: "",
-    marital_status: "",
-    address_1: "",
-    contact_2: "",
-    country: "",
-    state_province: "",
-    pin_code: "",
-  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      UserDetails: {
+        ...prevValues.UserDetails,
+        [name]: value,
+      },
+    }));
+  };
 
   return (
     <>
       <form method="post">
-        <div className="custom-container">
+        <div className="container">
           <div style={{ marginTop: "20px" }}>
             <div>
               <h5 className="UD-heading">Personal Details</h5>
@@ -166,12 +149,11 @@ function UserDetails(errors, setErrors) {
                     placeholder="Email address"
                     name="email"
                     id=""
+                    value={formValues.email}
                     onChange={handleInputChange}
-                    required
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
-                <span className="error-message">{errors.email}</span>
               </div>
 
               <div className="col-md-4">
@@ -186,15 +168,15 @@ function UserDetails(errors, setErrors) {
                     placeholder="(123) 456 - 7890 "
                     name="contact_1"
                     id=""
+                    value={formValues.contact_1}
                     onChange={handleInputChange}
-                    required
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
-                <span className="error-message">{errors.contact_1}</span>
               </div>
 
               <div className="col-md-4">
+                {/* *Post Applied For (If Others, Please Specify) */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
                     <span>*</span> Post Applied For
@@ -203,15 +185,17 @@ function UserDetails(errors, setErrors) {
                     </span>
                   </label>
                   <select
-                    value={selectedOption}
-                    onChange={handleDropdownChange}
+                    id="postDropdown"
+                    value={selectedPost.post_name}
+                    onChange={handlePostChange}
                     className="UD-set-dropdown"
                   >
-                    <option value="">Select an option</option>
-                    <option value="Post1">Post 1</option>
-                    <option value="Post2">Post 2</option>
-                    <option value="Post3">Post 3</option>
-                    <option value="others">Others</option>
+                    <option value="">Select a post</option>
+                    {posts.map((post) => (
+                      <option key={post.id} value={post.post_name}>
+                        {post.post_name}
+                      </option>
+                    ))}
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
@@ -226,15 +210,17 @@ function UserDetails(errors, setErrors) {
                     <span>*</span> Departments
                   </label>
                   <select
-                    onChange={handleInputChange}
-                    name=""
+                    id="departmentDropdown"
+                    value={selectedDepartment.dept_name}
+                    onChange={handleDepartmentChange}
                     className="UD-set-dropdown"
-                    required
                   >
-                    <option value="">Select Departments</option>
-                    <option value="">Departments 1</option>
-                    <option value="">Departments 2</option>
-                    <option value="">Departments 3</option>
+                    <option value="">Select a department</option>
+                    {departments.map((department) => (
+                      <option key={department.id} value={department.dept_name}>
+                        {department.dept_name}
+                      </option>
+                    ))}
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
@@ -250,10 +236,10 @@ function UserDetails(errors, setErrors) {
                     className="UD-set-input"
                     type="text"
                     placeholder=" "
-                    name=""
+                    name="specialization_area_1"
                     id=""
                     onChange={handleInputChange}
-                    required
+                    value={formValues.specialization_area_1}
                   ></input>
                 </div>
               </div>
@@ -266,13 +252,13 @@ function UserDetails(errors, setErrors) {
                   </label>
                   <select
                     onChange={handleInputChange}
-                    name=""
+                    name="nature_of_job"
                     className="UD-set-dropdown"
+                    value={formValues.nature_of_job}
                   >
-                    <option value="">Nature of Job</option>
-                    <option value="">Nature of Job 1</option>
-                    <option value="">Nature of Job 2</option>
-                    <option value="">Nature of Job 3</option>
+                    <option value="">Select Nature of Job</option>
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
@@ -288,18 +274,16 @@ function UserDetails(errors, setErrors) {
                   </label>
                   <select
                     onChange={handleInputChange}
-                    name=" title_first_name"
+                    name="title_first_name"
                     className="UD-set-dropdown"
-                    required
+                    value={formValues.title_first_name}
                   >
-                    <option value="Select Title">Select Title</option>
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
-                <span className="error-message">{errors.title_first_name}</span>
               </div>
 
               <div className="col-md-4">
@@ -316,11 +300,10 @@ function UserDetails(errors, setErrors) {
                     placeholder="Enter First Name"
                     id=""
                     onChange={handleInputChange}
-                    required
+                    value={formValues.first_name}
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
-                <span className="error-message">{errors.first_name}</span>
               </div>
               <div className="col-md-4">
                 {/* Middle Name  */}
@@ -332,10 +315,11 @@ function UserDetails(errors, setErrors) {
                   <input
                     className="UD-set-input"
                     type="text"
-                    name=" middle_name"
+                    name="middle_name"
                     placeholder="Enter Middle Name "
                     id=""
                     onChange={handleInputChange}
+                    value={formValues.middle_name}
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
@@ -356,12 +340,11 @@ function UserDetails(errors, setErrors) {
                     name="last_name"
                     placeholder="Enter last Name"
                     id=""
+                    value={formValues.last_name}
                     onChange={handleInputChange}
-                    required
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
-                <span className="error-message">{errors.last_name}</span>
               </div>
 
               <div className="col-md-4">
@@ -377,11 +360,10 @@ function UserDetails(errors, setErrors) {
                     name="dob"
                     placeholder="MM/DD/YYYY "
                     id=""
+                    value={formValues.dob}
                     onChange={handleInputChange}
-                    required
                   ></input>
                 </div>
-                <span className="error-message">{errors.dob}</span>
               </div>
 
               <div className="col-md-4">
@@ -394,16 +376,14 @@ function UserDetails(errors, setErrors) {
                     onChange={handleInputChange}
                     name="gender"
                     className="UD-set-dropdown"
-                    required
+                    value={formValues.gender}
                   >
-                    <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Others">Others</option>
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
-                <span className="error-message">{errors.gender}</span>
               </div>
             </div>
 
@@ -422,10 +402,9 @@ function UserDetails(errors, setErrors) {
                     placeholder="Enter Religion"
                     id=""
                     onChange={handleInputChange}
-                    required
+                    value={formValues.religion}
                   ></input>
                 </div>
-                <span className="error-message">{errors.religion}</span>
               </div>
 
               <div className="col-md-4">
@@ -442,10 +421,9 @@ function UserDetails(errors, setErrors) {
                     placeholder="Enter Category"
                     id=""
                     onChange={handleInputChange}
-                    required
+                    value={formValues.cast_category_name}
                   ></input>
                 </div>
-                <span className="error-message">{errors.cast}</span>
               </div>
 
               <div className="col-md-4">
@@ -454,18 +432,23 @@ function UserDetails(errors, setErrors) {
                   <label className="UD-SetLabel-Name">
                     <span>*</span>Marital Status
                   </label>
+                  <select
+                    id="maritalStatusDropdown"
+                    value={maritalStatus.marital_status}
+                    onChange={handleMaritalStatusChange}
+                    className="UD-set-dropdown"
+                  >
+                    <option value="">Select marital status</option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                    <option value="divorced">Divorced</option>
+                    <option value="widowed">Widowed</option>
+                    <option value="separated">Separated</option>
+                    <option value="Not to disclosed">Not to disclosed</option>
+                  </select>
 
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    name="marital_status"
-                    placeholder="Enter Your Marital Status"
-                    id=""
-                    onChange={handleInputChange}
-                    required
-                  ></input>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
-                <span className="error-message">{errors.marital_status}</span>
               </div>
             </div>
 
@@ -484,17 +467,16 @@ function UserDetails(errors, setErrors) {
                     placeholder="Enter Address "
                     id=""
                     onChange={handleInputChange}
-                    required
+                    value={formValues.address_1}
                   ></input>
                 </div>
-                <span className="error-message">{errors.address_1}</span>
               </div>
 
               <div className="col-md-4">
                 {/* *Alternate Contact Number  */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Alternate Contact Number
+                    <span>*</span>Alternate Contact Number
                   </label>
 
                   <input
@@ -504,11 +486,10 @@ function UserDetails(errors, setErrors) {
                     placeholder="(123) 456 - 7890"
                     id=""
                     onChange={handleInputChange}
-               
+                    value={formValues.contact_2}
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
-                <span className="error-message">{errors.contact_2}</span>
               </div>
 
               <div className="col-md-4">
@@ -521,7 +502,7 @@ function UserDetails(errors, setErrors) {
                     onChange={handleInputChange}
                     name="country"
                     className="UD-set-dropdown"
-                    required
+                    value={formValues.country}
                   >
                     <option value="country">Select country</option>
                     <option value="country 1"> country 1</option>
@@ -530,7 +511,6 @@ function UserDetails(errors, setErrors) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
-                <span className="error-message">{errors.country}</span>
               </div>
             </div>
 
@@ -545,7 +525,7 @@ function UserDetails(errors, setErrors) {
                     onChange={handleInputChange}
                     name="state_province"
                     className="UD-set-dropdown"
-                    required
+                    value={formValues.state_province}
                   >
                     <option value="State">Select State</option>
                     <option value="State 1"> State 1</option>
@@ -554,7 +534,6 @@ function UserDetails(errors, setErrors) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
-                <span className="error-message">{errors.state_province}</span>
               </div>
 
               <div className="col-md-4">
@@ -565,9 +544,9 @@ function UserDetails(errors, setErrors) {
                   </label>
                   <select
                     onChange={handleInputChange}
-                    name=""
+                    name="city"
                     className="UD-set-dropdown"
-                    required
+                    value={formValues.city}
                   >
                     <option value="">Select Current Job City</option>
                     <option value="Job City 1"> Job City 1</option>
@@ -592,14 +571,16 @@ function UserDetails(errors, setErrors) {
                     placeholder="Enter Pin Code "
                     id=""
                     onChange={handleInputChange}
-                    required
+                    value={formValues.pin_code}
                   ></input>
                 </div>
-                <span className="error-message">{errors.pin_code}</span>
               </div>
             </div>
           </div>
         </div>
+        {/* <button type="submit">
+          Submit
+        </button> */}
       </form>
     </>
   );
