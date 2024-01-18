@@ -2,7 +2,13 @@ import { useState } from "react";
 import React from "react";
 import "./CurrentExperience.css";
 
-function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErrors }) {
+function CurrentExperience({
+  formData,
+  setFormData,
+  errors,
+  setErrors,
+  setFormErrors,
+}) {
   const [isFresher, setIsFresher] = useState(false);
   // const [formData, setFormData] = useState(null);
   const handleCheckboxChange = () => {
@@ -26,7 +32,6 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
       [name]: value ? "" : "This field is required",
     }));
   };
-
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -193,11 +198,11 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
               <label className="SetLabel-Name">
                 <span>*</span>Upload your Resume:
               </label>
-              <p className="uploadresume-subheading">
+              <p className="uploadresume-subheading" style={{color:"red", fontWeight:"600"}}>
                 To upload your resume here:(maximum size 2MB, PDF, DOC and DOCX
                 format only)
               </p>
-              {/* <input type="file" name="candidate_cv" onChange={handleFileChange} /> */}
+
               <input
                 type="file"
                 name="candidate_cv"
