@@ -12,6 +12,7 @@ function Login({ handleLogin }) {
 
     if (username === "admin" && password === "admin") {
       handleLogin();
+      localStorage.setItem("isLoggedIn", true);
     } else {
       alert("Invalid credentials");
     }

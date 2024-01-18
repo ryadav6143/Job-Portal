@@ -1,4 +1,5 @@
 import React from 'react'
+import "./MasterFAQ.css"
 
 function MasterFAQ() {
   return (

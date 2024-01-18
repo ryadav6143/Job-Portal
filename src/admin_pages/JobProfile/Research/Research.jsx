@@ -15,7 +15,7 @@ function Research() {
         <div></div>
         <div></div>
         <div>
-          <button type="button">Apply Now</button>
+        <button type="button"><a href="/apply-now">Apply Now</a> </button>
         </div>
       </div>
       <div className="courses">

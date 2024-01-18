@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./ResearchWorks.css";
+import plusbutton from "../../../../assets/logos/plus.png";
 
 function ResearchWorks({formValues, setFormValues}) {
 
@@ -154,16 +155,18 @@ function ResearchWorks({formValues, setFormValues}) {
     <form method="post" >
       <div className="container">
         <div style={{ marginTop: "20px" }}>
-          <div>
-            <h5 className="UD-heading">
+          
+            <div>
+              <h5 className="UD-heading">
               Research Work
               <button
                 onClick={handleAddIdentifier}
+                type="button"
                 className="editprofile-plus-button"
               >
                 +
               </button>
-            </h5>
+</h5>
 
             <p className="UD-subheading">
               Please fill your information so we can get in touch with you.
@@ -255,8 +258,7 @@ function ResearchWorks({formValues, setFormValues}) {
                 </div>
               </div>
             </div>
-          ))}
-
+   ))}
           {/* Journal Publication */}
 
           <div>
@@ -291,7 +293,7 @@ function ResearchWorks({formValues, setFormValues}) {
                       onChange={(e) => handleInputJournalChange(e, index, 'journal_publication_year')}
                     ></input>
                   </div>
-                </div>
+                  </div>
 
                 <div className="col-md-4">
                   {/* Title */}
@@ -309,7 +311,7 @@ function ResearchWorks({formValues, setFormValues}) {
                       onChange={(e) => handleInputJournalChange(e, index, 'journal_publication_title')}
                     ></input>
                   </div>
-                </div>
+                  </div>
 
                 <div className="col-md-4">
                   {/* Author Role/ Inventor*/}
@@ -331,6 +333,7 @@ function ResearchWorks({formValues, setFormValues}) {
                   </div>
                 </div>
               </div>
+           
 
               <div className="row">
                 <div className="col-md-4">
@@ -426,10 +429,11 @@ function ResearchWorks({formValues, setFormValues}) {
                 </div>
               </div>
             </div>
-          ))}
+            ))}
 
-          {/* Conference Publication */}
-
+{/* Conference Publication */}
+           
+{/* ----------------------------------- */}
           <div>
             <p className="HS-heading">
               Conference Publication{" "}
@@ -497,6 +501,7 @@ function ResearchWorks({formValues, setFormValues}) {
                   </div>
                 </div>
               </div>
+         
 
 
 
@@ -593,8 +598,7 @@ function ResearchWorks({formValues, setFormValues}) {
                 </div>
               </div>
             </div>
-          ))}
-
+))}
 
           {/* Patent*/}
 
@@ -665,6 +669,7 @@ function ResearchWorks({formValues, setFormValues}) {
                   </div>
                 </div>
               </div>
+           
 
               <div className="row">
                 <div className="col-md-4">
@@ -702,8 +707,7 @@ function ResearchWorks({formValues, setFormValues}) {
                 </div>
               </div>
             </div>
-          ))}
-
+ ))}
 
           {/* Copyright*/}
 
@@ -755,7 +759,7 @@ function ResearchWorks({formValues, setFormValues}) {
                       onChange={(e) => handleInputCopyrightChange(e, index, 'copyright_title')}
                     />
                   </div>
-                </div>
+                  </div>
 
                 <div className="col-md-4">
                   {/* Year */}
@@ -774,6 +778,7 @@ function ResearchWorks({formValues, setFormValues}) {
                   </div>
                 </div>
               </div>
+          
 
               <div className="row">
                 <div className="col-md-4">
@@ -811,8 +816,8 @@ function ResearchWorks({formValues, setFormValues}) {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+ ))}
+                    </div>
       </div>
 
 

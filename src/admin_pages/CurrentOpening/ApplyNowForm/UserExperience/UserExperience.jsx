@@ -1,5 +1,6 @@
 import React from 'react';
 import "./UserExperience.css";
+import plusicon from "../../../../assets/logos/plus.png";
 
 function UserExperience({ formValues, setFormValues }) {
 
@@ -153,6 +154,7 @@ function UserExperience({ formValues, setFormValues }) {
               </div>
             ))}
 
+            {/* Experience */}
 
 
             {/* Total Experience */}

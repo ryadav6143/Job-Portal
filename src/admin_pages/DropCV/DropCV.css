@@ -16,10 +16,12 @@
 }
 .css-m5vj9m-MuiStepper-root {
   padding-bottom: 15px;
-  /* border-bottom: 2px solid lightgray; */
 }
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
   color: rgba(128, 128, 128, 0.385) !important;
+}
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
+  color: rgb(128 128 128 / 81%) !important;
 }
 .prev-btn {
   color: black !important;
@@ -38,10 +40,20 @@
   background-color: rgba(211, 211, 211, 0.558) !important;
   font-family: "Open Sans", sans-serif !important;
 }
+.hidden {
+  Box {
+    display: none;
+  }
+}
 @media only screen and (max-width: 767px) {
-.contact-forms{
-  padding: 35px 20px 35px 20px;
-  margin: 5% 10% 5% 10%;
+  .contact-forms {
+    padding: 35px 20px 35px 20px;
+    margin: 5% 10% 5% 10%;
+  }
 }
 
+
+
+.hidden {
+  display: none;
 }

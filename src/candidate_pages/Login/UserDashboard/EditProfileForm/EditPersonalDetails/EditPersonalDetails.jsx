@@ -7,15 +7,14 @@ import {
   faUser,
   faEnvelope,
   faMobile,
-  faAngleDown
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 function EditPersonalDetails() {
-  
+  // ---------profile image source---------
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
-
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -28,13 +27,34 @@ function EditPersonalDetails() {
     fileInputRef.current.click();
   };
 
+  // -----------end profile image source-----------
 
-  
+  // --------others fields section--------
+  const [selectedOption, setSelectedOption] = useState("");
+  const [otherValue, setOtherValue] = useState("");
+
+  const handleDropdownChange = (event) => {
+    const selectedValue = event.target.value;
+
+    if (selectedValue === "others") {
+      // If "Others" is selected, show the input field
+      setOtherValue("");
+    }
+
+    setSelectedOption(selectedValue);
+  };
+
+  const handleOtherInputChange = (event) => {
+    setOtherValue(event.target.value);
+  };
+
+  // --------------end others fields section----------------
+
   return (
     <>
-      <form id="myForm" >
+      <form id="myForm">
         <div style={{ marginTop: "7%" }}>
-          <div   style={{ paddingLeft: "50px" }}>
+          <div style={{ paddingLeft: "50px" }}>
             {selectedImage && (
               <div>
                 <img
@@ -73,10 +93,7 @@ function EditPersonalDetails() {
               <div>
                 <h5 className="UD-heading">
                   Personal Details &nbsp;{" "}
-                  <FontAwesomeIcon
-                  className="edit-pen-icon"
-                    icon={faPen}
-                  />
+                  <FontAwesomeIcon className="edit-pen-icon" icon={faPen} />
                 </h5>
                 <p className="UD-subheading">
                   Please fill your information so we can get in touch with you.
@@ -129,17 +146,40 @@ function EditPersonalDetails() {
                   {/* *Post Applied For (If Others, Please Specify) */}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span>*</span> Post Applied For (If Others, Please
-                      Specify)
+                      <span>*</span> Post Applied For
+                      <span className="set-others">
+                        &nbsp;(If Others, Please Specify)
+                      </span>
                     </label>
-                    <select name="" className="UD-set-dropdown">
-                      <option value="">Select Post</option>
-                      <option value="">Sub Post 1</option>
-                      <option value="">Sub Post 2</option>
-                      <option value="">Sub Post 3</option>
-                      <option value="">Others</option>
+                    <select
+                      value={selectedOption}
+                      onChange={handleDropdownChange}
+                      className="UD-set-dropdown"
+                    >
+                      <option value="">Select an option</option>
+                      <option value="Post1">Post 1</option>
+                      <option value="Post2">Post 2</option>
+                      <option value="Post3">Post 3</option>
+                      <option value="others">Others</option>
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                    {selectedOption === "others" && (
+                      <div>
+                        <label
+                          style={{ marginTop: "20px" }}
+                          className="UD-SetLabel-Name"
+                        >
+                          {" "}
+                          <span>*</span>Please specify
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="text"
+                          value={otherValue}
+                          onChange={handleOtherInputChange}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -262,7 +302,6 @@ function EditPersonalDetails() {
                       name="middle_name"
                       placeholder="Enter Middle Name "
                       id=""
-                     
                     ></input>
                     <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                   </div>
@@ -487,7 +526,7 @@ function EditPersonalDetails() {
               </div>
 
               <div>
-                <button className="savebtn" type="button" >
+                <button className="savebtn" type="button">
                   Save Changes
                 </button>
               </div>

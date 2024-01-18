@@ -7,9 +7,10 @@ import {
   faUser,
   faEnvelope,
   faMobile,
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 
-function PersonalDeatils({ formData, setFormData }) {
+function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -25,6 +26,10 @@ function PersonalDeatils({ formData, setFormData }) {
   const [selectedSubject, setSelectedSubject] = useState("");
 
   // -------------for jobcategory, post applies , sub post  ---------------
+
+  // -------------------------------------dob----------------------
+
+  // -------------------------------------dob----------------------
   useEffect(() => {
     apiService
       .getJobCategories()
@@ -91,10 +96,12 @@ function PersonalDeatils({ formData, setFormData }) {
     const selectedCategoryData = categories.find(
       (category) => category.category_name === selectedCategory
     );
-    setFormData((prevData) => ({     
+    setFormData((prevData) => ({
       personalDetails: {
         ...prevData.personalDetails,
-        job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",    
+        job_category_master_id: selectedCategoryData
+          ? selectedCategoryData.id
+          : "",
       },
     }));
     setPosts(
@@ -111,8 +118,6 @@ function PersonalDeatils({ formData, setFormData }) {
       (post) => post.post_name === selectedPost
     );
     setFormData((prevData) => ({
-      
-   
       personalDetails: {
         ...prevData.personalDetails,
         applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
@@ -126,56 +131,60 @@ function PersonalDeatils({ formData, setFormData }) {
   const handleSubpostChange = (event) => {
     const selectedSubpostName = event.target.value;
     setSelectedSubpost(selectedSubpostName);
-
-    // Find the selected subpost object
     const selectedSubpostData = subposts.find(
       (subpost) => subpost.subpost_name === selectedSubpostName
     );
 
     // Set applied_subpost_masters_id in the formData
     setFormData((prevData) => ({
-            personalDetails: {
-          ...prevData.personalDetails,
-          applied_subpost_master_id: selectedSubpostData
-        ? selectedSubpostData.id
-        : "",
-          // Add additional fields related to category if needed
-        },
+      personalDetails: {
+        ...prevData.personalDetails,
+        applied_subpost_master_id: selectedSubpostData
+          ? selectedSubpostData.id
+          : "",
+        // Add additional fields related to category if needed
+      },
     }));
   };
   const handleSubjectChange = (event) => {
     const selectedSubjectName = event.target.value;
     setSelectedSubject(selectedSubjectName);
 
-    // Find the selected subject object
     const selectedSubjectData = subjects.find(
       (subject) => subject.subject_name === selectedSubjectName
     );
 
-    // Set subjects_master_id in the formData
-    setFormData((prevData) => ({    
+    setFormData((prevData) => ({
       personalDetails: {
         ...prevData.personalDetails,
         subjects_master_id: selectedSubjectData ? selectedSubjectData.id : "",
-        // Add additional fields related to category if needed
       },
     }));
   };
   const handleCountryChange = (event) => {
+    // set errors to null for country when changed
+    setErrors({
+      ...errors,
+      country: "",
+    });
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
     setSelectedCity("");
     setFormData((prevData) => ({
-
       personalDetails: {
         ...prevData.personalDetails,
         country: countryValue,
-      city: "",
+        city: "",
         // Add additional fields if needed
       },
     }));
   };
   const handleCityChange = (event) => {
+    // set errors to null for city when changed
+    setErrors({
+      ...errors,
+      city: "",
+    });
     const cityValue = event.target.value;
     setSelectedCity(cityValue);
     setFormData((prevData) => ({
@@ -183,7 +192,6 @@ function PersonalDeatils({ formData, setFormData }) {
       personalDetails: {
         ...prevData.personalDetails,
         city: cityValue,
-     
       },
     }));
   };
@@ -196,12 +204,32 @@ function PersonalDeatils({ formData, setFormData }) {
         [name]: value,
       },
     }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : "This field is required",
+    }));
   };
 
+  // --------------------------------------------------FORM VALIDATION-------------------------------------------
+  const [formErrors, setFormErrors] = useState({
+    title_first_name: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    dob: "",
+    gender: "",
+    email: "",
+    password: "",
+    contact_1: "",
+    country: "",
+    city: "",
+    subjects_master_id: "",
+    applied_post_masters_id: "",
+    applied_subpost_master_id: "",
+    job_category_master_id: "",
+  });
+  // --------------------------------------------------FORM VALIDATION-------------------------------------------
 
-
-  
-  
   return (
     <>
       <div className="container">
@@ -213,7 +241,7 @@ function PersonalDeatils({ formData, setFormData }) {
             </p>
           </div>
 
-          <form method="post" >
+          <form method="post">
             <div className="row">
               <div className="col-md-6">
                 {/* Title */}
@@ -228,11 +256,14 @@ function PersonalDeatils({ formData, setFormData }) {
                     value={formData.title_first_name}
                     required
                   >
+                    <option value="">Select Title</option>
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.title_first_name}</span>
               </div>
 
               <div className="col-md-6">
@@ -254,13 +285,12 @@ function PersonalDeatils({ formData, setFormData }) {
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">{errors.first_name}</span>
               </div>
             </div>
 
             <div className="row">
               <div className="col-md-6">
-                {/* DOB */}
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Date of Birth:
@@ -276,6 +306,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     required
                   ></input>
                 </div>
+                <span className="error-message">{errors.dob}</span>
               </div>
               <div className="col-md-6">
                 {/* Gender */}
@@ -290,11 +321,13 @@ function PersonalDeatils({ formData, setFormData }) {
                     value={formData.gender}
                     required
                   >
+                    <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="others">Others</option>
                   </select>
                 </div>
+                <span className="error-message">{errors.gender}</span>
               </div>
             </div>
 
@@ -317,6 +350,7 @@ function PersonalDeatils({ formData, setFormData }) {
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faEnvelope} />
                 </div>
+                <span className="error-message">{errors.email}</span>
               </div>
 
               <div className="col-md-6">
@@ -327,16 +361,18 @@ function PersonalDeatils({ formData, setFormData }) {
                   </label>
                   <input
                     className="set-input"
-                    type="tel"
-                    placeholder="(123) 456 - 7890 "
+                    type="number"
+                    placeholder="(123)456-7890 "
                     name="contact_1"
                     id=""
+                    maxLength={10}
                     value={formData.contact_1}
                     onChange={handleInputChange}
                     required
                   ></input>
                   <FontAwesomeIcon className="set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">{errors.contact_1}</span>
               </div>
             </div>
 
@@ -367,6 +403,7 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.country}</span>
               </div>
 
               <div className="col-md-6">
@@ -397,13 +434,12 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.city}</span>
               </div>
             </div>
 
             <div className="row">
               <div className="col-md-6">
-                {/* Category Appointment */}
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Category of Appointment
@@ -426,11 +462,10 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.category_name}</span>
               </div>
 
               <div className="col-md-6">
-                {/* Post Applied For */}
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Post Applied For
@@ -449,13 +484,12 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.post_name}</span>
               </div>
             </div>
 
             <div className="row">
               <div className="col-md-6">
-                {/* Sub Post Applied For */}
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span> </span> Sub Post Applied For
@@ -465,7 +499,6 @@ function PersonalDeatils({ formData, setFormData }) {
                     className="set-dropdown"
                     value={selectedSubpost}
                     onChange={handleSubpostChange}
-                   
                   >
                     <option value="">Select a subpost</option>
                     {subposts.map((subpost) => (
@@ -481,7 +514,6 @@ function PersonalDeatils({ formData, setFormData }) {
               </div>
 
               <div className="col-md-6">
-                {/* Subject */}
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Subject
@@ -501,9 +533,9 @@ function PersonalDeatils({ formData, setFormData }) {
                     ))}
                   </select>
                 </div>
+                <span className="error-message">{errors.subject_name}</span>
               </div>
             </div>
-           
           </form>
         </div>
       </div>

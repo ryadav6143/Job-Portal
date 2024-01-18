@@ -1,19 +1,16 @@
-
-
 .UD-heading {
   font-size: 20px;
   color: #170f49;
   font-weight: 700;
 }
-
 .UD-subheading {
   color: #6f6c90;
   font-size: 16px;
   font-weight: 400;
 }
 
-.UD-form-section{
-    margin-top: 8%;
+.UD-form-section {
+  margin-top: 8%;
 }
 
 .UD-SetLabel-Name {
@@ -22,7 +19,7 @@
   letter-spacing: 0.2px;
 }
 
-.set-others{
+.set-others {
   font-size: 14px;
   color: black !important;
 }
@@ -55,40 +52,32 @@
   outline: none;
 }
 .UD-set-dropdown:focus {
-    outline: none;
-  }
-  
+  outline: none;
+}
 
-  .UD-set-icon{
-    margin-left: -33px;
-    color: rgba(160, 163, 189, 1);
-  }
+.UD-set-icon {
+  margin-left: -33px;
+  color: rgba(160, 163, 189, 1);
+}
 
-  
-
- 
-
-  @media only screen and (max-width: 767px) {
-    .UD-set-input{
-      width: 100% !important;
-    }
-
-    .UD-set-dropdown{
-      width: 100% !important;
-    }
- 
+@media only screen and (max-width: 767px) {
+  .UD-set-input {
+    width: 100% !important;
   }
 
-  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-  
-
-    .UD-set-input{
-      width: 100% !important;
-      font-size: 14px;
-    }
-
-    .UD-set-dropdown{
-      width: 100% !important;
-      font-size: 14px;
-    }
+  .UD-set-dropdown {
+    width: 100% !important;
   }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+  .UD-set-input {
+    width: 100% !important;
+    font-size: 14px;
+  }
+
+  .UD-set-dropdown {
+    width: 100% !important;
+    font-size: 14px;
+  }
+}

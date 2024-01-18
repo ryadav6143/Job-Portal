@@ -12,11 +12,15 @@ import "./UserDetails.css";
 import apiService from "../../../../Services/ApiServices";
 function UserDetails({formValues, setFormValues}) {
   const [posts, setPosts] = useState([]);
-  const [selectedPost, setSelectedPost] = useState('');
   const [departments, setDepartments] = useState([]);
-  const [selectedDepartment, setSelectedDepartment] = useState('');
-  const [maritalStatus, setMaritalStatus] = useState('');
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [maritalStatus, setMaritalStatus] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
+  const [otherValue, setOtherValue] = useState("");
 
+  const handleDropdownChange = (event) => {
+    const selectedValue = event.target.value;
 
   // const [formValues, setFormValues] = useState({
   //   email: '',
@@ -40,6 +44,8 @@ function UserDetails({formValues, setFormValues}) {
   //   department_master_id: '',
   //   pin_code: '',
 
+    setSelectedOption(selectedValue);
+  };
 
 
   // });
@@ -51,7 +57,7 @@ function UserDetails({formValues, setFormValues}) {
         // Update the state with the fetched data
         setPosts(response.data);
       })
-      .catch(error => console.error('Error fetching data:', error));
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   useEffect(() => {
@@ -60,7 +66,7 @@ function UserDetails({formValues, setFormValues}) {
         const response = await apiService.getDepartments();
         setDepartments(response.data);
       } catch (error) {
-        console.error('Error fetching departments:', error);
+        console.error("Error fetching departments:", error);
       }
     };
 
@@ -83,7 +89,7 @@ function UserDetails({formValues, setFormValues}) {
       }));
     
     } else {
-      console.error('Selected department not found');
+      console.error("Selected department not found");
     }
   };
 
@@ -102,10 +108,9 @@ function UserDetails({formValues, setFormValues}) {
         }
       }));
     } else {
-      console.error('Selected post not found');
+      console.error("Selected post not found");
     }
   };
-
 
   const handleMaritalStatusChange = (event) => {
     const selectedMaritalStatus = event.target.value;
@@ -136,7 +141,7 @@ function UserDetails({formValues, setFormValues}) {
     <>
       <form method="post" >
         <div className="container">
-          <div style={{ marginTop: "20px" }}>
+         <div style={{ marginTop: "20px" }}>
             <div>
               <h5 className="UD-heading">Personal Details</h5>
               <p className="UD-subheading">

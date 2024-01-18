@@ -92,7 +92,7 @@ function OTPVerification({ transferAllData, otpData }) {
             </div>
             <button onClick={verifyOtp} type="button" id="verify-otp-btn">
               Verify OTP
-            </button>
+              </button>&nbsp;
             <button onClick={resendOTP} type="button" id="resend-btn">
               Resend OTP
             </button>

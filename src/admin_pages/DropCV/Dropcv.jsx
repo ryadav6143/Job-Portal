@@ -19,6 +19,9 @@ const steps = ["", "", ""];
 
 function Dropcv() {
   const [otpData,setOtpData]=useState({});
+  const [otpButtonClicked, setOtpButtonClicked] = useState(false);
+  
+  const [formErrors, setFormErrors] = useState({});
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -50,32 +53,39 @@ function Dropcv() {
       current_salary: "",
     },
   });
-  const [formDataToSend, setformDataToSend] = useState(); 
+  // new state for errors in all steps
+  const [errors, setErrors] = useState({});
+
+  const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
-const transferAllData =async ()=>{
-  try {
-    // Create FormData object
-    const formDataToSend = new FormData();
+  const transferAllData =async ()=>{
+    try {
+      // Create FormData object
+      const formDataToSend = new FormData();
 
-    Object.entries(formData.personalDetails).forEach(([key, value]) => {
+      Object.entries(formData.personalDetails).forEach(([key, value]) => {
+        
+        if (key === "educations" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } else {
+          // If not an array, append as usual
+          formDataToSend.append(key, value);
+        }
+      });
 
-      if (key === "educations" && Array.isArray(value)) {
-        formDataToSend.append(key, JSON.stringify(value));
-      } else {
-        // If not an array, append as usual
-        formDataToSend.append(key, value);
-      }
-    });
-    console.log("formDataToSend", formDataToSend);
-    setformDataToSend(formDataToSend);
-  } catch (error) {
-    console.error(
-      "Error while posting form data and file:",
-      error.response || error
-    );
-    console.log(error.response.data);
-  }
-  const otpData={
+      setformDataToSend(formDataToSend);
+      setOtpButtonClicked(true);
+
+      console.log("formDataToSend", formDataToSend);
+setformDataToSend(formDataToSend);
+    } catch (error) {
+      console.error(
+        "Error while posting form data and file:",
+        error.response || error
+      );
+      console.log(error.response.data);
+    }
+const otpData={
     email: formData.personalDetails.email,
     contact_1: formData.personalDetails.contact_1,
   }
@@ -83,14 +93,14 @@ const transferAllData =async ()=>{
   
   const response = await apiService.generateOTP(otpData);
   console.log("API Response:", response);
-  setSelectedComponent("OTPVerification");
-
+    setSelectedComponent("OTPVerification");
+  
 }
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
- 
+
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -100,37 +110,174 @@ const transferAllData =async ()=>{
     return skipped.has(step);
   };
 
-  const handleNext = () => {  
-      
-    console.log("Form Data:", formData);
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = () => {
+    const isCurrentStepValid = validateCurrentStep();
 
+    if (isCurrentStepValid) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+      // alert("Please fill in all required fields before proceeding.");
+    }
   };
+
+  // --------------------------------------------------------------------------------
+  const validateCurrentStep = () => {
+    // modified validation function for all steps
+    const {
+      title_first_name,
+      first_name,
+      middle_name,
+      last_name,
+      dob,
+      gender,
+      email,
+      password,
+      contact_1,
+      country,
+      city,
+      subjects_master_id,
+      applied_post_masters_id,
+      applied_subpost_master_id,
+      job_category_master_id,
+    } = formData.personalDetails;
+
+    let errors = {};
+
+    switch (activeStep) {
+      case 0:
+        const currentYear = new Date().getFullYear();
+        const dobYear = dob ? new Date(dob).getFullYear() : null;
+        if (!title_first_name) {
+          errors.title_first_name = "! Title is required.";
+        }
+
+        if (!first_name) {
+          errors.first_name = "! Name is required.";
+        }
+
+        if (!dob || dobYear < currentYear - 150 || dobYear > currentYear) {
+          errors.dob = "! Please enter a valid date of birth.";
+        }
+
+        if (!gender) {
+          errors.gender = "! Gender is required.";
+        }
+
+        if (!email) {
+          errors.email = "! Email is required.";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+          errors.email = "! Please enter a valid email address.";
+        }
+
+        if (!contact_1) {
+          errors.contact_1 = "! Contact number is required.";
+        } else if (contact_1.length !== 10)
+          errors.contact_1 = "! Please enter a valid 10-digit contact number.";
+
+        if (!country) {
+          errors.country = "! Country is required.";
+        }
+
+        if (!city) {
+          errors.city = "! City is required.";
+        }
+        if (!job_category_master_id) {
+          errors.category_name = "! Category is required";
+        }
+        if (!applied_post_masters_id) {
+          errors.post_name = "! Post is required";
+        }
+
+        if (!subjects_master_id) {
+          errors.subject_name = "! Subject is required";
+        }
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
+
+      case 1:
+        if (
+          formData.personalDetails.educations.some(
+            (education) =>
+              !education.degree_types_master_id ||
+              !education.exam_types_master_id ||
+              !education.degree_status
+          )
+        ) {
+          setErrors({ qualification: "Education details are incomplete." });
+          return false;
+        } else if (!applied_post_masters_id || !subjects_master_id) {
+          setErrors({
+            qualification: "Applied Post Masters and Subjects are required.",
+          });
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
+
+      case 2:
+      // if (!formData.personalDetails.current_organization) {
+      //   setErrors({
+      //     currentExperience: "Current Organization is required.",
+      //   });
+      //   return false;
+      // } else if (!formData.personalDetails.current_designation) {
+      //   setErrors({
+      //     currentExperience: "Current Designation is required.",
+      //   });
+      //   return false;
+      // } else {
+      //   setErrors({});
+      //   return true;
+      // }
+
+      case 2:
+
+      default:
+        return true;
+    }
+  };
+
+  // --------------------------------------------------------------------------------
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setErrors({});
   };
 
   const handleVerifivation = () => {
-    // alert("Your CV has been submitted");
     navigate("/verify");
   };
   // ----------------------------------------------------------
-  
-  
+
+  // const showComponent = async (componentName) => {
+  //   setSelectedComponent(componentName);
+
+  // };
   let componentToShow;
   switch (selectedComponent) {
     case "OTPVerification":
-      componentToShow = <OTPVerification otpData={otpData} transferAllData={formDataToSend} />;
+      componentToShow = (
+        <OTPVerification otpData={otpData} transferAllData={formDataToSend} />
+      );
       break;
-      default:
-        componentToShow=null;
+    default:
+      componentToShow = null;
   }
   // ----------------------------------------------------------
   return (
     <>
       <Header></Header>
-      <div className="contact-forms">
+      <div
+        className={otpButtonClicked ? "contact-forms hidden" : "contact-forms"}
+      >
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
@@ -158,12 +305,9 @@ const transferAllData =async ()=>{
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button
-                  onClick={transferAllData}                
-                >
-                  Get OTP
-                </Button>
-             
+                <Button onClick={transferAllData}>Get OTP</Button>
+                {/* <Button type="button"  onClick={handleGetOTP}>Get OTP</Button> */}
+                {/* <Button>Next</Button> */}
               </Box>
             </React.Fragment>
           ) : (
@@ -172,32 +316,42 @@ const transferAllData =async ()=>{
                 <PersonalDeatils
                   formData={formData.personalDetails}
                   setFormData={setFormData}
+                  // passed errors and set errors states as props
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 1 && (
                 <Qualification
                   formData={formData.personalDetails}
                   setFormData={setFormData}
+                  // passed errors and set errors states as props
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 2 && (
                 <CurrentExperience
                   formData={formData.personalDetails}
                   setFormData={setFormData}
+                  errors={errors}
+                  setErrors={setErrors} // Make sure you pass setErrors as a prop
+                  setFormErrors={setFormErrors}
                 />
               )}
               {activeStep === 3 && <OTPVerification />}
 
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Button
-                  className="prev-btn"
-                  color="inherit"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}
-                >
-                  Previous
-                </Button>
+                {activeStep > 0 && (
+                  <Button
+                    className="prev-btn"
+                    color="inherit"
+                    onClick={handleBack}
+                    sx={{ mr: 1 }}
+                  >
+                    Previous
+                  </Button>
+                )}
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={handleNext} className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}

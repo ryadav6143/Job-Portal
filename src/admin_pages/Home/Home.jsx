@@ -64,7 +64,7 @@ function Home() {
           <p id="uni-name">MEDI-CAPS CARRER</p>
           <p>CONNECT THE DOTS OF YOUR CARRER</p>
           <button type="button" id="join-medi-btn">
-            <a href=""> JOIN MEDI-CAPS</a>
+            <a href="/current-opening"> JOIN MEDI-CAPS</a>
           </button>
         </div>
       </div>
@@ -78,32 +78,31 @@ function Home() {
         <div className="card">
           <img src={logo1} />
           <p>ACADEMICS</p>
-          <a href="">View Vacancies</a>
+          <a href="/current-opening">View Vacancies</a>
         </div>
         <div className="card">
           <img src={logo2} />
           <p>UAS</p>
           {/* <p>(UNIVERSITY ADMINISTRATIVE SERVICES)</p> */}
-          <a href="">View Vacancies</a>
+          <a href="/current-opening">View Vacancies</a>
         </div>
         <div className="card">
           <img src={logo2} />
           <p>RESEARCH</p>
-          <a href="">View Vacancies</a>
+          <a href="/current-opening">View Vacancies</a>
         </div>
         <div className="card">
           <img src={logo3} />
           <p>ADMINISTRATION</p>
-          <a href="">View Vacancies</a>
+          <a href="/current-opening">View Vacancies</a>
         </div>
         <div className="card">
           <img src={logo3} />
           <p>TECHNICAL</p>
-          <a href="">View Vacancies</a>
+          <a href="/current-opening">View Vacancies</a>
         </div>
       </div>
       <div className="perks">
-        {/* <div className="perks-heading"> */}
         <div className="perks-heading">
           <p>
             PERKS OF JOINING <br />
@@ -144,7 +143,9 @@ function Home() {
             <span>MEDI-CAPS STAFF</span>
           </p>
         </div>
-        <MediStaff></MediStaff>
+        <div className="staff-design">
+          <MediStaff></MediStaff>
+        </div>
       </div>
       <div className="hr-corner">
         <div className="hr-conrer-heading">

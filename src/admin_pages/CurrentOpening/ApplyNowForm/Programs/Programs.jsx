@@ -183,7 +183,6 @@ function Programs({ formValues, setFormValues }) {
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span></span>Name of the Course
-
                       </label>
                       <input
                         className="UD-set-input"
@@ -328,7 +327,6 @@ function Programs({ formValues, setFormValues }) {
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span></span>Name of the Course
-
                       </label>
                       <input
                         className="UD-set-input"
@@ -619,4 +617,4 @@ function Programs({ formValues, setFormValues }) {
   )
 }
 
-export default Programs
+export default Programs;

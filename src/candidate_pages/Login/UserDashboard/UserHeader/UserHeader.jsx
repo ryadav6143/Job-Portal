@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./UserHeader.css";
-import logo from "../../../../assets/logos/medi-logo.png";
-import logout from "../../../../assets/logos/Logout.png";
-import reset from "../../../../assets/logos/Reset.png";
 import EditPersonalDetails from "../EditProfileForm/EditPersonalDetails/EditPersonalDetails";
 import { Button } from "@mui/material";
 
@@ -20,26 +17,16 @@ import EditExperience from "../EditProfileForm/EditExperienceForm/EditExperience
 import EditResearchForm from "../EditProfileForm/EditResearchForm/EditResearchForm";
 import EditProgramsForm from "../EditProfileForm/EditProgramsForm/EditProgramsForm";
 import EditReference from "../EditProfileForm/EditReference/EditReference";
+import UserLogout from "../../UserLogout/UserLogout";
+import Footers from "../../../../components/Footer/Footers";
 
 function UserHeader() {
   const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const handleReset = () => {
-    const form = document.getElementById("myForm");
+ 
 
-    if (form) {
-      form.reset();
-    }
-  };
-
-  // useEffect(()=> {
-  //   if(window.innerWidth < 768){
-  //     setIsOpen(false)
-  //     setIsMobile(true)
-  //   }
-  // },[])
   useEffect(() => {
     // Update isOpen state only if the window width is less than 768
     const checkIsMobile = () => {
@@ -97,21 +84,12 @@ function UserHeader() {
 
   return (
     <>
-      {/* ---------------header start------------ */}
-      <div className="user-header">
-        <div className="logo-coloured">
-          <img src={logo} className="user-logo" />
-        </div>
-        <div className="logs">
-          <button onClick={handleReset} type="reset">
-            <img src={reset} className="log-res" />
-          </button>
-          <button>
-            <img src={logout} className="log-res" />
-          </button>
-        </div>
-      </div>
-      {/* ---------header end----------- */}
+    
+    {/* ---------this is user haeader ------------- */}
+      <UserLogout></UserLogout>
+    {/* ---------this is user haeader ------------- */}
+
+
       {isMobile && (
         <Button className="sidebar-btn" onClick={() => handleSideBar()}>
           ☰{" "}
@@ -183,6 +161,7 @@ function UserHeader() {
         <div className="col-md-10">{renderComponent()}</div>
       </div>
       {/* --------------------sidebar end------------------------------ */}
+      <Footers></Footers>
     </>
   );
 }
