@@ -73,7 +73,7 @@ function Dropcv() {
       });
 
       setformDataToSend(formDataToSend);
-      setOtpButtonClicked(true);
+      setOtpButtonClicked(true);   
 
       console.log("formDataToSend", formDataToSend);
     } catch (error) {
@@ -165,14 +165,14 @@ function Dropcv() {
           errors.city = "! City is required.";
         }
         if (!job_category_master_id) {
-          errors.category_name = "! Category is required";
+          errors.job_category_master_id = "! Category is required";
         }
         if (!applied_post_masters_id) {
-          errors.post_name = "! Post is required";
+          errors.applied_post_masters_id = "! Post is required";
         }
 
         if (!subjects_master_id) {
-          errors.subject_name = "! Subject is required";
+          errors.subjects_master_id = "! Subject is required";
         }
 
         if (Object.keys(errors).length > 0) {
@@ -211,25 +211,25 @@ function Dropcv() {
         }
 
       case 2:
-        // Validation for Current Experience step
-        if (!formData.personalDetails.current_organization) {
-          setErrors({
-            currentExperience: "Current Organization is required.",
-          });
-          return false;
-        } else if (!formData.personalDetails.current_designation) {
-          setErrors({
-            currentExperience: "Current Designation is required.",
-          });
-          return false;
-        } else {
-          setErrors({});
-          return true;
-        }
+      // Validation for Current Experience step
+      // if (!formData.personalDetails.current_organization) {
+      //   setErrors({
+      //     currentExperience: "Current Organization is required.",
+      //   });
+      //   return false;
+      // } else if (!formData.personalDetails.current_designation) {
+      //   setErrors({
+      //     currentExperience: "Current Designation is required.",
+      //   });
+      //   return false;
+      // } else {
+      //   setErrors({});
+      //   return true;
+      // }
 
       default:
         return true;
-      }
+    }
   };
 
   // --------------------------------------------------------------------------------
@@ -264,6 +264,7 @@ function Dropcv() {
       <Header></Header>
       <div
         className={otpButtonClicked ? "contact-forms hidden" : "contact-forms"}
+       
       >
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
@@ -293,8 +294,6 @@ function Dropcv() {
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={transferAllData}>Get OTP</Button>
-                {/* <Button type="button"  onClick={handleGetOTP}>Get OTP</Button> */}
-                {/* <Button>Next</Button> */}
               </Box>
             </React.Fragment>
           ) : (

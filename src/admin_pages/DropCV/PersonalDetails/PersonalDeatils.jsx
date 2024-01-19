@@ -143,7 +143,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     const selectedSubjectName = event.target.value;
     setSelectedSubject(selectedSubjectName);
 
-   
     const selectedSubjectData = subjects.find(
       (subject) => subject.subject_name === selectedSubjectName
     );
@@ -439,7 +438,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
             <div className="row">
               <div className="col-md-6">
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Category of Appointment
@@ -462,11 +460,12 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     ))}
                   </select>
                 </div>
-                <span className="error-message">{errors.category_name}</span>
+                <span className="error-message">
+                  {errors.job_category_master_id}
+                </span>
               </div>
 
               <div className="col-md-6">
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Post Applied For
@@ -485,7 +484,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     ))}
                   </select>
                 </div>
-                <span className="error-message">{errors.post_name}</span>
+                <span className="error-message">
+                  {errors.applied_post_masters_id}
+                </span>
               </div>
             </div>
 
@@ -534,7 +535,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     ))}
                   </select>
                 </div>
-                <span className="error-message">{errors.subject_name}</span>
+                <span className="error-message">
+                  {errors.subjects_master_id}
+                </span>
               </div>
             </div>
           </form>
