@@ -65,7 +65,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       });
   }, []);
   useEffect(() => {
-    
     apiService
       .getCountries()
       .then((response) => {
@@ -76,7 +75,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       });
   }, []);
   // useEffect(() => {
-  
+
   //   apiService
   //     .getCandidates()
   //     .then((response) => {
@@ -86,7 +85,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   //       console.error("Error fetching candidates:", error);
   //     });
   // }, []);
-
 
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
@@ -443,6 +441,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     <span>*</span>Category of Appointment
                   </label>
                   <select
+                    name="category_name"
                     id="categoryDropdown"
                     className="set-dropdown"
                     value={selectedCategory}

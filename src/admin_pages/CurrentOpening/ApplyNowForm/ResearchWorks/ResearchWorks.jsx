@@ -44,15 +44,6 @@ function ResearchWorks({ formValues, setFormValues }) {
 
   const handleAddIdentifier = (e) => {
     e.preventDefault();
-    setFormValues((prevData) => ({
-      UserDetails: {
-        ...prevData.UserDetails,
-        researches: [
-          ...prevData.UserDetails.researches,
-          { orcid: "", scopusid: "", researchid: "" },
-        ],
-      },
-    }));
   };
   const handleAddPublication = (e) => {
     e.preventDefault();
@@ -173,116 +164,66 @@ function ResearchWorks({ formValues, setFormValues }) {
       <div className="container">
         <div style={{ marginTop: "20px" }}>
           <div>
-            <h5 className="UD-heading">
-              Research Work
-              <button
-                onClick={handleAddIdentifier}
-                className="editprofile-plus-button"
-              >
-                +
-              </button>
-            </h5>
+            <h5 className="UD-heading">Research Work</h5>
 
             <p className="UD-subheading">
               Please fill your information so we can get in touch with you.
             </p>
           </div>
 
-          {formValues.researches.map((researches, index) => (
-            <div key={index}>
-              <div className="row">
-                <div className="col-md-4">
-                  {/* ORCID Id*/}
-                  <div className="UD-form-section">
-                    <label className="UD-SetLabel-Name">
-                      <span></span> ORCID Id
-                    </label>
-                    {/* <select name="orcid" className="UD-set-dropdown"
-                      value={identifier.orcid}
-                      onChange={(e) => {
-                        const newIdentifiers = [...formValues.identifiers];
-                        newIdentifiers[index].orcid = e.target.value;
-                        setFormValues((prevData) => ({ ...prevData, identifiers: newIdentifiers }));
-                      }}
-                    >
+          <div>
+            <div className="row">
+              <div className="col-md-4">
+                {/* ORCID Id*/}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span> ORCID Id
+                  </label>
 
-                      <option value="">Select Id</option>
-                      <option value="Id 1"> Id 1</option>
-                      <option value="Id 2"> Id 2</option>
-                      <option value="Id 3"> Id 3</option>
-                    </select> */}
-                    <input
-                      className="UD-set-input"
-                      type="text"
-                      placeholder=" "
-                      select
-                      name="orcid"
-                      id=""
-                      value={researches.orcid}
-                      onChange={(e) => {
-                        const newresearches = [...formValues.researches];
-                        newresearches[index].orcid = e.target.value;
-                        setFormValues((prevData) => ({
-                          ...prevData,
-                          researches: newresearches,
-                        }));
-                      }}
-                    ></input>
-                  </div>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    select
+                    name="orcid"
+                    id=""
+                  ></input>
                 </div>
+              </div>
 
-                <div className="col-md-4">
-                  {/* Scopus Id */}
-                  <div className="UD-form-section">
-                    <label className="UD-SetLabel-Name">
-                      <span></span>Scopus Id
-                    </label>
-                    <input
-                      className="UD-set-input"
-                      type="text"
-                      placeholder=" "
-                      name="scopusid"
-                      id=""
-                      value={researches.scopusid}
-                      onChange={(e) => {
-                        const newresearches = [...formValues.researches];
-                        newresearches[index].scopusid = e.target.value;
-                        setFormValues((prevData) => ({
-                          ...prevData,
-                          researches: newresearches,
-                        }));
-                      }}
-                    ></input>
-                  </div>
+              <div className="col-md-4">
+                {/* Scopus Id */}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>Scopus Id
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="scopusid"
+                    id=""
+                  ></input>
                 </div>
+              </div>
 
-                <div className="col-md-4">
-                  {/* Research Id*/}
-                  <div className="UD-form-section">
-                    <label className="UD-SetLabel-Name">
-                      <span></span>Research Id
-                    </label>
-                    <input
-                      className="UD-set-input"
-                      type="text"
-                      placeholder=" "
-                      name="researchid"
-                      id=""
-                      value={researches.researchid}
-                      onChange={(e) => {
-                        const newresearches = [...formValues.researches];
-                        newresearches[index].researchid = e.target.value;
-                        setFormValues((prevData) => ({
-                          ...prevData,
-                          researches: newresearches,
-                        }));
-                      }}
-                    ></input>
-                  </div>
+              <div className="col-md-4">
+                {/* Research Id*/}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span></span>Research Id
+                  </label>
+                  <input
+                    className="UD-set-input"
+                    type="text"
+                    placeholder=" "
+                    name="researchid"
+                    id=""
+                  ></input>
                 </div>
               </div>
             </div>
-          ))}
+          </div>
 
           {/* Journal Publication */}
 

@@ -18,6 +18,7 @@ import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
 import { useState } from "react";
 import apiService from "../../../Services/ApiServices";
+import { error } from "jquery";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
   const [otpButtonclicked, setOtpButtonclicked] = useState(false);
@@ -367,13 +368,30 @@ function ApplyNow() {
       nature_of_job,
       department_master_id,
       pin_code,
+      exam_types_master_id,
+      // ----------------Qualificationf Form Values---------
+      year_start,
+      institute_name,
+      board_university_name,
+      year_end,
+      grade_division,
+      grade_percent,
+      stream,
+      // ---------------Experience form Input Names-------------------
+      // company_experience_name,
+      // designation,
+      // gross_pay,
+      // exp_work_from,
+      // exp_work_to,
+      total_academic_exp,
+      total_industrial_exp,
     } = formValues.UserDetails;
 
     let errors = {};
+    const currentYear = new Date().getFullYear();
+    const dobYear = dob ? new Date(dob).getFullYear() : null;
     switch (activeStep) {
       case 0:
-        const currentYear = new Date().getFullYear();
-        const dobYear = dob ? new Date(dob).getFullYear() : null;
         if (!email) {
           errors.email = "! Email is required.";
         } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -440,7 +458,6 @@ function ApplyNow() {
           errors.pin_code = "! Pin Code is Required";
         }
         if (Object.keys(errors).length > 0) {
-          // If there are errors, set the state with error messages
           setErrors(errors);
           return false;
         } else {
@@ -449,7 +466,52 @@ function ApplyNow() {
         }
 
       case 1:
-        // validation for activeStep1
+        if (
+          !formValues.UserDetails.educations[0].country ||
+          !formValues.UserDetails.educations[1].country
+        ) {
+          errors.country = "! Country is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].year_start ||
+          !formValues.UserDetails.educations[1].year_start
+        ) {
+          errors.year_start = "! Year of Joining is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].year_end ||
+          !formValues.UserDetails.educations[1].year_end
+        ) {
+          errors.year_end = "! Passing Year is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].institute_name ||
+          !formValues.UserDetails.educations[1].institute_name
+        ) {
+          errors.institute_name = "! School Name is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].board_university_name ||
+          !formValues.UserDetails.educations[0].board_university_name
+        ) {
+          errors.board_university_name = "! Board is Required";
+        }
+
+        if (
+          !formValues.UserDetails.educations[0].grade_division ||
+          !formValues.UserDetails.educations[0].grade_division
+        ) {
+          errors.grade_division = "! Division is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].grade_percent ||
+          !formValues.UserDetails.educations[1].grade_percent
+        ) {
+          errors.grade_percent = "! Percentage is Required";
+        }
+        if (!formValues.UserDetails.educations[1].stream) {
+          errors.stream = "! Stream is Required";
+        }
 
         if (Object.keys(errors).length > 0) {
           // If there are errors, set the state with error messages
@@ -461,6 +523,37 @@ function ApplyNow() {
         }
       case 2:
         // validation for activeStep2
+
+        // if (!company_experience_name) {
+        //   errors.company_experience_name = "! Company name is Required";
+        // }
+        // if (!designation) {
+        //   errors.designation = "! Designation is Required";
+        // }
+        // if (!gross_pay) {
+        //   errors.gross_pay = "! Current Gross Pay is Required";
+        // }
+        // if (!exp_work_from) {
+        //   errors.exp_work_from = "! Date From is required.";
+        // }
+
+        // if (!exp_work_to) {
+        //   errors.exp_work_to = "! Date To is required.";
+        // }
+        if (!total_academic_exp) {
+          errors.total_academic_exp =
+            "! Total Academic Experience is Required.";
+        } else if (isNaN(total_academic_exp) || +total_academic_exp <= 0) {
+          errors.total_academic_exp =
+            "! Please enter a valid positive number for Total Academic Experience.";
+        }
+        if (!total_industrial_exp) {
+          errors.total_industrial_exp =
+            "! Total Industry Experience is Required.";
+        } else if (isNaN(total_industrial_exp) || +total_industrial_exp <= 0) {
+          errors.total_industrial_exp =
+            "! Please enter a valid positive number for Total Industry Experience.";
+        }
 
         if (Object.keys(errors).length > 0) {
           // If there are errors, set the state with error messages

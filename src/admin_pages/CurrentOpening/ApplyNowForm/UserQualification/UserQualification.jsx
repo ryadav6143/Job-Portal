@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import "./UserQualification.css";
 import apiService from "../../../../Services/ApiServices";
-function UserQualification({ formValues, setFormValues }) {
+function UserQualification({ formValues, setFormValues, errors, setErrors }) {
   // const [formValues, setFormValues] = useState({
   //   educations: [
   //     {
@@ -287,6 +287,7 @@ function UserQualification({ formValues, setFormValues }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.country}</span>
               </div>
               <div className="col-md-4">
                 {/* *Year of Joining */}
@@ -296,7 +297,7 @@ function UserQualification({ formValues, setFormValues }) {
                   </label>
                   <input
                     className="UD-set-input"
-                    type="text"
+                    type="number"
                     placeholder=" "
                     name="year_start"
                     id=""
@@ -306,6 +307,7 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">{errors.year_start}</span>
               </div>
               <div className="col-md-4">
                 {/* *School*/}
@@ -325,6 +327,7 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message"> {errors.institute_name}</span>
               </div>
             </div>
             <div className="row">
@@ -349,6 +352,9 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">
+                  {errors.board_university_name}
+                </span>
               </div>
 
               <div className="col-md-4">
@@ -369,6 +375,7 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">{errors.year_end}</span>
               </div>
 
               <div className="col-md-4">
@@ -389,8 +396,10 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">{errors.grade_division}</span>
               </div>
             </div>
+            {/* VALIDATION IS NOT WORKING */}
             <div className="row">
               <div className="col-md-4">
                 {/* *Aggregate Percentage/CGPA*/}
@@ -400,7 +409,7 @@ function UserQualification({ formValues, setFormValues }) {
                   </label>
                   <input
                     className="UD-set-input"
-                    type="text"
+                    type="number"
                     placeholder=" "
                     name="grade_percent"
                     id=""
@@ -411,6 +420,7 @@ function UserQualification({ formValues, setFormValues }) {
                   ></input>
                 </div>
               </div>
+              <span className="error-message">{errors.grade_percent}</span>
             </div>
 
             {/* Higher secondary */}
@@ -442,6 +452,7 @@ function UserQualification({ formValues, setFormValues }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.country}</span>
               </div>
 
               <div className="col-md-4">
@@ -452,7 +463,7 @@ function UserQualification({ formValues, setFormValues }) {
                   </label>
                   <input
                     className="UD-set-input"
-                    type="text"
+                    type="number"
                     placeholder=" "
                     name="year_start"
                     id=""
@@ -462,6 +473,7 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">{errors.year_start}</span>
               </div>
 
               <div className="col-md-4">
@@ -485,6 +497,7 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">{errors.institute_name}</span>
               </div>
             </div>
             <div className="row">
@@ -509,6 +522,9 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">
+                  {errors.board_university_name}
+                </span>
               </div>
 
               <div className="col-md-4">
@@ -519,7 +535,7 @@ function UserQualification({ formValues, setFormValues }) {
                   </label>
                   <input
                     className="UD-set-input"
-                    type="text"
+                    type="number"
                     placeholder=" "
                     name="year_end"
                     id=""
@@ -529,6 +545,7 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">{errors.year_end}</span>
               </div>
 
               <div className="col-md-4">
@@ -552,6 +569,7 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">{errors.grade_division}</span>
               </div>
             </div>
             <div className="row">
@@ -563,7 +581,7 @@ function UserQualification({ formValues, setFormValues }) {
                   </label>
                   <input
                     className="UD-set-input"
-                    type="text"
+                    type="number"
                     placeholder=" "
                     name="grade_percent"
                     id=""
@@ -576,6 +594,7 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">{errors.grade_percent}</span>
               </div>
 
               <div className="col-md-4">
@@ -596,6 +615,7 @@ function UserQualification({ formValues, setFormValues }) {
                     }
                   ></input>
                 </div>
+                <span className="error-message">{errors.stream}</span>
               </div>
             </div>
             {/* ----------------------------------------------------------------------- */}
