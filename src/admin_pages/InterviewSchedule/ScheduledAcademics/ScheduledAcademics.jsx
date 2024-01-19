@@ -124,7 +124,7 @@ function ScheduledAcademics() {
   return (
     <>
       <div className="SCA-table">
-        <p className="SCA-heading">ACADEMICS</p>
+        <p className="SCA-heading">Academics</p>
         <p className="table-des">A descriptive body text comes here</p>
 
         <div className="table-responsive">

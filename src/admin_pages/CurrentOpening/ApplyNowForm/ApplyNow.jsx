@@ -1,6 +1,5 @@
-import React,{useState} from "react";
+import React from "react";
 import "./ApplyNow.css";
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -17,51 +16,18 @@ import OTPVerification from "../../DropCV/OTPVerifivation/OTPVerification";
 import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
 import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
-
+import { useState } from "react";
+import apiService from "../../../Services/ApiServices";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
-  const navigate = useNavigate();
+  const [otpButtonclicked, setOtpButtonclicked] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [otpData, setOtpData] = useState({});
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
-  // const [formData, setFormData] = useState({
-  //   AllData: {
-     
-  //   },
-  // });
-
-
-
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
-
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
-
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleVerifivation = () => {
-    // alert("Your CV has been submitted");
-    navigate("/otp-verifivation");
-  };
-  const [errors, setErrors] = useState({});
-  const [formData, setFormData] = useState({
+  const [formValues, setFormValues] = useState({
     UserDetails: {
       email: "",
       contact_1: "",
@@ -72,21 +38,318 @@ function ApplyNow() {
       dob: "",
       gender: "",
       religion: "",
+      city: "",
       cast_category_name: "",
       marital_status: "",
       address_1: "",
       contact_2: "",
       country: "",
       state_province: "",
+      applied_post_masters_id: "",
+      nature_of_job: "",
+      department_master_id: "",
       pin_code: "",
+      specialization_area_1:"",
+      educations: [
+        {
+          exam_types_master_id: 7,
+          country: "",
+          year_start: "",
+          institute_name: "",
+          board_university_name: "",
+          year_end: "",
+          grade_division: "",
+          grade_percent: "",
+        }, // educations[0] mein highSchool ka data
+        {
+          exam_types_master_id: 8,
+          country: "",
+          year_start: "",
+          institute_name: "",
+          board_university_name: "",
+          year_end: "",
+          grade_division: "",
+          grade_percent: "",
+          stream: "",
+        }, // educations[1] mein higherSecondary ka data
+        {
+          exam_types_master_id: 2,
+          country: "",
+          year_start: "",
+          institute_name: "",
+          board_university_name: "",
+          degree_types_name: "",
+          year_end: "",
+          grade_percent: "",
+          specialization_area_1: "",
+        }, // educations[2] mein Graduation ka data
+        {
+          exam_types_master_id: 3,
+          country: "",
+          year_start: "",
+          institute_name: "",
+          board_university_name: "",
+          degree_types_name: "",
+          year_end: "",
+          grade_percent: "",
+          specialization_area_1: "",
+        }, // educations[3] mein PostGraduation ka data
+        {
+          exam_types_master_id: 5,
+          country: "",
+          year_start: "",
+          institute_name: "",
+          board_university_name: "",
+          degree_types_name: "",
+          year_end: "",
+          grade_percent: "",
+          specialization_area_1: "",
+        }, // educations[4] mein MPHIL ka data
+        {
+          exam_types_master_id: 4,
+          country: "",
+          year_start: "",
+          institute_name: "",
+          board_university_name: "",
+          degree_types_name: "",
+          year_end: "",
+          grade_percent: "",
+          specialization_area_1: "",
+          specialization_area_2: "",
+          specialization_area_3: "",
+        }, // educations[5] mein Phd ka data
+        {
+          exam_types_master_id: 11,
+
+          year_end: "",
+        }, // educations[6] mein Gate ka data
+        {
+          exam_types_master_id: 9,
+
+          year_end: "",
+        }, // educations[7] mein Neet ka data
+        {
+          exam_types_master_id: 1,
+          country: "",
+          year_start: "",
+          institute_name: "",
+          board_university_name: "",
+          year_end: "",
+          grade_division: "",
+          grade_percent: "",
+          stream: "",
+        }, // educations[8] mein Diploma ka data
+      ],
+      experiences: [
+        {
+          company_experience_name: "",
+          designation: "",
+          gross_pay: "",
+          exp_work_from: "",
+          exp_work_to: "",
+        },
+      ],
+      total_academic_exp: "",
+      total_industrial_exp: "",
+      accommodation: "",
+      transportation: "",
+      food: "",
+      mediclaim: "",
+      others: "",
+      // --------------------------------------------------------------------
+      researches: [{ orcid: "", scopusid: "", researchid: "" }],
+      journal_publications: [
+        {
+          journal_publication_year: "",
+          journal_publication_title: "",
+          journal_publication_author: "",
+          journal_publication_index: "",
+          journal_publication_name: "",
+          journal_publication_issn: "",
+          journal_publication_volume: "",
+          journal_publication_issue: "",
+        },
+      ],
+      conference_publications: [
+        {
+          conference_publication_year: "",
+          conference_publication_title: "",
+          conference_publication_author: "",
+          conference_publication_index: "",
+          conference_publication_name: "",
+          conference_publication_issn: "",
+          conference_publication_volume: "",
+          conference_publication_issue: "",
+        },
+      ],
+      patents: [
+        {
+          patent_applicationid: "",
+          patent_application_title: "",
+          patent_application_year: "",
+          patent_granted_by: "",
+          patent_incountry: "",
+        },
+      ],
+      copyrights: [
+        {
+          copyright_applicationid: "",
+          copyright_title: "",
+          copyright_year: "",
+          copyright_granted_by: "",
+          copyright_incountry: "",
+        },
+      ],
+
+      seminar_organised: [
+        {
+          organise_date_from: "",
+          organise_date_to: "",
+          name_of_course: "",
+          sponsered_by: "",
+          participants_number: "",
+          name_of_institute: "",
+          name_of_industry: "",
+        },
+      ],
+      seminar_attend: [
+        {
+          attend_date_from: "",
+          attend_date_to: "",
+          name_of_course: "",
+          sponsered_by: "",
+        },
+      ],
+      other_membership_info: [
+        {
+          member_of_institute_name: "",
+          membership_date_from: "",
+          membership_date_to: "",
+          position_held: "",
+          contribution: "",
+        },
+      ],
+      awards_won: "",
+      extra_activities: "",
+      any_other_info: "",
+      expected_joining_time: "",
+
+      reference_person_1: "",
+      reference_person_2: "",
+      ref_org_1: "",
+      ref_org_2: "",
+      ref_person_position_1: "",
+      ref_person_position_2: "",
+      hearing_source_about_us: "",
+      application_purpose: "",
+      ref_person_1_email: "",
+      ref_person_2_email: "",
+      ref_person_1_contact: "",
+      ref_person_2_contact: "",
+      candidate_cv: "",
     },
   });
+  const [selectedComponent, setSelectedComponent] = useState();
+  const [formValuesToSend, setformValuesToSend] = useState();
 
-  // from fields for step 1
-  const validateSteps = () => {
+  // const transferAllData =async ()=>{
+  //   try {
+  //     const formValuesToSend = new formValues();
+  //       Object.entries(formValues.UserDetails).forEach(([key, value]) => {
+  //               formValuesToSend.append(key, JSON.stringify(value));
+  //              });
+  //     console.log("formValuesToSend", formValuesToSend);
+  //     setformValuesToSend(formValuesToSend);
+
+  //   } catch (error) {
+  //     setOtpButtonclicked(true);
+  //     console.error(
+  //       "Error while posting form data and file:",
+  //       error.response || error
+  //     );
+  //     console.log(error.response);
+  //   }
+  //   const otpData={
+  //     email: formValues.UserDetails.email,
+  //     contact_1: formValues.UserDetails.contact_1,
+  //   }
+  //   setOtpData(otpData)
+
+  //   const response = await apiService.generateOTP(otpData);
+  //   console.log("API Response:", response);
+  //   setSelectedComponent("OTPVerification");
+
+  // }
+
+  const transferAllData = async () => {
+    try {
+      const formValuesToSend = { UserDetails: { ...formValues.UserDetails } };
+      setformValuesToSend(formValuesToSend);
+      const otpData = {
+        email: formValues.UserDetails.email,
+        contact_1: formValues.UserDetails.contact_1,
+      };
+      setOtpData(otpData);
+      const response = await apiService.generateOTP(otpData);
+      console.log("API Response:", response);
+      setSelectedComponent("OTPVerification");
+      setOtpButtonclicked(true);
+    } catch (error) {
+      setOtpButtonclicked(true);
+      console.error(
+        "Error while posting form data and file:",
+        error.response || error
+      );
+      console.log(error.response);
+    }
+  };
+
+  const isStepOptional = (step) => {
+    return step === 1;
+  };
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  const handleNext = () => {
+    console.log("Form formValues:", formValues);
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
+    }
+
+    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
+
+    const isCurrentStepValid = inputValidations();
+    if (isCurrentStepValid) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+    }
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  let componentToShow;
+  switch (selectedComponent) {
+    case "OTPVerification":
+      componentToShow = (
+        <OTPVerification otpData={otpData} transferAllData={formValuesToSend} />
+      );
+      break;
+    default:
+      componentToShow = null;
+  }
+  // ----------------------------validations------------------------
+
+  const inputValidations = () => {
     const {
-      contact_1,
       email,
+      contact_1,
       title_first_name,
       first_name,
       middle_name,
@@ -94,84 +357,168 @@ function ApplyNow() {
       dob,
       gender,
       religion,
+      city,
       cast_category_name,
       marital_status,
       address_1,
       contact_2,
       country,
       state_province,
+      applied_post_masters_id,
+      nature_of_job,
+      department_master_id,
       pin_code,
-    } = formData.UserDetails;
-    let errors = {};
+      specialization_area_1,
+    } = formValues.UserDetails;
 
+    let errors = {};
     switch (activeStep) {
       case 0:
-        if (!email) {
-          errors.email = "! Email is Required";
-        }
-        if (!contact_1) {
-          errors.contact_1 = "! Contact Number is Required";
-        }
-        if (!title_first_name) {
-          errors.title = "! Title is Required";
-        }
-        if (!first_name) {
-          errors.first_name = "! First Name is Required";
-        }
-        if (!middle_name) {
-          errors.middle_name = "! middle Name is Required";
-        }
-        if (!last_name) {
-          errors.last_name = "! last Name is Required";
-        }
-        if (!dob) {
-          errors.dob = "! Date of Birth is Required";
-        }
-        if (!gender) {
-          errors.gender = "! Gender is Required";
-        }
-        if (!religion) {
-          errors.religion = "! Religion is Required";
-        }
-        if (!cast_category_name) {
-          errors.cast = "! Cast Category is Required";
-        }
-        if (!marital_status) {
-          errors.maratial_status = "! Maratial Status is Required";
-        }
-        if (!address_1) {
-          errors.address = "! Address Status is Required";
-        }
-        if (!contact_2) {
-          errors.other_contact = "! Other Contact Status is Required";
-        }
-        if (!country) {
-          errors.country = "! Country is Required";
-        }
-        if (!state_province) {
-          errors.state_province = "! State is Required";
-        }
-        if (!pin_code) {
-          errors.pincode = "! Pin Code is Required";
-        }
+        // const currentYear = new Date().getFullYear();
+        // const dobYear = dob ? new Date(dob).getFullYear() : null;
+        // if(!specialization_area_1){
+        //   errors.specialization_area_1="! Specialization is Required"
+        // }
+        // if (!email) {
+        //   errors.email = "! Email is required.";
+        // } else if (!/\S+@\S+\.\S+/.test(email)) {
+        //   errors.email = "! Please enter a valid email address.";
+        // }
+        // if (!contact_1) {
+        //   errors.contact_1 = "! Contact number is Required.";
+        // } else if (contact_1.length !== 10) {
+        //   errors.contact_1 = "! Please enter a valid 10-digit contact number.";
+        // }
+        // if (!title_first_name) {
+        //   errors.title_first_name = "! Title is Required.";
+        // }
+        // if (!first_name) {
+        //   errors.first_name = "! First Name is Required.";
+        // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+        //   errors.first_name = "! Please enter a valid name.";
+        // }
+        // if (!last_name) {
+        //   errors.last_name = "! Last Name is Required.";
+        // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
+        //   errors.last_name = "! Please enter a valid name.";
+        // }
+        // if (!dob || dobYear < currentYear - 150 || dobYear > currentYear) {
+        //   errors.dob = "! Please enter a valid date of birth.";
+        // }
+        // if (!gender) {
+        //   errors.gender = "! Gender is required.";
+        // }
+        // if (!religion) {
+        //   errors.religion = "! Relegion is Required";
+        // }
+        // if (!city) {
+        //   errors.city = "! City is Required";
+        // }
+        // if (!cast_category_name) {
+        //   errors.cast_category_name = "! Cast Category is Required";
+        // }
+        // if (!marital_status) {
+        //   errors.marital_status = "! Marital Status is Required";
+        // }
+        // if (!address_1) {
+        //   errors.address_1 = "! Address is Required";
+        // }
+        // if (!contact_2) {
+        //   errors.contact_2 = "! Alternate Number is Required";
+        // }
+        // if (!country) {
+        //   errors.country = "! Country is Required";
+        // }
+        // if (!state_province) {
+        //   errors.state_province = "! State is Required";
+        // }
+        // if (!applied_post_masters_id) {
+        //   errors.applied_post_masters_id = "! Post Applied is Required";
+        // }
+        // if (!nature_of_job) {
+        //   errors.nature_of_job = "! Nature of Job is Required";
+        // }
+        // if (!department_master_id) {
+        //   errors.department_master_id = "! Department is Required";
+        // }
+        // if (!pin_code) {
+        //   errors.pin_code = "! Pin Code is Required";
+        // }
+        // if (Object.keys(errors).length > 0) {
+        //   // If there are errors, set the state with error messages
+        //   setErrors(errors);
+        //   return false;
+        // } else {
+        //   setErrors({});
+        //   return true;
+        // }
+
       case 1:
-      // validation for Academic Professional Qualifications
+        // validation for activeStep1
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
       case 2:
-      // validatiob for Experience
+        // validation for activeStep2
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
       case 3:
-      // validation for Research Work
+        // validation for activeStep3
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
       case 4:
-      // validation for Seminars/Short Term Courses/Summer Schools/Winter Schools
+        // validation for activeStep4
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
       case 5:
-      // validation for Reference
-      default:
-        return true;
+        // validation for activeStep5
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
     }
   };
+
   return (
     <>
       <Header></Header>
-      <div className="apply-now-forms">
+      <div
+        className={
+          otpButtonclicked ? "apply-now-forms hidden" : "apply-now-forms"
+        }
+      >
         <Box sx={{ width: "100%" }}>
           <div className="my-stepper">
             <Stepper activeStep={activeStep}>
@@ -201,18 +548,60 @@ function ApplyNow() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleVerifivation}>Next</Button>
+                <Button onClick={transferAllData}>Get OTP</Button>
                 {/* Reset butto here  */}
               </Box>
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {activeStep === 0 && <UserDetails />}
-              {activeStep === 1 && <UserQualification />}
-              {activeStep === 2 && <UserExperience />}
-              {activeStep === 3 && <ResearchWorks />}
-              {activeStep === 4 && <Programs />}
-              {activeStep === 5 && <Reference />}
+              {activeStep === 0 && (
+                <UserDetails
+                  formValues={formValues.UserDetails}
+                  setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
+              {activeStep === 1 && (
+                <UserQualification
+                  formValues={formValues.UserDetails}
+                  setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
+              {activeStep === 2 && (
+                <UserExperience
+                  formValues={formValues.UserDetails}
+                  setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
+              {activeStep === 3 && (
+                <ResearchWorks
+                  formValues={formValues.UserDetails}
+                  setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
+              {activeStep === 4 && (
+                <Programs
+                  formValues={formValues.UserDetails}
+                  setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
+              {activeStep === 5 && (
+                <Reference
+                  formValues={formValues.UserDetails}
+                  setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
+                />
+              )}
               {activeStep === 6 && <OTPVerification />}
               {activeStep === 7 && <Submitsuccess />}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -235,6 +624,7 @@ function ApplyNow() {
           )}
         </Box>
       </div>
+      <div>{componentToShow}</div>
       <Footers></Footers>
     </>
   );

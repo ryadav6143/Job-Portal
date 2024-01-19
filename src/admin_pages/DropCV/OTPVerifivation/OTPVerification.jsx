@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import apiService from "../../../Services/ApiServices";
 
 function OTPVerification({ transferAllData, otpData }) {
-  console.log("AllData", otpData);
+  console.log("AllData", transferAllData);
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [verificationError, setVerificationError] = useState(null);

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Logout from "./Logout/Logout";
-import Login from "./Login/Login";
-import "./Adminpanel.css";
+import CandidateLogin from "./CandidateLogin/CandidateLogin";
+import CandidateLogout from "./CandidateLogout/CandidateLogut";
+import "./CandidatePanel.css";
 
-function Adminpanel() {
+function CandidatePanel() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     // Check login status on component mount
@@ -11,9 +11,8 @@ function Adminpanel() {
       const loggedIn = localStorage.getItem("isLoggedIn") === "true";
       setIsLoggedIn(loggedIn);
     };
-
     checkLoginStatus();
-  }, []); // Empty dependency array means this effect runs once on component mount
+  }, []);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -27,13 +26,13 @@ function Adminpanel() {
     <div className="admin-container1">
       <div className="admin-data">
         {!isLoggedIn ? (
-          <Login handleLogin={handleLogin} />
+          <CandidateLogin handleLogin={handleLogin} />
         ) : (
-          <Logout handleLogout={handleLogout} />
+          <CandidateLogout handleLogout={handleLogout} />
         )}
       </div>
     </div>
   );
 }
 
-export default Adminpanel;
+export default CandidatePanel;

@@ -1,14 +1,26 @@
 import { useState } from "react";
 import React from "react";
 import "./CurrentExperience.css";
+import { red } from "@mui/material/colors";
 
-function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErrors }) {
-  const [isFresher, setIsFresher] = useState(false);
+function CurrentExperience({
+  formData,
+  setFormData,
+  errors,
+  setErrors,
+  setFormErrors,
+  isFresher,
+  setIsFresher,
+  onCheckboxChange
+}) {
+  [isFresher, setIsFresher] = useState(false);
   // const [formData, setFormData] = useState(null);
   const handleCheckboxChange = () => {
     setIsFresher(!isFresher);
+    onCheckboxChange(!isFresher);
   };
   const handleInputChange = (e) => {
+    
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -19,37 +31,47 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
     }));
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: value ? "" : "This field is required",
-    }));
-    setFormErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: value ? "" : "This field is required",
+      [name]: value ? "" : "",
     }));
   };
-
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-
-    // Check if the file has a valid extension
     const allowedExtensions = ["pdf", "doc", "docx"];
-    const fileExtension = file.name.split(".").pop().toLowerCase();
+    const maxFileSizeInMB = 2;
 
-    if (!allowedExtensions.includes(fileExtension)) {
-      // Display an alert message for invalid file format
-      alert("Invalid file format. Please upload a PDF, DOC, or DOCX file.");
-      // Optionally, you can clear the input field
-      e.target.value = null;
-      return;
+    if (!file) {
+      setErrors({
+        candidate_cv: "! CV file is Required",
+      });
+      return false;
     }
-
+    const fileSizeInMB = file.size / (1024 * 1024); // Convert to megabytes
+    if (fileSizeInMB > maxFileSizeInMB) {
+      setErrors({
+        candidate_cv: `! File size exceeds ${maxFileSizeInMB}MB`,
+      });
+      return false;
+    }
+    const fileExtension = file.name.split(".").pop().toLowerCase();
+    if (!allowedExtensions.includes(fileExtension)) {
+      setErrors({
+        candidate_cv:
+          "! Invalid file format. Please upload a PDF, DOC, or DOCX file.",
+      });
+      return false;
+    }
     setFormData((prevFormData) => ({
       personalDetails: {
         ...prevFormData.personalDetails,
         candidate_cv: file,
       },
     }));
+
+    setErrors({});
+
+    return true;
   };
+
   return (
     <>
       <div className="container">
@@ -93,6 +115,9 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
                         value={formData.total_experience}
                       ></input>
                     </div>
+                    <span className="error-message">
+                      {errors.total_experience}
+                    </span>
                   </div>
                   <div className="col-md-6">
                     {/* Total Research */}
@@ -110,12 +135,14 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
                         value={formData.total_research_exp}
                       ></input>
                     </div>
+                    <span className="error-message">
+                      {errors.total_research_exp}
+                    </span>
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="col-md-6">
-                    {/* Total Industry */}
                     <div className="form-section">
                       <label className="SetLabel-Name">
                         <span></span>Total Industry
@@ -130,9 +157,11 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
                         value={formData.total_industrial_exp}
                       ></input>
                     </div>
+                    <span className="error-message">
+                      {errors.total_industrial_exp}
+                    </span>
                   </div>
                   <div className="col-md-6">
-                    {/* Current Organization */}
                     <div className="form-section">
                       <label className="SetLabel-Name">
                         <span></span>Current Organization
@@ -147,12 +176,14 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
                         value={formData.current_organization}
                       ></input>
                     </div>
+                    <span className="error-message">
+                      {errors.current_organization}
+                    </span>
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="col-md-6">
-                    {/* Designation */}
                     <div className="form-section">
                       <label className="SetLabel-Name">
                         <span></span> Current Designation
@@ -164,12 +195,14 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
                         name="current_designation"
                         id=""
                         onChange={handleInputChange}
-                        value={formData.current_designation}
+                        value={formData.currentDesignation}
                       ></input>
                     </div>
+                    <span className="error-message">
+                      {errors.current_designation}
+                    </span>
                   </div>
                   <div className="col-md-6">
-                    {/* Salary */}
                     <div className="form-section">
                       <label className="SetLabel-Name">
                         <span></span>Current Salary
@@ -184,6 +217,9 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
                         value={formData.current_salary}
                       ></input>
                     </div>
+                    <span className="error-message">
+                      {errors.current_salary}
+                    </span>
                   </div>
                 </div>
               </>
@@ -203,10 +239,9 @@ function CurrentExperience({ formData, setFormData, errors, setErrors,setFormErr
                 name="candidate_cv"
                 onChange={handleFileChange}
                 accept=".pdf, .doc, .docx"
-                required
               />
             </div>
-            {/* <span className="error-message">{errors.candidate_cv}</span> */}
+            <span className="error-message">{errors.candidate_cv}</span>
           </div>
         </form>
       </div>

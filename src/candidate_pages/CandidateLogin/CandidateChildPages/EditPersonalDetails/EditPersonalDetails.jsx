@@ -1,7 +1,5 @@
 import "./EditPersonalDetails.css";
 import React, { useState, useRef } from "react";
-
-import profileimg from "../../../../../assets/images/images.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -86,8 +84,8 @@ function EditPersonalDetails() {
           </div>
 
           <div
-            className="container custom-container"
-            // style={{ marginTop: "30px", paddingLeft: "50px", paddingRight: "50px"}}
+            className="container"
+            style={{ marginTop: "30px", paddingLeft: "50px", paddingRight: "50px" }}
           >
             <div>
               <div>

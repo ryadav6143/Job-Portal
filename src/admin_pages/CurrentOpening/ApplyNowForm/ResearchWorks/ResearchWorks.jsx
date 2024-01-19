@@ -1,115 +1,303 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleDown,
-} from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import plusicon from "../../../../assets/logos/plus.png";
 import "./ResearchWorks.css";
-import plusbutton from "../../../../assets/logos/plus.png";
 
-function ResearchWorks() {
-  const [identifiers, setIdentifiers] = useState([{}]);
-  const [publications, setPublications] = useState([{}]);
-  const [applications, setApplications] = useState([{}]);
+function ResearchWorks({ formValues, setFormValues }) {
+  // const [formValues, setFormValues] = useState({
+  //   researches: [{ orcid: '', scopusid: '', researchid: '' }],
+  //   journal_publications: [{
+  //     journal_publication_year: '',
+  //     journal_publication_title: '',
+  //     journal_publication_author: '',
+  //     journal_publication_index: '',
+  //     journal_publication_name: '',
+  //     journal_publication_issn: '',
+  //     journal_publication_volume: '',
+  //     journal_publication_issue: ''
+  //   }],
+  //   conference_publications: [{
+  //     conference_publication_year: '',
+  //     conference_publication_title: '',
+  //     conference_publication_author: '',
+  //     conference_publication_index: '',
+  //     conference_publication_name: '',
+  //     conference_publication_issn: '',
+  //     conference_publication_volume: '',
+  //     conference_publication_issue: ''
+  //   }],
+  //   patents: [{
+  //     patent_applicationid: '',
+  //     patent_application_title: '',
+  //     patent_application_year: '',
+  //     patent_granted_by: '',
+  //     patent_incountry: ''
+  //   }],
+  //   copyrights: [{
+  //     copyright_applicationid: '',
+  //     copyright_title: '',
+  //     copyright_year: '',
+  //     copyright_granted_by: '',
+  //     copyright_incountry: '',
 
-  const handleAddIdentifier = () => {
-    setIdentifiers([...identifiers, {}]);
+  //   }]
+  // });
+
+  const handleAddIdentifier = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        researches: [
+          ...prevData.UserDetails.researches,
+          { orcid: "", scopusid: "", researchid: "" },
+        ],
+      },
+    }));
+  };
+  const handleAddPublication = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        journal_publications: [
+          ...prevData.UserDetails.journal_publications,
+          {
+            journal_publication_year: "",
+            journal_publication_title: "",
+            journal_publication_author: "",
+            journal_publication_index: "",
+            journal_publication_name: "",
+            journal_publication_issn: "",
+            journal_publication_volume: "",
+            journal_publication_issue: "",
+          },
+        ],
+      },
+    }));
   };
 
-  const handleAddPublication = () => {
-    setPublications([...publications, {}]);
+  const handleAddConference = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+        // ...prevData.UserDetails,
+        conference_publications: [
+          ...prevData.UserDetails.conference_publications,
+          {
+            conference_publication_year: "",
+            conference_publication_title: "",
+            conference_publication_author: "",
+            conference_publication_index: "",
+            conference_publication_name: "",
+            conference_publication_issn: "",
+            conference_publication_volume: "",
+            conference_publication_issue: "",
+          },
+        ],
+      },
+    }));
+  };
+  const handleAddPatent = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        patents: [
+          ...prevData.UserDetails.patents,
+          {
+            patent_applicationid: "",
+            patent_application_title: "",
+            patent_application_year: "",
+            patent_granted_by: "",
+            patent_incountry: "",
+          },
+        ],
+      },
+    }));
+  };
+  const handleAddCopyright = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        copyrights: [
+          ...prevData.UserDetails.copyrights,
+          {
+            copyright_applicationid: "",
+            copyright_title: "",
+            copyright_year: "",
+            copyright_granted_by: "",
+            copyright_incountry: "",
+          },
+        ],
+      },
+    }));
   };
 
-  const handleAddApplication = () => {
-    setApplications([...applications, {}]);
+  const handleInputJournalChange = (e, index, field) => {
+    const newJournalPublications = [...formValues.journal_publications];
+    newJournalPublications[index][field] = e.target.value;
+    setFormValues((prevData) => ({
+      ...prevData,
+      journal_publications: newJournalPublications,
+    }));
   };
+  const handleInputConferenceChange = (e, index, field) => {
+    const newConferencePublications = [...formValues.conference_publications];
+    newConferencePublications[index][field] = e.target.value;
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        conference_publications: newConferencePublications,
+      },
+    }));
+  };
+
+  const handleInputPatentChange = (e, index, field) => {
+    const newPatents = [...formValues.patents];
+    newPatents[index][field] = e.target.value;
+    setFormValues((prevData) => ({
+      UserDetails: { ...prevData.UserDetails, patents: newPatents },
+    }));
+  };
+  const handleInputCopyrightChange = (e, index, field) => {
+    const newCopyrights = [...formValues.copyrights];
+    newCopyrights[index][field] = e.target.value;
+    setFormValues((prevData) => ({
+      UserDetails: { ...prevData.UserDetails, copyrights: newCopyrights },
+    }));
+  };
+
   return (
-    <>
+    <form method="post">
       <div className="container">
         <div style={{ marginTop: "20px" }}>
-          <form action="">
-            <div>
-              <h5 className="UD-heading">Research Work</h5>
+          <div>
+            <h5 className="UD-heading">
+              Research Work
+             
+            </h5>
 
-              <p className="UD-subheading">
-                Please fill your information so we can get in touch with you.
-              </p>
-            </div>
+            <p className="UD-subheading">
+              Please fill your information so we can get in touch with you.
+            </p>
+          </div>
 
-            {identifiers.map((identifier, index) => (
-              <div key={index}>
-                <div className="row">
-                  <div className="col-md-4">
-                    {/* ORCID Id*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span> ORCID Id
-                      </label>
-                      <select name="orcid" className="UD-set-dropdown">
-                        <option value="">Select Id</option>
-                        <option value=""> Id 1</option>
-                        <option value=""> Id 2</option>
-                        <option value=""> Id 3</option>
-                      </select>
-                      <FontAwesomeIcon
-                        className="set-icon"
-                        icon={faAngleDown}
-                      />
-                    </div>
+          {formValues.researches.map((researches, index) => (
+            <div key={index}>
+              <div className="row">
+                <div className="col-md-4">
+                  {/* ORCID Id*/}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span> ORCID Id
+                    </label>
+                    {/* <select name="orcid" className="UD-set-dropdown"
+                      value={identifier.orcid}
+                      onChange={(e) => {
+                        const newIdentifiers = [...formValues.identifiers];
+                        newIdentifiers[index].orcid = e.target.value;
+                        setFormValues((prevData) => ({ ...prevData, identifiers: newIdentifiers }));
+                      }}
+                    >
+
+                      <option value="">Select Id</option>
+                      <option value="Id 1"> Id 1</option>
+                      <option value="Id 2"> Id 2</option>
+                      <option value="Id 3"> Id 3</option>
+                    </select> */}
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      select
+                      name="orcid"
+                      id=""
+                      value={researches.orcid}
+                      onChange={(e) => {
+                        const newresearches = [...formValues.researches];
+                        newresearches[index].orcid = e.target.value;
+                        setFormValues((prevData) => ({
+                          ...prevData,
+                          researches: newresearches,
+                        }));
+                      }}
+                    ></input>
                   </div>
+                </div>
 
-                  <div className="col-md-4">
-                    {/* Scopus Id */}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Scopus Id
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="scopusid"
-                        id=""
-                      ></input>
-                    </div>
+                <div className="col-md-4">
+                  {/* Scopus Id */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Scopus Id
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="scopusid"
+                      id=""
+                      value={researches.scopusid}
+                      onChange={(e) => {
+                        const newresearches = [...formValues.researches];
+                        newresearches[index].scopusid = e.target.value;
+                        setFormValues((prevData) => ({
+                          ...prevData,
+                          researches: newresearches,
+                        }));
+                      }}
+                    ></input>
                   </div>
+                </div>
 
-                  <div className="col-md-4">
-                    {/* Research Id*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Research Id
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="researchid"
-                        id=""
-                      ></input>
-                    </div>
+                <div className="col-md-4">
+                  {/* Research Id*/}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Research Id
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="researchid"
+                      id=""
+                      value={researches.researchid}
+                      onChange={(e) => {
+                        const newresearches = [...formValues.researches];
+                        newresearches[index].researchid = e.target.value;
+                        setFormValues((prevData) => ({
+                          ...prevData,
+                          researches: newresearches,
+                        }));
+                      }}
+                    ></input>
                   </div>
                 </div>
               </div>
-            ))}
-
-            {/* Journal Publication */}
-
-            <div>
-              <p className="HS-heading">
-                Journal Publication{" "}
-                <button
-                  onClick={handleAddPublication}
-                  type="button"
-                  className="plus-buttons"
-                >
-                  <img src={plusbutton} />
-                </button>
-              </p>
             </div>
+          ))}
 
-            {publications.map((publication, index) => (
-              <div key={index}>
-                <div className="row">
+          {/* Journal Publication */}
+
+          <div className="field-heading">
+            <p className="HS-heading">
+              Journal Publication{" "}
+              <button
+                onClick={handleAddPublication}
+                type="button"
+                className="plus-buttons"
+              >
+                <img src={plusicon}/>
+              </button>
+            </p>
+          </div>
+
+          {formValues.journal_publications.map(
+            (journal_publications, index) => (
+              <div key={index} >
+                <div className="row"  style={{marginTop: "24px"}}>
                   <div className="col-md-4">
                     {/* Year*/}
                     <div className="UD-form-section">
@@ -122,6 +310,14 @@ function ResearchWorks() {
                         placeholder=" "
                         name="journal_publication_year"
                         id=""
+                        value={journal_publications.journal_publication_year}
+                        onChange={(e) =>
+                          handleInputJournalChange(
+                            e,
+                            index,
+                            "journal_publication_year"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
@@ -138,6 +334,14 @@ function ResearchWorks() {
                         placeholder=" "
                         name="journal_publication_title"
                         id=""
+                        value={journal_publications.journal_publication_title}
+                        onChange={(e) =>
+                          handleInputJournalChange(
+                            e,
+                            index,
+                            "journal_publication_title"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
@@ -147,6 +351,7 @@ function ResearchWorks() {
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span></span>Author Role/ Inventor
+                        {/* <button type="button" className="plus-button">+</button> */}
                       </label>
 
                       <input
@@ -155,12 +360,20 @@ function ResearchWorks() {
                         placeholder=" "
                         name="journal_publication_author"
                         id=""
+                        value={journal_publications.journal_publication_author}
+                        onChange={(e) =>
+                          handleInputJournalChange(
+                            e,
+                            index,
+                            "journal_publication_author"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
                 </div>
 
-                <div className="row">
+                <div className="row" >
                   <div className="col-md-4">
                     {/* Indexing*/}
                     <div className="UD-form-section">
@@ -173,6 +386,14 @@ function ResearchWorks() {
                         placeholder=" "
                         name="journal_publication_index"
                         id=""
+                        value={journal_publications.journal_publication_index}
+                        onChange={(e) =>
+                          handleInputJournalChange(
+                            e,
+                            index,
+                            "journal_publication_index"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
@@ -189,6 +410,14 @@ function ResearchWorks() {
                         placeholder=" "
                         name="journal_publication_name"
                         id=""
+                        value={journal_publications.journal_publication_name}
+                        onChange={(e) =>
+                          handleInputJournalChange(
+                            e,
+                            index,
+                            "journal_publication_name"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
@@ -205,6 +434,14 @@ function ResearchWorks() {
                         placeholder=" "
                         name="journal_publication_issn"
                         id=""
+                        value={journal_publications.journal_publication_issn}
+                        onChange={(e) =>
+                          handleInputJournalChange(
+                            e,
+                            index,
+                            "journal_publication_issn"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
@@ -223,6 +460,14 @@ function ResearchWorks() {
                         placeholder=" "
                         name="journal_publication_volume"
                         id=""
+                        value={journal_publications.journal_publication_volume}
+                        onChange={(e) =>
+                          handleInputJournalChange(
+                            e,
+                            index,
+                            "journal_publication_volume"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
@@ -239,33 +484,43 @@ function ResearchWorks() {
                         placeholder=" "
                         name="journal_publication_issue"
                         id=""
+                        value={journal_publications.journal_publication_issue}
+                        onChange={(e) =>
+                          handleInputJournalChange(
+                            e,
+                            index,
+                            "journal_publication_issue"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
+            )
+          )}
 
-            {/* Conference Publication */}
+          {/* Conference Publication */}
 
-            <div>
-              <p className="HS-heading">
-                Conference Publication{" "}
-                <button
-                  onClick={handleAddPublication}
-                  type="button"
-                  className="plus-buttons"
-                >
-                  <img src={plusbutton} />
-                </button>
-              </p>
-            </div>
+          <div className="field-heading">
+            <p className="HS-heading">
+              Conference Publication{" "}
+              <button
+                onClick={handleAddConference}
+                type="button"
+             className="plus-buttons"
+              >
+                <img src={plusicon}/>
+              </button>
+            </p>
+          </div>
 
-            {publications.map((publication, index) => (
+          {formValues.conference_publications.map(
+            (conference_publications, index) => (
               <div key={index}>
-                <div className="row">
+                <div className="row" style={{marginTop: "24px"}}>
                   <div className="col-md-4">
-                    {/* Year*/}
+                    {/* Year */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span></span>Year
@@ -275,8 +530,17 @@ function ResearchWorks() {
                         type="text"
                         placeholder=" "
                         name="conference_publication_year"
-                        id=""
-                      ></input>
+                        value={
+                          conference_publications.conference_publication_year
+                        }
+                        onChange={(e) =>
+                          handleInputConferenceChange(
+                            e,
+                            index,
+                            "conference_publication_year"
+                          )
+                        }
+                      />
                     </div>
                   </div>
 
@@ -291,25 +555,42 @@ function ResearchWorks() {
                         type="text"
                         placeholder=" "
                         name="conference_publication_title"
-                        id=""
-                      ></input>
+                        value={
+                          conference_publications.conference_publication_title
+                        }
+                        onChange={(e) =>
+                          handleInputConferenceChange(
+                            e,
+                            index,
+                            "conference_publication_title"
+                          )
+                        }
+                      />
                     </div>
                   </div>
 
                   <div className="col-md-4">
-                    {/* Author Role/ Inventor*/}
+                    {/* Author Role/Inventor */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
-                        <span></span>Author Role/ Inventor
+                        <span></span>Author Role/Inventor
                       </label>
-
                       <input
                         className="UD-set-input"
                         type="text"
                         placeholder=" "
                         name="conference_publication_author"
-                        id=""
-                      ></input>
+                        value={
+                          conference_publications.conference_publication_author
+                        }
+                        onChange={(e) =>
+                          handleInputConferenceChange(
+                            e,
+                            index,
+                            "conference_publication_author"
+                          )
+                        }
+                      />
                     </div>
                   </div>
                 </div>
@@ -327,6 +608,16 @@ function ResearchWorks() {
                         placeholder=" "
                         name="conference_publication_index"
                         id=""
+                        value={
+                          conference_publications.conference_publication_index
+                        }
+                        onChange={(e) =>
+                          handleInputConferenceChange(
+                            e,
+                            index,
+                            "conference_publication_index"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
@@ -343,6 +634,16 @@ function ResearchWorks() {
                         placeholder=" "
                         name="conference_publication_name"
                         id=""
+                        value={
+                          conference_publications.conference_publication_name
+                        }
+                        onChange={(e) =>
+                          handleInputConferenceChange(
+                            e,
+                            index,
+                            "conference_publication_name"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
@@ -359,6 +660,16 @@ function ResearchWorks() {
                         placeholder=" "
                         name="conference_publication_issn"
                         id=""
+                        value={
+                          conference_publications.conference_publication_issn
+                        }
+                        onChange={(e) =>
+                          handleInputConferenceChange(
+                            e,
+                            index,
+                            "conference_publication_issn"
+                          )
+                        }
                       ></input>
                     </div>
                   </div>
@@ -366,7 +677,7 @@ function ResearchWorks() {
 
                 <div className="row">
                   <div className="col-md-4">
-                    {/* Volume*/}
+                    {/* Volume */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span></span>Volume
@@ -376,13 +687,22 @@ function ResearchWorks() {
                         type="text"
                         placeholder=" "
                         name="conference_publication_volume"
-                        id=""
-                      ></input>
+                        value={
+                          conference_publications.conference_publication_volume
+                        }
+                        onChange={(e) =>
+                          handleInputConferenceChange(
+                            e,
+                            index,
+                            "conference_publication_volume"
+                          )
+                        }
+                      />
                     </div>
                   </div>
 
                   <div className="col-md-4">
-                    {/* Issue*/}
+                    {/* Issue */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span></span>Issue
@@ -392,225 +712,286 @@ function ResearchWorks() {
                         type="text"
                         placeholder=" "
                         name="conference_publication_issue"
-                        id=""
-                      ></input>
+                        value={
+                          conference_publications.conference_publication_issue
+                        }
+                        onChange={(e) =>
+                          handleInputConferenceChange(
+                            e,
+                            index,
+                            "conference_publication_issue"
+                          )
+                        }
+                      />
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
+            )
+          )}
 
-            {/* Patent*/}
+          {/* Patent*/}
 
-            <div>
-              <p className="HS-heading">
-                Patent{" "}
-                <button
-                  onClick={handleAddApplication}
-                  type="button"
-                  className="plus-buttons"
-                >
-                  <img src={plusbutton} />
-                </button>
-              </p>
+          <div className="field-heading">
+            <p className="HS-heading">
+              Patent{" "}
+              <button
+                onClick={handleAddPatent}
+                type="button"
+             className="plus-buttons"
+              >
+                <img src={plusicon}/>
+              </button>
+            </p>
+          </div>
+
+          {formValues.patents.map((patent, index) => (
+            <div key={index}>
+              <div className="row" style={{marginTop: "24px"}} >
+                <div className="col-md-4">
+                  {/* Application ID */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Application ID
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="patent_applicationid"
+                      value={patent.patent_applicationid}
+                      onChange={(e) =>
+                        handleInputPatentChange(
+                          e,
+                          index,
+                          "patent_applicationid"
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  {/* Title */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Title
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="patent_application_title"
+                      value={patent.patent_application_title}
+                      onChange={(e) =>
+                        handleInputPatentChange(
+                          e,
+                          index,
+                          "patent_application_title"
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  {/* Year */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Year
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="patent_application_year"
+                      value={patent.patent_application_year}
+                      onChange={(e) =>
+                        handleInputPatentChange(
+                          e,
+                          index,
+                          "patent_application_year"
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-4">
+                  {/* Published/Granted */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Published/Granted
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="patent_granted_by"
+                      value={patent.patent_granted_by}
+                      onChange={(e) =>
+                        handleInputPatentChange(e, index, "patent_granted_by")
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  {/* Country */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Country
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="patent_incountry"
+                      value={patent.patent_incountry}
+                      onChange={(e) =>
+                        handleInputPatentChange(e, index, "patent_incountry")
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
+          ))}
 
-            {applications.map((application, index) => (
-              <div key={index}>
-                <div className="row">
-                  <div className="col-md-4">
-                    {/* Application ID*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Application ID
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="patent_applicationid"
-                        id=""
-                      ></input>
-                    </div>
-                  </div>
+          {/* Copyright*/}
 
-                  <div className="col-md-4">
-                    {/* Title */}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Title
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="patent_application_title"
-                        id=""
-                      ></input>
-                    </div>
-                  </div>
+          <div className="field-heading">
+            <p className="HS-heading">
+              Copyright
+              <button
+                onClick={handleAddCopyright}
+                type="button"
+             className="plus-buttons"
+              >
+                <img src={plusicon}/>
+              </button>
+            </p>
+          </div>
 
-                  <div className="col-md-4">
-                    {/*Year*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Year
-                      </label>
-
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name=""
-                        id="patent_application_year"
-                      ></input>
-                    </div>
+          {formValues.copyrights.map((copyright, index) => (
+            <div key={index}>
+              <div className="row"  style={{marginTop: "24px"}}>
+                <div className="col-md-4">
+                  {/* Application ID */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Application ID
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="copyright_applicationid"
+                      value={copyright.copyright_applicationid}
+                      onChange={(e) =>
+                        handleInputCopyrightChange(
+                          e,
+                          index,
+                          "copyright_applicationid"
+                        )
+                      }
+                    />
                   </div>
                 </div>
 
-                <div className="row">
-                  <div className="col-md-4">
-                    {/* Published/Granted*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Published/Granted
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="patent_granted_by"
-                        id=""
-                      ></input>
-                    </div>
+                <div className="col-md-4">
+                  {/* Title */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Title
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="copyright_title"
+                      value={copyright.copyright_title}
+                      onChange={(e) =>
+                        handleInputCopyrightChange(e, index, "copyright_title")
+                      }
+                    />
                   </div>
+                </div>
 
-                  <div className="col-md-4">
-                    {/* Country*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Country
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="patent_incountry"
-                        id=""
-                      ></input>
-                    </div>
+                <div className="col-md-4">
+                  {/* Year */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Year
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="copyright_year"
+                      value={copyright.copyright_year}
+                      onChange={(e) =>
+                        handleInputCopyrightChange(e, index, "copyright_year")
+                      }
+                    />
                   </div>
                 </div>
               </div>
-            ))}
 
-            {/* Copyright*/}
+              <div className="row">
+                <div className="col-md-4">
+                  {/* Published/Granted */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Published/Granted
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="copyright_granted_by"
+                      value={copyright.copyright_granted_by}
+                      onChange={(e) =>
+                        handleInputCopyrightChange(
+                          e,
+                          index,
+                          "copyright_granted_by"
+                        )
+                      }
+                    />
+                  </div>
+                </div>
 
-            <div>
-              <p className="HS-heading">
-                Copyright
-                <button
-                  onClick={handleAddApplication}
-                  type="button"
-                  className="plus-buttons"
-                >
-                  <img src={plusbutton} />
-                </button>
-              </p>
+                <div className="col-md-4">
+                  {/* Country */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span></span>Country
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="copyright_incountry"
+                      value={copyright.copyright_incountry}
+                      onChange={(e) =>
+                        handleInputCopyrightChange(
+                          e,
+                          index,
+                          "copyright_incountry"
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-
-            {applications.map((application, index) => (
-              <div key={index}>
-                <div className="row">
-                  <div className="col-md-4">
-                    {/* Application ID*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Application ID
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="copyright_applicationid"
-                        id=""
-                      ></input>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4">
-                    {/* Title */}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Title
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="copyright_title"
-                        id=""
-                      ></input>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4">
-                    {/*Year*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Year
-                      </label>
-
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="copyright_year"
-                        id=""
-                      ></input>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-md-4">
-                    {/* Published/Granted*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Published/Granted
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="copyright_granted_by"
-                        id=""
-                      ></input>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4">
-                    {/* Country*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Country
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="patent_incountry"
-                        id=""
-                      ></input>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </form>
+          ))}
         </div>
       </div>
-    </>
+    </form>
   );
 }
 

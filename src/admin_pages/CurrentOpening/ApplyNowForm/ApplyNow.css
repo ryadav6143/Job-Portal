@@ -6,6 +6,7 @@
   border-radius: 20px;
 }
 
+
 /* line styling */
 .css-z7uhs0-MuiStepConnector-line {
   display: block;
@@ -38,6 +39,14 @@
   background-color: rgba(211, 211, 211, 0.558) !important;
   font-family: "Open Sans", sans-serif !important;
 }
+
+.hidden {
+  Box{
+    display: none;
+  }
+}
+
+
 @media only screen and (max-width: 767px) {
   .apply-now-forms {
     padding: 20px 20px 20px 20px;
@@ -46,4 +55,9 @@
   .my-stepper {
     margin-left: -13px;
   }
+}
+
+
+.hidden{
+  display: none;
 }

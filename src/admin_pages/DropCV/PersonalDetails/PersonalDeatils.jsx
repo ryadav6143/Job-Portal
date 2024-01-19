@@ -24,8 +24,12 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
-
+ 
   // -------------for jobcategory, post applies , sub post  ---------------
+
+  // -------------------------------------dob----------------------
+
+  // -------------------------------------dob----------------------
   useEffect(() => {
     apiService
       .getJobCategories()
@@ -61,7 +65,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       });
   }, []);
   useEffect(() => {
-    // Fetch data from the API using the service
     apiService
       .getCountries()
       .then((response) => {
@@ -72,7 +75,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       });
   }, []);
   // useEffect(() => {
-  //   // Fetch data from the API using the service
+
   //   apiService
   //     .getCandidates()
   //     .then((response) => {
@@ -84,6 +87,10 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   // }, []);
 
   const handleCategoryChange = (event) => {
+    setErrors({
+      ...errors,
+      job_category_master_id: "",
+    });
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
     const selectedCategoryData = categories.find(
@@ -105,11 +112,16 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     setSubposts([]);
   };
   const handlePostChange = (event) => {
+    setErrors({
+      ...errors,
+      applied_post_masters_id: "",
+    });
     const selectedPost = event.target.value;
     setSelectedPost(selectedPost);
     const selectedPostData = posts.find(
       (post) => post.post_name === selectedPost
     );
+
     setFormData((prevData) => ({
       personalDetails: {
         ...prevData.personalDetails,
@@ -121,6 +133,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       selectedPostData ? selectedPostData.applied_subpost_masters : []
     );
   };
+
   const handleSubpostChange = (event) => {
     const selectedSubpostName = event.target.value;
     setSelectedSubpost(selectedSubpostName);
@@ -140,6 +153,11 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     }));
   };
   const handleSubjectChange = (event) => {
+    setErrors({
+      ...errors,
+      subjects_master_id: "",
+    });
+
     const selectedSubjectName = event.target.value;
     setSelectedSubject(selectedSubjectName);
 
@@ -169,6 +187,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         country: countryValue,
         city: "",
         // Add additional fields if needed
+        
       },
     }));
   };
@@ -181,7 +200,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     const cityValue = event.target.value;
     setSelectedCity(cityValue);
     setFormData((prevData) => ({
-      // ...prevData,
+      ...prevData,
       personalDetails: {
         ...prevData.personalDetails,
         city: cityValue,
@@ -201,11 +220,8 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       ...prevErrors,
       [name]: value ? "" : "This field is required",
     }));
-    // setFormErrors((prevErrors) => ({
-    //   ...prevErrors,
-    //   [name]: value ? "" : "This field is required",
-    // }));
   };
+
 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
   const [formErrors, setFormErrors] = useState({
@@ -288,8 +304,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
             <div className="row">
               <div className="col-md-6">
-                {/* DOB */}
-
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Date of Birth:
@@ -364,6 +378,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     placeholder="(123)456-7890 "
                     name="contact_1"
                     id=""
+                    maxLength={10}
                     value={formData.contact_1}
                     onChange={handleInputChange}
                     required

@@ -10,17 +10,20 @@ import Typography from "@mui/material/Typography";
 import PersonalDeatils from "./PersonalDetails/PersonalDeatils";
 import Qualification from "./Qualification/Qualification";
 import CurrentExperience from "./CurrentExperience/CurrentExperience";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footers";
 import OTPVerification from "./OTPVerifivation/OTPVerification";
+import apiService from "../../Services/ApiServices";
 
 const steps = ["", "", ""];
 
 function Dropcv() {
+  const [otpData, setOtpData] = useState({});
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
-  const [otpData, setOtpData] = useState("");
+  const [isFresher, setIsFresher] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  console.log("IS fresher data......................./", isFresher);
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -39,10 +42,10 @@ function Dropcv() {
       contact_1: "",
       country: "",
       city: "",
-      subjects_master_id: "",
-      applied_post_masters_id: "",
-      applied_subpost_master_id: "",
-      job_category_master_id: "",
+      subjects_master_id: 0,
+      applied_post_masters_id: 0,
+      applied_subpost_master_id: 0,
+      job_category_master_id: 0,
       educations: [initialEducation],
       total_experience: "",
       total_research_exp: "",
@@ -50,20 +53,26 @@ function Dropcv() {
       current_organization: "",
       current_designation: "",
       current_salary: "",
+      candidate_cv: "",
     },
   });
+
+  const handleCheckboxChange = (newIsFresher) => {
+    setIsFresher(newIsFresher);
+    // Do anything else you need to do with the updated value in the parent component
+  };
+
   // new state for errors in all steps
   const [errors, setErrors] = useState({});
 
   const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
-  const transferAllData = () => {
+  const transferAllData = async () => {
     try {
       // Create FormData object
       const formDataToSend = new FormData();
 
       Object.entries(formData.personalDetails).forEach(([key, value]) => {
-        // Check if the value is an array (specifically 'educations')
         if (key === "educations" && Array.isArray(value)) {
           formDataToSend.append(key, JSON.stringify(value));
         } else {
@@ -73,9 +82,10 @@ function Dropcv() {
       });
 
       setformDataToSend(formDataToSend);
-      setOtpButtonClicked(true);   
+      setOtpButtonClicked(true);
 
       console.log("formDataToSend", formDataToSend);
+      setformDataToSend(formDataToSend);
     } catch (error) {
       console.error(
         "Error while posting form data and file:",
@@ -83,6 +93,14 @@ function Dropcv() {
       );
       console.log(error.response.data);
     }
+    const otpData = {
+      email: formData.personalDetails.email,
+      contact_1: formData.personalDetails.contact_1,
+    };
+    setOtpData(otpData);
+
+    const response = await apiService.generateOTP(otpData);
+    console.log("API Response:", response);
     setSelectedComponent("OTPVerification");
   };
   const navigate = useNavigate();
@@ -106,6 +124,7 @@ function Dropcv() {
     } else {
       // alert("Please fill in all required fields before proceeding.");
     }
+    console.log(formData);
   };
 
   // --------------------------------------------------------------------------------
@@ -127,22 +146,32 @@ function Dropcv() {
       applied_post_masters_id,
       applied_subpost_master_id,
       job_category_master_id,
+      candidate_cv,
+      total_experience,
+      total_research_exp,
+      total_industrial_exp,
+      current_organization,
+      current_designation,
+      current_salary,
     } = formData.personalDetails;
 
     let errors = {};
 
     switch (activeStep) {
       case 0:
+        const currentYear = new Date().getFullYear();
+        const dobYear = dob ? new Date(dob).getFullYear() : null;
         if (!title_first_name) {
           errors.title_first_name = "! Title is required.";
         }
 
         if (!first_name) {
-          errors.first_name = "! First name is required.";
+          errors.first_name = "! Name is required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+          errors.first_name = "! Please enter a valid name.";
         }
-
-        if (!dob) {
-          errors.dob = "! Date of birth is required.";
+        if (!dob || dobYear < currentYear - 150 || dobYear > currentYear) {
+          errors.dob = "! Please enter a valid date of birth.";
         }
 
         if (!gender) {
@@ -151,11 +180,14 @@ function Dropcv() {
 
         if (!email) {
           errors.email = "! Email is required.";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+          errors.email = "! Please enter a valid email address.";
         }
 
         if (!contact_1) {
           errors.contact_1 = "! Contact number is required.";
-        }
+        } else if (contact_1.length !== 10)
+          errors.contact_1 = "! Please enter a valid 10-digit contact number.";
 
         if (!country) {
           errors.country = "! Country is required.";
@@ -180,13 +212,11 @@ function Dropcv() {
           setErrors(errors);
           return false;
         } else {
-          // If no errors, clear the state and return true
           setErrors({});
           return true;
         }
 
       case 1:
-        // Validation for Qualification step
         if (
           formData.personalDetails.educations.some(
             (education) =>
@@ -195,51 +225,118 @@ function Dropcv() {
               !education.degree_status
           )
         ) {
-          // If any education field is incomplete, set the state with error messages
           setErrors({ qualification: "Education details are incomplete." });
           return false;
         } else if (!applied_post_masters_id || !subjects_master_id) {
-          // If post masters or subjects are not selected, set the state with error messages
           setErrors({
             qualification: "Applied Post Masters and Subjects are required.",
           });
           return false;
+        }
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
         } else {
-          // If no errors, clear the state and return true
           setErrors({});
           return true;
         }
 
       case 2:
-      // Validation for Current Experience step
-      // if (!formData.personalDetails.current_organization) {
-      //   setErrors({
-      //     currentExperience: "Current Organization is required.",
-      //   });
-      //   return false;
-      // } else if (!formData.personalDetails.current_designation) {
-      //   setErrors({
-      //     currentExperience: "Current Designation is required.",
-      //   });
-      //   return false;
-      // } else {
-      //   setErrors({});
-      //   return true;
-      // }
+        // if (!formData.personalDetails.current_organization) {
+        //   setErrors({
+        //     currentExperience: "Current Organization is required.",
+        //   });
+        //   return false;
+        // } else if (!formData.personalDetails.current_designation) {
+        //   setErrors({
+        //     currentExperience: "Current Designation is required.",
+        //   });
+        //   return false;
+        // } else {
+        //   setErrors({});
+        //   return true;
+        // }
+
+        if (!isFresher) {
+          if (!formData.personalDetails.total_experience) {
+            setErrors({
+              total_experience: "! Experience is Required",
+            });
+            return false;
+          }
+          if (!formData.personalDetails.total_research_exp) {
+            setErrors({
+              total_research_exp: "! Research is Required",
+            });
+            return false;
+          }
+          if (!formData.personalDetails.total_industrial_exp) {
+            setErrors({
+              total_industrial_exp: "! Industry is Required",
+            });
+            return false;
+          }
+          if (!formData.personalDetails.current_organization) {
+            setErrors({
+              current_organization: "! Current Organization is Required",
+            });
+            return false;
+          }
+          if (!formData.personalDetails.current_designation) {
+            setErrors({
+              current_designation: "! Current Designation is Required",
+            });
+            return false;
+          }
+          if (!formData.personalDetails.current_salary) {
+            setErrors({
+              current_salary: "! Current Salary is Required",
+            });
+            return false;
+          };
+          if (!formData.personalDetails.candidate_cv) {
+            setErrors({
+              candidate_cv: "! CV is Required",
+            });
+            return false;
+          }
+          if (Object.keys(errors).length > 0) {
+            setErrors(errors);
+            return false;
+          } else {
+            setErrors({});
+            return true;
+          }
+        } else {
+          setErrors({
+            total_experience: "00",
+            total_research_exp: "00",
+            total_industrial_exp: "00",
+            current_organization: "NA",
+            current_designation: "Freshers",
+            current_salary: "00",
+          });
+        }
+        if (!formData.personalDetails.candidate_cv) {
+          setErrors({
+            candidate_cv: "! CV is Required",
+          });
+          return false;
+        }
 
       default:
         return true;
     }
   };
-
   // --------------------------------------------------------------------------------
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setErrors({});
   };
 
   const handleVerifivation = () => {
-    // alert("Your CV has been submitted");
     navigate("/verify");
   };
   // ----------------------------------------------------------
@@ -264,7 +361,6 @@ function Dropcv() {
       <Header></Header>
       <div
         className={otpButtonClicked ? "contact-forms hidden" : "contact-forms"}
-       
       >
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
@@ -322,7 +418,9 @@ function Dropcv() {
                   setFormData={setFormData}
                   errors={errors}
                   setErrors={setErrors} // Make sure you pass setErrors as a prop
+                  isFresher={isFresher}
                   setFormErrors={setFormErrors}
+                  onCheckboxChange={handleCheckboxChange}
                 />
               )}
               {activeStep === 3 && <OTPVerification />}
