@@ -75,20 +75,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         console.error("Error fetching countries:", error);
       });
   }, []);
-  // useEffect(() => {
-  
-  //   apiService
-  //     .getCandidates()
-  //     .then((response) => {
-  //       console.log("response", response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching candidates:", error);
-  //     });
-  // }, []);
-
-
-
 
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
@@ -160,7 +146,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         subjects_master_id: selectedSubjectData ? selectedSubjectData.id : "",
       },
     }));
-  };
+ };
   const handleCountryChange = (event) => {
     // set errors to null for country when changed
     setErrors({
@@ -521,7 +507,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   <select
                     id="subjectDropdown"
                     className="set-dropdown"
-                    value={selectedSubject}
+                    value={selectedSubject.subject_name}
                     onChange={handleSubjectChange}
                     required
                   >

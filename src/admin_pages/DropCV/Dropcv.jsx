@@ -36,7 +36,7 @@ function Dropcv() {
       dob: "",
       gender: "",
       email: "",
-      password: "khbasfkbnebhnolgne",
+      password: "123456",
       contact_1: "",
       country: "",
       city: "",
@@ -88,6 +88,7 @@ setformDataToSend(formDataToSend);
 const otpData={
     email: formData.personalDetails.email,
     contact_1: formData.personalDetails.contact_1,
+    first_name: formData.personalDetails.first_name,
   }
   setOtpData(otpData)
   

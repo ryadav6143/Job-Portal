@@ -31,6 +31,7 @@ function ApplyNow() {
 
   const [formValues, setFormValues] = useState({
     UserDetails: {
+      password: "123456",
       email: '',
       contact_1: '',
       title_first_name: '',
@@ -46,6 +47,7 @@ function ApplyNow() {
       address_1: '',
       contact_2: '',
       country: '',
+      specialization_area_1:'',
       state_province: '',
       applied_post_masters_id: "",
       nature_of_job: '',
@@ -156,7 +158,7 @@ function ApplyNow() {
       transportation: '',
       food: '',
       mediclaim: '',
-      others: '',
+      exp_others: '',
       // --------------------------------------------------------------------
       researches: [{ orcid: '', scopusid: '', researchid: '' }],
       journal_publications: [{
@@ -285,6 +287,7 @@ function ApplyNow() {
       const otpData = {
         email: formValues.UserDetails.email,
         contact_1: formValues.UserDetails.contact_1,
+        first_name:formValues.UserDetails.first_name
       };
       setOtpData(otpData);
       const response = await apiService.generateOTP(otpData);
@@ -297,6 +300,7 @@ function ApplyNow() {
       console.log(error.response);
     }
   };
+
 
   const isStepOptional = (step) => {
     return step === 1;

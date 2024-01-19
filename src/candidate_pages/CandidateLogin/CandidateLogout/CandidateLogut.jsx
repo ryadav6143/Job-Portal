@@ -2,7 +2,7 @@ import React from "react";
 import "./CandidateLogut.css";
 import medilogo from "../../../assets/logos/medi-logo.png";
 import CandidateDashboard from "../CandidateDashboard/CandidateDashboard";
-function CandidateLogut({ handleLogout }) {
+function CandidateLogut({ handleLogout}) {
   return (
     <>
       <div className="admin-header">
@@ -12,8 +12,7 @@ function CandidateLogut({ handleLogout }) {
         <div id="logout-btn">
           <button
             onClick={() => {
-              handleLogout();
-              localStorage.setItem("isLoggedIn", false);
+              handleLogout();            
             }}
           >
             LOGOUT

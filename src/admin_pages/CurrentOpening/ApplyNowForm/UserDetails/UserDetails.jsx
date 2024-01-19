@@ -17,7 +17,37 @@ function UserDetails({formValues, setFormValues}) {
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const [maritalStatus, setMaritalStatus] = useState('');
 
+  const [countries, setCountries] = useState([]);
+  const [accessToken] = useState('Bearer sL-eX7S-pFFAg1dGBc-26ZSRCkNicfdu50p3ZLtaS4kTtjijpJIpqgs9hg6lWvXsHgg');
 
+  useEffect(() => {
+    // Fetch countries from the API
+    fetch('https://www.universal-tutorial.com/api/countries/', {
+      method: 'GET',
+      headers: {
+        'Authorization': accessToken,
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Check the response structure before mapping
+        if (Array.isArray(data)) {
+          const countryNames = data.map(country => country.country_name);
+          setCountries(countryNames);
+        } else {
+          console.error('Unexpected response format:', data);
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, [accessToken]);
+  
+  console.log('Countries:', countries);
   // const [formValues, setFormValues] = useState({
   //   email: '',
   //   contact_1: '',
@@ -371,7 +401,7 @@ function UserDetails({formValues, setFormValues}) {
                     className="UD-set-input"
                     type="date"
                     name="dob"
-                    placeholder="MM/DD/YYYY "
+                    placeholder="DD/MM/YYYY"
                     id=""
                     value={formValues.dob}
                     onChange={handleInputChange}
@@ -518,7 +548,7 @@ function UserDetails({formValues, setFormValues}) {
                   <label className="UD-SetLabel-Name">
                     <span>*</span> Country
                   </label>
-                  <select
+                  {/* <select
                     onChange={handleInputChange}
                     name="country"
                     className="UD-set-dropdown"
@@ -529,7 +559,20 @@ function UserDetails({formValues, setFormValues}) {
                     <option value="country 1"> country 1</option>
                     <option value=" country 2"> country 2</option>
                     <option value="country 3"> country 3</option>
-                  </select>
+                  </select> */}
+                     <select
+            name="country"
+            className="UD-set-dropdown"
+            value={formValues.country}
+            onChange={handleInputChange}
+          >
+            <option value="">Select country</option>
+            {countries.map((country, index) => (
+              <option key={index} value={country}>
+                {country}
+              </option>
+            ))}
+          </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
