@@ -54,7 +54,7 @@ function EditPersonalDetails() {
     <>
       <form id="myForm">
         <div style={{ marginTop: "7%" }}>
-          <div style={{ paddingLeft: "50px" }}>
+          <div style={{ paddingLeft: "50px", paddingRight: "50px" }}>
             {selectedImage && (
               <div>
                 <img
@@ -86,8 +86,8 @@ function EditPersonalDetails() {
           </div>
 
           <div
-            className="container"
-            style={{ marginTop: "30px", paddingLeft: "50px" }}
+            className="container custom-container"
+            // style={{ marginTop: "30px", paddingLeft: "50px", paddingRight: "50px"}}
           >
             <div>
               <div>

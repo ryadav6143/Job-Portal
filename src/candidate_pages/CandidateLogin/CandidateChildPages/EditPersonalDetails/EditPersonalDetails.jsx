@@ -52,7 +52,7 @@ function EditPersonalDetails() {
     <>
       <form id="myForm">
         <div style={{ marginTop: "7%" }}>
-          <div style={{ paddingLeft: "50px" }}>
+          <div style={{ paddingLeft: "50px", paddingRight: "50px" }}>
             {selectedImage && (
               <div>
                 <img
@@ -85,7 +85,11 @@ function EditPersonalDetails() {
 
           <div
             className="container"
-            style={{ marginTop: "30px", paddingLeft: "50px" }}
+            style={{
+              marginTop: "30px",
+              paddingLeft: "50px",
+              paddingRight: "50px",
+            }}
           >
             <div>
               <div>
@@ -337,7 +341,7 @@ function EditPersonalDetails() {
                       className="UD-set-input"
                       type="date"
                       name="dob"
-                      placeholder="MM/DD/YYYY "
+                      placeholder="DD/MM/YYYY "
                       id=""
                       required
                     ></input>

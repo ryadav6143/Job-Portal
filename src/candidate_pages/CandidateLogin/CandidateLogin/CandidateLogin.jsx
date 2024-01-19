@@ -3,6 +3,7 @@ import "./CandidateLogin.css";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../assets/logos/logo.png";
+
 function CandidateLogin({ handleLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

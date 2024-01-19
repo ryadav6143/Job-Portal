@@ -263,7 +263,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
             <div>
               <p className="HS-heading">High School</p>
             </div>
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -428,7 +428,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
             <div>
               <p className="HS-heading">Higher secondary</p>
             </div>
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -624,7 +624,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
             <div>
               <p className="HS-heading">Diploma</p>
             </div>
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -803,7 +803,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
             <div>
               <p className="HS-heading">Graduation</p>
             </div>
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -986,7 +986,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
             <div>
               <p className="HS-heading">Post Graduation</p>
             </div>
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1177,7 +1177,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
             <div>
               <p className="HS-heading">M. Phil</p>
             </div>
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1351,7 +1351,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
             <div>
               <p className="HS-heading">PhD</p>
             </div>
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1517,7 +1517,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                 </div>
               </div>
             </div>
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-12">
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
@@ -1525,7 +1525,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     Applicable
                   </label>
                   <input
-                    style={{ width: "95%" }}
+                    style={{ width: "99.5%" }}
                     className="UD-set-input"
                     type="text"
                     placeholder=""
@@ -1540,14 +1540,14 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
               </div>
             </div>
 
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-12">
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
                     <span></span>Topic of Research (Doctoral), If Applicable
                   </label>
                   <input
-                    style={{ width: "95%" }}
+                    style={{ width: "99.5%" }}
                     className="UD-set-input"
                     type="text"
                     placeholder=""
@@ -1566,7 +1566,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
             <div>
               <p className="HS-heading">Qualified Examination</p>
             </div>
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* Gate*/}
                 <div className="UD-form-section">

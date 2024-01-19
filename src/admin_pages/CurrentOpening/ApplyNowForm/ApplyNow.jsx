@@ -50,6 +50,7 @@ function ApplyNow() {
       nature_of_job: "",
       department_master_id: "",
       pin_code: "",
+      specialization_area_1:"",
       educations: [
         {
           exam_types_master_id: 7,

@@ -20,6 +20,7 @@ function CurrentExperience({
     onCheckboxChange(!isFresher);
   };
   const handleInputChange = (e) => {
+    
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -27,6 +28,10 @@ function CurrentExperience({
         ...prevFormData.personalDetails,
         [name]: value,
       },
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : "",
     }));
   };
   const handleFileChange = (e) => {

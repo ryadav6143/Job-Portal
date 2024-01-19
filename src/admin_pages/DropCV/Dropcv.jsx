@@ -204,14 +204,14 @@ function Dropcv() {
           errors.city = "! City is required.";
         }
         if (!job_category_master_id) {
-          errors.category_name = "! Category is required";
+          errors.job_category_master_id = "! Category is required";
         }
         if (!applied_post_masters_id) {
-          errors.post_name = "! Post is required";
+          errors.applied_post_masters_id = "! Post is required";
         }
 
         if (!subjects_master_id) {
-          errors.subject_name = "! Subject is required";
+          errors.subjects_master_id = "! Subject is required";
         }
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
@@ -278,7 +278,7 @@ function Dropcv() {
           }
           if (!formData.personalDetails.total_industrial_exp) {
             setErrors({
-              total_industrial_exp: "! This Field is Required",
+              total_industrial_exp: "! Industry is Required",
             });
             return false;
           }
@@ -297,6 +297,12 @@ function Dropcv() {
           if (!formData.personalDetails.current_salary) {
             setErrors({
               current_salary: "! Current Salary is Required",
+            });
+            return false;
+          };
+          if (!formData.personalDetails.candidate_cv) {
+            setErrors({
+              candidate_cv: "! CV is Required",
             });
             return false;
           }
@@ -391,8 +397,6 @@ function Dropcv() {
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={transferAllData}>Get OTP</Button>
-                {/* <Button type="button"  onClick={handleGetOTP}>Get OTP</Button> */}
-                {/* <Button>Next</Button> */}
               </Box>
             </React.Fragment>
           ) : (

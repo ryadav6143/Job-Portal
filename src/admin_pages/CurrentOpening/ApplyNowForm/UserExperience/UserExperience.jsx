@@ -65,12 +65,10 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
         <div className="container">
           <div style={{ marginTop: "20px" }}>
             <div>
-              <h5 className="UD-heading">
-                Experience{" "}
-                <button onClick={handleAddExperience} className="plus-button">
-                  +
-                </button>
-              </h5>
+              <h5 className="UD-heading">Experience 
+              <button onClick={handleAddExperience} className="plus-buttons">
+                <img src={plusicon}/>
+                </button></h5>
               <p className="UD-subheading">
                 Please fill your information so we can get in touch with you.
               </p>
@@ -178,11 +176,11 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
             {/* Experience */}
 
             {/* Total Experience */}
-            <div>
+            <div style={{marginTop:"40px"}}>
               <p className="HS-heading">Total Experience</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-14px" }}>
               <div className="col-md-4">
                 {/* *Academic Experience */}
                 <div className="UD-form-section">
@@ -225,11 +223,11 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
             </div>
 
             {/* Other Benefits */}
-            <div>
+            <div style={{marginTop:"40px"}}>
               <p className="HS-heading">Other Benefits</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-14px" }}>
               <div className="col-md-4">
                 {/* Accommodation */}
                 <div className="UD-form-section">

@@ -75,7 +75,7 @@ function Reference({ formValues, setFormValues }) {
               </p>
 
               <input
-                style={{ width: "95%" }}
+                style={{ width: "99.5%" }}
                 className="UD-set-input"
                 type="text"
                 placeholder=""
@@ -92,7 +92,7 @@ function Reference({ formValues, setFormValues }) {
               <p className="HS-heading"> First Reference</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-14px" }}>
               <div className="col-md-4">
                 {/* Name */}
                 <div className="UD-form-section">
@@ -197,7 +197,7 @@ function Reference({ formValues, setFormValues }) {
               <p className="HS-heading">Second Reference</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-14px" }}>
               <div className="col-md-4">
                 {/* Name */}
                 <div className="UD-form-section">
@@ -297,7 +297,7 @@ function Reference({ formValues, setFormValues }) {
               </div>
             </div>
 
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-40px" }}>
               <div className="col-md-12">
                 {/* Statement of Purpose*/}
                 <div className="UD-form-section">
@@ -305,7 +305,7 @@ function Reference({ formValues, setFormValues }) {
                     <span></span>Statement of Purpose
                   </label>
                   <input
-                    style={{ width: "95%" }}
+                    style={{ width: "99.5%" }}
                     className="UD-set-input"
                     type="text"
                     placeholder=""

@@ -65,6 +65,10 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   }, []);
 
   const handleDepartmentChange = (event) => {
+    setErrors({
+      ...errors,
+      department_master_id: "",
+    });
     const selectedDeptName = event.target.value;
     const selectedDepartmentObject = departments.find(
       (department) => department.dept_name === selectedDeptName
@@ -84,6 +88,10 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   };
 
   const handlePostChange = (event) => {
+    setErrors({
+      ...errors,
+      applied_post_masters_id: "",
+    });
     const selectedPostName = event.target.value;
     const selectedPostObject = posts.find(
       (post) => post.post_name === selectedPostName
@@ -103,6 +111,10 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   };
 
   const handleMaritalStatusChange = (event) => {
+    setErrors({
+      ...errors,
+      marital_status: "",
+    });
     const selectedMaritalStatus = event.target.value;
     setMaritalStatus(selectedMaritalStatus);
     setFormValues((prevValues) => ({
@@ -254,6 +266,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     value={formValues.specialization_area_1}
                   ></input>
                 </div>
+                <span className="error-message">{errors.specialization_area_1}</span>
               </div>
 
               <div className="col-md-4">
@@ -319,6 +332,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">{errors.first_name}</span>
               </div>
               <div className="col-md-4">
                 {/* Middle Name  */}
@@ -395,6 +409,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     className="UD-set-dropdown"
                     value={formValues.gender}
                   >
+                    <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Others">Others</option>
@@ -505,7 +520,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
 
                   <input
                     className="UD-set-input"
-                    type="tel"
+                    type="number"
                     name="contact_2"
                     placeholder="(123) 456 - 7890"
                     id=""

@@ -24,7 +24,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
-
+ 
   // -------------for jobcategory, post applies , sub post  ---------------
 
   // -------------------------------------dob----------------------
@@ -87,6 +87,10 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   // }, []);
 
   const handleCategoryChange = (event) => {
+    setErrors({
+      ...errors,
+      job_category_master_id: "",
+    });
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
     const selectedCategoryData = categories.find(
@@ -108,11 +112,16 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     setSubposts([]);
   };
   const handlePostChange = (event) => {
+    setErrors({
+      ...errors,
+      applied_post_masters_id: "",
+    });
     const selectedPost = event.target.value;
     setSelectedPost(selectedPost);
     const selectedPostData = posts.find(
       (post) => post.post_name === selectedPost
     );
+
     setFormData((prevData) => ({
       personalDetails: {
         ...prevData.personalDetails,
@@ -124,6 +133,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       selectedPostData ? selectedPostData.applied_subpost_masters : []
     );
   };
+
   const handleSubpostChange = (event) => {
     const selectedSubpostName = event.target.value;
     setSelectedSubpost(selectedSubpostName);
@@ -143,6 +153,11 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     }));
   };
   const handleSubjectChange = (event) => {
+    setErrors({
+      ...errors,
+      subjects_master_id: "",
+    });
+
     const selectedSubjectName = event.target.value;
     setSelectedSubject(selectedSubjectName);
 
@@ -172,6 +187,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         country: countryValue,
         city: "",
         // Add additional fields if needed
+        
       },
     }));
   };
@@ -184,7 +200,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     const cityValue = event.target.value;
     setSelectedCity(cityValue);
     setFormData((prevData) => ({
-      // ...prevData,
+      ...prevData,
       personalDetails: {
         ...prevData.personalDetails,
         city: cityValue,
@@ -205,6 +221,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       [name]: value ? "" : "This field is required",
     }));
   };
+
 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
   const [formErrors, setFormErrors] = useState({
@@ -459,7 +476,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     ))}
                   </select>
                 </div>
-                <span className="error-message">{errors.category_name}</span>
+                <span className="error-message">
+                  {errors.job_category_master_id}
+                </span>
               </div>
 
               <div className="col-md-6">
@@ -481,7 +500,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     ))}
                   </select>
                 </div>
-                <span className="error-message">{errors.post_name}</span>
+                <span className="error-message">
+                  {errors.applied_post_masters_id}
+                </span>
               </div>
             </div>
 
@@ -530,7 +551,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     ))}
                   </select>
                 </div>
-                <span className="error-message">{errors.subject_name}</span>
+                <span className="error-message">
+                  {errors.subjects_master_id}
+                </span>
               </div>
             </div>
           </form>

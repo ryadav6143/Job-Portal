@@ -17,7 +17,7 @@ function EditExperience() {
       <div>
         <div>
           <h5 className="UD-heading">Experience &nbsp; <FontAwesomeIcon   className="edit-pen-icon"icon={faPen} />
-          <button     onClick={handleAddEducation} style={{marginRight:"30px"}} className="plus-buttons">
+          <button     onClick={handleAddEducation} style={{marginRight:"30px", paddingRight: "50px"}} className="plus-buttons">
           <img src={plusicon} />
             
             </button></h5>

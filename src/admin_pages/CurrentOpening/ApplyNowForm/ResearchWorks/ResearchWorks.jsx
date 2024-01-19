@@ -1,5 +1,5 @@
 import React from "react";
-
+import plusicon from "../../../../assets/logos/plus.png";
 import "./ResearchWorks.css";
 
 function ResearchWorks({ formValues, setFormValues }) {
@@ -164,7 +164,10 @@ function ResearchWorks({ formValues, setFormValues }) {
       <div className="container">
         <div style={{ marginTop: "20px" }}>
           <div>
-            <h5 className="UD-heading">Research Work</h5>
+            <h5 className="UD-heading">
+              Research Work
+             
+            </h5>
 
             <p className="UD-subheading">
               Please fill your information so we can get in touch with you.
@@ -227,23 +230,23 @@ function ResearchWorks({ formValues, setFormValues }) {
 
           {/* Journal Publication */}
 
-          <div>
+          <div className="field-heading">
             <p className="HS-heading">
               Journal Publication{" "}
               <button
                 onClick={handleAddPublication}
                 type="button"
-                className="editprofile-plus-button"
+                className="plus-buttons"
               >
-                +
+                <img src={plusicon}/>
               </button>
             </p>
           </div>
 
           {formValues.journal_publications.map(
             (journal_publications, index) => (
-              <div key={index}>
-                <div className="row">
+              <div key={index} >
+                <div className="row"  style={{marginTop: "24px"}}>
                   <div className="col-md-4">
                     {/* Year*/}
                     <div className="UD-form-section">
@@ -319,7 +322,7 @@ function ResearchWorks({ formValues, setFormValues }) {
                   </div>
                 </div>
 
-                <div className="row">
+                <div className="row" >
                   <div className="col-md-4">
                     {/* Indexing*/}
                     <div className="UD-form-section">
@@ -448,15 +451,15 @@ function ResearchWorks({ formValues, setFormValues }) {
 
           {/* Conference Publication */}
 
-          <div>
+          <div className="field-heading">
             <p className="HS-heading">
               Conference Publication{" "}
               <button
                 onClick={handleAddConference}
                 type="button"
-                className="editprofile-plus-button"
+             className="plus-buttons"
               >
-                +
+                <img src={plusicon}/>
               </button>
             </p>
           </div>
@@ -464,7 +467,7 @@ function ResearchWorks({ formValues, setFormValues }) {
           {formValues.conference_publications.map(
             (conference_publications, index) => (
               <div key={index}>
-                <div className="row">
+                <div className="row" style={{marginTop: "24px"}}>
                   <div className="col-md-4">
                     {/* Year */}
                     <div className="UD-form-section">
@@ -678,22 +681,22 @@ function ResearchWorks({ formValues, setFormValues }) {
 
           {/* Patent*/}
 
-          <div>
+          <div className="field-heading">
             <p className="HS-heading">
               Patent{" "}
               <button
                 onClick={handleAddPatent}
                 type="button"
-                className="editprofile-plus-button"
+             className="plus-buttons"
               >
-                +
+                <img src={plusicon}/>
               </button>
             </p>
           </div>
 
           {formValues.patents.map((patent, index) => (
             <div key={index}>
-              <div className="row">
+              <div className="row" style={{marginTop: "24px"}} >
                 <div className="col-md-4">
                   {/* Application ID */}
                   <div className="UD-form-section">
@@ -808,22 +811,22 @@ function ResearchWorks({ formValues, setFormValues }) {
 
           {/* Copyright*/}
 
-          <div>
+          <div className="field-heading">
             <p className="HS-heading">
               Copyright
               <button
                 onClick={handleAddCopyright}
                 type="button"
-                className="editprofile-plus-button"
+             className="plus-buttons"
               >
-                +
+                <img src={plusicon}/>
               </button>
             </p>
           </div>
 
           {formValues.copyrights.map((copyright, index) => (
             <div key={index}>
-              <div className="row">
+              <div className="row"  style={{marginTop: "24px"}}>
                 <div className="col-md-4">
                   {/* Application ID */}
                   <div className="UD-form-section">
