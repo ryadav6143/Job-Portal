@@ -337,7 +337,7 @@ function EditPersonalDetails() {
                       className="UD-set-input"
                       type="date"
                       name="dob"
-                      placeholder="MM/DD/YYYY "
+                      placeholder="dd/mm/yyyy "
                       id=""
                       required
                     ></input>
