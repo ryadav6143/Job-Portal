@@ -21,8 +21,9 @@ const steps = ["", "", ""];
 function Dropcv() {
   const [otpData, setOtpData] = useState({});
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
-
+  const [isFresher, setIsFresher] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  console.log("IS fresher data......................./", isFresher);
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -55,6 +56,12 @@ function Dropcv() {
       candidate_cv: "",
     },
   });
+
+  const handleCheckboxChange = (newIsFresher) => {
+    setIsFresher(newIsFresher);
+    // Do anything else you need to do with the updated value in the parent component
+  };
+
   // new state for errors in all steps
   const [errors, setErrors] = useState({});
 
@@ -117,6 +124,7 @@ function Dropcv() {
     } else {
       // alert("Please fill in all required fields before proceeding.");
     }
+    console.log(formData);
   };
 
   // --------------------------------------------------------------------------------
@@ -139,6 +147,12 @@ function Dropcv() {
       applied_subpost_master_id,
       job_category_master_id,
       candidate_cv,
+      total_experience,
+      total_research_exp,
+      total_industrial_exp,
+      current_organization,
+      current_designation,
+      current_salary,
     } = formData.personalDetails;
 
     let errors = {};
@@ -218,6 +232,11 @@ function Dropcv() {
             qualification: "Applied Post Masters and Subjects are required.",
           });
           return false;
+        }
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
         } else {
           setErrors({});
           return true;
@@ -239,14 +258,66 @@ function Dropcv() {
         //   return true;
         // }
 
+        if (!isFresher) {
+          if (!formData.personalDetails.total_experience) {
+            setErrors({
+              total_experience: "! Experience is Required",
+            });
+            return false;
+          }
+          if (!formData.personalDetails.total_research_exp) {
+            setErrors({
+              total_research_exp: "! Research is Required",
+            });
+            return false;
+          }
+          if (!formData.personalDetails.total_industrial_exp) {
+            setErrors({
+              total_industrial_exp: "! This Field is Required",
+            });
+            return false;
+          }
+          if (!formData.personalDetails.current_organization) {
+            setErrors({
+              current_organization: "! Current Organization is Required",
+            });
+            return false;
+          }
+          if (!formData.personalDetails.current_designation) {
+            setErrors({
+              current_designation: "! Current Designation is Required",
+            });
+            return false;
+          }
+          if (!formData.personalDetails.current_salary) {
+            setErrors({
+              current_salary: "! Current Salary is Required",
+            });
+            return false;
+          }
+          if (Object.keys(errors).length > 0) {
+            setErrors(errors);
+            return false;
+          } else {
+            setErrors({});
+            return true;
+          }
+        } else {
+          setErrors({
+            total_experience: "00",
+            total_research_exp: "00",
+            total_industrial_exp: "00",
+            current_organization: "NA",
+            current_designation: "Freshers",
+            current_salary: "00",
+          });
+        }
         if (!formData.personalDetails.candidate_cv) {
           setErrors({
-            candidate_cv: "!CV is Required",
+            candidate_cv: "! CV is Required",
           });
           return false;
         }
-
-      case 2:
 
       default:
         return true;
@@ -343,7 +414,9 @@ function Dropcv() {
                   setFormData={setFormData}
                   errors={errors}
                   setErrors={setErrors} // Make sure you pass setErrors as a prop
+                  isFresher={isFresher}
                   setFormErrors={setFormErrors}
+                  onCheckboxChange={handleCheckboxChange}
                 />
               )}
               {activeStep === 3 && <OTPVerification />}

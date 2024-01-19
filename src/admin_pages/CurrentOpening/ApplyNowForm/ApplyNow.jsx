@@ -21,7 +21,7 @@ import apiService from "../../../Services/ApiServices";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
   const [otpButtonclicked, setOtpButtonclicked] = useState(false);
-
+  const [errors, setErrors] = useState({});
   const [otpData, setOtpData] = useState({});
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -319,8 +319,14 @@ function ApplyNow() {
       newSkipped.delete(activeStep);
     }
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
+
+    const isCurrentStepValid = inputValidations();
+    if (isCurrentStepValid) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+    }
   };
 
   const handleBack = () => {
@@ -337,6 +343,169 @@ function ApplyNow() {
     default:
       componentToShow = null;
   }
+  // ----------------------------validations------------------------
+
+  const inputValidations = () => {
+    const {
+      email,
+      contact_1,
+      title_first_name,
+      first_name,
+      middle_name,
+      last_name,
+      dob,
+      gender,
+      religion,
+      city,
+      cast_category_name,
+      marital_status,
+      address_1,
+      contact_2,
+      country,
+      state_province,
+      applied_post_masters_id,
+      nature_of_job,
+      department_master_id,
+      pin_code,
+    } = formValues.UserDetails;
+
+    let errors = {};
+    switch (activeStep) {
+      case 0:
+        const currentYear = new Date().getFullYear();
+        const dobYear = dob ? new Date(dob).getFullYear() : null;
+        if (!email) {
+          errors.email = "! Email is required.";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+          errors.email = "! Please enter a valid email address.";
+        }
+        if (!contact_1) {
+          errors.contact_1 = "! Contact number is Required.";
+        } else if (contact_1.length !== 10) {
+          errors.contact_1 = "! Please enter a valid 10-digit contact number.";
+        }
+        if (!title_first_name) {
+          errors.title_first_name = "! Title is Required.";
+        }
+        if (!first_name) {
+          errors.first_name = "! First Name is Required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+          errors.first_name = "! Please enter a valid name.";
+        }
+        if (!last_name) {
+          errors.last_name = "! First Name is Required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
+          errors.last_name = "! Please enter a valid name.";
+        }
+        if (!dob || dobYear < currentYear - 150 || dobYear > currentYear) {
+          errors.dob = "! Please enter a valid date of birth.";
+        }
+        if (!gender) {
+          errors.gender = "! Gender is required.";
+        }
+        if (!religion) {
+          errors.religion = "! Relegion is Required";
+        }
+        if (!city) {
+          errors.city = "! City is Required";
+        }
+        if (!cast_category_name) {
+          errors.cast_category_name = "! Cast Category is Required";
+        }
+        if (!marital_status) {
+          errors.marital_status = "! Marital Status is Required";
+        }
+        if (!address_1) {
+          errors.address_1 = "! Address is Required";
+        }
+        if (!contact_2) {
+          errors.contact_2 = "! Alternate Number is Required";
+        }
+        if (!country) {
+          errors.country = "! Country is Required";
+        }
+        if (!state_province) {
+          errors.state_province = "! State is Required";
+        }
+        if (!applied_post_masters_id) {
+          errors.applied_post_masters_id = "! Post Applied is Required";
+        }
+        if (!nature_of_job) {
+          errors.nature_of_job = "! Nature of Job is Required";
+        }
+        if (!department_master_id) {
+          errors.department_master_id = "! Department is Required";
+        }
+        if (!pin_code) {
+          errors.pin_code = "! Pin Code is Required";
+        }
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
+
+      case 1:
+        // validation for activeStep1
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
+      case 2:
+        // validation for activeStep2
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
+      case 3:
+        // validation for activeStep3
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
+      case 4:
+        // validation for activeStep4
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
+      case 5:
+        // validation for activeStep5
+
+        if (Object.keys(errors).length > 0) {
+          // If there are errors, set the state with error messages
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
+    }
+  };
+
   return (
     <>
       <Header></Header>
@@ -384,50 +553,63 @@ function ApplyNow() {
                 <UserDetails
                   formValues={formValues.UserDetails}
                   setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 1 && (
                 <UserQualification
                   formValues={formValues.UserDetails}
                   setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 2 && (
                 <UserExperience
                   formValues={formValues.UserDetails}
                   setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 3 && (
                 <ResearchWorks
                   formValues={formValues.UserDetails}
                   setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 4 && (
                 <Programs
                   formValues={formValues.UserDetails}
                   setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 5 && (
                 <Reference
                   formValues={formValues.UserDetails}
                   setFormValues={setFormValues}
+                  errors={errors}
+                  setErrors={setErrors}
                 />
               )}
               {activeStep === 6 && <OTPVerification />}
               {activeStep === 7 && <Submitsuccess />}
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Button
-                  className="prev-btn"
-                  color="inherit"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}
-                >
-                  Previous
-                </Button>
+                {activeStep > 0 && (
+                  <Button
+                    className="prev-btn"
+                    color="inherit"
+                    onClick={handleBack}
+                    sx={{ mr: 1 }}
+                  >
+                    Previous
+                  </Button>
+                )}
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={handleNext} className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}

@@ -9,7 +9,7 @@ import {
 import "./UserDetails.css";
 
 import apiService from "../../../../Services/ApiServices";
-function UserDetails({ formValues, setFormValues }) {
+function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
   const [departments, setDepartments] = useState([]);
@@ -45,7 +45,7 @@ function UserDetails({ formValues, setFormValues }) {
     apiService
       .getAppliedPosts()
       .then((response) => {
-        // Update the state with the fetched data
+        // Update the state with the fetched data 
         setPosts(response.data);
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -122,6 +122,10 @@ function UserDetails({ formValues, setFormValues }) {
         [name]: value,
       },
     }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : " ! This field is required",
+    }));
   };
 
   return (
@@ -154,6 +158,7 @@ function UserDetails({ formValues, setFormValues }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
+                <span className="error-message">{errors.email}</span>
               </div>
 
               <div className="col-md-4">
@@ -164,7 +169,7 @@ function UserDetails({ formValues, setFormValues }) {
                   </label>
                   <input
                     className="UD-set-input"
-                    type="tel"
+                    type="number"
                     placeholder="(123) 456 - 7890 "
                     name="contact_1"
                     id=""
@@ -173,6 +178,7 @@ function UserDetails({ formValues, setFormValues }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">{errors.contact_1}</span>
               </div>
 
               <div className="col-md-4">
@@ -199,6 +205,9 @@ function UserDetails({ formValues, setFormValues }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">
+                  {errors.applied_post_masters_id}
+                </span>
               </div>
             </div>
 
@@ -224,6 +233,9 @@ function UserDetails({ formValues, setFormValues }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">
+                  {errors.department_master_id}
+                </span>
               </div>
 
               <div className="col-md-4">
@@ -262,6 +274,7 @@ function UserDetails({ formValues, setFormValues }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.nature_of_job}</span>
               </div>
             </div>
 
@@ -278,12 +291,14 @@ function UserDetails({ formValues, setFormValues }) {
                     className="UD-set-dropdown"
                     value={formValues.title_first_name}
                   >
+                    <option value="">Select Option</option>
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
                     <option value="Ms.">Ms.</option>
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.title_first_name}</span>
               </div>
 
               <div className="col-md-4">
@@ -345,6 +360,7 @@ function UserDetails({ formValues, setFormValues }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">{errors.last_name}</span>
               </div>
 
               <div className="col-md-4">
@@ -364,6 +380,7 @@ function UserDetails({ formValues, setFormValues }) {
                     onChange={handleInputChange}
                   ></input>
                 </div>
+                <span className="error-message">{errors.dob}</span>
               </div>
 
               <div className="col-md-4">
@@ -384,6 +401,7 @@ function UserDetails({ formValues, setFormValues }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.gender}</span>
               </div>
             </div>
 
@@ -405,6 +423,7 @@ function UserDetails({ formValues, setFormValues }) {
                     value={formValues.religion}
                   ></input>
                 </div>
+                <span className="error-message">{errors.religion}</span>
               </div>
 
               <div className="col-md-4">
@@ -424,6 +443,9 @@ function UserDetails({ formValues, setFormValues }) {
                     value={formValues.cast_category_name}
                   ></input>
                 </div>
+                <span className="error-message">
+                  {errors.cast_category_name}
+                </span>
               </div>
 
               <div className="col-md-4">
@@ -449,6 +471,7 @@ function UserDetails({ formValues, setFormValues }) {
 
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.marital_status}</span>
               </div>
             </div>
 
@@ -470,6 +493,7 @@ function UserDetails({ formValues, setFormValues }) {
                     value={formValues.address_1}
                   ></input>
                 </div>
+                <span className="error-message">{errors.address_1}</span>
               </div>
 
               <div className="col-md-4">
@@ -490,6 +514,7 @@ function UserDetails({ formValues, setFormValues }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">{errors.contact_2}</span>
               </div>
 
               <div className="col-md-4">
@@ -511,6 +536,7 @@ function UserDetails({ formValues, setFormValues }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.country}</span>
               </div>
             </div>
 
@@ -534,6 +560,7 @@ function UserDetails({ formValues, setFormValues }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.state_province}</span>
               </div>
 
               <div className="col-md-4">
@@ -555,6 +582,7 @@ function UserDetails({ formValues, setFormValues }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.city}</span>
               </div>
 
               <div className="col-md-4">
@@ -574,6 +602,7 @@ function UserDetails({ formValues, setFormValues }) {
                     value={formValues.pin_code}
                   ></input>
                 </div>
+                <span className="error-message">{errors.pin_code}</span>
               </div>
             </div>
           </div>

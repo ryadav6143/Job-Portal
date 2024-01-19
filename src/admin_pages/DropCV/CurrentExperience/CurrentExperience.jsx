@@ -9,11 +9,15 @@ function CurrentExperience({
   errors,
   setErrors,
   setFormErrors,
+  isFresher,
+  setIsFresher,
+  onCheckboxChange
 }) {
-  const [isFresher, setIsFresher] = useState(false);
+  [isFresher, setIsFresher] = useState(false);
   // const [formData, setFormData] = useState(null);
   const handleCheckboxChange = () => {
     setIsFresher(!isFresher);
+    onCheckboxChange(!isFresher);
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
