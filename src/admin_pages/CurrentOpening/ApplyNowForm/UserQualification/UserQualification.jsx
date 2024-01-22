@@ -111,6 +111,17 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
   }, []);
 
   const handleHighSchoolChange = (field, value) => {
+    // setErrors({
+    //   ...errors,
+    //   country: "",
+    //   year_start: "",
+    //   institute_name: "",
+    //   board_university_name: "",
+    //   year_end: "",
+    //   grade_division: "",
+    //   grade_percent: "",
+    // });
+
     setFormValues((prevFormValues) => ({
       UserDetails: {
         ...prevFormValues.UserDetails,
