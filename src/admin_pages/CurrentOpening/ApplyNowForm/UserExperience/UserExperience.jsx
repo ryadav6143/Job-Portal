@@ -65,10 +65,12 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
         <div className="container">
           <div style={{ marginTop: "20px" }}>
             <div>
-              <h5 className="UD-heading">Experience 
-              <button onClick={handleAddExperience} className="plus-buttons">
-                <img src={plusicon}/>
-                </button></h5>
+              <h5 className="UD-heading">
+                Experience
+                <button onClick={handleAddExperience} className="plus-buttons">
+                  <img src={plusicon} />
+                </button>
+              </h5>
               <p className="UD-subheading">
                 Please fill your information so we can get in touch with you.
               </p>
@@ -79,7 +81,6 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
               <div key={index}>
                 <div className="row">
                   <div className="col-md-4">
-                    {/* *Name of Institute / Company */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span>*</span>Name of Institute / Company
@@ -99,7 +100,6 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                   </div>
 
                   <div className="col-md-4">
-                    {/* *Designation */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span>*</span>Designation
@@ -116,7 +116,6 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                   </div>
 
                   <div className="col-md-4">
-                    {/* *Current Gross Pay (Per Month) */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span>*</span>Current Gross Pay (Per Month)
@@ -135,7 +134,6 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
 
                 <div className="row">
                   <div className="col-md-4">
-                    {/* *Date From*/}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span>*</span>Date From
@@ -152,7 +150,6 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                   </div>
 
                   <div className="col-md-4">
-                    {/* *Date To */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span>*</span>Date To
@@ -173,10 +170,8 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
 
             {/* Experience */}
 
-            {/* Experience */}
-
             {/* Total Experience */}
-            <div style={{marginTop:"40px"}}>
+            <div style={{ marginTop: "40px" }}>
               <p className="HS-heading">Total Experience</p>
             </div>
 
@@ -223,7 +218,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
             </div>
 
             {/* Other Benefits */}
-            <div style={{marginTop:"40px"}}>
+            <div style={{ marginTop: "40px" }}>
               <p className="HS-heading">Other Benefits</p>
             </div>
 

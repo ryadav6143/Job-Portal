@@ -111,49 +111,17 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
   }, []);
 
   const handleHighSchoolChange = (field, value) => {
-    setErrors({
-      ...errors,
-      exam_types_master_id: "",
-      country: "",
-      year_start: "",
-      institute_name: "",
-      board_university_name: "",
-      year_end: "",
-      grade_division: "",
-      grade_percent: "",
-    });
-    // setErrors({
-    //   ...errors,
-    //   exam_types_master_id: "",
-    // });
     // setErrors({
     //   ...errors,
     //   country: "",
-    // });
-    // setErrors({
-    //   ...errors,
     //   year_start: "",
-    // });
-    // setErrors({
-    //   ...errors,
     //   institute_name: "",
-    // });
-    // setErrors({
-    //   ...errors,
     //   board_university_name: "",
-    // });
-    // setErrors({
-    //   ...errors,
     //   year_end: "",
-    // });
-    // setErrors({
-    //   ...errors,
     //   grade_division: "",
-    // });
-    // setErrors({
-    //   ...errors,
     //   grade_percent: "",
     // });
+
     setFormValues((prevFormValues) => ({
       UserDetails: {
         ...prevFormValues.UserDetails,
@@ -311,7 +279,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                 {/* *Country */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span>*</span> Country
+                    <span>*</span>Country
                   </label>
                   <select
                     name="country"
@@ -476,7 +444,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                 {/* *Country */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span>*</span> Country
+                    <span>*</span>Country
                   </label>
                   <select
                     name="country"

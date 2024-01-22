@@ -7,7 +7,7 @@ import {
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
 
-function Reference({ formValues, setFormValues }) {
+function Reference({ formValues, setFormValues, errors, setErrors }) {
   // const [formValues, setFormValues] = useState({
 
   //   reference_person_1:'',
@@ -30,19 +30,34 @@ function Reference({ formValues, setFormValues }) {
       UserDetails: {
         ...prevData.UserDetails,
         [name]: value,
-      }
+      },
     }));
   };
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const allowedExtensions = ["pdf", "doc", "docx"];
+    const maxFileSizeInMB = 2;
+
+    if (!file) {
+      setErrors({
+        candidate_cv: "! CV file is Required",
+      });
+      return false;
+    }
+    const fileSizeInMB = file.size / (1024 * 1024);
+    if (fileSizeInMB > maxFileSizeInMB) {
+      setErrors({
+        candidate_cv: `! File size exceeds ${maxFileSizeInMB}MB`,
+      });
+      return false;
+    }
     const fileExtension = file.name.split(".").pop().toLowerCase();
     if (!allowedExtensions.includes(fileExtension)) {
-
-      alert("Invalid file format. Please upload a PDF, DOC, or DOCX file.");
-
-      e.target.value = null;
-      return;
+      setErrors({
+        candidate_cv:
+          "! Invalid file format. Please upload a PDF, DOC, or DOCX file.",
+      });
+      return false;
     }
     setFormValues((prevData) => ({
       UserDetails: {
@@ -50,12 +65,14 @@ function Reference({ formValues, setFormValues }) {
         candidate_cv: file,
       },
     }));
+
+    setErrors({});
+
+    return true;
   };
-
   return (
-
     <>
-      <form  >
+      <form>
         <div className="container">
           <div style={{ marginTop: "20px" }}>
             <div>
@@ -164,7 +181,6 @@ function Reference({ formValues, setFormValues }) {
                     id=""
                     onChange={handleChange}
                     value={formValues.ref_person_1_email}
-
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
@@ -184,7 +200,6 @@ function Reference({ formValues, setFormValues }) {
                     id=""
                     onChange={handleChange}
                     value={formValues.ref_person_1_contact}
-
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
@@ -212,7 +227,6 @@ function Reference({ formValues, setFormValues }) {
                     id=""
                     onChange={handleChange}
                     value={formValues.reference_person_2}
-
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
@@ -270,7 +284,6 @@ function Reference({ formValues, setFormValues }) {
                     id=""
                     onChange={handleChange}
                     value={formValues.ref_person_2_email}
-
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
@@ -288,7 +301,6 @@ function Reference({ formValues, setFormValues }) {
                     placeholder="(123) 456 - 7890 "
                     name="ref_person_2_contact"
                     id=""
-
                     onChange={handleChange}
                     value={formValues.ref_person_2_contact}
                   ></input>
@@ -332,32 +344,25 @@ function Reference({ formValues, setFormValues }) {
                 To upload your resume here:(maximum size 2MB, PDF, DOC and DOCX
                 format only)
               </p>
-              {/* <input
-              className="set-choosefile-input"
-              type="file"
-              placeholder="00 (i.e Years.Months)"
-              name="resume_file_link"
-              id=""
-           
-              accept=".pdf, .doc, .docx" 
-              
-            ></input> */}
-              <input type="file" name="candidate_cv" onChange={handleFileChange} accept=".pdf, .doc, .docx" />
+              <input
+                type="file"
+                name="candidate_cv"
+                onChange={handleFileChange}
+                accept=".pdf, .doc, .docx"
+              />  
+              <span className="error-name">{errors.candidate_cv}</span>
             </div>
 
             <div>
               <span className="set-checkbox-span">
-                {" "}
                 <input className="set-checkbox" type="checkbox" id="" name="" />
-                &nbsp; I confirm that the information provided here are true to my
-                knowledge
+                &nbsp; I confirm that the information provided here are true to
+                my knowledge
               </span>
             </div>
           </div>
         </div>
-
-
-      </form>
+      </form> 
     </>
   );
 }

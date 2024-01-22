@@ -5,6 +5,7 @@ import {
   faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from '@fortawesome/free-solid-svg-icons';
+import plusicon from "../../../../assets/logos/plus.png"
 function EditResearchForm() {
   const [identifiers, setIdentifiers] = useState([{}]);
   const [publications, setPublications] = useState([{}]);
@@ -27,11 +28,12 @@ function EditResearchForm() {
   return (
     <>
     <form id='myForm'>
-    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px", paddingRight: "50px"}}>
       <div>
         <div>
           <h5 className="UD-heading">Research Work &nbsp; <FontAwesomeIcon   className="edit-pen-icon" icon={faPen} />  
-          <button  onClick={handleAddIdentifier} style={{marginRight:"30px"}} type="button" className="plus-button">+</button></h5>
+          <button  onClick={handleAddIdentifier} type="button"  className="plus-buttons">
+          <img src={plusicon} /></button></h5>
           <p className="UD-subheading">
             Please fill your information so we can get in touch with you.
           </p>
@@ -99,7 +101,8 @@ function EditResearchForm() {
 
         <div>
           <p className="HS-heading">Journal Publication <button onClick={handleAddPublication}
- type="button" className="editprofile-plus-button">+</button></p>
+ type="button"  className="plus-buttons">
+ <img src={plusicon} /></button></p>
         </div>
 
         {publications.map((publication, index) => (
@@ -253,7 +256,8 @@ function EditResearchForm() {
         {/* Conference Publication */}
 
         <div>
-          <p className="HS-heading">Conference Publication <button onClick={handleAddPublication} type="button" className="editprofile-plus-button">+</button></p>
+          <p className="HS-heading">Conference Publication <button onClick={handleAddPublication} type="button" className="plus-buttons">
+          <img src={plusicon} /></button></p>
         </div>
 
         {publications.map((publication, index) => (
@@ -407,7 +411,8 @@ function EditResearchForm() {
         {/* Patent*/}
 
         <div>
-          <p className="HS-heading">Patent <button   onClick={handleAddApplication} type="button" className="editprofile-plus-button">+</button></p>
+          <p className="HS-heading">Patent <button   onClick={handleAddApplication} type="button"  className="plus-buttons">
+          <img src={plusicon} /></button></p>
         </div>
 
         {applications.map((application, index) => (
@@ -507,7 +512,8 @@ function EditResearchForm() {
         {/* Copyright*/}
 
         <div>
-          <p className="HS-heading">Copyright <button onClick={handleAddApplication} type="button" className="editprofile-plus-button">+</button></p>
+          <p className="HS-heading">Copyright <button onClick={handleAddApplication} type="button"  className="plus-buttons">
+          <img src={plusicon} /></button></p>
         </div>
 
         {applications.map((application, index) => (

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./EditProgramsForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
+import plusicon from "../../../../assets/logos/plus.png"
 
 function EditProgramsForm() {
   const [courses, setCourses] = useState([{}]);
@@ -14,7 +15,7 @@ function EditProgramsForm() {
       <form id="myForm">
         <div
           className="container"
-          style={{ marginTop: "90px", paddingLeft: "50px" }}
+          style={{ marginTop: "90px", paddingLeft: "50px", paddingRight: "50px" }}
         >
           <div>
             <div>
@@ -38,9 +39,8 @@ function EditProgramsForm() {
                 <button
                   onClick={handleAddCourse}
                   type="button"
-                  className="editprofile-plus-button"
-                >
-                  +
+                  className="plus-buttons">
+                  <img src={plusicon} />
                 </button>
               </p>
             </div>
@@ -175,9 +175,8 @@ function EditProgramsForm() {
                 <button
                   onClick={handleAddCourse}
                   type="button"
-                  className="editprofile-plus-button"
-                >
-                  +
+                  className="plus-buttons">
+                  <img src={plusicon} />
                 </button>
               </p>
             </div>
@@ -268,7 +267,7 @@ function EditProgramsForm() {
                     <span></span>Membership of Professional Bodies
                   </label>
                   <input
-                    style={{ width: "95%" }}
+                    style={{ width: "99.5%" }}
                     className="UD-set-input"
                     type="text"
                     placeholder=""
@@ -289,7 +288,7 @@ function EditProgramsForm() {
                     Bodies
                   </label>
                   <input
-                    style={{ width: "95%" }}
+                    style={{ width: "99.5%" }}
                     className="UD-set-input"
                     type="text"
                     placeholder=""
@@ -307,7 +306,7 @@ function EditProgramsForm() {
               <p className="HS-heading">Attended</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-30px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* Date From*/}
                 <div className="UD-form-section">
@@ -386,7 +385,7 @@ function EditProgramsForm() {
                       <span></span>Membership of Professional Bodies
                     </label>
                     <input
-                      style={{ width: "95%" }}
+                      style={{ width: "99.5%" }}
                       className="UD-set-input"
                       type="text"
                       placeholder=""
@@ -407,7 +406,7 @@ function EditProgramsForm() {
                       Bodies
                     </label>
                     <input
-                      style={{ width: "95%" }}
+                      style={{ width: "99.5%" }}
                       className="UD-set-input"
                       type="text"
                       placeholder=""
@@ -427,7 +426,7 @@ function EditProgramsForm() {
                       <span></span>Membership of Professional Bodies
                     </label>
                     <input
-                      style={{ width: "95%" }}
+                      style={{ width: "99.5%" }}
                       className="UD-set-input"
                       type="text"
                       placeholder=""
@@ -448,7 +447,7 @@ function EditProgramsForm() {
                       Bodies
                     </label>
                     <input
-                      style={{ width: "95%" }}
+                      style={{ width: "99.5%" }}
                       className="UD-set-input"
                       type="text"
                       placeholder=""

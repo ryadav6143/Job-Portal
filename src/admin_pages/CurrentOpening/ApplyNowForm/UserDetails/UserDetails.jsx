@@ -197,7 +197,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                 {/* *Post Applied For (If Others, Please Specify) */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span>*</span> Post Applied For
+                    <span>*</span>Post Applied For
                     <span className="set-others">
                       &nbsp;(If Others, Please Specify)
                     </span>
@@ -228,7 +228,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                 {/* Departments */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span>*</span> Departments
+                    <span>*</span>Departments
                   </label>
                   <select
                     id="departmentDropdown"
@@ -273,7 +273,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                 {/* Nature of Job */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span>*</span> Nature of Job
+                    <span>*</span>Nature of Job
                   </label>
                   <select
                     onChange={handleInputChange}
@@ -318,7 +318,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                 {/* First Name  */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span>*</span> First Name
+                    <span>*</span>First Name
                   </label>
 
                   <input
@@ -536,7 +536,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                 {/* *Country */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span>*</span> Country
+                    <span>*</span>Country
                   </label>
                   <select
                     onChange={handleInputChange}
