@@ -458,6 +458,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     <span>*</span>Category of Appointment
                   </label>
                   <select
+                    name="category_name"
                     id="categoryDropdown"
                     className="set-dropdown"
                     value={selectedCategory}

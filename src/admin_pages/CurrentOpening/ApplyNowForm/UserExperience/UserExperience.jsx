@@ -1,47 +1,63 @@
-import React from 'react';
+import React from "react";
 import "./UserExperience.css";
 import plusicon from "../../../../assets/logos/plus.png";
 
-function UserExperience({ formValues, setFormValues }) {
-
+function UserExperience({ formValues, setFormValues, errors, setErrors }) {
   const handleAddExperience = (e) => {
     e.preventDefault();
-    setFormValues(prevExperience => ({
+    setFormValues((prevExperience) => ({
       UserDetails: {
         ...prevExperience.UserDetails,
-        experiences: [...prevExperience.UserDetails.experiences, {
-          company_experience_name: '',
-          designation: '',
-          gross_pay: '',
-          exp_work_from: '',
-          exp_work_to: ''
-        }]
-      }
+        experiences: [
+          ...prevExperience.UserDetails.experiences,
+          {
+            company_experience_name: "",
+            designation: "",
+            gross_pay: "",
+            exp_work_from: "",
+            exp_work_to: "",
+          },
+        ],
+      },
     }));
   };
 
   const handleInputChange = (index, event) => {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? "" : " ! This field is required",
+    }));
     const { name, value } = event.target;
-    setFormValues(prevExperience => ({
+    setFormValues((prevExperience) => ({
       UserDetails: {
         ...prevExperience.UserDetails,
-        experiences: prevExperience.UserDetails.experiences.map((experience, i) =>
-          i === index ? { ...experience, [name]: value } : experience
-        )
-      }
+        experiences: prevExperience.UserDetails.experiences.map(
+          (experience, i) =>
+            i === index ? { ...experience, [name]: value } : experience
+        ),
+      },
     }));
   };
 
   const handleTotalExperienceChange = (event) => {
+    setErrors({
+      ...errors,
+      total_academic_exp: "",
+      total_industrial_exp: "",
+      accommodation: "",
+      transportation: "",
+      food: "",
+      mediclaim: "",
+      others: "",
+    });
     const { name, value } = event.target;
-    setFormValues(prevExperience => ({
+    setFormValues((prevExperience) => ({
       UserDetails: {
         ...prevExperience.UserDetails,
-        [name]: value
-      }
+        [name]: value,
+      },
     }));
   };
-
 
   return (
     <>
@@ -75,9 +91,11 @@ function UserExperience({ formValues, setFormValues }) {
                         name="company_experience_name"
                         value={experience.company_experience_name}
                         onChange={(e) => handleInputChange(index, e)}
-
                       ></input>
                     </div>
+                    <span className="error-message">
+                      {errors.company_experience_name}
+                    </span>
                   </div>
 
                   <div className="col-md-4">
@@ -93,7 +111,6 @@ function UserExperience({ formValues, setFormValues }) {
                         name="designation"
                         value={experience.designation}
                         onChange={(e) => handleInputChange(index, e)}
-
                       ></input>
                     </div>
                   </div>
@@ -111,7 +128,6 @@ function UserExperience({ formValues, setFormValues }) {
                         name="gross_pay"
                         value={experience.gross_pay}
                         onChange={(e) => handleInputChange(index, e)}
-
                       ></input>
                     </div>
                   </div>
@@ -131,7 +147,6 @@ function UserExperience({ formValues, setFormValues }) {
                         name="exp_work_from"
                         value={experience.exp_work_from}
                         onChange={(e) => handleInputChange(index, e)}
-
                       ></input>
                     </div>
                   </div>
@@ -149,7 +164,6 @@ function UserExperience({ formValues, setFormValues }) {
                         name="exp_work_to"
                         value={experience.exp_work_to}
                         onChange={(e) => handleInputChange(index, e)}
-
                       ></input>
                     </div>
                   </div>
@@ -180,10 +194,11 @@ function UserExperience({ formValues, setFormValues }) {
                     name="total_academic_exp"
                     value={formValues.total_academic_exp}
                     onChange={handleTotalExperienceChange}
-
-
                   ></input>
                 </div>
+                <span className="error-message">
+                  {errors.total_academic_exp}
+                </span>
               </div>
 
               <div className="col-md-4">
@@ -199,10 +214,11 @@ function UserExperience({ formValues, setFormValues }) {
                     name="total_industrial_exp"
                     value={formValues.total_industrial_exp}
                     onChange={handleTotalExperienceChange}
-
-
                   ></input>
                 </div>
+                <span className="error-message">
+                  {errors.total_industrial_exp}
+                </span>
               </div>
             </div>
 

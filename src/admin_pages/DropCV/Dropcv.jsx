@@ -159,6 +159,8 @@ function Dropcv() {
 
     switch (activeStep) {
       case 0:
+
+      case 0:
         const currentYear = new Date().getFullYear();
         const dobYear = dob ? new Date(dob).getFullYear() : null;
         if (!title_first_name) {
@@ -170,7 +172,12 @@ function Dropcv() {
         } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
           errors.first_name = "! Please enter a valid name.";
         }
-        if (!dob || dobYear < currentYear - 150 || dobYear > currentYear) {
+        if (
+          !dob ||
+          dobYear < currentYear - 100 ||
+          dobYear > currentYear ||
+          new Date(dob) > new Date()
+        ) {
           errors.dob = "! Please enter a valid date of birth.";
         }
 
@@ -206,9 +213,7 @@ function Dropcv() {
         if (!subjects_master_id) {
           errors.subjects_master_id = "! Subject is required";
         }
-
         if (Object.keys(errors).length > 0) {
-          // If there are errors, set the state with error messages
           setErrors(errors);
           return false;
         } else {
@@ -301,6 +306,12 @@ function Dropcv() {
             });
             return false;
           }
+          if (!formData.personalDetails.candidate_cv) {
+            setErrors({
+              candidate_cv: "! CV is Required",
+            });
+            return false;
+          }
           if (Object.keys(errors).length > 0) {
             setErrors(errors);
             return false;
@@ -336,15 +347,11 @@ function Dropcv() {
     setErrors({});
   };
 
-  const handleVerifivation = () => {
-    navigate("/verify");
-  };
+  // const handleVerifivation = () => {
+  //   navigate("/verify");
+  // };
   // ----------------------------------------------------------
 
-  // const showComponent = async (componentName) => {
-  //   setSelectedComponent(componentName);
-
-  // };
   let componentToShow;
   switch (selectedComponent) {
     case "OTPVerification":

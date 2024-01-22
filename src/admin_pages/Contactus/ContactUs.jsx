@@ -52,14 +52,14 @@ function ContactUs() {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="">Email</label>
-                <input type="email" placeholder="Enter First Name " required />
+                <input type="email" placeholder="Enter Email Address " required />
               </div>
               <div className="col-6">
                 <label htmlFor="">Phone Number</label>
                 <input
                   type="number"
                   id="phoneNumber"
-                  placeholder="Enter Last Name "
+                  placeholder="+1 012 3456 789 "
                   required
                 />
               </div>

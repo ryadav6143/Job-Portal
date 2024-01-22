@@ -85,7 +85,11 @@ function EditPersonalDetails() {
 
           <div
             className="container"
-            style={{ marginTop: "30px", paddingLeft: "50px", paddingRight: "50px" }}
+            style={{
+              marginTop: "30px",
+              paddingLeft: "50px",
+              paddingRight: "50px",
+            }}
           >
             <div>
               <div>
@@ -337,7 +341,7 @@ function EditPersonalDetails() {
                       className="UD-set-input"
                       type="date"
                       name="dob"
-                      placeholder="dd/mm/yyyy "
+                      placeholder="DD/MM/YYYY "
                       id=""
                       required
                     ></input>

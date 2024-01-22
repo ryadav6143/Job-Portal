@@ -18,6 +18,7 @@ import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
 import { useState } from "react";
 import apiService from "../../../Services/ApiServices";
+import { error } from "jquery";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
   const [otpButtonclicked, setOtpButtonclicked] = useState(false);
@@ -368,93 +369,150 @@ function ApplyNow() {
       nature_of_job,
       department_master_id,
       pin_code,
-      specialization_area_1,
+      exam_types_master_id,
+      // ----------------Qualificationf Form Values---------
+      year_start,
+      institute_name,
+      board_university_name,
+      year_end,
+      grade_division,
+      grade_percent,
+      stream,
+      // ---------------Experience form Input Names-------------------
+      // company_experience_name,
+      // designation,
+      // gross_pay,
+      // exp_work_from,
+      // exp_work_to,
+      total_academic_exp,
+      total_industrial_exp,
     } = formValues.UserDetails;
 
     let errors = {};
+    const currentYear = new Date().getFullYear();
+    const dobYear = dob ? new Date(dob).getFullYear() : null;
     switch (activeStep) {
       case 0:
-        // const currentYear = new Date().getFullYear();
-        // const dobYear = dob ? new Date(dob).getFullYear() : null;
-        // if(!specialization_area_1){
-        //   errors.specialization_area_1="! Specialization is Required"
-        // }
-        // if (!email) {
-        //   errors.email = "! Email is required.";
-        // } else if (!/\S+@\S+\.\S+/.test(email)) {
-        //   errors.email = "! Please enter a valid email address.";
-        // }
-        // if (!contact_1) {
-        //   errors.contact_1 = "! Contact number is Required.";
-        // } else if (contact_1.length !== 10) {
-        //   errors.contact_1 = "! Please enter a valid 10-digit contact number.";
-        // }
-        // if (!title_first_name) {
-        //   errors.title_first_name = "! Title is Required.";
-        // }
-        // if (!first_name) {
-        //   errors.first_name = "! First Name is Required.";
-        // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
-        //   errors.first_name = "! Please enter a valid name.";
-        // }
-        // if (!last_name) {
-        //   errors.last_name = "! Last Name is Required.";
-        // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
-        //   errors.last_name = "! Please enter a valid name.";
-        // }
-        // if (!dob || dobYear < currentYear - 150 || dobYear > currentYear) {
-        //   errors.dob = "! Please enter a valid date of birth.";
-        // }
-        // if (!gender) {
-        //   errors.gender = "! Gender is required.";
-        // }
-        // if (!religion) {
-        //   errors.religion = "! Relegion is Required";
-        // }
-        // if (!city) {
-        //   errors.city = "! City is Required";
-        // }
-        // if (!cast_category_name) {
-        //   errors.cast_category_name = "! Cast Category is Required";
-        // }
-        // if (!marital_status) {
-        //   errors.marital_status = "! Marital Status is Required";
-        // }
-        // if (!address_1) {
-        //   errors.address_1 = "! Address is Required";
-        // }
-        // if (!contact_2) {
-        //   errors.contact_2 = "! Alternate Number is Required";
-        // }
-        // if (!country) {
-        //   errors.country = "! Country is Required";
-        // }
-        // if (!state_province) {
-        //   errors.state_province = "! State is Required";
-        // }
-        // if (!applied_post_masters_id) {
-        //   errors.applied_post_masters_id = "! Post Applied is Required";
-        // }
-        // if (!nature_of_job) {
-        //   errors.nature_of_job = "! Nature of Job is Required";
-        // }
-        // if (!department_master_id) {
-        //   errors.department_master_id = "! Department is Required";
-        // }
-        // if (!pin_code) {
-        //   errors.pin_code = "! Pin Code is Required";
-        // }
-        // if (Object.keys(errors).length > 0) {
-        //   // If there are errors, set the state with error messages
-        //   setErrors(errors);
-        //   return false;
-        // } else {
-        //   setErrors({});
-        //   return true;
-        // }
+        if (!email) {
+          errors.email = "! Email is required.";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+          errors.email = "! Please enter a valid email address.";
+        }
+        if (!contact_1) {
+          errors.contact_1 = "! Contact number is Required.";
+        } else if (contact_1.length !== 10) {
+          errors.contact_1 = "! Please enter a valid 10-digit contact number.";
+        }
+        if (!title_first_name) {
+          errors.title_first_name = "! Title is Required.";
+        }
+        if (!first_name) {
+          errors.first_name = "! First Name is Required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+          errors.first_name = "! Please enter a valid name.";
+        }
+        if (!last_name) {
+          errors.last_name = "! First Name is Required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
+          errors.last_name = "! Please enter a valid name.";
+        }
+        if (!dob || dobYear < currentYear - 150 || dobYear > currentYear) {
+          errors.dob = "! Please enter a valid date of birth.";
+        }
+        if (!gender) {
+          errors.gender = "! Gender is required.";
+        }
+        if (!religion) {
+          errors.religion = "! Relegion is Required";
+        }
+        if (!city) {
+          errors.city = "! City is Required";
+        }
+        if (!cast_category_name) {
+          errors.cast_category_name = "! Cast Category is Required";
+        }
+        if (!marital_status) {
+          errors.marital_status = "! Marital Status is Required";
+        }
+        if (!address_1) {
+          errors.address_1 = "! Address is Required";
+        }
+        if (!contact_2) {
+          errors.contact_2 = "! Alternate Number is Required";
+        }
+        if (!country) {
+          errors.country = "! Country is Required";
+        }
+        if (!state_province) {
+          errors.state_province = "! State is Required";
+        }
+        if (!applied_post_masters_id) {
+          errors.applied_post_masters_id = "! Post Applied is Required";
+        }
+        if (!nature_of_job) {
+          errors.nature_of_job = "! Nature of Job is Required";
+        }
+        if (!department_master_id) {
+          errors.department_master_id = "! Department is Required";
+        }
+        if (!pin_code) {
+          errors.pin_code = "! Pin Code is Required";
+        }
+        if (Object.keys(errors).length > 0) {
+          setErrors(errors);
+          return false;
+        } else {
+          setErrors({});
+          return true;
+        }
 
       case 1:
-        // validation for activeStep1
+        if (
+          !formValues.UserDetails.educations[0].country ||
+          !formValues.UserDetails.educations[1].country
+        ) {
+          errors.country = "! Country is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].year_start ||
+          !formValues.UserDetails.educations[1].year_start
+        ) {
+          errors.year_start = "! Year of Joining is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].year_end ||
+          !formValues.UserDetails.educations[1].year_end
+        ) {
+          errors.year_end = "! Passing Year is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].institute_name ||
+          !formValues.UserDetails.educations[1].institute_name
+        ) {
+          errors.institute_name = "! School Name is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].board_university_name ||
+          !formValues.UserDetails.educations[0].board_university_name
+        ) {
+          errors.board_university_name = "! Board is Required";
+        }
+
+        if (
+          !formValues.UserDetails.educations[0].grade_division ||
+          !formValues.UserDetails.educations[0].grade_division
+        ) {
+          errors.grade_division = "! Division is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].grade_percent ||
+          !formValues.UserDetails.educations[1].grade_percent
+        ) {
+          errors.grade_percent = "! Percentage is Required";
+        }
+        if (!formValues.UserDetails.educations[1].stream) {
+          errors.stream = "! Stream is Required";
+        }
 
         if (Object.keys(errors).length > 0) {
           // If there are errors, set the state with error messages
@@ -466,6 +524,37 @@ function ApplyNow() {
         }
       case 2:
         // validation for activeStep2
+
+        // if (!company_experience_name) {
+        //   errors.company_experience_name = "! Company name is Required";
+        // }
+        // if (!designation) {
+        //   errors.designation = "! Designation is Required";
+        // }
+        // if (!gross_pay) {
+        //   errors.gross_pay = "! Current Gross Pay is Required";
+        // }
+        // if (!exp_work_from) {
+        //   errors.exp_work_from = "! Date From is required.";
+        // }
+
+        // if (!exp_work_to) {
+        //   errors.exp_work_to = "! Date To is required.";
+        // }
+        if (!total_academic_exp) {
+          errors.total_academic_exp =
+            "! Total Academic Experience is Required.";
+        } else if (isNaN(total_academic_exp) || +total_academic_exp <= 0) {
+          errors.total_academic_exp =
+            "! Please enter a valid positive number for Total Academic Experience.";
+        }
+        if (!total_industrial_exp) {
+          errors.total_industrial_exp =
+            "! Total Industry Experience is Required.";
+        } else if (isNaN(total_industrial_exp) || +total_industrial_exp <= 0) {
+          errors.total_industrial_exp =
+            "! Please enter a valid positive number for Total Industry Experience.";
+        }
 
         if (Object.keys(errors).length > 0) {
           // If there are errors, set the state with error messages
