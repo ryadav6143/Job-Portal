@@ -509,7 +509,7 @@ function ResearchWorks({ formValues, setFormValues }) {
 
           <div className="field-heading">
             <p className="HS-heading">
-              Conference Publication{" "}
+              Conference Publication
               <button
                 onClick={handleAddConference}
                 type="button"

@@ -281,7 +281,6 @@ function ApplyNow() {
   //   setSelectedComponent("OTPVerification");
 
   // }
-
   const transferAllData = async () => {
     try {
       const formValuesToSend = { UserDetails: { ...formValues.UserDetails } };
@@ -335,16 +334,6 @@ function ApplyNow() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  let componentToShow;
-  switch (selectedComponent) {
-    case "OTPVerification":
-      componentToShow = (
-        <OTPVerification otpData={otpData} transferAllData={formValuesToSend} />
-      );
-      break;
-    default:
-      componentToShow = null;
-  }
   // ----------------------------validations------------------------
 
   const inputValidations = () => {
@@ -381,6 +370,7 @@ function ApplyNow() {
       candidate_cv,
       total_academic_exp,
       total_industrial_exp,
+      company_experience_name,
     } = formValues.UserDetails;
 
     let errors = {};
@@ -593,7 +583,80 @@ function ApplyNow() {
           return true;
         }
       case 2:
-        // validation for activeStep2
+        // const companyName =
+        //   formValues.UserDetails.experiences[0].company_experience_name;
+        // const userDesignation =
+        //   formValues.UserDetails.experiences[0].designation;
+        // const userJoiningDate =
+        //   formValues.UserDetails.experiences[0].exp_work_from;
+        // const userLeavingDate =
+        //   formValues.UserDetails.experiences[0].exp_work_to;
+
+        // if (!formValues.UserDetails.experiences[0].company_experience_name) {
+        //   errors.company_experience_name = "! Company Name is Required";
+        // } else {
+        //   const isValidCompanyName = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
+        //     companyName
+        //   );
+
+        //   if (!isValidCompanyName) {
+        //     errors.company_experience_name =
+        //       "! Please enter a valid company name";
+        //   }
+        // }
+        // if (!userDesignation) {
+        //   errors.designation = "! Designation is Required";
+        // } else {
+        //   const isValidDesignation = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
+        //     userDesignation
+        //   );
+
+        //   if (!isValidDesignation) {
+        //     errors.designation = "! Please enter a valid designation";
+        //   }
+        // }
+        // if (!formValues.UserDetails.experiences[0].gross_pay) {
+        //   errors.gross_pay = "! Current Gross-Pay is Required";
+        // }
+
+        // const currentDate = new Date();
+        // const enteredJoiningDate = new Date(userJoiningDate);
+        // if (!userJoiningDate) {
+        //   errors.exp_work_from = "! Joining Date is Required";
+        // } else {
+        //   const currentDate = new Date();
+        //   const enteredJoiningDate = new Date(userJoiningDate);
+
+        //   const isJoiningDateValid =
+        //     enteredJoiningDate < currentDate &&
+        //     enteredJoiningDate >=
+        //       new Date(currentDate.getFullYear() - 100, 0, 1);
+
+        //   if (!isJoiningDateValid) {
+        //     errors.exp_work_from = "! Please enter a valid Joining Date";
+        //   }
+        // }
+
+        // if (!userLeavingDate) {
+        //   errors.exp_work_to = "! Leaving Date is Required";
+        // } else {
+        //   const enteredLeavingDate = new Date(userLeavingDate);
+
+        //   const isLeavingDateValid =
+        //     enteredLeavingDate < currentDate &&
+        //     enteredLeavingDate >=
+        //       new Date(currentDate.getFullYear() - 100, 0, 1);
+
+        //   if (!isLeavingDateValid) {
+        //     errors.exp_work_to = "! Please enter a valid Leaving Date";
+        //   }
+
+        //   if (enteredJoiningDate >= enteredLeavingDate) {
+        //     errors.exp_work_from =
+        //       "! Joining Date should be before Leaving Date";
+        //     errors.exp_work_to = "! Leaving Date should be after Joining Date";
+        //   }
+        // }
 
         // if (!total_academic_exp) {
         //   errors.total_academic_exp =
@@ -642,10 +705,10 @@ function ApplyNow() {
         }
       case 5:
         // validation for activeStep5
-        if (!formValues.candidate_cv) {
-          errors.candidate_cv = "! Candidate CV is Required";
-          return false;
-        }
+        // if (!formValues.candidate_cv) {
+        //   errors.candidate_cv = "! Candidate CV is Required";
+        //   return false;
+        // }
 
         if (Object.keys(errors).length > 0) {
           // If there are errors, set the state with error messages
@@ -657,6 +720,16 @@ function ApplyNow() {
         }
     }
   };
+  let componentToShow;
+  switch (selectedComponent) {
+    case "OTPVerification":
+      componentToShow = (
+        <OTPVerification otpData={otpData} transferAllData={transferAllData} />
+      );
+      break;
+    default:
+      componentToShow = null;
+  }
 
   return (
     <>
@@ -696,7 +769,6 @@ function ApplyNow() {
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={transferAllData}>Get OTP</Button>
-                {/* Reset butto here  */}
               </Box>
             </React.Fragment>
           ) : (

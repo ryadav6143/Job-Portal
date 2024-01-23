@@ -27,7 +27,7 @@
   }
 }
 .accordion-button:not(.collapsed)::after {
-   background-image: url("../../assets//logos/plus-sign.png");
+  background-image: url("../../assets//logos/plus-sign.png");
   transform: var(--bs-accordion-btn-icon-transform);
 }
 .accordion-button::after {
@@ -40,6 +40,5 @@
   background-size: var(--bs-accordion-btn-icon-width);
   transition: var(--bs-accordion-btn-icon-transition);
 }
-
 
 /* ................................................................. */

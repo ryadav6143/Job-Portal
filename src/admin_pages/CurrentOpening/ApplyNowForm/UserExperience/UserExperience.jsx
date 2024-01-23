@@ -70,7 +70,9 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
       },
     }));
   };
+  // ---------------------------------------------------------------------
 
+  // ---------------------------------------------------------------------
   return (
     <>
       <form>
@@ -135,6 +137,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                         onChange={(e) => handleInputChange(index, e)}
                       ></input>
                     </div>
+                    <span className="error-message">{errors.designation}</span>
                   </div>
 
                 
@@ -153,6 +156,9 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                         onChange={(e) => handleInputChange(index, e)}
                       ></input>
                     </div>
+                    <span className="error-message">
+                      {errors.exp_work_from}
+                    </span>
                   </div>
                 </div>
                 <div className="row">
@@ -170,6 +176,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                         onChange={(e) => handleInputChange(index, e)}
                       ></input>
                     </div>
+                    <span className="error-message">{errors.exp_work_to}</span>
                   </div>
 
                   {index === 0 && (

@@ -399,7 +399,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   <select
                     name="country"
                     className="set-dropdown"
-                    value={selectedCountry}
+                    value={selectedCountry}z
                     onChange={handleCountryChange}
                     required
                   >
