@@ -1,6 +1,6 @@
 import React from "react";
 import "./Programs.css";
-
+import minusicon from "../../../../assets/logos/minus.png";
 import plusicon from "../../../../assets/logos/plus.png";
 
 function Programs({ formValues, setFormValues }) {
@@ -59,6 +59,17 @@ function Programs({ formValues, setFormValues }) {
     }));
   };
 
+  const handleRemoveSeminarOrganised = (index) => {
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        seminar_organised: prevData.UserDetails.seminar_organised.filter(
+          (_, i) => i !== index
+        ),
+      },
+    }));
+  };
+
   const handleAddseminar_attend = (e) => {
     e.preventDefault();
     setFormValues((prevData) => ({
@@ -73,6 +84,17 @@ function Programs({ formValues, setFormValues }) {
             sponsered_by: "",
           },
         ],
+      },
+    }));
+  };
+
+  const handleRemoveSeminarAttend = (index) => {
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        seminar_attend: prevData.UserDetails.seminar_attend.filter(
+          (_, i) => i !== index
+        ),
       },
     }));
   };
@@ -91,6 +113,18 @@ function Programs({ formValues, setFormValues }) {
             contribution: "",
           },
         ],
+      },
+    }));
+  };
+
+  const handleRemoveOtherMembershipInfo = (index) => {
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        other_membership_info:
+          prevData.UserDetails.other_membership_info.filter(
+            (_, i) => i !== index
+          ),
       },
     }));
   };
@@ -155,7 +189,18 @@ function Programs({ formValues, setFormValues }) {
 
             {formValues.seminar_organised.map((seminar_organised, index) => (
               <div key={index}>
-                <div className="row" style={{marginTop: "4px"}}>
+                <div className="row" style={{ marginTop: "4px" }}>
+                  <div>
+                    {index > 0 && (
+                      <button
+                        onClick={() => handleRemoveSeminarOrganised(index)}
+                        className="minus-buttons"
+                        type="button"
+                      >
+                        <img src={minusicon} />
+                      </button>
+                    )}
+                  </div>
                   <div className="col-md-4">
                     {/* Date From*/}
                     <div className="UD-form-section">
@@ -340,7 +385,17 @@ function Programs({ formValues, setFormValues }) {
 
             {formValues.seminar_attend.map((seminar_attend, index) => (
               <div key={index}>
-                <div className="row" style={{marginTop: "4px"}}>
+                <div className="row" style={{ marginTop: "4px" }}>
+                  <div>
+                    {index > 0 && (
+                      <button
+                        onClick={() => handleRemoveSeminarAttend(index)}
+                        className="minus-buttons"
+                      >
+                        <img src={minusicon} />
+                      </button>
+                    )}
+                  </div>
                   <div className="col-md-4">
                     {/* Date From*/}
                     <div className="UD-form-section">
@@ -429,9 +484,14 @@ function Programs({ formValues, setFormValues }) {
             {/* Other Information*/}
 
             <div>
-              <p className="HS-heading">
-                Other Information
-              
+              <p className="HS-heading">Other Information
+              <button
+                        onClick={handleAddother_membership_info}
+                        type="button"
+                        className="plus-buttons"
+                      >
+                        <img src={plusicon} />
+                      </button>
               </p>
             </div>
             {formValues.other_membership_info.map(
@@ -459,10 +519,21 @@ function Programs({ formValues, setFormValues }) {
 
         </div> */}
 
-                  <div className="row" style={{marginTop: "4px"}}>
+                  <div className="row" style={{ marginTop: "4px" }}>
+                  <div>
+                      {index > 0 && (
+                        <button
+                          onClick={() => handleRemoveOtherMembershipInfo(index)}
+                          className="minus-buttons"
+                          type="button"
+                        >
+                          <img src={minusicon} />
+                        </button>
+                      )}
+                    </div>
                     <div className="col-md-12">
                       {/* Membership of University/Institute/Industry Bodies*/}
-                      <div style={{marginTop:"30px"}}>
+                      <div style={{ marginTop: "30px" }}>
                         <label className="UD-SetLabel-Name">
                           <span></span>Membership of
                           University/Institute/Industry Bodies/Professional
@@ -491,18 +562,17 @@ function Programs({ formValues, setFormValues }) {
                   {/* Attended*/}
 
                   <div>
-                    <p className="HS-heading">Attended  
-                    <button
-                  onClick={handleAddother_membership_info}
-                  type="button"
-                  className="plus-buttons"
-                >
-                  <img src={plusicon} />
-                </button>
-                </p>
+                    <p className="HS-heading">
+                      Attended
+                  
+                    </p>
                   </div>
 
+
+                     
                   <div className="row" style={{ marginTop: "4px" }}>
+                  
+
                     <div className="col-md-4">
                       {/* Date From*/}
                       <div className="UD-form-section">
