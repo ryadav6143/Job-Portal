@@ -9,6 +9,43 @@ import {
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 function EditReference() {
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      try {
+        let formData = new FormData();
+        formData.append('candidate_cv', file);
+
+        let accessToken = localStorage.getItem('Token');
+        accessToken = JSON.parse(accessToken);
+        console.log("accessToken", accessToken.token);
+
+        let response = await fetch('http://192.168.1.8:8090/v1/api/candidates/upload_cv', {
+          method: 'PUT',
+          body: formData,
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log('Resume upload successful:', responseData);
+          // Handle success, e.g., update state or show a success message
+        } else {
+          console.error('Resume upload failed:', response.status, response.statusText);
+          // Handle error, e.g., show an error message to the user
+        }
+      } catch (error) {
+        console.error('Error uploading resume:', error.message);
+        // Handle other errors that may occur during the request
+      }
+    }
+  };
+
+
   return (
     <>
     <form id='myForm'>
@@ -290,9 +327,9 @@ function EditReference() {
           className="set-choosefile-input"
           type="file"
           placeholder="00 (i.e Years.Months)"
-          name="resume_file_link"
+          name="candidate_cv"
           id=""
-          
+          onChange={handleFileChange}
           required
         ></input>
       </div>

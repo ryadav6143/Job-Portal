@@ -16,10 +16,10 @@
 
       try {
         const response = await candidatesService.loginCandidate({
-          email: username,
+          login_field: username,
           password: password,
         });
-
+        console.log("resposne",response);
         if (response.data.token) {
           handleLogin();
           // localStorage.setItem("isLoggedIn", true);

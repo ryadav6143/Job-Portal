@@ -47,7 +47,7 @@ function ApplyNow() {
       address_1: '',
       contact_2: '',
       country: '',
-      specialization_area_1:'',
+      Specialization:'',
       state_province: '',
       applied_post_masters_id: "",
       nature_of_job: '',

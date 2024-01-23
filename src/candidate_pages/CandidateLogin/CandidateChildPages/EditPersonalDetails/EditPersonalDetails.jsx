@@ -8,7 +8,7 @@ import {
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import candidatesService from "../../../candidateService";
+import candidatesApiService from "../../../candidateService";
 function EditPersonalDetails() {
   // ---------profile image source---------
   const [selectedImage, setSelectedImage] = useState(null);
@@ -35,8 +35,10 @@ function EditPersonalDetails() {
     nature_of_job: '',
     department_master_id: '',
     pin_code: '',
-
+    specialization:''
   });
+
+  console.log("data",data);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +47,7 @@ function EditPersonalDetails() {
         accessToken = JSON.parse(accessToken);
         console.log("accessToken", accessToken.token);
 
-        const fetchedData = await candidatesService.getCandidateById(12, accessToken.token);
+        const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
         console.log("response", fetchedData);
         setData(fetchedData);
       } catch (error) {
@@ -60,21 +62,17 @@ function EditPersonalDetails() {
 
 
 
-
-
   // const handleImageChange = async (event) => {
   //   const file = event.target.files[0];
-  //   const candidates_id = 1;
-
   //   if (file) {
   //     try {
   //       let formData = new FormData();
   //       formData.append('profile_image', file);
-  //       formData.append('candidate_id', candidates_id);
+
   //       let accessToken = localStorage.getItem('Token');
   //       accessToken = JSON.parse(accessToken);
   //       console.log("accessToken", accessToken.token);
-  //       let response = await fetch('http://192.168.1.8:8090/v1/api/candidates/profile_image', {
+  //       let response = await fetch('http://192.168.1.15:8090/v1/api/candidates/profile_image', {
   //         method: 'PUT',
   //         body: formData,
   //         headers: {
@@ -101,15 +99,13 @@ function EditPersonalDetails() {
 
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
-    const candidates_id = 1;
-
     if (file) {
       try {
         let accessToken = localStorage.getItem('Token');
         accessToken = JSON.parse(accessToken);
         console.log("accessToken", accessToken.token);
 
-        const responseData = await candidatesService.uploadProfileImage(file, candidates_id, accessToken.token);
+        const responseData = await candidatesApiService.uploadProfileImage(file, accessToken.token);
         console.log('Image upload successful:', responseData);
 
         setSelectedImage(URL.createObjectURL(file));
@@ -156,7 +152,7 @@ function EditPersonalDetails() {
       const day = dateObject.getDate().toString().padStart(2, '0');
       formattedValue = `${year}-${month}-${day}`;
     }
-  
+
     setData((prevData) => ({
       ...prevData,
       [fieldName]: formattedValue,
@@ -360,10 +356,10 @@ function EditPersonalDetails() {
                       className="UD-set-input"
                       type="text"
                       placeholder=" "
-                      name="specialization_area_1"
+                      name="specialization"
                       id=""
-                      value={data.specialization_area_1}
-                      onChange={(e) => handleFieldChange('specialization_area_1', e.target.value)}
+                      value={data.specialization}
+                      onChange={(e) => handleFieldChange('specialization', e.target.value)}
                     ></input>
                   </div>
                 </div>
@@ -375,7 +371,7 @@ function EditPersonalDetails() {
                       <span>*</span> Nature of Job
                     </label>
                     <select name="nature_of_job" className="UD-set-dropdown"
-                      value={data.nature_of_job}
+                       value={data.candidate_applied_posts && data.candidate_applied_posts.length > 0 ? data.candidate_applied_posts[0].nature_of_job : ''}
                       onChange={(e) => handleFieldChange('nature_of_job', e.target.value)}>
                       <option value="">Select Nature of Job</option>
                       <option value="Full Time">Full Time</option>
@@ -490,13 +486,16 @@ function EditPersonalDetails() {
                     <label className="UD-SetLabel-Name">
                       <span>*</span>Gender
                     </label>
-                    <select name="gender" className="UD-set-dropdown"
+                    <select 
+                    name="gender"
+                    className="UD-set-dropdown"
                     value={data.gender}  
                     onChange={(e) => handleFieldChange('gender', e.target.value)}
                     >
-                      <option value="Mr.">Male</option>
-                      <option value="Mrs.">Female</option>
-                      <option value="Ms.">Others</option>
+                     <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Others">Others</option>
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
