@@ -3,11 +3,7 @@ import "./TestPages.css";
 import Header from "../../components/Header/Header";
 
 function TestPages() {
-  const [activeIndex, setActiveIndex] = useState(null);
 
-  const toggleAccordion = (index) => {
-    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
-  };
   const sections = [
     {
       summary:
@@ -114,9 +110,6 @@ function TestPages() {
           ))}
         </div>
       </div>
-   
- 
-
     </>
   );
 }

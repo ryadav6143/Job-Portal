@@ -71,7 +71,7 @@ function ResearchWorks({ formValues, setFormValues }) {
     e.preventDefault();
     setFormValues((prevData) => ({
       UserDetails: {
-        // ...prevData.UserDetails,
+        ...prevData.UserDetails,
         conference_publications: [
           ...prevData.UserDetails.conference_publications,
           {
@@ -453,7 +453,7 @@ function ResearchWorks({ formValues, setFormValues }) {
 
           <div className="field-heading">
             <p className="HS-heading">
-              Conference Publication{" "}
+              Conference Publication
               <button
                 onClick={handleAddConference}
                 type="button"
