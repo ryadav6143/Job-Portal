@@ -3,13 +3,21 @@ import "./EditExperience.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import plusicon from "../../../../assets/logos/plus.png"
-
+import minusicon from "../../../../assets/logos/minus.png"
 function EditExperience() {
   const [educations, setEducations] = useState([{}]);
 
-  const handleAddEducation = () => {
+  const handleAddExperience = () => {
     setEducations([...educations, {}]);
   };
+  const handleRemoveExperience = (index) => {
+    setEducations((prevEducations) => {
+      const updatedEducations = [...prevEducations];
+      updatedEducations.splice(index, 1);
+      return updatedEducations;
+    });
+  };
+ 
   return (
     <>
     <form id='myForm'>
@@ -17,7 +25,7 @@ function EditExperience() {
       <div>
         <div>
           <h5 className="UD-heading">Experience &nbsp; <FontAwesomeIcon   className="edit-pen-icon"icon={faPen} />
-          <button     onClick={handleAddEducation}  className="plus-buttons">
+          <button     onClick={handleAddExperience}  className="plus-buttons">
           <img src={plusicon} />
             
             </button></h5>
@@ -32,6 +40,16 @@ function EditExperience() {
         <div key={index}>
 
         <div className="row">
+          <div>
+          {index > 0 && (
+          <button
+            onClick={() => handleRemoveExperience(index)}
+            className="minus-buttons"
+          >
+           <img src={minusicon}/>
+          </button>
+        )}
+          </div>
           <div className="col-md-4">
             {/* *Name of Institute / Company */}
             <div className="UD-form-section">
@@ -66,26 +84,8 @@ function EditExperience() {
             </div>
           </div>
 
-          <div className="col-md-4">
-            {/* *Current Gross Pay (Per Month)*/}
-            <div className="UD-form-section">
-              <label className="UD-SetLabel-Name">
-                <span>*</span>Current Gross Pay (Per Month){" "}
-                
-              </label>
-              <input
-                className="UD-set-input"
-                type="text"
-                placeholder=" "
-                name="gross_pay"
-                id=""
-                required
-              ></input>
-            </div>
-          </div>
-        </div>
+        
 
-        <div className="row">
           <div className="col-md-4">
             {/* *Date From*/}
             <div className="UD-form-section">
@@ -102,6 +102,10 @@ function EditExperience() {
               ></input>
             </div>
           </div>
+        </div>
+
+        <div className="row">
+          
 
           <div className="col-md-4">
             {/* *Date To */}
@@ -119,6 +123,26 @@ function EditExperience() {
               ></input>
             </div>
           </div>
+
+          {index === 0 && (
+          <div className="col-md-4">
+            {/* *Current Gross Pay (Per Month)*/}
+            <div className="UD-form-section">
+              <label className="UD-SetLabel-Name">
+                <span>*</span>Current Gross Pay (Per Month){" "}
+                
+              </label>
+              <input
+                className="UD-set-input"
+                type="text"
+                placeholder=" "
+                name="gross_pay"
+                id=""
+                required
+              ></input>
+            </div>
+          </div>
+          )}
         </div>
         </div>
         ))}

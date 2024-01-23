@@ -32,15 +32,13 @@ function EditResearchForm() {
       <div>
         <div>
           <h5 className="UD-heading">Research Work &nbsp; <FontAwesomeIcon   className="edit-pen-icon" icon={faPen} />  
-          <button  onClick={handleAddIdentifier} type="button"  className="plus-buttons">
-          <img src={plusicon} /></button></h5>
+        </h5>
           <p className="UD-subheading">
             Please fill your information so we can get in touch with you.
           </p>
         </div>
 
-        {identifiers.map((identifier, index) => (
-<div key={index}>
+      
         <div className="row">
           <div className="col-md-4">
             {/* ORCID Id*/}
@@ -48,13 +46,14 @@ function EditResearchForm() {
               <label className="UD-SetLabel-Name">
                 <span></span> ORCID Id
               </label>
-              <select name="orcid" className="UD-set-dropdown">
-                <option value="">Select Id</option>
-                <option value=""> Id 1</option>
-                <option value=""> Id 2</option>
-                <option value=""> Id 3</option>
-              </select>
-              <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+              <input
+                className="UD-set-input"
+                type="text"
+                placeholder=" "
+                name="scopusid"
+                id=""
+               
+              ></input>
             </div>
           </div>
 
@@ -92,8 +91,7 @@ function EditResearchForm() {
             </div>
           </div>
         </div>
-        </div>
-        ))}
+        
 
         {/* Journal Publication */}
 

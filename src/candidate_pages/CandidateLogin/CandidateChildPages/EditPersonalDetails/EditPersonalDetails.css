@@ -27,11 +27,12 @@ box-shadow: rgb(100 100 111 / 17%) 0px 7px 29px 0px;
 /* Media query for screens smaller than 600px (adjust the breakpoint as needed) */
 @media (max-width: 600px) {
     .savebtn {
-      /* Adjust styles for smaller screens */
+     
       font-size: 14px;
       padding: 8px 12px;
       margin: auto;
       margin-bottom: 100px;
+      margin-top: 30px;
     }
   }
 
