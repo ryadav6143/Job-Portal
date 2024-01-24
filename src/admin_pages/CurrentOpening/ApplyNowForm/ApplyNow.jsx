@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ApplyNow.css";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -16,9 +16,8 @@ import OTPVerification from "../../DropCV/OTPVerifivation/OTPVerification";
 import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
 import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
-import { useState } from "react";
+// import { useState } from "react";
 import apiService from "../../../Services/ApiServices";
-import { error } from "jquery";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
   const [otpButtonclicked, setOtpButtonclicked] = useState(false);
@@ -30,6 +29,7 @@ function ApplyNow() {
 
   const [formValues, setFormValues] = useState({
     UserDetails: {
+      password: "123456",
       email: "",
       contact_1: "",
       title_first_name: "",
@@ -45,12 +45,12 @@ function ApplyNow() {
       address_1: "",
       contact_2: "",
       country: "",
+      Specialization: "",
       state_province: "",
       applied_post_masters_id: "",
       nature_of_job: "",
       department_master_id: "",
       pin_code: "",
-      specialization_area_1: "",
       educations: [
         {
           exam_types_master_id: 7,
@@ -152,11 +152,11 @@ function ApplyNow() {
       ],
       total_academic_exp: "",
       total_industrial_exp: "",
-      accommodation: "",
-      transportation: "",
-      food: "",
-      mediclaim: "",
-      others: "",
+      benefits_accommodation: "",
+      benefits_transportation: "",
+      benefits_food: "",
+      benefits_mediclaim: "",
+      benefits_others: "",
       // --------------------------------------------------------------------
       researches: [{ orcid: "", scopusid: "", researchid: "" }],
       journal_publications: [
@@ -248,7 +248,6 @@ function ApplyNow() {
       ref_person_1_contact: "",
       ref_person_2_contact: "",
       candidate_cv: "",
-      accept: "",
     },
   });
   const [selectedComponent, setSelectedComponent] = useState();
@@ -282,6 +281,7 @@ function ApplyNow() {
   //   setSelectedComponent("OTPVerification");
 
   // }
+
   const transferAllData = async () => {
     try {
       const formValuesToSend = { UserDetails: { ...formValues.UserDetails } };
@@ -289,6 +289,7 @@ function ApplyNow() {
       const otpData = {
         email: formValues.UserDetails.email,
         contact_1: formValues.UserDetails.contact_1,
+        first_name: formValues.UserDetails.first_name,
       };
       setOtpData(otpData);
       const response = await apiService.generateOTP(otpData);
@@ -334,9 +335,6 @@ function ApplyNow() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
-  // ----------------------------validations------------------------
-
   const inputValidations = () => {
     const {
       email,
@@ -360,6 +358,7 @@ function ApplyNow() {
       department_master_id,
       pin_code,
       exam_types_master_id,
+      Specialization,
       // ----------------Qualificationf Form Values---------
       year_start,
       institute_name,
@@ -460,11 +459,10 @@ function ApplyNow() {
         } else if (!/^\d+$/.test(pin_code)) {
           errors.pin_code = "Please enter a Pin Code.";
         }
-        if (!specialization_area_1) {
-          errors.specialization_area_1 = "Specialization is Required";
-        } else if (/^\d+$/.test(specialization_area_1)) {
-          errors.specialization_area_1 =
-            "Specialization should not contain numbers";
+        if (!Specialization) {
+          errors.Specialization = "Specialization is Required";
+        } else if (/^\d+$/.test(Specialization)) {
+          errors.Specialization = "Specialization should not contain numbers";
         }
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
@@ -475,115 +473,113 @@ function ApplyNow() {
         }
 
       case 1:
-        // if (
-        //   !formValues.UserDetails.educations[0].country ||
-        //   !formValues.UserDetails.educations[1].country
-        // ) {
-        //   errors.country = "! Country is Required";
-        // }
-        // // Validation for first education entry
-        // if (!formValues.UserDetails.educations[0].year_start) {
-        //   errors.year_start = "! Year of Joining is Required";
-        // } else {
-        //   const enteredStartYear = parseInt(
-        //     formValues.UserDetails.educations[0].year_start,
-        //     10
-        //   );
+        if (
+          !formValues.UserDetails.educations[0].country ||
+          !formValues.UserDetails.educations[1].country
+        ) {
+          errors.country = "! Country is Required";
+        }
+        // Validation for first education entry
+        if (!formValues.UserDetails.educations[0].year_start) {
+          errors.year_start = "! Year of Joining is Required";
+        } else {
+          const enteredStartYear = parseInt(
+            formValues.UserDetails.educations[0].year_start,
+            10
+          );
 
-        //   if (
-        //     isNaN(enteredStartYear) ||
-        //     enteredStartYear > currentYear ||
-        //     enteredStartYear < currentYear - 100
-        //   ) {
-        //     errors.year_start =
-        //       "! Please enter a valid year within the last 100 years.";
-        //   }
-        // }
+          if (
+            isNaN(enteredStartYear) ||
+            enteredStartYear > currentYear ||
+            enteredStartYear < currentYear - 100
+          ) {
+            errors.year_start = "! Please enter a valid passing Year";
+          }
+        }
 
-        // if (!formValues.UserDetails.educations[0].year_end) {
-        //   errors.year_end = "! Passing Year is Required";
-        // } else {
-        //   const enteredEndYear = parseInt(
-        //     formValues.UserDetails.educations[0].year_end,
-        //     10
-        //   );
+        if (!formValues.UserDetails.educations[0].year_end) {
+          errors.year_end = "! Passing Year is Required";
+        } else {
+          const enteredEndYear = parseInt(
+            formValues.UserDetails.educations[0].year_end,
+            10
+          );
 
-        //   if (
-        //     isNaN(enteredEndYear) ||
-        //     enteredEndYear > currentYear ||
-        //     enteredEndYear < currentYear - 100
-        //   ) {
-        //     errors.year_end =
-        //       "! Please enter a valid passing year within the last 100 years.";
-        //   }
-        // }
+          if (
+            isNaN(enteredEndYear) ||
+            enteredEndYear > currentYear ||
+            enteredEndYear < currentYear - 100
+          ) {
+            errors.year_end = "! Please enter a valid passing Year";
+          }
+        }
 
-        // if (!formValues.UserDetails.educations[1].year_start) {
-        //   errors.year_start_2 = "! Year of Joining is Required";
-        // } else {
-        //   const enteredStartYear_2 = parseInt(
-        //     formValues.UserDetails.educations[1].year_start,
-        //     10
-        //   );
+        if (!formValues.UserDetails.educations[1].year_start) {
+          errors.year_start_2 = "! Year of Joining is Required";
+        } else {
+          const enteredStartYear_2 = parseInt(
+            formValues.UserDetails.educations[1].year_start,
+            10
+          );
 
-        //   if (
-        //     isNaN(enteredStartYear_2) ||
-        //     enteredStartYear_2 > currentYear ||
-        //     enteredStartYear_2 < currentYear - 100
-        //   ) {
-        //     errors.year_start_2 =
-        //       "! Please enter a valid year within the last hundred years.";
-        //   }
-        // }
+          if (
+            isNaN(enteredStartYear_2) ||
+            enteredStartYear_2 > currentYear ||
+            enteredStartYear_2 < currentYear - 100
+          ) {
+            errors.year_start_2 =
+              "! Please enter a valid year within the last hundred years.";
+          }
+        }
 
-        // if (!formValues.UserDetails.educations[1].year_end) {
-        //   errors.year_end_2 = "! Passing Year is Required";
-        // } else {
-        //   const enteredEndYear_2 = parseInt(
-        //     formValues.UserDetails.educations[1].year_end,
-        //     10
-        //   );
+        if (!formValues.UserDetails.educations[1].year_end) {
+          errors.year_end_2 = "! Passing Year is Required";
+        } else {
+          const enteredEndYear_2 = parseInt(
+            formValues.UserDetails.educations[1].year_end,
+            10
+          );
 
-        //   if (
-        //     isNaN(enteredEndYear_2) ||
-        //     enteredEndYear_2 > currentYear ||
-        //     enteredEndYear_2 < currentYear - 100
-        //   ) {
-        //     errors.year_end_2 =
-        //       "! Please enter a valid passing year within the last 100 years.";
-        //   }
-        // }
+          if (
+            isNaN(enteredEndYear_2) ||
+            enteredEndYear_2 > currentYear ||
+            enteredEndYear_2 < currentYear - 100
+          ) {
+            errors.year_end_2 =
+              "! Please enter a valid passing year within the last 100 years.";
+          }
+        }
 
-        // // // -------------------------------------------------------------------------------------------
+        // // -------------------------------------------------------------------------------------------
 
-        // if (
-        //   !formValues.UserDetails.educations[0].institute_name ||
-        //   !formValues.UserDetails.educations[1].institute_name
-        // ) {
-        //   errors.institute_name = "! School Name is Required";
-        // }
-        // if (
-        //   !formValues.UserDetails.educations[0].board_university_name ||
-        //   !formValues.UserDetails.educations[0].board_university_name
-        // ) {
-        //   errors.board_university_name = "! Board is Required";
-        // }
+        if (
+          !formValues.UserDetails.educations[0].institute_name ||
+          !formValues.UserDetails.educations[1].institute_name
+        ) {
+          errors.institute_name = "! School Name is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].board_university_name ||
+          !formValues.UserDetails.educations[0].board_university_name
+        ) {
+          errors.board_university_name = "! Board is Required";
+        }
 
-        // if (
-        //   !formValues.UserDetails.educations[0].grade_division ||
-        //   !formValues.UserDetails.educations[0].grade_division
-        // ) {
-        //   errors.grade_division = "! Division is Required";
-        // }
-        // if (
-        //   !formValues.UserDetails.educations[0].grade_percent ||
-        //   !formValues.UserDetails.educations[1].grade_percent
-        // ) {
-        //   errors.grade_percent = "! Percentage is Required";
-        // }
-        // if (!formValues.UserDetails.educations[1].stream) {
-        //   errors.stream = "! Stream is Required";
-        // }
+        if (
+          !formValues.UserDetails.educations[0].grade_division ||
+          !formValues.UserDetails.educations[0].grade_division
+        ) {
+          errors.grade_division = "! Division is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].grade_percent ||
+          !formValues.UserDetails.educations[1].grade_percent
+        ) {
+          errors.grade_percent = "! Percentage is Required";
+        }
+        if (!formValues.UserDetails.educations[1].stream) {
+          errors.stream = "! Stream is Required";
+        }
 
         if (Object.keys(errors).length > 0) {
           // If there are errors, set the state with error messages
@@ -594,118 +590,118 @@ function ApplyNow() {
           return true;
         }
       case 2:
-        // const companyName =
-        //   formValues.UserDetails.experiences[0].company_experience_name;
-        // const userDesignation =
-        //   formValues.UserDetails.experiences[0].designation;
-        // const userJoiningDate =
-        //   formValues.UserDetails.experiences[0].exp_work_from;
-        // const userLeavingDate =
-        //   formValues.UserDetails.experiences[0].exp_work_to;
+        const companyName =
+          formValues.UserDetails.experiences[0].company_experience_name;
+        const userDesignation =
+          formValues.UserDetails.experiences[0].designation;
+        const userJoiningDate =
+          formValues.UserDetails.experiences[0].exp_work_from;
+        const userLeavingDate =
+          formValues.UserDetails.experiences[0].exp_work_to;
 
-        // if (!formValues.UserDetails.experiences[0].company_experience_name) {
-        //   errors.company_experience_name = "! Company Name is Required";
-        // } else {
-        //   const isValidCompanyName = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
-        //     companyName
-        //   );
+        if (!formValues.UserDetails.experiences[0].company_experience_name) {
+          errors.company_experience_name = "! Company Name is Required";
+        } else {
+          const isValidCompanyName = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
+            companyName
+          );
 
-        //   if (!isValidCompanyName) {
-        //     errors.company_experience_name =
-        //       "! Please enter a valid company name";
-        //   }
-        // }
-        // if (!userDesignation) {
-        //   errors.designation = "! Designation is Required";
-        // } else {
-        //   const isValidDesignation = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
-        //     userDesignation
-        //   );
+          if (!isValidCompanyName) {
+            errors.company_experience_name =
+              "! Please enter a valid company name";
+          }
+        }
+        if (!userDesignation) {
+          errors.designation = "! Designation is Required";
+        } else {
+          const isValidDesignation = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
+            userDesignation
+          );
 
-        //   if (!isValidDesignation) {
-        //     errors.designation = "! Please enter a valid designation";
-        //   }
-        // }
-        // if (!formValues.UserDetails.experiences[0].gross_pay) {
-        //   errors.gross_pay = "Current Gross-Pay is Required";
-        // } else {
-        //   const numericValue = parseFloat(
-        //     formValues.UserDetails.experiences[0].gross_pay
-        //   );
+          if (!isValidDesignation) {
+            errors.designation = "! Please enter a valid designation";
+          }
+        }
+        if (!formValues.UserDetails.experiences[0].gross_pay) {
+          errors.gross_pay = "Current Gross-Pay is Required";
+        } else {
+          const numericValue = parseFloat(
+            formValues.UserDetails.experiences[0].gross_pay
+          );
 
-        //   if (isNaN(numericValue) || numericValue <= 0) {
-        //     errors.gross_pay = "Please enter a valid Gross-Pay .";
-        //   } else if (
-        //     !/^\d+(\.\d+)?$/.test(
-        //       formValues.UserDetails.experiences[0].gross_pay
-        //     )
-        //   ) {
-        //     errors.gross_pay = "Please enter a valid Gross-Pay .";
-        //   }
-        // }
+          if (isNaN(numericValue) || numericValue <= 0) {
+            errors.gross_pay = "Please enter a valid Gross-Pay .";
+          } else if (
+            !/^\d+(\.\d+)?$/.test(
+              formValues.UserDetails.experiences[0].gross_pay
+            )
+          ) {
+            errors.gross_pay = "Please enter a valid Gross-Pay .";
+          }
+        }
 
-        // const currentDate = new Date();
-        // const enteredJoiningDate = new Date(userJoiningDate);
-        // if (!userJoiningDate) {
-        //   errors.exp_work_from = "! Joining Date is Required";
-        // } else {
-        //   const currentDate = new Date();
-        //   const enteredJoiningDate = new Date(userJoiningDate);
+        const currentDate = new Date();
+        const enteredJoiningDate = new Date(userJoiningDate);
+        if (!userJoiningDate) {
+          errors.exp_work_from = "! Joining Date is Required";
+        } else {
+          const currentDate = new Date();
+          const enteredJoiningDate = new Date(userJoiningDate);
 
-        //   const isJoiningDateValid =
-        //     enteredJoiningDate < currentDate &&
-        //     enteredJoiningDate >=
-        //       new Date(currentDate.getFullYear() - 100, 0, 1);
+          const isJoiningDateValid =
+            enteredJoiningDate < currentDate &&
+            enteredJoiningDate >=
+              new Date(currentDate.getFullYear() - 100, 0, 1);
 
-        //   if (!isJoiningDateValid) {
-        //     errors.exp_work_from = "! Please enter a valid Joining Date";
-        //   }
-        // }
+          if (!isJoiningDateValid) {
+            errors.exp_work_from = "! Please enter a valid Joining Date";
+          }
+        }
 
-        // if (!userLeavingDate) {
-        //   errors.exp_work_to = "! Leaving Date is Required";
-        // } else {
-        //   const enteredLeavingDate = new Date(userLeavingDate);
+        if (!userLeavingDate) {
+          errors.exp_work_to = "! Leaving Date is Required";
+        } else {
+          const enteredLeavingDate = new Date(userLeavingDate);
 
-        //   const isLeavingDateValid =
-        //     enteredLeavingDate < currentDate &&
-        //     enteredLeavingDate >=
-        //       new Date(currentDate.getFullYear() - 100, 0, 1);
+          const isLeavingDateValid =
+            enteredLeavingDate < currentDate &&
+            enteredLeavingDate >=
+              new Date(currentDate.getFullYear() - 100, 0, 1);
 
-        //   if (!isLeavingDateValid) {
-        //     errors.exp_work_to = "! Please enter a valid Leaving Date";
-        //   }
+          if (!isLeavingDateValid) {
+            errors.exp_work_to = "! Please enter a valid Leaving Date";
+          }
 
-        //   if (enteredJoiningDate >= enteredLeavingDate) {
-        //     errors.exp_work_from =
-        //       "! Joining Date should be before Leaving Date";
-        //     errors.exp_work_to = "! Leaving Date should be after Joining Date";
-        //   }
-        // }
+          if (enteredJoiningDate >= enteredLeavingDate) {
+            errors.exp_work_from =
+              "! Joining Date should be before Leaving Date";
+            errors.exp_work_to = "! Leaving Date should be after Joining Date";
+          }
+        }
 
-        // if (!total_academic_exp) {
-        //   errors.total_academic_exp = "Total Academic Experience is Required.";
-        // } else if (isNaN(total_academic_exp)) {
-        //   errors.total_academic_exp = "Please enter a valid number.";
-        // } else {
-        //   const numericValue = parseFloat(total_academic_exp);
-        //   if (numericValue < 0 || numericValue > 100) {
-        //     errors.total_academic_exp =
-        //       "Please enter a number between 0 and 100.";
-        //   }
-        // }
-        // if (!total_industrial_exp) {
-        //   errors.total_industrial_exp =
-        //     "Total Industry Experience is Required.";
-        // } else if (isNaN(total_industrial_exp)) {
-        //   errors.total_industrial_exp = "Please enter a valid number.";
-        // } else {
-        //   const numericValue = parseFloat(total_industrial_exp);
-        //   if (numericValue < 0 || numericValue > 100) {
-        //     errors.total_industrial_exp =
-        //       "Please enter a number between 0 and 100.";
-        //   }
-        // }
+        if (!total_academic_exp) {
+          errors.total_academic_exp = "Total Academic Experience is Required.";
+        } else if (isNaN(total_academic_exp)) {
+          errors.total_academic_exp = "Please enter a valid number.";
+        } else {
+          const numericValue = parseFloat(total_academic_exp);
+          if (numericValue < 0 || numericValue > 100) {
+            errors.total_academic_exp =
+              "Please enter a number between 0 and 100.";
+          }
+        }
+        if (!total_industrial_exp) {
+          errors.total_industrial_exp =
+            "Total Industry Experience is Required.";
+        } else if (isNaN(total_industrial_exp)) {
+          errors.total_industrial_exp = "Please enter a valid number.";
+        } else {
+          const numericValue = parseFloat(total_industrial_exp);
+          if (numericValue < 0 || numericValue > 100) {
+            errors.total_industrial_exp =
+              "Please enter a number between 0 and 100.";
+          }
+        }
 
         if (Object.keys(errors).length > 0) {
           // If there are errors, set the state with error messages
@@ -763,13 +759,12 @@ function ApplyNow() {
   switch (selectedComponent) {
     case "OTPVerification":
       componentToShow = (
-        <OTPVerification otpData={otpData} transferAllData={transferAllData} />
+        <OTPVerification otpData={otpData} transferAllData={formValuesToSend} />
       );
       break;
     default:
       componentToShow = null;
   }
-
   return (
     <>
       <Header></Header>
@@ -808,6 +803,7 @@ function ApplyNow() {
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={transferAllData}>Get OTP</Button>
+                {/* Reset butto here  */}
               </Box>
             </React.Fragment>
           ) : (

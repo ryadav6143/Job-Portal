@@ -3,34 +3,57 @@ import "./CandidateLogin.css";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../assets/logos/logo.png";
+import candidatesService from "../../candidateService";
 
 function CandidateLogin({ handleLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const handleFormSubmit = (e) => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    if (username === "user" && password === "user") {
-      handleLogin();
-      localStorage.setItem("isLoggedIn", true);
-    } else {
-      alert("Invalid credentials");
+    try {
+      const response = await candidatesService.loginCandidate({
+        login_field: username,
+        password: password,
+      });
+      console.log("resposne", response);
+      if (response.data.token) {
+        handleLogin();
+        // localStorage.setItem("isLoggedIn", true);
+        localStorage.setItem("Token", JSON.stringify(response.data));
+
+        // sessionStorage.setItem("Token", response.data);
+      } else {
+        setErrorMessage("Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setErrorMessage("invalid username and password");
     }
   };
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+
   return (
     <>
       <div className="login-container">
         <div className="logo-section">
-          <img className="logo-img" src={logo} />
+          <img className="logo-img" src={logo} alt="Logo" />
         </div>
         <div style={{ textAlign: "center" }}>
           <p className="login-content">USER LOGIN PANEL</p>
         </div>
+
+        {errorMessage && (
+          <div className="error-message">
+            <p>{errorMessage}</p>
+          </div>
+        )}
 
         <form onSubmit={handleFormSubmit} className="login-form">
           <label htmlFor="username">Username:</label>

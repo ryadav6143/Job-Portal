@@ -1,15 +1,32 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import plusicon from "../../../../assets/logos/plus-sign.png"
 import "./EditProgramsForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import plusicon from "../../../../assets/logos/plus.png"
-
+import candidatesApiService from "../../../candidateService";
 function EditProgramsForm() {
   const [courses, setCourses] = useState([{}]);
-
+  const [data, setData] = useState([{}]);
   const handleAddCourse = () => {
     setCourses([...courses, {}]);
   };
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let accessToken = localStorage.getItem('Token');
+        accessToken = JSON.parse(accessToken);
+        // console.log("accessToken", accessToken.token);
+        const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
+        console.log("response", fetchedData);
+        setData(fetchedData);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <>
       <form id="myForm">

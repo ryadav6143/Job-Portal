@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./EditQualificationForm.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+
   faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -10,37 +11,98 @@ import candidatesApiService from '../../../candidateService';
 function EditQualificationForm() {
 
   const [data, setData] = useState({
-    candidate_educations: [],
-   
+    candidate_educations: [
+      {
+        exam_types_master_id: 7,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        year_end: '',
+        grade_division: '',
+        grade_percent: '',
+      }, // educations[0] mein highSchool ka data
+      {
+        exam_types_master_id: 8,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        year_end: '',
+        grade_division: '',
+        grade_percent: '',
+        stream: '',
+      }, // educations[1] mein higherSecondary ka data
+      {
+        exam_types_master_id: 2,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        degree_types_name: '',
+        year_end: '',
+        grade_percent: '',
+        specialization_area_1: '',
+      }, // educations[2] mein Graduation ka data
+      {
+        exam_types_master_id: 3,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        degree_types_name: '',
+        year_end: '',
+        grade_percent: '',
+        specialization_area_1: '',
+      }, // educations[3] mein PostGraduation ka data
+      {
+        exam_types_master_id: 5,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        degree_types_name: '',
+        year_end: '',
+        grade_percent: '',
+        specialization_area_1: '',
+      }, // educations[4] mein MPHIL ka data
+      {
+        exam_types_master_id: 4,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        degree_types_name: '',
+        year_end: '',
+        grade_percent: '',
+        specialization_area_1: '',
+        specialization_area_2: '',
+        specialization_area_3: '',
+      }, // educations[5] mein Phd ka data
+      {
+        exam_types_master_id: 11,
 
+        year_end: '',
+      }, // educations[6] mein Gate ka data
+      {
+        exam_types_master_id: 9,
+
+        year_end: '',
+      },// educations[7] mein Neet ka data
+      {
+        exam_types_master_id: 1,
+        country: '',
+        year_start: '',
+        institute_name: '',
+        board_university_name: '',
+        year_end: '',
+        grade_division: '',
+        grade_percent: '',
+        stream: '',
+      },// educations[8] mein Diploma ka data
+    ],
   });
-  const highSchoolData = data.candidate_educations.find(
-    (education) => education.exam_types_master_id === 7
-  );
-  const higherSecondaryData = data.candidate_educations.find(
-    (education) => education.exam_types_master_id === 8
-  );
-  const diplomaData = data.candidate_educations.find(
-    (education) => education.exam_types_master_id === 1
-  );
-  const graduationData = data.candidate_educations.find(
-    (education) => education.exam_types_master_id === 2
-  );
-  const postGraduationData = data.candidate_educations.find(
-    (education) => education.exam_types_master_id === 3
-  );
-  const mphilData = data.candidate_educations.find(
-    (education) => education.exam_types_master_id === 5
-  );
-  const phdData = data.candidate_educations.find(
-    (education) => education.exam_types_master_id === 4
-  );
-  const gateData = data.candidate_educations.find(
-    (education) => education.exam_types_master_id === 11
-  );
-  const neetData = data.candidate_educations.find(
-    (education) => education.exam_types_master_id === 9
-  );
+
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
@@ -48,9 +110,10 @@ function EditQualificationForm() {
       try {
         let accessToken = localStorage.getItem('Token');
         accessToken = JSON.parse(accessToken);
-        // console.log("accessToken", accessToken.token);
+        console.log('accessToken', accessToken.token);
+
         const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
-        console.log("response", fetchedData);
+        console.log('response', fetchedData);
         setData(fetchedData);
       } catch (error) {
         console.error('Error fetching data:', error.message);
@@ -78,6 +141,103 @@ function EditQualificationForm() {
       [dropdownName]: value,
     }));
   };
+
+  // const handleFieldChange = (fieldName, value) => {
+  //   let formattedValue = value;
+  //   if (fieldName === 'dob') {
+  //     const dateObject = new Date(value);
+  //     const year = dateObject.getFullYear();
+  //     const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+  //     const day = dateObject.getDate().toString().padStart(2, '0');
+  //     formattedValue = `${year}-${month}-${day}`;
+  //   }
+
+  //   setData((prevData) => ({
+  //     ...prevData,
+  //     [fieldName]: formattedValue,
+  //   }));
+  // };
+
+  const handleHighSchoolChange = (fieldName, value) => {
+      setData((prevData) => {
+      const updatedEducations = [...prevData.candidate_educations];
+      if (updatedEducations && updatedEducations.length > 7) {
+        updatedEducations[7] = {
+          ...updatedEducations[7],
+          [fieldName]: value,
+        };
+      }
+      return {
+        ...prevData,
+        candidate_educations: updatedEducations,
+      };
+    });
+  };
+  const handleHigherSecondaryChange = (fieldName, value) => {
+      setData((prevData) => {
+      const updatedEducations = [...prevData.candidate_educations];
+      if (updatedEducations && updatedEducations.length > 6) {
+        updatedEducations[6] = {
+          ...updatedEducations[6],
+          [fieldName]: value,
+        };
+       
+      }
+      return {
+        ...prevData,
+        candidate_educations: updatedEducations,
+      };
+    });
+  };
+  const handleDiplomaChange = (fieldName, value) => {
+      setData((prevData) => {
+      const updatedEducations = [...prevData.candidate_educations];
+      if (updatedEducations && updatedEducations.length > 0) {
+        updatedEducations[0] = {
+          ...updatedEducations[0],
+          [fieldName]: value,
+        };
+       
+      }
+      return {
+        ...prevData,
+        candidate_educations: updatedEducations,
+      };
+    });
+  };
+  const handleGraduationChange = (fieldName, value) => {
+      setData((prevData) => {
+      const updatedEducations = [...prevData.candidate_educations];
+      if (updatedEducations && updatedEducations.length > 5) {
+        updatedEducations[5] = {
+          ...updatedEducations[5],
+          [fieldName]: value,
+        };
+       
+      }
+      return {
+        ...prevData,
+        candidate_educations: updatedEducations,
+      };
+    });
+  };
+  const handlePhdChange = (fieldName, value) => {
+      setData((prevData) => {
+      const updatedEducations = [...prevData.candidate_educations];
+      if (updatedEducations && updatedEducations.length > 8) {
+        updatedEducations[8] = {
+          ...updatedEducations[8],
+          [fieldName]: value,
+        };
+       
+      }
+      return {
+        ...prevData,
+        candidate_educations: updatedEducations,
+      };
+    });
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -113,9 +273,11 @@ function EditQualificationForm() {
                     <span>*</span> Country
                   </label>
                   <select
+
                     name="country"
                     className="UD-set-dropdown"
-                    value={highSchoolData ? highSchoolData.country : ""}
+                    onChange={(e) => handleHighSchoolChange('country', e.target.value)}
+                    value={data.candidate_educations[7].country}
 
                   >
                     <option value="">Select country</option>
@@ -141,8 +303,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_start"
                     id=""
-                    value={highSchoolData ? highSchoolData.year_start : ""}
-
+                    onChange={(e) => handleHighSchoolChange('year_start', e.target.value)}
+                    value={data.candidate_educations[7].year_start}
 
                   ></input>
 
@@ -161,7 +323,9 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="institute_name"
                     id=""
-                    value={highSchoolData ? highSchoolData.institute_name : ""}
+                    onChange={(e) => handleHighSchoolChange('institute_name', e.target.value)}
+                    value={data.candidate_educations[7].institute_name}
+                    
                   ></input>
 
                 </div>
@@ -181,8 +345,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="board_university_name"
                     id=""
-                    value={highSchoolData ? highSchoolData.board_university_name : ""}
-                    
+                    onChange={(e) => handleHighSchoolChange('board_university_name', e.target.value)}
+                    value={data.candidate_educations[7].board_university_name}
                   ></input>
 
                 </div>
@@ -200,7 +364,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_end"
                     id=""
-                    value={highSchoolData ? highSchoolData.year_end : ""}
+                    onChange={(e) => handleHighSchoolChange('year_end', e.target.value)}
+                    value={data.candidate_educations[7].year_end}
                   ></input>
 
                 </div>
@@ -218,8 +383,9 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="grade_division"
                     id=""
-                    value={highSchoolData ? highSchoolData.grade_division : ""}
-                  ></input>
+                    onChange={(e) => handleHighSchoolChange('grade_division', e.target.value)}
+                    value={data.candidate_educations[7].grade_division}                
+                      ></input>
 
                 </div>
               </div>
@@ -238,7 +404,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="grade_percent"
                     id=""
-                    value={highSchoolData ? highSchoolData.grade_percent : ""}
+                    onChange={(e) => handleHighSchoolChange('grade_percent', e.target.value)}
+                    value={data.candidate_educations[7].grade_percent}
                   ></input>
 
                 </div>
@@ -264,8 +431,8 @@ function EditQualificationForm() {
                     
                     name="country"
                     className="UD-set-dropdown"
-                    value={higherSecondaryData ? higherSecondaryData.country : ""}
-                    
+                    onChange={(e) => handleHigherSecondaryChange('country', e.target.value)}
+                    value={data.candidate_educations[6].country}
                   >
                     <option value="">Select country</option>
                     {countries.map((country) => (
@@ -290,8 +457,9 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_start"
                     id=""
-                    value={higherSecondaryData ? higherSecondaryData.year_start : ""}
-                    
+
+                    onChange={(e) => handleHigherSecondaryChange('year_start', e.target.value)}
+                    value={data.candidate_educations[6].year_start}
                   ></input>
 
                 </div>
@@ -309,8 +477,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="institute_name"
                     id=""
-                    value={higherSecondaryData ? higherSecondaryData.institute_name : ""}
-                    
+                    onChange={(e) => handleHigherSecondaryChange('institute_name', e.target.value)}
+                    value={data.candidate_educations[6].institute_name}
                   ></input>
 
                 </div>
@@ -330,9 +498,9 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="board_university_name"
                     id=""
-                    value={higherSecondaryData ? higherSecondaryData.board_university_name : ""}
-                    
-                  ></input>
+                    onChange={(e) => handleHigherSecondaryChange('board_university_name', e.target.value)}
+                    value={data.candidate_educations[6].board_university_name}                
+                      ></input>
 
                 </div>
               </div>
@@ -349,8 +517,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_end"
                     id=""
-                    value={higherSecondaryData ? higherSecondaryData.year_end : ""}
-                    
+                    onChange={(e) => handleHigherSecondaryChange('year_end', e.target.value)}
+                    value={data.candidate_educations[6].year_end}
                   ></input>
 
                 </div>
@@ -368,8 +536,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="grade_division"
                     id=""
-                    value={higherSecondaryData ? higherSecondaryData.grade_division : ""}
-                    
+                    onChange={(e) => handleHigherSecondaryChange('grade_division', e.target.value)}
+                    value={data.candidate_educations[6].grade_division}
                   ></input>
 
                 </div>
@@ -389,8 +557,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="grade_percent"
                     id=""
-                    value={higherSecondaryData ? higherSecondaryData.grade_percent : ""}
-                    
+                    onChange={(e) => handleHigherSecondaryChange('grade_percent', e.target.value)}
+                    value={data.candidate_educations[6].grade_percent}
                   ></input>
 
                 </div>
@@ -408,8 +576,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="stream"
                     id=""
-                    value={higherSecondaryData ? higherSecondaryData.stream : ""}
-                    
+                    onChange={(e) => handleHigherSecondaryChange('stream', e.target.value)}
+                    value={data.candidate_educations[6].stream}
                   ></input>
 
                 </div>
@@ -433,11 +601,11 @@ function EditQualificationForm() {
                     <span></span> Country
                   </label>
                   <select
-                    
                     name="country"
                     className="UD-set-dropdown"
-                    value={diplomaData ? diplomaData.country : ""}
-                  
+                    onChange={(e) => handleDiplomaChange('country', e.target.value)}
+                    value={data.candidate_educations[0].country}
+
                   >
                     <option value="">Select country</option>
                     {countries.map((country) => (
@@ -462,7 +630,9 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_start"
                     id=""
-                    value={diplomaData ? diplomaData.year_start : ""}
+                    onChange={(e) => handleDiplomaChange('year_start', e.target.value)}
+                    value={data.candidate_educations[0].year_start}
+
                   ></input>
 
                 </div>
@@ -480,7 +650,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="institute_name"
                     id=""
-                    value={diplomaData ? diplomaData.institute_name : ""}
+                    onChange={(e) => handleDiplomaChange('institute_name', e.target.value)}
+                    value={data.candidate_educations[0].institute_name}
                   ></input>
 
                 </div>
@@ -500,7 +671,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="board_university_name"
                     id=""
-                    value={diplomaData ? diplomaData.board_university_name : ""}
+                    onChange={(e) => handleDiplomaChange('board_university_name', e.target.value)}
+                    value={data.candidate_educations[0].board_university_name}
                   ></input>
 
                 </div>
@@ -518,7 +690,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_end"
                     id=""
-                    value={diplomaData ? diplomaData.year_end : ""}
+                    onChange={(e) => handleDiplomaChange('year_end', e.target.value)}
+                    value={data.candidate_educations[0].year_end}
                   ></input>
 
                 </div>
@@ -536,7 +709,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="grade_division"
                     id=""
-                    value={diplomaData ? diplomaData.grade_division : ""}
+                    onChange={(e) => handleDiplomaChange('grade_division', e.target.value)}
+                    value={data.candidate_educations[0].grade_division}
                   ></input>
 
                 </div>
@@ -556,7 +730,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="grade_percent"
                     id=""
-                    value={diplomaData ? diplomaData.grade_percent : ""}
+                    onChange={(e) => handleDiplomaChange('grade_percent', e.target.value)}
+                    value={data.candidate_educations[0].grade_percent}
                   ></input>
 
                 </div>
@@ -574,7 +749,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="stream"
                     id=""
-                    value={diplomaData ? diplomaData.stream : ""}
+                    onChange={(e) => handleDiplomaChange('stream', e.target.value)}
+                    value={data.candidate_educations[0].stream}
 
                   ></input>
 
@@ -600,11 +776,12 @@ function EditQualificationForm() {
                     <span></span> Country
                   </label>
                   <select
-                    
+                   
                     name="country"
                     className="UD-set-dropdown"
-                    value={graduationData ? graduationData.country : ""}
-                   
+                  
+                    onChange={(e) => handleGraduationChange('country', e.target.value)}
+                    value={data.candidate_educations[5].country}
                   >
                     <option value="">Select country</option>
                     {countries.map((country) => (
@@ -629,7 +806,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_start"
                     id=""
-                    value={graduationData ? graduationData.year_start : ""}
+                    onChange={(e) => handleGraduationChange('year_start', e.target.value)}
+                    value={data.candidate_educations[5].year_start}
                   ></input>
 
                 </div>
@@ -647,8 +825,9 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="board_university_name"
                     id=""
-                    value={graduationData ? graduationData.board_university_name : ""}
 
+                    onChange={(e) => handleGraduationChange('board_university_name', e.target.value)}
+                    value={data.candidate_educations[5].board_university_name}
                   ></input>
 
                 </div>
@@ -668,7 +847,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="institute_name"
                     id=""
-                    value={graduationData ? graduationData.institute_name : ""}
+                    onChange={(e) => handleGraduationChange('institute_name', e.target.value)}
+                    value={data.candidate_educations[5].institute_name}
 
                   ></input>
 
@@ -687,8 +867,9 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="degree_types_name"
                     id=""
-                    value={graduationData ? graduationData.degree_types_name : ""}
 
+                    onChange={(e) => handleGraduationChange('degree_types_name', e.target.value)}
+                    value={data.candidate_educations[5].degree_types_name}
                   ></input>
 
                 </div>
@@ -706,8 +887,9 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_end"
                     id=""
+                    onChange={(e) => handleGraduationChange('year_end', e.target.value)}
+                    value={data.candidate_educations[5].year_end}
 
-                    value={graduationData ? graduationData.year_end : ""}
                   ></input>
 
                 </div>
@@ -727,7 +909,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="specialization_area_1"
                     id=""
-                    value={graduationData ? graduationData.specialization_area_1 : ""}
+                    onChange={(e) => handleGraduationChange('specialization_area_1', e.target.value)}
+                    value={data.candidate_educations[5].specialization_area_1}
 
                   ></input>
 
@@ -746,7 +929,8 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="grade_percent"
                     id=""
-                    value={graduationData ? graduationData.grade_percent : ""}
+                    onChange={(e) => handleGraduationChange('grade_percent', e.target.value)}
+                    value={data.candidate_educations[5].grade_percent}
 
                   ></input>
 
@@ -771,11 +955,11 @@ function EditQualificationForm() {
                     <span></span> Country
                   </label>
                   <select
-                 
-                    name="country"
+                    onChange={(e) => handleInputChange(e, 'country4')}
+                    name="country1"
                     className="UD-set-dropdown"
-               
-                    value={postGraduationData ? postGraduationData.country : ""}
+                    required
+                    value={data.country4}
                   >
                     <option value="">Select country</option>
                     {countries.map((country) => (
@@ -800,7 +984,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_start"
                     id=""
-                    value={postGraduationData ? postGraduationData.year_start : ""}
+
 
                   ></input>
 
@@ -818,8 +1002,8 @@ function EditQualificationForm() {
                     type="text"
                     placeholder=" "
                     name="board_university_name"
-                    id="" 
-                    value={postGraduationData ? postGraduationData.board_university_name : ""}
+                    id=""
+
 
                   ></input>
 
@@ -840,7 +1024,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="institute_name"
                     id=""
-                    value={postGraduationData ? postGraduationData.institute_name : ""}
+
                   ></input>
 
                 </div>
@@ -858,7 +1042,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="degree_types_name"
                     id=""
-                    value={postGraduationData ? postGraduationData.degree_types_name : ""}
+
 
                   ></input>
 
@@ -877,7 +1061,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_end"
                     id=""
-                    value={postGraduationData ? postGraduationData.year_end : ""}
+
 
                   ></input>
 
@@ -898,7 +1082,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="specialization_area_1"
                     id=""
-                    value={postGraduationData ? postGraduationData.specialization_area_1 : ""}
+
 
                   ></input>
 
@@ -918,7 +1102,7 @@ function EditQualificationForm() {
                     name="grade_percent"
                     id=""
 
-                    value={postGraduationData ? postGraduationData.grade_percent : ""}
+
                   ></input>
 
                 </div>
@@ -942,11 +1126,11 @@ function EditQualificationForm() {
                     <span></span> Country
                   </label>
                   <select
-                    
-                    name="country"
+                    onChange={(e) => handleInputChange(e, 'country5')}
+                    name="country1"
                     className="UD-set-dropdown"
-                    value={mphilData ? mphilData.country : ""}
-       
+                    required
+                    value={data.country5}
                   >
                     <option value="">Select country</option>
                     {countries.map((country) => (
@@ -971,7 +1155,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_start"
                     id=""
-                    value={mphilData ? mphilData.year_start : ""}
+
 
                   ></input>
 
@@ -990,7 +1174,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="board_university_name"
                     id=""
-                    value={mphilData ? mphilData.board_university_name : ""}
+
                   ></input>
 
                 </div>
@@ -1010,7 +1194,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="institute_name"
                     id=""
-                    value={mphilData ? mphilData.institute_name : ""}
+
                   ></input>
 
                 </div>
@@ -1028,7 +1212,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="degree_types_name"
                     id=""
-                    value={mphilData ? mphilData.degree_types_name : ""}
+
                   ></input>
 
                 </div>
@@ -1046,7 +1230,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_end"
                     id=""
-                    value={mphilData ? mphilData.year_end : ""}
+
                   ></input>
 
                 </div>
@@ -1066,7 +1250,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="specialization_area_1"
                     id=""
-                    value={mphilData ? mphilData.specialization_area_1 : ""}
+
                   ></input>
 
                 </div>
@@ -1084,7 +1268,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="grade_percent"
                     id=""
-                    value={mphilData ? mphilData.grade_percent : ""}
+
 
                   ></input>
 
@@ -1111,8 +1295,9 @@ function EditQualificationForm() {
                    
                     name="country"
                     className="UD-set-dropdown"
-                  
-                    value={phdData ? phdData.country : ""}
+                    onChange={(e) => handleDiplomaChange('country', e.target.value)}
+                    value={data.candidate_educations[4].country}
+                    
                   >
                     <option value="">Select country</option>
                     {countries.map((country) => (
@@ -1137,7 +1322,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_start"
                     id=""
-                    value={phdData ? phdData.year_start : ""}
+
                   ></input>
 
                 </div>
@@ -1155,7 +1340,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="board_university_name"
                     id=""
-                    value={phdData ? phdData.board_university_name : ""}
+
                   ></input>
 
                 </div>
@@ -1175,7 +1360,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="institute_name"
                     id=""
-                    value={phdData ? phdData.institute_name : ""}
+
                   ></input>
 
                 </div>
@@ -1193,7 +1378,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="degree_types_name"
                     id=""
-                    value={phdData ? phdData.degree_types_name : ""}
+
                   ></input>
 
                 </div>
@@ -1211,7 +1396,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="year_end"
                     id=""
-                    value={phdData ? phdData.year_end : ""}
+
                   ></input>
 
                 </div>
@@ -1231,7 +1416,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="specialization_area_1"
                     id=""
-                    value={phdData ? phdData.specialization_area_1 : ""}
+
                   ></input>
 
                 </div>
@@ -1249,7 +1434,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name="grade_percent"
                     id=""
-                    value={phdData ? phdData.grade_percent : ""}
+
 
                   ></input>
 
@@ -1279,7 +1464,7 @@ function EditQualificationForm() {
                     placeholder="Yes/No "
                     name=""
                     id=""
-                    value={gateData ? gateData.exam_types_master.exam_name : ""}
+
 
                   ></input>
 
@@ -1298,7 +1483,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name=""
                     id=""
-                    value={gateData ? gateData.year_end : ""}
+
 
                   ></input>
 
@@ -1317,7 +1502,7 @@ function EditQualificationForm() {
                     placeholder=" Yes/No"
                     name=""
                     id=""
-                    value={neetData ? neetData.exam_types_master.exam_name : ""}
+
                   ></input>
 
                 </div>
@@ -1337,7 +1522,7 @@ function EditQualificationForm() {
                     placeholder=" "
                     name=""
                     id=""
-                    value={neetData ? neetData.year_end : ""}
+
                   ></input>
 
                 </div>

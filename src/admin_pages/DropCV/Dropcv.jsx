@@ -38,7 +38,7 @@ function Dropcv() {
       dob: "",
       gender: "",
       email: "",
-      password: "khbasfkbnebhnolgne",
+      password: "123456",
       contact_1: "",
       country: "",
       city: "",
@@ -93,14 +93,15 @@ function Dropcv() {
       );
       console.log(error.response.data);
     }
-    const otpData = {
-      email: formData.personalDetails.email,
-      contact_1: formData.personalDetails.contact_1,
-    };
-    setOtpData(otpData);
-
-    const response = await apiService.generateOTP(otpData);
-    console.log("API Response:", response);
+const otpData={
+    email: formData.personalDetails.email,
+    contact_1: formData.personalDetails.contact_1,
+    first_name: formData.personalDetails.first_name,
+  }
+  setOtpData(otpData)
+  
+  const response = await apiService.generateOTP(otpData);
+  console.log("API Response:", response);
     setSelectedComponent("OTPVerification");
   };
   const navigate = useNavigate();
