@@ -5,11 +5,49 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
 function EditProgramsForm() {
   const [courses, setCourses] = useState([{}]);
+  const [organised, setOrganised] = useState([{}]);
+  const [attend, setAttend] = useState([{}]);
   const [data, setData] = useState([{}]);
-  const handleAddCourse = () => {
-    setCourses([...courses, {}]);
-  };
+
+
+
+  // seminar_attend: [{
+    //     attend_date_from: '',
+    //     attend_date_to: '',
+    //     name_of_course: '',
+    //     sponsered_by: '',
   
+    //   }],
+    //   other_membership_info: [{
+    //     member_of_institute_name: '',
+    //     membership_date_from: '',
+    //     membership_date_to: '',
+    //     position_held: '',
+    //     contribution: ''
+    //   }],
+    //   awards_won:'',
+    //   extra_activities:'',
+    //   any_other_info:'',
+    //   expected_joining_time:''
+    // });
+
+
+
+  // const handleAddCourse = () => {
+  //   setCourses([...courses, {}]);
+  // };
+  const handleAddOrganised = () => {
+    setOrganised([...organised, {}]);
+  };
+  const handleOtherAttend = () => {
+    setAttend([...attend, {}]);
+  };
+  const handleChange = (field, value) => {
+    setData({
+      ...data,
+      [field]: value,
+    });
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,6 +64,18 @@ function EditProgramsForm() {
 
     fetchData();
   }, []);
+
+
+  const handleOrganisedChange = (index, field, value) => {
+    const updatedOrganised = [...organised];
+    updatedOrganised[index][field] = value;
+    setOrganised(updatedOrganised);
+  };
+  const handleOtherAttendChange = (index, field, value) => {
+    const updatedAttend = [...attend];
+    updatedAttend[index][field] = value;
+    setAttend(updatedAttend);
+  };
   return (
     <>
       <form id="myForm">
@@ -53,7 +103,7 @@ function EditProgramsForm() {
               <p className="HS-heading">
                 Organized{" "}
                 <button
-                  onClick={handleAddCourse}
+                  onClick={handleAddOrganised}
                   type="button"
                   className="editprofile-plus-button"
                 >
@@ -62,7 +112,7 @@ function EditProgramsForm() {
               </p>
             </div>
 
-            {courses.map((course, index) => (
+            {data?.candidate_seminar_organiseds?.map((organised, index) => (
               <div key={index}>
                 <div className="row">
                   <div className="col-md-4">
@@ -75,8 +125,10 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="date"
                         placeholder="MM/DD/YYYY "
-                        name=""
+                        name="organise_date_from"
                         id=""
+                        value={organised.organise_date_from}
+                        onChange={(e) => handleOrganisedChange(index, "organise_date_from", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -91,9 +143,11 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="date"
                         placeholder=" MM/DD/YYYY"
-                        name={`dateTo_${index}`}
-                        id={`dateTo_${index}`}
-                      ></input>
+                        name="organise_date_to"
+                        id=""
+                        value={organised.organise_date_to}
+                        onChange={(e) => handleOrganisedChange(index, "organise_date_to", e.target.value)}
+                       ></input>
                     </div>
                   </div>
 
@@ -107,8 +161,10 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="text"
                         placeholder=" "
-                        name={`courseName_${index}`}
-                        id={`courseName_${index}`}
+                        name="name_of_course"
+                        id=""
+                        value={organised.name_of_course}
+                        onChange={(e) => handleOrganisedChange(index, "name_of_course", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -125,8 +181,10 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="text"
                         placeholder=" "
-                        name={`sponsoredBy_${index}`}
-                        id={`sponsoredBy_${index}`}
+                        name="sponsered_by"
+                        id=""
+                        value={organised.sponsered_by}
+                        onChange={(e) => handleOrganisedChange(index, "sponsered_by", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -141,8 +199,10 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="text"
                         placeholder=" "
-                        name={`participants_${index}`}
-                        id={`participants_${index}`}
+                        name="participants_number"
+                        id=""
+                        value={organised.participants_number}
+                        onChange={(e) => handleOrganisedChange(index, "participants_number", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -157,8 +217,10 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="text"
                         placeholder=" "
-                        name={`fromInstitutes_${index}`}
-                        id={`fromInstitutes_${index}`}
+                        name="name_of_institute"
+                        id=""
+                        value={organised.name_of_institute}
+                        onChange={(e) => handleOrganisedChange(index, "name_of_institute", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -175,8 +237,10 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="text"
                         placeholder=" "
-                        name={`fromIndustry_${index}`}
-                        id={`fromIndustry_${index}`}
+                        name="name_of_industry"
+                        id=""
+                        value={organised.name_of_industry}
+                        onChange={(e) => handleOrganisedChange(index, "name_of_industry", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -190,7 +254,7 @@ function EditProgramsForm() {
               <p className="HS-heading">
                 Attended{" "}
                 <button
-                  onClick={handleAddCourse}
+                  onClick={handleOtherAttend}
                   type="button"
                   className="editprofile-plus-button"
                 >
@@ -199,7 +263,7 @@ function EditProgramsForm() {
               </p>
             </div>
 
-            {courses.map((course, index) => (
+            {data?.candidate_seminar_attends?.map((attend, index) => (
               <div key={index}>
                 <div className="row">
                   <div className="col-md-4">
@@ -212,8 +276,9 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="date"
                         placeholder="MM/DD/YYYY "
-                        name={`dateFrom_${index}`}
-                        id={`dateFrom_${index}`}
+                        name="attend_date_from"
+                        value={attend.attend_date_from}
+                        onChange={(e) => handleOtherAttendChange(index, "attend_date_from", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -228,8 +293,10 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="date"
                         placeholder=" MM/DD/YYYY"
-                        name={`dateTo_${index}`}
-                        id={`dateTo_${index}`}
+                        name="attend_date_to"
+                    
+                        value={attend.attend_date_to}
+                        onChange={(e) => handleOtherAttendChange(index, "attend_date_to", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -244,8 +311,9 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="text"
                         placeholder=" "
-                        name={`courseName_${index}`}
-                        id={`courseName_${index}`}
+                        name="name_of_course"
+                        value={attend.name_of_course}
+                        onChange={(e) => handleOtherAttendChange(index, "name_of_course", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -262,8 +330,9 @@ function EditProgramsForm() {
                         className="UD-set-input"
                         type="text"
                         placeholder=" "
-                        name={`sponsoredBy_${index}`}
-                        id={`sponsoredBy_${index}`}
+                        name="sponsered_by"
+                        value={attend.sponsered_by}
+                        onChange={(e) => handleOtherAttendChange(index, "sponsered_by", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -291,6 +360,7 @@ function EditProgramsForm() {
                     placeholder=""
                     name=""
                     id=""
+                    
                     required
                   ></input>
                 </div>

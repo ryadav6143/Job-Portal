@@ -4,7 +4,18 @@ const BASE_URL = "http://192.168.1.15:8090/v1/api";
 
 const candidatesApiService = {
 
-
+  uploadCV: async (formData, accessToken) => {
+    try {
+      const response = await axios.put(`${BASE_URL}/candidates/upload_cv`, formData, {
+        headers: {
+          'access-token': accessToken,
+        },
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
 
     loginCandidate: (data) => {
         return axios.post(`${BASE_URL}/login/candidate_login`, data);

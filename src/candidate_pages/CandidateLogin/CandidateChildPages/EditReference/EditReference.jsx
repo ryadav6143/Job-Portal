@@ -7,8 +7,40 @@ import {
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from '@fortawesome/free-solid-svg-icons';
-
+import { useState,useEffect } from 'react';
+import candidatesApiService from '../../../candidateService';
 function EditReference() {
+  const [data, setData] = useState({   
+  reference_person_1:'',
+    reference_person_2:'',
+    ref_org_1:'',
+    ref_org_2:'',
+    ref_person_position_1:'',
+    ref_person_position_2:'',
+    hearing_source_about_us:'',
+    application_purpose:'',
+    ref_person_1_email:'',
+    ref_person_2_email:'',
+    ref_person_1_contact:'',
+    ref_person_2_contact:'',
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let accessToken = localStorage.getItem('Token');
+        accessToken = JSON.parse(accessToken);
+        // console.log("accessToken", accessToken.token);
+        const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
+        console.log("response", fetchedData);
+        setData(fetchedData);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -22,13 +54,14 @@ function EditReference() {
         accessToken = JSON.parse(accessToken);
         console.log("accessToken", accessToken.token);
 
-        let response = await fetch('http://192.168.1.8:8090/v1/api/candidates/upload_cv', {
-          method: 'PUT',
-          body: formData,
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        // let response = await fetch('http://192.168.1.15:8090/v1/api/candidates/upload_cv', {
+        //   method: 'PUT',
+        //   body: formData,
+        //   headers: {
+        //     'access-token': accessToken.token,
+        //   },
+        // });
+        const response = await candidatesApiService.uploadCV(formData, accessToken.token);
 
         if (response.ok) {
           const responseData = await response.json();
@@ -45,7 +78,12 @@ function EditReference() {
     }
   };
 
-
+  const handleChange = (field, value) => {
+    setData({
+      ...data,
+      [field]: value,
+    });
+  };
   return (
     <>
     <form id='myForm'>
@@ -72,8 +110,10 @@ function EditReference() {
             className="UD-set-input"
             type="text"
             placeholder=""
-            name=""
+            name="hearing_source_about_us"
             id=""
+            value={data.hearing_source_about_us}
+            onChange={(e) => handleChange('hearing_source_about_us', e.target.value)}
             required
           ></input>
         </div>
@@ -94,10 +134,11 @@ function EditReference() {
               <input
                 className="UD-set-input"
                 type="text"
-                placeholder="Enter  Name "
-                name=""
+                placeholder="Enter Name"
+                name="reference_person_1"
                 id=""
-              
+                value={data.reference_person_1}
+                onChange={(e) => handleChange('reference_person_1', e.target.value)}
               ></input>
               <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
             </div>
@@ -112,10 +153,11 @@ function EditReference() {
               <input
                 className="UD-set-input"
                 type="text"
-                placeholder=" "
-                name=""
+                placeholder=""
+                name="ref_org_1"
                 id=""
-              
+                value={data.ref_org_1}
+                onChange={(e) => handleChange('ref_org_1', e.target.value)}
               ></input>
             </div>
           </div>
@@ -131,9 +173,10 @@ function EditReference() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="ref_person_position_1"
                 id=""
-                
+                value={data.ref_person_position_1}
+                onChange={(e) => handleChange('ref_person_position_1', e.target.value)}
               ></input>
             </div>
           </div>
@@ -150,9 +193,10 @@ function EditReference() {
                 className="UD-set-input"
                 type="email"
                 placeholder="Email address"
-                name=""
+                name="ref_person_1_email"
                 id=""
-               
+                value={data.ref_person_1_email}
+            onChange={(e) => handleChange('ref_person_1_email', e.target.value)}
                 required
               ></input>
               <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
@@ -169,9 +213,10 @@ function EditReference() {
                 className="UD-set-input"
                 type="tel"
                 placeholder="(123) 456 - 7890 "
-                name=""
+                name="ref_person_1_contact"
                 id=""
-                
+                value={data.ref_person_1_contact}
+                onChange={(e) => handleChange('ref_person_1_contact', e.target.value)}
                 required
               ></input>
               <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
@@ -200,9 +245,10 @@ function EditReference() {
                 className="UD-set-input"
                 type="text"
                 placeholder="Enter  Name "
-                name=""
+                name="reference_person_2"
                 id=""
-             
+                value={data.reference_person_2}
+                onChange={(e) => handleChange('reference_person_2', e.target.value)}
               ></input>
               <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
             </div>
@@ -218,9 +264,10 @@ function EditReference() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="ref_org_2"
                 id=""
-                
+                value={data.ref_org_2}
+                onChange={(e) => handleChange('ref_org_2', e.target.value)}
               ></input>
             </div>
           </div>
@@ -236,9 +283,10 @@ function EditReference() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                name=""
+                name="ref_person_position_2"
                 id=""
-               
+                value={data.ref_person_position_2}
+            onChange={(e) => handleChange('ref_person_position_2', e.target.value)}
               ></input>
             </div>
           </div>
@@ -255,8 +303,10 @@ function EditReference() {
                 className="UD-set-input"
                 type="email"
                 placeholder="Email address"
-                name=""
-                id=""
+                name="ref_person_2_email"
+                id="" 
+                value={data.ref_person_2_email}
+                onChange={(e) => handleChange('ref_person_2_email', e.target.value)}
                
                 required
               ></input>
@@ -274,9 +324,10 @@ function EditReference() {
                 className="UD-set-input"
                 type="tel"
                 placeholder="(123) 456 - 7890 "
-                name=""
+                name="ref_person_2_contact"
                 id=""
-                
+                value={data.ref_person_2_contact}
+                onChange={(e) => handleChange('ref_person_2_contact', e.target.value)}
                 required
               ></input>
               <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
@@ -299,9 +350,10 @@ function EditReference() {
                 className="UD-set-input"
                 type="text"
                 placeholder=""
-                name=""
+                name="application_purpose"
                 id=""
-              
+                value={data.application_purpose}
+                onChange={(e) => handleChange('application_purpose', e.target.value)}
               ></input>
             
             </div>
