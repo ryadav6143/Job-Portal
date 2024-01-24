@@ -12,7 +12,7 @@ function EditReference() {
   return (
     <>
     <form id='myForm'>
-    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px", paddingRight: "50px"}}>
       <div>
         <div>
           <h5 className="UD-heading">Reference &nbsp; <FontAwesomeIcon   className="edit-pen-icon" icon={faPen} /></h5>
@@ -31,7 +31,7 @@ function EditReference() {
           </p>
 
           <input
-            style={{ width: "95%" }}
+            style={{ width: "99.5%" }}
             className="UD-set-input"
             type="text"
             placeholder=""
@@ -47,7 +47,7 @@ function EditReference() {
           <p className="HS-heading"> First Reference </p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        <div className="row" style={{ marginTop: "-20px" }}>
           <div className="col-md-4">
             {/* Name */}
             <div className="UD-form-section">
@@ -152,7 +152,7 @@ function EditReference() {
           <p className="HS-heading">Second Reference</p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        <div className="row" style={{ marginTop: "-20px" }}>
           <div className="col-md-4">
             {/* Name */}
             <div className="UD-form-section">

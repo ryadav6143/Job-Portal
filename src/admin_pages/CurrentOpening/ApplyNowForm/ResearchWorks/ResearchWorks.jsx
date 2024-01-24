@@ -1,6 +1,7 @@
 import React from "react";
 import plusicon from "../../../../assets/logos/plus.png";
 import "./ResearchWorks.css";
+import minusicon from "../../../../assets/logos/minus.png";
 
 function ResearchWorks({ formValues, setFormValues }) {
   // const [formValues, setFormValues] = useState({
@@ -67,11 +68,22 @@ function ResearchWorks({ formValues, setFormValues }) {
     }));
   };
 
+  const handleRemovePublication = (index) => {
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        journal_publications: prevData.UserDetails.journal_publications.filter(
+          (_, i) => i !== index
+        ),
+      },
+    }));
+  };
+
   const handleAddConference = (e) => {
     e.preventDefault();
     setFormValues((prevData) => ({
       UserDetails: {
-        // ...prevData.UserDetails,
+        ...prevData.UserDetails,
         conference_publications: [
           ...prevData.UserDetails.conference_publications,
           {
@@ -88,6 +100,19 @@ function ResearchWorks({ formValues, setFormValues }) {
       },
     }));
   };
+
+  const handleRemoveConference = (index) => {
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        conference_publications:
+          prevData.UserDetails.conference_publications.filter(
+            (_, i) => i !== index
+          ),
+      },
+    }));
+  };
+
   const handleAddPatent = (e) => {
     e.preventDefault();
     setFormValues((prevData) => ({
@@ -106,6 +131,16 @@ function ResearchWorks({ formValues, setFormValues }) {
       },
     }));
   };
+
+  const handleRemovePatent = (index) => {
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        patents: prevData.UserDetails.patents.filter((_, i) => i !== index),
+      },
+    }));
+  };
+
   const handleAddCopyright = (e) => {
     e.preventDefault();
     setFormValues((prevData) => ({
@@ -121,6 +156,17 @@ function ResearchWorks({ formValues, setFormValues }) {
             copyright_incountry: "",
           },
         ],
+      },
+    }));
+  };
+
+  const handleRemoveCopyright = (index) => {
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        copyrights: prevData.UserDetails.copyrights.filter(
+          (_, i) => i !== index
+        ),
       },
     }));
   };
@@ -160,14 +206,11 @@ function ResearchWorks({ formValues, setFormValues }) {
   };
 
   return (
-    <form method="post">
+    <form>
       <div className="container">
         <div style={{ marginTop: "20px" }}>
           <div>
-            <h5 className="UD-heading">
-              Research Work
-             
-            </h5>
+            <h5 className="UD-heading">Research Work</h5>
 
             <p className="UD-subheading">
               Please fill your information so we can get in touch with you.
@@ -238,15 +281,28 @@ function ResearchWorks({ formValues, setFormValues }) {
                 type="button"
                 className="plus-buttons"
               >
-                <img src={plusicon}/>
+                <img src={plusicon} />
               </button>
             </p>
           </div>
 
           {formValues.journal_publications.map(
             (journal_publications, index) => (
-              <div key={index} >
-                <div className="row"  style={{marginTop: "24px"}}>
+              <div key={index}>
+                <div className="row" style={{ marginTop: "24px" }}>
+                  <div>
+                    <div>
+                      {index > 0 && (
+                        <button
+                          onClick={() => handleRemovePublication(index)}
+                          className="minus-buttons"
+                        >
+                          <img src={minusicon} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
                   <div className="col-md-4">
                     {/* Year*/}
                     <div className="UD-form-section">
@@ -322,7 +378,7 @@ function ResearchWorks({ formValues, setFormValues }) {
                   </div>
                 </div>
 
-                <div className="row" >
+                <div className="row">
                   <div className="col-md-4">
                     {/* Indexing*/}
                     <div className="UD-form-section">
@@ -453,13 +509,13 @@ function ResearchWorks({ formValues, setFormValues }) {
 
           <div className="field-heading">
             <p className="HS-heading">
-              Conference Publication{" "}
+              Conference Publication
               <button
                 onClick={handleAddConference}
                 type="button"
-             className="plus-buttons"
+                className="plus-buttons"
               >
-                <img src={plusicon}/>
+                <img src={plusicon} />
               </button>
             </p>
           </div>
@@ -467,7 +523,19 @@ function ResearchWorks({ formValues, setFormValues }) {
           {formValues.conference_publications.map(
             (conference_publications, index) => (
               <div key={index}>
-                <div className="row" style={{marginTop: "24px"}}>
+                <div className="row" style={{ marginTop: "24px" }}>
+                  <div>
+                    {index > 0 && (
+                      <button
+                        onClick={() => handleRemoveConference(index)}
+                        className="minus-buttons"
+                        type="button"
+                      >
+                        <img src={minusicon} />
+                      </button>
+                    )}
+                  </div>
+
                   <div className="col-md-4">
                     {/* Year */}
                     <div className="UD-form-section">
@@ -687,16 +755,27 @@ function ResearchWorks({ formValues, setFormValues }) {
               <button
                 onClick={handleAddPatent}
                 type="button"
-             className="plus-buttons"
+                className="plus-buttons"
               >
-                <img src={plusicon}/>
+                <img src={plusicon} />
               </button>
             </p>
           </div>
 
           {formValues.patents.map((patent, index) => (
             <div key={index}>
-              <div className="row" style={{marginTop: "24px"}} >
+              <div className="row" style={{ marginTop: "24px" }}>
+                <div>
+                  {index > 0 && (
+                    <button
+                      onClick={() => handleRemovePatent(index)}
+                      className="minus-buttons"
+                    >
+                      <img src={minusicon} />
+                    </button>
+                  )}
+                </div>
+
                 <div className="col-md-4">
                   {/* Application ID */}
                   <div className="UD-form-section">
@@ -817,16 +896,27 @@ function ResearchWorks({ formValues, setFormValues }) {
               <button
                 onClick={handleAddCopyright}
                 type="button"
-             className="plus-buttons"
+                className="plus-buttons"
               >
-                <img src={plusicon}/>
+                <img src={plusicon} />
               </button>
             </p>
           </div>
 
           {formValues.copyrights.map((copyright, index) => (
             <div key={index}>
-              <div className="row"  style={{marginTop: "24px"}}>
+              <div className="row" style={{ marginTop: "24px" }}>
+                <div>
+                  {index > 0 && (
+                    <button
+                      onClick={() => handleRemoveCopyright(index)}
+                      className="minus-buttons"
+                    >
+                      <img src={minusicon} />
+                    </button>
+                  )}
+                </div>
+
                 <div className="col-md-4">
                   {/* Application ID */}
                   <div className="UD-form-section">

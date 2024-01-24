@@ -1,0 +1,44 @@
+.faq-body {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.accordion-item {
+  margin: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: none !important;
+}
+.accordion-button:not(.collapsed) {
+  color: var(--bs-accordion-active-color);
+  background-color: white !important;
+}
+.accordion-body {
+  background-color: #f1f1f1 !important;
+  margin-left: -19.1%;
+  p {
+    border-left: 3px solid #88c128;
+    padding-left: 10px;
+  }
+}
+.accordion-header {
+  button {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+  }
+}
+.accordion-button:not(.collapsed)::after {
+  background-image: url("../../assets//logos/plus-sign.png");
+  transform: var(--bs-accordion-btn-icon-transform);
+}
+.accordion-button::after {
+  flex-shrink: 0;
+  width: var(--bs-accordion-btn-icon-width);
+  height: var(--bs-accordion-btn-icon-width);
+  margin-left: auto;
+  background-image: url("../../assets//logos/plus-sign.png");
+  background-repeat: no-repeat;
+  background-size: var(--bs-accordion-btn-icon-width);
+  transition: var(--bs-accordion-btn-icon-transition);
+}
+
+/* ................................................................. */

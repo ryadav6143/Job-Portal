@@ -13,11 +13,11 @@ function EditExperience() {
   return (
     <>
     <form id='myForm'>
-    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px", paddingRight: "50px"}}>
       <div>
         <div>
           <h5 className="UD-heading">Experience &nbsp; <FontAwesomeIcon   className="edit-pen-icon"icon={faPen} />
-          <button     onClick={handleAddEducation} style={{marginRight:"30px", paddingRight: "50px"}} className="plus-buttons">
+          <button     onClick={handleAddEducation}  className="plus-buttons">
           <img src={plusicon} />
             
             </button></h5>
@@ -129,7 +129,7 @@ function EditExperience() {
           <p className="HS-heading">Total Experience</p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        <div className="row" style={{ marginTop: "-20px" }}>
           <div className="col-md-4">
             {/* *Academic Experience */}
             <div className="UD-form-section">
@@ -171,7 +171,7 @@ function EditExperience() {
           <p className="HS-heading">Other Benefits</p>
         </div>
 
-        <div className="row" style={{ marginTop: "-30px" }}>
+        <div className="row" style={{ marginTop: "-20px" }}>
           <div className="col-md-4">
             {/* Accommodation */}
             <div className="UD-form-section">

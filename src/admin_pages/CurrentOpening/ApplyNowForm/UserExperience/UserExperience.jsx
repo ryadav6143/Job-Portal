@@ -1,6 +1,7 @@
 import React from "react";
 import "./UserExperience.css";
 import plusicon from "../../../../assets/logos/plus.png";
+import minusicon from "../../../../assets/logos/minus.png";
 
 function UserExperience({ formValues, setFormValues, errors, setErrors }) {
   const handleAddExperience = (e) => {
@@ -18,6 +19,17 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
             exp_work_to: "",
           },
         ],
+      },
+    }));
+  };
+
+  const handleRemoveExperience = (index) => {
+    setFormValues((prevExperience) => ({
+      UserDetails: {
+        ...prevExperience.UserDetails,
+        experiences: prevExperience.UserDetails.experiences.filter(
+          (_, i) => i !== index
+        ),
       },
     }));
   };
@@ -58,17 +70,21 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
       },
     }));
   };
+  // ---------------------------------------------------------------------
 
+  // ---------------------------------------------------------------------
   return (
     <>
-      <form method="post">
+      <form>
         <div className="container">
           <div style={{ marginTop: "20px" }}>
             <div>
-              <h5 className="UD-heading">Experience 
-              <button onClick={handleAddExperience} className="plus-buttons">
-                <img src={plusicon}/>
-                </button></h5>
+              <h5 className="UD-heading">
+                Experience
+                <button onClick={handleAddExperience} className="plus-buttons">
+                  <img src={plusicon} />
+                </button>
+              </h5>
               <p className="UD-subheading">
                 Please fill your information so we can get in touch with you.
               </p>
@@ -77,9 +93,19 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
             {/* Experience */}
             {formValues.experiences.map((experience, index) => (
               <div key={index}>
+                {" "}
                 <div className="row">
+                  <div>
+                    {index > 0 && (
+                      <button
+                        onClick={() => handleRemoveExperience(index)}
+                        className="minus-buttons"
+                      >
+                        <img src={minusicon} />
+                      </button>
+                    )}
+                  </div>
                   <div className="col-md-4">
-                    {/* *Name of Institute / Company */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span>*</span>Name of Institute / Company
@@ -97,9 +123,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                       {errors.company_experience_name}
                     </span>
                   </div>
-
                   <div className="col-md-4">
-                    {/* *Designation */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span>*</span>Designation
@@ -113,29 +137,10 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                         onChange={(e) => handleInputChange(index, e)}
                       ></input>
                     </div>
+                    <span className="error-message">{errors.designation}</span>
                   </div>
 
                   <div className="col-md-4">
-                    {/* *Current Gross Pay (Per Month) */}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span>*</span>Current Gross Pay (Per Month)
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="gross_pay"
-                        value={experience.gross_pay}
-                        onChange={(e) => handleInputChange(index, e)}
-                      ></input>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-md-4">
-                    {/* *Date From*/}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span>*</span>Date From
@@ -149,10 +154,13 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                         onChange={(e) => handleInputChange(index, e)}
                       ></input>
                     </div>
+                    <span className="error-message">
+                      {errors.exp_work_from}
+                    </span>
                   </div>
-
+                </div>
+                <div className="row">
                   <div className="col-md-4">
-                    {/* *Date To */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
                         <span>*</span>Date To
@@ -166,17 +174,43 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                         onChange={(e) => handleInputChange(index, e)}
                       ></input>
                     </div>
+                    <span className="error-message">{errors.exp_work_to}</span>
                   </div>
+
+                  {index === 0 && (
+                    <div className="col-md-4">
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span>*</span>Current Gross Pay (Per Month)
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="text"
+                          placeholder=" "
+                          name="gross_pay"
+                          value={experience.gross_pay}
+                          onChange={(e) => handleInputChange(index, e)}
+                        ></input>
+                      </div>
+                      <span className="error-message">{errors.gross_pay}</span>
+                    </div>
+                  )}
                 </div>
+                {/* {index > 0 && (
+              <button
+                onClick={() => handleRemoveExperience(index)}
+                className="minus-buttons"
+              >
+                Remove
+              </button>
+            )} */}
               </div>
             ))}
 
             {/* Experience */}
 
-            {/* Experience */}
-
             {/* Total Experience */}
-            <div style={{marginTop:"40px"}}>
+            <div style={{ marginTop: "40px" }}>
               <p className="HS-heading">Total Experience</p>
             </div>
 
@@ -223,7 +257,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
             </div>
 
             {/* Other Benefits */}
-            <div style={{marginTop:"40px"}}>
+            <div style={{ marginTop: "40px" }}>
               <p className="HS-heading">Other Benefits</p>
             </div>
 

@@ -68,7 +68,7 @@ function EditQualificationForm() {
   return (
    <>
  <form id="myForm">
-    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px", paddingRight: "50px"}}>
         <div>
           <div>
             <h5 className="UD-heading">Academic Professional Qualifications &nbsp; <FontAwesomeIcon   className="edit-pen-icon" icon={faPen} /></h5>
@@ -84,7 +84,7 @@ function EditQualificationForm() {
               <p className='HS-heading'>High School</p>
               </div>
 
-          <div className="row"  style={{marginTop :"-40px"}}>
+          <div className="row"  style={{marginTop :"-20px"}}>
            
           <div className="col-md-4">
               {/* *Country */}
@@ -236,7 +236,7 @@ function EditQualificationForm() {
               <p className='HS-heading'>Higher secondary</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-20px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -408,7 +408,7 @@ function EditQualificationForm() {
               <p className='HS-heading'>Diploma</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-20px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -575,7 +575,7 @@ function EditQualificationForm() {
               <p className='HS-heading'>Graduation</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-20px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -746,7 +746,7 @@ function EditQualificationForm() {
               <p className='HS-heading'>Post Graduation</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-20px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -917,7 +917,7 @@ function EditQualificationForm() {
               <p className='HS-heading'>M. Phil</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-20px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -1083,7 +1083,7 @@ function EditQualificationForm() {
               <p className='HS-heading'>PhD</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-20px"}}>
            
            <div className="col-md-4">
                {/* *Country */}
@@ -1249,7 +1249,7 @@ function EditQualificationForm() {
               <p className='HS-heading'>Qualified Examination</p>
               </div>
 
-              <div className="row"  style={{marginTop :"-40px"}}>
+              <div className="row"  style={{marginTop :"-20px"}}>
            
               <div className="col-md-4">
                {/* Gate*/}
