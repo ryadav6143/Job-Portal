@@ -339,6 +339,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     <option value="Female">Female</option>
                     <option value="others">Others</option>
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.gender}</span>
               </div>
@@ -415,6 +416,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.country}</span>
               </div>
@@ -446,6 +448,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.city}</span>
               </div>
@@ -475,6 +478,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">
                   {errors.job_category_master_id}
@@ -499,6 +503,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">
                   {errors.applied_post_masters_id}
@@ -528,6 +533,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -550,6 +556,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">
                   {errors.subjects_master_id}

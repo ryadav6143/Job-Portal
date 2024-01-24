@@ -111,16 +111,18 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
   }, []);
 
   const handleHighSchoolChange = (field, value) => {
-    // setErrors({
-    //   ...errors,
-    //   country: "",
-    //   year_start: "",
-    //   institute_name: "",
-    //   board_university_name: "",
-    //   year_end: "",
-    //   grade_division: "",
-    //   grade_percent: "",
-    // });
+  
+   
+    setErrors({
+      ...errors,
+      country: "",
+      year_start: "",
+      institute_name: "",
+      board_university_name: "",
+      year_end: "",
+      grade_division: "",
+      grade_percent: "",
+    });
 
     setFormValues((prevFormValues) => ({
       UserDetails: {
@@ -136,6 +138,18 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
     }));
   };
   const handleHigherSecondaryChange = (field, value) => {
+     
+    setErrors({
+      ...errors,
+      country: "",
+      year_start: "",
+      institute_name: "",
+      board_university_name: "",
+      year_end: "",
+      grade_division: "",
+      grade_percent: "",
+     stream: "",
+    });
     setFormValues((prevFormValues) => ({
       UserDetails: {
         ...prevFormValues.UserDetails,
@@ -298,7 +312,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
-                <span className="error-message">{errors.country}</span>
+                <span  className="error-message">{errors.country}</span>
               </div>
               <div className="col-md-4">
                 {/* *Year of Joining */}

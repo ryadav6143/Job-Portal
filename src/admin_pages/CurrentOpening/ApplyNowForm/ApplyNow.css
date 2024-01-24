@@ -6,7 +6,6 @@
   border-radius: 20px;
 }
 
-
 /* line styling */
 .css-z7uhs0-MuiStepConnector-line {
   display: block;
@@ -41,11 +40,10 @@
 }
 
 .hidden {
-  Box{
+  Box {
     display: none;
   }
 }
-
 
 @media only screen and (max-width: 767px) {
   .apply-now-forms {
@@ -57,7 +55,6 @@
   }
 }
 
-
-.hidden{
+.hidden {
   display: none;
 }

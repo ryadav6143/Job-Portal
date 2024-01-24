@@ -116,7 +116,7 @@ function EditResearchForm() {
                 className="UD-set-input"
                 type="text"
                 placeholder=" "
-                  name="journal_publication_year"
+                name="journal_publication_year"
                 id=""
                
               ></input>
