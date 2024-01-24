@@ -6,7 +6,6 @@
   border-radius: 20px;
 }
 
-
 /* line styling */
 .css-z7uhs0-MuiStepConnector-line {
   display: block;
@@ -29,6 +28,7 @@
   padding-left: 15px !important;
   padding-right: 15px !important;
   font-family: "Open Sans", sans-serif !important;
+  margin-top: 2% !important;
 }
 .next-btn {
   color: black !important;
@@ -42,11 +42,10 @@
 }
 
 .hidden {
-  Box{
+  Box {
     display: none;
   }
 }
-
 
 @media only screen and (max-width: 767px) {
   .apply-now-forms {
@@ -58,7 +57,6 @@
   }
 }
 
-
-.hidden{
+.hidden {
   display: none;
 }

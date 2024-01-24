@@ -3,7 +3,7 @@ import plusicon from "../../../../assets/logos/plus.png";
 import "./ResearchWorks.css";
 import minusicon from "../../../../assets/logos/minus.png";
 
-function ResearchWorks({ formValues, setFormValues }) {
+function ResearchWorks({ formValues, setFormValues, errors,setErrors }) {
   // const [formValues, setFormValues] = useState({
   //   researches: [{ orcid: '', scopusid: '', researchid: '' }],
   //   journal_publications: [{
@@ -251,6 +251,7 @@ function ResearchWorks({ formValues, setFormValues }) {
                     id=""
                   ></input>
                 </div>
+                <span className="error-message">{ errors.scopusid}</span>
               </div>
 
               <div className="col-md-4">

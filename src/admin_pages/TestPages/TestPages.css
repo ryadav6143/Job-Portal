@@ -4,16 +4,17 @@
 }
 .accordion-item {
   margin: 10px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border: none !important;
+  background-color: transparent !important;
 }
 .accordion-button:not(.collapsed) {
   color: var(--bs-accordion-active-color);
-  background-color: white !important;
 }
 .accordion-body {
   background-color: #f1f1f1 !important;
   margin-left: -19.1%;
+  border-radius: 10px !important;
+  /* margin-top: -10px !important; */
   p {
     border-left: 3px solid #88c128;
     padding-left: 10px;
@@ -21,13 +22,16 @@
 }
 .accordion-header {
   button {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
     font-size: 17px;
+    border-radius: 10px !important;
+    background-color: white !important;
   }
 }
 .accordion-button:not(.collapsed)::after {
-  background-image: url("../../assets//logos/plus-sign.png");
+  background-image: url("../../assets//logos/minus-sign.png");
   transform: var(--bs-accordion-btn-icon-transform);
 }
 .accordion-button::after {
@@ -40,5 +44,3 @@
   background-size: var(--bs-accordion-btn-icon-width);
   transition: var(--bs-accordion-btn-icon-transition);
 }
-
-/* ................................................................. */

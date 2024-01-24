@@ -104,6 +104,7 @@ function FAQ() {
             </div>
           ))}
         </div>
+   
       </div>
       <div className="water-marks">
         <div className="marks-left">

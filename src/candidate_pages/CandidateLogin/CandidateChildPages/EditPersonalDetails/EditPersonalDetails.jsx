@@ -46,6 +46,22 @@ function EditPersonalDetails() {
     setOtherValue(event.target.value);
   };
 
+  // const handleSave = () => {
+  //   const isValidationPassed = editUserValidation();
+
+  //   if (isValidationPassed) {
+  //     console.log("Save successful!");
+  //   } else {
+  //     console.log("Save failed due to validation errors!");
+  //   }
+  // };
+  // const [formData, setFormData] = useState({
+  //   userDetaits: {},
+  // });
+  // const editUserValidation = () => {
+  //   const {} = formData.userDetaits;
+  // };
+
   // --------------end others fields section----------------
 
   return (
@@ -528,7 +544,7 @@ function EditPersonalDetails() {
               </div>
 
               <div>
-                <button className="savebtn" type="button">
+                <button className="savebtn" type="submit">
                   Save Changes
                 </button>
               </div>
