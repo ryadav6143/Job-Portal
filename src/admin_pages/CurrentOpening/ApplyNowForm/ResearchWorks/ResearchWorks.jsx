@@ -78,7 +78,7 @@ function ResearchWorks({formValues, setFormValues}) {
     e.preventDefault();
     setFormValues((prevData) => ({
       UserDetails: {
-      // ...prevData.UserDetails,
+      ...prevData.UserDetails,
       conference_publications: [...prevData.UserDetails.conference_publications, {
         conference_publication_year: '',
         conference_publication_title: '',

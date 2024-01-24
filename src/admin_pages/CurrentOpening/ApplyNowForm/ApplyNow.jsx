@@ -154,11 +154,11 @@ function ApplyNow() {
       ],
       total_academic_exp: '',
       total_industrial_exp: '',
-      accommodation: '',
-      transportation: '',
-      food: '',
-      mediclaim: '',
-      exp_others: '',
+      benefits_accommodation: '',
+      benefits_transportation: '',
+      benefits_food: '',
+      benefits_mediclaim: '',
+      benefits_others: '',
       // --------------------------------------------------------------------
       researches: [{ orcid: '', scopusid: '', researchid: '' }],
       journal_publications: [{

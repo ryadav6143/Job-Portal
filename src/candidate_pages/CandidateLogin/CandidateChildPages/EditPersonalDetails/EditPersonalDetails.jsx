@@ -5,10 +5,12 @@ import {
   faUser,
   faEnvelope,
   faMobile,
+  faUserTie,
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
+import axios from "axios";
 function EditPersonalDetails() {
   // ---------profile image source---------
   const [selectedImage, setSelectedImage] = useState(null);
@@ -35,20 +37,20 @@ function EditPersonalDetails() {
     nature_of_job: '',
     department_master_id: '',
     pin_code: '',
-    specialization:''
+    specialization: ''
   });
 
-  console.log("data",data);
+  // console.log("data", data);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         let accessToken = localStorage.getItem('Token');
         accessToken = JSON.parse(accessToken);
-        console.log("accessToken", accessToken.token);
+        // console.log("accessToken", accessToken.token);
 
         const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
-        console.log("response", fetchedData);
+        // console.log("response", fetchedData);
         setData(fetchedData);
       } catch (error) {
         console.error('Error fetching data:', error.message);
@@ -62,53 +64,39 @@ function EditPersonalDetails() {
 
 
 
-  // const handleImageChange = async (event) => {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     try {
-  //       let formData = new FormData();
-  //       formData.append('profile_image', file);
-
-  //       let accessToken = localStorage.getItem('Token');
-  //       accessToken = JSON.parse(accessToken);
-  //       console.log("accessToken", accessToken.token);
-  //       let response = await fetch('http://192.168.1.15:8090/v1/api/candidates/profile_image', {
-  //         method: 'PUT',
-  //         body: formData,
-  //         headers: {
-  //           'access-token': accessToken.token,
-  //         },
-  //       });
-
-  //       if (response) {
-  //         // The image was successfully uploaded
-  //         const responseData = await response.json();
-  //         console.log('Image upload successful:', responseData);
-  //         setSelectedImage(URL.createObjectURL(file));
-  //       } else {
-  //         // Handle error when the image upload fails
-  //         console.error('Image upload failed:', response.statusText);
-  //         // You can also show an error message to the user if needed
-  //       }
-  //     } catch (error) {
-  //       console.error('Error uploading image:', error.message);
-  //       // Handle other errors that may occur during the request
-  //     }
-  //   }
-  // };
-
   const handleImageChange = async (event) => {
+    console.log('handleImageChange function started');
     const file = event.target.files[0];
+    console.log('Selected File:', file)
     if (file) {
       try {
+        let formData = new FormData();
+        formData.append('profile_image', file);
+
         let accessToken = localStorage.getItem('Token');
         accessToken = JSON.parse(accessToken);
         console.log("accessToken", accessToken.token);
 
-        const responseData = await candidatesApiService.uploadProfileImage(file, accessToken.token);
-        console.log('Image upload successful:', responseData);
+        let response = await fetch('http://192.168.1.8:8090/v1/api/candidates/profile_image', {
+          method: 'PUT',
+          body: formData,
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
 
-        setSelectedImage(URL.createObjectURL(file));
+        console.log('Response:', response);
+
+        if (response.ok) {
+          // The image was successfully uploaded
+          const responseData = await response.json();
+          console.log('Image upload successful:', responseData);
+          setSelectedImage(URL.createObjectURL(file));
+        } else {
+          // Handle error when the image upload fails
+          console.error('Image upload failed:', response.statusText);
+          // You can also show an error message to the user if needed
+        }
       } catch (error) {
         console.error('Error uploading image:', error.message);
         // Handle other errors that may occur during the request
@@ -117,7 +105,28 @@ function EditPersonalDetails() {
   };
 
 
+  // const handleImageChange = async (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     try {
+  //       let accessToken = localStorage.getItem('Token');
+  //       accessToken = JSON.parse(accessToken);
+  //       console.log("accessToken", accessToken.token);
+
+  //       const responseData = await candidatesApiService.uploadProfileImage(file, accessToken.token);
+  //       console.log('Image upload successful:', responseData);
+
+  //       setSelectedImage(URL.createObjectURL(file));
+  //     } catch (error) {
+  //       console.error('Error uploading image:', error.message);
+  //       // Handle other errors that may occur during the request
+  //     }
+  //   }
+  // };
+
+
   const handleChoosePictureClick = () => {
+    console.log('handleChoosePictureClick function started');
     fileInputRef.current.click();
   };
 
@@ -158,7 +167,7 @@ function EditPersonalDetails() {
       [fieldName]: formattedValue,
     }));
   };
-  
+
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
     if (isNaN(dateObject.getTime())) {
@@ -170,25 +179,63 @@ function EditPersonalDetails() {
     return `${year}-${month}-${day}`;
   };
   // --------------end others fields section----------------
-
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        let accessToken = localStorage.getItem('Token');
+        accessToken = JSON.parse(accessToken);
+        console.log("accessToken", accessToken.token);
+  
+        const response = await axios.get('http://192.168.1.8:8090/v1/api/candidates/renderCandidatePic', {
+          headers: {
+            'access-token': accessToken.token,
+          },
+          responseType: 'blob',
+        });
+  
+        console.log("Response:", response);
+  
+        if (response.status === 200 && response.data) {
+          const imageUrl = URL.createObjectURL(response.data);
+          setSelectedImage(imageUrl);
+        } else {
+          // If there is no image, set selectedImage to null or use a default image URL
+          setSelectedImage(null);
+        }
+      } catch (error) {
+        console.error('Error fetching image:', error);
+      }
+    };
+  
+    fetchImage();
+  }, []);
+  
   return (
     <>
       <form id="myForm">
         <div style={{ marginTop: "7%" }}>
           <div style={{ paddingLeft: "50px" }}>
-            {selectedImage && (
-              <div>
-                <img
-                  src={selectedImage}
-                  alt="Selected Profile"
-                  style={{
-                    width: "120px",
-                    height: "120px",
-                    borderRadius: "50%",
-                  }}
-                />
-              </div>
-            )}
+          {selectedImage ? (
+          <img
+            src={selectedImage}
+            alt="Selected Profile"
+            style={{
+              width: '120px',
+              height: '120px',
+              borderRadius: '50%',
+            }}
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faUserTie}
+            style={{
+              fontSize: '120px',
+              borderRadius: '50%',
+              backgroundColor: '#ddd', 
+              padding: '20px', 
+            }}
+          />
+        )}
             <div>
               {/* Hidden file input */}
               <input
@@ -197,12 +244,15 @@ function EditPersonalDetails() {
                 accept="image/*"
                 onChange={handleImageChange}
                 style={{ display: "none" }}
+                id="fileInput"
               />
-
-              {/* Button to trigger file input */}
-              <button className="choose-img" onClick={handleChoosePictureClick}>
+              <label htmlFor="fileInput" className="choose-img">
                 Change Profile Picture
-              </button>
+              </label>
+              {/* Button to trigger file input */}
+              {/* <button className="choose-img" onClick={handleChoosePictureClick}>
+                Change Profile Picture
+              </button> */}
             </div>
           </div>
 
@@ -371,7 +421,7 @@ function EditPersonalDetails() {
                       <span>*</span> Nature of Job
                     </label>
                     <select name="nature_of_job" className="UD-set-dropdown"
-                       value={data.candidate_applied_posts && data.candidate_applied_posts.length > 0 ? data.candidate_applied_posts[0].nature_of_job : ''}
+                      value={data.candidate_applied_posts && data.candidate_applied_posts.length > 0 ? data.candidate_applied_posts[0].nature_of_job : ''}
                       onChange={(e) => handleFieldChange('nature_of_job', e.target.value)}>
                       <option value="">Select Nature of Job</option>
                       <option value="Full Time">Full Time</option>
@@ -486,13 +536,13 @@ function EditPersonalDetails() {
                     <label className="UD-SetLabel-Name">
                       <span>*</span>Gender
                     </label>
-                    <select 
-                    name="gender"
-                    className="UD-set-dropdown"
-                    value={data.gender}  
-                    onChange={(e) => handleFieldChange('gender', e.target.value)}
+                    <select
+                      name="gender"
+                      className="UD-set-dropdown"
+                      value={data.gender}
+                      onChange={(e) => handleFieldChange('gender', e.target.value)}
                     >
-                     <option value="">Select Gender</option>
+                      <option value="">Select Gender</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                       <option value="Others">Others</option>
@@ -516,9 +566,9 @@ function EditPersonalDetails() {
                       name="religion"
                       placeholder="Enter Religion"
                       id=""
-                      value={data.religion}  
+                      value={data.religion}
                       onChange={(e) => handleFieldChange('religion', e.target.value)}
-                      
+
                     ></input>
                   </div>
                 </div>
@@ -536,8 +586,8 @@ function EditPersonalDetails() {
                       name="cast_category_name"
                       placeholder="Enter Category"
                       id=""
-                    
-                      value={data.cast_category_name}  
+
+                      value={data.cast_category_name}
                       onChange={(e) => handleFieldChange('cast_category_name', e.target.value)}
                     ></input>
                   </div>
@@ -550,22 +600,22 @@ function EditPersonalDetails() {
                       <span>*</span>Marital Status
                     </label>
                     <select
-                    name="marital_status"
-                    id=""
-                    value={data.marital_status}  
-                    onChange={(e) => handleFieldChange('marital_status', e.target.value)}
-                    className="UD-set-dropdown"
+                      name="marital_status"
+                      id=""
+                      value={data.marital_status}
+                      onChange={(e) => handleFieldChange('marital_status', e.target.value)}
+                      className="UD-set-dropdown"
 
-                  >
-                    <option value="">Select marital status</option>
-                    <option value="single">Single</option>
-                    <option value="married">Married</option>
-                    <option value="divorced">Divorced</option>
-                    <option value="widowed">Widowed</option>
-                    <option value="separated">Separated</option>
-                    <option value="Not to disclosed">Not to disclosed</option>
-                  </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                    >
+                      <option value="">Select marital status</option>
+                      <option value="single">Single</option>
+                      <option value="married">Married</option>
+                      <option value="divorced">Divorced</option>
+                      <option value="widowed">Widowed</option>
+                      <option value="separated">Separated</option>
+                      <option value="Not to disclosed">Not to disclosed</option>
+                    </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div>
               </div>
@@ -583,7 +633,7 @@ function EditPersonalDetails() {
                       name="address_1"
                       placeholder="Enter Address"
                       id=""
-                      value={data.address_1}  
+                      value={data.address_1}
                       onChange={(e) => handleFieldChange('address_1', e.target.value)}
                       required
                     ></input>
@@ -603,7 +653,7 @@ function EditPersonalDetails() {
                       name="contact_2"
                       placeholder="(123) 456 - 7890"
                       id=""
-                      value={data.contact_2}  
+                      value={data.contact_2}
                       onChange={(e) => handleFieldChange('contact_2', e.target.value)}
                       required
                     ></input>
@@ -674,7 +724,7 @@ function EditPersonalDetails() {
                       name="pin_code"
                       placeholder="Enter Pin Code "
                       id=""
-                      value={data.pin_code}  
+                      value={data.pin_code}
                       onChange={(e) => handleFieldChange('pin_code', e.target.value)}
                       required
                     ></input>
