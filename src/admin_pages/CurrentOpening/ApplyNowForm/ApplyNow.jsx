@@ -45,7 +45,7 @@ function ApplyNow() {
       address_1: "",
       contact_2: "",
       country: "",
-      Specialization: "",
+      specialization: "",
       state_province: "",
       applied_post_masters_id: "",
       nature_of_job: "",
@@ -357,7 +357,7 @@ function ApplyNow() {
       department_master_id,
       pin_code,
       exam_types_master_id,
-      Specialization,
+      specialization,
       // ----------------Qualificationf Form Values---------
       year_start,
       institute_name,
@@ -460,10 +460,10 @@ function ApplyNow() {
         //   // Additional checks for a valid pin code can be added here
         //   // For example, you might want to check if the pin code corresponds to a valid geographical location
         // }
-        // if (!Specialization) {
-        //   errors.Specialization = "Specialization is Required";
+        // if (!specialization) {
+        //   errors.specialization = "Specialization is Required";
         // } else if (/^\d+$/.test(Specialization)) {
-        //   errors.Specialization = "Specialization should not contain numbers";
+        //   errors.specialization = "Specialization should not contain numbers";
         // }
         if (Object.keys(errors).length > 0) {
           setErrors(errors);

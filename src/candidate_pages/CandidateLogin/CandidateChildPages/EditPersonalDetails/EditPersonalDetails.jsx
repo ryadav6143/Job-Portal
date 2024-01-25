@@ -16,47 +16,25 @@ function EditPersonalDetails() {
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
 
-  const [data, setData] = useState({
-    email: '',
-    contact_1: '',
-    title_first_name: '',
-    first_name: '',
-    middle_name: '',
-    last_name: '',
-    dob: '',
-    gender: '',
-    religion: '',
-    city: '',
-    cast_category_name: '',
-    marital_status: '',
-    address_1: '',
-    contact_2: '',
-    country: '',
-    state_province: '',
-    applied_post_masters_id: "",
-    nature_of_job: '',
-    department_master_id: '',
-    pin_code: '',
-    specialization: ''
-  });
+  const [data, setData] = useState({});
+  const [updateField, setUpdateField] = useState({})
 
   // console.log("data", data);
+  const fetchData = async () => {
+    try {
+      let accessToken = localStorage.getItem('Token');
+      accessToken = JSON.parse(accessToken);
+      // console.log("accessToken", accessToken.token);
 
+      const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
+      console.log("response", fetchedData);
+      setData(fetchedData);
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let accessToken = localStorage.getItem('Token');
-        accessToken = JSON.parse(accessToken);
-        // console.log("accessToken", accessToken.token);
-
-        const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
-        // console.log("response", fetchedData);
-        setData(fetchedData);
-      } catch (error) {
-        console.error('Error fetching data:', error.message);
-      }
-    };
-
+    console.log("use-state")
     fetchData();
   }, []);
 
@@ -64,59 +42,39 @@ function EditPersonalDetails() {
 
 
 
-  const handleImageChange = async (event) => {
-    console.log('handleImageChange function started');
-    const file = event.target.files[0];
-    console.log('Selected File:', file)
-    if (file) {
-      try {
-        let formData = new FormData();
-        formData.append('profile_image', file);
-
-        let accessToken = localStorage.getItem('Token');
-        accessToken = JSON.parse(accessToken);
-        console.log("accessToken", accessToken.token);
-
-        let response = await fetch('http://192.168.1.8:8090/v1/api/candidates/profile_image', {
-          method: 'PUT',
-          body: formData,
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
-
-        console.log('Response:', response);
-
-        if (response.ok) {
-          // The image was successfully uploaded
-          const responseData = await response.json();
-          console.log('Image upload successful:', responseData);
-          setSelectedImage(URL.createObjectURL(file));
-        } else {
-          // Handle error when the image upload fails
-          console.error('Image upload failed:', response.statusText);
-          // You can also show an error message to the user if needed
-        }
-      } catch (error) {
-        console.error('Error uploading image:', error.message);
-        // Handle other errors that may occur during the request
-      }
-    }
-  };
-
-
   // const handleImageChange = async (event) => {
+  //   console.log('handleImageChange function started');
   //   const file = event.target.files[0];
+  //   console.log('Selected File:', file)
   //   if (file) {
   //     try {
+  //       let formData = new FormData();
+  //       formData.append('profile_image', file);
+
   //       let accessToken = localStorage.getItem('Token');
   //       accessToken = JSON.parse(accessToken);
   //       console.log("accessToken", accessToken.token);
 
-  //       const responseData = await candidatesApiService.uploadProfileImage(file, accessToken.token);
-  //       console.log('Image upload successful:', responseData);
+  //       let response = await fetch('http://192.168.1.8:8090/v1/api/candidates/profile_image', {
+  //         method: 'PUT',
+  //         body: formData,
+  //         headers: {
+  //           'access-token': accessToken.token,
+  //         },
+  //       });
 
-  //       setSelectedImage(URL.createObjectURL(file));
+  //       console.log('Response:', response);
+
+  //       if (response.ok) {
+  //         // The image was successfully uploaded
+  //         const responseData = await response.json();
+  //         console.log('Image upload successful:', responseData);
+  //         setSelectedImage(URL.createObjectURL(file));
+  //       } else {
+  //         // Handle error when the image upload fails
+  //         console.error('Image upload failed:', response.statusText);
+  //         // You can also show an error message to the user if needed
+  //       }
   //     } catch (error) {
   //       console.error('Error uploading image:', error.message);
   //       // Handle other errors that may occur during the request
@@ -125,56 +83,63 @@ function EditPersonalDetails() {
   // };
 
 
-  const handleChoosePictureClick = () => {
-    console.log('handleChoosePictureClick function started');
-    fileInputRef.current.click();
-  };
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      try {
+        let accessToken = localStorage.getItem('Token');
+        accessToken = JSON.parse(accessToken);
+        console.log("accessToken", accessToken.token);
 
-  // -----------end profile image source-----------
+        const responseData = await candidatesApiService.uploadProfileImage(file, accessToken.token);
+        console.log('Image upload successful:', responseData);
 
-  // --------others fields section--------
-  const [selectedOption, setSelectedOption] = useState("");
-  const [otherValue, setOtherValue] = useState("");
-
-  const handleDropdownChange = (event) => {
-    const selectedValue = event.target.value;
-
-    if (selectedValue === "others") {
-      // If "Others" is selected, show the input field
-      setOtherValue("");
+        setSelectedImage(URL.createObjectURL(file));
+      } catch (error) {
+        console.error('Error uploading image:', error.message);
+        // Handle other errors that may occur during the request
+      }
     }
-
-    setSelectedOption(selectedValue);
   };
 
-  const handleOtherInputChange = (event) => {
-    setOtherValue(event.target.value);
+  const handleSaveChanges = async () => {
+    try {
+      let accessToken = localStorage.getItem('Token');
+      accessToken = JSON.parse(accessToken);
+      console.log(updateField);
+      const response = await axios.put(
+        'http://192.168.1.8:8090/v1/api/candidates/updateCandidatePersonalById',
+        updateField,
+        {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        }
+      );
+      console.log('Save Changes Response:', response);
+      setUpdateField({});
+      fetchData()
+    } catch (error) {
+      console.error('Error saving changes:', error.message);
+    }
   };
+
 
 
   const handleFieldChange = (fieldName, value) => {
-    let formattedValue = value;
-    if (fieldName === 'dob') {
-      const dateObject = new Date(value);
-      const year = dateObject.getFullYear();
-      const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
-      const day = dateObject.getDate().toString().padStart(2, '0');
-      formattedValue = `${year}-${month}-${day}`;
-    }
 
-    setData((prevData) => ({
-      ...prevData,
-      [fieldName]: formattedValue,
-    }));
+    console.log("handlefild", fieldName, value, updateField)
+    setUpdateField(prev => ({ ...prev, [fieldName]: value.toString()}))
+    setData(prev => ({ ...prev, [fieldName]: value.toString()}))
   };
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
     if (isNaN(dateObject.getTime())) {
-      return ''; // Handle invalid dates
+      return ''; 
     }
-    const day = dateObject.getDate().toString().padStart(2, '0');
-    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+    const day = dateObject.getDate().toString().padStart(2,'0');
+    const month = (dateObject.getMonth() + 1).toString().padStart(2,'0');
     const year = dateObject.getFullYear();
     return `${year}-${month}-${day}`;
   };
@@ -185,16 +150,16 @@ function EditPersonalDetails() {
         let accessToken = localStorage.getItem('Token');
         accessToken = JSON.parse(accessToken);
         console.log("accessToken", accessToken.token);
-  
+
         const response = await axios.get('http://192.168.1.8:8090/v1/api/candidates/renderCandidatePic', {
           headers: {
             'access-token': accessToken.token,
           },
           responseType: 'blob',
         });
-  
+
         console.log("Response:", response);
-  
+
         if (response.status === 200 && response.data) {
           const imageUrl = URL.createObjectURL(response.data);
           setSelectedImage(imageUrl);
@@ -206,36 +171,36 @@ function EditPersonalDetails() {
         console.error('Error fetching image:', error);
       }
     };
-  
+
     fetchImage();
   }, []);
-  
+
   return (
     <>
-      <form id="myForm">
+      <form id="myForm" onSubmit={handleSaveChanges}>
         <div style={{ marginTop: "7%" }}>
           <div style={{ paddingLeft: "50px" }}>
-          {selectedImage ? (
-          <img
-            src={selectedImage}
-            alt="Selected Profile"
-            style={{
-              width: '120px',
-              height: '120px',
-              borderRadius: '50%',
-            }}
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faUserTie}
-            style={{
-              fontSize: '120px',
-              borderRadius: '50%',
-              backgroundColor: '#ddd', 
-              padding: '20px', 
-            }}
-          />
-        )}
+            {selectedImage ? (
+              <img
+                src={selectedImage}
+                alt="Selected Profile"
+                style={{
+                  width: '120px',
+                  height: '120px',
+                  borderRadius: '50%',
+                }}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faUserTie}
+                style={{
+                  fontSize: '120px',
+                  borderRadius: '50%',
+                  backgroundColor: '#ddd',
+                  padding: '20px',
+                }}
+              />
+            )}
             <div>
               {/* Hidden file input */}
               <input
@@ -292,7 +257,7 @@ function EditPersonalDetails() {
                       id=""
                       required
                       value={data.email}
-                      onChange={(e) => handleFieldChange('email', e.target.value)}
+                    // onChange={(e) => handleFieldChange('email', e.target.value)}
                     />
                     <FontAwesomeIcon
                       className="UD-set-icon"
@@ -315,52 +280,13 @@ function EditPersonalDetails() {
                       id=""
                       required
                       value={data.contact_1}
-                      onChange={(e) => handleFieldChange('contact_1', e.target.value)}
+                    // onChange={(e) => handleFieldChange('contact_1', e.target.value)}
                     />
                     <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                   </div>
                 </div>
 
-                {/* <div className="col-md-4">
-                  *Post Applied For (If Others, Please Specify)
-                  <div className="UD-form-section">
-                    <label className="UD-SetLabel-Name">
-                      <span>*</span> Post Applied For
-                      <span className="set-others">
-                        &nbsp;(If Others, Please Specify)
-                      </span>
-                    </label>
-                    <select
-                      value={data.postAppliedFor}
-                      onChange={(e) => handleFieldChange('postAppliedFor', e.target.value)}
-                      className="UD-set-dropdown"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="Post1">Post 1</option>
-                      <option value="Post2">Post 2</option>
-                      <option value="Post3">Post 3</option>
-                      <option value="others">Others</option>
-                    </select>
-                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                    {selectedOption === "others" && (
-                      <div>
-                        <label
-                          style={{ marginTop: "20px" }}
-                          className="UD-SetLabel-Name"
-                        >
-                          {" "}
-                          <span>*</span>Please specify
-                        </label>
-                        <input
-                          className="UD-set-input"
-                          type="text"
-                          value={otherValue}
-                          onChange={handleOtherInputChange}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div> */}
+
               </div>
 
               {/* <div className="row">
@@ -418,8 +344,8 @@ function EditPersonalDetails() {
                   </div>
                 </div>
 
-                <div className="col-md-4">
-                  {/* Nature of Job */}
+                {/* <div className="col-md-4">
+         
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
                       <span>*</span> Nature of Job
@@ -433,7 +359,7 @@ function EditPersonalDetails() {
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="row">
@@ -737,7 +663,7 @@ function EditPersonalDetails() {
               </div>
 
               <div>
-                <button className="savebtn" type="submit">
+                <button className="savebtn" type="button" onClick={handleSaveChanges}>
                   Save Changes
                 </button>
               </div>

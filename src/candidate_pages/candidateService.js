@@ -1,10 +1,21 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.1.15:8090/v1/api";
+const BASE_URL = "http://192.168.1.8:8090/v1/api";
 
 const candidatesApiService = {
 
-
+  uploadCV: async (formData, accessToken) => {
+    try {
+      const response = await axios.put(`${BASE_URL}/candidates/upload_cv`, formData, {
+        headers: {
+          'access-token': accessToken,
+        },
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
 
     loginCandidate: (data) => {
         return axios.post(`${BASE_URL}/login/candidate_login`, data);
@@ -36,19 +47,18 @@ const candidatesApiService = {
             headers: {
               'access-token': accessToken,
             },
-          });
-    
+          });    
           if (response.ok) {
             return await response.json();
           } else {
             console.error('Image upload failed:', response.status, response.statusText);
             throw new Error(`Image upload failed: ${response.statusText}`);
-          }
-          
+          }          
         } catch (error) {
           throw new Error(`Error uploading image: ${error.message}`);
         }
       },
+      
       getCandidatesCountries: () => {
         return axios.get("https://countriesnow.space/api/v0.1/countries");
       },
