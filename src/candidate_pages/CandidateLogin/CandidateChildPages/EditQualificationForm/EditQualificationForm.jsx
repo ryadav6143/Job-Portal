@@ -8,12 +8,31 @@ import {
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import candidatesApiService from '../../../candidateService';
 function EditQualificationForm() {
-
+  const [updateField, setUpdateField] = useState({})
   const [data, setData] = useState({
     candidate_educations: [],
-   
-
   });
+
+
+
+
+  const handleFieldChange = (fieldName, value, context) => {
+    console.log("handleField", fieldName, value, context);
+  
+    if (context === 'highSchoolData' && highSchoolData) {
+      console.log("Additional Info:", { exam_types_master_id: highSchoolData.exam_types_master_id
+        ,
+        id:highSchoolData.id
+        ,updateField });
+      setUpdateField(prev => ({ ...prev, [fieldName]: value.toString() }));
+      setData(prev => ({ ...prev, [fieldName]: value.toString() }));
+    } else {
+      console.error('highSchoolData is undefined. Context:', context);
+    }
+  };
+  
+  
+ 
   const highSchoolData = data.candidate_educations.find(
     (education) => education.exam_types_master_id === 7
   );
@@ -79,11 +98,7 @@ function EditQualificationForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Data:', data);
-    // Add any additional logic for form submission or data processing here
-  };
+
 
   return (
     <>
@@ -116,7 +131,7 @@ function EditQualificationForm() {
                     name="country"
                     className="UD-set-dropdown"
                     value={highSchoolData ? highSchoolData.country : ""}
-
+                    onChange={(e) => handleFieldChange('country', e.target.value,'highSchoolData')}
                   >
                     <option value="">Select country</option>
                     {countries.map((country) => (
@@ -143,7 +158,7 @@ function EditQualificationForm() {
                     id=""
                     value={highSchoolData ? highSchoolData.year_start : ""}
 
-
+                    onChange={(e) => handleFieldChange('year_start', e.target.value, 'highSchoolData')}
                   ></input>
 
                 </div>

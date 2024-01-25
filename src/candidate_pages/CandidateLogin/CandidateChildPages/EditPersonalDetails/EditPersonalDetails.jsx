@@ -39,50 +39,6 @@ function EditPersonalDetails() {
   }, []);
 
 
-
-
-
-  // const handleImageChange = async (event) => {
-  //   console.log('handleImageChange function started');
-  //   const file = event.target.files[0];
-  //   console.log('Selected File:', file)
-  //   if (file) {
-  //     try {
-  //       let formData = new FormData();
-  //       formData.append('profile_image', file);
-
-  //       let accessToken = localStorage.getItem('Token');
-  //       accessToken = JSON.parse(accessToken);
-  //       console.log("accessToken", accessToken.token);
-
-  //       let response = await fetch('http://192.168.1.8:8090/v1/api/candidates/profile_image', {
-  //         method: 'PUT',
-  //         body: formData,
-  //         headers: {
-  //           'access-token': accessToken.token,
-  //         },
-  //       });
-
-  //       console.log('Response:', response);
-
-  //       if (response.ok) {
-  //         // The image was successfully uploaded
-  //         const responseData = await response.json();
-  //         console.log('Image upload successful:', responseData);
-  //         setSelectedImage(URL.createObjectURL(file));
-  //       } else {
-  //         // Handle error when the image upload fails
-  //         console.error('Image upload failed:', response.statusText);
-  //         // You can also show an error message to the user if needed
-  //       }
-  //     } catch (error) {
-  //       console.error('Error uploading image:', error.message);
-  //       // Handle other errors that may occur during the request
-  //     }
-  //   }
-  // };
-
-
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -102,32 +58,44 @@ function EditPersonalDetails() {
     }
   };
 
+  // const handleSaveChanges = async () => {
+  //   try {
+  //     let accessToken = localStorage.getItem('Token');
+  //     accessToken = JSON.parse(accessToken);
+  //     console.log(updateField);
+  //     const response = await axios.put(
+  //       'http://192.168.1.8:8090/v1/api/candidates/updateCandidatePersonalById',
+  //       updateField,
+  //       {
+  //         headers: {
+  //           'access-token': accessToken.token,
+  //         },
+  //       }
+  //     );
+  //     console.log('Save Changes Response:', response);
+  //     setUpdateField({});
+  //     fetchData()
+  //   } catch (error) {
+  //     console.error('Error saving changes:', error.message);
+  //   }
+  // };
+
   const handleSaveChanges = async () => {
     try {
       let accessToken = localStorage.getItem('Token');
       accessToken = JSON.parse(accessToken);
       console.log(updateField);
-      const response = await axios.put(
-        'http://192.168.1.8:8090/v1/api/candidates/updateCandidatePersonalById',
-        updateField,
-        {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        }
-      );
-      console.log('Save Changes Response:', response);
+
+      await candidatesApiService.updateCandidatePersonalInfo(accessToken.token, updateField);
+
       setUpdateField({});
-      fetchData()
+      fetchData();
     } catch (error) {
       console.error('Error saving changes:', error.message);
     }
   };
 
-
-
   const handleFieldChange = (fieldName, value) => {
-
     console.log("handlefild", fieldName, value, updateField)
     setUpdateField(prev => ({ ...prev, [fieldName]: value.toString()}))
     setData(prev => ({ ...prev, [fieldName]: value.toString()}))
@@ -151,17 +119,9 @@ function EditPersonalDetails() {
         accessToken = JSON.parse(accessToken);
         console.log("accessToken", accessToken.token);
 
-        const response = await axios.get('http://192.168.1.8:8090/v1/api/candidates/renderCandidatePic', {
-          headers: {
-            'access-token': accessToken.token,
-          },
-          responseType: 'blob',
-        });
+        const imageUrl = await candidatesApiService.fetchCandidateImage(accessToken.token);
 
-        console.log("Response:", response);
-
-        if (response.status === 200 && response.data) {
-          const imageUrl = URL.createObjectURL(response.data);
+        if (imageUrl) {
           setSelectedImage(imageUrl);
         } else {
           // If there is no image, set selectedImage to null or use a default image URL

@@ -62,6 +62,48 @@ const candidatesApiService = {
       getCandidatesCountries: () => {
         return axios.get("https://countriesnow.space/api/v0.1/countries");
       },
+      fetchCandidateImage: async (accessToken) => {
+        try {
+          const response = await axios.get(`${BASE_URL}/candidates/renderCandidatePic`, {
+            headers: {
+              'access-token': accessToken,
+            },
+            responseType: 'blob',
+          });
+    
+          if (response.status === 200 && response.data) {
+            const imageUrl = URL.createObjectURL(response.data);
+            return imageUrl;
+          } else {
+            // If there is no image, return null or use a default image URL
+            return null;
+          }
+        } catch (error) {
+          console.error('Error fetching image:', error);
+          throw error; // You might want to handle this error in the component that calls this function
+        }
+      },
+
+      updateCandidatePersonalInfo: async (accessToken, updateField) => {
+        try {
+          const response = await axios.put(
+            `${BASE_URL}/candidates/updateCandidatePersonalById`,
+            updateField,
+            {
+              headers: {
+                'access-token': accessToken,
+              },
+            }
+          );
+    
+          console.log('Save Changes Response:', response);
+          return response.data; // Assuming your API returns some data upon successful update
+        } catch (error) {
+          console.error('Error saving changes:', error.message);
+          throw error;
+        }
+      },
+
     };
 
 
