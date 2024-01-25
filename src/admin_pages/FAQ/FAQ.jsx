@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import Header from "../../components/Header/Header";
 import Footers from "../../components/Footer/Footers";
+import Accordion from "react-bootstrap/Accordion";
 import "./FAQ.css";
 import mark from "../../assets/logos/mark.png";
 
 function FAQ() {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [activeKey, setActiveKey] = useState(null);
+
+  const handleAccordionToggle = (eventKey) => {
+    setActiveKey(eventKey === activeKey ? null : eventKey);
+  };
   const sections = [
     {
       summary:
@@ -75,17 +80,18 @@ function FAQ() {
     },
     // Add more sections as needed
   ];
+  // const [openIndex, setOpenIndex] = useState(null);
 
-  const toggleSection = (index) => {
-    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
-  };
+  // const toggleSection = (index) => {
+  //   setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  // };
   return (
     <>
       <Header></Header>
       <div className="faq-section">
         <div className="illustrations"></div>
 
-        <div className="my-section">
+        {/* <div className="my-section">
           {sections.map((section, index) => (
             <div key={index}>
               <details>
@@ -104,7 +110,19 @@ function FAQ() {
             </div>
           ))}
         </div>
-   
+    */}
+        <div className="faq-body">
+          <Accordion activeKey={activeKey} onSelect={handleAccordionToggle}>
+            {sections.map((item, index) => (
+              <Accordion.Item key={index} eventKey={index.toString()}>
+                <Accordion.Header>{item.summary}</Accordion.Header>
+                <Accordion.Body>
+                  <p>{item.detail} </p>
+                </Accordion.Body>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+        </div>
       </div>
       <div className="water-marks">
         <div className="marks-left">

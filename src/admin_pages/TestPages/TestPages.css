@@ -1,6 +1,7 @@
-.faq-body {
+/* .faq-body {
   margin-left: 10%;
   margin-right: 10%;
+
 }
 .accordion-item {
   margin: 10px;
@@ -14,7 +15,7 @@
   background-color: #f1f1f1 !important;
   margin-left: -19.1%;
   border-radius: 10px !important;
-  /* margin-top: -10px !important; */
+
   p {
     border-left: 3px solid #88c128;
     padding-left: 10px;
@@ -43,4 +44,4 @@
   background-repeat: no-repeat;
   background-size: var(--bs-accordion-btn-icon-width);
   transition: var(--bs-accordion-btn-icon-transition);
-}
+} */

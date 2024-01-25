@@ -49,7 +49,6 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
       });
       return false;
     }
-
     const fileSizeInMB = file.size / (1024 * 1024);
     if (fileSizeInMB > maxFileSizeInMB) {
       setErrors({
@@ -57,7 +56,6 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
       });
       return false;
     }
-
     const fileExtension = file.name.split(".").pop().toLowerCase();
     if (!allowedExtensions.includes(fileExtension)) {
       setErrors({
@@ -78,7 +76,6 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
 
     return true;
   };
-
   return (
     <>
       <form>

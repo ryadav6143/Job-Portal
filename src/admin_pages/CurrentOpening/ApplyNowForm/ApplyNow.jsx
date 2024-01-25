@@ -281,7 +281,6 @@ function ApplyNow() {
   //   setSelectedComponent("OTPVerification");
 
   // }
-
   const transferAllData = async () => {
     try {
       const formValuesToSend = { UserDetails: { ...formValues.UserDetails } };
@@ -371,7 +370,6 @@ function ApplyNow() {
       total_academic_exp,
       total_industrial_exp,
       company_experience_name,
-      specialization_area_1,
       accept,
     } = formValues.UserDetails;
 
@@ -390,11 +388,16 @@ function ApplyNow() {
         } else if (contact_1.length !== 10) {
           errors.contact_1 = "! Please enter a valid 10-digit contact number.";
         }
-        if (!contact_2) {
-          errors.contact_2 = "! Alternate number is Required.";
-        } else if (contact_2.length !== 10) {
+        // if (!contact_2) {
+        //   errors.contact_2 = "! Alternate number is Required.";
+        // } else if (contact_2.length !== 10) {
+        //   errors.contact_2 = "! Please enter a valid 10-digit contact number.";
+        // } else if (contact_1 === contact_2) {
+        //   errors.contact_2 = "! Alternate numbers should be different.";
+        // }
+        if (contact_2 && contact_2.length !== 10) {
           errors.contact_2 = "! Please enter a valid 10-digit contact number.";
-        } else if (contact_1 === contact_2) {
+        } else if (contact_1 && contact_2 && contact_1 === contact_2) {
           errors.contact_2 = "! Alternate numbers should be different.";
         }
         if (!title_first_name) {
@@ -457,7 +460,12 @@ function ApplyNow() {
         if (!pin_code) {
           errors.pin_code = "Pin Code is Required";
         } else if (!/^\d+$/.test(pin_code)) {
-          errors.pin_code = "Please enter a Pin Code.";
+          errors.pin_code = "Please enter a Pin Code with only numeric digits.";
+        } else if (pin_code.length !== 6) {
+          errors.pin_code = "Pin Code must be exactly 6 digits.";
+        } else {
+          // Additional checks for a valid pin code can be added here
+          // For example, you might want to check if the pin code corresponds to a valid geographical location
         }
         if (!Specialization) {
           errors.Specialization = "Specialization is Required";
@@ -493,7 +501,8 @@ function ApplyNow() {
             enteredStartYear > currentYear ||
             enteredStartYear < currentYear - 100
           ) {
-            errors.year_start = "! Please enter a valid passing Year";
+            errors.year_start =
+              "! Please enter a valid year within the last 100 years.";
           }
         }
 
@@ -510,7 +519,8 @@ function ApplyNow() {
             enteredEndYear > currentYear ||
             enteredEndYear < currentYear - 100
           ) {
-            errors.year_end = "! Please enter a valid passing Year";
+            errors.year_end =
+              "! Please enter a valid passing year within the last 100 years.";
           }
         }
 
@@ -803,7 +813,6 @@ function ApplyNow() {
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={transferAllData}>Get OTP</Button>
-                {/* Reset butto here  */}
               </Box>
             </React.Fragment>
           ) : (
