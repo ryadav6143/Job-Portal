@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.1.15:8090/v1/api";
+const BASE_URL = "http://192.168.1.8:8090/v1/api";
 
 const candidatesApiService = {
 
@@ -47,19 +47,18 @@ const candidatesApiService = {
             headers: {
               'access-token': accessToken,
             },
-          });
-    
+          });    
           if (response.ok) {
             return await response.json();
           } else {
             console.error('Image upload failed:', response.status, response.statusText);
             throw new Error(`Image upload failed: ${response.statusText}`);
-          }
-          
+          }          
         } catch (error) {
           throw new Error(`Error uploading image: ${error.message}`);
         }
       },
+      
       getCandidatesCountries: () => {
         return axios.get("https://countriesnow.space/api/v0.1/countries");
       },

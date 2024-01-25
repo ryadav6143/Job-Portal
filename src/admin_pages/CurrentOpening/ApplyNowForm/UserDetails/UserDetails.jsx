@@ -273,10 +273,10 @@ function UserDetails({formValues, setFormValues}) {
                     className="UD-set-input"
                     type="text"
                     placeholder=" "
-                    name="Specialization"
+                    name="specialization"
                     id=""
                     onChange={handleInputChange}
-                    value={formValues.Specialization}
+                    value={formValues.specialization}
 
                   ></input>
                 </div>
