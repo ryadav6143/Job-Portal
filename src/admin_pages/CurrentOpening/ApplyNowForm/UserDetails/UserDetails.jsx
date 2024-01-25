@@ -159,7 +159,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const handleInputChange = (e) => {
     setErrors({
       ...errors,
-      specialization_area_1: "",
+      specialization: "",
     });
     const { name, value } = e.target;
     setFormValues((prevValues) => ({
@@ -295,13 +295,14 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     className="UD-set-input"
                     type="text"
                     placeholder=" "
-                    name="Specialization"
+                    name="specialization"
                     id=""
                     onChange={handleInputChange}
-                    value={formValues.Specialization}
+                    value={formValues.specialization}
+
                   ></input>
                 </div>
-                <span className="error-message">{errors.Specialization}</span>
+                <span className="error-message">{errors.specialization}</span>
               </div>
 
               <div className="col-md-4">

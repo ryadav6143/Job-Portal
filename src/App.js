@@ -12,25 +12,17 @@ import Technical from "./admin_pages/JobProfile/Technical/Technical";
 import ApplyNow from "./admin_pages/CurrentOpening/ApplyNowForm/ApplyNow";
 import PersonalDetails from "./admin_pages/DropCV/PersonalDetails/PersonalDeatils";
 import Adminpanel from "./admin_pages/AdminLogin/Adminpanel";
-import Login from "./admin_pages/AdminLogin/Login/Login";
+
 import Qualification from "./admin_pages/DropCV/Qualification/Qualification";
 import CurrentExperience from "./admin_pages/DropCV/CurrentExperience/CurrentExperience";
 import UserDetails from "./admin_pages/CurrentOpening/ApplyNowForm/UserDetails/UserDetails";
 import ContactUs from "./admin_pages/Contactus/ContactUs";
-import EditPersonalDetails from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditPersonalDetails/EditPersonalDetails";
-import EditQualificationForm from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditQualificationForm/EditQualificationForm";
-import EditExperience from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditExperienceForm/EditExperience";
-import EditResearch from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditResearchForm/EditResearchForm";
-import EditProgramsForm from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditProgramsForm/EditProgramsForm";
-import EditReference from "./candidate_pages/Login/UserDashboard/EditProfileForm/EditReference/EditReference";
-import UserDashboard from "./candidate_pages/Login/UserDashboard/UserDashboard";
-import UserLogin from "./candidate_pages/Login/UserLogin/UserLogin";
+
 import Submitsuccess from "./admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 import OTPVerification from "./admin_pages/DropCV/OTPVerifivation/OTPVerification";
 import TestPages from "./admin_pages/TestPages/TestPages";
 import AddOpenings from "./admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 import CandidatePanel from "./candidate_pages/CandidateLogin/CandidatePanel";
-
 
 function App() {
   return (
@@ -46,7 +38,7 @@ function App() {
           ></Route>
           <Route path="faq-section" element={<FAQ />}></Route>
           <Route path="drop-cv" element={<DropCV />}></Route>
-          <Route path="login" element={<Login />}></Route>
+
           <Route path="personaldetails" element={<PersonalDetails />}></Route>
           <Route path="qualification" element={<Qualification />}></Route>
           <Route
@@ -67,19 +59,6 @@ function App() {
           <Route path="adminpanel" element={<Adminpanel />}></Route>
           {/* ----------------UserDashboard Routing source ---------------     */}
 
-          <Route path="dashboard" element={<UserDashboard />}></Route>
-          <Route
-            path="editpersonaldetails"
-            element={<EditPersonalDetails />}
-          ></Route>
-          <Route
-            path="editqualification"
-            element={<EditQualificationForm />}
-          ></Route>
-          <Route path="editexperience" element={<EditExperience />}></Route>
-          <Route path="editresearch" element={<EditResearch />}></Route>
-          <Route path="editprogram" element={<EditProgramsForm />}></Route>
-          <Route path="editreference" element={<EditReference />}></Route>
           <Route path="user-login" element={<CandidatePanel />}></Route>
 
           {/* ------------------ end UserDashboard Routing source--------------- */}

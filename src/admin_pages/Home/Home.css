@@ -484,6 +484,7 @@
   }
   .buttons {
     margin-left: 0;
+    margin-left: 17px;
     justify-content: center;
   }
   .slider-imgs {
@@ -498,7 +499,6 @@
   }
   .buttons {
     margin: auto;
-
     justify-content: center;
   }
   .slider-imgs {

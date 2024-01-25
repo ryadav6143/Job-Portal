@@ -23,6 +23,9 @@ function Dropcv() {
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
   const [isFresher, setIsFresher] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [showHeaderFooter, setShowHeaderFooter] = useState(true); // New state
+
+  
   console.log("IS fresher data......................./", isFresher);
   const initialEducation = {
     degree_types_master_id: "",
@@ -83,6 +86,7 @@ function Dropcv() {
 
       setformDataToSend(formDataToSend);
       setOtpButtonClicked(true);
+      setShowHeaderFooter(false);
 
       console.log("formDataToSend", formDataToSend);
       setformDataToSend(formDataToSend);
@@ -366,7 +370,8 @@ const otpData={
   // ----------------------------------------------------------
   return (
     <>
-      <Header></Header>
+      {/* <Header></Header> */}
+      {showHeaderFooter && <Header />}
       <div
         className={otpButtonClicked ? "contact-forms hidden" : "contact-forms"}
       >
@@ -454,7 +459,8 @@ const otpData={
         </Box>
       </div>
       <div>{componentToShow}</div>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
+      {showHeaderFooter && <Footer />}
     </>
   );
 }
