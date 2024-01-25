@@ -16,6 +16,34 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
 
+  // useEffect(() => {
+  //   // Fetch countries from the API
+  //   fetch('https://www.universal-tutorial.com/api/countries/', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Authorization': accessToken,
+  //       'Accept': 'application/json'
+  //     }
+  //   })
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! Status: ${response.status}`);
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       // Check the response structure before mapping
+  //       if (Array.isArray(data)) {
+  //         const countryNames = data.map(country => country.country_name);
+  //         setCountries(countryNames);
+  //       } else {
+  //         console.error('Unexpected response format:', data);
+  //       }
+  //     })
+  //     .catch(error => console.error('Error fetching data:', error));
+  // }, [accessToken]);
+  
+  // console.log('Countries:', countries);
   // const [formValues, setFormValues] = useState({
   //   email: '',
   //   contact_1: '',
@@ -260,10 +288,11 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     className="UD-set-input"
                     type="text"
                     placeholder=" "
-                    name="specialization_area_1"
+                    name="Specialization"
                     id=""
                     onChange={handleInputChange}
-                    value={formValues.specialization_area_1}
+                    value={formValues.Specialization}
+
                   ></input>
                 </div>
                 <span className="error-message">{errors.specialization_area_1}</span>
@@ -388,7 +417,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     className="UD-set-input"
                     type="date"
                     name="dob"
-                    placeholder="MM/DD/YYYY "
+                    placeholder="DD/MM/YYYY"
                     id=""
                     value={formValues.dob}
                     onChange={handleInputChange}
@@ -538,7 +567,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                   <label className="UD-SetLabel-Name">
                     <span>*</span>Country
                   </label>
-                  <select
+                  {/* <select
                     onChange={handleInputChange}
                     name="country"
                     className="UD-set-dropdown"
@@ -548,7 +577,20 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     <option value="country 1"> country 1</option>
                     <option value=" country 2"> country 2</option>
                     <option value="country 3"> country 3</option>
-                  </select>
+                  </select> */}
+                     <select
+            name="country"
+            className="UD-set-dropdown"
+            value={formValues.country}
+            onChange={handleInputChange}
+          >
+            <option value="">Select country</option>
+            {/* {countries.map((country, index) => (
+              <option key={index} value={country}>
+                {country}
+              </option>
+            ))} */}
+          </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.country}</span>

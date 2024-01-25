@@ -266,51 +266,51 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
 
             <div className="row" style={{ marginTop: "-14px" }}>
               <div className="col-md-4">
-                {/* Accommodation */}
+                {/* benefits_accommodation */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Accommodation
+                    <span></span>benefits_accommodation
                   </label>
                   <input
                     className="UD-set-input"
                     type="text"
                     placeholder=""
-                    name="accommodation"
-                    value={formValues.accommodation}
+                    name="benefits_accommodation"
+                    value={formValues.benefits_accommodation}
                     onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
               </div>
 
               <div className="col-md-4">
-                {/* Transportation*/}
+                {/* benefits_transportation*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Transportation
+                    <span></span>benefits_transportation
                   </label>
                   <input
                     className="UD-set-input"
                     type="text"
                     placeholder=""
-                    name="transportation"
-                    value={formValues.transportation}
+                    name="benefits_transportation"
+                    value={formValues.benefits_transportation}
                     onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
               </div>
 
               <div className="col-md-4">
-                {/*Food*/}
+                {/*benefits_food*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Food
+                    <span></span>benefits_food
                   </label>
                   <input
                     className="UD-set-input"
                     type="text"
                     placeholder=""
-                    name="food"
-                    value={formValues.food}
+                    name="benefits_food"
+                    value={formValues.benefits_food}
                     onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
@@ -319,34 +319,34 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
 
             <div className="row">
               <div className="col-md-4">
-                {/* Mediclaim */}
+                {/* benefits_mediclaim */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Mediclaim
+                    <span></span>benefits_mediclaim
                   </label>
                   <input
                     className="UD-set-input"
                     type="text"
                     placeholder=""
-                    name="mediclaim"
-                    value={formValues.mediclaim}
+                    name="benefits_mediclaim"
+                    value={formValues.benefits_mediclaim}
                     onChange={handleTotalExperienceChange}
                   ></input>
                 </div>
               </div>
 
               <div className="col-md-4">
-                {/* Others*/}
+                {/* benefits_others*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Others
+                    <span></span>benefits_others
                   </label>
                   <input
                     className="UD-set-input"
                     type="text"
                     placeholder=""
-                    name="others"
-                    value={formValues.others}
+                    name="benefits_others"
+                    value={formValues.benefits_others}
                     onChange={handleTotalExperienceChange}
                   ></input>
                 </div>

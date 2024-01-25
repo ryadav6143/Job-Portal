@@ -13,6 +13,7 @@ function CandidateLogut({ handleLogout }) {
       form.reset();
     }
   };
+function CandidateLogut({ handleLogout}) {
   return (
     <>
       <div className="admin-header">
@@ -29,8 +30,7 @@ function CandidateLogut({ handleLogout }) {
           </button>
           <button
             onClick={() => {
-              handleLogout();
-              localStorage.setItem("isLoggedIn", false);
+              handleLogout();            
             }}
           >
            <img  src={logout}/>
@@ -46,6 +46,6 @@ function CandidateLogut({ handleLogout }) {
       </div>
     </>
   );
-}
+}}
 
 export default CandidateLogut;
