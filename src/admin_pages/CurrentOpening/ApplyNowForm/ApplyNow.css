@@ -28,6 +28,7 @@
   padding-left: 15px !important;
   padding-right: 15px !important;
   font-family: "Open Sans", sans-serif !important;
+  margin-top: 2% !important;
 }
 .next-btn {
   color: black !important;
@@ -37,6 +38,7 @@
   font-weight: bold !important;
   background-color: rgba(211, 211, 211, 0.558) !important;
   font-family: "Open Sans", sans-serif !important;
+  margin-top: 2% !important;
 }
 
 .hidden {

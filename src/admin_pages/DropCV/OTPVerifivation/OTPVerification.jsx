@@ -8,23 +8,26 @@ function OTPVerification({ transferAllData, otpData }) {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [verificationError, setVerificationError] = useState(null);
-  let isOtpVerified = false
+  let isOtpVerified = false;
 
   const { contact_1 } = otpData;
   let digit = contact_1 ? contact_1.slice(-2) : "";
   const verifyOtp = async () => {
     try {
       console.log("Contact 1:", otp, otpData);
-  
-      const response = await apiService.verifyContactOTP({...otpData,input_otp: parseInt(otp),});
-  
+
+      const response = await apiService.verifyContactOTP({
+        ...otpData,
+        input_otp: parseInt(otp),
+      });
+
       if (response) {
         // setIsOtpVerified(response.data);
-        isOtpVerified=response.data
-        console.log("otp",response.data,isOtpVerified )
-        
+        isOtpVerified = response.data;
+        console.log("otp", response.data, isOtpVerified);
+
         alert(`OTP Verified !,${isOtpVerified}`);
-      } 
+      }
       // else {
       //   setVerificationError("Invalid OTP. Please try again.");
       //   setIsOtpVerified(false);
@@ -37,12 +40,11 @@ function OTPVerification({ transferAllData, otpData }) {
       alert("An error occurred during OTP verification. Please try again.");
     }
   };
-  
+
   const resendOTP = async () => {
     try {
       const response = await apiService.generateOTP({
         ...otpData,
-
       });
 
       console.log("API Response:", response);
@@ -53,17 +55,36 @@ function OTPVerification({ transferAllData, otpData }) {
     }
   };
   const submitsuccess = async () => {
-    console.log("at-submit",isOtpVerified)
-    console.log("at-check",transferAllData.UserDetails)
+    console.log("at-submit", isOtpVerified);
 
-    if(transferAllData.UserDetails){
+    if (transferAllData.UserDetails) {
       if (isOtpVerified) {
         try {
-          const response = await apiService.submitApplyNowData(transferAllData.UserDetails);
-  
+          const response = await apiService.submitApplyNowData(
+            transferAllData.UserDetails
+          );
+
           if (response) {
             console.log("Form data and file successfully posted to the API");
-            
+          } else {
+            console.error("Failed to post form data and file to the API");
+          }
+          navigate("/submit");
+        } catch (error) {
+          console.error("Failed to post form data and file to the API", error);
+        }
+      } else {
+        alert("Please verify OTP first!");
+      }
+    } else {
+      if (isOtpVerified) {
+        try {
+          const response = await apiService.submitCandidateData(
+            transferAllData
+          );
+
+          if (response) {
+            console.log("Form data and file successfully posted to the API");
           } else {
             console.error("Failed to post form data and file to the API");
           }
@@ -75,29 +96,6 @@ function OTPVerification({ transferAllData, otpData }) {
         alert("Please verify OTP first!");
       }
     }
-   
-else{
-  if (isOtpVerified) {
-    try {
-      const response = await apiService.submitCandidateData(transferAllData);
-
-      if (response) {
-        console.log("Form data and file successfully posted to the API");
-        
-      } else {
-        console.error("Failed to post form data and file to the API");
-      }
-      navigate("/submit");
-    } catch (error) {
-      console.error("Failed to post form data and file to the API", error);
-    }
-  } else {
-    alert("Please verify OTP first!");
-  }
-
-}
-
-    
   };
   return (
     <>
@@ -120,17 +118,17 @@ else{
                   required
                 />
               </form>
-
             </div>
             <button onClick={verifyOtp} type="button" id="verify-otp-btn">
               Verify OTP
-              </button>&nbsp;
+            </button>
+            &nbsp;
             <button onClick={resendOTP} type="button" id="resend-btn">
               Resend OTP
             </button>
           </div>
         </div>
-        <button onClick={submitsuccess} type="submit" id="otp-submit-btn" >
+        <button onClick={submitsuccess} type="submit" id="otp-submit-btn">
           Submit
         </button>
       </div>

@@ -111,8 +111,6 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
   }, []);
 
   const handleHighSchoolChange = (field, value) => {
-  
-   
     setErrors({
       ...errors,
       country: "",
@@ -122,8 +120,8 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
       year_end: "",
       grade_division: "",
       grade_percent: "",
+      stream: "",
     });
-
     setFormValues((prevFormValues) => ({
       UserDetails: {
         ...prevFormValues.UserDetails,
@@ -135,6 +133,10 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
           ...prevFormValues.UserDetails.educations.slice(1),
         ],
       },
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [field]: value ? "" : "This field is required",
     }));
   };
   const handleHigherSecondaryChange = (field, value) => {
@@ -162,6 +164,10 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
           ...prevFormValues.UserDetails.educations.slice(2), // Baaki ke education categories rehne do
         ],
       },
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [field]: value ? "" : "This field is required",
     }));
   };
   const handleGraduationChange = (field, value) => {

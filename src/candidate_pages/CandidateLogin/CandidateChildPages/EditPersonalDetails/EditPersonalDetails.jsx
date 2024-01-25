@@ -214,7 +214,7 @@ function EditPersonalDetails() {
     <>
       <form id="myForm">
         <div style={{ marginTop: "7%" }}>
-          <div style={{ paddingLeft: "50px", paddingRight:"50px" }}>
+          <div style={{ paddingLeft: "50px" }}>
           {selectedImage ? (
           <img
             src={selectedImage}
@@ -737,7 +737,7 @@ function EditPersonalDetails() {
               </div>
 
               <div>
-                <button className="savebtn" type="button">
+                <button className="savebtn" type="submit">
                   Save Changes
                 </button>
               </div>

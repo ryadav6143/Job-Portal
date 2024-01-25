@@ -30,7 +30,7 @@ import OTPVerification from "./admin_pages/DropCV/OTPVerifivation/OTPVerificatio
 import TestPages from "./admin_pages/TestPages/TestPages";
 import AddOpenings from "./admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 import CandidatePanel from "./candidate_pages/CandidateLogin/CandidatePanel";
-import CandidateLogin from "./candidate_pages/CandidateLogin/CandidateLogin/CandidateLogin";
+
 
 function App() {
   return (

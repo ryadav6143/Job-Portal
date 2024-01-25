@@ -140,8 +140,6 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                     <span className="error-message">{errors.designation}</span>
                   </div>
 
-                
-
                   <div className="col-md-4">
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
@@ -161,8 +159,6 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                     </span>
                   </div>
                 </div>
-
-                
                 <div className="row">
                   <div className="col-md-4">
                     <div className="UD-form-section">
@@ -196,6 +192,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                           onChange={(e) => handleInputChange(index, e)}
                         ></input>
                       </div>
+                      <span className="error-message">{errors.gross_pay}</span>
                     </div>
                   )}
                 </div>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./TestPages.css";
 import Header from "../../components/Header/Header";
+import Accordion from "react-bootstrap/Accordion";
 
 function TestPages() {
-
   const sections = [
     {
       summary:
@@ -74,41 +74,26 @@ function TestPages() {
     // Add more sections as needed
   ];
 
+  const [activeKey, setActiveKey] = useState(null);
+
+  const handleAccordionToggle = (eventKey) => {
+    setActiveKey(eventKey === activeKey ? null : eventKey);
+  };
+
   return (
     <>
       <Header></Header>
-
       <div className="faq-body">
-        <div className="accordion" id="accordionExample">
-          {sections.map((section, index) => (
-            <div className="accordion-item" key={index}>
-              <h2 className="accordion-header" id={`heading${index}`}>
-                <button
-                  className="accordion-button"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={`#collapse${index}`}
-                  aria-expanded="true"
-                  aria-controls={`collapse${index}`}
-                >
-                  {section.summary}
-                </button>
-              </h2>
-              <div
-                id={`collapse${index}`}
-                className={`accordion-collapse collapse${
-                  index === 0 ? " show" : ""
-                }`}
-                aria-labelledby={`heading${index}`}
-                data-bs-parent="#accordionExample"
-              >
-                <div className="accordion-body">
-                  <p>{section.detail}</p>
-                </div>
-              </div>
-            </div>
+        <Accordion activeKey={activeKey} onSelect={handleAccordionToggle}>
+          {sections.map((item, index) => (
+            <Accordion.Item key={index} eventKey={index.toString()}>
+              <Accordion.Header>{item.summary}</Accordion.Header>
+              <Accordion.Body>
+                <p>{item.detail} </p>
+              </Accordion.Body>
+            </Accordion.Item>
           ))}
-        </div>
+        </Accordion>
       </div>
 
 

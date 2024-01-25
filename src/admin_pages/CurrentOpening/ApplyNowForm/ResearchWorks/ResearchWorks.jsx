@@ -3,7 +3,7 @@ import plusicon from "../../../../assets/logos/plus.png";
 import "./ResearchWorks.css";
 import minusicon from "../../../../assets/logos/minus.png";
 
-function ResearchWorks({ formValues, setFormValues }) {
+function ResearchWorks({ formValues, setFormValues, errors,setErrors }) {
   // const [formValues, setFormValues] = useState({
   //   researches: [{ orcid: '', scopusid: '', researchid: '' }],
   //   journal_publications: [{
@@ -83,21 +83,18 @@ function ResearchWorks({ formValues, setFormValues }) {
     e.preventDefault();
     setFormValues((prevData) => ({
       UserDetails: {
-        ...prevData.UserDetails,
-        conference_publications: [
-          ...prevData.UserDetails.conference_publications,
-          {
-            conference_publication_year: "",
-            conference_publication_title: "",
-            conference_publication_author: "",
-            conference_publication_index: "",
-            conference_publication_name: "",
-            conference_publication_issn: "",
-            conference_publication_volume: "",
-            conference_publication_issue: "",
-          },
-        ],
-      },
+      ...prevData.UserDetails,
+      conference_publications: [...prevData.UserDetails.conference_publications, {
+        conference_publication_year: '',
+        conference_publication_title: '',
+        conference_publication_author: '',
+        conference_publication_index: '',
+        conference_publication_name: '',
+        conference_publication_issn: '',
+        conference_publication_volume: '',
+        conference_publication_issue: ''
+      }]
+    }
     }));
   };
 
@@ -251,6 +248,7 @@ function ResearchWorks({ formValues, setFormValues }) {
                     id=""
                   ></input>
                 </div>
+                <span className="error-message">{ errors.scopusid}</span>
               </div>
 
               <div className="col-md-4">

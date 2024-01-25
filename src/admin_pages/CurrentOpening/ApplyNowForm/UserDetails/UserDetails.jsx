@@ -16,6 +16,9 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
 
+  // const [countries, setCountries] = useState([]);
+  // const [accessToken] = useState('Bearer sL-eX7S-pFFAg1dGBc-26ZSRCkNicfdu50p3ZLtaS4kTtjijpJIpqgs9hg6lWvXsHgg');
+
   // useEffect(() => {
   //   // Fetch countries from the API
   //   fetch('https://www.universal-tutorial.com/api/countries/', {
@@ -42,7 +45,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   //     })
   //     .catch(error => console.error('Error fetching data:', error));
   // }, [accessToken]);
-  
+
   // console.log('Countries:', countries);
   // const [formValues, setFormValues] = useState({
   //   email: '',
@@ -73,7 +76,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     apiService
       .getAppliedPosts()
       .then((response) => {
-        // Update the state with the fetched data 
+        // Update the state with the fetched data
         setPosts(response.data);
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -154,6 +157,10 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   };
 
   const handleInputChange = (e) => {
+    setErrors({
+      ...errors,
+      specialization_area_1: "",
+    });
     const { name, value } = e.target;
     setFormValues((prevValues) => ({
       ...prevValues,
@@ -170,7 +177,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
 
   return (
     <>
-      <form method="post">
+      <form>
         <div className="container">
           <div style={{ marginTop: "20px" }}>
             <div>
@@ -292,10 +299,9 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     id=""
                     onChange={handleInputChange}
                     value={formValues.Specialization}
-
                   ></input>
                 </div>
-                <span className="error-message">{errors.specialization_area_1}</span>
+                <span className="error-message">{errors.Specialization}</span>
               </div>
 
               <div className="col-md-4">
@@ -567,7 +573,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                   <label className="UD-SetLabel-Name">
                     <span>*</span>Country
                   </label>
-                  {/* <select
+                  <select
                     onChange={handleInputChange}
                     name="country"
                     className="UD-set-dropdown"
@@ -577,20 +583,20 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     <option value="country 1"> country 1</option>
                     <option value=" country 2"> country 2</option>
                     <option value="country 3"> country 3</option>
-                  </select> */}
-                     <select
-            name="country"
-            className="UD-set-dropdown"
-            value={formValues.country}
-            onChange={handleInputChange}
-          >
-            <option value="">Select country</option>
-            {/* {countries.map((country, index) => (
+                  </select>
+                  {/* <select
+                    name="country"
+                    className="UD-set-dropdown"
+                    value={formValues.country}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">Select country</option>
+                    {countries.map((country, index) => (
               <option key={index} value={country}>
                 {country}
               </option>
-            ))} */}
-          </select>
+            ))}
+                  </select> */}
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.country}</span>

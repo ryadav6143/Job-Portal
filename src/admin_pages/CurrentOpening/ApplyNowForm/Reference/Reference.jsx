@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Reference.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Reference({ formValues, setFormValues, errors, setErrors }) {
+  const [checkboxError, setCheckboxError] = useState("");
   // const [formValues, setFormValues] = useState({
 
   //   reference_person_1:'',
@@ -25,6 +26,10 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
 
   // });
   const handleChange = (e) => {
+    setErrors({
+      ...errors,
+      hearing_source_about_us: "",
+    });
     const { name, value } = e.target;
     setFormValues((prevData) => ({
       UserDetails: {
@@ -59,6 +64,7 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
       });
       return false;
     }
+
     setFormValues((prevData) => ({
       UserDetails: {
         ...prevData.UserDetails,
@@ -101,6 +107,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                 onChange={handleChange}
                 value={formValues.hearing_source_about_us}
               ></input>
+              <span className="error-message">
+                {errors.hearing_source_about_us}
+              </span>
             </div>
 
             {/* First Reference*/}
@@ -337,28 +346,35 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
             </div>
 
             <div className="uploadfile-section">
-              <label className="SetLabel-Name">
-                <span>*</span>Upload your Resume:
-              </label>
-              <p className="uploadresume-subheading">
-                To upload your resume here:(maximum size 2MB, PDF, DOC and DOCX
-                format only)
-              </p>
-              <input
-                type="file"
-                name="candidate_cv"
-                onChange={handleFileChange}
-                accept=".pdf, .doc, .docx"
-              />  
-              <span className="error-name">{errors.candidate_cv}</span>
+              <div>
+                <label className="SetLabel-Name">
+                  <span>*</span>Upload your Resume:
+                </label>
+                <p className="uploadresume-subheading">
+                  To upload your resume here:(maximum size 2MB, PDF, DOC and
+                  DOCX format only)
+                </p>
+                <input
+                  type="file"
+                  name="candidate_cv"
+                  onChange={handleFileChange}
+                  accept=".pdf, .doc, .docx"
+                />
+              </div>
+              <span className="error-message">{errors.candidate_cv}</span>
             </div>
-
             <div>
               <span className="set-checkbox-span">
-                <input className="set-checkbox" type="checkbox" id="" name="" />
+                <input
+                  className="set-checkbox"
+                  type="checkbox"
+                  id="accept"
+                  name="accept"
+                />
                 &nbsp; I confirm that the information provided here are true to
                 my knowledge
               </span>
+              <span className="error-message">{checkboxError}</span>
             </div>
           </div>
         </div>

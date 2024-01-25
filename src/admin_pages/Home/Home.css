@@ -399,12 +399,17 @@
     font-size: 15px;
   }
   .perks-heading {
-    font-size: 20px;
     text-align: center;
+    p {
+      font-size: 20px;
+      letter-spacing: 3px;
+    }
+    span {
+      font-size: 35px;
+      letter-spacing: 3px;
+    }
   }
-  .perks-heading p {
-    font-size: 30px;
-  }
+
   .perks-list {
     margin-left: -8%;
   }
@@ -468,7 +473,6 @@
       font-size: 15px;
     }
   }
- 
 
   .hr-conrer-heading {
     width: auto;
