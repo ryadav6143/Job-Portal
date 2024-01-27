@@ -15,32 +15,31 @@ function EditPersonalDetails() {
   // ---------profile image source---------
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
+  const [errors, setErrors] = useState({});
 
   const [data, setData] = useState({});
-  const [updateField, setUpdateField] = useState({})
+  const [updateField, setUpdateField] = useState({});
 
   // console.log("data", data);
   const fetchData = async () => {
     try {
-      let accessToken = localStorage.getItem('Token');
+      let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       // console.log("accessToken", accessToken.token);
 
-      const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
+      const fetchedData = await candidatesApiService.getCandidateById(
+        accessToken.token
+      );
       console.log("response", fetchedData);
       setData(fetchedData);
     } catch (error) {
-      console.error('Error fetching data:', error.message);
+      console.error("Error fetching data:", error.message);
     }
   };
   useEffect(() => {
-    console.log("use-state")
+    console.log("use-state");
     fetchData();
   }, []);
-
-
-
-
 
   // const handleImageChange = async (event) => {
   //   console.log('handleImageChange function started');
@@ -82,64 +81,90 @@ function EditPersonalDetails() {
   //   }
   // };
 
-
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       try {
-        let accessToken = localStorage.getItem('Token');
+        let accessToken = localStorage.getItem("Token");
         accessToken = JSON.parse(accessToken);
         console.log("accessToken", accessToken.token);
 
-        const responseData = await candidatesApiService.uploadProfileImage(file, accessToken.token);
-        console.log('Image upload successful:', responseData);
+        const responseData = await candidatesApiService.uploadProfileImage(
+          file,
+          accessToken.token
+        );
+        console.log("Image upload successful:", responseData);
 
         setSelectedImage(URL.createObjectURL(file));
       } catch (error) {
-        console.error('Error uploading image:', error.message);
+        console.error("Error uploading image:", error.message);
         // Handle other errors that may occur during the request
       }
     }
   };
 
   const handleSaveChanges = async () => {
+    const isValid = saveValidations();
+    // Check if validation passed
+    if (!isValid) {
+      // Validation failed, handle accordingly (maybe display an error message)
+    }
+
     try {
-      let accessToken = localStorage.getItem('Token');
+      let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       console.log(updateField);
       const response = await axios.put(
-        'http://192.168.1.8:8090/v1/api/candidates/updateCandidatePersonalById',
+        "http://192.168.1.8:8090/v1/api/candidates/updateCandidatePersonalById",
         updateField,
         {
           headers: {
-            'access-token': accessToken.token,
+            "access-token": accessToken.token,
           },
         }
       );
-      console.log('Save Changes Response:', response);
+      console.log("Save Changes Response:", response);
       setUpdateField({});
-      fetchData()
+      fetchData();
     } catch (error) {
-      console.error('Error saving changes:', error.message);
+      console.error("Error saving changes:", error.message);
     }
   };
 
-
-
   const handleFieldChange = (fieldName, value) => {
-
-    console.log("handlefild", fieldName, value, updateField)
-    setUpdateField(prev => ({ ...prev, [fieldName]: value.toString()}))
-    setData(prev => ({ ...prev, [fieldName]: value.toString()}))
+    console.log("handlefild", fieldName, value, updateField);
+    setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
+    setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
+    setErrors({
+      ...errors,
+      email: "",
+      contact_1: "",
+      specialization: "",
+      title_first_name: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      dob: "",
+      gender: "",
+      religion: "",
+      cast_category_name: "",
+      marital_status: "",
+      address_1: "",
+      contact_2: "",
+      country: "",
+      state_province: "",
+      city: "",
+      pin_code: "",
+    });
   };
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
     if (isNaN(dateObject.getTime())) {
-      return ''; 
+      return "";
     }
-    const day = dateObject.getDate().toString().padStart(2,'0');
-    const month = (dateObject.getMonth() + 1).toString().padStart(2,'0');
+    const day = dateObject.getDate().toString().padStart(2, "0");
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
     const year = dateObject.getFullYear();
     return `${year}-${month}-${day}`;
   };
@@ -147,16 +172,19 @@ function EditPersonalDetails() {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        let accessToken = localStorage.getItem('Token');
+        let accessToken = localStorage.getItem("Token");
         accessToken = JSON.parse(accessToken);
         console.log("accessToken", accessToken.token);
 
-        const response = await axios.get('http://192.168.1.8:8090/v1/api/candidates/renderCandidatePic', {
-          headers: {
-            'access-token': accessToken.token,
-          },
-          responseType: 'blob',
-        });
+        const response = await axios.get(
+          "http://192.168.1.8:8090/v1/api/candidates/renderCandidatePic",
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+            responseType: "blob",
+          }
+        );
 
         console.log("Response:", response);
 
@@ -168,12 +196,115 @@ function EditPersonalDetails() {
           setSelectedImage(null);
         }
       } catch (error) {
-        console.error('Error fetching image:', error);
+        console.error("Error fetching image:", error);
       }
     };
 
     fetchImage();
   }, []);
+  const [formValues, setFormValues] = useState({
+    editDetails: {
+      email: "",
+      contact_1: "",
+      specialization: "",
+      title_first_name: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      dob: "",
+      gender: "",
+      religion: "",
+      cast_category_name: "",
+      marital_status: "",
+      address_1: "",
+      contact_2: "",
+      country: "",
+      state_province: "",
+      city: "",
+      pin_code: "",
+    },
+  });
+
+  const saveValidations = () => {
+    const {
+      email,
+      contact_1,
+      specialization,
+      title_first_name,
+      first_name,
+      middle_name,
+      last_name,
+      dob,
+      gender,
+      religion,
+      cast_category_name,
+      marital_status,
+      address_1,
+      contact_2,
+      country,
+      state_province,
+      city,
+      pin_code,
+    } = formValues.editDetails;
+
+    const currentYear = new Date().getFullYear();
+    const dobYear = dob ? new Date(dob).getFullYear() : null;
+    let errors = {};
+
+    if (!first_name) {
+      errors.first_name = "! First Name is Required.";
+    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+      errors.first_name = "! Please enter a valid name.";
+    }
+
+    if (!last_name) {
+      errors.last_name = "! Last Name is Required.";
+    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
+      errors.last_name = "! Please enter a valid name.";
+    }
+    // if (!dob) {
+    //   errors.dob = "! Date Of Birt is Required";
+    // } else if (
+    //   !dob ||
+    //   dobYear < currentYear - 100 ||
+    //   dobYear > currentYear ||
+    //   new Date(dob) > new Date()
+    // ) {
+    //   errors.dob = "! Please enter a valid date of Birth.";
+    // }
+    if (!gender) {
+      errors.gender = "! Gender is Required.";
+    }
+    if (!religion) {
+      errors.religion = "! Relegion is Required";
+    }
+    if (!city) {
+      errors.city = "! City is Required";
+    }
+    if (!cast_category_name) {
+      errors.cast_category_name = "! Cast Category is Required";
+    }
+    if (!marital_status) {
+      errors.marital_status = "! Marital Status is Required";
+    }
+    if (!address_1) {
+      errors.address_1 = "! Address is Required";
+    }
+
+    if (!country) {
+      errors.country = "! Country is Required";
+    }
+    if (!state_province) {
+      errors.state_province = "! State is Required";
+    }
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return false;
+    } else {
+      setErrors({});
+      return true;
+    }
+  };
 
   return (
     <>
@@ -185,19 +316,19 @@ function EditPersonalDetails() {
                 src={selectedImage}
                 alt="Selected Profile"
                 style={{
-                  width: '120px',
-                  height: '120px',
-                  borderRadius: '50%',
+                  width: "120px",
+                  height: "120px",
+                  borderRadius: "50%",
                 }}
               />
             ) : (
               <FontAwesomeIcon
                 icon={faUserTie}
                 style={{
-                  fontSize: '120px',
-                  borderRadius: '50%',
-                  backgroundColor: '#ddd',
-                  padding: '20px',
+                  fontSize: "120px",
+                  borderRadius: "50%",
+                  backgroundColor: "#ddd",
+                  padding: "20px",
                 }}
               />
             )}
@@ -257,7 +388,7 @@ function EditPersonalDetails() {
                       id=""
                       required
                       value={data.email}
-                    // onChange={(e) => handleFieldChange('email', e.target.value)}
+                      // onChange={(e) => handleFieldChange('email', e.target.value)}
                     />
                     <FontAwesomeIcon
                       className="UD-set-icon"
@@ -280,13 +411,11 @@ function EditPersonalDetails() {
                       id=""
                       required
                       value={data.contact_1}
-                    // onChange={(e) => handleFieldChange('contact_1', e.target.value)}
+                      // onChange={(e) => handleFieldChange('contact_1', e.target.value)}
                     />
                     <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                   </div>
                 </div>
-
-
               </div>
 
               {/* <div className="row">
@@ -339,7 +468,9 @@ function EditPersonalDetails() {
                       name="specialization"
                       id=""
                       value={data.specialization}
-                      onChange={(e) => handleFieldChange('specialization', e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("specialization", e.target.value)
+                      }
                     ></input>
                   </div>
                 </div>
@@ -369,9 +500,14 @@ function EditPersonalDetails() {
                     <label className="UD-SetLabel-Name">
                       <span></span>Title
                     </label>
-                    <select name="title_first_name" className="UD-set-dropdown"
+                    <select
+                      name="title_first_name"
+                      className="UD-set-dropdown"
                       value={data.title_first_name}
-                      onChange={(e) => handleFieldChange('title_first_name', e.target.value)}>
+                      onChange={(e) =>
+                        handleFieldChange("title_first_name", e.target.value)
+                      }
+                    >
                       <option value="Mr.">Mr.</option>
                       <option value="Mrs.">Mrs.</option>
                       <option value="Ms.">Ms.</option>
@@ -394,11 +530,13 @@ function EditPersonalDetails() {
                       placeholder="Enter First Name"
                       id=""
                       value={data.first_name}
-                      onChange={(e) => handleFieldChange('first_name', e.target.value)}
-
+                      onChange={(e) =>
+                        handleFieldChange("first_name", e.target.value)
+                      }
                     ></input>
                     <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                   </div>
+                  <span className="error-message">{errors.first_name}</span>
                 </div>
                 <div className="col-md-4">
                   {/* Middle Name  */}
@@ -413,7 +551,9 @@ function EditPersonalDetails() {
                       placeholder="Enter Middle Name "
                       id=""
                       value={data.middle_name}
-                      onChange={(e) => handleFieldChange('middle_name', e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("middle_name", e.target.value)
+                      }
                     ></input>
                     <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                   </div>
@@ -435,7 +575,9 @@ function EditPersonalDetails() {
                       placeholder="Enter last Name"
                       id=""
                       value={data.last_name}
-                      onChange={(e) => handleFieldChange('last_name', e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("last_name", e.target.value)
+                      }
                     ></input>
                     <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                   </div>
@@ -455,9 +597,11 @@ function EditPersonalDetails() {
                       placeholder=""
                       id=""
                       value={formatDateForInput(data.dob)}
-                      onChange={(e) => handleFieldChange('dob', e.target.value)}
+                      onChange={(e) => handleFieldChange("dob", e.target.value)}
+                      readOnly
                     />
                   </div>
+                  <span className="error-message">{errors.dob}</span>
                 </div>
 
                 <div className="col-md-4">
@@ -470,7 +614,9 @@ function EditPersonalDetails() {
                       name="gender"
                       className="UD-set-dropdown"
                       value={data.gender}
-                      onChange={(e) => handleFieldChange('gender', e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("gender", e.target.value)
+                      }
                     >
                       <option value="">Select Gender</option>
                       <option value="Male">Male</option>
@@ -497,8 +643,9 @@ function EditPersonalDetails() {
                       placeholder="Enter Religion"
                       id=""
                       value={data.religion}
-                      onChange={(e) => handleFieldChange('religion', e.target.value)}
-
+                      onChange={(e) =>
+                        handleFieldChange("religion", e.target.value)
+                      }
                     ></input>
                   </div>
                 </div>
@@ -516,9 +663,10 @@ function EditPersonalDetails() {
                       name="cast_category_name"
                       placeholder="Enter Category"
                       id=""
-
                       value={data.cast_category_name}
-                      onChange={(e) => handleFieldChange('cast_category_name', e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("cast_category_name", e.target.value)
+                      }
                     ></input>
                   </div>
                 </div>
@@ -533,9 +681,10 @@ function EditPersonalDetails() {
                       name="marital_status"
                       id=""
                       value={data.marital_status}
-                      onChange={(e) => handleFieldChange('marital_status', e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("marital_status", e.target.value)
+                      }
                       className="UD-set-dropdown"
-
                     >
                       <option value="">Select marital status</option>
                       <option value="single">Single</option>
@@ -564,7 +713,9 @@ function EditPersonalDetails() {
                       placeholder="Enter Address"
                       id=""
                       value={data.address_1}
-                      onChange={(e) => handleFieldChange('address_1', e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("address_1", e.target.value)
+                      }
                       required
                     ></input>
                   </div>
@@ -584,7 +735,9 @@ function EditPersonalDetails() {
                       placeholder="(123) 456 - 7890"
                       id=""
                       value={data.contact_2}
-                      onChange={(e) => handleFieldChange('contact_2', e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("contact_2", e.target.value)
+                      }
                       required
                     ></input>
                     <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
@@ -655,7 +808,9 @@ function EditPersonalDetails() {
                       placeholder="Enter Pin Code "
                       id=""
                       value={data.pin_code}
-                      onChange={(e) => handleFieldChange('pin_code', e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("pin_code", e.target.value)
+                      }
                       required
                     ></input>
                   </div>
@@ -663,7 +818,11 @@ function EditPersonalDetails() {
               </div>
 
               <div>
-                <button className="savebtn" type="button" onClick={handleSaveChanges}>
+                <button
+                  className="savebtn"
+                  type="button"
+                  onClick={handleSaveChanges}
+                >
                   Save Changes
                 </button>
               </div>

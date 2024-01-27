@@ -378,93 +378,91 @@ function ApplyNow() {
     const dobYear = dob ? new Date(dob).getFullYear() : null;
     switch (activeStep) {
       case 0:
-        // if (!email) {
-        //   errors.email = "! Email is required.";
-        // } else if (!/\S+@\S+\.\S+/.test(email)) {
-        //   errors.email = "! Please enter a valid email address.";
-        // }
-        // if (!contact_1) {
-        //   errors.contact_1 = "! Contact number is Required.";
-        // } else if (contact_1.length !== 10) {
-        //   errors.contact_1 = "! Please enter a valid 10-digit contact number.";
-        // }
-        // if (contact_2 && contact_2.length !== 10) {
-        //   errors.contact_2 = "! Please enter a valid 10-digit contact number.";
-        // } else if (contact_1 && contact_2 && contact_1 === contact_2) {
-        //   errors.contact_2 = "! Alternate numbers should be different.";
-        // }
-        // if (!title_first_name) {
-        //   errors.title_first_name = "! Title is Required.";
-        // }
-        // if (!first_name) {
-        //   errors.first_name = "! First Name is Required.";
-        // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
-        //   errors.first_name = "! Please enter a valid name.";
-        // }
-        // if (!last_name) {
-        //   errors.last_name = "! Last Name is Required.";
-        // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
-        //   errors.last_name = "! Please enter a valid name.";
-        // }
-        // if (!dob) {
-        //   errors.dob = "! Date Of Birt is Required";
-        // } else if (
-        //   !dob ||
-        //   dobYear < currentYear - 100 ||
-        //   dobYear > currentYear ||
-        //   new Date(dob) > new Date()
-        // ) {
-        //   errors.dob = "! Please enter a valid date of Birth.";
-        // }
-        // if (!gender) {
-        //   errors.gender = "! Gender is Required.";
-        // }
-        // if (!religion) {
-        //   errors.religion = "! Relegion is Required";
-        // }
-        // if (!city) {
-        //   errors.city = "! City is Required";
-        // }
-        // if (!cast_category_name) {
-        //   errors.cast_category_name = "! Cast Category is Required";
-        // }
-        // if (!marital_status) {
-        //   errors.marital_status = "! Marital Status is Required";
-        // }
-        // if (!address_1) {
-        //   errors.address_1 = "! Address is Required";
-        // }
+        if (!email) {
+          errors.email = "! Email is required.";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+          errors.email = "! Please enter a valid email address.";
+        }
+        if (!contact_1) {
+          errors.contact_1 = "! Contact number is Required.";
+        } else if (contact_1.length !== 10) {
+          errors.contact_1 = "! Please enter a valid 10-digit contact number.";
+        }
+        if (contact_2 && contact_2.length !== 10) {
+          errors.contact_2 = "! Please enter a valid 10-digit contact number.";
+        } else if (contact_1 && contact_2 && contact_1 === contact_2) {
+          errors.contact_2 = "! Alternate numbers should be different.";
+        }
+        if (!title_first_name) {
+          errors.title_first_name = "! Title is Required.";
+        }
+        if (!first_name) {
+          errors.first_name = "! First Name is Required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+          errors.first_name = "! Please enter a valid name.";
+        }
+        if (!last_name) {
+          errors.last_name = "! Last Name is Required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
+          errors.last_name = "! Please enter a valid name.";
+        }
+        if (!dob) {
+          errors.dob = "! Date Of Birt is Required";
+        } else if (
+          !dob ||
+          dobYear < currentYear - 100 ||
+          dobYear > currentYear ||
+          new Date(dob) > new Date()
+        ) {
+          errors.dob = "! Please enter a valid date of Birth.";
+        }
+        if (!gender) {
+          errors.gender = "! Gender is Required.";
+        }
+        if (!religion) {
+          errors.religion = "! Relegion is Required";
+        }
+        if (!city) {
+          errors.city = "! City is Required";
+        }
+        if (!cast_category_name) {
+          errors.cast_category_name = "! Cast Category is Required";
+        }
+        if (!marital_status) {
+          errors.marital_status = "! Marital Status is Required";
+        }
+        if (!address_1) {
+          errors.address_1 = "! Address is Required";
+        }
 
-        // if (!country) {
-        //   errors.country = "! Country is Required";
-        // }
-        // if (!state_province) {
-        //   errors.state_province = "! State is Required";
-        // }
-        // if (!applied_post_masters_id) {
-        //   errors.applied_post_masters_id = "! Post Applied is Required";
-        // }
-        // if (!nature_of_job) {
-        //   errors.nature_of_job = "! Nature of Job is Required";
-        // }
-        // if (!department_master_id) {
-        //   errors.department_master_id = "! Department is Required";
-        // }
-        // if (!pin_code) {
-        //   errors.pin_code = "Pin Code is Required";
-        // } else if (!/^\d+$/.test(pin_code)) {
-        //   errors.pin_code = "Please enter a Pin Code with only numeric digits.";
-        // } else if (pin_code.length !== 6) {
-        //   errors.pin_code = "Pin Code must be exactly 6 digits.";
-        // } else {
-        //   // Additional checks for a valid pin code can be added here
-        //   // For example, you might want to check if the pin code corresponds to a valid geographical location
-        // }
-        // if (!specialization) {
-        //   errors.specialization = "Specialization is Required";
-        // } else if (/^\d+$/.test(Specialization)) {
-        //   errors.specialization = "Specialization should not contain numbers";
-        // }
+        if (!country) {
+          errors.country = "! Country is Required";
+        }
+        if (!state_province) {
+          errors.state_province = "! State is Required";
+        }
+        if (!applied_post_masters_id) {
+          errors.applied_post_masters_id = "! Post Applied is Required";
+        }
+        if (!nature_of_job) {
+          errors.nature_of_job = "! Nature of Job is Required";
+        }
+        if (!department_master_id) {
+          errors.department_master_id = "! Department is Required";
+        }
+        if (!pin_code) {
+          errors.pin_code = "Pin Code is Required";
+        } else if (!/^\d+$/.test(pin_code)) {
+          errors.pin_code = "Please enter a Pin Code with only numeric digits.";
+        } else if (pin_code.length !== 6) {
+          errors.pin_code = "Pin Code must be exactly 6 digits.";
+        } else {
+        }
+        if (!specialization) {
+          errors.specialization = "Specialization is Required";
+        } else if (/^\d+$/.test(specialization)) {
+          errors.specialization = "Specialization should not contain numbers";
+        }
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;
@@ -737,9 +735,9 @@ function ApplyNow() {
         }
       case 5:
         // validation for activeStep5
-        if (!formValues.UserDetails.hearing_source_about_us) {
-          errors.hearing_source_about_us = "! This field is Required";
-        }
+        // if (!formValues.UserDetails.hearing_source_about_us) {
+        //   errors.hearing_source_about_us = "! This field is Required";
+        // }
 
         if (!formValues.UserDetails.candidate_cv) {
           errors.candidate_cv = "! Candidate CV is Required";
