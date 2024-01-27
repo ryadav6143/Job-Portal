@@ -104,12 +104,6 @@ function EditPersonalDetails() {
   };
 
   const handleSaveChanges = async () => {
-    const isValid = saveValidations();
-    // Check if validation passed
-    if (!isValid) {
-      // Validation failed, handle accordingly (maybe display an error message)
-    }
-
     try {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
@@ -251,10 +245,17 @@ function EditPersonalDetails() {
     const dobYear = dob ? new Date(dob).getFullYear() : null;
     let errors = {};
 
+    // if (!first_name) {
+    //   errors.first_name = "! First Name is Required.";
+    // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+    //   errors.first_name = "! Please enter a valid name.";
+    // }
     if (!first_name) {
-      errors.first_name = "! First Name is Required.";
+      setErrors({ ...errors, first_name: "First Name is required." });
     } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
-      errors.first_name = "! Please enter a valid name.";
+      setErrors({ ...errors, first_name: "Please enter a valid name." });
+    } else {
+      setErrors({ ...errors, first_name: "" });
     }
 
     if (!last_name) {
@@ -272,31 +273,31 @@ function EditPersonalDetails() {
     // ) {
     //   errors.dob = "! Please enter a valid date of Birth.";
     // }
-    if (!gender) {
-      errors.gender = "! Gender is Required.";
-    }
-    if (!religion) {
-      errors.religion = "! Relegion is Required";
-    }
-    if (!city) {
-      errors.city = "! City is Required";
-    }
-    if (!cast_category_name) {
-      errors.cast_category_name = "! Cast Category is Required";
-    }
-    if (!marital_status) {
-      errors.marital_status = "! Marital Status is Required";
-    }
-    if (!address_1) {
-      errors.address_1 = "! Address is Required";
-    }
+    // if (!gender) {
+    //   errors.gender = "! Gender is Required.";
+    // }
+    // if (!religion) {
+    //   errors.religion = "! Relegion is Required";
+    // }
+    // if (!city) {
+    //   errors.city = "! City is Required";
+    // }
+    // if (!cast_category_name) {
+    //   errors.cast_category_name = "! Cast Category is Required";
+    // }
+    // if (!marital_status) {
+    //   errors.marital_status = "! Marital Status is Required";
+    // }
+    // if (!address_1) {
+    //   errors.address_1 = "! Address is Required";
+    // }
 
-    if (!country) {
-      errors.country = "! Country is Required";
-    }
-    if (!state_province) {
-      errors.state_province = "! State is Required";
-    }
+    // if (!country) {
+    //   errors.country = "! Country is Required";
+    // }
+    // if (!state_province) {
+    //   errors.state_province = "! State is Required";
+    // }
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
       return false;
