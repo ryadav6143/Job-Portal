@@ -9,7 +9,6 @@ import {
   faSearch,
   faUsers,
   faFile,
-  
 } from "@fortawesome/free-solid-svg-icons";
 import EditPersonalDetails from "../CandidateChildPages/EditPersonalDetails/EditPersonalDetails";
 import EditQualificationForm from "../CandidateChildPages/EditQualificationForm/EditQualificationForm";
@@ -24,8 +23,6 @@ function CandidateSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
-
 
   const handleImageChange = (imageURL) => {
     setSelectedImage(imageURL);
@@ -109,9 +106,6 @@ function CandidateSidebar() {
                     />
                     <a onClick={() => setScreen(0)}>&nbsp; Personal Details</a>
                   </li>
-
-
-              
 
                   <li>
                     <FontAwesomeIcon
