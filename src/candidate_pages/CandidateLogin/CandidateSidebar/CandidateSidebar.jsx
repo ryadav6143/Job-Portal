@@ -23,7 +23,13 @@ function CandidateSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   
-
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const handleImageUpload = (event) => {
+    // Handle image upload logic here
+    const uploadedFile = event.target.files[0];
+    // Perform necessary validations and set the uploaded image
+    setUploadedImage(URL.createObjectURL(uploadedFile));
+  };
 
 
   useEffect(() => {

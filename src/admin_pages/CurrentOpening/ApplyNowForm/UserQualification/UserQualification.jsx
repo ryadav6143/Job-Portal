@@ -4,6 +4,7 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import "./UserQualification.css";
 import apiService from "../../../../Services/ApiServices";
 function UserQualification({ formValues, setFormValues, errors, setErrors }) {
+
   // const [formValues, setFormValues] = useState({
   //   educations: [
   //     {
@@ -139,6 +140,8 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
       [field]: value ? "" : "This field is required",
     }));
   };
+
+  
   const handleHigherSecondaryChange = (field, value) => {
      
     setErrors({

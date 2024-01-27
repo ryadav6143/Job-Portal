@@ -3,7 +3,7 @@ import "./EditExperience.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import plusicon from "../../../../assets/logos/plus.png"
-import minusicon from "../../../../assets/logos/minus.png"
+// import minusicon from "../../../../assets/logos/minus.png"
 import candidatesApiService from '../../../candidateService';
 function EditExperience() {
   const [educations, setEducations] = useState({

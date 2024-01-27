@@ -12,12 +12,10 @@ import Technical from "./admin_pages/JobProfile/Technical/Technical";
 import ApplyNow from "./admin_pages/CurrentOpening/ApplyNowForm/ApplyNow";
 import PersonalDetails from "./admin_pages/DropCV/PersonalDetails/PersonalDeatils";
 import Adminpanel from "./admin_pages/AdminLogin/Adminpanel";
-
 import Qualification from "./admin_pages/DropCV/Qualification/Qualification";
 import CurrentExperience from "./admin_pages/DropCV/CurrentExperience/CurrentExperience";
 import UserDetails from "./admin_pages/CurrentOpening/ApplyNowForm/UserDetails/UserDetails";
 import ContactUs from "./admin_pages/Contactus/ContactUs";
-
 import Submitsuccess from "./admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 import OTPVerification from "./admin_pages/DropCV/OTPVerifivation/OTPVerification";
 import TestPages from "./admin_pages/TestPages/TestPages";
@@ -57,11 +55,8 @@ function App() {
           <Route path="apply-now" element={<ApplyNow />}></Route>
           <Route path="PersonalDeatils" element={<PersonalDetails />}></Route>
           <Route path="adminpanel" element={<Adminpanel />}></Route>
-          {/* ----------------UserDashboard Routing source ---------------     */}
 
           <Route path="user-login" element={<CandidatePanel />}></Route>
-
-          {/* ------------------ end UserDashboard Routing source--------------- */}
 
           <Route path="adminpanel" element={<Adminpanel />}></Route>
           <Route path="contact-us" element={<ContactUs />}></Route>

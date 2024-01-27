@@ -459,12 +459,10 @@ function ApplyNow() {
         // } else if (pin_code.length !== 6) {
         //   errors.pin_code = "Pin Code must be exactly 6 digits.";
         // } else {
-        //   // Additional checks for a valid pin code can be added here
-        //   // For example, you might want to check if the pin code corresponds to a valid geographical location
         // }
         // if (!specialization) {
         //   errors.specialization = "Specialization is Required";
-        // } else if (/^\d+$/.test(Specialization)) {
+        // } else if (/^\d+$/.test(specialization)) {
         //   errors.specialization = "Specialization should not contain numbers";
         // }
         if (Object.keys(errors).length > 0) {
@@ -476,115 +474,115 @@ function ApplyNow() {
         }
 
       case 1:
-        // if (
-        //   !formValues.UserDetails.educations[0].country ||
-        //   !formValues.UserDetails.educations[1].country
-        // ) {
-        //   errors.country = "! Country is Required";
-        // }
-        // // Validation for first education entry
-        // if (!formValues.UserDetails.educations[0].year_start) {
-        //   errors.year_start = "! Year of Joining is Required";
-        // } else {
-        //   const enteredStartYear = parseInt(
-        //     formValues.UserDetails.educations[0].year_start,
-        //     10
-        //   );
+        if (
+          !formValues.UserDetails.educations[0].country ||
+          !formValues.UserDetails.educations[1].country
+        ) {
+          errors.country = "! Country is Required";
+        }
+        // Validation for first education entry
+        if (!formValues.UserDetails.educations[0].year_start) {
+          errors.year_start = "! Year of Joining is Required";
+        } else {
+          const enteredStartYear = parseInt(
+            formValues.UserDetails.educations[0].year_start,
+            10
+          );
 
-        //   if (
-        //     isNaN(enteredStartYear) ||
-        //     enteredStartYear > currentYear ||
-        //     enteredStartYear < currentYear - 100
-        //   ) {
-        //     errors.year_start =
-        //       "! Please enter a valid year within the last 100 years.";
-        //   }
-        // }
+          if (
+            isNaN(enteredStartYear) ||
+            enteredStartYear > currentYear ||
+            enteredStartYear < currentYear - 100
+          ) {
+            errors.year_start =
+              "! Please enter a valid year within the last 100 years.";
+          }
+        }
 
-        // if (!formValues.UserDetails.educations[0].year_end) {
-        //   errors.year_end = "! Passing Year is Required";
-        // } else {
-        //   const enteredEndYear = parseInt(
-        //     formValues.UserDetails.educations[0].year_end,
-        //     10
-        //   );
+        if (!formValues.UserDetails.educations[0].year_end) {
+          errors.year_end = "! Passing Year is Required";
+        } else {
+          const enteredEndYear = parseInt(
+            formValues.UserDetails.educations[0].year_end,
+            10
+          );
 
-        //   if (
-        //     isNaN(enteredEndYear) ||
-        //     enteredEndYear > currentYear ||
-        //     enteredEndYear < currentYear - 100
-        //   ) {
-        //     errors.year_end =
-        //       "! Please enter a valid passing year within the last 100 years.";
-        //   }
-        // }
+          if (
+            isNaN(enteredEndYear) ||
+            enteredEndYear > currentYear ||
+            enteredEndYear < currentYear - 100
+          ) {
+            errors.year_end =
+              "! Please enter a valid passing year within the last 100 years.";
+          }
+        }
 
-        // if (!formValues.UserDetails.educations[1].year_start) {
-        //   errors.year_start_2 = "! Year of Joining is Required";
-        // } else {
-        //   const enteredStartYear_2 = parseInt(
-        //     formValues.UserDetails.educations[1].year_start,
-        //     10
-        //   );
+        if (!formValues.UserDetails.educations[1].year_start) {
+          errors.year_start_2 = "! Year of Joining is Required";
+        } else {
+          const enteredStartYear_2 = parseInt(
+            formValues.UserDetails.educations[1].year_start,
+            10
+          );
 
-        //   if (
-        //     isNaN(enteredStartYear_2) ||
-        //     enteredStartYear_2 > currentYear ||
-        //     enteredStartYear_2 < currentYear - 100
-        //   ) {
-        //     errors.year_start_2 =
-        //       "! Please enter a valid year within the last hundred years.";
-        //   }
-        // }
+          if (
+            isNaN(enteredStartYear_2) ||
+            enteredStartYear_2 > currentYear ||
+            enteredStartYear_2 < currentYear - 100
+          ) {
+            errors.year_start_2 =
+              "! Please enter a valid year within the last hundred years.";
+          }
+        }
 
-        // if (!formValues.UserDetails.educations[1].year_end) {
-        //   errors.year_end_2 = "! Passing Year is Required";
-        // } else {
-        //   const enteredEndYear_2 = parseInt(
-        //     formValues.UserDetails.educations[1].year_end,
-        //     10
-        //   );
+        if (!formValues.UserDetails.educations[1].year_end) {
+          errors.year_end_2 = "! Passing Year is Required";
+        } else {
+          const enteredEndYear_2 = parseInt(
+            formValues.UserDetails.educations[1].year_end,
+            10
+          );
 
-        //   if (
-        //     isNaN(enteredEndYear_2) ||
-        //     enteredEndYear_2 > currentYear ||
-        //     enteredEndYear_2 < currentYear - 100
-        //   ) {
-        //     errors.year_end_2 =
-        //       "! Please enter a valid passing year within the last 100 years.";
-        //   }
-        // }
+          if (
+            isNaN(enteredEndYear_2) ||
+            enteredEndYear_2 > currentYear ||
+            enteredEndYear_2 < currentYear - 100
+          ) {
+            errors.year_end_2 =
+              "! Please enter a valid passing year within the last 100 years.";
+          }
+        }
 
-        // // // -------------------------------------------------------------------------------------------
+        // // -------------------------------------------------------------------------------------------
 
-        // if (
-        //   !formValues.UserDetails.educations[0].institute_name ||
-        //   !formValues.UserDetails.educations[1].institute_name
-        // ) {
-        //   errors.institute_name = "! School Name is Required";
-        // }
-        // if (
-        //   !formValues.UserDetails.educations[0].board_university_name ||
-        //   !formValues.UserDetails.educations[0].board_university_name
-        // ) {
-        //   errors.board_university_name = "! Board is Required";
-        // }
+        if (
+          !formValues.UserDetails.educations[0].institute_name ||
+          !formValues.UserDetails.educations[1].institute_name
+        ) {
+          errors.institute_name = "! School Name is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].board_university_name ||
+          !formValues.UserDetails.educations[0].board_university_name
+        ) {
+          errors.board_university_name = "! Board is Required";
+        }
 
-        // if (
-        //   !formValues.UserDetails.educations[0].grade_division ||
-        //   !formValues.UserDetails.educations[0].grade_division
-        // ) {
-        //   errors.grade_division = "! Division is Required";
-        // }
-        // if (
-        //   !formValues.UserDetails.educations[0].grade_percent ||
-        //   !formValues.UserDetails.educations[1].grade_percent
-        // ) {
-        //   errors.grade_percent = "! Percentage is Required";
-        // }
-        // if (!formValues.UserDetails.educations[1].stream) {
-        //   errors.stream = "! Stream is Required";
-        // }
+        if (
+          !formValues.UserDetails.educations[0].grade_division ||
+          !formValues.UserDetails.educations[0].grade_division
+        ) {
+          errors.grade_division = "! Division is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].grade_percent ||
+          !formValues.UserDetails.educations[1].grade_percent
+        ) {
+          errors.grade_percent = "! Percentage is Required";
+        }
+        if (!formValues.UserDetails.educations[1].stream) {
+          errors.stream = "! Stream is Required";
+        }
 
         if (Object.keys(errors).length > 0) {
           setErrors(errors);

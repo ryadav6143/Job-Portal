@@ -20,7 +20,7 @@ function Home() {
   const [isMobileView, setIsMobileView] = useState(false);
   // ..............................................
   const elementRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
   // ..............................................
 
   useEffect(() => {

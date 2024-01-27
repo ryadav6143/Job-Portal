@@ -15,9 +15,11 @@ function EditPersonalDetails() {
   // ---------profile image source---------
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
+  const [errors, setErrors] = useState({});
 
   const [data, setData] = useState({});
   const [updateField, setUpdateField] = useState({});
+  
 
   // console.log("data", data);
   const fetchData = async () => {
@@ -80,8 +82,6 @@ function EditPersonalDetails() {
   //   }
   // };
 
-  
-
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -105,6 +105,12 @@ function EditPersonalDetails() {
   };
 
   const handleSaveChanges = async () => {
+    const isValid = saveValidations();
+    // Check if validation passed
+    if (!isValid) {
+      // Validation failed, handle accordingly (maybe display an error message)
+    }
+
     try {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
@@ -130,6 +136,27 @@ function EditPersonalDetails() {
     console.log("handlefild", fieldName, value, updateField);
     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
+    setErrors({
+      ...errors,
+      email: "",
+      contact_1: "",
+      specialization: "",
+      title_first_name: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      dob: "",
+      gender: "",
+      religion: "",
+      cast_category_name: "",
+      marital_status: "",
+      address_1: "",
+      contact_2: "",
+      country: "",
+      state_province: "",
+      city: "",
+      pin_code: "",
+    });
   };
 
   const formatDateForInput = (dateString) => {
@@ -176,6 +203,109 @@ function EditPersonalDetails() {
 
     fetchImage();
   }, []);
+  const [formValues, setFormValues] = useState({
+    editDetails: {
+      email: "",
+      contact_1: "",
+      specialization: "",
+      title_first_name: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      dob: "",
+      gender: "",
+      religion: "",
+      cast_category_name: "",
+      marital_status: "",
+      address_1: "",
+      contact_2: "",
+      country: "",
+      state_province: "",
+      city: "",
+      pin_code: "",
+    },
+  });
+
+  const saveValidations = () => {
+    const {
+      email,
+      contact_1,
+      specialization,
+      title_first_name,
+      first_name,
+      middle_name,
+      last_name,
+      dob,
+      gender,
+      religion,
+      cast_category_name,
+      marital_status,
+      address_1,
+      contact_2,
+      country,
+      state_province,
+      city,
+      pin_code,
+    } = formValues.editDetails;
+
+    const currentYear = new Date().getFullYear();
+    const dobYear = dob ? new Date(dob).getFullYear() : null;
+    let errors = {};
+
+    if (!first_name) {
+      errors.first_name = "! First Name is Required.";
+    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+      errors.first_name = "! Please enter a valid name.";
+    }
+
+    if (!last_name) {
+      errors.last_name = "! Last Name is Required.";
+    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
+      errors.last_name = "! Please enter a valid name.";
+    }
+    // if (!dob) {
+    //   errors.dob = "! Date Of Birt is Required";
+    // } else if (
+    //   !dob ||
+    //   dobYear < currentYear - 100 ||
+    //   dobYear > currentYear ||
+    //   new Date(dob) > new Date()
+    // ) {
+    //   errors.dob = "! Please enter a valid date of Birth.";
+    // }
+    if (!gender) {
+      errors.gender = "! Gender is Required.";
+    }
+    if (!religion) {
+      errors.religion = "! Relegion is Required";
+    }
+    if (!city) {
+      errors.city = "! City is Required";
+    }
+    if (!cast_category_name) {
+      errors.cast_category_name = "! Cast Category is Required";
+    }
+    if (!marital_status) {
+      errors.marital_status = "! Marital Status is Required";
+    }
+    if (!address_1) {
+      errors.address_1 = "! Address is Required";
+    }
+
+    if (!country) {
+      errors.country = "! Country is Required";
+    }
+    if (!state_province) {
+      errors.state_province = "! State is Required";
+    }
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return false;
+    } else {
+      setErrors({});
+      return true;
+    }
+  };
 
   return (
     <>
@@ -407,6 +537,7 @@ function EditPersonalDetails() {
                     ></input>
                     <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                   </div>
+                  <span className="error-message">{errors.first_name}</span>
                 </div>
                 <div className="col-md-4">
                   {/* Middle Name  */}
@@ -468,8 +599,10 @@ function EditPersonalDetails() {
                       id=""
                       value={formatDateForInput(data.dob)}
                       onChange={(e) => handleFieldChange("dob", e.target.value)}
+                      readOnly
                     />
                   </div>
+                  <span className="error-message">{errors.dob}</span>
                 </div>
 
                 <div className="col-md-4">
