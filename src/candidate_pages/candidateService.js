@@ -103,7 +103,45 @@ const candidatesApiService = {
           throw error;
         }
       },
+      updateCandidateEducation: async (accessToken, updateField) => {
+        try {
+          const response = await axios.put(
+            `${BASE_URL}/candidatEducation/updateCandidateEducation`,
+            updateField,
+            {
+              headers: {
+                'access-token': accessToken,
+              },
+            }
+          );
+    
+          console.log('Save Changes Response:', response);
+          return response.data; // Assuming your API returns some data upon successful update
+        } catch (error) {
+          console.error('Error saving changes:', error.message);
+          throw error;
+        }
+      },
 
+      updateCandidateExperience: async (accessToken, updateField) => {
+        try {
+          const response = await axios.put(
+            `${BASE_URL}/candidatExperience/updateCandidateExperience`,
+            updateField,
+            {
+              headers: {
+                'access-token': accessToken,
+              },
+            }
+          );    
+          console.log('Save Changes Response:', response);
+          return response.data; // Assuming your API returns some data upon successful update
+        } catch (error) {
+          console.error('Error saving changes:', error.message);
+          throw error;
+        }
+      },
+      
     };
 
 

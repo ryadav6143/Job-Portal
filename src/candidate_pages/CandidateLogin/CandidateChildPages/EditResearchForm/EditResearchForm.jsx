@@ -15,9 +15,10 @@ function EditResearchForm() {
   const [data, setData] = useState([{}]);
  
 
-  const handleAddResearches = () => {
-    setResearches([...researches, {}]);
-  };
+const handleAddResearches = () => {
+  setResearches((prevResearches) => [...prevResearches, {}]);
+};
+
 
   const handleAddPublication = () => {
     setjournal_publications([...journal_publications, {}]);
@@ -500,7 +501,7 @@ function EditResearchForm() {
                 name="patent_applicationid"
                 id=""
                 value={patents.patent_applicationid || ''}
-                onChange={(e) => handleAddPatents(index, 'patent_applicationid', e.target.value)}
+                onChange={(e) => handlePatentsChange(index, 'patent_applicationid', e.target.value)}
               ></input>
             </div>
           </div>
@@ -518,7 +519,7 @@ function EditResearchForm() {
                 name="patent_application_title"
                 id=""
                 value={patents.patent_application_title || ''}
-                onChange={(e) => handleAddPatents(index, 'patent_application_title', e.target.value)}
+                onChange={(e) => handlePatentsChange(index, 'patent_application_title', e.target.value)}
               ></input>
             </div>
           </div>
@@ -538,7 +539,7 @@ function EditResearchForm() {
                 name="patent_application_year"
                 id=""
                 value={patents.patent_application_year || ''}
-                onChange={(e) => handleAddPatents(index, 'patent_application_year', e.target.value)}
+                onChange={(e) => handlePatentsChange(index, 'patent_application_year', e.target.value)}
               ></input>
             </div>
           </div>
@@ -558,7 +559,7 @@ function EditResearchForm() {
                 name="patent_granted_by"
                 id=""
                 value={patents.patent_granted_by || ''}
-                onChange={(e) => handleAddPatents(index, 'patent_granted_by', e.target.value)}
+                onChange={(e) => handlePatentsChange(index, 'patent_granted_by', e.target.value)}
               ></input>
             </div>
           </div>
@@ -576,7 +577,7 @@ function EditResearchForm() {
                 name="patent_incountry"
                 id=""
                 value={patents.patent_incountry || ''}
-                onChange={(e) => handleAddPatents(index, 'patent_incountry', e.target.value)}
+                onChange={(e) => handlePatentsChange(index, 'patent_incountry', e.target.value)}
               ></input>
             </div>
           </div>
@@ -606,7 +607,7 @@ function EditResearchForm() {
                 name="copyright_applicationid"
                 id=""
                 value={copyrights.copyright_applicationid || ''}
-                onChange={(e) => handleAddCopyrights(index, 'copyright_applicationid', e.target.value)}
+                onChange={(e) => handleCopyrightsChange(index, 'copyright_applicationid', e.target.value)}
               ></input>
             </div>
           </div>
@@ -624,7 +625,7 @@ function EditResearchForm() {
                 name="copyright_title"
                 id=""
                 value={copyrights.copyright_title || ''}
-                onChange={(e) => handleAddCopyrights(index, 'copyright_title', e.target.value)}
+                onChange={(e) => handleCopyrightsChange(index, 'copyright_title', e.target.value)}
               ></input>
             </div>
           </div>
@@ -644,7 +645,7 @@ function EditResearchForm() {
                 name="copyright_year"
                 id=""
                 value={copyrights.copyright_year || ''}
-                onChange={(e) => handleAddCopyrights(index, 'copyright_year', e.target.value)}
+                onChange={(e) => handleCopyrightsChange(index, 'copyright_year', e.target.value)}
               ></input>
             </div>
           </div>
@@ -664,7 +665,7 @@ function EditResearchForm() {
                 name="copyright_granted_by"
                 id=""
                 value={copyrights.copyright_granted_by || ''}
-                onChange={(e) => handleAddCopyrights(index, 'copyright_granted_by', e.target.value)}
+                onChange={(e) => handleCopyrightsChange(index, 'copyright_granted_by', e.target.value)}
               ></input>
             </div>
           </div>
@@ -682,7 +683,7 @@ function EditResearchForm() {
                 name="copyright_incountry"
                 id=""
                 value={copyrights.copyright_incountry || ''}
-                onChange={(e) => handleAddCopyrights(index, 'copyright_incountry', e.target.value)}
+                onChange={(e) => handleCopyrightsChange(index, 'copyright_incountry', e.target.value)}
               ></input>
             </div>
           </div>

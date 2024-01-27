@@ -16,8 +16,9 @@ function EditExperience() {
     benefits_food: "",
     benefits_mediclaim: "",
   });
+  const [updateField, setUpdateField] = useState({})
+  const [updateNewField, setUpdateNewField] = useState({})
 
-  useEffect(() => {
     const fetchData = async () => {
       try {
         let accessToken = localStorage.getItem('Token');
@@ -38,26 +39,81 @@ function EditExperience() {
       }
     };
 
+
+
+  useEffect(() => {
+    console.log("use-state")
     fetchData();
   }, []);
 
-  const handleAddEducation = () => {
+
+  const handleAddEducation = (e) => {
+    e.preventDefault();
     setEducations((prevEducations) => ({
       ...prevEducations,
       candidate_experiences: [...prevEducations.candidate_experiences, {}],
     }));
   };
 
-  const handleExperienceChange = (index, field, value) => {
+  const handleExperienceArrayChange = (index, field, value) => {
     const updatedExperiences = [...educations.candidate_experiences];
+    const experienceId = updatedExperiences[index].id;
     updatedExperiences[index][field] = value;
     setEducations({
       ...educations,
       candidate_experiences: updatedExperiences,
     });
+    console.log("handlefild", field, value, updateField)
+    console.log("experiece id",  experienceId)
+    setUpdateField(prev => ({ ...prev, [field]: value.toString(),id: experienceId,}))
+    setEducations(prev => ({ ...prev, [field]: value.toString()}))
   };
 
+
+//   const handleExperienceChange = (index, field, value) => {
+//     const updatedExperiences = [...educations.total_academic_exp];
+//     // const experienceId = updatedExperiences[index].id;
+//     updatedExperiences[index][field] = value;
+//     setEducations({
+//         ...educations,
+        
+//     });
+//     console.log("handlefild", field, value, updateNewField)
+//     // console.log("experiece id",  experienceId)
+//     setUpdateNewField(prev => ({ ...prev, [field]: value.toString() }))
+//     setEducations(prev => ({ ...prev, [field]: value.toString() }))
+// };
+
+const handleExperienceChange = (fieldName, value) => {
+  console.log("handlefild", fieldName, value, updateNewField)
+  setUpdateNewField(prev => ({ ...prev, [fieldName]: value.toString()}))
+  setEducations(prev => ({ ...prev, [fieldName]: value.toString()}))
+};
+
+  const handleSaveChanges = async () => {
+    try {
+      let accessToken = localStorage.getItem('Token');
+      accessToken = JSON.parse(accessToken);
+      console.log(updateField);
+
+      await candidatesApiService.updateCandidateExperience(accessToken.token, 
+       { experiences:[updateField]}
+        );
+        await candidatesApiService.updateCandidatePersonalInfo(
+          accessToken.token,
+          updateNewField
+        );
+      setUpdateField({});
+      setUpdateNewField({});
+      fetchData();
+    } catch (error) {
+      console.error('Error saving changes:', error.message);
+    }
+  };
+
+  
   const formatDateFrom = (dateString) => {
+    console.log("dateString",dateString);
     const dateObject = new Date(dateString);
     if (isNaN(dateObject.getTime())) {
       return ''; // Handle invalid dates
@@ -67,17 +123,15 @@ function EditExperience() {
     const day = dateObject.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
-  const formatDateToDisplay = (dateString) => {
-    if (!dateString) {
-      return ''; // Handle empty dates
-    }
-      const [day, month, year] = dateString.split('/');
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate;
-  };
+ 
+ 
+  
+  
+  
+  
   return (
     <>
-      <form id='myForm'>
+      <form id='myForm' onSubmit={handleSaveChanges}>
         <div className="container" style={{ marginTop: "90px", paddingLeft: "50px" }}>
           <div>
             <div>
@@ -110,7 +164,7 @@ function EditExperience() {
                         name="company_experience_name"
                         id=""
                         value={experience.company_experience_name}
-                        onChange={(e) => handleExperienceChange(index, "company_experience_name", e.target.value)}
+                        onChange={(e) => handleExperienceArrayChange(index, "company_experience_name", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -128,7 +182,7 @@ function EditExperience() {
                         name="designation"
                         id=""
                         value={experience.designation}
-                        onChange={(e) => handleExperienceChange(index, "designation", e.target.value)}
+                        onChange={(e) => handleExperienceArrayChange(index, "designation", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -147,7 +201,7 @@ function EditExperience() {
                         name="gross_pay"
                         id=""
                         value={experience.gross_pay}
-                        onChange={(e) => handleExperienceChange(index, "gross_pay", e.target.value)}
+                        onChange={(e) => handleExperienceArrayChange(index, "gross_pay", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -167,7 +221,7 @@ function EditExperience() {
                         name="exp_work_from"
                         id=""
                         value={formatDateFrom(experience.exp_work_from)}
-                        onChange={(e) => handleExperienceChange(index, "exp_work_from", e.target.value)}
+                        onChange={(e) => handleExperienceArrayChange(index, "exp_work_from", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -184,8 +238,8 @@ function EditExperience() {
                         placeholder="dd/mm/yyyy"
                         name="exp_work_to"
                         id=""
-                        value={formatDateToDisplay(experience.exp_work_to)}
-                        onChange={(e) => handleExperienceChange(index, "exp_work_to", e.target.value)}
+                        value={formatDateFrom(experience.exp_work_to)}
+                        onChange={(e) => handleExperienceArrayChange(index, "exp_work_to", e.target.value)}
                       ></input>
                     </div>
                   </div>
@@ -338,7 +392,7 @@ function EditExperience() {
             </div>
 
             <div>
-              <button className="savebtn" type="button">Save Changes</button>
+              <button className="savebtn" type="button" onClick={handleSaveChanges}>Save Changes</button>
             </div>
           </div>
         </div>

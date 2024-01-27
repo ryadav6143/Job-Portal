@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
-import axios from "axios";
+// import axios from "axios";
 function EditPersonalDetails() {
   // ---------profile image source---------
   const [selectedImage, setSelectedImage] = useState(null);
