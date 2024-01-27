@@ -697,6 +697,7 @@ function EditPersonalDetails() {
             </div>
           </div>
         </div>
+        
       </form>
     </>
   );

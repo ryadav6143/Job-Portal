@@ -22,12 +22,9 @@ function CandidateSidebar() {
   const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  
 
-  const handleImageChange = (imageURL) => {
-    setSelectedImage(imageURL);
-    // Perform other actions as needed
-  };
+
 
   useEffect(() => {
     // Update isOpen state only if the window width is less than 768
