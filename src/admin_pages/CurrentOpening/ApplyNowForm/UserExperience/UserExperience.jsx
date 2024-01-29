@@ -266,7 +266,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                 {/* benefits_accommodation */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>accommodation
+                    <span></span>Accommodation
                   </label>
                   <input
                     className="UD-set-input"
@@ -283,7 +283,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                 {/* benefits_transportation*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>transportation
+                    <span></span>Transportation
                   </label>
                   <input
                     className="UD-set-input"
@@ -300,7 +300,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                 {/*benefits_food*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>food
+                    <span></span>Food
                   </label>
                   <input
                     className="UD-set-input"
@@ -319,7 +319,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                 {/* benefits_mediclaim */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>mediclaim
+                    <span></span>Mediclaim
                   </label>
                   <input
                     className="UD-set-input"
@@ -336,7 +336,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
                 {/* benefits_others*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>others
+                    <span></span>Others
                   </label>
                   <input
                     className="UD-set-input"

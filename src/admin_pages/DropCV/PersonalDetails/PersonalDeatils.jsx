@@ -24,6 +24,28 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
+  const [emailExistenceError, setEmailExistenceError] = useState("");
+
+  // useEffect to check email/contact existence
+  useEffect(() => {
+    // Check if email/contact exists when email changes
+    if (formData.email) {
+      apiService.checkIfEmailContactExists(formData.email)
+        .then(response => {
+          const exists = response.data.exists; // Modify this based on your API response
+          if (exists) {
+            setEmailExistenceError("Email/Contact already exists");
+          } else {
+            setEmailExistenceError("");
+          }
+        })
+        .catch(error => {
+          console.error("Error checking email/contact existence:", error);
+          // Handle error
+        });
+    }
+  }, [formData.email]);
+
  
   // -------------for jobcategory, post applies , sub post  ---------------
 
@@ -354,6 +376,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   <FontAwesomeIcon className="set-icon" icon={faEnvelope} />
                 </div>
                 <span className="error-message">{errors.email}</span>
+               {/* ---------- */}
+                <span className="error-message">{emailExistenceError}</span>
+                {/* ----------- */}
               </div>
 
               <div className="col-md-6">

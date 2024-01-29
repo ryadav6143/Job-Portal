@@ -551,7 +551,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                 {/* *Alternate Contact Number  */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span>*</span>Alternate Contact Number
+                    <span></span>Alternate Contact Number
                   </label>
 
                   <input

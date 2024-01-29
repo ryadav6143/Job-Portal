@@ -380,91 +380,91 @@ function ApplyNow() {
     const dobYear = dob ? new Date(dob).getFullYear() : null;
     switch (activeStep) {
       case 0:
-        // if (!email) {
-        //   errors.email = "! Email is required.";
-        // } else if (!/\S+@\S+\.\S+/.test(email)) {
-        //   errors.email = "! Please enter a valid email address.";
-        // }
-        // if (!contact_1) {
-        //   errors.contact_1 = "! Contact number is Required.";
-        // } else if (contact_1.length !== 10) {
-        //   errors.contact_1 = "! Please enter a valid 10-digit contact number.";
-        // }
-        // if (contact_2 && contact_2.length !== 10) {
-        //   errors.contact_2 = "! Please enter a valid 10-digit contact number.";
-        // } else if (contact_1 && contact_2 && contact_1 === contact_2) {
-        //   errors.contact_2 = "! Alternate numbers should be different.";
-        // }
-        // if (!title_first_name) {
-        //   errors.title_first_name = "! Title is Required.";
-        // }
-        // if (!first_name) {
-        //   errors.first_name = "! First Name is Required.";
-        // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
-        //   errors.first_name = "! Please enter a valid name.";
-        // }
-        // if (!last_name) {
-        //   errors.last_name = "! Last Name is Required.";
-        // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
-        //   errors.last_name = "! Please enter a valid name.";
-        // }
-        // if (!dob) {
-        //   errors.dob = "! Date Of Birt is Required";
-        // } else if (
-        //   !dob ||
-        //   dobYear < currentYear - 100 ||
-        //   dobYear > currentYear ||
-        //   new Date(dob) > new Date()
-        // ) {
-        //   errors.dob = "! Please enter a valid date of Birth.";
-        // }
-        // if (!gender) {
-        //   errors.gender = "! Gender is Required.";
-        // }
-        // if (!religion) {
-        //   errors.religion = "! Relegion is Required";
-        // }
-        // if (!city) {
-        //   errors.city = "! City is Required";
-        // }
-        // if (!cast_category_name) {
-        //   errors.cast_category_name = "! Cast Category is Required";
-        // }
-        // if (!marital_status) {
-        //   errors.marital_status = "! Marital Status is Required";
-        // }
-        // if (!address_1) {
-        //   errors.address_1 = "! Address is Required";
-        // }
+        if (!email) {
+          errors.email = "! Email is required.";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+          errors.email = "! Please enter a valid email address.";
+        }
+        if (!contact_1) {
+          errors.contact_1 = "! Contact number is Required.";
+        } else if (contact_1.length !== 10) {
+          errors.contact_1 = "! Please enter a valid 10-digit contact number.";
+        }
+        if (contact_2 && contact_2.length !== 10) {
+          errors.contact_2 = "! Please enter a valid 10-digit contact number.";
+        } else if (contact_1 && contact_2 && contact_1 === contact_2) {
+          errors.contact_2 = "! Alternate numbers should be different.";
+        }
+        if (!title_first_name) {
+          errors.title_first_name = "! Title is Required.";
+        }
+        if (!first_name) {
+          errors.first_name = "! First Name is Required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+          errors.first_name = "! Please enter a valid name.";
+        }
+        if (!last_name) {
+          errors.last_name = "! Last Name is Required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
+          errors.last_name = "! Please enter a valid name.";
+        }
+        if (!dob) {
+          errors.dob = "! Date Of Birt is Required";
+        } else if (
+          !dob ||
+          dobYear < currentYear - 100 ||
+          dobYear > currentYear ||
+          new Date(dob) > new Date()
+        ) {
+          errors.dob = "! Please enter a valid date of Birth.";
+        }
+        if (!gender) {
+          errors.gender = "! Gender is Required.";
+        }
+        if (!religion) {
+          errors.religion = "! Relegion is Required";
+        }
+        if (!city) {
+          errors.city = "! City is Required";
+        }
+        if (!cast_category_name) {
+          errors.cast_category_name = "! Cast Category is Required";
+        }
+        if (!marital_status) {
+          errors.marital_status = "! Marital Status is Required";
+        }
+        if (!address_1) {
+          errors.address_1 = "! Address is Required";
+        }
 
-        // if (!country) {
-        //   errors.country = "! Country is Required";
-        // }
-        // if (!state_province) {
-        //   errors.state_province = "! State is Required";
-        // }
-        // if (!applied_post_masters_id) {
-        //   errors.applied_post_masters_id = "! Post Applied is Required";
-        // }
-        // if (!nature_of_job) {
-        //   errors.nature_of_job = "! Nature of Job is Required";
-        // }
-        // if (!department_master_id) {
-        //   errors.department_master_id = "! Department is Required";
-        // }
-        // if (!pin_code) {
-        //   errors.pin_code = "Pin Code is Required";
-        // } else if (!/^\d+$/.test(pin_code)) {
-        //   errors.pin_code = "Please enter a Pin Code with only numeric digits.";
-        // } else if (pin_code.length !== 6) {
-        //   errors.pin_code = "Pin Code must be exactly 6 digits.";
-        // } else {
-        // }
-        // if (!specialization) {
-        //   errors.specialization = "Specialization is Required";
-        // } else if (/^\d+$/.test(specialization)) {
-        //   errors.specialization = "Specialization should not contain numbers";
-        // }
+        if (!country) {
+          errors.country = "! Country is Required";
+        }
+        if (!state_province) {
+          errors.state_province = "! State is Required";
+        }
+        if (!applied_post_masters_id) {
+          errors.applied_post_masters_id = "! Post Applied is Required";
+        }
+        if (!nature_of_job) {
+          errors.nature_of_job = "! Nature of Job is Required";
+        }
+        if (!department_master_id) {
+          errors.department_master_id = "! Department is Required";
+        }
+        if (!pin_code) {
+          errors.pin_code = "Pin Code is Required";
+        } else if (!/^\d+$/.test(pin_code)) {
+          errors.pin_code = "Please enter a Pin Code with only numeric digits.";
+        } else if (pin_code.length !== 6) {
+          errors.pin_code = "Pin Code must be exactly 6 digits.";
+        } else {
+        }
+        if (!specialization) {
+          errors.specialization = "Specialization is Required";
+        } else if (/^\d+$/.test(specialization)) {
+          errors.specialization = "Specialization should not contain numbers";
+        }
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;
@@ -592,118 +592,118 @@ function ApplyNow() {
           return true;
         }
       case 2:
-        // const companyName =
-        //   formValues.UserDetails.experiences[0].company_experience_name;
-        // const userDesignation =
-        //   formValues.UserDetails.experiences[0].designation;
-        // const userJoiningDate =
-        //   formValues.UserDetails.experiences[0].exp_work_from;
-        // const userLeavingDate =
-        //   formValues.UserDetails.experiences[0].exp_work_to;
+        const companyName =
+          formValues.UserDetails.experiences[0].company_experience_name;
+        const userDesignation =
+          formValues.UserDetails.experiences[0].designation;
+        const userJoiningDate =
+          formValues.UserDetails.experiences[0].exp_work_from;
+        const userLeavingDate =
+          formValues.UserDetails.experiences[0].exp_work_to;
 
-        // if (!formValues.UserDetails.experiences[0].company_experience_name) {
-        //   errors.company_experience_name = "! Company Name is Required";
-        // } else {
-        //   const isValidCompanyName = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
-        //     companyName
-        //   );
+        if (!formValues.UserDetails.experiences[0].company_experience_name) {
+          errors.company_experience_name = "! Company Name is Required";
+        } else {
+          const isValidCompanyName = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
+            companyName
+          );
 
-        //   if (!isValidCompanyName) {
-        //     errors.company_experience_name =
-        //       "! Please enter a valid company name";
-        //   }
-        // }
-        // if (!userDesignation) {
-        //   errors.designation = "! Designation is Required";
-        // } else {
-        //   const isValidDesignation = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
-        //     userDesignation
-        //   );
+          if (!isValidCompanyName) {
+            errors.company_experience_name =
+              "! Please enter a valid company name";
+          }
+        }
+        if (!userDesignation) {
+          errors.designation = "! Designation is Required";
+        } else {
+          const isValidDesignation = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
+            userDesignation
+          );
 
-        //   if (!isValidDesignation) {
-        //     errors.designation = "! Please enter a valid designation";
-        //   }
-        // }
-        // if (!formValues.UserDetails.experiences[0].gross_pay) {
-        //   errors.gross_pay = "Current Gross-Pay is Required";
-        // } else {
-        //   const numericValue = parseFloat(
-        //     formValues.UserDetails.experiences[0].gross_pay
-        //   );
+          if (!isValidDesignation) {
+            errors.designation = "! Please enter a valid designation";
+          }
+        }
+        if (!formValues.UserDetails.experiences[0].gross_pay) {
+          errors.gross_pay = "Current Gross-Pay is Required";
+        } else {
+          const numericValue = parseFloat(
+            formValues.UserDetails.experiences[0].gross_pay
+          );
 
-        //   if (isNaN(numericValue) || numericValue <= 0) {
-        //     errors.gross_pay = "Please enter a valid Gross-Pay .";
-        //   } else if (
-        //     !/^\d+(\.\d+)?$/.test(
-        //       formValues.UserDetails.experiences[0].gross_pay
-        //     )
-        //   ) {
-        //     errors.gross_pay = "Please enter a valid Gross-Pay .";
-        //   }
-        // }
+          if (isNaN(numericValue) || numericValue <= 0) {
+            errors.gross_pay = "Please enter a valid Gross-Pay .";
+          } else if (
+            !/^\d+(\.\d+)?$/.test(
+              formValues.UserDetails.experiences[0].gross_pay
+            )
+          ) {
+            errors.gross_pay = "Please enter a valid Gross-Pay .";
+          }
+        }
 
-        // const currentDate = new Date();
-        // const enteredJoiningDate = new Date(userJoiningDate);
-        // if (!userJoiningDate) {
-        //   errors.exp_work_from = "! Joining Date is Required";
-        // } else {
-        //   const currentDate = new Date();
-        //   const enteredJoiningDate = new Date(userJoiningDate);
+        const currentDate = new Date();
+        const enteredJoiningDate = new Date(userJoiningDate);
+        if (!userJoiningDate) {
+          errors.exp_work_from = "! Joining Date is Required";
+        } else {
+          const currentDate = new Date();
+          const enteredJoiningDate = new Date(userJoiningDate);
 
-        //   const isJoiningDateValid =
-        //     enteredJoiningDate < currentDate &&
-        //     enteredJoiningDate >=
-        //       new Date(currentDate.getFullYear() - 100, 0, 1);
+          const isJoiningDateValid =
+            enteredJoiningDate < currentDate &&
+            enteredJoiningDate >=
+              new Date(currentDate.getFullYear() - 100, 0, 1);
 
-        //   if (!isJoiningDateValid) {
-        //     errors.exp_work_from = "! Please enter a valid Joining Date";
-        //   }
-        // }
+          if (!isJoiningDateValid) {
+            errors.exp_work_from = "! Please enter a valid Joining Date";
+          }
+        }
 
-        // if (!userLeavingDate) {
-        //   errors.exp_work_to = "! Leaving Date is Required";
-        // } else {
-        //   const enteredLeavingDate = new Date(userLeavingDate);
+        if (!userLeavingDate) {
+          errors.exp_work_to = "! Leaving Date is Required";
+        } else {
+          const enteredLeavingDate = new Date(userLeavingDate);
 
-        //   const isLeavingDateValid =
-        //     enteredLeavingDate < currentDate &&
-        //     enteredLeavingDate >=
-        //       new Date(currentDate.getFullYear() - 100, 0, 1);
+          const isLeavingDateValid =
+            enteredLeavingDate < currentDate &&
+            enteredLeavingDate >=
+              new Date(currentDate.getFullYear() - 100, 0, 1);
 
-        //   if (!isLeavingDateValid) {
-        //     errors.exp_work_to = "! Please enter a valid Leaving Date";
-        //   }
+          if (!isLeavingDateValid) {
+            errors.exp_work_to = "! Please enter a valid Leaving Date";
+          }
 
-        //   if (enteredJoiningDate >= enteredLeavingDate) {
-        //     errors.exp_work_from =
-        //       "! Joining Date should be before Leaving Date";
-        //     errors.exp_work_to = "! Leaving Date should be after Joining Date";
-        //   }
-        // }
+          if (enteredJoiningDate >= enteredLeavingDate) {
+            errors.exp_work_from =
+              "! Joining Date should be before Leaving Date";
+            errors.exp_work_to = "! Leaving Date should be after Joining Date";
+          }
+        }
 
-        // if (!total_academic_exp) {
-        //   errors.total_academic_exp = "Total Academic Experience is Required.";
-        // } else if (isNaN(total_academic_exp)) {
-        //   errors.total_academic_exp = "Please enter a valid number.";
-        // } else {
-        //   const numericValue = parseFloat(total_academic_exp);
-        //   if (numericValue < 0 || numericValue > 100) {
-        //     errors.total_academic_exp =
-        //       "Please enter a number between 0 and 100.";
-        //   }
-        // }
-        // if (!total_industrial_exp) {
-        //   errors.total_industrial_exp =
-        //     "Total Industry Experience is Required.";
-        // } else if (isNaN(total_industrial_exp)) {
-        //   errors.total_industrial_exp = "Please enter a valid number.";
-        // } else {
-        //   const numericValue = parseFloat(total_industrial_exp);
-        //   if (numericValue < 0 || numericValue > 100) {
-        //     errors.total_industrial_exp =
-        //       "Please enter a number between 0 and 100.";
-        //   }
-        // }
+        if (!total_academic_exp) {
+          errors.total_academic_exp = "Total Academic Experience is Required.";
+        } else if (isNaN(total_academic_exp)) {
+          errors.total_academic_exp = "Please enter a valid number.";
+        } else {
+          const numericValue = parseFloat(total_academic_exp);
+          if (numericValue < 0 || numericValue > 100) {
+            errors.total_academic_exp =
+              "Please enter a number between 0 and 100.";
+          }
+        }
+        if (!total_industrial_exp) {
+          errors.total_industrial_exp =
+            "Total Industry Experience is Required.";
+        } else if (isNaN(total_industrial_exp)) {
+          errors.total_industrial_exp = "Please enter a valid number.";
+        } else {
+          const numericValue = parseFloat(total_industrial_exp);
+          if (numericValue < 0 || numericValue > 100) {
+            errors.total_industrial_exp =
+              "Please enter a number between 0 and 100.";
+          }
+        }
 
         if (Object.keys(errors).length > 0) {
           // If there are errors, set the state with error messages

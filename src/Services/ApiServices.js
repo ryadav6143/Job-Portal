@@ -4,6 +4,12 @@ import axios from "axios";
 const BASE_URL = "http://192.168.1.8:8090/v1/api"; // Set your base API URL here
 
 const apiService = {
+
+  checkIfEmailContactExists  : async (email, existingEmails) => {
+    // Implement your logic to check if the email exists in the array or make a server call
+    // Return true if the email exists, false otherwise
+    return existingEmails.includes(email);
+  },
   getJobCategories: () => {
     return axios.get(`${BASE_URL}/jobCategory`);  
   },
@@ -42,6 +48,7 @@ const apiService = {
   getDepartments: () => {
     return axios.get(`${BASE_URL}/departmentMaster`);
   },
+  
 };
 
 

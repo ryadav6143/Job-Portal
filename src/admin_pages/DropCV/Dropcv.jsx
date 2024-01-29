@@ -16,6 +16,8 @@ import Footer from "../../components/Footer/Footers";
 import OTPVerification from "./OTPVerifivation/OTPVerification";
 import apiService from "../../Services/ApiServices";
 
+
+
 const steps = ["", "", ""];
 
 function Dropcv() {
@@ -67,6 +69,7 @@ function Dropcv() {
 
   // new state for errors in all steps
   const [errors, setErrors] = useState({});
+  const [existingEmails, setExistingEmails] = useState([]);
 
   const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
@@ -128,12 +131,13 @@ const otpData={
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
       // alert("Please fill in all required fields before proceeding.");
+      alert("Please fix the errors before proceeding.");
     }
     console.log(formData);
   };
 
   // --------------------------------------------------------------------------------
-  const validateCurrentStep = () => {
+  const validateCurrentStep = async () => {
     // modified validation function for all steps
     const {
       title_first_name,
@@ -196,6 +200,13 @@ const otpData={
           errors.email = "! Please enter a valid email address.";
         }
 
+        // ------------
+        const isEmailExists = await apiService.checkEmailExists(email, existingEmails);
+
+        if (isEmailExists) {
+          errors.email = "Email already exists. Please use a different email.";
+        }
+        // ------------
         if (!contact_1) {
           errors.contact_1 = "! Contact number is required.";
         } else if (contact_1.length !== 10)
