@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
-import axios from "axios";
+// import axios from "axios";
 function EditPersonalDetails() {
   // ---------profile image source---------
   const [selectedImage, setSelectedImage] = useState(null);
@@ -42,46 +42,6 @@ function EditPersonalDetails() {
     fetchData();
   }, []);
 
-  // const handleImageChange = async (event) => {
-  //   console.log('handleImageChange function started');
-  //   const file = event.target.files[0];
-  //   console.log('Selected File:', file)
-  //   if (file) {
-  //     try {
-  //       let formData = new FormData();
-  //       formData.append('profile_image', file);
-
-  //       let accessToken = localStorage.getItem('Token');
-  //       accessToken = JSON.parse(accessToken);
-  //       console.log("accessToken", accessToken.token);
-
-  //       let response = await fetch('http://192.168.1.8:8090/v1/api/candidates/profile_image', {
-  //         method: 'PUT',
-  //         body: formData,
-  //         headers: {
-  //           'access-token': accessToken.token,
-  //         },
-  //       });
-
-  //       console.log('Response:', response);
-
-  //       if (response.ok) {
-  //         // The image was successfully uploaded
-  //         const responseData = await response.json();
-  //         console.log('Image upload successful:', responseData);
-  //         setSelectedImage(URL.createObjectURL(file));
-  //       } else {
-  //         // Handle error when the image upload fails
-  //         console.error('Image upload failed:', response.statusText);
-  //         // You can also show an error message to the user if needed
-  //       }
-  //     } catch (error) {
-  //       console.error('Error uploading image:', error.message);
-  //       // Handle other errors that may occur during the request
-  //     }
-  //   }
-  // };
-
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -104,27 +64,39 @@ function EditPersonalDetails() {
     }
   };
 
-  const handleSaveChanges = async () => {
-    const isValid = saveValidations();
-    // Check if validation passed
-    if (!isValid) {
-      // Validation failed, handle accordingly (maybe display an error message)
-    }
+  // const handleSaveChanges = async () => {
+  //   try {
+  //     let accessToken = localStorage.getItem('Token');
+  //     accessToken = JSON.parse(accessToken);
+  //     console.log(updateField);
+  //     const response = await axios.put(
+  //       'http://192.168.1.8:8090/v1/api/candidates/updateCandidatePersonalById',
+  //       updateField,
+  //       {
+  //         headers: {
+  //           'access-token': accessToken.token,
+  //         },
+  //       }
+  //     );
+  //     console.log('Save Changes Response:', response);
+  //     setUpdateField({});
+  //     fetchData()
+  //   } catch (error) {
+  //     console.error('Error saving changes:', error.message);
+  //   }
+  // };
 
+  const handleSaveChanges = async () => {
     try {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       console.log(updateField);
-      const response = await axios.put(
-        "http://192.168.1.8:8090/v1/api/candidates/updateCandidatePersonalById",
-        updateField,
-        {
-          headers: {
-            "access-token": accessToken.token,
-          },
-        }
+
+      await candidatesApiService.updateCandidatePersonalInfo(
+        accessToken.token,
+        updateField
       );
-      console.log("Save Changes Response:", response);
+
       setUpdateField({});
       fetchData();
     } catch (error) {
@@ -177,20 +149,11 @@ function EditPersonalDetails() {
         accessToken = JSON.parse(accessToken);
         console.log("accessToken", accessToken.token);
 
-        const response = await axios.get(
-          "http://192.168.1.8:8090/v1/api/candidates/renderCandidatePic",
-          {
-            headers: {
-              "access-token": accessToken.token,
-            },
-            responseType: "blob",
-          }
+        const imageUrl = await candidatesApiService.fetchCandidateImage(
+          accessToken.token
         );
 
-        console.log("Response:", response);
-
-        if (response.status === 200 && response.data) {
-          const imageUrl = URL.createObjectURL(response.data);
+        if (imageUrl) {
           setSelectedImage(imageUrl);
         } else {
           // If there is no image, set selectedImage to null or use a default image URL
@@ -252,10 +215,17 @@ function EditPersonalDetails() {
     const dobYear = dob ? new Date(dob).getFullYear() : null;
     let errors = {};
 
+    // if (!first_name) {
+    //   errors.first_name = "! First Name is Required.";
+    // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+    //   errors.first_name = "! Please enter a valid name.";
+    // }
     if (!first_name) {
-      errors.first_name = "! First Name is Required.";
+      setErrors({ ...errors, first_name: "First Name is required." });
     } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
-      errors.first_name = "! Please enter a valid name.";
+      setErrors({ ...errors, first_name: "Please enter a valid name." });
+    } else {
+      setErrors({ ...errors, first_name: "" });
     }
 
     if (!last_name) {
@@ -273,31 +243,31 @@ function EditPersonalDetails() {
     // ) {
     //   errors.dob = "! Please enter a valid date of Birth.";
     // }
-    if (!gender) {
-      errors.gender = "! Gender is Required.";
-    }
-    if (!religion) {
-      errors.religion = "! Relegion is Required";
-    }
-    if (!city) {
-      errors.city = "! City is Required";
-    }
-    if (!cast_category_name) {
-      errors.cast_category_name = "! Cast Category is Required";
-    }
-    if (!marital_status) {
-      errors.marital_status = "! Marital Status is Required";
-    }
-    if (!address_1) {
-      errors.address_1 = "! Address is Required";
-    }
+    // if (!gender) {
+    //   errors.gender = "! Gender is Required.";
+    // }
+    // if (!religion) {
+    //   errors.religion = "! Relegion is Required";
+    // }
+    // if (!city) {
+    //   errors.city = "! City is Required";
+    // }
+    // if (!cast_category_name) {
+    //   errors.cast_category_name = "! Cast Category is Required";
+    // }
+    // if (!marital_status) {
+    //   errors.marital_status = "! Marital Status is Required";
+    // }
+    // if (!address_1) {
+    //   errors.address_1 = "! Address is Required";
+    // }
 
-    if (!country) {
-      errors.country = "! Country is Required";
-    }
-    if (!state_province) {
-      errors.state_province = "! State is Required";
-    }
+    // if (!country) {
+    //   errors.country = "! Country is Required";
+    // }
+    // if (!state_province) {
+    //   errors.state_province = "! State is Required";
+    // }
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
       return false;
