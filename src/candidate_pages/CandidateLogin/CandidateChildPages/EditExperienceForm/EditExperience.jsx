@@ -113,7 +113,7 @@ const handleExperienceChange = (fieldName, value) => {
 
   
   const formatDateFrom = (dateString) => {
-    console.log("dateString",dateString);
+    // console.log("dateString",dateString);
     const dateObject = new Date(dateString);
     if (isNaN(dateObject.getTime())) {
       return ''; // Handle invalid dates
@@ -302,7 +302,7 @@ const handleExperienceChange = (fieldName, value) => {
                 {/* benefits_accommodation */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>benefits_accommodation
+                    <span></span>accommodation
                   </label>
                   <input
                     className="UD-set-input"
@@ -320,7 +320,7 @@ const handleExperienceChange = (fieldName, value) => {
                 {/* benefits_transportation*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>benefits_transportation
+                    <span></span>transportation
                   </label>
                   <input
                     className="UD-set-input"
@@ -338,7 +338,7 @@ const handleExperienceChange = (fieldName, value) => {
                 {/*benefits_food*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>benefits_food
+                    <span></span>food
                   </label>
                   <input
                     className="UD-set-input"
@@ -358,7 +358,7 @@ const handleExperienceChange = (fieldName, value) => {
                 {/* benefits_mediclaim */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>benefits_mediclaim
+                    <span></span>mediclaim
                   </label>
                   <input
                     className="UD-set-input"
@@ -376,7 +376,7 @@ const handleExperienceChange = (fieldName, value) => {
                 {/* benefits_others*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>benefits_others
+                    <span></span>others
                   </label>
                   <input
                     className="UD-set-input"

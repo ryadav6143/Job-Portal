@@ -4,76 +4,162 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
 function EditProgramsForm() {
+   const [data, setData] = useState([{
+    candidate_seminar_organiseds:[],
+    candidate_seminar_attends:[],
+    candidate_other_membership_infos:[],
+    awards_won:"",
+    extra_activities:"",
+    any_other_info:'',
+    expected_joining_time:'',
+  }]);
 
-  const [organised, setOrganised] = useState([{}]);
-  const [attend, setAttend] = useState([{}]);
-  const [others, setothers] = useState([{}]);
-  const [data, setData] = useState([{}]);
-
-
-  const handleAddOrganised = () => {
-    setOrganised([...organised, {}]);
-  };
-  const handleOtherAttend = () => {
-    setAttend([...attend, {}]);
-  };
-  const handleOtherInfo = () => {
-    setothers([...others, {}]);
-  };
-  const handleChange = (field, value) => {
-    setData({
-      ...data,
-      [field]: value,
-    });
+  const [updateField, setUpdateField] = useState({})
+  const fetchData = async () => {
+    try {
+      let accessToken = localStorage.getItem('Token');
+      accessToken = JSON.parse(accessToken);
+      // console.log("accessToken", accessToken.token);
+      const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
+      console.log("response", fetchedData);
+      setData(fetchedData);
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+    }
   };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let accessToken = localStorage.getItem('Token');
-        accessToken = JSON.parse(accessToken);
-        // console.log("accessToken", accessToken.token);
-        const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
-        console.log("response", fetchedData);
-        setData(fetchedData);
-      } catch (error) {
-        console.error('Error fetching data:', error.message);
-      }
-    };
-
     fetchData();
   }, []);
 
-
-
-  const handleOtherAttendChange = (index, field, value) => {
-    const updatedAttend = [...attend];
-    updatedAttend[index][field] = value;
-    setAttend(updatedAttend);
+  const handleAddOrganised = () => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_seminar_organiseds: [
+        ...prevData.candidate_seminar_organiseds,
+        {
+              organise_date_from: '',
+              organise_date_to: '',
+              name_of_course: '',
+              sponsered_by: '',
+              participants_number: '',
+              name_of_institute: '',
+              name_of_industry: '',
+        },
+      ],
+    }));
   };
-  const handleOtherInformationChange = (index, field, value) => {
-    const updatedOtherInfo = [...others];
-    updatedOtherInfo[index][field] = value;
-    setAttend(updatedOtherInfo);
+  const handleAddOtherAttend = () => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_seminar_attends: [
+        ...prevData.candidate_seminar_attends,
+        {
+          attend_date_from: '',
+              attend_date_to: '',
+              name_of_course: '',
+              sponsered_by: '',
+        },
+      ],
+    }));
   };
+  const handleAddOtherInfo = () => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_other_membership_infos: [
+        ...prevData.candidate_other_membership_infos,
+        {
+          member_of_institute_name: '',
+              membership_date_from: '',
+              membership_date_to: '',
+              position_held: '',
+              contribution: ''
+        },
+      ],
+    }));
+  };
+ 
 
-  const handleOrganisedChange = (index, field, value) => {
-    const updatedOrganised = [...organised];
-    updatedOrganised[index][field] = value;
-    setOrganised(updatedOrganised);
+  const handleOrganisedChange = (index, field, value) => {    
+    const updatedOrganised = [...data.candidate_seminar_attends];
+    const seminarOrganisedId = updatedOrganised[index].id;    
+    updatedOrganised[index][field] = value;  
+    setData((prevData) => ({
+      ...prevData,
+      candidate_seminar_attends: updatedOrganised,
+    }));
+      console.log("handleField", field, value,updateField);  
+    setUpdateField((prev) => ({
+      ...prev,
+      [field]: value.toString(),
+      id: seminarOrganisedId,
+    }));
   };
+  const handleOtherAttendChange = (index, field, value) => {    
+    const updatedAttend = [...data.candidate_seminar_organiseds];
+    const seminarAttendId = updatedAttend[index].id;    
+    updatedAttend[index][field] = value;  
+    setData((prevData) => ({
+      ...prevData,
+      candidate_seminar_organiseds: updatedAttend,
+    }));
+      console.log("handleField", field, value,updateField);  
+    setUpdateField((prev) => ({
+      ...prev,
+      [field]: value.toString(),
+      id: seminarAttendId,
+    }));
+  }; 
+  const handleOtherInformationChange = (index, field, value) => {    
+    const updatedOtherInfo = [...data.candidate_other_membership_infos];
+    const otherInfoId = updatedOtherInfo[index].id;    
+    updatedOtherInfo[index][field] = value;  
+    setData((prevData) => ({
+      ...prevData,
+      candidate_other_membership_infos: updatedOtherInfo,
+    }));
+      console.log("handleField", field, value,updateField);  
+    setUpdateField((prev) => ({
+      ...prev,
+      [field]: value.toString(),
+      id: otherInfoId,
+    }));
+  };
+  const handleChange = (fieldName, value) => {
+    console.log("handlefild", fieldName, value, updateField)
+    setUpdateField(prev => ({ ...prev, [fieldName]: value.toString()}))
+    setData(prev => ({ ...prev, [fieldName]: value.toString()}))
+  }; 
+  // const handleSaveChanges = async () => {
+  //   try {
+  //     let accessToken = localStorage.getItem('Token');
+  //     accessToken = JSON.parse(accessToken);
+  //     console.log(updateField);
+
+  //     await candidatesApiService.updateCandidateExperience(accessToken.token, 
+  //      { experiences:[updateField]}
+  //       );
+  //       await candidatesApiService.updateCandidatePersonalInfo(
+  //         accessToken.token,
+  //         updateNewField
+  //       );
+  //     setUpdateField({});
+  //     setUpdateNewField({});
+  //     fetchData();
+  //   } catch (error) {
+  //     console.error('Error saving changes:', error.message);
+  //   }
+  // };
+
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
     if (isNaN(dateObject.getTime())) {
-      return ''; // Handle invalid dates
+      return ''; 
     }
-
-    const day = dateObject.getDate().toString().padStart(2, '0');
-    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+    const day = dateObject.getDate().toString().padStart(2,'0');
+    const month = (dateObject.getMonth() + 1).toString().padStart(2,'0');
     const year = dateObject.getFullYear();
-
     return `${year}-${month}-${day}`;
-
   };
   return (
     <>
@@ -253,7 +339,7 @@ function EditProgramsForm() {
               <p className="HS-heading">
                 Attended{" "}
                 <button
-                  onClick={handleOtherAttend}
+                  onClick={handleAddOtherAttend}
                   type="button"
                   className="editprofile-plus-button"
                 >
@@ -342,7 +428,7 @@ function EditProgramsForm() {
             {/* Other Information*/}
 
             <div>
-              <p className="HS-heading">Other Information<button onClick={handleOtherInfo} type="button" className="editprofile-plus-button">+</button></p>
+              <p className="HS-heading">Other Information<button onClick={handleAddOtherInfo} type="button" className="editprofile-plus-button">+</button></p>
             </div>
 
             {data?.candidate_other_membership_infos?.map((others, index) => (

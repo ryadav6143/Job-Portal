@@ -6,36 +6,35 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 import candidatesApiService from '../../../candidateService';
 function EditResearchForm() {
   
-  const [researches, setResearches] = useState([{}]);
-  const [journal_publications, setjournal_publications] = useState([{}]);
+  // const [researches, setResearches] = useState({ candidate_research_works: [{}] });
+  // const [journal_publications, setjournal_publications] = useState([{}]);
 
-  const [conference_publications, setconference_publications] = useState([{}]);
-  const [patents, setPatents] = useState([{}]);
-  const [copyrights, setCopyrights] = useState([{}]);
-  const [data, setData] = useState([{}]);
+  // const [conference_publications, setconference_publications] = useState([{}]);
+  // const [patents, setPatents] = useState([{}]);
+  // const [copyrights, setCopyrights] = useState([{}]);
+  const [data, setData] = useState({
+    candidate_research_works: [],
+    candidate_journal_publications: [],
+    candidate_conference_publications: [
+  
+    ],
+    candidate_patents: [
+
+    ],
+    candidate_copyrights: [
+
+    ],
+  });
+  const [researchField, setResearchField] = useState({})
+  const [journalPublicationField, setJournalPublicationField] = useState({})
+  const [conferancePublicationField, setConferancePublicationField] = useState({})
+  const [patentField, setPatentField] = useState({})
+  const [updateField, setUpdateField] = useState({})
+
+
  
 
-const handleAddResearches = () => {
-  setResearches((prevResearches) => [...prevResearches, {}]);
-};
 
-
-  const handleAddPublication = () => {
-    setjournal_publications([...journal_publications, {}]);
-  };
-  const handleAddConferences = () => {
-    setconference_publications([...conference_publications, {}]);
-  };
-  const handleAddPatents = () => {
-    setPatents([...patents, {}]);
-  };
-  const handleAddCopyrights = () => {
-    setCopyrights([...copyrights, {}]);
-  };
-
-
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         let accessToken = localStorage.getItem('Token');
@@ -49,38 +48,202 @@ const handleAddResearches = () => {
       }
     };
 
-    fetchData();
-  }, []);
+    useEffect(() => {
+      console.log("use-state")
+      fetchData();
+    }, []);
 
 
-  const handleResearchChange = (index, field, value) => {
-    const updatedResearches = [...researches];
-    updatedResearches[index][field] = value;
-    setResearches(updatedResearches);
+   
+  const handleAddResearches = () => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_research_works: [
+        ...prevData.candidate_research_works,
+        {
+          orcid: '',
+          scopusid: '',
+          researchid: '',
+        },
+      ],
+    }));
   };
+  
+  const handleAddPublication = () => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_journal_publications: [
+        ...prevData.candidate_journal_publications,
+        {
+          journal_publication_year: '',
+          journal_publication_title: '',
+          journal_publication_author: '',
+          journal_publication_index: '',
+          journal_publication_name: '',
+          journal_publication_issn: '',
+          journal_publication_volume: '',
+          journal_publication_issue: '',
+        },
+      ],
+    }));
+  };
+  
+  const handleAddConferences = () => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_conference_publications: [
+        ...prevData.candidate_conference_publications,
+        {
+          conference_publication_year: '',
+          conference_publication_title: '',
+          conference_publication_author: '',
+          conference_publication_index: '',
+          conference_publication_name: '',
+          conference_publication_issn: '',
+          conference_publication_volume: '',
+          conference_publication_issue: '',
+        },
+      ],
+    }));
+  };
+  const handleAddPatents = () => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_patents: [
+        ...prevData.candidate_patents,
+        {
+          patent_applicationid: '',
+          patent_application_title: '',
+          patent_application_year: '',
+          patent_granted_by: '',
+          patent_incountry: '',
+        },
+      ],
+    }));
+  };
+  const handleAddCopyrights = () => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_copyrights: [
+        ...prevData.candidate_copyrights,
+        {
+          copyright_applicationid: '',
+          copyright_title: '',
+          copyright_year: '',
+          copyright_granted_by: '',
+          copyright_incountry: '',
+        },
+      ],
+    }));
+  };
+  const handleResearchChange = (index, field, value) => {
+    const updatedResearches = [...data.candidate_research_works];
+    const ReasearchesId = updatedResearches[index].id;    
+    updatedResearches[index][field] = value;  
+    setData((prevData) => ({
+      ...prevData,
+      candidate_research_works: updatedResearches,
+    }));
+      console.log("handleField", field, value,researchField);  
+      setResearchField((prev) => ({
+      ...prev,
+      [field]: value.toString(),
+      research_id: ReasearchesId,
+    }));
+  };
+  
   const handleJournalPublicationChange = (index, field, value) => {
-    const updatedJournalPublications = [...journal_publications];
-    updatedJournalPublications[index][field] = value;
-    setjournal_publications(updatedJournalPublications);
+    const updatedJournalPublications = [...data.candidate_journal_publications];
+    const JournalId = updatedJournalPublications[index].id;    
+    updatedJournalPublications[index][field] = value;  
+    setData((prevData) => ({
+      ...prevData,
+      candidate_journal_publications: updatedJournalPublications,
+    }));
+      console.log("handleField", field, value,journalPublicationField);  
+      setJournalPublicationField((prev) => ({
+      ...prev,
+      [field]: value.toString(),
+      journal_publication_id: JournalId,
+    }));
   };
   const handleConferencePublicationChange = (index, field, value) => {
-    const updatedconferencePublications = [...conference_publications];
-    updatedconferencePublications[index][field] = value;
-    setconference_publications(updatedconferencePublications);
+    const updatedconferencePublications = [...data.candidate_conference_publications];
+    const conferenceId = updatedconferencePublications[index].id;    
+    updatedconferencePublications[index][field] = value;  
+    setData((prevData) => ({
+      ...prevData,
+      candidate_conference_publications: updatedconferencePublications,
+    }));
+      console.log("handleField", field, value,conferancePublicationField);  
+    setConferancePublicationField((prev) => ({
+      ...prev,
+      [field]: value.toString(),
+      id: conferenceId,
+    }));
   };
   const handlePatentsChange = (index, field, value) => {
-    const updatedPatents = [...patents];
-    updatedPatents[index][field] = value;
-    setconference_publications(updatedPatents);
+    const updatedPatents = [...data.candidate_patents];
+    const patentsId = updatedPatents[index].id;    
+    updatedPatents[index][field] = value;  
+    setData((prevData) => ({
+      ...prevData,
+      candidate_patents: updatedPatents,
+    }));
+      console.log("handleField", field, value,patentField);  
+      setPatentField((prev) => ({
+      ...prev,
+      [field]: value.toString(),
+      patent_id: patentsId,
+    }));
   };
   const handleCopyrightsChange = (index, field, value) => {
-    const updatedCopyrights = [...copyrights];
-    updatedCopyrights[index][field] = value;
-    setconference_publications(updatedCopyrights);
+    const updatedCopyrights = [...data.candidate_copyrights];
+    const copyrightsId = updatedCopyrights[index].id;    
+    updatedCopyrights[index][field] = value;  
+    setData((prevData) => ({
+      ...prevData,
+      candidate_copyrights: updatedCopyrights,
+    }));
+      console.log("handleField", field, value,updateField);  
+    setUpdateField((prev) => ({
+      ...prev,
+      [field]: value.toString(),
+      id: copyrightsId,
+    }));
   };
+  
+  const handleSaveChanges = async () => {
+    try {
+      let accessToken = localStorage.getItem('Token');
+      accessToken = JSON.parse(accessToken);
+      console.log(researchField);
+      await candidatesApiService.updateCandidateResearches(accessToken.token,
+        { researches: [researchField] }
+      );
+      await candidatesApiService.updateCandidateJournalPublications(accessToken.token,
+        { journals_publications: [journalPublicationField] }
+      );
+      await candidatesApiService.updateCandidateConferancePublications(accessToken.token,
+        { conference_publications: [conferancePublicationField] }
+      );
+      await candidatesApiService.updateCandidatePatent(accessToken.token,
+        { patents: [patentField] }
+      );
+
+      setResearchField({});
+      setJournalPublicationField({});
+      setConferancePublicationField({});
+      setPatentField({});
+      fetchData();
+    } catch (error) {
+      console.error('Error saving changes:', error.message);
+    }
+  };
+
   return (
     <>
-    <form id='myForm'>
+    <form id='myForm' onSubmit={handleSaveChanges}>
     <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
       <div>
         <div>
@@ -158,7 +321,7 @@ const handleAddResearches = () => {
 
         <div>
           <p className="HS-heading">Journal Publication <button onClick={handleAddPublication}
- type="button" className="editprofile-plus-button">+</button></p>
+                 type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
         {data?.candidate_journal_publications?.map((journal_publications, index) => (
@@ -485,7 +648,7 @@ const handleAddResearches = () => {
           <p className="HS-heading">Patent <button   onClick={handleAddPatents} type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
-        {data?.candidate_patents && data.candidate_patents.map((patents, index) => (
+        {data?.candidate_patents?.map((patents, index) => (
 <div key={index}>
         <div className="row" >
           <div className="col-md-4">
@@ -591,7 +754,7 @@ const handleAddResearches = () => {
           <p className="HS-heading">Copyright <button onClick={handleAddCopyrights} type="button" className="editprofile-plus-button">+</button></p>
         </div>
 
-        {data?.candidate_copyrights && data.candidate_copyrights.map((copyrights, index) => (
+        {data?.candidate_copyrights?.map((copyrights, index) => (
 <div key={index}>
         <div className="row" >
           <div className="col-md-4">
@@ -692,7 +855,7 @@ const handleAddResearches = () => {
         ))}
 
         <div>
-  <button className="savebtn" type="button">Save Changes</button>
+  <button className="savebtn" type="button" onClick={handleSaveChanges}>Save Changes</button>
 </div>
       </div>
     </div>

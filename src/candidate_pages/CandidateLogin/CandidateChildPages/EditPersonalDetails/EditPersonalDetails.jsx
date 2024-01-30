@@ -58,36 +58,13 @@ function EditPersonalDetails() {
     }
   };
 
-  // const handleSaveChanges = async () => {
-  //   try {
-  //     let accessToken = localStorage.getItem('Token');
-  //     accessToken = JSON.parse(accessToken);
-  //     console.log(updateField);
-  //     const response = await axios.put(
-  //       'http://192.168.1.8:8090/v1/api/candidates/updateCandidatePersonalById',
-  //       updateField,
-  //       {
-  //         headers: {
-  //           'access-token': accessToken.token,
-  //         },
-  //       }
-  //     );
-  //     console.log('Save Changes Response:', response);
-  //     setUpdateField({});
-  //     fetchData()
-  //   } catch (error) {
-  //     console.error('Error saving changes:', error.message);
-  //   }
-  // };
-
+ 
   const handleSaveChanges = async () => {
     try {
       let accessToken = localStorage.getItem('Token');
       accessToken = JSON.parse(accessToken);
       console.log(updateField);
-
       await candidatesApiService.updateCandidatePersonalInfo(accessToken.token, updateField);
-
       setUpdateField({});
       fetchData();
     } catch (error) {

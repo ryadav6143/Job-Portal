@@ -87,6 +87,7 @@
                 Login
               </button>
             </div>
+            <a href="/forgetpassword" >Forgotten Password?</a>
           </form>
           <div className="design-content">
             <p>Design & Developed By Corus View</p>

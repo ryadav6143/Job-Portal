@@ -20,6 +20,9 @@ const candidatesApiService = {
     loginCandidate: (data) => {
         return axios.post(`${BASE_URL}/login/candidate_login`, data);
       },
+    ForgetCandidatePassword: (data) => {
+        return axios.put(`${BASE_URL}/candidates/candidate_forgot_password`, data);
+      },
 
       getCandidateById: async ( accessToken) => {
         try {
@@ -128,6 +131,78 @@ const candidatesApiService = {
           const response = await axios.put(
             `${BASE_URL}/candidatExperience/updateCandidateExperience`,
             updateField,
+            {
+              headers: {
+                'access-token': accessToken,
+              },
+            }
+          );    
+          console.log('Save Changes Response:', response);
+          return response.data; // Assuming your API returns some data upon successful update
+        } catch (error) {
+          console.error('Error saving changes:', error.message);
+          throw error;
+        }
+      },
+      updateCandidateResearches: async (accessToken, researchField) => {
+        try {
+          const response = await axios.put(
+            `${BASE_URL}/candidatResearch/updateCandidateResearchWork`,
+            researchField,
+            {
+              headers: {
+                'access-token': accessToken,
+              },
+            }
+          );    
+          console.log('Save Changes Response:', response);
+          return response.data; // Assuming your API returns some data upon successful update
+        } catch (error) {
+          console.error('Error saving changes:', error.message);
+          throw error;
+        }
+      },
+      updateCandidateJournalPublications: async (accessToken, journalPublicationField) => {
+        try {
+          const response = await axios.put(
+            `${BASE_URL}/candidatJournalPublication/updateCandidateJournalPublications`,
+            journalPublicationField,
+            {
+              headers: {
+                'access-token': accessToken,
+              },
+            }
+          );    
+          console.log('Save Changes Response:', response);
+          return response.data; // Assuming your API returns some data upon successful update
+        } catch (error) {
+          console.error('Error saving changes:', error.message);
+          throw error;
+        }
+      },
+      updateCandidateConferancePublications: async (accessToken, ConferancePublicationField) => {
+        try {
+          const response = await axios.put(
+            `${BASE_URL}/candidatConferancePublication/updateCandidateConferancePublications`,
+            ConferancePublicationField,
+            {
+              headers: {
+                'access-token': accessToken,
+              },
+            }
+          );    
+          console.log('Save Changes Response:', response);
+          return response.data; // Assuming your API returns some data upon successful update
+        } catch (error) {
+          console.error('Error saving changes:', error.message);
+          throw error;
+        }
+      },
+      updateCandidatePatent: async (accessToken,patentField) => {
+        try {
+          const response = await axios.put(
+            `${BASE_URL}/candidatPatent/updateCandidatePatent`,
+          patentField,
             {
               headers: {
                 'access-token': accessToken,

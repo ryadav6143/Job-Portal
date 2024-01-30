@@ -388,9 +388,9 @@ function EditQualificationForm() {
       let accessToken = localStorage.getItem('Token');
       accessToken = JSON.parse(accessToken);
       console.log(updateField);
-       await candidatesApiService.updateCandidateEducation(accessToken.token, 
-        {educations:[updateField]}
-        );
+      await candidatesApiService.updateCandidateEducation(accessToken.token,
+        { educations: [updateField] }
+      );
 
       setUpdateField({});
       fetchData();
@@ -1635,7 +1635,7 @@ function EditQualificationForm() {
 
                 </div>
               </div>
-            
+
               <div className="col-md-4">
                 {/* Year*/}
                 <div className="UD-form-section">
@@ -1649,20 +1649,20 @@ function EditQualificationForm() {
                     name=""
                     id=""
                     value={gateData ? gateData.year_end : ""}
-                    onChange={(e) => handleFieldChange('year_end',e.target.value, 'gateData')}
+                    onChange={(e) => handleFieldChange('year_end', e.target.value, 'gateData')}
                   ></input>
 
                 </div>
               </div>
-          
+
               <div className="col-md-4">
                 {/* NET*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
                     <span></span>NET
                   </label>
-                 
-                   <select
+
+                  <select
                     className="UD-set-dropdown"
                     id=""
                     name="exam_name"
@@ -1691,7 +1691,7 @@ function EditQualificationForm() {
                     name=""
                     id=""
                     value={neetData ? neetData.year_end : ""}
-                    onChange={(e) => handleFieldChange('year_end',e.target.value, 'neetData')}
+                    onChange={(e) => handleFieldChange('year_end', e.target.value, 'neetData')}
                   ></input>
 
                 </div>
