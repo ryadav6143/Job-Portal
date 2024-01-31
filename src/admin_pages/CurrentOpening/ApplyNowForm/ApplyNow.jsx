@@ -382,6 +382,21 @@ function ApplyNow() {
           errors.email = "! Email is required.";
         } else if (!/\S+@\S+\.\S+/.test(email)) {
           errors.email = "! Please enter a valid email address.";
+        } else {
+          const apiUrl = `http://192.168.1.15:8090/v1/api/register/isemail_contact_exist?data=${encodeURIComponent(
+            email
+          )}`;
+
+          fetch(apiUrl)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.exists) {
+                setErrors({ email: "! This email is already registered." });
+              }
+            })
+            .catch((error) => {
+              console.error("Error checking email existence:", error);
+            });
         }
         if (!contact_1) {
           errors.contact_1 = "! Contact number is Required.";

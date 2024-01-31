@@ -6,9 +6,16 @@ import Stack from "@mui/material/Stack";
 
 function MasterCurrentOpening() {
   const navigate = useNavigate();
-  
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
   const handleNavigation = () => {
-    navigate("/add-openings");
+    // Step 2: Use a protected route
+    if (isAdminLoggedIn) {
+      navigate("/add-openings");
+    } else {
+      // Redirect to login or show an error message
+      alert("Admin not logged in. Redirect to login.");
+      // Example: navigate("/login");
+    }
   };
   //-----------------------------------Adding Table-------------------------------
   const [page, setPage] = useState(1);
@@ -135,7 +142,7 @@ function MasterCurrentOpening() {
     <>
       <div className="center-container">
         <div className="new-opening-btn">
-          <button >
+          <button>
             <a onClick={handleNavigation}>Add New Openings</a>
           </button>
         </div>

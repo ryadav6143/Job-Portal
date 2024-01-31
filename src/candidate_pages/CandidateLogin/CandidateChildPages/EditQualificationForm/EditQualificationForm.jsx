@@ -7,6 +7,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
 function EditQualificationForm() {
   const [updateField, setUpdateField] = useState({});
+  const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     candidate_educations: [],
   });
@@ -42,9 +43,21 @@ function EditQualificationForm() {
     fetchData();
   }, []);
 
-  const handleFieldChange = (fieldName, value, educationType) => {
+  const handleFieldChange = (fieldName, value, educationType, e) => {
     console.log("handleField", fieldName, value);
-
+    // ----------------------------------------------------------------------------
+    // [fieldName, value] = e.target;
+    setFormData({
+      ...formData,
+      [fieldName]: value,
+    });
+    setErrors({
+      ...errors,
+      country: "",
+      year_start: "",
+      institute_name: "",
+    });
+    // ----------------------------------------------------------------------------
     if (educationType === "highSchoolData") {
       const updatedData = {
         ...data,
@@ -367,15 +380,11 @@ function EditQualificationForm() {
   );
   const [countries, setCountries] = useState([]);
 
-  const handleInputChange = (e, dropdownName) => {
-    const { value } = e.target;
-    setData((prevValues) => ({
-      ...prevValues,
-      [dropdownName]: value,
-    }));
-  };
 
-  const handleSaveChanges = async () => {
+
+  const handleSaveChanges = async (e) => {
+    e.preventDefault();
+
     try {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
@@ -389,7 +398,69 @@ function EditQualificationForm() {
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }
+
+    const currentYear = new Date().getFullYear();
+    const minYear = currentYear - 100;
+    let errors = {};
+
+    if (!formData.country) {
+      errors.country = "! Country is Required ";
+    }
+
+    if (!formData.year_start) {
+      errors.year_start = "! Year of Joining is Required";
+    } else {
+      const enteredStartYear = parseInt(formData.year_start, 10);
+
+      if (
+        isNaN(enteredStartYear) ||
+        enteredStartYear > currentYear ||
+        enteredStartYear < minYear
+      ) {
+        errors.year_start =
+          "! Please enter a valid year within the last 100 years.";
+      }
+    }
+
+    if (!formData.year_end) {
+      errors.year_end = "! Passing Year is Required";
+    } else {
+      const enteredEndYear = parseInt(formData.year_end, 10);
+
+      if (
+        isNaN(enteredEndYear) ||
+        enteredEndYear > currentYear ||
+        enteredEndYear < minYear
+      ) {
+        errors.year_end =
+          "! Please enter a valid passing year within the last 100 years.";
+      }
+    }
+
+    if (!formData.institute_name) {
+      errors.institute_name = "! School Name is Required.";
+    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formData.institute_name)) {
+      errors.institute_name = "! Please enter a valid name.";
+    }
+
+    setErrors(errors);
+
+    if (Object.keys(errors).length === 0) {
+      console.log("Form Submitted Successfully");
+      return false;
+    } else {
+      console.log("Form has errors");
+      return true;
+    }
   };
+
+  const [formData, setFormData] = useState({
+    country: "",
+    year_start: "",
+    institute_name: "",
+    board_university_name: "",
+    year_end: "",
+  });
 
   return (
     <>
@@ -444,6 +515,9 @@ function EditQualificationForm() {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                {errors.country && (
+                  <span className="error-message">{errors.country}</span>
+                )}
               </div>
 
               <div className="col-md-4">
@@ -470,6 +544,9 @@ function EditQualificationForm() {
                     }
                   ></input>
                 </div>
+                {errors.year_start && (
+                  <span className="error-message">{errors.year_start}</span>
+                )}
               </div>
 
               <div className="col-md-4">
@@ -496,6 +573,9 @@ function EditQualificationForm() {
                     }
                   ></input>
                 </div>
+                {errors.institute_name && (
+                  <span className="error-message">{errors.institute_name}</span>
+                )}
               </div>
             </div>
 
@@ -548,6 +628,9 @@ function EditQualificationForm() {
                     }
                   ></input>
                 </div>
+                {errors.year_end && (
+                  <span className="error-message">{errors.year_end}</span>
+                )}
               </div>
 
               <div className="col-md-4">
