@@ -18,25 +18,30 @@ function EditExperience() {
     benefits_mediclaim: "",
   });
   const [updateField, setUpdateField] = useState({})
+  const [loading, setLoading] = useState(true);
   const [updateNewField, setUpdateNewField] = useState({})
 
     const fetchData = async () => {
       try {
         let accessToken = localStorage.getItem('Token');
         accessToken = JSON.parse(accessToken);
+        setLoading(true);
         const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
         console.log("response", fetchedData);
 
         if (Array.isArray(fetchedData.candidate_experiences)) {
+          setLoading(false); 
           setEducations({
             ...fetchedData,
             candidate_experiences: [...fetchedData.candidate_experiences],
           });
         } else {
           console.error('Fetched data is not as expected:', fetchedData);
+          setLoading(false);
         }
       } catch (error) {
         console.error('Error fetching data:', error.message);
+        setLoading(false);
       }
     };
 
@@ -47,7 +52,14 @@ function EditExperience() {
     fetchData();
   }, []);
 
-
+  useEffect(() => {
+    const body = document.body;
+    if (loading) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = 'auto';
+    }
+  }, [loading]);
   const handleAddEducation = (e) => {
     e.preventDefault();
     setEducations((prevEducations) => ({
@@ -132,6 +144,11 @@ const handleExperienceChange = (fieldName, value) => {
   
   return (
     <>
+      {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
       <form id='myForm' onSubmit={handleSaveChanges}>
         <div className="container" style={{ marginTop: "90px", paddingLeft: "50px" }}>
           <div>

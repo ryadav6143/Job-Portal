@@ -100,7 +100,7 @@ function CandidateLogin({ handleLogin }) {
           </div>
         )}
 
-        <form onSubmit={handleFormSubmit} className="login-form">
+        {/* <form onSubmit={handleFormSubmit} className="login-form">
           <label htmlFor="username">Username:</label>
           <input
             type="text"
@@ -137,10 +137,10 @@ function CandidateLogin({ handleLogin }) {
               Login
             </button>
           </div>
-        </form>
-        <div className="design-content">
+        </form> */}
+        {/* <div className="design-content">
           <p>Design & Developed By Corus View</p>
-        </div>
+        </div> */}
       {/* </div> */}
     </>
   );

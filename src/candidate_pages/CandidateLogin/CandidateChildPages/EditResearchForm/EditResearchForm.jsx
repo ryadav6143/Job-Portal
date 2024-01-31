@@ -12,6 +12,7 @@ function EditResearchForm() {
   // const [conference_publications, setconference_publications] = useState([{}]);
   // const [patents, setPatents] = useState([{}]);
   // const [copyrights, setCopyrights] = useState([{}]);
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
     candidate_research_works: [],
     candidate_journal_publications: [],
@@ -41,11 +42,14 @@ function EditResearchForm() {
         let accessToken = localStorage.getItem('Token');
         accessToken = JSON.parse(accessToken);
         // console.log("accessToken", accessToken.token);
+        setLoading(true);
         const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
         console.log("response", fetchedData);
         setData(fetchedData);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error.message);
+        setLoading(false);
       }
     };
 
@@ -54,7 +58,14 @@ function EditResearchForm() {
       fetchData();
     }, []);
 
-
+    useEffect(() => {
+      const body = document.body;
+      if (loading) {
+        body.style.overflow = 'hidden';
+      } else {
+        body.style.overflow = 'auto';
+      }
+    }, [loading]);
    
   const handleAddResearches = () => {
     setData((prevData) => ({
@@ -254,6 +265,11 @@ function EditResearchForm() {
 
   return (
     <>
+       {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
     <form id='myForm' onSubmit={handleSaveChanges}>
     <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
       <div>

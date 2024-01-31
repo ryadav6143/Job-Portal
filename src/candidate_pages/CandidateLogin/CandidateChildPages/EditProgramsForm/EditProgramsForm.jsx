@@ -17,24 +17,34 @@ function EditProgramsForm() {
     any_other_info:'',
     expected_joining_time:'',
   }]);
-
+  const [loading, setLoading] = useState(true);
   const [updateField, setUpdateField] = useState({})
   const fetchData = async () => {
     try {
       let accessToken = localStorage.getItem('Token');
       accessToken = JSON.parse(accessToken);
       // console.log("accessToken", accessToken.token);
+      setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
       console.log("response", fetchedData);
       setData(fetchedData);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error.message);
+      setLoading(false);
     }
   };
   useEffect(() => {
     fetchData();
   }, []);
-
+  useEffect(() => {
+    const body = document.body;
+    if (loading) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = 'auto';
+    }
+  }, [loading]);
   const handleAddOrganised = () => {
     setData((prevData) => ({
       ...prevData,
@@ -168,6 +178,11 @@ function EditProgramsForm() {
 
   return (
     <>
+     {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
       <form id="myForm">
         <div
           className="container"
