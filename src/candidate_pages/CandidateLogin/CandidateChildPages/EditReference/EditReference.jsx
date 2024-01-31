@@ -11,34 +11,33 @@ import { useState,useEffect } from 'react';
 import candidatesApiService from '../../../candidateService';
 function EditReference() {
   const [data, setData] = useState({   
-  reference_person_1:'',
-    reference_person_2:'',
-    ref_org_1:'',
-    ref_org_2:'',
-    ref_person_position_1:'',
-    ref_person_position_2:'',
-    hearing_source_about_us:'',
-    application_purpose:'',
-    ref_person_1_email:'',
-    ref_person_2_email:'',
-    ref_person_1_contact:'',
-    ref_person_2_contact:'',
+  // reference_person_1:'',
+  //   reference_person_2:'',
+  //   ref_org_1:'',
+  //   ref_org_2:'',
+  //   ref_person_position_1:'',
+  //   ref_person_position_2:'',
+  //   hearing_source_about_us:'',
+  //   application_purpose:'',
+  //   ref_person_1_email:'',
+  //   ref_person_2_email:'',
+  //   ref_person_1_contact:'',
+  //   ref_person_2_contact:'',
   });
-
+  const [updateField, setUpdateField] = useState({})
+  const fetchData = async () => {
+    try {
+      let accessToken = localStorage.getItem('Token');
+      accessToken = JSON.parse(accessToken);
+      // console.log("accessToken", accessToken.token);
+      const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
+      console.log("response", fetchedData);
+      setData(fetchedData);
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let accessToken = localStorage.getItem('Token');
-        accessToken = JSON.parse(accessToken);
-        // console.log("accessToken", accessToken.token);
-        const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
-        console.log("response", fetchedData);
-        setData(fetchedData);
-      } catch (error) {
-        console.error('Error fetching data:', error.message);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -78,16 +77,34 @@ function EditReference() {
     }
   };
 
-  const handleChange = (field, value) => {
-    setData({
-      ...data,
-      [field]: value,
-    });
+  // const handleChange = (field, value) => {
+  //   setData({
+  //     ...data,
+  //     [field]: value,
+  //   });
+  // };
+
+  const handleChange = (fieldName, value) => {
+    console.log("handlefild", fieldName, value, updateField)
+    setUpdateField(prev => ({ ...prev, [fieldName]: value.toString()}))
+    setData(prev => ({ ...prev, [fieldName]: value.toString()}))
+  };
+  const handleSaveChanges = async () => {
+    try {
+      let accessToken = localStorage.getItem('Token');
+      accessToken = JSON.parse(accessToken);
+      console.log(updateField);
+      await candidatesApiService.updateCandidatePersonalInfo(accessToken.token, updateField);
+      setUpdateField({});
+      fetchData();
+    } catch (error) {
+      console.error('Error saving changes:', error.message);
+    }
   };
   return (
     <>
-    <form id='myForm'>
-    <div className="container" style={{marginTop:"90px", paddingLeft:"50px", paddingRight: "50px"}}>
+    <form id='myForm' onSubmit={handleSaveChanges}>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
       <div>
         <div>
           <h5 className="UD-heading">Reference &nbsp; <FontAwesomeIcon   className="edit-pen-icon" icon={faPen} /></h5>
@@ -381,9 +398,16 @@ function EditReference() {
           placeholder="00 (i.e Years.Months)"
           name="candidate_cv"
           id=""
+          // value={data.resume_file_link}
           onChange={handleFileChange}
           required
         ></input>
+{data.resume_file_link && (
+  <span>Current cv:- {data.resume_file_link.substring(data.resume_file_link.lastIndexOf('/') + 1).split('-')[0]}</span>
+)}
+
+
+
       </div>
 
       <div>
@@ -400,7 +424,7 @@ function EditReference() {
         </span>
       </div>
       <div>
-  <button className="savebtn" type="button">Save Changes</button>
+  <button className="savebtn" type="button" onClick={handleSaveChanges}>Save Changes</button>
 </div>
       </div>
     </div>

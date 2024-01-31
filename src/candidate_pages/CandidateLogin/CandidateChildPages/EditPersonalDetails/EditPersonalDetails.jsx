@@ -19,7 +19,6 @@ function EditPersonalDetails() {
 
   const [data, setData] = useState({});
   const [updateField, setUpdateField] = useState({});
-  
 
   // console.log("data", data);
   const fetchData = async () => {
@@ -64,29 +63,52 @@ function EditPersonalDetails() {
     }
   };
 
-  // const handleSaveChanges = async () => {
+  // const handleSaveChanges = async (e) => {
+  //   e.preventDefault();
+  //   let errors = {};
+  //   if (!formValues.first_name) {
+  //     errors.first_name = "! First Name is Required.";
+  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.first_name)) {
+  //     errors.first_name = "! Please enter a valid name.";
+  //   }
+  //   if (!formValues.first_name) {
+  //     setErrors({ ...errors, first_name: "First Name is required." });
+  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.first_name)) {
+  //     setErrors({ ...errors, first_name: "Please enter a valid name." });
+  //   } else {
+  //     setErrors({ ...errors, first_name: "" });
+  //   }
+
+  //   if (!formValues.last_name) {
+  //     errors.last_name = "! Last Name is Required.";
+  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.last_name)) {
+  //     errors.last_name = "! Please enter a valid name.";
+  //   }
+
+  //   setErrors(errors);
+  //   if (Object.keys(errors).length === 0) {
+  //     console.log("Form Submitted Successfully");
+  //   }
   //   try {
-  //     let accessToken = localStorage.getItem('Token');
+  //     let accessToken = localStorage.getItem("Token");
   //     accessToken = JSON.parse(accessToken);
   //     console.log(updateField);
-  //     const response = await axios.put(
-  //       'http://192.168.1.8:8090/v1/api/candidates/updateCandidatePersonalById',
-  //       updateField,
-  //       {
-  //         headers: {
-  //           'access-token': accessToken.token,
-  //         },
-  //       }
+
+  //     await candidatesApiService.updateCandidatePersonalInfo(
+  //       accessToken.token,
+  //       updateField
   //     );
-  //     console.log('Save Changes Response:', response);
+
   //     setUpdateField({});
-  //     fetchData()
+  //     fetchData();
   //   } catch (error) {
-  //     console.error('Error saving changes:', error.message);
+  //     console.error("Error saving changes:", error.message);
   //   }
   // };
 
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async (e) => {
+    e.preventDefault();
+
     try {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
@@ -102,7 +124,78 @@ function EditPersonalDetails() {
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }
+
+    let errors = {};
+    if (!formValues.first_name) {
+      errors.first_name = "! First Name is Required.";
+    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.first_name)) {
+      errors.first_name = "! Please enter a valid name.";
+    }
+    if (!formValues.last_name) {
+      errors.last_name = "! Last Name is Required.";
+    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.last_name)) {
+      errors.last_name = "! Please enter a valid name.";
+    }
+
+    if (!formValues.gender) {
+      errors.gender = "! Gender is Required";
+    }
+    if (!formValues.religion) {
+      errors.religion = "! Religion is Required";
+    }
+    if (!formValues.cast_category_name) {
+      errors.cast_category_name = "! Cast Category is Required";
+    }
+    if (!formValues.marital_status) {
+      errors.marital_status = "! Marital Status is Required";
+    }
+    if (!formValues.address_1) {
+      errors.address_1 = "! Current Address  is Required";
+    }
+    if (!formValues.country) {
+      errors.country = "! Country is Required";
+    }
+    if (!formValues.city) {
+      errors.city = "! City is Required";
+    }
+    if (!formValues.state_province) {
+      errors.state_province = "! State is Required";
+    }
+    if (!formValues.pin_code) {
+      errors.pin_code = "! Pin Code is Required";
+    }
+    setErrors(errors);
+
+    if (Object.keys(errors).length === 0) {
+      console.log("Form Submitted Successfully");
+      return false;
+    } else {
+      console.log("Form has errors");
+      return true;
+    }
   };
+  const [formValues, setFormValues] = useState({
+    editDetails: {
+      email: "",
+      contact_1: "",
+      specialization: "",
+      title_first_name: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      dob: "",
+      gender: "",
+      religion: "",
+      cast_category_name: "",
+      marital_status: "",
+      address_1: "",
+      contact_2: "",
+      country: "",
+      state_province: "",
+      city: "",
+      pin_code: "",
+    },
+  });
 
   const handleFieldChange = (fieldName, value) => {
     console.log("handlefild", fieldName, value, updateField);
@@ -128,6 +221,10 @@ function EditPersonalDetails() {
       state_province: "",
       city: "",
       pin_code: "",
+    });
+    setFormValues({
+      ...formValues,
+      [fieldName]: value,
     });
   };
 
@@ -166,116 +263,94 @@ function EditPersonalDetails() {
 
     fetchImage();
   }, []);
-  const [formValues, setFormValues] = useState({
-    editDetails: {
-      email: "",
-      contact_1: "",
-      specialization: "",
-      title_first_name: "",
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      dob: "",
-      gender: "",
-      religion: "",
-      cast_category_name: "",
-      marital_status: "",
-      address_1: "",
-      contact_2: "",
-      country: "",
-      state_province: "",
-      city: "",
-      pin_code: "",
-    },
-  });
 
-  const saveValidations = () => {
-    const {
-      email,
-      contact_1,
-      specialization,
-      title_first_name,
-      first_name,
-      middle_name,
-      last_name,
-      dob,
-      gender,
-      religion,
-      cast_category_name,
-      marital_status,
-      address_1,
-      contact_2,
-      country,
-      state_province,
-      city,
-      pin_code,
-    } = formValues.editDetails;
+  // const saveValidations = () => {
+  //   const {
+  //     email,
+  //     contact_1,
+  //     specialization,
+  //     title_first_name,
+  //     first_name,
+  //     middle_name,
+  //     last_name,
+  //     dob,
+  //     gender,
+  //     religion,
+  //     cast_category_name,
+  //     marital_status,
+  //     address_1,
+  //     contact_2,
+  //     country,
+  //     state_province,
+  //     city,
+  //     pin_code,
+  //   } = formValues.editDetails;
 
-    const currentYear = new Date().getFullYear();
-    const dobYear = dob ? new Date(dob).getFullYear() : null;
-    let errors = {};
+  //   const currentYear = new Date().getFullYear();
+  //   const dobYear = dob ? new Date(dob).getFullYear() : null;
+  //   let errors = {};
 
-    // if (!first_name) {
-    //   errors.first_name = "! First Name is Required.";
-    // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
-    //   errors.first_name = "! Please enter a valid name.";
-    // }
-    if (!first_name) {
-      setErrors({ ...errors, first_name: "First Name is required." });
-    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
-      setErrors({ ...errors, first_name: "Please enter a valid name." });
-    } else {
-      setErrors({ ...errors, first_name: "" });
-    }
+  //   if (!first_name) {
+  //     errors.first_name = "! First Name is Required.";
+  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+  //     errors.first_name = "! Please enter a valid name.";
+  //   }
+  //   if (!first_name) {
+  //     setErrors({ ...errors, first_name: "First Name is required." });
+  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
+  //     setErrors({ ...errors, first_name: "Please enter a valid name." });
+  //   } else {
+  //     setErrors({ ...errors, first_name: "" });
+  //   }
 
-    if (!last_name) {
-      errors.last_name = "! Last Name is Required.";
-    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
-      errors.last_name = "! Please enter a valid name.";
-    }
-    // if (!dob) {
-    //   errors.dob = "! Date Of Birt is Required";
-    // } else if (
-    //   !dob ||
-    //   dobYear < currentYear - 100 ||
-    //   dobYear > currentYear ||
-    //   new Date(dob) > new Date()
-    // ) {
-    //   errors.dob = "! Please enter a valid date of Birth.";
-    // }
-    // if (!gender) {
-    //   errors.gender = "! Gender is Required.";
-    // }
-    // if (!religion) {
-    //   errors.religion = "! Relegion is Required";
-    // }
-    // if (!city) {
-    //   errors.city = "! City is Required";
-    // }
-    // if (!cast_category_name) {
-    //   errors.cast_category_name = "! Cast Category is Required";
-    // }
-    // if (!marital_status) {
-    //   errors.marital_status = "! Marital Status is Required";
-    // }
-    // if (!address_1) {
-    //   errors.address_1 = "! Address is Required";
-    // }
+  //   if (!last_name) {
+  //     errors.last_name = "! Last Name is Required.";
+  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
+  //     errors.last_name = "! Please enter a valid name.";
+  //   }
+  //   if (!dob) {
+  //     errors.dob = "! Date Of Birt is Required";
+  //   } else if (
+  //     !dob ||
+  //     dobYear < currentYear - 100 ||
+  //     dobYear > currentYear ||
+  //     new Date(dob) > new Date()
+  //   ) {
+  //     errors.dob = "! Please enter a valid date of Birth.";
+  //   }
+  //   if (!gender) {
+  //     errors.gender = "! Gender is Required.";
+  //   }
+  //   if (!religion) {
+  //     errors.religion = "! Relegion is Required";
+  //   }
+  //   if (!city) {
+  //     errors.city = "! City is Required";
+  //   }
+  //   if (!cast_category_name) {
+  //     errors.cast_category_name = "! Cast Category is Required";
+  //   }
+  //   if (!marital_status) {
+  //     errors.marital_status = "! Marital Status is Required";
+  //   }
+  //   if (!address_1) {
+  //     errors.address_1 = "! Address is Required";
+  //   }
 
-    // if (!country) {
-    //   errors.country = "! Country is Required";
-    // }
-    // if (!state_province) {
-    //   errors.state_province = "! State is Required";
-    // }
-    if (Object.keys(errors).length > 0) {
-      setErrors(errors);
-      return false;
-    } else {
-      setErrors({});
-      return true;
-    }
-  };
+  //   if (!country) {
+  //     errors.country = "! Country is Required";
+  //   }
+  //   if (!state_province) {
+  //     errors.state_province = "! State is Required";
+  //   }
+  //   if (Object.keys(errors).length > 0) {
+  //     setErrors(errors);
+  //     return false;
+  //   } else {
+  //     setErrors({});
+  //     return true;
+  //   }
+  // };
 
   return (
     <>
@@ -387,6 +462,26 @@ function EditPersonalDetails() {
                     <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                   </div>
                 </div>
+
+                <div className="col-md-4">
+                  {/* Specialization  */}
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span>*</span>Specialization
+                    </label>
+                    <input
+                      className="UD-set-input"
+                      type="text"
+                      placeholder=" "
+                      name="specialization"
+                      id=""
+                      value={data.specialization}
+                      onChange={(e) =>
+                        handleFieldChange("specialization", e.target.value)
+                      }
+                    ></input>
+                  </div>
+                </div>
               </div>
 
               {/* <div className="row">
@@ -425,26 +520,6 @@ function EditPersonalDetails() {
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                 </div> */}
-
-                <div className="col-md-4">
-                  {/* Specialization  */}
-                  <div className="UD-form-section">
-                    <label className="UD-SetLabel-Name">
-                      <span>*</span>Specialization
-                    </label>
-                    <input
-                      className="UD-set-input"
-                      type="text"
-                      placeholder=" "
-                      name="specialization"
-                      id=""
-                      value={data.specialization}
-                      onChange={(e) =>
-                        handleFieldChange("specialization", e.target.value)
-                      }
-                    ></input>
-                  </div>
-                </div>
 
                 {/* <div className="col-md-4">
          
@@ -552,6 +627,7 @@ function EditPersonalDetails() {
                     ></input>
                     <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                   </div>
+                  <span className="error-message">{errors.last_name}</span>
                 </div>
 
                 <div className="col-md-4">
@@ -572,7 +648,7 @@ function EditPersonalDetails() {
                       readOnly
                     />
                   </div>
-                  <span className="error-message">{errors.dob}</span>
+                  {/* <span className="error-message">{errors.dob}</span> */}
                 </div>
 
                 <div className="col-md-4">
@@ -596,6 +672,7 @@ function EditPersonalDetails() {
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
+                  <span className="error-message">{errors.gender}</span>
                 </div>
               </div>
 
@@ -619,6 +696,7 @@ function EditPersonalDetails() {
                       }
                     ></input>
                   </div>
+                  <span className="error-message">{errors.religion}</span>
                 </div>
 
                 <div className="col-md-4">
@@ -640,6 +718,9 @@ function EditPersonalDetails() {
                       }
                     ></input>
                   </div>
+                  <span className="error-message">
+                    {errors.cast_category_name}
+                  </span>
                 </div>
 
                 <div className="col-md-4">
@@ -667,6 +748,7 @@ function EditPersonalDetails() {
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
+                  <span className="error-message">{errors.marital_status}</span>
                 </div>
               </div>
 
@@ -690,6 +772,7 @@ function EditPersonalDetails() {
                       required
                     ></input>
                   </div>
+                  <span className="error-message">{errors.address_1}</span>
                 </div>
 
                 <div className="col-md-4">
@@ -729,6 +812,7 @@ function EditPersonalDetails() {
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
+                  <span className="error-message">{errors.country}</span>
                 </div>
               </div>
 
@@ -747,6 +831,7 @@ function EditPersonalDetails() {
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
+                  <span className="error-message">{errors.state_province}</span>
                 </div>
 
                 <div className="col-md-4">
@@ -755,7 +840,7 @@ function EditPersonalDetails() {
                     <label className="UD-SetLabel-Name">
                       <span>*</span>Current Job City
                     </label>
-                    <select name="" className="UD-set-dropdown">
+                    <select name="city" className="UD-set-dropdown">
                       <option value="">Select Current Job City</option>
                       <option value=""> Job City</option>
                       <option value=""> Job City</option>
@@ -763,6 +848,7 @@ function EditPersonalDetails() {
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
+                  <span className="error-message">{errors.city}</span>
                 </div>
 
                 <div className="col-md-4">
@@ -785,6 +871,7 @@ function EditPersonalDetails() {
                       required
                     ></input>
                   </div>
+                  <span className="error-message">{errors.pin_code}</span>
                 </div>
               </div>
 
@@ -800,7 +887,6 @@ function EditPersonalDetails() {
             </div>
           </div>
         </div>
-        
       </form>
     </>
   );

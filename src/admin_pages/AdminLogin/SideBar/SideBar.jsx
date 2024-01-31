@@ -3,6 +3,13 @@ import MasterCurrentOpening from "../AdminChildPages/MasterCurrentOpening/Master
 import MasterJobProfile from "../AdminChildPages/MasterJobProfile/MasterJobProfile";
 import MasterInterviewSchedule from "../AdminChildPages/MasterInterviewSchedule/MasterInterviewSchedule";
 import MasterFAQ from "../AdminChildPages/MasterFAQ/MasterFAQ";
+import AddPostApplied from "../MasterPages/AddPostApplied";
+import AddSubPostApplied from "../MasterPages/AddSubPostApplied";
+import AddDepartment from "../MasterPages/AddDepartment";
+import AddExamType from "../MasterPages/AddExamType";
+import AddDegree from "../MasterPages/AddDegree";
+import AddCategories from "../MasterPages/AddCategories";
+import Reports from "../Reports/Reports";
 import "./SideBar.css";
 import { Button } from "@mui/material";
 function SideBar() {
@@ -66,6 +73,27 @@ function SideBar() {
     case "Component4":
       componentToShow = <MasterFAQ />;
       break;
+    case "Component5":
+      componentToShow = <AddPostApplied />;
+      break;
+    case "Component6":
+      componentToShow = <AddSubPostApplied />;
+      break;
+    case "Component7":
+      componentToShow = <AddDepartment />;
+      break;
+    case "Component8":
+      componentToShow = <AddExamType />;
+      break;
+    case "Component9":
+      componentToShow = <AddDegree />;
+      break;
+    case "Component10":
+      componentToShow = <AddCategories />;
+      break;
+    case "Component11":
+      componentToShow = <Reports />;
+      break;
     default:
       componentToShow = <MasterCurrentOpening />;
       break;
@@ -100,16 +128,104 @@ function SideBar() {
                       </a>
                     </li>
                     <li>
-                      <a onClick={() => showComponent("Component4")}>
-                        Master FAQ
-                      </a>
+                      <div className="dropdown show">
+                        <a
+                          className="btn dropdown-toggle"
+                          href="#"
+                          role="button"
+                          id="dropdownMenuLink"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Reports
+                        </a>
+
+                        <div
+                          className="dropdown-menu"
+                          aria-labelledby="dropdownMenuLink"
+                        >
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component11")}
+                          >
+                            Applied Candidates
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="dropdown show">
+                        <a
+                          className="btn dropdown-toggle"
+                          href="#"
+                          role="button"
+                          id="dropdownMenuLink"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Master List
+                        </a>
+
+                        <div
+                          className="dropdown-menu"
+                          aria-labelledby="dropdownMenuLink"
+                        >
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component5")}
+                          >
+                            Post Applied For (applied_post_master)
+                          </a>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component6")}
+                          >
+                            Sub Post Applied For (applied_subpost_masters)
+                          </a>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component7")}
+                          >
+                            Departments (department_master )
+                          </a>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component8")}
+                          >
+                            Exam Type (exam_types_master )
+                          </a>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component9")}
+                          >
+                            Degree (degree_types_master )
+                          </a>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component10")}
+                          >
+                            Categories (job_category_master)
+                          </a>
+                        </div>
+                      </div>
                     </li>
                   </ul>
                 </nav>
               </div>
             </div>
           </div>
-        <div className="show-child-components col-md-10">{componentToShow}</div>
+          <div className="show-child-components col-md-10">
+            {componentToShow}
+          </div>
         </div>
       </div>
     </>

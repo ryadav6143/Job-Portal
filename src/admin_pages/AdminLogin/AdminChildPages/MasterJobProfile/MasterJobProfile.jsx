@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import "./MasterJobProfile.css";
 
 function MasterJobProfile() {
   return (
-    <div>
-      <p>hello Job Profile hello Job Profile hello Job Profile </p>
-    </div>
-  )
+    <>
+  
+    </>
+  );
 }
 
-export default MasterJobProfile
+export default MasterJobProfile;
