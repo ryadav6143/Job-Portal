@@ -1,0 +1,9 @@
+.close-btn{
+    width: 20px;
+    float: right;
+    position: absolute;
+    cursor: pointer;
+    left: 98%;
+    top: -20px;
+
+}
