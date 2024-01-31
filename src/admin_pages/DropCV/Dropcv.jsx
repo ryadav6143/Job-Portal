@@ -17,6 +17,7 @@ import OTPVerification from "./OTPVerifivation/OTPVerification";
 import apiService from "../../Services/ApiServices";
 
 
+
 const steps = ["", "", ""];
 
 function Dropcv() {
@@ -179,10 +180,12 @@ function Dropcv() {
         console.log("fetch-data contact", data_contact);
 
         if (data) {
-          setErrors({ email: "This email is already registered." });
-          
+          // setErrors({ email: "This email is already registered." });
+          alert("This email is already registered.");
+      
         } else if (data_contact) {
-          setErrors({ contact_1: "This contact is already registered." });
+          // setErrors({ contact_1: "This contact is already registered." });
+          alert("This contact is already registered.");
         } else {
           console.log("contact does not exist in database");
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -195,6 +198,9 @@ function Dropcv() {
     console.log(formData);
   };
 
+
+
+  
   // --------------------------------------------------------------------------------
   const validateCurrentStep = () => {
     // modified validation function for all steps

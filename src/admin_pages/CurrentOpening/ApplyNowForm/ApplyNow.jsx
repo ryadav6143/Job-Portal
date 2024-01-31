@@ -16,6 +16,7 @@ import OTPVerification from "../../DropCV/OTPVerifivation/OTPVerification";
 import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
 import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
+
 // import { useState } from "react";
 import apiService from "../../../Services/ApiServices";
 const steps = ["", "", "", "", "", ""];
@@ -315,7 +316,25 @@ function ApplyNow() {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
+  // const handleNext = () => {
+  //   console.log("Form formValues:", formValues);
+  //   let newSkipped = skipped;
+  //   if (isStepSkipped(activeStep)) {
+  //     newSkipped = new Set(newSkipped.values());
+  //     newSkipped.delete(activeStep);
+  //   }
+
+  //   // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  //   setSkipped(newSkipped);
+
+  //   const isCurrentStepValid = inputValidations();
+  //   if (isCurrentStepValid) {
+  //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  //   }
+  //   // else {}
+  // };
+
+const handleNext = async () => {
     console.log("Form formValues:", formValues);
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
@@ -328,70 +347,63 @@ function ApplyNow() {
 
     const isCurrentStepValid = inputValidations();
     if (isCurrentStepValid) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      const emailToCheck = formValues.UserDetails.email.trim();
+      const contactToCheck = formValues.UserDetails.contact_1.trim();
+  
+      try {
+        const responseEmail = await fetch(
+          `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${emailToCheck}`,
+          {
+            method: "GET",
+            headers: {
+              key: "data",
+              value: `${emailToCheck}`,
+            },
+          }
+        );
+  
+        const responseContact = await fetch(
+          `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${contactToCheck}`,
+          {
+            method: "GET",
+            headers: {
+              key: "data",
+              value: `${contactToCheck}`,
+            },
+          }
+        );
+  
+        if (!responseEmail.ok) {
+          throw new Error(`HTTP error! Status: ${responseEmail.status}`);
+        }
+  
+        if (!responseContact.ok) {
+          throw new Error(`HTTP error! Status: ${responseContact.status}`);
+        }
+  
+        const dataEmail = await responseEmail.json();
+        const dataContact = await responseContact.json();
+  
+        if (dataEmail) {
+          alert("This email is already registered.");
+          // setErrors({ email: "This email is already registered." });
+        } else if (dataContact) {
+         
+          alert("This contact is already registered.");
+           // setErrors({ contact_1: "This contact is already registered." });
+        } else {
+          console.log("Email and contact do not exist in the database");
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+      } catch (error) {
+        console.error("Error checking email/contact existence:", error);
+      }
     }
-    // else {}
+  
+    console.log(formValues);
   };
 
-
-
-  // add new for check existing email and contact
-  // const handleNext = () => {
-  //   console.log("Form formValues:", formValues);
-  //   let newSkipped = skipped;
   
-  //   if (isStepSkipped(activeStep)) {
-  //     newSkipped = new Set(newSkipped.values());
-  //     newSkipped.delete(activeStep);
-  //   }
-  
-  //   setSkipped(newSkipped);
-  
-  //   const isCurrentStepValid = inputValidations();
-  
-  //   if (isCurrentStepValid) {
-  //     // Perform the check for email and contact existence here
-  //     const emailToCheck = formValues.personalDetails.email.trim();
-  //     const contactToCheck = formValues.personalDetails.contact_1.trim();
-  
-  //     // Simulate the API calls and responses without actual fetch
-  //     const mockApiResponseEmail = { ok: true, json: () => Promise.resolve(false) };
-  //     const mockApiResponseContact = { ok: true, json: () => Promise.resolve(false) };
-  
-  //     // Simulating the API calls and responses
-  //     const response_email = Promise.resolve(mockApiResponseEmail);
-  //     const response_contact = Promise.resolve(mockApiResponseContact);
-  
-  //     console.log(response_email.ok, "response");
-  //     console.log(response_contact.ok, "response");
-  
-  //     if (!response_email.ok) {
-  //       console.error(`HTTP error! Status: ${response_email.status}`);
-  //     }
-  //     if (!response_contact.ok) {
-  //       console.error(`HTTP error! Status: ${response_contact.status}`);
-  //     }
-  
-  //     response_email.json().then((data) => {
-  //       console.log("fetch-data for email", data);
-  //       response_contact.json().then((data_contact) => {
-  //         console.log("fetch-data contact", data_contact);
-  
-  //         if (data) {
-  //           setErrors({ email: "This email is already registered." });
-  //         } else if (data_contact) {
-  //           setErrors({ contact_1: "This contact is already registered." });
-  //         } else {
-  //           console.log("contact does not exist in the database");
-  //           setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  //         }
-  //       });
-  //     });
-  //   }
-  // };
-  
-
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
