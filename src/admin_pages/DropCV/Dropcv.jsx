@@ -17,7 +17,6 @@ import OTPVerification from "./OTPVerifivation/OTPVerification";
 import apiService from "../../Services/ApiServices";
 
 
-
 const steps = ["", "", ""];
 
 function Dropcv() {
@@ -27,8 +26,7 @@ function Dropcv() {
   const [formErrors, setFormErrors] = useState({});
   const [showHeaderFooter, setShowHeaderFooter] = useState(true); // New state
 
-  
-  console.log("IS fresher data......................./", isFresher);
+  // console.log("IS fresher data......................./", isFresher);
   const initialEducation = {
     degree_types_master_id: "",
     exam_types_master_id: "",
@@ -69,7 +67,6 @@ function Dropcv() {
 
   // new state for errors in all steps
   const [errors, setErrors] = useState({});
-  const [existingEmails, setExistingEmails] = useState([]);
 
   const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
@@ -100,15 +97,15 @@ function Dropcv() {
       );
       console.log(error.response.data);
     }
-const otpData={
-    email: formData.personalDetails.email,
-    contact_1: formData.personalDetails.contact_1,
-    first_name: formData.personalDetails.first_name,
-  }
-  setOtpData(otpData)
-  
-  const response = await apiService.generateOTP(otpData);
-  console.log("API Response:", response);
+    const otpData = {
+      email: formData.personalDetails.email,
+      contact_1: formData.personalDetails.contact_1,
+      first_name: formData.personalDetails.first_name,
+    };
+    setOtpData(otpData);
+
+    const response = await apiService.generateOTP(otpData);
+    console.log("API Response:", response);
     setSelectedComponent("OTPVerification");
   };
   const navigate = useNavigate();
@@ -124,20 +121,82 @@ const otpData={
     return skipped.has(step);
   };
 
-  const handleNext = () => {
+  // const handleNext = () => {
+  //   const isCurrentStepValid = validateCurrentStep();
+
+  //   if (isCurrentStepValid) {
+  //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  //   } else {
+  //     // alert("Please fill in all required fields before proceeding.");
+
+  //   }
+  //   console.log(formData);
+  // };
+
+  const handleNext = async () => {
     const isCurrentStepValid = validateCurrentStep();
 
     if (isCurrentStepValid) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    } else {
-      // alert("Please fill in all required fields before proceeding.");
-      alert("Please fix the errors before proceeding.");
+      const emailToCheck = formData.personalDetails.email.trim();
+      const contactToCheck = formData.personalDetails.contact_1.trim();
+
+      try {
+        console.log("emailToCheck", emailToCheck);
+        const response_email = await fetch(
+          `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${emailToCheck}`,
+          {
+            method: "GET",
+            headers: {
+              key: "data",
+              value: `${emailToCheck}`,
+            },
+          }
+        );
+        const response_contact = await fetch(
+          `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${contactToCheck}`,
+          {
+            method: "GET",
+            headers: {
+              key: "data",
+              value: `${contactToCheck}`,
+            },
+          }
+        );
+
+        console.log(response_email.ok, "response");
+        console.log(response_contact.ok, "response");
+
+        if (!response_email.ok) {
+          throw new Error(`HTTP error! Status: ${response_email.status}`);
+        }
+        if (!response_contact.ok) {
+          throw new Error(`HTTP error! Status: ${response_contact.status}`);
+        }
+
+        const data = await response_email.json();
+        console.log("fetch-data for email", data);
+        const data_contact = await response_contact.json();
+        console.log("fetch-data contact", data_contact);
+
+        if (data) {
+          setErrors({ email: "This email is already registered." });
+          
+        } else if (data_contact) {
+          setErrors({ contact_1: "This contact is already registered." });
+        } else {
+          console.log("contact does not exist in database");
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+      } catch (error) {
+        console.error("Error checking email existence:", error);
+      }
     }
+
     console.log(formData);
   };
 
   // --------------------------------------------------------------------------------
-  const validateCurrentStep = async () => {
+  const validateCurrentStep = () => {
     // modified validation function for all steps
     const {
       title_first_name,
@@ -200,13 +259,6 @@ const otpData={
           errors.email = "! Please enter a valid email address.";
         }
 
-        // ------------
-        const isEmailExists = await apiService.checkEmailExists(email, existingEmails);
-
-        if (isEmailExists) {
-          errors.email = "Email already exists. Please use a different email.";
-        }
-        // ------------
         if (!contact_1) {
           errors.contact_1 = "! Contact number is required.";
         } else if (contact_1.length !== 10)
@@ -315,7 +367,7 @@ const otpData={
               current_salary: "! Current Salary is Required",
             });
             return false;
-          };
+          }
           if (!formData.personalDetails.candidate_cv) {
             setErrors({
               candidate_cv: "! CV is Required",
