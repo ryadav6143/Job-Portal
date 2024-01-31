@@ -39,14 +39,59 @@ function CandidateLogin({ handleLogin }) {
     setShowPassword(!showPassword);
   };
 
-  return (
-    <>
-      <div className="login-container">
-        <div className="logo-section">
-          <img className="logo-img" src={logo} alt="Logo" />
-        </div>
-        <div style={{ textAlign: "center" }}>
-          <p className="login-content">USER LOGIN PANEL</p>
+    return (
+      <>
+        <div className="login-container">
+          <div className="logo-section">
+            <img className="logo-img" src={logo} alt="Logo" />
+          </div>
+          <div style={{ textAlign: "center" }}>
+            <p className="login-content">USER LOGIN PANEL</p>
+          </div>
+
+          {errorMessage && (
+            <div className="error-message">
+              <p>{errorMessage}</p>
+            </div>
+          )}
+
+          <form onSubmit={handleFormSubmit} className="login-form">
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name=""
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+
+            <label htmlFor="password">Password:</label>
+            <div className="password-input-container">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name=""
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="password-input"
+              />
+              <span className="password-toggle" onClick={handleTogglePassword}>
+                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+              </span>
+            </div>
+
+            <div className="btn-login">
+              <button type="submit" className="login-button">
+                Login
+              </button>
+            </div>
+            <a href="/forgetpassword" >Forgotten Password?</a>
+          </form>
+          <div className="design-content">
+            <p>Design & Developed By Corus View</p>
+          </div>
         </div>
 
         {errorMessage && (
@@ -96,7 +141,7 @@ function CandidateLogin({ handleLogin }) {
         <div className="design-content">
           <p>Design & Developed By Corus View</p>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 }

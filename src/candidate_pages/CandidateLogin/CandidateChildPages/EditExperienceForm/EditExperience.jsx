@@ -114,7 +114,7 @@ const handleExperienceChange = (fieldName, value) => {
 
   
   const formatDateFrom = (dateString) => {
-    console.log("dateString",dateString);
+    // console.log("dateString",dateString);
     const dateObject = new Date(dateString);
     if (isNaN(dateObject.getTime())) {
       return ''; // Handle invalid dates
@@ -303,7 +303,7 @@ const handleExperienceChange = (fieldName, value) => {
                 {/* Accommodation */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Accommodation
+                    <span></span>accommodation
                   </label>
                   <input
                     className="UD-set-input"
@@ -321,7 +321,7 @@ const handleExperienceChange = (fieldName, value) => {
                 {/* Transportation*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Transportation
+                    <span></span>transportation
                   </label>
                   <input
                     className="UD-set-input"
@@ -339,7 +339,7 @@ const handleExperienceChange = (fieldName, value) => {
                 {/*Food*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Food
+                    <span></span>food
                   </label>
                   <input
                     className="UD-set-input"
@@ -359,7 +359,7 @@ const handleExperienceChange = (fieldName, value) => {
                 {/* Mediclaim */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Mediclaim
+                    <span></span>mediclaim
                   </label>
                   <input
                     className="UD-set-input"
@@ -377,7 +377,7 @@ const handleExperienceChange = (fieldName, value) => {
                 {/* Others*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Others
+                    <span></span>others
                   </label>
                   <input
                     className="UD-set-input"

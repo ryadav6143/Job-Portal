@@ -120,7 +120,7 @@ function ForgottenPassword() {
 
                     <input type="text" name="" id="" />
                     <button type="button" class="btn btn-success">
-                      Submit
+                      Ok
                     </button>
                   </form>
                 </div>

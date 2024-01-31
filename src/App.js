@@ -21,6 +21,7 @@ import OTPVerification from "./admin_pages/DropCV/OTPVerifivation/OTPVerificatio
 import TestPages from "./admin_pages/TestPages/TestPages";
 import AddOpenings from "./admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 import CandidatePanel from "./candidate_pages/CandidateLogin/CandidatePanel";
+import CandidateLogin from "./candidate_pages/CandidateLogin/CandidateLogin/CandidateLogin";
 import ForgottenPassword from "./candidate_pages/CandidateLogin/CandidateLogin/ForgottenPassword";
 
 function App() {
@@ -37,7 +38,8 @@ function App() {
           ></Route>
           <Route path="faq-section" element={<FAQ />}></Route>
           <Route path="drop-cv" element={<DropCV />}></Route>
-
+          {/* <Route path="login" element={<Login />}></Route> */}
+          <Route path="forgetpassword" element={<ForgottenPassword />}></Route>
           <Route path="personaldetails" element={<PersonalDetails />}></Route>
           <Route path="qualification" element={<Qualification />}></Route>
           <Route

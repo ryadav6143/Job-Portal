@@ -389,9 +389,9 @@ function EditQualificationForm() {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       console.log(updateField);
-      await candidatesApiService.updateCandidateEducation(accessToken.token, {
-        educations: [updateField],
-      });
+      await candidatesApiService.updateCandidateEducation(accessToken.token,
+        { educations: [updateField] }
+      );
 
       setUpdateField({});
       fetchData();
@@ -2033,9 +2033,7 @@ function EditQualificationForm() {
                     name=""
                     id=""
                     value={gateData ? gateData.year_end : ""}
-                    onChange={(e) =>
-                      handleFieldChange("year_end", e.target.value, "gateData")
-                    }
+                    onChange={(e) => handleFieldChange('year_end', e.target.value, 'gateData')}
                   ></input>
                 </div>
               </div>
@@ -2083,9 +2081,7 @@ function EditQualificationForm() {
                     name=""
                     id=""
                     value={neetData ? neetData.year_end : ""}
-                    onChange={(e) =>
-                      handleFieldChange("year_end", e.target.value, "neetData")
-                    }
+                    onChange={(e) => handleFieldChange('year_end', e.target.value, 'neetData')}
                   ></input>
                 </div>
               </div>
