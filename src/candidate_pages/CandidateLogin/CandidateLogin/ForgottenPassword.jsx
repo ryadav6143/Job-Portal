@@ -5,35 +5,16 @@ import logo from "../../../assets/logos/logo.png";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 
-import { FormControl } from "@mui/material";
+import { FormControl } from '@mui/material';
 
-import apiService from "../../../Services/ApiServices";
+
 function ForgottenPassword() {
     const [showPassword, setShowPassword] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const [open, setOpen] = React.useState(false);
-    // const handleOpen = () => setOpen(true);
-
-    const handleOpen = async () => {
-        try {
-     
-          const response = await apiService.generateOTP({
-          
-            username,
-            password,
-          });
-    
-          console.log("API Response:", response);
-          alert("OTP Resent Successfully!");
-          setOpen(true); // Open the modal after successful OTP generation
-        } catch (error) {
-          console.error("Error during OTP generation", error);
-          alert("Failed to resend OTP. Please try again.");
-        }
-      };
-
+    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleTogglePassword = () => {
@@ -123,7 +104,7 @@ function ForgottenPassword() {
           <div >
           <form >
             <label className="UD-SetLabel-Name">Enter OTP</label>
-<input  type="text" name="" id="" />
+<input   type="text" name="" id="" />
 <button type="button" class="btn btn-success">Ok</button>
 
           </form>

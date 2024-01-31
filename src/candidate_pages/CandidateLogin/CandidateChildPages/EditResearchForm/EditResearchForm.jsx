@@ -29,6 +29,7 @@ function EditResearchForm() {
   const [journalPublicationField, setJournalPublicationField] = useState({})
   const [conferancePublicationField, setConferancePublicationField] = useState({})
   const [patentField, setPatentField] = useState({})
+  const [copyrightField, setCopyrightField] = useState({})
   const [updateField, setUpdateField] = useState({})
 
 
@@ -205,38 +206,48 @@ function EditResearchForm() {
       ...prevData,
       candidate_copyrights: updatedCopyrights,
     }));
-      console.log("handleField", field, value,updateField);  
-    setUpdateField((prev) => ({
+      console.log("handleField", field, value,copyrightField);  
+    setCopyrightField((prev) => ({
       ...prev,
       [field]: value.toString(),
-      id: copyrightsId,
+      copyright_id: copyrightsId,
     }));
   };
-  
+  const hasChanges = (field) => {
+    // Implement your logic to check whether the field is defined and has changes
+    return field && Object.keys(field).length > 0;
+  };
   const handleSaveChanges = async () => {
     try {
       let accessToken = localStorage.getItem('Token');
       accessToken = JSON.parse(accessToken);
       console.log(researchField);
-      await candidatesApiService.updateCandidateResearches(accessToken.token,
-        { researches: [researchField] }
-      );
-      await candidatesApiService.updateCandidateJournalPublications(accessToken.token,
-        { journals_publications: [journalPublicationField] }
-      );
-      await candidatesApiService.updateCandidateConferancePublications(accessToken.token,
-        { conference_publications: [conferancePublicationField] }
-      );
-      await candidatesApiService.updateCandidatePatent(accessToken.token,
-        { patents: [patentField] }
-      );
+  if (researchField && hasChanges(researchField)) {
+    await candidatesApiService.updateCandidateResearches(accessToken.token, { researches: [researchField] });
+  }
 
+  if (journalPublicationField && hasChanges(journalPublicationField)) {
+    await candidatesApiService.updateCandidateJournalPublications(accessToken.token, { journals_publications: [journalPublicationField] });
+  }
+
+  if (conferancePublicationField && hasChanges(conferancePublicationField)) {
+    await candidatesApiService.updateCandidateConferancePublications(accessToken.token, { conference_publications: [conferancePublicationField] });
+  }
+
+  if (patentField && hasChanges(patentField)) {
+    await candidatesApiService.updateCandidatePatent(accessToken.token, { patents: [patentField] });
+  }
+
+  if (copyrightField && hasChanges(copyrightField)) {
+    await candidatesApiService.updateCandidateCopyright(accessToken.token, { copyrights: [copyrightField] });
+  }
       setResearchField({});
       setJournalPublicationField({});
       setConferancePublicationField({});
       setPatentField({});
+      setCopyrightField({});
       fetchData();
-    } catch (error) {
+    } catch (error) { 
       console.error('Error saving changes:', error.message);
     }
   };

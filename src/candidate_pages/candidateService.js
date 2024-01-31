@@ -216,6 +216,24 @@ const candidatesApiService = {
           throw error;
         }
       },
+      updateCandidateCopyright: async (accessToken,copyrightField) => {
+        try {
+          const response = await axios.put(
+            `${BASE_URL}/candidatCopyright/updateCandidateCopyright`,
+            copyrightField,
+            {
+              headers: {
+                'access-token': accessToken,
+              },
+            }
+          );    
+          console.log('Save Changes Response:', response);
+          return response.data; // Assuming your API returns some data upon successful update
+        } catch (error) {
+          console.error('Error saving changes:', error.message);
+          throw error;
+        }
+      },
       
     };
 
