@@ -19,7 +19,6 @@ function EditPersonalDetails() {
 
   const [data, setData] = useState({});
   const [updateField, setUpdateField] = useState({});
-  
 
   // console.log("data", data);
   const fetchData = async () => {
@@ -888,7 +887,6 @@ function EditPersonalDetails() {
             </div>
           </div>
         </div>
-        
       </form>
     </>
   );

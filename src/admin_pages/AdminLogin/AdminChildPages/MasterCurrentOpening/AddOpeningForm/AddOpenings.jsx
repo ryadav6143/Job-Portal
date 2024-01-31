@@ -27,6 +27,8 @@ function AddOpenings() {
   return (
     <div>
       <div className="new-openings">
+
+        <p>job_profile_master</p>
         <p className="master-heading">Add New Opening</p>
         <div className="new-openings-form">
           <form action="">

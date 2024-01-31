@@ -1,22 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./MasterCurrentOpening.css";
+
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-function MasterCurrentOpening() {
+function Reports() {
   const navigate = useNavigate();
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
-  const handleNavigation = () => {
-    // Step 2: Use a protected route
-    if (isAdminLoggedIn) {
-      navigate("/add-openings");
-    } else {
-      // Redirect to login or show an error message
-      alert("Admin not logged in. Redirect to login.");
-      // Example: navigate("/login");
-    }
-  };
+
   //-----------------------------------Adding Table-------------------------------
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
@@ -138,14 +129,8 @@ function MasterCurrentOpening() {
   return (
     <>
       <div className="center-container">
-        <div className="new-opening-btn">
-          <button>
-            <a onClick={handleNavigation}>Add New Openings</a>
-          </button>
-        </div>
-
         <div className="master-table ">
-          <p className="table-heading">Admin-Table</p>
+          <p className="table-heading">APPLIED CANDIDATES</p>
           <div className="">
             <table className="table table-responsive">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
@@ -189,73 +174,22 @@ function MasterCurrentOpening() {
   );
 }
 
-export default MasterCurrentOpening;
+export default Reports;
+/*
+candidate full name 
+gender
+email
+contact1
+contact1
+city
+Education------- Filter 
+total exp
+Acacemic 
+Industrial
+Resuem Link
+Specialization-----------Filter
+Category (Category of Appointment)
+Applide Post (post_applied_for)----------Filter 
 
-{
-  // delete functionality
-  /*import React, { useState, useEffect } from 'react';
-
-const YourComponent = () => {
-  const [data, setData] = useState([]);
-
-  // Function to fetch data from the database
-  const fetchData = async () => {
-    try {
-      // Fetch data from the database (replace with your API endpoint)
-      const response = await fetch('your-api-endpoint');
-      const jsonData = await response.json();
-      setData(jsonData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData(); // Fetch data when the component mounts
-  }, []);
-
-  // Function to delete data
-  const deleteData = async (id) => {
-    try {
-      // Send a request to delete data from the database
-      await fetch(`your-delete-endpoint/${id}`, {
-        method: 'DELETE',
-      });
-
-      // Remove the deleted item from the displayed data
-      setData(data.filter(item => item.id !== id));
-    } catch (error) {
-      console.error('Error deleting data:', error);
-    }
-  };
-
-  return (
-    <div>
-      <h2>Your Data Table</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(item => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>
-                <button onClick={() => deleteData(item.id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
-export default YourComponent;
- */
-}
+Applied Date^^^^
+*/
