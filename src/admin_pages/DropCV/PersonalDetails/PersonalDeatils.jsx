@@ -9,8 +9,9 @@ import {
   faMobile,
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
+// import { checkEmailExistence } from "../../../Services/ApiServices";
 
-function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
+  function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -30,6 +31,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   // -------------------------------------dob----------------------
 
   // -------------------------------------dob----------------------
+
+
+
   useEffect(() => {
     apiService
       .getJobCategories()
@@ -328,6 +332,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     <option value="Female">Female</option>
                     <option value="others">Others</option>
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.gender}</span>
               </div>
@@ -353,6 +358,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   <FontAwesomeIcon className="set-icon" icon={faEnvelope} />
                 </div>
                 <span className="error-message">{errors.email}</span>
+               {/* ---------- */}
+                {/* <span className="error-message">{emailExistenceError}</span> */}
+                {/* ----------- */}
               </div>
 
               <div className="col-md-6">
@@ -404,6 +412,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.country}</span>
               </div>
@@ -435,6 +444,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.city}</span>
               </div>
@@ -464,6 +474,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">
                   {errors.job_category_master_id}
@@ -488,6 +499,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">
                   {errors.applied_post_masters_id}
@@ -517,6 +529,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
 
@@ -539,6 +552,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       </option>
                     ))}
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">
                   {errors.subjects_master_id}

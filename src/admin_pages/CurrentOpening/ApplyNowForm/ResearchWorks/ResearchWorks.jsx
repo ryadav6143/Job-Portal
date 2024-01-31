@@ -43,9 +43,9 @@ function ResearchWorks({ formValues, setFormValues, errors,setErrors }) {
   //   }]
   // });
 
-  const handleAddIdentifier = (e) => {
-    e.preventDefault();
-  };
+  // const handleAddIdentifier = (e) => {
+  //   e.preventDefault();
+  // };
   const handleAddPublication = (e) => {
     e.preventDefault();
     setFormValues((prevData) => ({

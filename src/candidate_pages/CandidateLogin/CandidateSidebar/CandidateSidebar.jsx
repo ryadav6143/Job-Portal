@@ -22,6 +22,15 @@ function CandidateSidebar() {
   const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const handleImageUpload = (event) => {
+    // Handle image upload logic here
+    const uploadedFile = event.target.files[0];
+    // Perform necessary validations and set the uploaded image
+    setUploadedImage(URL.createObjectURL(uploadedFile));
+  };
+
 
   useEffect(() => {
     // Update isOpen state only if the window width is less than 768
@@ -100,6 +109,7 @@ function CandidateSidebar() {
                     />
                     <a onClick={() => setScreen(0)}>&nbsp; Personal Details</a>
                   </li>
+
                   <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"

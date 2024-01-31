@@ -82,7 +82,12 @@ function CandidateLogin({ handleLogin }) {
             </span>
           </div>
 
+<div>
+  <a href="/forgetpassword">Forgotten Password</a>
+</div>
+
           <div className="btn-login">
+
             <button type="submit" className="login-button">
               Login
             </button>

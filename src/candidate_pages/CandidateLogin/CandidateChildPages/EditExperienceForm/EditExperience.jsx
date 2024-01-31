@@ -3,6 +3,7 @@ import "./EditExperience.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import plusicon from "../../../../assets/logos/plus.png"
+// import minusicon from "../../../../assets/logos/minus.png"
 import candidatesApiService from '../../../candidateService';
 function EditExperience() {
   const [educations, setEducations] = useState({
@@ -299,10 +300,10 @@ const handleExperienceChange = (fieldName, value) => {
 
             <div className="row" style={{ marginTop: "-30px" }}>
               <div className="col-md-4">
-                {/* benefits_accommodation */}
+                {/* Accommodation */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>benefits_accommodation
+                    <span></span>Accommodation
                   </label>
                   <input
                     className="UD-set-input"
@@ -317,10 +318,10 @@ const handleExperienceChange = (fieldName, value) => {
               </div>
 
               <div className="col-md-4">
-                {/* benefits_transportation*/}
+                {/* Transportation*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>benefits_transportation
+                    <span></span>Transportation
                   </label>
                   <input
                     className="UD-set-input"
@@ -335,10 +336,10 @@ const handleExperienceChange = (fieldName, value) => {
               </div>
 
               <div className="col-md-4">
-                {/*benefits_food*/}
+                {/*Food*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>benefits_food
+                    <span></span>Food
                   </label>
                   <input
                     className="UD-set-input"
@@ -355,10 +356,10 @@ const handleExperienceChange = (fieldName, value) => {
 
             <div className="row" >
               <div className="col-md-4">
-                {/* benefits_mediclaim */}
+                {/* Mediclaim */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>benefits_mediclaim
+                    <span></span>Mediclaim
                   </label>
                   <input
                     className="UD-set-input"
@@ -373,10 +374,10 @@ const handleExperienceChange = (fieldName, value) => {
               </div>
 
               <div className="col-md-4">
-                {/* benefits_others*/}
+                {/* Others*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>benefits_others
+                    <span></span>Others
                   </label>
                   <input
                     className="UD-set-input"

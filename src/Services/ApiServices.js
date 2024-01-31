@@ -3,7 +3,11 @@ import axios from "axios";
 
 const BASE_URL = "http://192.168.1.8:8090/v1/api"; // Set your base API URL here
 
+
 const apiService = {
+
+
+  // -------------------
   getJobCategories: () => {
     return axios.get(`${BASE_URL}/jobCategory`);  
   },
@@ -42,8 +46,10 @@ const apiService = {
   getDepartments: () => {
     return axios.get(`${BASE_URL}/departmentMaster`);
   },
+  
 };
 
 
 
 export default apiService;
+// export { checkEmailExistence };

@@ -221,6 +221,7 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
                     <option value="Completed">Completed</option>
                     <option value="Pursuing">Pursuing</option>
                   </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
             </div>
