@@ -178,14 +178,14 @@ function SideBar() {
                             href="#"
                             onClick={() => showComponent("Component5")}
                           >
-                            Post Applied For (applied_post_master)
+                            Post Applied For(Done)
                           </a>
                           <a
                             className="dropdown-item"
                             href="#"
                             onClick={() => showComponent("Component6")}
                           >
-                            Sub Post Applied For (applied_subpost_masters)
+                            Sub Post Applied For(Done)
                           </a>
                           <a
                             className="dropdown-item"
@@ -213,7 +213,7 @@ function SideBar() {
                             href="#"
                             onClick={() => showComponent("Component10")}
                           >
-                            Categories (job_category_master)
+                            Categories(Done)
                           </a>
                         </div>
                       </div>

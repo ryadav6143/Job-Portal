@@ -77,7 +77,7 @@ function AddExamType() {
       </div>
 
       <div className="master-table ">
-        <p className="table-heading">CURRENT CATEGORIES AVAILABLE</p>
+        <p className="table-heading">CURRENT EXAM TYPE AVAILABLE</p>
         <div className="">
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
@@ -91,7 +91,7 @@ function AddExamType() {
             <tbody>
               {data.map((category, index) => (
                 <tr key={category.id}>
-                  <td>{index+1}</td>
+                  <td>{index + 1}</td>
                   <td>{category.exam_name}</td>
                   <td>
                     <button id="update-btn">UPDATE</button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Master.css";
-
+import axios from "axios";
 function AddPostApplied() {
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
@@ -10,7 +10,7 @@ function AddPostApplied() {
   // ------------------Fetching Data from job_category_master-id-------------------------------
   useEffect(() => {
     addPostApplied();
-  }, [data]);
+  }, []);
   function addPostApplied() {
     fetch("http://192.168.1.8:8090/v1/api/jobCategory")
       .then((response) => response.json())
@@ -26,28 +26,33 @@ function AddPostApplied() {
   }
   useEffect(() => {
     getPost();
-  }, [data]);
+  }, []);
   // ------------------GET DATA FROM API--------------------------------
 
   // ------------------POST DATA TO API--------------------------------
   const handleAddPost = () => {
-    fetch("http://192.168.1.8:8090/v1/api/appliedPost", {
-      method: "POST",
+    console.log(selectedCategoryId,"check category");
+    if (!selectedCategoryId) {
+      console.error("Please select a category.");
+      return;
+    }
+  
+    axios.post("http://192.168.1.8:8090/v1/api/appliedPost", {
+      post_name: newCategory,
+      job_category_master_id: selectedCategoryId,
+    }, {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        post_name: newCategory,
-        category_name: selectedCategory.category_name,
-      }),
     })
-      .then((response) => response.json())
-      .then((responseData) => {
-        setData([...data, responseData]);
+      .then((response) => {
+        setData([...data, response.data]);
         setNewCategory("");
       })
       .catch((error) => console.error("Error adding post:", error));
   };
+  
+  
   // ------------------POST DATA TO API--------------------------------
 
   // ------------------DELETE DATA FROM API--------------------------------
@@ -93,15 +98,26 @@ function AddPostApplied() {
       .catch((error) => console.error("Error updating category:", error));
   };
 
+  // const handleSelectCategory = (e) => {
+  //   const selectedCategoryId = e.target.value;
+  //   const selectedCategoryObj = categories.find(
+  //     (category) => category.id === selectedCategoryId
+  //   );
+
+  //   setSelectedCategoryId(selectedCategoryId);
+  //   setSelectedCategory(selectedCategoryObj);
+  // };
+
   const handleSelectCategory = (e) => {
     const selectedCategoryId = e.target.value;
     const selectedCategoryObj = categories.find(
       (category) => category.id === selectedCategoryId
     );
-
+  
     setSelectedCategoryId(selectedCategoryId);
     setSelectedCategory(selectedCategoryObj);
   };
+  
 
   const handleSelectPostForUpdate = (categoryId) => {
     const selectedPost = data.find((post) => post.id === categoryId);
