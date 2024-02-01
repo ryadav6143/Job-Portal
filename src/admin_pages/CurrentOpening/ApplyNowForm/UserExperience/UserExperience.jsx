@@ -72,10 +72,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
   };
   // ---------------------------------------------------------------------
 
- 
   // ---------------------------------------------------------------------
- 
- 
   return (
     <>
       <form>
@@ -84,9 +81,9 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
             <div>
               <h5 className="UD-heading">
                 Experience
-                <button onClick={handleAddExperience} className="plus-buttons">
+                {/* <button onClick={handleAddExperience} className="plus-buttons">
                   <img src={plusicon} />
-                </button>
+                </button> */}
               </h5>
               <p className="UD-subheading">
                 Please fill your information so we can get in touch with you.
@@ -97,14 +94,25 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
             {formValues.experiences.map((experience, index) => (
               <div key={index}>
                 {" "}
+                {index > 0 && <hr style={{ margin: '24px 0' }} />}
                 <div className="row">
                   <div>
-                    {index > 0 && (
+                    {formValues.experiences.length > 1 && (
                       <button
+                        type="button"
                         onClick={() => handleRemoveExperience(index)}
                         className="minus-buttons"
                       >
-                        <img src={minusicon} />
+                        <img src={minusicon} alt="Remove Experience" />
+                      </button>
+                    )}
+                    {index === formValues.experiences.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={handleAddExperience}
+                        className="plus-buttons"
+                      >
+                        <img src={plusicon} alt="Add Experience" />
                       </button>
                     )}
                   </div>

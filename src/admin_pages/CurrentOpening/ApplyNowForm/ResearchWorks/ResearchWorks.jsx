@@ -3,7 +3,7 @@ import plusicon from "../../../../assets/logos/plus.png";
 import "./ResearchWorks.css";
 import minusicon from "../../../../assets/logos/minus.png";
 
-function ResearchWorks({ formValues, setFormValues, errors,setErrors }) {
+function ResearchWorks({ formValues, setFormValues, errors, setErrors }) {
   // const [formValues, setFormValues] = useState({
   //   researches: [{ orcid: '', scopusid: '', researchid: '' }],
   //   journal_publications: [{
@@ -83,18 +83,21 @@ function ResearchWorks({ formValues, setFormValues, errors,setErrors }) {
     e.preventDefault();
     setFormValues((prevData) => ({
       UserDetails: {
-      ...prevData.UserDetails,
-      conference_publications: [...prevData.UserDetails.conference_publications, {
-        conference_publication_year: '',
-        conference_publication_title: '',
-        conference_publication_author: '',
-        conference_publication_index: '',
-        conference_publication_name: '',
-        conference_publication_issn: '',
-        conference_publication_volume: '',
-        conference_publication_issue: ''
-      }]
-    }
+        ...prevData.UserDetails,
+        conference_publications: [
+          ...prevData.UserDetails.conference_publications,
+          {
+            conference_publication_year: "",
+            conference_publication_title: "",
+            conference_publication_author: "",
+            conference_publication_index: "",
+            conference_publication_name: "",
+            conference_publication_issn: "",
+            conference_publication_volume: "",
+            conference_publication_issue: "",
+          },
+        ],
+      },
     }));
   };
 
@@ -248,7 +251,7 @@ function ResearchWorks({ formValues, setFormValues, errors,setErrors }) {
                     id=""
                   ></input>
                 </div>
-                <span className="error-message">{ errors.scopusid}</span>
+                <span className="error-message">{errors.scopusid}</span>
               </div>
 
               <div className="col-md-4">
@@ -272,30 +275,32 @@ function ResearchWorks({ formValues, setFormValues, errors,setErrors }) {
           {/* Journal Publication */}
 
           <div className="field-heading">
-            <p className="HS-heading">
-              Journal Publication{" "}
-              <button
-                onClick={handleAddPublication}
-                type="button"
-                className="plus-buttons"
-              >
-                <img src={plusicon} />
-              </button>
-            </p>
+            <p className="HS-heading">Journal Publication </p>
           </div>
 
           {formValues.journal_publications.map(
             (journal_publications, index) => (
               <div key={index}>
+                  {index > 0 && <hr style={{ margin: '24px 0' }} />}
                 <div className="row" style={{ marginTop: "24px" }}>
                   <div>
                     <div>
-                      {index > 0 && (
+                      {formValues.journal_publications.length > 1 && (
                         <button
+                          type="button"
                           onClick={() => handleRemovePublication(index)}
                           className="minus-buttons"
                         >
-                          <img src={minusicon} />
+                          <img src={minusicon} alt="Remove Publication" />
+                        </button>
+                      )}
+                      {index === formValues.journal_publications.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={handleAddPublication}
+                          className="plus-buttons"
+                        >
+                          <img src={plusicon} alt="Add Publication" />
                         </button>
                       )}
                     </div>
@@ -506,30 +511,32 @@ function ResearchWorks({ formValues, setFormValues, errors,setErrors }) {
           {/* Conference Publication */}
 
           <div className="field-heading">
-            <p className="HS-heading">
-              Conference Publication
-              <button
-                onClick={handleAddConference}
-                type="button"
-                className="plus-buttons"
-              >
-                <img src={plusicon} />
-              </button>
-            </p>
+            <p className="HS-heading">Conference Publication</p>
           </div>
 
           {formValues.conference_publications.map(
             (conference_publications, index) => (
               <div key={index}>
+                  {index > 0 && <hr style={{ margin: '24px 0' }} />}
                 <div className="row" style={{ marginTop: "24px" }}>
                   <div>
-                    {index > 0 && (
+                    {formValues.conference_publications.length > 1 && (
                       <button
+                        type="button"
                         onClick={() => handleRemoveConference(index)}
                         className="minus-buttons"
-                        type="button"
                       >
-                        <img src={minusicon} />
+                        <img src={minusicon} alt="Remove Conference" />
+                      </button>
+                    )}
+                    {index ===
+                      formValues.conference_publications.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={handleAddConference}
+                        className="plus-buttons"
+                      >
+                        <img src={plusicon} alt="Add Conference" />
                       </button>
                     )}
                   </div>
@@ -748,28 +755,30 @@ function ResearchWorks({ formValues, setFormValues, errors,setErrors }) {
           {/* Patent*/}
 
           <div className="field-heading">
-            <p className="HS-heading">
-              Patent{" "}
-              <button
-                onClick={handleAddPatent}
-                type="button"
-                className="plus-buttons"
-              >
-                <img src={plusicon} />
-              </button>
-            </p>
+            <p className="HS-heading">Patent </p>
           </div>
 
           {formValues.patents.map((patent, index) => (
             <div key={index}>
+                {index > 0 && <hr style={{ margin: '24px 0' }} />}
               <div className="row" style={{ marginTop: "24px" }}>
                 <div>
-                  {index > 0 && (
+                  {formValues.patents.length > 1 && (
                     <button
+                      type="button"
                       onClick={() => handleRemovePatent(index)}
                       className="minus-buttons"
                     >
-                      <img src={minusicon} />
+                      <img src={minusicon} alt="Remove patents" />
+                    </button>
+                  )}
+                  {index === formValues.patents.length - 1 && (
+                    <button
+                      type="button"
+                      onClick={handleAddPatent}
+                      className="plus-buttons"
+                    >
+                      <img src={plusicon} alt="Add patents" />
                     </button>
                   )}
                 </div>
@@ -889,28 +898,30 @@ function ResearchWorks({ formValues, setFormValues, errors,setErrors }) {
           {/* Copyright*/}
 
           <div className="field-heading">
-            <p className="HS-heading">
-              Copyright
-              <button
-                onClick={handleAddCopyright}
-                type="button"
-                className="plus-buttons"
-              >
-                <img src={plusicon} />
-              </button>
-            </p>
+            <p className="HS-heading">Copyright</p>
           </div>
 
           {formValues.copyrights.map((copyright, index) => (
             <div key={index}>
+                {index > 0 && <hr style={{ margin: '24px 0' }} />}
               <div className="row" style={{ marginTop: "24px" }}>
                 <div>
-                  {index > 0 && (
+                  {formValues.copyrights.length > 1 && (
                     <button
+                      type="button"
                       onClick={() => handleRemoveCopyright(index)}
                       className="minus-buttons"
                     >
-                      <img src={minusicon} />
+                      <img src={minusicon} alt="Remove copyrights" />
+                    </button>
+                  )}
+                  {index === formValues.copyrights.length - 1 && (
+                    <button
+                      type="button"
+                      onClick={handleAddCopyright}
+                      className="plus-buttons"
+                    >
+                      <img src={plusicon} alt="Add copyrights" />
                     </button>
                   )}
                 </div>
