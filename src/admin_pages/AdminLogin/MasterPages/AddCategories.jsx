@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 function AddCategories() {
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(null); // New state for tracking the selected category for update
+  const [selectedCategory, setSelectedCategory] = useState(null);
   // ------------------GET DATA FROM API--------------------------------
 
   function getjobcategory() {
@@ -56,29 +56,6 @@ function AddCategories() {
   // ------------------DELETE DATA FROM API--------------------------------
 
   // ------------------UPDATE DATA IN API--------------------------------
-  // const handleUpdateCategory = (categoryId) => {
-
-  //   fetch(`http://192.168.1.8:8090/v1/api/jobCategory/${categoryId}`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ category_name: updatedCategoryName }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((responseData) => {
-
-  //       setData(
-  //         data.map((category) =>
-  //           category.id === categoryId ? responseData : category
-  //         )
-  //       );
-
-  //       setUpdatingCategoryId(null);
-  //       setUpdatedCategoryName("");
-  //     })
-  //     .catch((error) => console.error("Error updating category:", error));
-  // };
 
   const handleUpdateCategory = () => {
     if (!selectedCategory) return;

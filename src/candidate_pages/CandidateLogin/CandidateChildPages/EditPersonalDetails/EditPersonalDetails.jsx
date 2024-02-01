@@ -354,6 +354,7 @@ function EditPersonalDetails() {
 
   return (
     <>
+    {/* <span class="loader"></span> */}
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div style={{ marginTop: "7%" }}>
           <div style={{ paddingLeft: "50px" }}>
