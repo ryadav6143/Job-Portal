@@ -62,3 +62,48 @@
 .select-jc:focus {
   outline: none;
 }
+
+#set-btn {
+  background-color: transparent;
+  padding: 3px 20px 3px 20px;
+  font-weight: 600;
+  border: 2px solid black;
+  /* float: right; */
+}
+#set-btn:hover {
+  background-color: black;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.AC-SetLabel-Name {
+  font-size: 22px;
+  font-weight: 500;
+  border-bottom: 1px solid #000;
+}
+
+.Ac-set-input {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: none;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 10px;
+}
+
+.update-close-btn {
+  width: 20px;
+  float: right;
+  position: absolute;
+  cursor: pointer;
+  left: 100%;
+  top: -20px;
+}
+
+.Ac-close-btn {
+  width: 20px;
+  float: right;
+  position: absolute;
+  cursor: pointer;
+  left: 100%;
+  top: -20px;
+}

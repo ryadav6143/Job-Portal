@@ -99,48 +99,6 @@ function CandidateLogin({ handleLogin }) {
             <p>{errorMessage}</p>
           </div>
         )}
-
-        <form onSubmit={handleFormSubmit} className="login-form">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name=""
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-
-          <label htmlFor="password">Password:</label>
-          <div className="password-input-container">
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name=""
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="password-input"
-            />
-            <span className="password-toggle" onClick={handleTogglePassword}>
-              <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
-            </span>
-          </div>
-
-<div>
-  <a href="/forgetpassword">Forgotten Password</a>
-</div>
-
-          <div className="btn-login">
-
-            <button type="submit" className="login-button">
-              Login
-            </button>
-          </div>
-        </form>
-        <div className="design-content">
-          <p>Design & Developed By Corus View</p>
-        </div>
       {/* </div> */}
     </>
   );

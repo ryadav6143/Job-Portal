@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import close from "../../../assets/logos/close.png";
 import "./CandidateLogin.css";
 import Backdrop from "@mui/material/Backdrop";
-
 import { FormControl } from "@mui/material";
 
 function ForgottenPassword() {

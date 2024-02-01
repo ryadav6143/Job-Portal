@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 function AddExamType() {
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
- 
 
   // -----------------------------FETCHING EXAMTYPEMASTER API----------
   function examType() {
@@ -17,7 +16,6 @@ function AddExamType() {
     examType();
   }, []);
   // -----------------------------FETCHING EXAMTYPEMASTER API-----------
-
 
   // --------------------ADD DATA TO API--------------------------------
 
@@ -91,9 +89,9 @@ function AddExamType() {
               </tr>
             </thead>
             <tbody>
-              {data.map((category) => (
+              {data.map((category, index) => (
                 <tr key={category.id}>
-                  <td>{category.id}</td>
+                  <td>{index+1}</td>
                   <td>{category.exam_name}</td>
                   <td>
                     <button id="update-btn">UPDATE</button>
