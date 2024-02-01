@@ -19,27 +19,40 @@ function EditPersonalDetails() {
 
   const [data, setData] = useState({});
   const [updateField, setUpdateField] = useState({});
+  const [loading, setLoading] = useState(true);
 
   // console.log("data", data);
   const fetchData = async () => {
     try {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
-      // console.log("accessToken", accessToken.token);
-
+      setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateById(
         accessToken.token
       );
       console.log("response", fetchedData);
       setData(fetchedData);
+      setLoading(false); 
     } catch (error) {
       console.error("Error fetching data:", error.message);
+      setLoading(false);
     }
   };
   useEffect(() => {
     console.log("use-state");
     fetchData();
   }, []);
+
+
+
+  useEffect(() => {
+    const body = document.body;
+    if (loading) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = 'auto';
+    }
+  }, [loading]);
 
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
@@ -354,7 +367,11 @@ function EditPersonalDetails() {
 
   return (
     <>
-    {/* <span class="loader"></span> */}
+          {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div style={{ marginTop: "7%" }}>
           <div style={{ paddingLeft: "50px" }}>
@@ -889,6 +906,7 @@ function EditPersonalDetails() {
           </div>
         </div>
       </form>
+
     </>
   );
 }

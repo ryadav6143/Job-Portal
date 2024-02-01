@@ -8,6 +8,7 @@ import candidatesApiService from "../../../candidateService";
 function EditQualificationForm() {
   const [updateField, setUpdateField] = useState({});
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
     candidate_educations: [],
   });
@@ -17,16 +18,26 @@ function EditQualificationForm() {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       // console.log("accessToken", accessToken.token);
+      setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateById(
         accessToken.token
       );
       console.log("response", fetchedData);
       setData(fetchedData);
+      setLoading(false); 
     } catch (error) {
       console.error("Error fetching data:", error.message);
+      setLoading(false);
     }
   };
-
+  useEffect(() => {
+    const body = document.body;
+    if (loading) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = 'auto';
+    }
+  }, [loading]);
   useEffect(() => {
     candidatesApiService
       .getCandidatesCountries()
@@ -464,6 +475,11 @@ function EditQualificationForm() {
 
   return (
     <>
+      {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"

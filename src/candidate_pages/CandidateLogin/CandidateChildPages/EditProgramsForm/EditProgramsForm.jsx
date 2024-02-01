@@ -8,32 +8,47 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 import candidatesApiService from "../../../candidateService";
 function EditProgramsForm() {
-   const [data, setData] = useState([{
-    candidate_seminar_organiseds:[],
-    candidate_seminar_attends:[],
-    candidate_other_membership_infos:[],
-    awards_won:"",
-    extra_activities:"",
-    any_other_info:'',
-    expected_joining_time:'',
+  const [data, setData] = useState([{
+    candidate_seminar_organiseds: [],
+    candidate_seminar_attends: [],
+    candidate_other_membership_infos: [],
+    awards_won: "",
+    extra_activities: "",
+    any_other_info: '',
+    expected_joining_time: '',
   }]);
-
+  const [loading, setLoading] = useState(true);
   const [updateField, setUpdateField] = useState({})
+  const [membershipInfoField, setMembershipInfoField] = useState({})
+  const [seminarOrganisedField, setSeminarOrganisedField] = useState({})
+  const [seminarAttendField, setSeminarAttendField] = useState({})
   const fetchData = async () => {
     try {
       let accessToken = localStorage.getItem('Token');
       accessToken = JSON.parse(accessToken);
       // console.log("accessToken", accessToken.token);
+      setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
       console.log("response", fetchedData);
       setData(fetchedData);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error.message);
+      setLoading(false);
     }
   };
   useEffect(() => {
     fetchData();
   }, []);
+  useEffect(() => {
+    const body = document.body;
+    if (loading) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = 'auto';
+    }
+  }, [loading]);
+
 
   const handleAddOrganised = () => {
     setData((prevData) => ({
@@ -41,17 +56,23 @@ function EditProgramsForm() {
       candidate_seminar_organiseds: [
         ...prevData.candidate_seminar_organiseds,
         {
-              organise_date_from: '',
-              organise_date_to: '',
-              name_of_course: '',
-              sponsered_by: '',
-              participants_number: '',
-              name_of_institute: '',
-              name_of_industry: '',
+          organise_date_from: '',
+          organise_date_to: '',
+          name_of_course: '',
+          sponsered_by: '',
+          participants_number: '',
+          name_of_institute: '',
+          name_of_industry: '',
         },
       ],
     }));
   };
+
+
+
+
+
+
   const handleAddOtherAttend = () => {
     setData((prevData) => ({
       ...prevData,
@@ -59,9 +80,9 @@ function EditProgramsForm() {
         ...prevData.candidate_seminar_attends,
         {
           attend_date_from: '',
-              attend_date_to: '',
-              name_of_course: '',
-              sponsered_by: '',
+          attend_date_to: '',
+          name_of_course: '',
+          sponsered_by: '',
         },
       ],
     }));
@@ -73,102 +94,130 @@ function EditProgramsForm() {
         ...prevData.candidate_other_membership_infos,
         {
           member_of_institute_name: '',
-              membership_date_from: '',
-              membership_date_to: '',
-              position_held: '',
-              contribution: ''
+          membership_date_from: '',
+          membership_date_to: '',
+          position_held: '',
+          contribution: ''
         },
       ],
     }));
   };
- 
 
-  const handleOrganisedChange = (index, field, value) => {    
-    const updatedOrganised = [...data.candidate_seminar_attends];
-    const seminarOrganisedId = updatedOrganised[index].id;    
-    updatedOrganised[index][field] = value;  
+
+  const handleOrganisedChange = (index, field, value) => {
+    const updatedOrganised = [...data.candidate_seminar_organiseds];
+    const seminarOrganisedId = updatedOrganised[index].id;
+    updatedOrganised[index][field] = value;
     setData((prevData) => ({
       ...prevData,
-      candidate_seminar_attends: updatedOrganised,
+      candidate_seminar_organiseds: updatedOrganised,
     }));
-      console.log("handleField", field, value,updateField);  
-    setUpdateField((prev) => ({
+    console.log("handleField", field, value, seminarOrganisedField);
+    setSeminarOrganisedField((prev) => ({
       ...prev,
       [field]: value.toString(),
-      id: seminarOrganisedId,
+      organised_id: seminarOrganisedId,
     }));
   };
-  const handleOtherAttendChange = (index, field, value) => {    
-    const updatedAttend = [...data.candidate_seminar_organiseds];
-    const seminarAttendId = updatedAttend[index].id;    
-    updatedAttend[index][field] = value;  
+
+
+
+ 
+
+  const handleOtherAttendChange = (index, field, value) => {
+    const updatedAttend = [...data.candidate_seminar_attends];
+    const seminarAttendId = updatedAttend[index].id;
+    updatedAttend[index][field] = value;
     setData((prevData) => ({
       ...prevData,
-      candidate_seminar_organiseds: updatedAttend,
+      candidate_seminar_attends: updatedAttend,
     }));
-      console.log("handleField", field, value,updateField);  
-    setUpdateField((prev) => ({
+    console.log("handleField", field, value, seminarAttendField);
+    setSeminarAttendField((prev) => ({
       ...prev,
       [field]: value.toString(),
-      id: seminarAttendId,
+      attend_id: seminarAttendId,
     }));
-  }; 
-  const handleOtherInformationChange = (index, field, value) => {    
+  };
+  const handleOtherInformationChange = (index, field, value) => {
     const updatedOtherInfo = [...data.candidate_other_membership_infos];
-    const otherInfoId = updatedOtherInfo[index].id;    
-    updatedOtherInfo[index][field] = value;  
+    const otherInfoId = updatedOtherInfo[index].id;
+    updatedOtherInfo[index][field] = value;
     setData((prevData) => ({
       ...prevData,
       candidate_other_membership_infos: updatedOtherInfo,
     }));
-      console.log("handleField", field, value,updateField);  
-    setUpdateField((prev) => ({
+    console.log("handleField", field, value, membershipInfoField);
+    setMembershipInfoField((prev) => ({
       ...prev,
       [field]: value.toString(),
-      id: otherInfoId,
+      member_id: otherInfoId,
     }));
   };
   const handleChange = (fieldName, value) => {
     console.log("handlefild", fieldName, value, updateField)
-    setUpdateField(prev => ({ ...prev, [fieldName]: value.toString()}))
-    setData(prev => ({ ...prev, [fieldName]: value.toString()}))
-  }; 
-  // const handleSaveChanges = async () => {
-  //   try {
-  //     let accessToken = localStorage.getItem('Token');
-  //     accessToken = JSON.parse(accessToken);
-  //     console.log(updateField);
+    setUpdateField(prev => ({ ...prev, [fieldName]: value.toString() }))
+    setData(prev => ({ ...prev, [fieldName]: value.toString() }))
+  };
 
-  //     await candidatesApiService.updateCandidateExperience(accessToken.token, 
-  //      { experiences:[updateField]}
-  //       );
-  //       await candidatesApiService.updateCandidatePersonalInfo(
-  //         accessToken.token,
-  //         updateNewField
-  //       );
-  //     setUpdateField({});
-  //     setUpdateNewField({});
-  //     fetchData();
-  //   } catch (error) {
-  //     console.error('Error saving changes:', error.message);
-  //   }
-  // };
 
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
-    if (isNaN(dateObject.getTime())) {
-      return ''; 
+  
+    // Check if dateString is empty or dateObject is invalid
+    if (!dateString || isNaN(dateObject.getTime())) {
+      return ''; // Return an empty string for invalid or empty dates
     }
-    const day = dateObject.getDate().toString().padStart(2,'0');
-    const month = (dateObject.getMonth() + 1).toString().padStart(2,'0');
+  
+    const day = dateObject.getDate().toString().padStart(2, '0');
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
     const year = dateObject.getFullYear();
+  
     return `${year}-${month}-${day}`;
   };
+  
+
+  const hasChanges = (field) => {
+    return field && Object.keys(field).length > 0;
+  };
+  const handleSaveChanges = async () => {
+    try {
+      let accessToken = localStorage.getItem('Token');
+      accessToken = JSON.parse(accessToken);
+
+      if (membershipInfoField && hasChanges(membershipInfoField)) {
+        await candidatesApiService.updateCandidateMembershipInfo(accessToken.token, { other_membership_info: [membershipInfoField] });
+      }
+      if (updateField && hasChanges(updateField)) {
+        await candidatesApiService.updateCandidatePersonalInfo(accessToken.token, updateField);
+      }
+      if (seminarOrganisedField && hasChanges(seminarOrganisedField)) {
+        await candidatesApiService.updateCandidateSeminarOrganised(accessToken.token, { seminar_organised: [seminarOrganisedField] });
+      }
+      if (seminarAttendField && hasChanges(seminarAttendField)) {
+        await candidatesApiService.updateCandidateSeminarAttend(accessToken.token, { seminar_attend: [seminarAttendField] });
+      }
+      setSeminarAttendField();
+      setSeminarOrganisedField();
+      setUpdateField();
+      setMembershipInfoField();
+      fetchData();
+    } catch (error) {
+      console.error('Error saving changes:', error.message);
+    }
+  };
+
+
 
   return (
     <>
-      <form id="myForm">
+      {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
+      <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"
           style={{
@@ -190,7 +239,7 @@ function EditProgramsForm() {
 
             {/* Organized*/}
 
-            <div>
+            {/* <div>
               <p className="HS-heading">
                 Organized{" "}
                 <button
@@ -201,9 +250,12 @@ function EditProgramsForm() {
                   <img src={plusicon} />
                 </button>
               </p>
+            </div> */}
+              <div>
+              <p className="HS-heading">Organized<button onClick={handleAddOrganised} type="button" className="editprofile-plus-button">+</button></p>
             </div>
 
-            {data?.candidate_seminar_organiseds?.map((organised, index) => (
+            {data?.candidate_seminar_organiseds?.map((seminar_organised, index) => (
               <div key={index}>
                 <div className="row">
                   <div className="col-md-4">
@@ -218,7 +270,7 @@ function EditProgramsForm() {
                         placeholder="MM/DD/YYYY"
                         name="organise_date_from"
                         id=""
-                        value={formatDateForInput(organised.organise_date_from)}
+                        value={formatDateForInput(seminar_organised.organise_date_from)}
                         onChange={(e) =>
                           handleOrganisedChange(
                             index,
@@ -242,7 +294,7 @@ function EditProgramsForm() {
                         placeholder=" MM/DD/YYYY"
                         name="organise_date_to"
                         id=""
-                        value={formatDateForInput(organised.organise_date_to)}
+                        value={formatDateForInput(seminar_organised.organise_date_to)}
                         onChange={(e) =>
                           handleOrganisedChange(
                             index,
@@ -266,7 +318,7 @@ function EditProgramsForm() {
                         placeholder=" "
                         name="name_of_course"
                         id=""
-                        value={organised.name_of_course}
+                        value={seminar_organised.name_of_course}
                         onChange={(e) =>
                           handleOrganisedChange(
                             index,
@@ -292,7 +344,7 @@ function EditProgramsForm() {
                         placeholder=" "
                         name="sponsered_by"
                         id=""
-                        value={organised.sponsered_by}
+                        value={seminar_organised.sponsered_by}
                         onChange={(e) =>
                           handleOrganisedChange(
                             index,
@@ -316,7 +368,7 @@ function EditProgramsForm() {
                         placeholder=" "
                         name="participants_number"
                         id=""
-                        value={organised.participants_number}
+                        value={seminar_organised.participants_number}
                         onChange={(e) =>
                           handleOrganisedChange(
                             index,
@@ -340,7 +392,7 @@ function EditProgramsForm() {
                         placeholder=" "
                         name="name_of_institute"
                         id=""
-                        value={organised.name_of_institute}
+                        value={seminar_organised.name_of_institute}
                         onChange={(e) =>
                           handleOrganisedChange(
                             index,
@@ -366,7 +418,7 @@ function EditProgramsForm() {
                         placeholder=" "
                         name="name_of_industry"
                         id=""
-                        value={organised.name_of_industry}
+                        value={seminar_organised.name_of_industry}
                         onChange={(e) =>
                           handleOrganisedChange(
                             index,
@@ -396,7 +448,7 @@ function EditProgramsForm() {
               </p>
             </div>
 
-            {data?.candidate_seminar_attends?.map((attend, index) => (
+            {data?.candidate_seminar_attends?.map((seminar_attend, index) => (
               <div key={index}>
                 <div className="row">
                   <div className="col-md-4">
@@ -408,9 +460,9 @@ function EditProgramsForm() {
                       <input
                         className="UD-set-input"
                         type="date"
-                        placeholder="MM/DD/YYYY "
+                        placeholder="dd/mm/yyyy"
                         name="attend_date_from"
-                        value={formatDateForInput(attend.attend_date_from)}
+                        value={formatDateForInput(seminar_attend.attend_date_from)}
                         onChange={(e) =>
                           handleOtherAttendChange(
                             index,
@@ -431,9 +483,9 @@ function EditProgramsForm() {
                       <input
                         className="UD-set-input"
                         type="date"
-                        placeholder=" MM/DD/YYYY"
+                        placeholder="dd/mm/yyyy"
                         name="attend_date_to"
-                        value={formatDateForInput(attend.attend_date_to)}
+                        value={formatDateForInput(seminar_attend.attend_date_to)}
                         onChange={(e) =>
                           handleOtherAttendChange(
                             index,
@@ -456,7 +508,7 @@ function EditProgramsForm() {
                         type="text"
                         placeholder=" "
                         name="name_of_course"
-                        value={attend.name_of_course}
+                        value={seminar_attend.name_of_course}
                         onChange={(e) =>
                           handleOtherAttendChange(
                             index,
@@ -481,7 +533,7 @@ function EditProgramsForm() {
                         type="text"
                         placeholder=" "
                         name="sponsered_by"
-                        value={attend.sponsered_by}
+                        value={seminar_attend.sponsered_by}
                         onChange={(e) =>
                           handleOtherAttendChange(
                             index,
@@ -502,7 +554,7 @@ function EditProgramsForm() {
               <p className="HS-heading">Other Information<button onClick={handleAddOtherInfo} type="button" className="editprofile-plus-button">+</button></p>
             </div>
 
-            {data?.candidate_other_membership_infos?.map((others, index) => (
+            {data?.candidate_other_membership_infos?.map((other_membership_info, index) => (
               <div key={index}>
                 <div className="row" style={{ marginTop: "-30px" }}>
                   <div className="col-md-12">
@@ -519,7 +571,7 @@ function EditProgramsForm() {
                         placeholder=""
                         name="member_of_institute_name"
                         id=""
-                        value={others.member_of_institute_name}
+                        value={other_membership_info.member_of_institute_name}
                         onChange={(e) =>
                           handleOtherInformationChange(
                             index,
@@ -551,7 +603,7 @@ function EditProgramsForm() {
                         placeholder="MM/DD/YYYY "
                         name="membership_date_from"
                         id=""
-                        value={formatDateForInput(others.membership_date_from)}
+                        value={formatDateForInput(other_membership_info.membership_date_from)}
                         onChange={(e) =>
                           handleOtherInformationChange(
                             index,
@@ -575,7 +627,7 @@ function EditProgramsForm() {
                         placeholder=" MM/DD/YYYY"
                         name="membership_date_to"
                         id=""
-                        value={formatDateForInput(others.membership_date_to)}
+                        value={formatDateForInput(other_membership_info.membership_date_to)}
                         onChange={(e) =>
                           handleOtherInformationChange(
                             index,
@@ -599,11 +651,9 @@ function EditProgramsForm() {
                         placeholder=" "
                         name="position_held"
                         id=""
-                        value={others.position_held}
+                        value={other_membership_info.position_held}
                         onChange={(e) =>
-                          handleOtherInformationChange(
-                            index,
-                            "position_held",
+                          handleOtherInformationChange(index, "position_held",
                             e.target.value
                           )
                         }
@@ -625,15 +675,10 @@ function EditProgramsForm() {
                         placeholder=" "
                         name="contribution"
                         id=""
-                        value={others.contribution}
-                        onChange={(e) =>
-                          handleOtherInformationChange(
-                            index,
-                            "contribution",
-                            e.target.value
-                          )
-                        }
+                        value={other_membership_info.contribution}
+                        onChange={(e) => handleOtherInformationChange(index, "contribution", e.target.value)}
                       ></input>
+
                     </div>
                   </div>
                 </div>
@@ -733,7 +778,7 @@ function EditProgramsForm() {
             </div>
 
             <div>
-              <button className="savebtn" type="button">
+              <button className="savebtn" type="button" onClick={handleSaveChanges}>
                 Save Changes
               </button>
             </div>
