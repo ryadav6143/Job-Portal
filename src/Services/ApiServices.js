@@ -9,7 +9,7 @@ const apiService = {
 
   // -------------------
   getJobCategories: () => {
-    return axios.get(`${BASE_URL}/jobCategory`);  
+    return axios.get(`${BASE_URL}/jobCategory`);
   },
 
   getSubjectMaster: () => {
@@ -46,7 +46,7 @@ const apiService = {
   getDepartments: () => {
     return axios.get(`${BASE_URL}/departmentMaster`);
   },
-  
+
 };
 
 
