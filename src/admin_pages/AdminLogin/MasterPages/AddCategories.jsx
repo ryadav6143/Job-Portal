@@ -115,17 +115,34 @@ function AddCategories() {
     setUpdateModalOpen(true);
   };
 
+ 
+  // ------------------UPDATE DATA IN API--------------------------------
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+
   const handleCloseUpdateModal = () => {
-    // Close the update modal
     setUpdateModalOpen(false);
     setNewCategory();
     setSelectedCategory();
   };
 
-  // ------------------UPDATE DATA IN API--------------------------------
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  
+  const handleXButtonClick = () => {
+    if (updateModalOpen) {
+      setUpdateModalOpen(false);
+    } else {
+      setOpen(false);
+    }
+    // Close the modal when'x' button is clicked
+    
+    setOpen(false);
+    setNewCategory();
+    setSelectedCategory();
+  };
+
 
   const style = {
     position: "absolute",
@@ -139,15 +156,6 @@ function AddCategories() {
     p: 4,
   };
 
-  const handleXButtonClick = () => {
-    if (updateModalOpen) {
-      setUpdateModalOpen(false);
-    } else {
-      setOpen(false);
-    }
-    // Close the modal when'x' button is clicked
-    setOpen(false);
-  };
   return (
     <>
       <div className="container-1">
