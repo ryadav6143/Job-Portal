@@ -35,7 +35,7 @@ function AddOpenings() {
       try {
         const response = await adminApiService.getDepartments();
         setDepartmant(response.data);
-        console.log("department", response.data)
+        console.log("department", response.data);
       } catch (error) {
         console.error("Error fetching departments:", error);
       }
@@ -57,8 +57,6 @@ function AddOpenings() {
     setSubPost([]);
   };
 
-
-
   const handlePost = (event) => {
     // setPost(event.target.value);
     const selectedPost = event.target.value;
@@ -78,7 +76,7 @@ function AddOpenings() {
     );
     // Additional logic with selectedSubPostData if needed
   };
-  
+
   const handleDepartmant = (event) => {
     setSelectedDepartment(event.target.value);
   };
@@ -111,7 +109,6 @@ function AddOpenings() {
   return (
     <div>
       <div className="new-openings">
-
         <p>job_profile_master</p>
         <p className="master-heading">Add New Opening</p>
         <div className="new-openings-form">
@@ -183,17 +180,21 @@ function AddOpenings() {
               <div className="col-6">
                 <label htmlFor="dropdown2">SubPost</label>
                 <select
-        id="dropdown2"
-        value={selectedSubPost}
-        onChange={handleSubPost}
-      >
-        <option value="">-- Select SubPost --</option>
-        {Array.isArray(subPost) && subPost.map((subpost) => (
-          <option key={subpost.subpost_name} value={subpost.subpost_name}>
-            {subpost.subpost_name}
-          </option>
-        ))}
-      </select>
+                  id="dropdown2"
+                  value={selectedSubPost}
+                  onChange={handleSubPost}
+                >
+                  <option value="">-- Select SubPost --</option>
+                  {Array.isArray(subPost) &&
+                    subPost.map((subpost) => (
+                      <option
+                        key={subpost.subpost_name}
+                        value={subpost.subpost_name}
+                      >
+                        {subpost.subpost_name}
+                      </option>
+                    ))}
+                </select>
               </div>
               <div className="col-6">
                 <label htmlFor=""> Qualification & Experience</label>
@@ -221,9 +222,13 @@ function AddOpenings() {
               </p>
             </div>
             <div className="row">
-              <div className="col-12">
+              <div className="col-6">
                 <label htmlFor="">Eligibility criteria</label>
                 <input type="text" placeholder="Add Eligibility Criteria" />
+              </div>
+              <div className="col-6">
+                <label htmlFor="">Add Responsible Person's Contact </label>
+                <input type="text" placeholder="Add Contact" />
               </div>
             </div>
             <div className="row">
@@ -241,15 +246,22 @@ function AddOpenings() {
               </div>
             </div>
             <div className="row toggle-btns">
-              <div className="col-6">
+              <div className="col-4">
                 <p>Add To Current Opening</p>
                 <label class="switch">
                   <input type="checkbox" id="checkbox" />
                   <div class="slider round"></div>
                 </label>
               </div>
-              <div className="col-6">
-                <p>Add to Interview Schedule</p>
+              <div className="col-4">
+                <p>Add To Interview Schedule</p>
+                <label class="switch">
+                  <input type="checkbox" id="checkbox" />
+                  <div class="slider round"></div>
+                </label>
+              </div>
+              <div className="col-4">
+                <p>Publish To Job Profile</p>
                 <label class="switch">
                   <input type="checkbox" id="checkbox" />
                   <div class="slider round"></div>
