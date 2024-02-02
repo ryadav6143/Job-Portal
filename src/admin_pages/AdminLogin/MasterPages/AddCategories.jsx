@@ -3,42 +3,52 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
+import axios from "axios";
 
 function AddCategories() {
+  const BASE_URL = "http://192.168.1.8:8090/v1/api";
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
-
   const [selectedCategory, setSelectedCategory] = useState(null); // New state for tracking the selected category for update
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [open, setOpen] = React.useState(false);
   // ------------------GET DATA FROM API--------------------------------
 
-  function getjobcategory() {
-    fetch("http://192.168.1.8:8090/v1/api/jobCategory")
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }
+  const getJobCategory = () => {
+    axios
+      .get(`${BASE_URL}/jobCategory`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
   useEffect(() => {
-    getjobcategory();
-  }, [data]);
+    getJobCategory();
+  }, []);
   // ------------------GET DATA FROM API--------------------------------
 
   // ------------------POST DATA TO API--------------------------------
   const handleAddCategory = () => {
     // Send a POST request to the API to add a new category
 
-    fetch("http://192.168.1.8:8090/v1/api/jobCategory", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ category_name: newCategory }),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
+    axios
+      .post(
+        `${BASE_URL}/jobCategory`,
+        {
+          category_name: newCategory,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
         // Update the state with the new data
-        setData([...data, responseData]);
+        setData([...data, response.data]);
         // Clear the input field after successful submission
         setNewCategory("");
       })
@@ -52,11 +62,10 @@ function AddCategories() {
 
   // ------------------DELETE DATA FROM API--------------------------------
   const handleDeleteCategory = (categoryId) => {
-    fetch(`http://192.168.1.8:8090/v1/api/jobCategory/${categoryId}`, {
-      method: "DELETE",
-    })
+    axios
+      .delete(`${BASE_URL}/jobCategory/${categoryId}`)
       .then((response) => {
-        if (response.ok) {
+        if (response.status === 200) {
           // Remove the deleted category from the state
           setData(data.filter((category) => category.id !== categoryId));
         } else {
@@ -68,30 +77,33 @@ function AddCategories() {
   // ------------------DELETE DATA FROM API--------------------------------
 
   // ------------------UPDATE DATA IN API--------------------------------
-
   const handleUpdateCategory = () => {
     if (!selectedCategory) return;
 
-    fetch(`http://192.168.1.8:8090/v1/api/jobCategory/${selectedCategory.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ category_name: selectedCategory.category_name }),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
+    axios
+      .put(
+        `${BASE_URL}/jobCategory/${selectedCategory.id}`,
+        {
+          category_name: selectedCategory.category_name,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
         // Update the state with the updated data
         setData(
           data.map((category) =>
-            category.id === selectedCategory.id ? responseData : category
+            category.id === selectedCategory.id ? response.data : category
           )
         );
         // Reset the selected category
         setSelectedCategory(null);
+        setUpdateModalOpen(false);
       })
       .catch((error) => console.error("Error updating category:", error));
-    setUpdateModalOpen(false);
   };
 
   const handleSelectCategoryForUpdate = (categoryId) => {
@@ -183,7 +195,6 @@ function AddCategories() {
                       }
                     }}
                   />
-
                   <button
                     id="set-btn"
                     type="button"

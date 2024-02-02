@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Master.css";
 import axios from "axios";
 function AddPostApplied() {
+  const BASE_URL = "http://192.168.1.8:8090/v1/api";
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
@@ -12,14 +13,14 @@ function AddPostApplied() {
     addPostApplied();
   }, []);
   function addPostApplied() {
-    fetch("http://192.168.1.8:8090/v1/api/jobCategory")
+    fetch(`${BASE_URL}/jobCategory`)
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching job categories:", error));
   }
   // ------------------GET DATA FROM API--------------------------------
   function getPost() {
-    fetch("http://192.168.1.8:8090/v1/api/appliedPost")
+    fetch(`${BASE_URL}/appliedPost`)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -31,33 +32,37 @@ function AddPostApplied() {
 
   // ------------------POST DATA TO API--------------------------------
   const handleAddPost = () => {
-    console.log(selectedCategoryId,"check category");
+    console.log(selectedCategoryId, "check category");
     if (!selectedCategoryId) {
       console.error("Please select a category.");
       return;
     }
-  
-    axios.post("http://192.168.1.8:8090/v1/api/appliedPost", {
-      post_name: newCategory,
-      job_category_master_id: selectedCategoryId,
-    }, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+
+    axios
+      .post(
+        `${BASE_URL}/appliedPost`,
+        {
+          post_name: newCategory,
+          job_category_master_id: selectedCategoryId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((response) => {
         setData([...data, response.data]);
         setNewCategory("");
       })
       .catch((error) => console.error("Error adding post:", error));
   };
-  
-  
+
   // ------------------POST DATA TO API--------------------------------
 
   // ------------------DELETE DATA FROM API--------------------------------
   const handleDeletePost = (categoryId) => {
-    fetch(`http://192.168.1.8:8090/v1/api/appliedPost/${categoryId}`, {
+    fetch(`${BASE_URL}/appliedPost/${categoryId}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -77,7 +82,7 @@ function AddPostApplied() {
   const handleUpdatePost = () => {
     if (!selectedCategory) return;
 
-    fetch(`http://192.168.1.8:8090/v1/api/appliedPost/${selectedCategory.id}`, {
+    fetch(`${BASE_URL}/appliedPost/${selectedCategory.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -113,11 +118,10 @@ function AddPostApplied() {
     const selectedCategoryObj = categories.find(
       (category) => category.id === selectedCategoryId
     );
-  
+
     setSelectedCategoryId(selectedCategoryId);
     setSelectedCategory(selectedCategoryObj);
   };
-  
 
   const handleSelectPostForUpdate = (categoryId) => {
     const selectedPost = data.find((post) => post.id === categoryId);

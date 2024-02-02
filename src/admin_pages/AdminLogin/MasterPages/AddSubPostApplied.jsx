@@ -2,19 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function AddSubPostApplied() {
+  const BASE_URL = "http://192.168.1.8:8090/v1/api";
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [newPost, setNewPost] = useState("");
+  const [updatePost, setUpdatePost] = useState("");
+
   // -----------------------------Fetching data from applied_subpost------------------------------
   useEffect(() => {
-    fetchData();
+    fetchappliedSubPost();
   }, []);
 
-  const fetchData = () => {
+  const fetchappliedSubPost = () => {
     axios
-      .get("http://192.168.1.8:8090/v1/api/appliedSubPost")
+      .get(`${BASE_URL}/appliedSubPost`)
       .then((response) => {
         setData(response.data);
       })
@@ -30,7 +33,7 @@ function AddSubPostApplied() {
 
   const fetchAppliedPost = () => {
     axios
-      .get("http://192.168.1.8:8090/v1/api/appliedPost")
+      .get(`${BASE_URL}/appliedPost`)
       .then((response) => {
         setPostData(response.data);
       })
@@ -47,22 +50,27 @@ function AddSubPostApplied() {
   };
 
   const handleAddSubPost = () => {
-    console.log( "check category->",selectedPostId);
-    console.log("typed data->",newPost );
+    console.log("check category->", selectedPostId);
+    console.log("typed data->", newPost);
     if (!selectedPostId) {
       console.error("Please select a category.");
       return;
     }
 
-    axios.post("http://192.168.1.8:8090/v1/api/appliedSubPost", {
-      applied_post_masters_id: Number(selectedPostId), // Convert to number
-      subpost_name: newPost,
-    }, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    
+    axios
+      .post(
+        `${BASE_URL}/appliedSubPost`,
+        {
+          applied_post_masters_id: Number(selectedPostId), // Convert to number
+          subpost_name: newPost,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+
       .then((response) => {
         console.log("API Response:", response.data);
         setData([...data, response.data]);
@@ -72,6 +80,44 @@ function AddSubPostApplied() {
   };
 
   // -----------------------------Fetching data from applied_post------------------------------
+  const handleDeleteSubPost = (subPostId) => {
+    axios
+      .delete(`${BASE_URL}/appliedSubPost/${subPostId}`)
+      .then((response) => {
+        console.log("Subpost deleted successfully");
+        fetchappliedSubPost(); // Refresh the data after deletion
+      })
+      .catch((error) => console.error("Error deleting subpost:", error));
+  };
+
+  const handleUpdateSubPost = () => {
+    if (!selectedPostId) {
+      console.error("Please select a category.");
+      return;
+    }
+
+    console.log("Updating sub-post:", selectedPost);
+
+    axios
+      .put(
+        `${BASE_URL}/appliedSubPost/${selectedPost.id}`,
+        {
+          applied_post_masters_id: Number(selectedPostId),
+          subpost_name: updatePost,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("API Response:", response.data);
+        fetchappliedSubPost(); // Refresh the data after update
+        setUpdatePost(""); // Clear the update field after updating
+      })
+      .catch((error) => console.error("Error updating post:", error));
+  };
 
   return (
     <>
@@ -93,7 +139,6 @@ function AddSubPostApplied() {
           </select>
 
           <label htmlFor="">Add Sub Post Applied For</label>
-          {/* <input type="text" placeholder="Sub Post Applied For" /> */}
           <input
             type="text"
             id=""
@@ -111,11 +156,19 @@ function AddSubPostApplied() {
               }
             }}
           />
+          {selectedPost ? (
+            <button type="button" onClick={handleUpdateSubPost}>
+              UPDATE NOW
+            </button>
+          ) : (
+            <button type="button" onClick={handleAddSubPost}>
+              ADD NOW
+            </button>
+          )}
         </form>
-        <button type="button" onClick={handleAddSubPost}>
-          {" "}
+        {/* <button type="button" onClick={handleAddSubPost}>
           ADD NOW
-        </button>
+        </button> */}
       </div>
 
       <div className="master-table ">
@@ -139,7 +192,12 @@ function AddSubPostApplied() {
                     <button id="update-btn">UPDATE</button>
                   </td>
                   <td>
-                    <button id="delete-btn">DELETE</button>
+                    <button
+                      id="delete-btn"
+                      onClick={() => handleDeleteSubPost(subPost.id)}
+                    >
+                      DELETE
+                    </button>
                   </td>
                 </tr>
               ))}

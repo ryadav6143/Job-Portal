@@ -192,14 +192,14 @@ function SideBar() {
                             href="#"
                             onClick={() => showComponent("Component7")}
                           >
-                            Departments (department_master )
+                            Departments(Done)
                           </a>
                           <a
                             className="dropdown-item"
                             href="#"
                             onClick={() => showComponent("Component8")}
                           >
-                            Exam Type (exam_types_master )
+                            Exam Type(Done)
                           </a>
                           <a
                             className="dropdown-item"
