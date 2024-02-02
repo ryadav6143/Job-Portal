@@ -122,8 +122,6 @@ function EditProgramsForm() {
 
 
 
- 
-
   const handleOtherAttendChange = (index, field, value) => {
     const updatedAttend = [...data.candidate_seminar_attends];
     const seminarAttendId = updatedAttend[index].id;
