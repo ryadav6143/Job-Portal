@@ -14,8 +14,8 @@ const adminApiService = {
       getJobProfile: () => {
         return axios.get(`${BASE_URL}/jobProfileMaster`);
       },
-      postJobProfile: () => {
-        return axios.post(`${BASE_URL}/jobProfileMaster`);
+      postJobProfile: (formValues) => {
+        return axios.post(`${BASE_URL}/jobProfileMaster`,formValues);
       },
 
 }

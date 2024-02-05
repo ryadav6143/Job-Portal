@@ -4,9 +4,6 @@ import "./AddOpenings.css";
 import adminApiService from "../../../../adminApiService";
 function AddOpenings() {
   const navigate = useNavigate();
-  // const [category, setCategory] = useState("");
-  // const [departmant, setDepartmant] = useState("");
-  // const [subPost, setSubPost] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [departmant, setDepartmant] = useState([]);
@@ -20,26 +17,28 @@ function AddOpenings() {
   const [publishToJobProfile, setPublishToJobProfile] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    job_category_master_id: "",
-    department_master_id: "",
-    applied_post_masters_id: "",
-    applied_subpost_master_id: "",
-    education_require: "",
-    qualification_require: "",
-    last_date_to_apply: "",
-    publish_to_vacancy: "",
-    publish_to_schedule_interview: "",
-    publish_to_job_profile: "",
-    schedule_interview_date_1: "",
-    schedule_interview_date_2: "",
-    schedule_interview_date_3: "",
-    number_of_vacancy: "",
-    eligibility_criteria:"",
-    is_active: "",
-    salary_grade: "",
-    responsible_contact: "",
+    job_category_master_id: 0,
+  department_master_id: 0,
+  applied_subpost_master_id: 0,
+  applied_post_masters_id: 0,
+  education_require: "",
+  qualification_require: "",
+  last_date_to_apply: "",
+  publish_to_vacancy: false,
+  publish_to_schedule_interview: false,
+  publish_to_job_profile: false,
+  schedule_interview_date_1: null,
+  schedule_interview_date_2: null,
+  schedule_interview_date_3: null,
+  number_of_vacancy: 0,
+  eligibility_criteria: "",
+  is_active: true,
+  salary_grade: "",
+  responsible_contact: "",
   });
 
+
+  
   useEffect(() => {
     const fetchJobCategories = async () => {
       try {
@@ -66,30 +65,38 @@ function AddOpenings() {
     fetchDepartments();
   }, []);
 
+
+  // const handleclick = () => {
+  //   navigate("/adminpanel");
+  // };
+
+
   const handleCategory = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
     const selectedCategoryData = jobCategories.find(
       (category) => category.category_name === selectedCategory
     );
-    setPost(
-      selectedCategoryData ? selectedCategoryData.applied_post_masters : []
-    );
+    setFormValues({
+      ...formValues,
+      job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",
+    });
+    setPost(selectedCategoryData ? selectedCategoryData.applied_post_masters : []);
     setSelectedPost("");
     setSubPost([]);
   };
-
+  
   const handlePost = (event) => {
-    // setPost(event.target.value);
     const selectedPost = event.target.value;
     setSelectedPost(selectedPost);
-    const selectedPostData = post.find(
-      (post) => post.post_name === selectedPost
-    );
-    setSubPost(
-      selectedPostData ? selectedPostData.applied_subpost_masters : []
-    );
+    const selectedPostData = post.find((post) => post.post_name === selectedPost);
+    setFormValues({
+      ...formValues,
+      applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
+    });
+    setSubPost(selectedPostData ? selectedPostData.applied_subpost_masters : []);
   };
+  
   const handleSubPost = (event) => {
     const selectedSubPostName = event.target.value;
     setSelectedSubPost(selectedSubPostName);
@@ -97,37 +104,65 @@ function AddOpenings() {
       (subpost) => subpost.subpost_name === selectedSubPostName
     );
     // Additional logic with selectedSubPostData if needed
+    setFormValues({
+      ...formValues,
+      applied_subpost_master_id: selectedSubPostData ? selectedSubPostData.id : "",
+    });
   };
-
+  
   const handleDepartmant = (event) => {
-    setSelectedDepartment(event.target.value);
+    const selectedDepartment = event.target.value;
+    setSelectedDepartment(selectedDepartment);
+    const selectedDepartmentData = departmant.find(
+      (department) => department.dept_name === selectedDepartment
+    );
+    setFormValues({
+      ...formValues,
+      department_master_id: selectedDepartmentData ? selectedDepartmentData.id : "",
+    });
   };
-  const handleclick = () => {
-    navigate("/adminpanel");
-  };
+  
 
   const handleCheckboxChange = (checkboxName) => {
     switch (checkboxName) {
       case 'addToCurrentOpening':
-        setAddToCurrentOpening(!addToCurrentOpening);
+        setAddToCurrentOpening((prev) => !prev);
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          publish_to_vacancy: !prevValues.publish_to_vacancy,
+        }));
         break;
       case 'addToInterviewSchedule':
-        setAddToInterviewSchedule(!addToInterviewSchedule);
+        setAddToInterviewSchedule((prev) => !prev);
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          publish_to_schedule_interview: !prevValues.publish_to_schedule_interview,
+        }));
         break;
       case 'publishToJobProfile':
-        setPublishToJobProfile(!publishToJobProfile);
+        setPublishToJobProfile((prev) => !prev);
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          publish_to_job_profile: !prevValues.publish_to_job_profile,
+        }));
         break;
       default:
         break;
     }
   };
-
+  
   const handleSetAllCheckboxes = (value) => {
     setAddToCurrentOpening(value);
     setAddToInterviewSchedule(value);
     setPublishToJobProfile(value);
+  
+    setFormValues({
+      ...formValues,
+      publish_to_vacancy: value,
+      publish_to_schedule_interview: value,
+      publish_to_job_profile: value,
+    });
   };
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -136,26 +171,24 @@ function AddOpenings() {
       [name]: value,
     });
   };
-  
+ 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    console.log('Sending request with formValues:', formValues);
+  
     try {
-      const response = await adminApiService.postJobProfile({
-        ...formValues,
-        publish_to_vacancy: addToCurrentOpening,
-        publish_to_schedule_interview: addToInterviewSchedule,
-        publish_to_job_profile: publishToJobProfile,
-      });
-
+      const response = await adminApiService.postJobProfile(formValues);
+      console.log('API Response:', response.data);
+  
       // Add any additional logic after successful submission
       console.log('Job profile submitted successfully!', response.data);
+      navigate("/adminpanel");
     } catch (error) {
       console.error('Error submitting job profile:', error);
     }
   };
-
+  
 
   return (
     <div>
@@ -285,7 +318,9 @@ function AddOpenings() {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="">Eligibility criteria</label>
-                <input type="text" placeholder="Add Eligibility Criteria" 
+                <input type="text"
+                 placeholder="Add Eligibility Criteria" 
+                 name="eligibility_criteria"
                            value={formValues.eligibility_criteria}
                            onChange={handleInputChange}/>
               </div>
@@ -346,7 +381,7 @@ function AddOpenings() {
               </div>
             </div>
             <div>
-              <button type="submit" id="add-job" onClick={handleclick}>
+              <button type="submit" id="add-job" onClick={handleSubmit}>
                 SUBMIT
               </button>
             </div>
