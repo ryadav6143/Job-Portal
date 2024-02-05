@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../../config/config";
 
 function AddExamType() {
-  const BASE_URL = "http://192.168.1.8:8090/v1/api";
   const [data, setData] = useState([]);
   const [newExamType, setNewExamType] = useState("");
 
@@ -75,7 +75,6 @@ function AddExamType() {
 
       <div className="master-table ">
         <p className="table-heading">CURRENT EXAM TYPE AVAILABLE</p>
-        <p>(Delete and update is Remaining....)</p>
         <div className="">
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>

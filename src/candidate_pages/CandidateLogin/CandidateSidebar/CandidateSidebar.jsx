@@ -22,7 +22,7 @@ function CandidateSidebar() {
   const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   const [uploadedImage, setUploadedImage] = useState(null);
   const handleImageUpload = (event) => {
     // Handle image upload logic here
@@ -30,7 +30,6 @@ function CandidateSidebar() {
     // Perform necessary validations and set the uploaded image
     setUploadedImage(URL.createObjectURL(uploadedFile));
   };
-
 
   useEffect(() => {
     // Update isOpen state only if the window width is less than 768
@@ -95,11 +94,13 @@ function CandidateSidebar() {
 
   return (
     <>
-      {isMobile && (
-        <Button className="sidebar-btn" onClick={() => handleSideBar()}>
-          ☰{" "}
-        </Button>
-      )}
+      <div className="toggle-div">
+        {isMobile && (
+          <Button className="sidebar-btn" onClick={() => handleSideBar()}>
+            ☰
+          </Button>
+        )}
+      </div>
 
       {/* ------------sidebar start----------------- */}
       <div className="row1">

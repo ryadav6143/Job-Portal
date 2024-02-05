@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Master.css";
 import axios from "axios";
+import { BASE_URL } from "../../../config/config";
 function AddPostApplied() {
-  const BASE_URL = "http://192.168.1.8:8090/v1/api";
+
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
@@ -103,16 +104,6 @@ function AddPostApplied() {
       .catch((error) => console.error("Error updating category:", error));
   };
 
-  // const handleSelectCategory = (e) => {
-  //   const selectedCategoryId = e.target.value;
-  //   const selectedCategoryObj = categories.find(
-  //     (category) => category.id === selectedCategoryId
-  //   );
-
-  //   setSelectedCategoryId(selectedCategoryId);
-  //   setSelectedCategory(selectedCategoryObj);
-  // };
-
   const handleSelectCategory = (e) => {
     const selectedCategoryId = e.target.value;
     const selectedCategoryObj = categories.find(
@@ -188,7 +179,7 @@ function AddPostApplied() {
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">NAME</th>
+                <th scope="col">POST</th>
                 <th scope="col">UPDATE</th>
                 <th scope="col">DELETE</th>
               </tr>

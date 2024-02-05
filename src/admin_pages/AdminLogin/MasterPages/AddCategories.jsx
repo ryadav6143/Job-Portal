@@ -3,10 +3,10 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
+import { BASE_URL } from "../../../config/config";
 import axios from "axios";
 
 function AddCategories() {
-  const BASE_URL = "http://192.168.1.8:8090/v1/api";
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null); // New state for tracking the selected category for update
@@ -115,17 +115,29 @@ function AddCategories() {
     setUpdateModalOpen(true);
   };
 
+  // ------------------UPDATE DATA IN API--------------------------------
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const handleCloseUpdateModal = () => {
-    // Close the update modal
     setUpdateModalOpen(false);
     setNewCategory();
     setSelectedCategory();
   };
 
-  // ------------------UPDATE DATA IN API--------------------------------
+  const handleXButtonClick = () => {
+    if (updateModalOpen) {
+      setUpdateModalOpen(false);
+    } else {
+      setOpen(false);
+    }
+    // Close the modal when'x' button is clicked
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+    setOpen(false);
+    setNewCategory();
+    setSelectedCategory();
+  };
 
   const style = {
     position: "absolute",
@@ -139,15 +151,6 @@ function AddCategories() {
     p: 4,
   };
 
-  const handleXButtonClick = () => {
-    if (updateModalOpen) {
-      setUpdateModalOpen(false);
-    } else {
-      setOpen(false);
-    }
-    // Close the modal when'x' button is clicked
-    setOpen(false);
-  };
   return (
     <>
       <div className="container-1">
@@ -195,13 +198,23 @@ function AddCategories() {
                       }
                     }}
                   />
-                  <button
-                    id="set-btn"
-                    type="button"
-                    onClick={handleAddCategory}
-                  >
-                    ADD
-                  </button>
+                  <div className="">
+                    <button
+                      id="set-btn"
+                      type="button"
+                      onClick={handleAddCategory}
+                    >
+                      ADD
+                    </button>
+
+                    <div className="category-publish-btn">
+                      <p>Publish To Job Profile</p>
+                      <label class="switch">
+                        <input type="checkbox" id="checkbox" />
+                        <div class="slider round"></div>
+                      </label>
+                    </div>
+                  </div>
                 </form>
               </div>
             </FormControl>

@@ -4,9 +4,14 @@
     background: transparent;
     margin-right: 40px;
     margin-top: 12px;
-   
   }
-  img{
+  img {
     width: 30px !important;
   }
+}
+.admin-header {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background-color: white;
 }

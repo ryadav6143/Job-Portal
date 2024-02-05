@@ -21,8 +21,8 @@ import OTPVerification from "./admin_pages/DropCV/OTPVerifivation/OTPVerificatio
 import TestPages from "./admin_pages/TestPages/TestPages";
 import AddOpenings from "./admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 import CandidatePanel from "./candidate_pages/CandidateLogin/CandidatePanel";
-import CandidateLogin from "./candidate_pages/CandidateLogin/CandidateLogin/CandidateLogin";
 import ForgottenPassword from "./candidate_pages/CandidateLogin/CandidateLogin/ForgottenPassword";
+import PageNotFound from "./admin_pages/PageNotFound/PageNotFound";
 
 function App() {
   return (
@@ -70,10 +70,9 @@ function App() {
             path="verification-successfull"
             element={<Submitsuccess />}
           ></Route>
-
           <Route path="add-openings" element={<AddOpenings />}></Route>
-
           <Route path="test" element={<TestPages />}></Route>
+          <Route path="*" element={<PageNotFound />}></Route>
         </Routes>
       </Main>
     </>

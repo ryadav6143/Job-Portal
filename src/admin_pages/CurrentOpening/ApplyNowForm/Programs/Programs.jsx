@@ -177,29 +177,34 @@ function Programs({ formValues, setFormValues }) {
             <div>
               <p className="HS-heading">
                 Organized
-                <button
-                  onClick={handleAddseminar_organised}
-                  type="button"
-                  className="plus-buttons"
-                >
-                  <img src={plusicon} />
-                </button>
+               
               </p>
             </div>
 
             {formValues.seminar_organised.map((seminar_organised, index) => (
               <div key={index}>
+                 {index > 0 && <hr style={{ margin: '24px 0' }} />}
                 <div className="row" style={{ marginTop: "4px" }}>
                   <div>
-                    {index > 0 && (
+                  {formValues.seminar_organised.length > 1 && (
                       <button
+                        type="button"
                         onClick={() => handleRemoveSeminarOrganised(index)}
                         className="minus-buttons"
-                        type="button"
                       >
-                        <img src={minusicon} />
+                        <img src={minusicon} alt="Remove seminar_organised" />
                       </button>
                     )}
+                    {index === formValues.seminar_organised.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={handleAddseminar_organised}
+                        className="plus-buttons"
+                      >
+                        <img src={plusicon} alt="Add seminar_organised" />
+                      </button>
+                    )}
+                    
                   </div>
                   <div className="col-md-4">
                     {/* Date From*/}
@@ -373,28 +378,34 @@ function Programs({ formValues, setFormValues }) {
             <div>
               <p className="HS-heading">
                 Attended
-                <button
-                  onClick={handleAddseminar_attend}
-                  type="button"
-                  className="plus-buttons"
-                >
-                  <img src={plusicon} />
-                </button>
+                
               </p>
             </div>
 
             {formValues.seminar_attend.map((seminar_attend, index) => (
               <div key={index}>
+                  {index > 0 && <hr style={{ margin: '24px 0' }} />}
                 <div className="row" style={{ marginTop: "4px" }}>
                   <div>
-                    {index > 0 && (
+                  {formValues.seminar_attend.length > 1 && (
                       <button
+                        type="button"
                         onClick={() => handleRemoveSeminarAttend(index)}
                         className="minus-buttons"
                       >
-                        <img src={minusicon} />
+                        <img src={minusicon} alt="Remove seminar_attend" />
                       </button>
                     )}
+                    {index === formValues.seminar_attend.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={handleAddseminar_attend}
+                        className="plus-buttons"
+                      >
+                        <img src={plusicon} alt="Add seminar_attend" />
+                      </button>
+                    )}
+                   
                   </div>
                   <div className="col-md-4">
                     {/* Date From*/}
@@ -485,18 +496,13 @@ function Programs({ formValues, setFormValues }) {
 
             <div>
               <p className="HS-heading">Other Information
-              <button
-                        onClick={handleAddother_membership_info}
-                        type="button"
-                        className="plus-buttons"
-                      >
-                        <img src={plusicon} />
-                      </button>
+             
               </p>
             </div>
             {formValues.other_membership_info.map(
               (other_membership_info, index) => (
                 <div key={index}>
+                    {index > 0 && <hr style={{ margin: '24px 0' }} />}
                   {/* <div className="row" style={{ marginTop: "-30px" }}>
           <div className="col-md-12">
   
@@ -521,15 +527,25 @@ function Programs({ formValues, setFormValues }) {
 
                   <div className="row" style={{ marginTop: "4px" }}>
                   <div>
-                      {index > 0 && (
-                        <button
-                          onClick={() => handleRemoveOtherMembershipInfo(index)}
-                          className="minus-buttons"
-                          type="button"
-                        >
-                          <img src={minusicon} />
-                        </button>
-                      )}
+                  {formValues.other_membership_info.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveOtherMembershipInfo(index)}
+                        className="minus-buttons"
+                      >
+                        <img src={minusicon} alt="Remove other_membership_info" />
+                      </button>
+                    )}
+                    {index === formValues.other_membership_info.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={handleAddother_membership_info}
+                        className="plus-buttons"
+                      >
+                        <img src={plusicon} alt="Add other_membership_info" />
+                      </button>
+                    )}
+                      
                     </div>
                     <div className="col-md-12">
                       {/* Membership of University/Institute/Industry Bodies*/}

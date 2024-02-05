@@ -80,37 +80,13 @@ function FAQ() {
     },
     // Add more sections as needed
   ];
-  // const [openIndex, setOpenIndex] = useState(null);
 
-  // const toggleSection = (index) => {
-  //   setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
-  // };
   return (
     <>
       <Header></Header>
       <div className="faq-section">
         <div className="illustrations"></div>
 
-        {/* <div className="my-section">
-          {sections.map((section, index) => (
-            <div key={index}>
-              <details>
-                <summary
-                  onClick={() => toggleSection(index)}
-                  style={{ display: "inline" }}
-                >
-                  {section.summary}
-                </summary>
-                {openIndex === index && (
-                  <p>
-                    <p id="faq-p">{section.detail}</p>
-                  </p>
-                )}
-              </details>
-            </div>
-          ))}
-        </div>
-    */}
         <div className="faq-body">
           <Accordion activeKey={activeKey} onSelect={handleAccordionToggle}>
             {sections.map((item, index) => (

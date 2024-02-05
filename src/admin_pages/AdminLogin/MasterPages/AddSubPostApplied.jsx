@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { BASE_URL } from "../../../config/config";
 function AddSubPostApplied() {
-  const BASE_URL = "http://192.168.1.8:8090/v1/api";
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [newPost, setNewPost] = useState("");
   const [updatePost, setUpdatePost] = useState("");
-
   // -----------------------------Fetching data from applied_subpost------------------------------
   useEffect(() => {
-    fetchappliedSubPost();
+    fetchData();
   }, []);
 
-  const fetchappliedSubPost = () => {
+  const fetchData = () => {
     axios
       .get(`${BASE_URL}/appliedSubPost`)
       .then((response) => {
@@ -85,7 +83,7 @@ function AddSubPostApplied() {
       .delete(`${BASE_URL}/appliedSubPost/${subPostId}`)
       .then((response) => {
         console.log("Subpost deleted successfully");
-        fetchappliedSubPost(); // Refresh the data after deletion
+        fetchData(); // Refresh the data after deletion
       })
       .catch((error) => console.error("Error deleting subpost:", error));
   };
@@ -113,7 +111,7 @@ function AddSubPostApplied() {
       )
       .then((response) => {
         console.log("API Response:", response.data);
-        fetchappliedSubPost(); // Refresh the data after update
+        fetchData(); // Refresh the data after update
         setUpdatePost(""); // Clear the update field after updating
       })
       .catch((error) => console.error("Error updating post:", error));
@@ -139,6 +137,7 @@ function AddSubPostApplied() {
           </select>
 
           <label htmlFor="">Add Sub Post Applied For</label>
+          {/* <input type="text" placeholder="Sub Post Applied For" /> */}
           <input
             type="text"
             id=""
@@ -178,7 +177,8 @@ function AddSubPostApplied() {
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">NAME</th>
+                {/* <th scope="col">Post</th> */}
+                <th scope="col">Sub Post</th>
                 <th scope="col">UPDATE</th>
                 <th scope="col">DELETE</th>
               </tr>
@@ -187,6 +187,7 @@ function AddSubPostApplied() {
               {data.map((subPost, index) => (
                 <tr key={subPost.id}>
                   <td>{index + 1}</td>
+                  {/* <td>{subPost.applied_post_master.post_name}</td> */}
                   <td>{subPost.subpost_name}</td>
                   <td>
                     <button id="update-btn">UPDATE</button>

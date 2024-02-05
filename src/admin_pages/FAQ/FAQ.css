@@ -155,7 +155,7 @@ details[open] > summary {
 }
 /* ----------------------------------------------------------------------------------- */
 .faq-body {
-margin-top: 5%;
+  margin-top: 5%;
 }
 .accordion-item {
   margin: 10px;
@@ -169,7 +169,6 @@ margin-top: 5%;
   background-color: #f1f1f1 !important;
   margin-left: -19.1%;
   border-radius: 10px !important;
-  /* margin-top: -10px !important; */
   p {
     border-left: 3px solid #88c128;
     padding-left: 10px;
@@ -188,7 +187,7 @@ margin-top: 5%;
   }
 }
 .accordion-button:not(.collapsed)::after {
-  background-image: url("../../assets//logos/minus-sign.png");
+  background-image: url("../../assets//logos/minus-sign.png") !important;
   transform: var(--bs-accordion-btn-icon-transform);
 }
 .accordion-button::after {
@@ -196,7 +195,7 @@ margin-top: 5%;
   width: var(--bs-accordion-btn-icon-width);
   height: var(--bs-accordion-btn-icon-width);
   margin-left: auto;
-  background-image: url("../../assets//logos/plus-sign.png");
+  background-image: url("../../assets//logos/plus-sign.png") !important;
   background-repeat: no-repeat;
   background-size: var(--bs-accordion-btn-icon-width);
   transition: var(--bs-accordion-btn-icon-transition);
