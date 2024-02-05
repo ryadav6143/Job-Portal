@@ -4,39 +4,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
+import { useApiData } from "../../../../context/CandidateContext";
 function EditQualificationForm() {
+  const {apiData,loading }=useApiData()
   const [updateField, setUpdateField] = useState({});
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState({
-    candidate_educations: [],
-  });
 
-  const fetchData = async () => {
-    try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      // console.log("accessToken", accessToken.token);
-      setLoading(true);
-      const fetchedData = await candidatesApiService.getCandidateById(
-        accessToken.token
-      );
-      console.log("response", fetchedData);
-      setData(fetchedData);
-      setLoading(false); 
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-      setLoading(false);
-    }
-  };
+  const [data, setData] = useState(apiData);
   useEffect(() => {
-    const body = document.body;
-    if (loading) {
-      body.style.overflow = 'hidden';
-    } else {
-      body.style.overflow = 'auto';
-    }
-  }, [loading]);
+    console.log("use-state");
+    setData(apiData)
+  }, [apiData]);
+
+  console.log("qualification apiData", apiData);
+
+ 
   useEffect(() => {
     candidatesApiService
       .getCandidatesCountries()
@@ -48,10 +30,7 @@ function EditQualificationForm() {
       });
   }, []);
 
-  useEffect(() => {
-    console.log("use-state");
-    fetchData();
-  }, []);
+
 
   const handleFieldChange = (fieldName, value, educationType, e) => {
     console.log("handleField", fieldName, value);
@@ -404,7 +383,7 @@ function EditQualificationForm() {
       );
 
       setUpdateField({});
-      fetchData();
+      // fetchData();
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }
@@ -472,13 +451,15 @@ function EditQualificationForm() {
     year_end: "",
   });
 
+
+  console.log("loading",loading)
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <div className="loader-container">
           <div className="loader"></div>
         </div>
-      )}
+      )} */}
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"

@@ -1,1545 +1,2123 @@
-import React, { useState, useEffect } from 'react';
-import "./EditQualificationForm.css"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleDown
-} from "@fortawesome/free-solid-svg-icons";
-
-import { faPen } from '@fortawesome/free-solid-svg-icons';
-import candidatesApiService from '../../../candidateService';
-function EditQualificationForm() {
-
-  const [data, setData] = useState({
-    candidate_educations: [
-      {
-        exam_types_master_id: 7,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        year_end: '',
-        grade_division: '',
-        grade_percent: '',
-      }, // educations[0] mein highSchool ka data
-      {
-        exam_types_master_id: 8,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        year_end: '',
-        grade_division: '',
-        grade_percent: '',
-        stream: '',
-      }, // educations[1] mein higherSecondary ka data
-      {
-        exam_types_master_id: 2,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        degree_types_name: '',
-        year_end: '',
-        grade_percent: '',
-        specialization_area_1: '',
-      }, // educations[2] mein Graduation ka data
-      {
-        exam_types_master_id: 3,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        degree_types_name: '',
-        year_end: '',
-        grade_percent: '',
-        specialization_area_1: '',
-      }, // educations[3] mein PostGraduation ka data
-      {
-        exam_types_master_id: 5,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        degree_types_name: '',
-        year_end: '',
-        grade_percent: '',
-        specialization_area_1: '',
-      }, // educations[4] mein MPHIL ka data
-      {
-        exam_types_master_id: 4,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        degree_types_name: '',
-        year_end: '',
-        grade_percent: '',
-        specialization_area_1: '',
-        specialization_area_2: '',
-        specialization_area_3: '',
-      }, // educations[5] mein Phd ka data
-      {
-        exam_types_master_id: 11,
-
-        year_end: '',
-      }, // educations[6] mein Gate ka data
-      {
-        exam_types_master_id: 9,
-
-        year_end: '',
-      },// educations[7] mein Neet ka data
-      {
-        exam_types_master_id: 1,
-        country: '',
-        year_start: '',
-        institute_name: '',
-        board_university_name: '',
-        year_end: '',
-        grade_division: '',
-        grade_percent: '',
-        stream: '',
-      },// educations[8] mein Diploma ka data
-    ],
-  });
-
-  const [countries, setCountries] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let accessToken = localStorage.getItem('Token');
-        accessToken = JSON.parse(accessToken);
-        console.log('accessToken', accessToken.token);
-
-        const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
-        console.log('response', fetchedData);
-        setData(fetchedData);
-      } catch (error) {
-        console.error('Error fetching data:', error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    candidatesApiService
-      .getCandidatesCountries()
-      .then((response) => {
-        setCountries(response.data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching countries:", error);
-      });
-  }, []);
-
-  const handleInputChange = (e, dropdownName) => {
-    const { value } = e.target;
-    setData((prevValues) => ({
-      ...prevValues,
-      [dropdownName]: value,
-    }));
-  };
-
-  // const handleFieldChange = (fieldName, value) => {
-  //   let formattedValue = value;
-  //   if (fieldName === 'dob') {
-  //     const dateObject = new Date(value);
-  //     const year = dateObject.getFullYear();
-  //     const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
-  //     const day = dateObject.getDate().toString().padStart(2, '0');
-  //     formattedValue = `${year}-${month}-${day}`;
-  //   }
-
-  //   setData((prevData) => ({
-  //     ...prevData,
-  //     [fieldName]: formattedValue,
-  //   }));
-  // };
-
-  const handleHighSchoolChange = (fieldName, value) => {
-      setData((prevData) => {
-      const updatedEducations = [...prevData.candidate_educations];
-      if (updatedEducations && updatedEducations.length > 7) {
-        updatedEducations[7] = {
-          ...updatedEducations[7],
-          [fieldName]: value,
-        };
-      }
-      return {
-        ...prevData,
-        candidate_educations: updatedEducations,
-      };
-    });
-  };
-  const handleHigherSecondaryChange = (fieldName, value) => {
-      setData((prevData) => {
-      const updatedEducations = [...prevData.candidate_educations];
-      if (updatedEducations && updatedEducations.length > 6) {
-        updatedEducations[6] = {
-          ...updatedEducations[6],
-          [fieldName]: value,
-        };
-       
-      }
-      return {
-        ...prevData,
-        candidate_educations: updatedEducations,
-      };
-    });
-  };
-  const handleDiplomaChange = (fieldName, value) => {
-      setData((prevData) => {
-      const updatedEducations = [...prevData.candidate_educations];
-      if (updatedEducations && updatedEducations.length > 0) {
-        updatedEducations[0] = {
-          ...updatedEducations[0],
-          [fieldName]: value,
-        };
-       
-      }
-      return {
-        ...prevData,
-        candidate_educations: updatedEducations,
-      };
-    });
-  };
-  const handleGraduationChange = (fieldName, value) => {
-      setData((prevData) => {
-      const updatedEducations = [...prevData.candidate_educations];
-      if (updatedEducations && updatedEducations.length > 5) {
-        updatedEducations[5] = {
-          ...updatedEducations[5],
-          [fieldName]: value,
-        };
-       
-      }
-      return {
-        ...prevData,
-        candidate_educations: updatedEducations,
-      };
-    });
-  };
-  const handlePhdChange = (fieldName, value) => {
-      setData((prevData) => {
-      const updatedEducations = [...prevData.candidate_educations];
-      if (updatedEducations && updatedEducations.length > 8) {
-        updatedEducations[8] = {
-          ...updatedEducations[8],
-          [fieldName]: value,
-        };
-       
-      }
-      return {
-        ...prevData,
-        candidate_educations: updatedEducations,
-      };
-    });
-  };
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Data:', data);
-    // Add any additional logic for form submission or data processing here
-  };
-
-  return (
-    <>
-      <form id="myForm">
-        <div className="container" style={{ marginTop: "90px", paddingLeft: "50px" }}>
-          <div>
-            <div>
-              <h5 className="UD-heading">Academic Professional Qualifications &nbsp; <FontAwesomeIcon className="edit-pen-icon" icon={faPen} /></h5>
-              <p className="UD-subheading">
-                Please fill your information so we can get in touch with you.
-              </p>
-
-              {/* Add edit button */}
-            </div>
-
-            {/* High School */}
-            <div>
-              <p className='HS-heading'>High School</p>
-            </div>
-
-            <div className="row" style={{ marginTop: "-40px" }}>
-
-              <div className="col-md-4">
-                {/* *Country */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span> Country
-                  </label>
-                  <select
-
-                    name="country"
-                    className="UD-set-dropdown"
-                    onChange={(e) => handleHighSchoolChange('country', e.target.value)}
-                    value={data.candidate_educations[7].country}
-
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
-                        {country.country}
-                      </option>
-                    ))}
-                  </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Year of Joining */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Year of Joining
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_start"
-                    id=""
-                    onChange={(e) => handleHighSchoolChange('year_start', e.target.value)}
-                    value={data.candidate_educations[7].year_start}
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *School*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>School
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="institute_name"
-                    id=""
-                    onChange={(e) => handleHighSchoolChange('institute_name', e.target.value)}
-                    value={data.candidate_educations[7].institute_name}
-                    
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* *Board*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Board
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="board_university_name"
-                    id=""
-                    onChange={(e) => handleHighSchoolChange('board_university_name', e.target.value)}
-                    value={data.candidate_educations[7].board_university_name}
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Passing Year*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Passing Year
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_end"
-                    id=""
-                    onChange={(e) => handleHighSchoolChange('year_end', e.target.value)}
-                    value={data.candidate_educations[7].year_end}
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Division (First/Second/Third)*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Division (First/Second/Third)
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="grade_division"
-                    id=""
-                    onChange={(e) => handleHighSchoolChange('grade_division', e.target.value)}
-                    value={data.candidate_educations[7].grade_division}                
-                      ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* *Aggregate Percentage/CGPA*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Aggregate Percentage/CGPA
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="grade_percent"
-                    id=""
-                    onChange={(e) => handleHighSchoolChange('grade_percent', e.target.value)}
-                    value={data.candidate_educations[7].grade_percent}
-                  ></input>
-
-                </div>
-              </div>
-
-            </div>
-
-            {/* Higher secondary */}
-
-            <div>
-              <p className='HS-heading'>Higher secondary</p>
-            </div>
-
-            <div className="row" style={{ marginTop: "-40px" }}>
-
-              <div className="col-md-4">
-                {/* *Country */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span> Country
-                  </label>
-                  <select
-                    
-                    name="country"
-                    className="UD-set-dropdown"
-                    onChange={(e) => handleHigherSecondaryChange('country', e.target.value)}
-                    value={data.candidate_educations[6].country}
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
-                        {country.country}
-                      </option>
-                    ))}
-                  </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Year of Joining */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Year of Joining
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_start"
-                    id=""
-
-                    onChange={(e) => handleHigherSecondaryChange('year_start', e.target.value)}
-                    value={data.candidate_educations[6].year_start}
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *School*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>School
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="institute_name"
-                    id=""
-                    onChange={(e) => handleHigherSecondaryChange('institute_name', e.target.value)}
-                    value={data.candidate_educations[6].institute_name}
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* *Board*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Board
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="board_university_name"
-                    id=""
-                    onChange={(e) => handleHigherSecondaryChange('board_university_name', e.target.value)}
-                    value={data.candidate_educations[6].board_university_name}                
-                      ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Passing Year*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Passing Year
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_end"
-                    id=""
-                    onChange={(e) => handleHigherSecondaryChange('year_end', e.target.value)}
-                    value={data.candidate_educations[6].year_end}
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Division (First/Second/Third)*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Division (First/Second/Third)
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="grade_division"
-                    id=""
-                    onChange={(e) => handleHigherSecondaryChange('grade_division', e.target.value)}
-                    value={data.candidate_educations[6].grade_division}
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* *Aggregate Percentage/CGPA*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Aggregate Percentage/CGPA
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="grade_percent"
-                    id=""
-                    onChange={(e) => handleHigherSecondaryChange('grade_percent', e.target.value)}
-                    value={data.candidate_educations[6].grade_percent}
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Stream*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>Stream
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="stream"
-                    id=""
-                    onChange={(e) => handleHigherSecondaryChange('stream', e.target.value)}
-                    value={data.candidate_educations[6].stream}
-                  ></input>
-
-                </div>
-              </div>
-
-            </div>
-
-
-            {/* Diploma */}
-
-            <div>
-              <p className='HS-heading'>Diploma</p>
-            </div>
-
-            <div className="row" style={{ marginTop: "-40px" }}>
-
-              <div className="col-md-4">
-                {/* *Country */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span> Country
-                  </label>
-                  <select
-                    name="country"
-                    className="UD-set-dropdown"
-                    onChange={(e) => handleDiplomaChange('country', e.target.value)}
-                    value={data.candidate_educations[0].country}
-
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
-                        {country.country}
-                      </option>
-                    ))}
-                  </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Year of Joining */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Year of Joining
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_start"
-                    id=""
-                    onChange={(e) => handleDiplomaChange('year_start', e.target.value)}
-                    value={data.candidate_educations[0].year_start}
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *School*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>School
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="institute_name"
-                    id=""
-                    onChange={(e) => handleDiplomaChange('institute_name', e.target.value)}
-                    value={data.candidate_educations[0].institute_name}
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* *Board*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Board
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="board_university_name"
-                    id=""
-                    onChange={(e) => handleDiplomaChange('board_university_name', e.target.value)}
-                    value={data.candidate_educations[0].board_university_name}
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Passing Year*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Passing Year
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_end"
-                    id=""
-                    onChange={(e) => handleDiplomaChange('year_end', e.target.value)}
-                    value={data.candidate_educations[0].year_end}
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Division (First/Second/Third)*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Division (First/Second/Third)
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="grade_division"
-                    id=""
-                    onChange={(e) => handleDiplomaChange('grade_division', e.target.value)}
-                    value={data.candidate_educations[0].grade_division}
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* *Aggregate Percentage/CGPA*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Aggregate Percentage/CGPA
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="grade_percent"
-                    id=""
-                    onChange={(e) => handleDiplomaChange('grade_percent', e.target.value)}
-                    value={data.candidate_educations[0].grade_percent}
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Stream*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Stream
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="stream"
-                    id=""
-                    onChange={(e) => handleDiplomaChange('stream', e.target.value)}
-                    value={data.candidate_educations[0].stream}
-
-                  ></input>
-
-                </div>
-              </div>
-
-            </div>
-
-
-
-            {/* Graduation*/}
-
-            <div>
-              <p className='HS-heading'>Graduation</p>
-            </div>
-
-            <div className="row" style={{ marginTop: "-40px" }}>
-
-              <div className="col-md-4">
-                {/* *Country */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span> Country
-                  </label>
-                  <select
-                   
-                    name="country"
-                    className="UD-set-dropdown"
-                  
-                    onChange={(e) => handleGraduationChange('country', e.target.value)}
-                    value={data.candidate_educations[5].country}
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
-                        {country.country}
-                      </option>
-                    ))}
-                  </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Year of Joining */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Year of Joining
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_start"
-                    id=""
-                    onChange={(e) => handleGraduationChange('year_start', e.target.value)}
-                    value={data.candidate_educations[5].year_start}
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* University/ Board*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>University/ Board
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="board_university_name"
-                    id=""
-
-                    onChange={(e) => handleGraduationChange('board_university_name', e.target.value)}
-                    value={data.candidate_educations[5].board_university_name}
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* Institute/ College*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Institute/ College
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="institute_name"
-                    id=""
-                    onChange={(e) => handleGraduationChange('institute_name', e.target.value)}
-                    value={data.candidate_educations[5].institute_name}
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Degree Name*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Degree Name
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="degree_types_name"
-                    id=""
-
-                    onChange={(e) => handleGraduationChange('degree_types_name', e.target.value)}
-                    value={data.candidate_educations[5].degree_types_name}
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Passing Year*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Passing Year
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_end"
-                    id=""
-                    onChange={(e) => handleGraduationChange('year_end', e.target.value)}
-                    value={data.candidate_educations[5].year_end}
-
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* Specialization/ Area*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Specialization/ Area
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="specialization_area_1"
-                    id=""
-                    onChange={(e) => handleGraduationChange('specialization_area_1', e.target.value)}
-                    value={data.candidate_educations[5].specialization_area_1}
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Aggregate Percentage/CGPA*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Aggregate Percentage/CGPA
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="grade_percent"
-                    id=""
-                    onChange={(e) => handleGraduationChange('grade_percent', e.target.value)}
-                    value={data.candidate_educations[5].grade_percent}
-
-                  ></input>
-
-                </div>
-              </div>
-
-            </div>
-
-
-            {/* Post Graduation*/}
-
-            <div>
-              <p className='HS-heading'>Post Graduation</p>
-            </div>
-
-            <div className="row" style={{ marginTop: "-40px" }}>
-
-              <div className="col-md-4">
-                {/* *Country */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span> Country
-                  </label>
-                  <select
-                    onChange={(e) => handleInputChange(e, 'country4')}
-                    name="country1"
-                    className="UD-set-dropdown"
-                    required
-                    value={data.country4}
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
-                        {country.country}
-                      </option>
-                    ))}
-                  </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Year of Joining */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Year of Joining
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_start"
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* University/ Board*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>University/ Board
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="board_university_name"
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* Institute/ College*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Institute/ College
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="institute_name"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Degree Name*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Degree Name
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="degree_types_name"
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Passing Year*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Passing Year
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_end"
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* Specialization/ Area*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Specialization/ Area
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="specialization_area_1"
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Aggregate Percentage/CGPA*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Aggregate Percentage/CGPA
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="grade_percent"
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-
-            </div>
-
-
-            {/* M. Phil*/}
-
-            <div>
-              <p className='HS-heading'>M. Phil</p>
-            </div>
-
-            <div className="row" style={{ marginTop: "-40px" }}>
-
-              <div className="col-md-4">
-                {/* *Country */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span> Country
-                  </label>
-                  <select
-                    onChange={(e) => handleInputChange(e, 'country5')}
-                    name="country1"
-                    className="UD-set-dropdown"
-                    required
-                    value={data.country5}
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
-                        {country.country}
-                      </option>
-                    ))}
-                  </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Year of Joining */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Year of Joining
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_start"
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* University/ Board*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>University/ Board
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="board_university_name"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* Institute/ College*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Institute/ College
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="institute_name"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Degree Name*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Degree Name
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="degree_types_name"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Passing Year*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Passing Year
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_end"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* Specialization/ Area*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Specialization/ Area
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="specialization_area_1"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Aggregate Percentage/CGPA*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Aggregate Percentage/CGPA
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="grade_percent"
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-
-            </div>
-
-            {/* PhD*/}
-
-            <div>
-              <p className='HS-heading'>PhD</p>
-            </div>
-
-            <div className="row" style={{ marginTop: "-40px" }}>
-
-              <div className="col-md-4">
-                {/* *Country */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span> Country
-                  </label>
-                  <select
-                   
-                    name="country"
-                    className="UD-set-dropdown"
-                    onChange={(e) => handleDiplomaChange('country', e.target.value)}
-                    value={data.candidate_educations[4].country}
-                    
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
-                        {country.country}
-                      </option>
-                    ))}
-                  </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* *Year of Joining */}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Year of Joining
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_start"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* University/ Board*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>University/ Board
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="board_university_name"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* Institute/ College*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Institute/ College
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="institute_name"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Degree Name*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Degree Name
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="degree_types_name"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Passing Year*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Passing Year
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="year_end"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* Specialization/ Area*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Specialization/ Area
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="specialization_area_1"
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Aggregate Percentage/CGPA*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Aggregate Percentage/CGPA
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name="grade_percent"
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-
-            </div>
-
-
-            {/* Qualified Examination*/}
-
-            <div>
-              <p className='HS-heading'>Qualified Examination</p>
-            </div>
-
-            <div className="row" style={{ marginTop: "-40px" }}>
-
-              <div className="col-md-4">
-                {/* Gate*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Gate
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder="Yes/No "
-                    name=""
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* Year*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Year
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name=""
-                    id=""
-
-
-                  ></input>
-
-                </div>
-              </div>
-
-              <div className="col-md-4">
-                {/* NET*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>NET
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" Yes/No"
-                    name=""
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                {/* Year*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Year
-                  </label>
-                  <input
-                    className="UD-set-input"
-                    type="text"
-                    placeholder=" "
-                    name=""
-                    id=""
-
-                  ></input>
-
-                </div>
-              </div>
-
-
-            </div>
-
-
-            <div>
-              <button className="savebtn" type="button">Save Changes</button>
-            </div>
-
-          </div>
-        </div>
-      </form>
-    </>
-  )
-}
-
-export default EditQualificationForm
+// import React, { useState, useEffect } from "react";
+// import "./EditQualificationForm.css";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+// import axios from "axios";
+// import { faPen } from "@fortawesome/free-solid-svg-icons";
+// import candidatesApiService from "../../../candidateService";
+
+// function EditQualificationForm() {
+//   const [updateField, setUpdateField] = useState({});
+//   const [errors, setErrors] = useState({});
+//   const [loading, setLoading] = useState(true);
+//   const [data, setData] = useState({
+//     candidate_educations: [],
+//   });
+
+//   const fetchData = async () => {
+//     try {
+//       let accessToken = localStorage.getItem("Token");
+//       accessToken = JSON.parse(accessToken);
+//       // console.log("accessToken", accessToken.token);
+//       setLoading(true);
+//       const fetchedData = await candidatesApiService.getCandidateById(
+//         accessToken.token
+//       );
+//       console.log("response", fetchedData);
+//       setData(fetchedData);
+//       setLoading(false); 
+//     } catch (error) {
+//       console.error("Error fetching data:", error.message);
+//       setLoading(false);
+//     }
+//   };
+//   useEffect(() => {
+//     const body = document.body;
+//     if (loading) {
+//       body.style.overflow = 'hidden';
+//     } else {
+//       body.style.overflow = 'auto';
+//     }
+//   }, [loading]);
+//   useEffect(() => {
+//     candidatesApiService
+//       .getCandidatesCountries()
+//       .then((response) => {
+//         setCountries(response.data.data);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching countries:", error);
+//       });
+//   }, []);
+
+//   useEffect(() => {
+//     console.log("use-state");
+//     fetchData();
+//   }, []);
+
+//   const handleFieldChange = (fieldName, value, educationType, e) => {
+//     console.log("handleField", fieldName, value);
+//     // ----------------------------------------------------------------------------
+//     // [fieldName, value] = e.target;
+//     setFormData({
+//       ...formData,
+//       [fieldName]: value,
+//     });
+//     setErrors({
+//       ...errors,
+//       country: "",
+//       year_start: "",
+//       institute_name: "",
+//     });
+//     // ----------------------------------------------------------------------------
+//     if (educationType === "highSchoolData") {
+//       const updatedData = {
+//         ...data,
+//         candidate_educations: data.candidate_educations.map((education) =>
+//           education.exam_types_master_id === 7
+//             ? { ...education, [fieldName]: value.toString() }
+//             : education
+//         ),
+//       };
+//       setData(updatedData);
+
+//       const highSchoolData = data.candidate_educations.find(
+//         (education) => education.exam_types_master_id === 7
+//       );
+
+//       if (highSchoolData) {
+//         const additionalInfo = {
+//           exam_types_master_id: highSchoolData.exam_types_master_id,
+//           id: highSchoolData.id,
+//           [fieldName]: value.toString(),
+//         };
+
+//         console.log("Additional Info:", additionalInfo);
+
+//         setUpdateField((prev) => ({
+//           ...prev,
+//           exam_types_master_id: highSchoolData.exam_types_master_id,
+//           id: highSchoolData.id,
+//           [fieldName]: value.toString(),
+//         }));
+//       }
+//     }
+//     if (educationType === "higherSecondaryData") {
+//       const updatedData = {
+//         ...data,
+//         candidate_educations: data.candidate_educations.map((education) =>
+//           education.exam_types_master_id === 8
+//             ? { ...education, [fieldName]: value.toString() }
+//             : education
+//         ),
+//       };
+//       setData(updatedData);
+
+//       const higherSecondaryData = data.candidate_educations.find(
+//         (education) => education.exam_types_master_id === 8
+//       );
+
+//       if (higherSecondaryData) {
+//         const additionalInfo = {
+//           exam_types_master_id: higherSecondaryData.exam_types_master_id,
+//           id: higherSecondaryData.id,
+//           [fieldName]: value.toString(),
+//         };
+
+//         console.log("Additional Info:", additionalInfo);
+
+//         setUpdateField((prev) => ({
+//           ...prev,
+//           exam_types_master_id: higherSecondaryData.exam_types_master_id,
+//           id: higherSecondaryData.id,
+//           [fieldName]: value.toString(),
+//         }));
+//       }
+//     }
+//     if (educationType === "diplomaData") {
+//       const updatedData = {
+//         ...data,
+//         candidate_educations: data.candidate_educations.map((education) =>
+//           education.exam_types_master_id === 1
+//             ? { ...education, [fieldName]: value.toString() }
+//             : education
+//         ),
+//       };
+//       setData(updatedData);
+
+//       const diplomaData = data.candidate_educations.find(
+//         (education) => education.exam_types_master_id === 1
+//       );
+
+//       if (diplomaData) {
+//         const additionalInfo = {
+//           exam_types_master_id: diplomaData.exam_types_master_id,
+//           id: diplomaData.id,
+//           [fieldName]: value.toString(),
+//         };
+
+//         console.log("Additional Info:", additionalInfo);
+
+//         setUpdateField((prev) => ({
+//           ...prev,
+//           exam_types_master_id: diplomaData.exam_types_master_id,
+//           id: diplomaData.id,
+//           [fieldName]: value.toString(),
+//         }));
+//       }
+//     }
+//     if (educationType === "graduationData") {
+//       const updatedData = {
+//         ...data,
+//         candidate_educations: data.candidate_educations.map((education) =>
+//           education.exam_types_master_id === 2
+//             ? { ...education, [fieldName]: value.toString() }
+//             : education
+//         ),
+//       };
+//       setData(updatedData);
+
+//       const graduationData = data.candidate_educations.find(
+//         (education) => education.exam_types_master_id === 2
+//       );
+
+//       if (graduationData) {
+//         const additionalInfo = {
+//           exam_types_master_id: graduationData.exam_types_master_id,
+//           id: graduationData.id,
+//           [fieldName]: value.toString(),
+//         };
+
+//         console.log("Additional Info:", additionalInfo);
+
+//         setUpdateField((prev) => ({
+//           ...prev,
+//           exam_types_master_id: graduationData.exam_types_master_id,
+//           id: graduationData.id,
+//           [fieldName]: value.toString(),
+//         }));
+//       }
+//     }
+//     if (educationType === "postGraduationData") {
+//       const updatedData = {
+//         ...data,
+//         candidate_educations: data.candidate_educations.map((education) =>
+//           education.exam_types_master_id === 3
+//             ? { ...education, [fieldName]: value.toString() }
+//             : education
+//         ),
+//       };
+//       setData(updatedData);
+
+//       const postGraduationData = data.candidate_educations.find(
+//         (education) => education.exam_types_master_id === 3
+//       );
+
+//       if (postGraduationData) {
+//         const additionalInfo = {
+//           exam_types_master_id: postGraduationData.exam_types_master_id,
+//           id: postGraduationData.id,
+//           [fieldName]: value.toString(),
+//         };
+
+//         console.log("Additional Info:", additionalInfo);
+
+//         setUpdateField((prev) => ({
+//           ...prev,
+//           exam_types_master_id: postGraduationData.exam_types_master_id,
+//           id: postGraduationData.id,
+//           [fieldName]: value.toString(),
+//         }));
+//       }
+//     }
+//     if (educationType === "mphilData") {
+//       const updatedData = {
+//         ...data,
+//         candidate_educations: data.candidate_educations.map((education) =>
+//           education.exam_types_master_id === 5
+//             ? { ...education, [fieldName]: value.toString() }
+//             : education
+//         ),
+//       };
+//       setData(updatedData);
+
+//       const mphilData = data.candidate_educations.find(
+//         (education) => education.exam_types_master_id === 5
+//       );
+
+//       if (mphilData) {
+//         const additionalInfo = {
+//           exam_types_master_id: mphilData.exam_types_master_id,
+//           id: mphilData.id,
+//           [fieldName]: value.toString(),
+//         };
+
+//         console.log("Additional Info:", additionalInfo);
+
+//         setUpdateField((prev) => ({
+//           ...prev,
+//           exam_types_master_id: mphilData.exam_types_master_id,
+//           id: mphilData.id,
+//           [fieldName]: value.toString(),
+//         }));
+//       }
+//     }
+//     if (educationType === "phdData") {
+//       const updatedData = {
+//         ...data,
+//         candidate_educations: data.candidate_educations.map((education) =>
+//           education.exam_types_master_id === 4
+//             ? { ...education, [fieldName]: value.toString() }
+//             : education
+//         ),
+//       };
+//       setData(updatedData);
+
+//       const phdData = data.candidate_educations.find(
+//         (education) => education.exam_types_master_id === 4
+//       );
+
+//       if (phdData) {
+//         const additionalInfo = {
+//           exam_types_master_id: phdData.exam_types_master_id,
+//           id: phdData.id,
+//           [fieldName]: value.toString(),
+//         };
+
+//         console.log("Additional Info:", additionalInfo);
+
+//         setUpdateField((prev) => ({
+//           ...prev,
+//           exam_types_master_id: phdData.exam_types_master_id,
+//           id: phdData.id,
+//           [fieldName]: value.toString(),
+//         }));
+//       }
+//     }
+//     let gateData;
+
+//     if (educationType === "gateData") {
+//       const updatedData = {
+//         ...data,
+//         candidate_educations: data.candidate_educations.map((education) =>
+//           education.exam_types_master_id === 11
+//             ? { ...education, [fieldName]: value.toString() }
+//             : education
+//         ),
+//       };
+//       setData(updatedData);
+
+//       gateData = data.candidate_educations.find(
+//         (education) => education.exam_types_master_id === 11
+//       );
+
+//       if (gateData && gateData.exam_types_master) {
+//         const additionalInfo = {
+//           exam_types_master_id: gateData.exam_types_master_id,
+//           id: gateData.id,
+//           [fieldName]: value.toString(),
+//         };
+
+//         console.log("Additional Info:", additionalInfo);
+
+//         setUpdateField((prev) => ({
+//           ...prev,
+//           exam_types_master_id: gateData.exam_types_master_id,
+//           id: gateData.id,
+//           [fieldName]: value.toString(),
+//         }));
+//       }
+//     }
+//     if (educationType === "neetData") {
+//       const updatedData = {
+//         ...data,
+//         candidate_educations: data.candidate_educations.map((education) =>
+//           education.exam_types_master_id === 9
+//             ? { ...education, [fieldName]: value.toString() }
+//             : education
+//         ),
+//       };
+//       setData(updatedData);
+
+//       const neetData = data.candidate_educations.find(
+//         (education) => education.exam_types_master_id === 9
+//       );
+
+//       if (neetData) {
+//         const additionalInfo = {
+//           exam_types_master_id: neetData.exam_types_master_id,
+//           id: neetData.id,
+//           [fieldName]: value.toString(),
+//         };
+
+//         console.log("Additional Info:", additionalInfo);
+
+//         setUpdateField((prev) => ({
+//           ...prev,
+//           exam_types_master_id: neetData.exam_types_master_id,
+//           id: neetData.id,
+//           [fieldName]: value.toString(),
+//         }));
+//       }
+//     }
+//   };
+
+//   const highSchoolData = data.candidate_educations.find(
+//     (education) => education.exam_types_master_id === 7
+//   );
+//   const higherSecondaryData = data.candidate_educations.find(
+//     (education) => education.exam_types_master_id === 8
+//   );
+//   const diplomaData = data.candidate_educations.find(
+//     (education) => education.exam_types_master_id === 1
+//   );
+//   const graduationData = data.candidate_educations.find(
+//     (education) => education.exam_types_master_id === 2
+//   );
+//   const postGraduationData = data.candidate_educations.find(
+//     (education) => education.exam_types_master_id === 3
+//   );
+//   const mphilData = data.candidate_educations.find(
+//     (education) => education.exam_types_master_id === 5
+//   );
+//   const phdData = data.candidate_educations.find(
+//     (education) => education.exam_types_master_id === 4
+//   );
+//   const gateData = data.candidate_educations.find(
+//     (education) => education.exam_types_master_id === 11
+//   );
+
+//   const neetData = data.candidate_educations.find(
+//     (education) => education.exam_types_master_id === 9
+//   );
+//   const [countries, setCountries] = useState([]);
+
+
+
+//   const handleSaveChanges = async (e) => {
+//     e.preventDefault();
+
+//     try {
+//       let accessToken = localStorage.getItem("Token");
+//       accessToken = JSON.parse(accessToken);
+//       console.log(updateField);
+//       await candidatesApiService.updateCandidateEducation(accessToken.token,
+//         { educations: [updateField] }
+//       );
+
+//       setUpdateField({});
+//       fetchData();
+//     } catch (error) {
+//       console.error("Error saving changes:", error.message);
+//     }
+
+//     const currentYear = new Date().getFullYear();
+//     const minYear = currentYear - 100;
+//     let errors = {};
+
+//     if (!formData.country) {
+//       errors.country = "! Country is Required ";
+//     }
+
+//     if (!formData.year_start) {
+//       errors.year_start = "! Year of Joining is Required";
+//     } else {
+//       const enteredStartYear = parseInt(formData.year_start, 10);
+
+//       if (
+//         isNaN(enteredStartYear) ||
+//         enteredStartYear > currentYear ||
+//         enteredStartYear < minYear
+//       ) {
+//         errors.year_start =
+//           "! Please enter a valid year within the last 100 years.";
+//       }
+//     }
+
+//     if (!formData.year_end) {
+//       errors.year_end = "! Passing Year is Required";
+//     } else {
+//       const enteredEndYear = parseInt(formData.year_end, 10);
+
+//       if (
+//         isNaN(enteredEndYear) ||
+//         enteredEndYear > currentYear ||
+//         enteredEndYear < minYear
+//       ) {
+//         errors.year_end =
+//           "! Please enter a valid passing year within the last 100 years.";
+//       }
+//     }
+
+//     if (!formData.institute_name) {
+//       errors.institute_name = "! School Name is Required.";
+//     } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formData.institute_name)) {
+//       errors.institute_name = "! Please enter a valid name.";
+//     }
+
+//     setErrors(errors);
+
+//     if (Object.keys(errors).length === 0) {
+//       console.log("Form Submitted Successfully");
+//       return false;
+//     } else {
+//       console.log("Form has errors");
+//       return true;
+//     }
+//   };
+
+//   const [formData, setFormData] = useState({
+//     country: "",
+//     year_start: "",
+//     institute_name: "",
+//     board_university_name: "",
+//     year_end: "",
+//   });
+
+//   return (
+//     <>
+//       {loading && (
+//         <div className="loader-container">
+//           <div className="loader"></div>
+//         </div>
+//       )}
+//       <form id="myForm" onSubmit={handleSaveChanges}>
+//         <div
+//           className="container"
+//           style={{ marginTop: "90px", paddingLeft: "50px" }}
+//         >
+//           <div>
+//             <div>
+//               <h5 className="UD-heading">
+//                 Academic Professional Qualifications &nbsp;{" "}
+//                 <FontAwesomeIcon className="edit-pen-icon" icon={faPen} />
+//               </h5>
+//               <p className="UD-subheading">
+//                 Please fill your information so we can get in touch with you.
+//               </p>
+
+//               {/* Add edit button */}
+//             </div>
+
+//             {/* High School */}
+//             <div>
+//               <p className="HS-heading">High School</p>
+//             </div>
+
+//             <div className="row" style={{ marginTop: "-40px" }}>
+//               <div className="col-md-4">
+//                 {/* *Country */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span> Country
+//                   </label>
+//                   <select
+//                     name="country"
+//                     className="UD-set-dropdown"
+//                     value={highSchoolData ? highSchoolData.country : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "country",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   >
+//                     <option value="">Select country</option>
+//                     {countries.map((country) => (
+//                       <option key={country.country} value={country.country}>
+//                         {country.country}
+//                       </option>
+//                     ))}
+//                   </select>
+//                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+//                 </div>
+//                 {errors.country && (
+//                   <span className="error-message">{errors.country}</span>
+//                 )}
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Year of Joining */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Year of Joining
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_start"
+//                     id=""
+//                     defaultValue={
+//                       highSchoolData ? highSchoolData.year_start : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_start",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//                 {errors.year_start && (
+//                   <span className="error-message">{errors.year_start}</span>
+//                 )}
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *School*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>School
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="institute_name"
+//                     id=""
+//                     defaultValue={
+//                       highSchoolData ? highSchoolData.institute_name : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "institute_name",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//                 {errors.institute_name && (
+//                   <span className="error-message">{errors.institute_name}</span>
+//                 )}
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* *Board*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Board
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="board_university_name"
+//                     id=""
+//                     defaultValue={
+//                       highSchoolData ? highSchoolData.board_university_name : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "board_university_name",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Passing Year*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Passing Year
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_end"
+//                     id=""
+//                     defaultValue={highSchoolData ? highSchoolData.year_end : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_end",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//                 {errors.year_end && (
+//                   <span className="error-message">{errors.year_end}</span>
+//                 )}
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Division (First/Second/Third)*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Division (First/Second/Third)
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="grade_division"
+//                     id=""
+//                     defaultValue={
+//                       highSchoolData ? highSchoolData.grade_division : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "grade_division",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* *Aggregate Percentage/CGPA*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Aggregate Percentage/CGPA
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="grade_percent"
+//                     id=""
+//                     defaultValue={
+//                       highSchoolData ? highSchoolData.grade_percent : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "grade_percent",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Higher secondary */}
+
+//             <div>
+//               <p className="HS-heading">Higher secondary</p>
+//             </div>
+
+//             <div className="row" style={{ marginTop: "-40px" }}>
+//               <div className="col-md-4">
+//                 {/* *Country */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span> Country
+//                   </label>
+//                   <select
+//                     name="country"
+//                     className="UD-set-dropdown"
+//                     value={
+//                       higherSecondaryData ? higherSecondaryData.country : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "country",
+//                         e.target.value,
+//                         "higherSecondaryData"
+//                       )
+//                     }
+//                   >
+//                     <option value="">Select country</option>
+//                     {countries.map((country) => (
+//                       <option key={country.country} value={country.country}>
+//                         {country.country}
+//                       </option>
+//                     ))}
+//                   </select>
+//                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Year of Joining */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Year of Joining
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_start"
+//                     id=""
+//                     defaultValue={
+//                       higherSecondaryData ? higherSecondaryData.year_start : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_start",
+//                         e.target.value,
+//                         "higherSecondaryData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *School*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>School
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="institute_name"
+//                     id=""
+//                     defaultValue={
+//                       higherSecondaryData
+//                         ? higherSecondaryData.institute_name
+//                         : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "institute_name",
+//                         e.target.value,
+//                         "higherSecondaryData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* *Board*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Board
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="board_university_name"
+//                     id=""
+//                     defaultValue={
+//                       higherSecondaryData
+//                         ? higherSecondaryData.board_university_name
+//                         : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "board_university_name",
+//                         e.target.value,
+//                         "higherSecondaryData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Passing Year*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Passing Year
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_end"
+//                     id=""
+//                     defaultValue={
+//                       higherSecondaryData ? higherSecondaryData.year_end : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_end",
+//                         e.target.value,
+//                         "higherSecondaryData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Division (First/Second/Third)*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Division (First/Second/Third)
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="grade_division"
+//                     id=""
+//                     defaultValue={
+//                       higherSecondaryData
+//                         ? higherSecondaryData.grade_division
+//                         : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "grade_division",
+//                         e.target.value,
+//                         "higherSecondaryData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* *Aggregate Percentage/CGPA*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Aggregate Percentage/CGPA
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="grade_percent"
+//                     id=""
+//                     defaultValue={
+//                       higherSecondaryData
+//                         ? higherSecondaryData.grade_percent
+//                         : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "grade_percent",
+//                         e.target.value,
+//                         "higherSecondaryData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Stream*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span>*</span>Stream
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="stream"
+//                     id=""
+//                     defaultValue={
+//                       higherSecondaryData ? higherSecondaryData.stream : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "stream",
+//                         e.target.value,
+//                         "higherSecondaryData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Diploma */}
+
+//             <div>
+//               <p className="HS-heading">Diploma</p>
+//             </div>
+
+//             <div className="row" style={{ marginTop: "-40px" }}>
+//               <div className="col-md-4">
+//                 {/* *Country */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span> Country
+//                   </label>
+//                   <select
+//                     name="country"
+//                     className="UD-set-dropdown"
+//                     value={diplomaData ? diplomaData.country : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "country",
+//                         e.target.value,
+//                         "diplomaData"
+//                       )
+//                     }
+//                   >
+//                     <option value="">Select country</option>
+//                     {countries.map((country) => (
+//                       <option key={country.country} value={country.country}>
+//                         {country.country}
+//                       </option>
+//                     ))}
+//                   </select>
+//                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Year of Joining */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Year of Joining
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_start"
+//                     id=""
+//                     defaultValue={diplomaData ? diplomaData.year_start : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_start",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *School*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>School
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="institute_name"
+//                     id=""
+//                     defaultValue={diplomaData ? diplomaData.institute_name : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "institute_name",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* *Board*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Board
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="board_university_name"
+//                     id=""
+//                     defaultValue={
+//                       diplomaData ? diplomaData.board_university_name : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "board_university_name",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Passing Year*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Passing Year
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_end"
+//                     id=""
+//                     defaultValue={diplomaData ? diplomaData.year_end : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_end",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Division (First/Second/Third)*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Division (First/Second/Third)
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="grade_division"
+//                     id=""
+//                     defaultValue={diplomaData ? diplomaData.grade_division : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "grade_division",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* *Aggregate Percentage/CGPA*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Aggregate Percentage/CGPA
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="grade_percent"
+//                     id=""
+//                     defaultValue={diplomaData ? diplomaData.grade_percent : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "grade_percent",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Stream*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Stream
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="stream"
+//                     id=""
+//                     defaultValue={diplomaData ? diplomaData.stream : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "stream",
+//                         e.target.value,
+//                         "highSchoolData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Graduation*/}
+
+//             <div>
+//               <p className="HS-heading">Graduation</p>
+//             </div>
+
+//             <div className="row" style={{ marginTop: "-40px" }}>
+//               <div className="col-md-4">
+//                 {/* *Country */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span> Country
+//                   </label>
+//                   <select
+//                     name="country"
+//                     className="UD-set-dropdown"
+//                     value={graduationData ? graduationData.country : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "country",
+//                         e.target.value,
+//                         "graduationData"
+//                       )
+//                     }
+//                   >
+//                     <option value="">Select country</option>
+//                     {countries.map((country) => (
+//                       <option key={country.country} value={country.country}>
+//                         {country.country}
+//                       </option>
+//                     ))}
+//                   </select>
+//                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Year of Joining */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Year of Joining
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_start"
+//                     id=""
+//                     defaultValue={
+//                       graduationData ? graduationData.year_start : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_start",
+//                         e.target.value,
+//                         "graduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* University/ Board*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>University/ Board
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="board_university_name"
+//                     id=""
+//                     defaultValue={
+//                       graduationData ? graduationData.board_university_name : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "board_university_name",
+//                         e.target.value,
+//                         "graduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* Institute/ College*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Institute/ College
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="institute_name"
+//                     id=""
+//                     defaultValue={
+//                       graduationData ? graduationData.institute_name : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "institute_name",
+//                         e.target.value,
+//                         "graduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Degree Name*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Degree Name
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="degree_types_name"
+//                     id=""
+//                     defaultValue={
+//                       graduationData ? graduationData.degree_types_name : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "degree_types_name",
+//                         e.target.value,
+//                         "graduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Passing Year*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Passing Year
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_end"
+//                     id=""
+//                     defaultValue={graduationData ? graduationData.year_end : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_end",
+//                         e.target.value,
+//                         "graduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* Specialization/ Area*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Specialization/ Area
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="specialization_area_1"
+//                     id=""
+//                     defaultValue={
+//                       graduationData ? graduationData.specialization_area_1 : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "specialization_area_1",
+//                         e.target.value,
+//                         "graduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Aggregate Percentage/CGPA*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Aggregate Percentage/CGPA
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="grade_percent"
+//                     id=""
+//                     defaultValue={
+//                       graduationData ? graduationData.grade_percent : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "grade_percent",
+//                         e.target.value,
+//                         "graduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Post Graduation*/}
+
+//             <div>
+//               <p className="HS-heading">Post Graduation</p>
+//             </div>
+
+//             <div className="row" style={{ marginTop: "-40px" }}>
+//               <div className="col-md-4">
+//                 {/* *Country */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span> Country
+//                   </label>
+//                   <select
+//                     name="country"
+//                     className="UD-set-dropdown"
+//                     value={postGraduationData ? postGraduationData.country : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "country",
+//                         e.target.value,
+//                         "postGraduationData"
+//                       )
+//                     }
+//                   >
+//                     <option value="">Select country</option>
+//                     {countries.map((country) => (
+//                       <option key={country.country} value={country.country}>
+//                         {country.country}
+//                       </option>
+//                     ))}
+//                   </select>
+//                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Year of Joining */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Year of Joining
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_start"
+//                     id=""
+//                     value={
+//                       postGraduationData ? postGraduationData.year_start : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_start",
+//                         e.target.value,
+//                         "postGraduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* University/ Board*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>University/ Board
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="board_university_name"
+//                     id=""
+//                     value={
+//                       postGraduationData
+//                         ? postGraduationData.board_university_name
+//                         : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "board_university_name",
+//                         e.target.value,
+//                         "postGraduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* Institute/ College*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Institute/ College
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="institute_name"
+//                     id=""
+//                     value={
+//                       postGraduationData
+//                         ? postGraduationData.institute_name
+//                         : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "institute_name",
+//                         e.target.value,
+//                         "postGraduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Degree Name*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Degree Name
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="degree_types_name"
+//                     id=""
+//                     value={
+//                       postGraduationData
+//                         ? postGraduationData.degree_types_name
+//                         : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "degree_types_name",
+//                         e.target.value,
+//                         "postGraduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Passing Year*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Passing Year
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_end"
+//                     id=""
+//                     value={
+//                       postGraduationData ? postGraduationData.year_end : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_end",
+//                         e.target.value,
+//                         "postGraduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* Specialization/ Area*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Specialization/ Area
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="specialization_area_1"
+//                     id=""
+//                     value={
+//                       postGraduationData
+//                         ? postGraduationData.specialization_area_1
+//                         : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "specialization_area_1",
+//                         e.target.value,
+//                         "postGraduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Aggregate Percentage/CGPA*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Aggregate Percentage/CGPA
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="grade_percent"
+//                     id=""
+//                     value={
+//                       postGraduationData ? postGraduationData.grade_percent : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "grade_percent",
+//                         e.target.value,
+//                         "postGraduationData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* M. Phil*/}
+
+//             <div>
+//               <p className="HS-heading">M. Phil</p>
+//             </div>
+
+//             <div className="row" style={{ marginTop: "-40px" }}>
+//               <div className="col-md-4">
+//                 {/* *Country */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span> Country
+//                   </label>
+//                   <select
+//                     name="country"
+//                     className="UD-set-dropdown"
+//                     value={mphilData ? mphilData.country : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange("country", e.target.value, "mphilData")
+//                     }
+//                   >
+//                     <option value="">Select country</option>
+//                     {countries.map((country) => (
+//                       <option key={country.country} value={country.country}>
+//                         {country.country}
+//                       </option>
+//                     ))}
+//                   </select>
+//                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Year of Joining */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Year of Joining
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_start"
+//                     id=""
+//                     defaultValue={mphilData ? mphilData.year_start : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_start",
+//                         e.target.value,
+//                         "mphilData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* University/ Board*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>University/ Board
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="board_university_name"
+//                     id=""
+//                     defaultValue={
+//                       mphilData ? mphilData.board_university_name : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "board_university_name",
+//                         e.target.value,
+//                         "mphilData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* Institute/ College*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Institute/ College
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="institute_name"
+//                     id=""
+//                     defaultValue={mphilData ? mphilData.institute_name : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "institute_name",
+//                         e.target.value,
+//                         "mphilData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Degree Name*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Degree Name
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="degree_types_name"
+//                     id=""
+//                     defaultValue={mphilData ? mphilData.degree_types_name : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "degree_types_name",
+//                         e.target.value,
+//                         "mphilData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Passing Year*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Passing Year
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_end"
+//                     id=""
+//                     defaultValue={mphilData ? mphilData.year_end : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange("year_end", e.target.value, "mphilData")
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* Specialization/ Area*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Specialization/ Area
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="specialization_area_1"
+//                     id=""
+//                     defaultValue={
+//                       mphilData ? mphilData.specialization_area_1 : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "specialization_area_1",
+//                         e.target.value,
+//                         "mphilData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Aggregate Percentage/CGPA*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Aggregate Percentage/CGPA
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="grade_percent"
+//                     id=""
+//                     defaultValue={mphilData ? mphilData.grade_percent : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "grade_percent",
+//                         e.target.value,
+//                         "mphilData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* PhD*/}
+
+//             <div>
+//               <p className="HS-heading">PhD</p>
+//             </div>
+
+//             <div className="row" style={{ marginTop: "-40px" }}>
+//               <div className="col-md-4">
+//                 {/* *Country */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span> Country
+//                   </label>
+//                   <select
+//                     name="country"
+//                     className="UD-set-dropdown"
+//                     value={phdData ? phdData.country : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange("country", e.target.value, "phdData")
+//                     }
+//                   >
+//                     <option value="">Select country</option>
+//                     {countries.map((country) => (
+//                       <option key={country.country} value={country.country}>
+//                         {country.country}
+//                       </option>
+//                     ))}
+//                   </select>
+//                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* *Year of Joining */}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Year of Joining
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_start"
+//                     id=""
+//                     defaultValue={phdData ? phdData.year_start : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange("year_start", e.target.value, "phdData")
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* University/ Board*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>University/ Board
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="board_university_name"
+//                     id=""
+//                     defaultValue={phdData ? phdData.board_university_name : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "board_university_name",
+//                         e.target.value,
+//                         "phdData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* Institute/ College*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Institute/ College
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="institute_name"
+//                     id=""
+//                     defaultValue={phdData ? phdData.institute_name : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "institute_name",
+//                         e.target.value,
+//                         "phdData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Degree Name*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Degree Name
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="degree_types_name"
+//                     id=""
+//                     defaultValue={phdData ? phdData.degree_types_name : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "degree_types_name",
+//                         e.target.value,
+//                         "phdData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Passing Year*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Passing Year
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="year_end"
+//                     id=""
+//                     defaultValue={phdData ? phdData.year_end : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange("year_end", e.target.value, "phdData")
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* Specialization/ Area*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Specialization/ Area
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="specialization_area_1"
+//                     id=""
+//                     defaultValue={phdData ? phdData.specialization_area_1 : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "specialization_area_1",
+//                         e.target.value,
+//                         "phdData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Aggregate Percentage/CGPA*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Aggregate Percentage/CGPA
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name="grade_percent"
+//                     id=""
+//                     defaultValue={phdData ? phdData.grade_percent : ""}
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "grade_percent",
+//                         e.target.value,
+//                         "phdData"
+//                       )
+//                     }
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Qualified Examination*/}
+
+//             <div>
+//               <p className="HS-heading">Qualified Examination</p>
+//             </div>
+
+//             <div className="row" style={{ marginTop: "-40px" }}>
+//               <div className="col-md-4">
+//                 {/* Gate*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Gate
+//                   </label>
+//                   <select
+//                     className="UD-set-dropdown"
+//                     id="gateDropdown"
+//                     name="exam_name"
+//                     value={
+//                       gateData ? (gateData.year_end !== "" ? "Yes" : "No") : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_end",
+//                         e.target.value === "Yes" ? "" : "",
+//                         "gateData"
+//                       )
+//                     }
+//                   >
+//                     <option value="Yes">Yes</option>
+//                     <option value="No">No</option>
+//                   </select>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* Year*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Year
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name=""
+//                     id=""
+//                     value={gateData ? gateData.year_end : ""}
+//                     onChange={(e) => handleFieldChange('year_end', e.target.value, 'gateData')}
+//                   ></input>
+//                 </div>
+//               </div>
+
+//               <div className="col-md-4">
+//                 {/* NET*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>NET
+//                   </label>
+
+//                   <select
+//                     className="UD-set-dropdown"
+//                     id=""
+//                     name="exam_name"
+//                     value={
+//                       neetData ? (neetData.year_end !== "" ? "Yes" : "No") : ""
+//                     }
+//                     onChange={(e) =>
+//                       handleFieldChange(
+//                         "year_end",
+//                         e.target.value === "Yes" ? "" : "",
+//                         "neetData"
+//                       )
+//                     }
+//                   >
+//                     <option value="Yes">Yes</option>
+//                     <option value="No">No</option>
+//                   </select>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="row">
+//               <div className="col-md-4">
+//                 {/* Year*/}
+//                 <div className="UD-form-section">
+//                   <label className="UD-SetLabel-Name">
+//                     <span></span>Year
+//                   </label>
+//                   <input
+//                     className="UD-set-input"
+//                     type="text"
+//                     placeholder=" "
+//                     name=""
+//                     id=""
+//                     value={neetData ? neetData.year_end : ""}
+//                     onChange={(e) => handleFieldChange('year_end', e.target.value, 'neetData')}
+//                   ></input>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div>
+//               <button
+//                 className="savebtn"
+//                 type="button"
+//                 onClick={handleSaveChanges}
+//               >
+//                 Save Changes
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </form>
+//     </>
+//   );
+// }
+
+// export default EditQualificationForm;

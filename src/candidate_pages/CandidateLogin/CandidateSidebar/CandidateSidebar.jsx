@@ -17,7 +17,7 @@ import EditResearchForm from "../CandidateChildPages/EditResearchForm/EditResear
 import EditProgramsForm from "../CandidateChildPages/EditProgramsForm/EditProgramsForm";
 import EditReference from "../CandidateChildPages/EditReference/EditReference";
 import Footers from "../../../components/Footer/Footers";
-
+import  {ApiDataProvider}  from "..//..//../context/CandidateContext";
 function CandidateSidebar() {
   const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -63,13 +63,19 @@ function CandidateSidebar() {
   const renderComponent = () => {
     switch (screen) {
       case 0:
-        return <EditPersonalDetails />;
+        return (<ApiDataProvider>
+          <EditPersonalDetails />;
+        </ApiDataProvider>)
         break;
       case 1:
-        return <EditQualificationForm />;
+        return (<ApiDataProvider>
+        <EditQualificationForm />
+        </ApiDataProvider>);
         break;
       case 2:
-        return <EditExperience />;
+        return (<ApiDataProvider>
+          <EditExperience />
+          </ApiDataProvider>);
         break;
       case 3:
         return <EditResearchForm />;
