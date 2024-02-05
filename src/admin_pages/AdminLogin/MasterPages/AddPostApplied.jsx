@@ -103,16 +103,6 @@ function AddPostApplied() {
       .catch((error) => console.error("Error updating category:", error));
   };
 
-  // const handleSelectCategory = (e) => {
-  //   const selectedCategoryId = e.target.value;
-  //   const selectedCategoryObj = categories.find(
-  //     (category) => category.id === selectedCategoryId
-  //   );
-
-  //   setSelectedCategoryId(selectedCategoryId);
-  //   setSelectedCategory(selectedCategoryObj);
-  // };
-
   const handleSelectCategory = (e) => {
     const selectedCategoryId = e.target.value;
     const selectedCategoryObj = categories.find(
