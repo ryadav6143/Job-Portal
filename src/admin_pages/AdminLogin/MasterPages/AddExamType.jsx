@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../../config/config";
 
 function AddExamType() {
   const [data, setData] = useState([]);
@@ -8,7 +9,7 @@ function AddExamType() {
   // -----------------------------FETCHING EXAMTYPEMASTER API----------
   function examType() {
     axios
-      .get("http://192.168.1.8:8090/v1/api/examTypeMaster")
+      .get(`${BASE_URL}/examTypeMaster`)
       .then((response) => setData(response.data))
       .catch((error) => console.error("Error fetching data:", error));
   }
@@ -27,7 +28,7 @@ function AddExamType() {
     }
 
     axios
-      .post("http://192.168.1.8:8090/v1/api/examTypeMaster", {
+      .post(`${BASE_URL}/examTypeMaster`, {
         exam_name: newExamType,
       })
       .then((response) => {
@@ -41,7 +42,7 @@ function AddExamType() {
   // --------------------DELETE DATA FROM API--------------------------------
   const handleDeleteExamType = (examId) => {
     axios
-      .delete(`http://192.168.1.8:8090/v1/api/examTypeMaster/${examId}`)
+      .delete(`${BASE_URL}/examTypeMaster/${examId}`)
       .then(() => {
         // Remove the deleted item from the state
         const updatedData = data.filter((exam) => exam.id !== examId);
