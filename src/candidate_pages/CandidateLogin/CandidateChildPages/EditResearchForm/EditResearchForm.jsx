@@ -1,10 +1,9 @@
 import React, { useState,useEffect } from 'react';
 import "./EditResearchForm.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import plusicon from "../../../../assets/logos/plus.png";
+import plusicon from "../../../../assets/logos/plus-sign.png"
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import candidatesApiService from '../../../candidateService';
-import minusicon from "../../../../assets/logos/minus.png";
 function EditResearchForm() {
   
   // const [researches, setResearches] = useState({ candidate_research_works: [{}] });
@@ -81,18 +80,6 @@ function EditResearchForm() {
       ],
     }));
   };
-
-  const handleRemoveResearches = (index) => {
-    setData((prevData) => ({
-      UserDetails: {
-        ...prevData.candidate_research_works,
-        journal_publications: prevData.candidate_research_works.filter(
-          (_, i) => i !== index
-        ),
-      },
-    }));
-  };
- 
   
   const handleAddPublication = () => {
     setData((prevData) => ({
@@ -112,8 +99,6 @@ function EditResearchForm() {
       ],
     }));
   };
-
-  
   
   const handleAddConferences = () => {
     setData((prevData) => ({
@@ -286,11 +271,11 @@ function EditResearchForm() {
         </div>
       )}
     <form id='myForm' onSubmit={handleSaveChanges}>
-    <div className="container" style={{marginTop:"90px", paddingLeft:"50px", paddingRight:"50px"}}>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
       <div>
         <div>
           <h5 className="UD-heading">Research Work &nbsp; <FontAwesomeIcon   className="edit-pen-icon" icon={faPen} />  
-     </h5>
+          <button  onClick={handleAddResearches} style={{marginRight:"30px"}} type="button" className="plus-button">+</button></h5>
           <p className="UD-subheading">
             Please fill your information so we can get in touch with you.
           </p>
@@ -298,28 +283,7 @@ function EditResearchForm() {
 
         {data && data.candidate_research_works && data.candidate_research_works.map((researches, index) => (
 <div key={index}>
-{index > 0 && <hr style={{ margin: "24px 0" }} />}
         <div className="row">
-        <div>
-                      {data.candidate_research_works.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveResearches(index)}
-                          className="minus-buttons"
-                        >
-                          <img src={minusicon} alt="Remove candidate_research_works" />
-                        </button>
-                      )}
-                      {index === data.candidate_research_works.length - 1 && (
-                        <button
-                          type="button"
-                          onClick={handleAddResearches}
-                          className="plus-buttons"
-                        >
-                         <img src={plusicon} alt="Add candidate_research_works" />
-                        </button>
-                      )}
-                    </div>
           <div className="col-md-4">
             {/* ORCID Id*/}
             <div className="UD-form-section">
