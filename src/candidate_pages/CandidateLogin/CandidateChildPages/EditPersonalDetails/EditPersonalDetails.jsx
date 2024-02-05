@@ -10,49 +10,43 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
+
+import {useApiData} from "../../../../context/CandidateContext";
+import { useContext } from "react";
 // import axios from "axios";
 function EditPersonalDetails() {
   // ---------profile image source---------
+  const {apiData,loading,fetchData }=useApiData()
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   const [errors, setErrors] = useState({});
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState(apiData);
   const [updateField, setUpdateField] = useState({});
-  const [loading, setLoading] = useState(true);
-
-  // console.log("data", data);
-  const fetchData = async () => {
-    try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      setLoading(true);
-      const fetchedData = await candidatesApiService.getCandidateById(
-        accessToken.token
-      );
-      console.log("response", fetchedData);
-      setData(fetchedData);
-      setLoading(false); 
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-      setLoading(false);
-    }
-  };
+  // const [loading, setLoading] = useState(true);
+  // const fetchData = async () => {
+  //   try {
+  //     let accessToken = localStorage.getItem("Token");
+  //     accessToken = JSON.parse(accessToken);
+  //     setLoading(true);
+  //     const fetchedData = await candidatesApiService.getCandidateById(
+  //       accessToken.token
+  //     );
+  //     console.log("response", fetchedData);
+  //     setData(fetchedData);
+  //     setLoading(false); 
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error.message);
+  //     setLoading(false);
+  //   }
+  // };
   useEffect(() => {
     console.log("use-state");
-    fetchData();
-  }, []);
+    setData(apiData)
+  }, [apiData]);
 
-
-
-  useEffect(() => {
-    const body = document.body;
-    if (loading) {
-      body.style.overflow = 'hidden';
-    } else {
-      body.style.overflow = 'auto';
-    }
-  }, [loading]);
+  console.log("apiData", apiData);
+ 
 
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
@@ -76,48 +70,7 @@ function EditPersonalDetails() {
     }
   };
 
-  // const handleSaveChanges = async (e) => {
-  //   e.preventDefault();
-  //   let errors = {};
-  //   if (!formValues.first_name) {
-  //     errors.first_name = "! First Name is Required.";
-  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.first_name)) {
-  //     errors.first_name = "! Please enter a valid name.";
-  //   }
-  //   if (!formValues.first_name) {
-  //     setErrors({ ...errors, first_name: "First Name is required." });
-  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.first_name)) {
-  //     setErrors({ ...errors, first_name: "Please enter a valid name." });
-  //   } else {
-  //     setErrors({ ...errors, first_name: "" });
-  //   }
-
-  //   if (!formValues.last_name) {
-  //     errors.last_name = "! Last Name is Required.";
-  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.last_name)) {
-  //     errors.last_name = "! Please enter a valid name.";
-  //   }
-
-  //   setErrors(errors);
-  //   if (Object.keys(errors).length === 0) {
-  //     console.log("Form Submitted Successfully");
-  //   }
-  //   try {
-  //     let accessToken = localStorage.getItem("Token");
-  //     accessToken = JSON.parse(accessToken);
-  //     console.log(updateField);
-
-  //     await candidatesApiService.updateCandidatePersonalInfo(
-  //       accessToken.token,
-  //       updateField
-  //     );
-
-  //     setUpdateField({});
-  //     fetchData();
-  //   } catch (error) {
-  //     console.error("Error saving changes:", error.message);
-  //   }
-  // };
+ 
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();
@@ -277,101 +230,18 @@ function EditPersonalDetails() {
     fetchImage();
   }, []);
 
-  // const saveValidations = () => {
-  //   const {
-  //     email,
-  //     contact_1,
-  //     specialization,
-  //     title_first_name,
-  //     first_name,
-  //     middle_name,
-  //     last_name,
-  //     dob,
-  //     gender,
-  //     religion,
-  //     cast_category_name,
-  //     marital_status,
-  //     address_1,
-  //     contact_2,
-  //     country,
-  //     state_province,
-  //     city,
-  //     pin_code,
-  //   } = formValues.editDetails;
-
-  //   const currentYear = new Date().getFullYear();
-  //   const dobYear = dob ? new Date(dob).getFullYear() : null;
-  //   let errors = {};
-
-  //   if (!first_name) {
-  //     errors.first_name = "! First Name is Required.";
-  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
-  //     errors.first_name = "! Please enter a valid name.";
-  //   }
-  //   if (!first_name) {
-  //     setErrors({ ...errors, first_name: "First Name is required." });
-  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
-  //     setErrors({ ...errors, first_name: "Please enter a valid name." });
-  //   } else {
-  //     setErrors({ ...errors, first_name: "" });
-  //   }
-
-  //   if (!last_name) {
-  //     errors.last_name = "! Last Name is Required.";
-  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
-  //     errors.last_name = "! Please enter a valid name.";
-  //   }
-  //   if (!dob) {
-  //     errors.dob = "! Date Of Birt is Required";
-  //   } else if (
-  //     !dob ||
-  //     dobYear < currentYear - 100 ||
-  //     dobYear > currentYear ||
-  //     new Date(dob) > new Date()
-  //   ) {
-  //     errors.dob = "! Please enter a valid date of Birth.";
-  //   }
-  //   if (!gender) {
-  //     errors.gender = "! Gender is Required.";
-  //   }
-  //   if (!religion) {
-  //     errors.religion = "! Relegion is Required";
-  //   }
-  //   if (!city) {
-  //     errors.city = "! City is Required";
-  //   }
-  //   if (!cast_category_name) {
-  //     errors.cast_category_name = "! Cast Category is Required";
-  //   }
-  //   if (!marital_status) {
-  //     errors.marital_status = "! Marital Status is Required";
-  //   }
-  //   if (!address_1) {
-  //     errors.address_1 = "! Address is Required";
-  //   }
-
-  //   if (!country) {
-  //     errors.country = "! Country is Required";
-  //   }
-  //   if (!state_province) {
-  //     errors.state_province = "! State is Required";
-  //   }
-  //   if (Object.keys(errors).length > 0) {
-  //     setErrors(errors);
-  //     return false;
-  //   } else {
-  //     setErrors({});
-  //     return true;
-  //   }
-  // };
-
+ 
+console.log("loading",loading)
   return (
-    <>
-          {loading && (
+    <>  
+  
+  {/* {loading && (
         <div className="loader-container">
           <div className="loader"></div>
         </div>
-      )}
+      )} */}
+
+{/* {!loading && ( */}
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div style={{ marginTop: "7%" }}>
           <div style={{ paddingLeft: "50px" }}>
@@ -906,7 +776,7 @@ function EditPersonalDetails() {
           </div>
         </div>
       </form>
-
+  {/* )} */}
     </>
   );
 }
