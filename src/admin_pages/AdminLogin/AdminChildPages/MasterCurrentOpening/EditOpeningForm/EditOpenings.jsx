@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./AddOpenings.css";
+import "./EditOpenings.css";
 import adminApiService from "../../../../adminApiService";
-function AddOpenings() {
+function EditOpenings() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -15,26 +15,13 @@ function AddOpenings() {
   const [addToCurrentOpening, setAddToCurrentOpening] = useState(false);
   const [addToInterviewSchedule, setAddToInterviewSchedule] = useState(false);
   const [publishToJobProfile, setPublishToJobProfile] = useState(false);
+  const [jobProfiles, setJobProfiles] = useState([]);
 
   const [formValues, setFormValues] = useState({
-    job_category_master_id: 0,
-  department_master_id: 0,
-  applied_subpost_master_id: 0,
-  applied_post_masters_id: 0,
-  education_require: "",
-  qualification_require: "",
-  last_date_to_apply: "",
-  publish_to_vacancy: false,
-  publish_to_schedule_interview: false,
-  publish_to_job_profile: false,
-  schedule_interview_date_1: null,
-  schedule_interview_date_2: null,
-  schedule_interview_date_3: null,
-  number_of_vacancy: 0,
-  eligibility_criteria: "",
-  // is_active: true,
-  salary_grade: "",
-  responsible_contact: "",
+    job_category_master: { category_name: "" },
+    department_master: {dept_name: "", },
+    applied_post_master: { post_name: "", },
+    applied_subpost_master: {subpost_name: "",  },
   });
 
 
@@ -66,10 +53,22 @@ function AddOpenings() {
   }, []);
 
 
-  // const handleclick = () => {
-  //   navigate("/adminpanel");
-  // };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await adminApiService.getJobProfile();
+        const profileData = response.data;
+        setFormValues(profileData[0]);
+console.log("profileData-->",profileData[0])
+       
+      } catch (error) {
+        console.error("Error fetching job profiles:", error);
+      }
+    };
 
+    fetchData();
+  }, []);
+  
 
   const handleCategory = (event) => {
     const selectedCategory = event.target.value;
@@ -89,25 +88,37 @@ function AddOpenings() {
   const handlePost = (event) => {
     const selectedPost = event.target.value;
     setSelectedPost(selectedPost);
-    const selectedPostData = post.find((post) => post.post_name === selectedPost);
-    setFormValues({
-      ...formValues,
-      applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
-    });
-    setSubPost(selectedPostData ? selectedPostData.applied_subpost_masters : []);
+  
+    // If you need to update formValues, you can do it here
+    const selectedPostData = post.find(
+      (postData) => postData.post_name === selectedPost
+    );
+  
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      applied_post_master: {
+        ...prevFormValues.applied_post_master,
+        post_name: selectedPostData ? selectedPostData.post_name : "",
+      },
+    }));
   };
   
   const handleSubPost = (event) => {
-    const selectedSubPostName = event.target.value;
-    setSelectedSubPost(selectedSubPostName);
+    const selectedSubPost = event.target.value;
+    setSelectedSubPost(selectedSubPost);
+  
+    // If you need to update formValues, you can do it here
     const selectedSubPostData = subPost.find(
-      (subpost) => subpost.subpost_name === selectedSubPostName
+      (subpostData) => subpostData.subpost_name === selectedSubPost
     );
-    // Additional logic with selectedSubPostData if needed
-    setFormValues({
-      ...formValues,
-      applied_subpost_master_id: selectedSubPostData ? selectedSubPostData.id : "",
-    });
+  
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      applied_subpost_master: {
+        ...prevFormValues.applied_subpost_master,
+        subpost_name: selectedSubPostData ? selectedSubPostData.subpost_name : "",
+      },
+    }));
   };
   
   const handleDepartmant = (event) => {
@@ -174,19 +185,7 @@ function AddOpenings() {
  
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log('Sending request with formValues:', formValues);
-  
-    try {
-      const response = await adminApiService.postJobProfile(formValues);
-      console.log('API Response:', response.data);
-  
-      // Add any additional logic after successful submission
-      console.log('Job profile submitted successfully!', response.data);
-      navigate("/adminpanel");
-    } catch (error) {
-      console.error('Error submitting job profile:', error);
-    }
+ 
   };
   
 
@@ -194,8 +193,8 @@ function AddOpenings() {
     <div>
 
       <div className="new-openings">
-        <p>job_profile_master</p>
-        <p className="master-heading">Add New Opening</p>
+        {/* <p>job_profile_master</p> */}
+        <p className="master-heading">Edit Openings Data</p>
         <div className="new-openings-form">
           <form onSubmit={handleSubmit} >
             <div className="row">
@@ -209,21 +208,21 @@ function AddOpenings() {
               <div className="col-6">
                 <label htmlFor="dropdown2">Category</label>
                 <select
-                  name="category_name"
-                  id="categoryDropdown"
-                  value={selectedCategory}
-                  onChange={handleCategory}
-                  required
+                name="category_name"
+                id="categoryDropdown"
+                value={formValues.job_category_master.category_name}
+                onChange={handleCategory}
+                required
                 >
-                  <option value="">Select a category</option>
-                  {jobCategories.map((category) => (
+                <option value="">Select a category</option>
+                {jobCategories.map((category) => (
                     <option
-                      key={category.category_name}
-                      value={category.category_name}
+                    key={category.category_name}
+                    value={category.category_name}
                     >
-                      {category.category_name}
+                    {category.category_name}
                     </option>
-                  ))}
+                ))}
                 </select>
               </div>
             </div>
@@ -232,7 +231,7 @@ function AddOpenings() {
                 <label htmlFor="dropdown2">Department</label>
                 <select
                   id="departmentDropdown"
-                  value={selectedDepartment}
+                  value={formValues.department_master.dept_name}
                   onChange={handleDepartmant}
                 >
                   <option value="">Select Department</option>
@@ -250,13 +249,14 @@ function AddOpenings() {
                 <label htmlFor="">Post</label>
                 <select
                   id="dropdown"
+                  value={formValues.applied_post_master.post_name}
                   onChange={handlePost}
-                  value={selectedPost}
-                  required
+            
+                  
                 >
                   <option value="">Select a post</option>
                   {post.map((post) => (
-                    <option key={post.post_name} value={post.post_name}>
+                    <option key={post.id} value={post.post_name}>
                       {post.post_name}
                     </option>
                   ))}
@@ -268,7 +268,7 @@ function AddOpenings() {
                 <label htmlFor="dropdown2">SubPost</label>
                 <select
                   id="dropdown2"
-                  value={selectedSubPost}
+                  value={formValues.applied_subpost_master.subpost_name}
                   onChange={handleSubPost}
                 >
                   <option value="">-- Select SubPost --</option>
@@ -355,9 +355,12 @@ function AddOpenings() {
               <div className="col-4">
                 <p>Add To Current Opening</p>
                 <label class="switch">
-                  <input type="checkbox" id="checkbox" 
-                   checked={addToCurrentOpening}
-                   onChange={() => handleCheckboxChange('addToCurrentOpening')}/>
+                <input
+            type="checkbox"
+            id="checkbox"
+            checked={addToCurrentOpening}
+            onChange={() => handleCheckboxChange("addToCurrentOpening")}
+          />
                   <div class="slider round"></div>
                 </label>
               </div>
@@ -392,4 +395,4 @@ function AddOpenings() {
   );
 }
 
-export default AddOpenings;
+export default EditOpenings;
