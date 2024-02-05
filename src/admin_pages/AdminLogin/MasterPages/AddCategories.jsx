@@ -3,10 +3,10 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
+import { BASE_URL } from "../../../config/config";
 import axios from "axios";
 
 function AddCategories() {
-  const BASE_URL = "http://192.168.1.8:8090/v1/api";
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null); // New state for tracking the selected category for update

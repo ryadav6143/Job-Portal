@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { BASE_URL } from "../../../config/config";
 function AddSubPostApplied() {
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
@@ -15,7 +15,7 @@ function AddSubPostApplied() {
 
   const fetchData = () => {
     axios
-      .get("http://192.168.1.8:8090/v1/api/appliedSubPost")
+      .get(`${BASE_URL}/appliedSubPost`)
       .then((response) => {
         setData(response.data);
       })
@@ -31,7 +31,7 @@ function AddSubPostApplied() {
 
   const fetchAppliedPost = () => {
     axios
-      .get("http://192.168.1.8:8090/v1/api/appliedPost")
+      .get(`${BASE_URL}/appliedPost`)
       .then((response) => {
         setPostData(response.data);
       })
@@ -57,7 +57,7 @@ function AddSubPostApplied() {
 
     axios
       .post(
-        "http://192.168.1.8:8090/v1/api/appliedSubPost",
+        `${BASE_URL}/appliedSubPost`,
         {
           applied_post_masters_id: Number(selectedPostId), // Convert to number
           subpost_name: newPost,
@@ -80,7 +80,7 @@ function AddSubPostApplied() {
   // -----------------------------Fetching data from applied_post------------------------------
   const handleDeleteSubPost = (subPostId) => {
     axios
-      .delete(`http://192.168.1.8:8090/v1/api/appliedSubPost/${subPostId}`)
+      .delete(`${BASE_URL}/appliedSubPost/${subPostId}`)
       .then((response) => {
         console.log("Subpost deleted successfully");
         fetchData(); // Refresh the data after deletion
@@ -98,7 +98,7 @@ function AddSubPostApplied() {
 
     axios
       .put(
-        `http://192.168.1.8:8090/v1/api/appliedSubPost/${selectedPost.id}`,
+        `${BASE_URL}/appliedSubPost/${selectedPost.id}`,
         {
           applied_post_masters_id: Number(selectedPostId),
           subpost_name: updatePost,

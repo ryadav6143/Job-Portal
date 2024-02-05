@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../../config/config";
 
 function AddDegree() {
-  const BASE_URL = "http://192.168.1.8:8090/v1/api";
+
   const [data, setData] = useState([]);
   const [examTypes, setExamTypes] = useState([]);
   const [selectedExamType, setSelectedExamType] = useState("");

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Master.css";
 import axios from "axios";
+import { BASE_URL } from "../../../config/config";
 function AddPostApplied() {
-  const BASE_URL = "http://192.168.1.8:8090/v1/api";
+
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);

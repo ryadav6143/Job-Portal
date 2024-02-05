@@ -1,12 +1,8 @@
 // apiService.js
 import axios from "axios";
-
-const BASE_URL = "http://192.168.1.8:8090/v1/api"; // Set your base API URL here
-
+import { BASE_URL } from "../config/config";
 
 const apiService = {
-
-
   // -------------------
   getJobCategories: () => {
     return axios.get(`${BASE_URL}/jobCategory`);
@@ -32,7 +28,10 @@ const apiService = {
     return axios.post(`${BASE_URL}/otp/generateOTP`, otpData);
   },
   verifyContactOTP: (verificationData) => {
-    return axios.post(`${BASE_URL}/otp/verifyCandidateContactOTP`, verificationData);
+    return axios.post(
+      `${BASE_URL}/otp/verifyCandidateContactOTP`,
+      verificationData
+    );
   },
   submitCandidateData: (formData) => {
     return axios.post(`${BASE_URL}/candidates/drop_cv`, formData);
@@ -46,10 +45,7 @@ const apiService = {
   getDepartments: () => {
     return axios.get(`${BASE_URL}/departmentMaster`);
   },
-
 };
-
-
 
 export default apiService;
 // export { checkEmailExistence };

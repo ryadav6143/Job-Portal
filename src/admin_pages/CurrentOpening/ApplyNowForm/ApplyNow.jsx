@@ -331,10 +331,10 @@ function ApplyNow() {
   //   if (isCurrentStepValid) {
   //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   //   }
-  //   // else {}
+  //   //else {}
   // };
 
-const handleNext = async () => {
+  const handleNext = async () => {
     console.log("Form formValues:", formValues);
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
@@ -349,7 +349,6 @@ const handleNext = async () => {
     if (isCurrentStepValid) {
       const emailToCheck = formValues.UserDetails.email.trim();
       const contactToCheck = formValues.UserDetails.contact_1.trim();
-  
       try {
         const responseEmail = await fetch(
           `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${emailToCheck}`,
@@ -361,7 +360,6 @@ const handleNext = async () => {
             },
           }
         );
-  
         const responseContact = await fetch(
           `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${contactToCheck}`,
           {
@@ -372,25 +370,24 @@ const handleNext = async () => {
             },
           }
         );
-  
+
         if (!responseEmail.ok) {
           throw new Error(`HTTP error! Status: ${responseEmail.status}`);
         }
-  
+
         if (!responseContact.ok) {
           throw new Error(`HTTP error! Status: ${responseContact.status}`);
         }
-  
+
         const dataEmail = await responseEmail.json();
         const dataContact = await responseContact.json();
-  
+
         if (dataEmail) {
           alert("This email is already registered.");
           // setErrors({ email: "This email is already registered." });
         } else if (dataContact) {
-         
           alert("This contact is already registered.");
-           // setErrors({ contact_1: "This contact is already registered." });
+          // setErrors({ contact_1: "This contact is already registered." });
         } else {
           console.log("Email and contact do not exist in the database");
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -398,13 +395,12 @@ const handleNext = async () => {
       } catch (error) {
         console.error("Error checking email/contact existence:", error);
       }
-     
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
-  
+
     console.log(formValues);
   };
 
-  
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
