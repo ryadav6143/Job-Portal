@@ -93,12 +93,12 @@ function CandidateLogin({ handleLogin }) {
             <p>Design & Developed By Corus View</p>
           </div>
         </div>
-
+{/* 
         {errorMessage && (
           <div className="error-message">
             <p>{errorMessage}</p>
           </div>
-        )}
+        )} */}
 
         {/* <form onSubmit={handleFormSubmit} className="login-form">
           <label htmlFor="username">Username:</label>
