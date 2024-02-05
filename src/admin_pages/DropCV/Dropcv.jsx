@@ -183,12 +183,12 @@ function Dropcv() {
 
         if (data) {
           // setErrors({ email: "This email is already registered." });
-          // alert("This email is already registered.");
-          setDangerAlertVisible(true);
+          alert("This email is already registered.");
+          // setDangerAlertVisible(true);
         } else if (data_contact) {
           // setErrors({ contact_1: "This contact is already registered." });
-          // alert("This contact is already registered.");
-          setDangerAlertVisible(true);
+          alert("This contact is already registered.");
+          // setDangerAlertVisible(true);
         } else {
           console.log("contact does not exist in database");
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
