@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./EditQualificationForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
 function EditQualificationForm() {
@@ -483,7 +482,7 @@ function EditQualificationForm() {
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"
-          style={{ marginTop: "90px", paddingLeft: "50px" }}
+          style={{ marginTop: "90px", paddingLeft: "50px" ,paddingRight:"50px"}}
         >
           <div>
             <div>
@@ -503,7 +502,7 @@ function EditQualificationForm() {
               <p className="HS-heading">High School</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -710,7 +709,7 @@ function EditQualificationForm() {
               <p className="HS-heading">Higher secondary</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -943,7 +942,7 @@ function EditQualificationForm() {
               <p className="HS-heading">Diploma</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1154,7 +1153,7 @@ function EditQualificationForm() {
               <p className="HS-heading">Graduation</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1375,7 +1374,7 @@ function EditQualificationForm() {
               <p className="HS-heading">Post Graduation</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1606,7 +1605,7 @@ function EditQualificationForm() {
               <p className="HS-heading">M. Phil</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1811,7 +1810,7 @@ function EditQualificationForm() {
               <p className="HS-heading">PhD</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -2008,7 +2007,7 @@ function EditQualificationForm() {
               <p className="HS-heading">Qualified Examination</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* Gate*/}
                 <div className="UD-form-section">

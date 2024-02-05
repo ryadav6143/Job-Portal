@@ -563,7 +563,7 @@ function EditProgramsForm() {
                         Bodies/Professional Bodies
                       </label>
                       <input
-                        style={{ width: "95%" }}
+                        style={{ width: "99.5%" }}
                         className="UD-set-input"
                         type="text"
                         placeholder=""
@@ -737,7 +737,7 @@ function EditProgramsForm() {
                     Furnish Especially About Citation Of Your Research Work
                   </label>
                   <input
-                    style={{ width: "95%" }}
+                    style={{ width: "99.5%" }}
                     className="UD-set-input"
                     type="text"
                     placeholder=""
@@ -760,7 +760,7 @@ function EditProgramsForm() {
                     <span></span>Period For Joining The Post, If Selected
                   </label>
                   <input
-                    style={{ width: "95%" }}
+                    style={{ width: "99.5%" }}
                     className="UD-set-input"
                     type="text"
                     placeholder=""
