@@ -188,7 +188,7 @@ function AddPostApplied() {
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">NAME</th>
+                <th scope="col">POST</th>
                 <th scope="col">UPDATE</th>
                 <th scope="col">DELETE</th>
               </tr>

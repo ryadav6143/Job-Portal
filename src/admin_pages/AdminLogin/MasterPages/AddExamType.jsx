@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function AddExamType() {
-  const BASE_URL = "http://192.168.1.8:8090/v1/api";
   const [data, setData] = useState([]);
   const [newExamType, setNewExamType] = useState("");
 
   // -----------------------------FETCHING EXAMTYPEMASTER API----------
   function examType() {
     axios
-      .get(`${BASE_URL}/examTypeMaster`)
+      .get("http://192.168.1.8:8090/v1/api/examTypeMaster")
       .then((response) => setData(response.data))
       .catch((error) => console.error("Error fetching data:", error));
   }
@@ -28,7 +27,7 @@ function AddExamType() {
     }
 
     axios
-      .post(`${BASE_URL}/examTypeMaster`, {
+      .post("http://192.168.1.8:8090/v1/api/examTypeMaster", {
         exam_name: newExamType,
       })
       .then((response) => {
@@ -42,7 +41,7 @@ function AddExamType() {
   // --------------------DELETE DATA FROM API--------------------------------
   const handleDeleteExamType = (examId) => {
     axios
-      .delete(`${BASE_URL}/examTypeMaster/${examId}`)
+      .delete(`http://192.168.1.8:8090/v1/api/examTypeMaster/${examId}`)
       .then(() => {
         // Remove the deleted item from the state
         const updatedData = data.filter((exam) => exam.id !== examId);
@@ -75,7 +74,6 @@ function AddExamType() {
 
       <div className="master-table ">
         <p className="table-heading">CURRENT EXAM TYPE AVAILABLE</p>
-        <p>(Delete and update is Remaining....)</p>
         <div className="">
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>

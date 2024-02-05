@@ -115,12 +115,10 @@ function AddCategories() {
     setUpdateModalOpen(true);
   };
 
- 
   // ------------------UPDATE DATA IN API--------------------------------
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
 
   const handleCloseUpdateModal = () => {
     setUpdateModalOpen(false);
@@ -128,8 +126,6 @@ function AddCategories() {
     setSelectedCategory();
   };
 
-
-  
   const handleXButtonClick = () => {
     if (updateModalOpen) {
       setUpdateModalOpen(false);
@@ -137,12 +133,11 @@ function AddCategories() {
       setOpen(false);
     }
     // Close the modal when'x' button is clicked
-    
+
     setOpen(false);
     setNewCategory();
     setSelectedCategory();
   };
-
 
   const style = {
     position: "absolute",
@@ -203,13 +198,23 @@ function AddCategories() {
                       }
                     }}
                   />
-                  <button
-                    id="set-btn"
-                    type="button"
-                    onClick={handleAddCategory}
-                  >
-                    ADD
-                  </button>
+                  <div className="">
+                    <button
+                      id="set-btn"
+                      type="button"
+                      onClick={handleAddCategory}
+                    >
+                      ADD
+                    </button>
+
+                    <div className="category-publish-btn">
+                      <p>Publish To Job Profile</p>
+                      <label class="switch">
+                        <input type="checkbox" id="checkbox" />
+                        <div class="slider round"></div>
+                      </label>
+                    </div>
+                  </div>
                 </form>
               </div>
             </FormControl>
