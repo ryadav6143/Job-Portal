@@ -48,7 +48,7 @@ function CandidateLogin({ handleLogin }) {
         <div style={{ textAlign: "center" }}>
           <p className="login-content">USER LOGIN PANEL</p>
         </div>
-{/* 
+        {/* 
         {errorMessage && (
           <div className="error-message">
             <p>{errorMessage}</p>

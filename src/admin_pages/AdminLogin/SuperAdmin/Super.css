@@ -1,0 +1,13 @@
+.super-admin-form {
+  margin-bottom: 50px;
+  label {
+    font-size: 18px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+  }
+}
+.super-container {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 5%;
+}

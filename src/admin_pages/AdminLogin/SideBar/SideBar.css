@@ -1,6 +1,6 @@
 .master-sidebar {
   height: 100%;
- width: auto;
+  width: auto;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   padding-top: 70px;
   background-color: white !important;
@@ -48,7 +48,7 @@
 
 @media only screen and (max-width: 767px) {
 }
-.master-dd{
-  border:  none;
-  background-color: transparent;
+.master-dd {
+  border: none;
+  /* background-color: transparent; */
 }

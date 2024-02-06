@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../config/config";
+import updatebtn from "../../../assets/logos/update.png";
+import deletebtn from "../../../assets/logos/delete.png";
 
 function AddExamType() {
   const [data, setData] = useState([]);
@@ -97,14 +99,17 @@ function AddExamType() {
                     <td>{exam.id}</td>
                     <td>{exam.exam_name}</td>
                     <td>
-                      <button id="update-btn">UPDATE</button>
+                      <button id="table-btns">
+                        {" "}
+                        <img src={updatebtn} className="up-del-btn" alt="" />
+                      </button>
                     </td>
                     <td>
                       <button
-                        id="delete-btn"
+                        id="table-btns"
                         onClick={() => handleDeleteExamType(parseInt(exam.id))}
                       >
-                        DELETE
+                        <img src={deletebtn} className="up-del-btn" alt="" />
                       </button>
                     </td>
                   </tr>

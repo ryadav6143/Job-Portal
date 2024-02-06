@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Master.css";
 import axios from "axios";
+import updatebtn from "../../../assets/logos/update.png";
+import deletebtn from "../../../assets/logos/delete.png";
 import { BASE_URL } from "../../../config/config";
 function AddPostApplied() {
   const [data, setData] = useState([]);
@@ -220,18 +222,18 @@ function AddPostApplied() {
                   <td>{category.post_name}</td>
                   <td>
                     <button
-                      id="update-btn"
+                      id="table-btns"
                       onClick={() => handleSelectPostForUpdate(category.id)}
                     >
-                      UPDATE
+                      <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
                   </td>
                   <td>
                     <button
-                      id="delete-btn"
+                      id="table-btns"
                       onClick={() => handleDeletePost(category.id)}
                     >
-                      DELETE
+                      <img src={deletebtn} className="up-del-btn" alt="" />
                     </button>
                   </td>
                 </tr>

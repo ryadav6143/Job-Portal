@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import updatebtn from "../../../assets/logos/update.png";
+import deletebtn from "../../../assets/logos/delete.png";
+
 import { BASE_URL } from "../../../config/config";
 
 function AddDegree() {
-
   const [data, setData] = useState([]);
   const [examTypes, setExamTypes] = useState([]);
   const [selectedExamType, setSelectedExamType] = useState("");
@@ -93,10 +95,14 @@ function AddDegree() {
                   <td>{category.exam_types_master?.exam_name}</td>
                   <td>{category.degree_name}</td>
                   <td>
-                    <button id="update-btn">UPDATE</button>
+                    <button id="table-btns">
+                      <img src={updatebtn} className="up-del-btn" alt="" />
+                    </button>
                   </td>
                   <td>
-                    <button id="delete-btn">DELETE</button>
+                    <button id="table-btns">
+                      <img src={deletebtn} className="up-del-btn" alt="" />
+                    </button>
                   </td>
                 </tr>
               ))}

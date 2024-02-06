@@ -10,6 +10,10 @@ import AddExamType from "../MasterPages/AddExamType";
 import AddDegree from "../MasterPages/AddDegree";
 import AddCategories from "../MasterPages/AddCategories";
 import Reports from "../Reports/Reports";
+import AdminList from "../SuperAdmin/AdminList";
+import CreateRole from "../SuperAdmin/CreateRole";
+import GetRole from "../SuperAdmin/GetRole";
+import GetRights from "../SuperAdmin/GetRights";
 import "./SideBar.css";
 import { Button } from "@mui/material";
 function SideBar() {
@@ -83,6 +87,18 @@ function SideBar() {
       break;
     case "Component11":
       componentToShow = <Reports />;
+      break;
+    case "Component12":
+      componentToShow = <AdminList />;
+      break;
+    case "Component13":
+      componentToShow = <GetRole />;
+      break;
+    case "Component14":
+      componentToShow = <GetRights />;
+      break;
+    case "Component15":
+      componentToShow = <CreateRole />;
       break;
     default:
       componentToShow = <MasterCurrentOpening />;
@@ -204,6 +220,57 @@ function SideBar() {
                             onClick={() => showComponent("Component10")}
                           >
                             Categories(Done)
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div className="dropdown show">
+                        <a
+                          className="btn dropdown-toggle"
+                          href="#"
+                          role="button"
+                          id="dropdownMenuLink"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Super Admin
+                        </a>
+
+                        <div
+                          className="dropdown-menu master-dd"
+                          aria-labelledby="dropdownMenuLink"
+                        >
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component12")}
+                          >
+                            Admin List
+                          </a>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component15")}
+                          >
+                            Create Role
+                          </a>
+
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component14")}
+                          >
+                            Get Rights
+                          </a>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component13")}
+                          >
+                            Get Role
                           </a>
                         </div>
                       </div>
