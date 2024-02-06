@@ -3,7 +3,6 @@ import "./Master.css";
 import axios from "axios";
 import { BASE_URL } from "../../../config/config";
 function AddPostApplied() {
-
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
@@ -80,28 +79,57 @@ function AddPostApplied() {
 
   // ------------------UPDATE DATA IN API--------------------------------
 
-  const handleUpdatePost = () => {
-    if (!selectedCategory) return;
+  // const handleUpdatePost = () => {
+  //   if (!selectedCategory) return;
 
-    fetch(`${BASE_URL}/appliedPost/${selectedCategory.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ post_name: selectedCategory.post_name }),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
+  //   fetch(`${BASE_URL}/appliedPost/${selectedCategory.id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ post_name: selectedCategory.post_name }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((responseData) => {
+  //       // Update the state with the updated data
+  //       setData(
+  //         data.map((category) =>
+  //           category.id === selectedCategory.id ? responseData : category
+  //         )
+  //       );
+  //       // Reset the selected category
+  //       setSelectedCategory(null);
+  //     })
+  //     .catch((error) => console.error("Error updating category:", error));
+  // };
+  const handleUpdatePost = () => {
+    if (!selectedCategory || !selectedCategoryId) return;
+
+    axios
+      .put(
+        `${BASE_URL}/appliedPost/${selectedCategoryId}`,
+        {
+          post_name: selectedCategory.post_name,
+          job_category_master_id: selectedCategory.job_category_master_id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
         // Update the state with the updated data
         setData(
-          data.map((category) =>
-            category.id === selectedCategory.id ? responseData : category
+          data.map((post) =>
+            post.id === selectedCategoryId ? response.data : post
           )
         );
         // Reset the selected category
         setSelectedCategory(null);
+        setSelectedCategoryId(null);
       })
-      .catch((error) => console.error("Error updating category:", error));
+      .catch((error) => console.error("Error updating post:", error));
   };
 
   const handleSelectCategory = (e) => {
@@ -116,9 +144,10 @@ function AddPostApplied() {
 
   const handleSelectPostForUpdate = (categoryId) => {
     const selectedPost = data.find((post) => post.id === categoryId);
-    setSelectedCategory(selectedPost);
-    setSelectedCategoryId(categoryId);
+    setSelectedCategoryId(categoryId); // Set the selected category ID
+    setSelectedCategory(selectedPost); // Set the selected category object
   };
+
   // ------------------UPDATE DATA IN API--------------------------------
 
   return (

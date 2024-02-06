@@ -48,3 +48,7 @@
 
 @media only screen and (max-width: 767px) {
 }
+.master-dd{
+  border:  none;
+  background-color: transparent;
+}

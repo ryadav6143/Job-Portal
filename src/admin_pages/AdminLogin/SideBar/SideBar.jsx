@@ -132,7 +132,7 @@ function SideBar() {
                         </a>
 
                         <div
-                          className="dropdown-menu"
+                          className="dropdown-menu master-dd"
                           aria-labelledby="dropdownMenuLink"
                         >
                           <a
@@ -160,7 +160,7 @@ function SideBar() {
                         </a>
 
                         <div
-                          className="dropdown-menu"
+                          className="dropdown-menu master-dd"
                           aria-labelledby="dropdownMenuLink"
                         >
                           <a
