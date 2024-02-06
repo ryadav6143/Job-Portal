@@ -18,6 +18,16 @@ const adminApiService = {
   getJobProfile: () => {
     return axios.get(`${BASE_URL}/jobProfileMaster`);
   },
+  getJobProfileById: (id) => {
+    return axios.get(`${BASE_URL}/jobProfileMaster/${id}`);
+},
+
+putJobProfile: (id, data) => {
+  return axios.put(`${BASE_URL}/jobProfileMaster/${id}`, data);
+},
+
+  
 };
+
 
 export default adminApiService;
