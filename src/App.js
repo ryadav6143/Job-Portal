@@ -72,9 +72,9 @@ function App() {
             element={<Submitsuccess />}
           ></Route>
           <Route path="add-openings" element={<AddOpenings />}></Route>
-          <Route path="edit-openings" element={<EditOpenings />}></Route>
+          <Route path="edit-openings/:id" element={<EditOpenings />}></Route>
           <Route path="test" element={<TestPages />}></Route>
-          <Route path="admin_register" element={<RegisterAdmin/>}></Route>
+          <Route path="admin_register" element={<RegisterAdmin />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>
         </Routes>
       </Main>
