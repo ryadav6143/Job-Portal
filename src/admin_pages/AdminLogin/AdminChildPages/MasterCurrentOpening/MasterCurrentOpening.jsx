@@ -1,12 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MasterCurrentOpening.css";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import adminApiService from "../../../adminApiService";
 
 function MasterCurrentOpening() {
   const navigate = useNavigate();
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
+  const [jobProfiles, setJobProfiles] = useState([]);
+
+
+
+  useEffect(() => {
+    const fetchJobProfiles = async () => {
+      try {
+        const response = await adminApiService.getJobProfile();
+        setJobProfiles(response.data);
+        console.log("response get", response.data)
+      } catch (error) {
+        console.error('Error fetching job profiles:', error);
+      }
+    };
+
+    fetchJobProfiles();
+  }, []);
+
   const handleNavigation = () => {
     // Step 2: Use a protected route
     if (isAdminLoggedIn) {
@@ -17,109 +36,35 @@ function MasterCurrentOpening() {
       // Example: navigate("/login");
     }
   };
+  const handleEditForm = () => {
+
+  
+      navigate("/edit-openings");
+   
+  };
   //-----------------------------------Adding Table-------------------------------
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
-  const MasterTable = [
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Civil Engineering",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Electrical Engineering",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Computer Application",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Management",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Commerce",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Pharmacy",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Agriculture",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Computer Science",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Physics",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Chemistry",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Mathematics",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Forensic Science",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Language",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
+  // const MasterTable = [
 
-    {
-      category:
-        "Bio-Technology (Assistant Professor, Associate Professor and Professor)",
-      department: "Department Of Chemistry",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Computer Science & Engineering",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Information Technology",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-  ];
+
+  //   {
+  //     category: "Assistant Professor, Associate Professor and Professor",
+  //     department: "Department Of Information Technology",
+  //     applyLink: "/apply-now",
+  //     lastDate: "20/01/2024",
+  //   },
+  // ];
+  const MasterTable = jobProfiles.map((profile) => ({
+    category: profile.job_category_master?.category_name || "N/A",
+    department: profile.department_master?.dept_name || "N/A",
+    applyLink: "/apply-now",
+    lastDate: profile.last_date_to_apply || "N/A",
+    isActive: profile.is_active ? "Yes" : "No",
+    listToCurrentOpening: profile.publish_to_vacancy ? "Yes" : "No",
+    listToInterviewSchedule: profile.publish_to_schedule_interview ? "Yes" : "No",
+
+  }));
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -153,6 +98,12 @@ function MasterCurrentOpening() {
                   <th scope="col">Category</th>
                   <th scope="col">Detartment</th>
                   <th scope="col">Last Date</th>
+                  <th scope="col">edit</th>
+
+                  <th scope="col">isActive</th>
+                  <th scope="col">List to Current Opening</th>
+                  <th scope="col">List to Interview Schedule</th>
+
                   <th scope="col">Delete</th>
                 </tr>
               </thead>
@@ -162,6 +113,15 @@ function MasterCurrentOpening() {
                     <td>{data.category}</td>
                     <td>{data.department}</td>
                     <td>{data.lastDate}</td>
+                    <td>
+                      <button type="button" id="edit-btn">
+                        <a onClick={handleEditForm}> EDIT</a>
+                      </button>
+                    </td>
+                    <td>{data.isActive}</td>
+                    <td>{data.listToCurrentOpening}</td>
+                    <td>{data.listToInterviewSchedule}</td>
+
 
                     <td>
                       <button type="button" id="del-btn">
