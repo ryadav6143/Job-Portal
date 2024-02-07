@@ -1,111 +1,39 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import "./CurrentOpening.css";
-
+import adminApiService from "../adminApiService";
 function Academictable() {
-  const [page, setPage] = useState(1);
-  const rowsPerPage = 10;
-  const AcademicTable = [
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Civil Engineering",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Electrical Engineering",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Computer Application",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Management",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Commerce",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Pharmacy",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Agriculture",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Computer Science",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Physics",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Chemistry",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Mathematics",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Forensic Science",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Language",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
 
-    {
-      category:
-        "Bio-Technology (Assistant Professor, Associate Professor and Professor)",
-      department: "Department Of Chemistry",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Computer Science & Engineering",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-    {
-      category: "Assistant Professor, Associate Professor and Professor",
-      department: "Department Of Information Technology",
-      applyLink: "/apply-now",
-      lastDate: "20/01/2024",
-    },
-  ];
+  const [jobProfiles, setJobProfiles] = useState([]);
+  useEffect(() => {
+    const fetchJobProfiles = async () => {
+      try {
+        const response = await adminApiService.getJobProfile();
+        console.log("response get", response.data);
+        setJobProfiles(response.data);
+
+      } catch (error) {
+        console.error('Error fetching job profiles:', error);
+      }
+    };
+
+    fetchJobProfiles();
+  }, []);
+
+  const [page, setPage] = useState(1);
+  
+  const rowsPerPage = 10;
+
+  const AcademicTable = jobProfiles
+  .filter((profile) => profile.publish_to_vacancy) 
+  .map((profile) => ({
+    category: profile.job_category_master?.category_name || "N/A",
+    department: profile.department_master?.dept_name || "N/A",
+    applyLink: "/apply-now",
+    lastDate: profile.last_date_to_apply || "N/A",
+  }));
+  console.log("AcademicTable:", AcademicTable);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -113,6 +41,17 @@ function Academictable() {
   const startIndex = (page - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const AcademicData = AcademicTable.slice(startIndex, endIndex);
+
+  const formatDateForInput = (dateString) => {
+    const dateObject = new Date(dateString);
+    if (isNaN(dateObject.getTime())) {
+      return "";
+    }
+    const day = dateObject.getDate().toString().padStart(2, "0");
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
+    const year = dateObject.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
   return (
     <>
       <div className="academic-table">
@@ -137,7 +76,7 @@ function Academictable() {
                       <a href={data.applyLink}>APPLY NOW</a>
                     </button>
                   </td>
-                  <td>{data.lastDate}</td>
+                  <td>{formatDateForInput(data.lastDate)}</td>
                 </tr>
               ))}
             </tbody>

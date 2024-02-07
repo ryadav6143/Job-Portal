@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../config/config";
+import updatebtn from "../../../assets/logos/update.png";
+import deletebtn from "../../../assets/logos/delete.png";
 function AddDepartment() {
-
   const [departments, setDepartments] = useState([]);
   const [newDepartmentName, setNewDepartmentName] = useState("");
   const [editingDepartmentId, setEditingDepartmentId] = useState(null);
@@ -122,20 +123,20 @@ function AddDepartment() {
                   <td>{department.dept_name}</td>
                   <td>
                     <button
-                      id="update-btn"
+                      id="table-btns"
                       onClick={() =>
                         handleUpdate(department.id, department.dept_name)
                       }
                     >
-                      UPDATE
+                      <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
                   </td>
                   <td>
                     <button
-                      id="delete-btn"
+                      id="table-btns"
                       onClick={() => handleDelete(department.id)}
                     >
-                      DELETE
+                      <img src={deletebtn} className="up-del-btn" alt="" />
                     </button>
                   </td>
                 </tr>

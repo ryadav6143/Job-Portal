@@ -58,6 +58,11 @@ function Login({ handleLogin }) {
               <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
             </span>
           </div>
+          <div>
+            <a href="/admin_register" className="admin-reg-link">
+              Register Admin?
+            </a>
+          </div>
           <div className="btn-login">
             <button type="submit" className="login-button">
               Login
@@ -65,7 +70,7 @@ function Login({ handleLogin }) {
           </div>
         </form>
         <div className="design-content">
-          <p>Design & Developed By Corus View</p>
+          <p>Design & Developed By CorusView</p>
         </div>
       </div>
     </>

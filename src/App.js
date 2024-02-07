@@ -23,7 +23,8 @@ import AddOpenings from "./admin_pages/AdminLogin/AdminChildPages/MasterCurrentO
 import CandidatePanel from "./candidate_pages/CandidateLogin/CandidatePanel";
 import ForgottenPassword from "./candidate_pages/CandidateLogin/CandidateLogin/ForgottenPassword";
 import PageNotFound from "./admin_pages/PageNotFound/PageNotFound";
-
+import EditOpenings from "./admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings";
+import RegisterAdmin from "./admin_pages/AdminRegister/RegisterAdmin";
 function App() {
   return (
     <>
@@ -71,7 +72,9 @@ function App() {
             element={<Submitsuccess />}
           ></Route>
           <Route path="add-openings" element={<AddOpenings />}></Route>
+          <Route path="edit-openings/:id" element={<EditOpenings />}></Route>
           <Route path="test" element={<TestPages />}></Route>
+          <Route path="admin_register" element={<RegisterAdmin />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>
         </Routes>
       </Main>

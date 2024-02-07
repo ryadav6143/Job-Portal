@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Master.css";
 import axios from "axios";
+import updatebtn from "../../../assets/logos/update.png";
+import deletebtn from "../../../assets/logos/delete.png";
 import { BASE_URL } from "../../../config/config";
 function AddPostApplied() {
-
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
@@ -11,20 +12,28 @@ function AddPostApplied() {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   // ------------------Fetching Data from job_category_master-id-------------------------------
   useEffect(() => {
-    addPostApplied();
+    getJobCategory();
   }, []);
-  function addPostApplied() {
-    fetch(`${BASE_URL}/jobCategory`)
-      .then((response) => response.json())
-      .then((data) => setCategories(data))
-      .catch((error) => console.error("Error fetching job categories:", error));
+  function getJobCategory() {
+    axios
+      .get(`${BASE_URL}/jobCategory`)
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching job categories:", error);
+      });
   }
   // ------------------GET DATA FROM API--------------------------------
   function getPost() {
-    fetch(`${BASE_URL}/appliedPost`)
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error("Error fetching data:", error));
+    axios
+      .get(`${BASE_URL}/appliedPost`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }
   useEffect(() => {
     getPost();
@@ -80,28 +89,58 @@ function AddPostApplied() {
 
   // ------------------UPDATE DATA IN API--------------------------------
 
-  const handleUpdatePost = () => {
-    if (!selectedCategory) return;
+  // const handleUpdatePost = () => {
+  //   if (!selectedCategory) return;
 
-    fetch(`${BASE_URL}/appliedPost/${selectedCategory.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ post_name: selectedCategory.post_name }),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
+  //   fetch(`${BASE_URL}/appliedPost/${selectedCategory.id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ post_name: selectedCategory.post_name }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((responseData) => {
+  //       // Update the state with the updated data
+  //       setData(
+  //         data.map((category) =>
+  //           category.id === selectedCategory.id ? responseData : category
+  //         )
+  //       );
+  //       // Reset the selected category
+  //       setSelectedCategory(null);
+  //     })
+  //     .catch((error) => console.error("Error updating category:", error));
+  // };
+  const handleUpdatePost = () => {
+    if (!selectedCategory || !selectedCategoryId) return;
+
+    axios
+      .put(
+        `${BASE_URL}/appliedPost/${selectedCategoryId}`,
+        {
+          post_name: selectedCategory.post_name,
+          // category_name: selectedCategory.job_category_master_id.category_name,
+          job_category_master_id: selectedCategory.job_category_master_id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
         // Update the state with the updated data
         setData(
-          data.map((category) =>
-            category.id === selectedCategory.id ? responseData : category
+          data.map((post) =>
+            post.id === selectedCategoryId ? response.data : post
           )
         );
         // Reset the selected category
         setSelectedCategory(null);
+        setSelectedCategoryId(null);
       })
-      .catch((error) => console.error("Error updating category:", error));
+      .catch((error) => console.error("Error updating post:", error));
   };
 
   const handleSelectCategory = (e) => {
@@ -116,9 +155,10 @@ function AddPostApplied() {
 
   const handleSelectPostForUpdate = (categoryId) => {
     const selectedPost = data.find((post) => post.id === categoryId);
-    setSelectedCategory(selectedPost);
-    setSelectedCategoryId(categoryId);
+    setSelectedCategoryId(categoryId); // Set the selected category ID
+    setSelectedCategory(selectedPost); // Set the selected category object
   };
+
   // ------------------UPDATE DATA IN API--------------------------------
 
   return (
@@ -191,18 +231,18 @@ function AddPostApplied() {
                   <td>{category.post_name}</td>
                   <td>
                     <button
-                      id="update-btn"
+                      id="table-btns"
                       onClick={() => handleSelectPostForUpdate(category.id)}
                     >
-                      UPDATE
+                      <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
                   </td>
                   <td>
                     <button
-                      id="delete-btn"
+                      id="table-btns"
                       onClick={() => handleDeletePost(category.id)}
                     >
-                      DELETE
+                      <img src={deletebtn} className="up-del-btn" alt="" />
                     </button>
                   </td>
                 </tr>
