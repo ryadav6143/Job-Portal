@@ -3,11 +3,19 @@ import axios from "axios";
 import { BASE_URL } from "../../../config/config";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import { FormControl } from "@mui/material";
+import close from "../../../assets/logos/close.png";
+
 
 function AddExamType() {
   const [data, setData] = useState([]);
   const [newExamType, setNewExamType] = useState("");
-
+  const [open, setOpen] = useState(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [selectedExam, setSelectedExam] = useState(null);
+  const [selectedExamId, setSelectedExamId] = useState(null); 
   // -----------------------------FETCHING EXAMTYPEMASTER API----------
   function examType() {
     axios
@@ -36,6 +44,7 @@ function AddExamType() {
       .then((response) => {
         setData([...data, response.data]);
         setNewExamType("");
+        setOpen(false);
       })
       .catch((error) => console.error("Error adding category:", error));
   };
@@ -52,27 +61,109 @@ function AddExamType() {
       })
       .catch((error) => console.error("Error deleting exam type:", error));
   };
+  const handleUpdateExamType = () => {
+    if (!selectedExam) return;
+
+    axios
+      .put(
+        `${BASE_URL}/examTypeMaster/${selectedExam.id}`,
+        {
+          exam_name: selectedExam.exam_name,
+        }
+      )
+      .then((response) => {
+        // Update the state with the updated data
+        setData(
+          data.map((exam) =>
+            exam.id === selectedExam.id ? response.data : exam
+          )
+        );
+        // Reset the selected exam
+        setSelectedExam(null);
+        setUpdateModalOpen(false);
+      })
+      .catch((error) => console.error("Error updating exam type:", error));
+  };
+
+  const handleSelectExamForUpdate = (examId) => {
+    const selectedExam = data.find((exam) => exam.id === examId);
+    setSelectedExam(selectedExam);
+    setSelectedExamId(examId); // Set the selected exam ID
+    setUpdateModalOpen(true);
+  };
+
+  const handleUpdateModalClose = () => {
+    setUpdateModalOpen(false);
+    setSelectedExam(null);
+    setSelectedExamId(null); // Reset the selected exam ID
+  };
+
+  const handleAddModalClose = () => {
+    setOpen(false); // Close the "Add Exam Type" modal
+    setNewExamType(""); // Reset the new exam type input field
+  };
   // --------------------DELETE DATA FROM API--------------------------------
 
   // --------------------UPDATE DATA IN API--------------------------------
 
   // --------------------UPDATE DATA IN API--------------------------------
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "700",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
     <>
       <div className="container-1">
-        <form>
-          <label htmlFor="categoryInput">Add Exam Type</label>
-          <input
-            type="text"
-            id="categoryInput"
-            placeholder="Add Your Exam Type"
-            value={newExamType}
-            onChange={(e) => setNewExamType(e.target.value)}
-          />
-          <button type="button" onClick={handleAddExamType}>
-            ADD NOW
-          </button>
-        </form>
+        <div>
+          <button onClick={() => setOpen(true)}>Add Exam Type</button>
+        </div>
+        <Modal
+          open={open} // Control the open state of the modal
+          onClose={() => setOpen(false)} // Close the modal when onClose event occurs
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <FormControl>
+              <div>
+                <form>
+                <img  onClick={handleAddModalClose} className="Examtype-close-btn" src={close} />
+                  <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+                    Add Exam Type
+                  </label>
+                  <input
+                    type="text"
+                    id="categoryInput"
+                    className="Ac-set-input"
+                    placeholder="Add Your Exam Type"
+                    value={newExamType}
+                    onChange={(e) => setNewExamType(e.target.value)}
+                  />
+                  <button
+                    id="set-btn"
+                    type="button"
+                    onClick={handleAddExamType}
+                  >
+                    ADD NOW
+                  </button>
+                </form>
+              </div>
+            </FormControl>
+          </Box>
+        </Modal>
+     
       </div>
 
       <div className="master-table ">
@@ -99,10 +190,55 @@ function AddExamType() {
                     <td>{exam.id}</td>
                     <td>{exam.exam_name}</td>
                     <td>
-                      <button id="table-btns">
+                      <button id="table-btns"
+                        onClick={() => handleSelectExamForUpdate(exam.id)}>
                         {" "}
                         <img src={updatebtn} className="up-del-btn" alt="" />
                       </button>
+                      <Modal
+        open={updateModalOpen}
+        onClose={handleUpdateModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <FormControl>
+            <div>
+              <form>
+                <img
+                   onClick={handleUpdateModalClose}
+                  className="update-close-btn"
+                  src={close}
+                />
+                <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+                  Update Exam Type
+                </label>
+
+                <input
+                  className="Ac-set-input"
+                  type="text"
+                  id="categoryInput"
+                  placeholder="Update Exam Type"
+                  value={selectedExam ? selectedExam.exam_name : ""}
+                  onChange={(e) =>
+                    setSelectedExam({
+                      ...selectedExam,
+                      exam_name: e.target.value,
+                    })
+                  }
+                />
+                <button
+                  id="set-btn"
+                  type="button"
+                  onClick={handleUpdateExamType}
+                >
+                  UPDATE NOW
+                </button>
+              </form>
+            </div>
+          </FormControl>
+        </Box>
+      </Modal>
                     </td>
                     <td>
                       <button

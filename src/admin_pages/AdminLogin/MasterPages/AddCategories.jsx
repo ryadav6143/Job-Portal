@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
-import updatebtn from "../../../assets/logos/update.png";
-import deletebtn from "../../../assets/logos/delete.png";
-import trash from "../../../assets/logos/trash-bin.gif";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
@@ -15,7 +12,6 @@ function AddCategories() {
   const [selectedCategory, setSelectedCategory] = useState(null); // New state for tracking the selected category for update
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [open, setOpen] = React.useState(false);
-
   // ------------------GET DATA FROM API--------------------------------
 
   const getJobCategory = () => {
@@ -245,10 +241,10 @@ function AddCategories() {
                   <td>{category.category_name}</td>
                   <td>
                     <button
-                      id="table-btns"
+                      id="update-btn"
                       onClick={() => handleSelectCategoryForUpdate(category.id)}
                     >
-                      <img src={updatebtn} className="up-del-btn" alt="" />
+                      UPDATE
                     </button>
                     <Modal
                       open={updateModalOpen}
@@ -294,7 +290,7 @@ function AddCategories() {
                                 type="button"
                                 onClick={handleUpdateCategory}
                               >
-                                UPDATE
+                                UPDATE NOW
                               </button>
                             </form>
                           </div>
@@ -304,10 +300,10 @@ function AddCategories() {
                   </td>
                   <td>
                     <button
-                      id="table-btns"
+                      id="delete-btn"
                       onClick={() => handleDeleteCategory(category.id)}
                     >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
+                      DELETE
                     </button>
                   </td>
                 </tr>
