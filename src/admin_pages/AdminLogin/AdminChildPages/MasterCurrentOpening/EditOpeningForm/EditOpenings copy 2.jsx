@@ -10,55 +10,58 @@ function EditOpenings() {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [departmant, setDepartmant] = useState([]);
   const [jobCategories, setJobCategories] = useState([]);
-  const [postShow, setPostShow] = useState([]);
+  const [post, setPost] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
   const [subPost, setSubPost] = useState([]);
   const [selectedSubPost, setSelectedSubPost] = useState("");
-
-  const [currentOpening, setCurrentOpening] = useState(false);
-  const [interviewSchedule, setInterviewSchedule] = useState(true);
+  const [addToCurrentOpening, setAddToCurrentOpening] = useState(false);
+  const [addToInterviewSchedule, setAddToInterviewSchedule] = useState(false);
   const [publishToJobProfile, setPublishToJobProfile] = useState(false);
-  const [JobProfile, setJobProfiles] = useState([]);
+  const [jobProfiles, setJobProfiles] = useState([]);
   const [formValues, setFormValues] = useState({});
 
-  const [post, setPost] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await adminApiService.getJobProfileById(id);
+        const response = await adminApiService.getJobProfile(id);
         const data = response.data;
-  
-        setFormValues(data);
-        console.log("Fetched data:", data);
-        console.log("CurrentOpening", data.publish_to_vacancy);
-        console.log("InterviewSchedule", data.publish_to_schedule_interview);
-        console.log("JobProfile", data.publish_to_job_profile);
-        setSelectedCategory(data.job_category_master.category_name);
-        setSelectedDepartment(data.department_master.dept_name);
-        setSelectedPost(data.applied_post_master.post_name);
-        setSelectedSubPost(data.applied_subpost_master.subpost_name);
-        setCurrentOpening(data.publish_to_vacancy);
-        setInterviewSchedule(data.publish_to_schedule_interview);
-        setPublishToJobProfile(data.publish_to_job_profile);
-  
-       
+        const jobProfileData = data.find((profile) => profile.id === Number(id));
+        setFormValues(jobProfileData);
+        console.log("Fetched data:", jobProfileData);
+
+        setSelectedCategory(jobProfileData.job_category_master.category_name);
+        setSelectedDepartment(jobProfileData.department_master.dept_name);
+
+        const selectedPostData =
+          jobProfileData.applied_post_masters &&
+          jobProfileData.applied_post_masters.map((post) => post.post_name);
+        const selectedSubPostData =
+          jobProfileData.applied_subpost_masters &&
+          jobProfileData.applied_subpost_masters.map((subpost) => subpost.subpost_name);
+
+        setPost(selectedPostData || []);
+        setSubPost(selectedSubPostData || []);
+        setSelectedPost("");
+        setSelectedSubPost("");
+
+         setAddToCurrentOpening(jobProfileData.publish_to_vacancy);
+        setAddToInterviewSchedule(jobProfileData.publish_to_schedule_interview);
+        setPublishToJobProfile(jobProfileData.publish_to_job_profile);
       } catch (error) {
         console.error("Error fetching job profile:", error);
       }
     };
-  
+
     fetchData();
   }, [id]);
-  
 
   useEffect(() => {
     const fetchJobCategories = async () => {
       try {
         const response = await adminApiService.getJobCategories();
         setJobCategories(response.data);
-        console.log("response.data", response.data)
       } catch (error) {
         console.error("Error fetching job categories:", error);
       }
@@ -66,7 +69,6 @@ function EditOpenings() {
 
     fetchJobCategories();
   }, []);
-
 
   useEffect(() => {
     const fetchDepartments = async () => {
@@ -82,48 +84,57 @@ function EditOpenings() {
     fetchDepartments();
   }, []);
 
-
-
   const handleCategory = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
     const selectedCategoryData = jobCategories.find(
       (category) => category.category_name === selectedCategory
     );
-    setFormValues({
-      ...formValues,
+    // console.log("Selected category data:", selectedCategoryData);
+    setFormValues((prevValues) => ({
+      ...prevValues,
       job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",
-    });
-    setPost(selectedCategoryData ? selectedCategoryData.applied_post_masters : []);
+    }));
+  
+    const selectedPostData =
+      selectedCategoryData &&
+      selectedCategoryData.applied_post_masters.map((post) => post.post_name);
+    setPost(selectedPostData || []);
     setSelectedPost("");
     setSubPost([]);
   };
-
+  
   const handlePost = (event) => {
     const selectedPost = event.target.value;
     setSelectedPost(selectedPost);
-
-    const selectedPostData = post.find((post) => post.post_name === selectedPost);
-    setFormValues({
-      ...formValues,
-      applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
-    });
-    setSubPost(selectedPostData ? selectedPostData.applied_subpost_masters : []);
+    const selectedPostObject = jobCategories
+      .find((category) => category.category_name === selectedCategory)
+      .applied_post_masters.find((post) => post.post_name === selectedPost);
+    const selectedSubPostData =
+      selectedPostObject &&
+      selectedPostObject.applied_subpost_masters.map((subpost) => subpost.subpost_name);
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      applied_post_masters_id: selectedPostObject ? selectedPostObject.id : "",
+    }));
+    setSubPost(selectedSubPostData || []);
   };
+  
 
-  const handleSubPost = (event) => {
+
+   const handleSubPost = (event) => {
     const selectedSubPostName = event.target.value;
     setSelectedSubPost(selectedSubPostName);
-    const selectedSubPostData = subPost.find(
-      (subpost) => subpost.subpost_name === selectedSubPostName
-    );
-    // Additional logic with selectedSubPostData if needed
-    setFormValues({
-      ...formValues,
-      applied_subpost_master_id: selectedSubPostData ? selectedSubPostData.id : "",
-    });
+    const selectedSubPostObject = jobCategories
+      .find((category) => category.category_name === selectedCategory)
+      .applied_post_masters.find((post) => post.post_name === selectedPost)
+      .applied_subpost_masters.find((subpost) => subpost.subpost_name === selectedSubPostName);
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      applied_subpost_master_id: selectedSubPostObject ? selectedSubPostObject.id : "",
+    }));
   };
-
+  
   const handleDepartmant = (event) => {
     const selectedDepartment = event.target.value;
     setSelectedDepartment(selectedDepartment);
@@ -135,41 +146,35 @@ function EditOpenings() {
       department_master_id: selectedDepartmentData ? selectedDepartmentData.id : "",
     }));
   };
-
+  
   const handleCheckboxChange = (checkboxName) => {
     switch (checkboxName) {
       case "addToCurrentOpening":
+        setAddToCurrentOpening((prev) => !prev);
         setFormValues((prevValues) => ({
           ...prevValues,
-          publish_to_vacancy: !currentOpening,
+          publish_to_vacancy: !prevValues.publish_to_vacancy,
         }));
-        setCurrentOpening((prev) => !prev);
-        console.log("currentOpening:", currentOpening);
         break;
       case "addToInterviewSchedule":
+        setAddToInterviewSchedule((prev) => !prev);
         setFormValues((prevValues) => ({
           ...prevValues,
-          publish_to_schedule_interview: !interviewSchedule,
+          publish_to_schedule_interview: !prevValues.publish_to_schedule_interview,
         }));
-        setInterviewSchedule((prev) => !prev);
-        console.log("interviewSchedule:", interviewSchedule);
         break;
       case "publishToJobProfile":
+        setPublishToJobProfile((prev) => !prev);
         setFormValues((prevValues) => ({
           ...prevValues,
-          publish_to_job_profile: !publishToJobProfile,
+          publish_to_job_profile: !prevValues.publish_to_job_profile,
         }));
-        setPublishToJobProfile((prev) => !prev);
-        console.log("publishToJobProfile:", publishToJobProfile);
         break;
       default:
         break;
     }
   };
   
-  
-
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevValues) => {
@@ -181,41 +186,36 @@ function EditOpenings() {
       return updatedValues;
     });
   };
-
-
+  
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    console.log("put data values", formValues);
+    console.log("put data values", formValues);   
+  
     try {
-      const profileID = formValues.id;
-      const updatedFormValues = {
-        ...formValues,
-        profile_id: profileID,
-      }
-
-      await axios.put("http://192.168.1.8:8090/v1/api/jobProfileMaster",
-
-        updatedFormValues,)
-        .then(response => {
-          console.log("PUT request response:", response);
-        })
-        .catch(error => {
-          console.error("Error updating job profile:", error);
-        });
-
-
+      // Send PUT request to update job profile
+      await axios.put(`http://192.168.1.8:8090/v1/api/jobProfileMaster/${id}`, formValues)
+      .then(response => {
+        console.log("PUT request response:", response);
+      })
+      .catch(error => {
+        console.error("Error updating job profile:", error);
+      });
+      
+      // Redirect or perform any other action upon successful update
     } catch (error) {
       console.error("Error updating job profile:", error);
-
+      // Handle error appropriately, e.g., show an error message to the user
     }
   };
-
+  
+  
+  
 
   const formatDateForInput = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); 
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
@@ -245,6 +245,7 @@ function EditOpenings() {
                   id="categoryDropdown"
                   value={selectedCategory}
                   onChange={handleCategory}
+                  required
                 >
                   <option value="">Select a category</option>
                   {jobCategories.map((category) => (
@@ -273,11 +274,11 @@ function EditOpenings() {
               </div>
               <div className="col-6">
                 <label htmlFor="">Post</label>
-                <select id="dropdown" onChange={handlePost} value={selectedPost} >
-                  <option value="">{selectedPost}</option>
-                  {post.map((postItem) => (
-                    <option key={postItem.post_name} value={postItem.post_name}>
-                      {postItem.post_name}
+                <select id="dropdown" onChange={handlePost} value={selectedPost} required>
+                  <option value="">Select a post</option>
+                  {post.map((post) => (
+                    <option key={post} value={post}>
+                      {post}
                     </option>
                   ))}
                 </select>
@@ -287,16 +288,12 @@ function EditOpenings() {
               <div className="col-6">
                 <label htmlFor="dropdown2">SubPost</label>
                 <select id="dropdown2" value={selectedSubPost} onChange={handleSubPost}>
-                  <option value="">{selectedSubPost}</option>
-                  {Array.isArray(subPost) &&
-                    subPost.map((subpost) => (
-                      <option
-                        key={subpost.subpost_name}
-                        value={subpost.subpost_name}
-                      >
-                        {subpost.subpost_name}
-                      </option>
-                    ))}
+                  <option value="">-- Select SubPost --</option>
+                  {subPost.map((subpost) => (
+                    <option key={subpost} value={subpost}>
+                      {subpost}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="col-6">
@@ -387,17 +384,17 @@ function EditOpenings() {
               </div>
             </div>
             <div className="row toggle-btns">
-
+              
               <div className="col-4">
                 <p>Add To Current Opening</p>
                 <label className="switch">
                   <input
                     type="checkbox"
                     id="checkbox1"
-                    checked={currentOpening}
-                  onChange={() => handleCheckboxChange("addToCurrentOpening")}
+                    checked={addToCurrentOpening}
+                    value={formValues.publish_to_vacancy}
+                    onChange={() => handleCheckboxChange("addToCurrentOpening")}
                   />
-
                   <span className="slider round"></span>
                 </label>
               </div>
@@ -407,8 +404,8 @@ function EditOpenings() {
                   <input
                     type="checkbox"
                     id="checkbox2"
-                    checked={interviewSchedule}
-                  onChange={() => handleCheckboxChange("addToInterviewSchedule")}
+                    checked={addToInterviewSchedule}
+                    onChange={() => handleCheckboxChange("addToInterviewSchedule")}
                   />
                   <span className="slider round"></span>
                 </label>
@@ -420,7 +417,7 @@ function EditOpenings() {
                     type="checkbox"
                     id="checkbox3"
                     checked={publishToJobProfile}
-                  onChange={() => handleCheckboxChange("publishToJobProfile")}
+                    onChange={() => handleCheckboxChange("publishToJobProfile")}
                   />
                   <span className="slider round"></span>
                 </label>

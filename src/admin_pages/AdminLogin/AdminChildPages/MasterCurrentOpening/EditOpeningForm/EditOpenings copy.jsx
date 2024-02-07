@@ -15,8 +15,11 @@ function EditOpenings() {
   const [subPost, setSubPost] = useState([]);
   const [selectedSubPost, setSelectedSubPost] = useState("");
 
-  const [currentOpening, setCurrentOpening] = useState(false);
-  const [interviewSchedule, setInterviewSchedule] = useState(true);
+  // const [currentOpening, setCurrentOpening] = useState(false);
+  // const [interviewSchedule, setInterviewSchedule] = useState(false);
+  // const [publishToJobProfile, setPublishToJobProfile] = useState(false);
+  const [addToCurrentOpening, setAddToCurrentOpening] = useState(false);
+  const [addToInterviewSchedule, setAddToInterviewSchedule] = useState(false);
   const [publishToJobProfile, setPublishToJobProfile] = useState(false);
   const [JobProfile, setJobProfiles] = useState([]);
   const [formValues, setFormValues] = useState({});
