@@ -395,7 +395,7 @@ function ApplyNow() {
       } catch (error) {
         console.error("Error checking email/contact existence:", error);
       }
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+     
     }
 
     console.log(formValues);
