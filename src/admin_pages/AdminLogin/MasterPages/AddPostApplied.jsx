@@ -12,20 +12,28 @@ function AddPostApplied() {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   // ------------------Fetching Data from job_category_master-id-------------------------------
   useEffect(() => {
-    addPostApplied();
+    getJobCategory();
   }, []);
-  function addPostApplied() {
-    fetch(`${BASE_URL}/jobCategory`)
-      .then((response) => response.json())
-      .then((data) => setCategories(data))
-      .catch((error) => console.error("Error fetching job categories:", error));
+  function getJobCategory() {
+    axios
+      .get(`${BASE_URL}/jobCategory`)
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching job categories:", error);
+      });
   }
   // ------------------GET DATA FROM API--------------------------------
   function getPost() {
-    fetch(`${BASE_URL}/appliedPost`)
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error("Error fetching data:", error));
+    axios
+      .get(`${BASE_URL}/appliedPost`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }
   useEffect(() => {
     getPost();
@@ -112,6 +120,7 @@ function AddPostApplied() {
         `${BASE_URL}/appliedPost/${selectedCategoryId}`,
         {
           post_name: selectedCategory.post_name,
+          // category_name: selectedCategory.job_category_master_id.category_name,
           job_category_master_id: selectedCategory.job_category_master_id,
         },
         {

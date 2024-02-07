@@ -14,6 +14,7 @@ import AdminList from "../SuperAdmin/AdminList";
 import CreateRole from "../SuperAdmin/CreateRole";
 import GetRole from "../SuperAdmin/GetRole";
 import GetRights from "../SuperAdmin/GetRights";
+import AddSubjects from "../MasterPages/AddSubjects";
 import "./SideBar.css";
 import { Button } from "@mui/material";
 function SideBar() {
@@ -100,6 +101,9 @@ function SideBar() {
     case "Component15":
       componentToShow = <CreateRole />;
       break;
+    case "Component16":
+      componentToShow = <AddSubjects />;
+      break;
     default:
       componentToShow = <MasterCurrentOpening />;
       break;
@@ -133,6 +137,7 @@ function SideBar() {
                         Master Interview Schedule
                       </a>
                     </li>
+                    {/* Report List */}
                     <li>
                       <div className="dropdown show">
                         <a
@@ -161,6 +166,7 @@ function SideBar() {
                         </div>
                       </div>
                     </li>
+                    {/* Master List */}
                     <li>
                       <div className="dropdown show">
                         <a
@@ -221,10 +227,17 @@ function SideBar() {
                           >
                             Categories(Done)
                           </a>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => showComponent("Component16")}
+                          >
+                            Add Subjects(Done)
+                          </a>
                         </div>
                       </div>
                     </li>
-
+                    {/* Super Admin List */}
                     <li>
                       <div className="dropdown show">
                         <a
