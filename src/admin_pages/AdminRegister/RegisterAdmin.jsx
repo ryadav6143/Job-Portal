@@ -18,6 +18,7 @@ function RegisterAdmin() {
     password: "",
     department_master_id: "",
   });
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     getDepartment();
   }, []);
@@ -48,6 +49,34 @@ function RegisterAdmin() {
     });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post(
+  //       `${BASE_URL}/admin/registerAdmin`,
+  //       formData
+  //     );
+
+  //     console.log("Data submitted successfully:", response.data);
+
+  //     setFormData({
+  //       title_first_name: "",
+  //       first_name: "",
+  //       middle_name: "",
+  //       last_name: "",
+  //       gender: "",
+  //       email: "",
+  //       contact_1: "",
+  //       password: "",
+  //       department_master_id: "",
+  //     });
+  //     alert("Admin Registered succesfully");
+  //   } catch (error) {
+  //     console.error("Error submitting data:", error);
+  //   }
+  // };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -55,19 +84,30 @@ function RegisterAdmin() {
         `${BASE_URL}/admin/registerAdmin`,
         formData
       );
-      console.log("Data submitted successfully:", response.data);
-      // Reset form after successful submission if needed
-      setFormData({
-        title_first_name: "",
-        first_name: "",
-        middle_name: "",
-        last_name: "",
-        gender: "",
-        email: "",
-        contact_1: "",
-        password: "",
-        department_master_id: "",
-      });
+
+      if (response.data.error) {
+        const errorMessage = response.data.error.toLowerCase();
+        if (errorMessage.includes("email")) {
+          alert("Email already registered. Please use a different email.");
+        } else if (errorMessage.includes("contact")) {
+          alert("Contact number already registered. Please use a different contact number.");
+        } else {
+          alert(response.data.error);
+        }
+      } else {
+        setFormData({
+          title_first_name: "",
+          first_name: "",
+          middle_name: "",
+          last_name: "",
+          gender: "",
+          email: "",
+          contact_1: "",
+          password: "",
+          department_master_id: "",
+        });
+        alert("Admin registered successfully");
+      }
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -203,6 +243,16 @@ function RegisterAdmin() {
           </div>
         </form>
       </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setShowModal(false)}>
+              &times;
+            </span>
+            <p>Form submitted successfully!</p>
+          </div>
+        </div>
+      )}
     </>
   );
 }

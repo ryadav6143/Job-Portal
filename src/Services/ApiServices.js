@@ -3,6 +3,7 @@ import axios from "axios";
 import { BASE_URL } from "../config/config";
 
 const apiService = {
+  
   // -------------------
   getJobCategories: () => {
     return axios.get(`${BASE_URL}/jobCategory`);
@@ -31,6 +32,12 @@ const apiService = {
     return axios.post(
       `${BASE_URL}/otp/verifyCandidateContactOTP`,
       verificationData
+    );
+  },
+  verifyEmailOTP: (emaildataOTP) => {
+    return axios.post(
+      `${BASE_URL}/otp/verifyCandidateEmailOTP`,
+      emaildataOTP
     );
   },
   submitCandidateData: (formData) => {
