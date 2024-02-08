@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./RegisterAdmin.css";
 import medilogo from "../../assets/logos/medi-logo.png";
 import axios from "axios";
+import { BASE_URL } from "../../config/config";
 
 function RegisterAdmin() {
+  const [departments, setDepartments] = useState([]);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [formData, setFormData] = useState({
     title_first_name: "",
     first_name: "",
@@ -13,20 +16,45 @@ function RegisterAdmin() {
     email: "",
     contact_1: "",
     password: "",
+    department_master_id: "",
   });
+  useEffect(() => {
+    getDepartment();
+  }, []);
+  function getDepartment() {
+    axios
+      .get(`${BASE_URL}/departmentMaster`)
+      .then((response) => {
+        setDepartments(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching departments:", error);
+      });
+  }
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  // };
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const newValue = name === "department_master_id" ? parseInt(value) : value;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: newValue,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("your_api_endpoint_here", formData);
+      const response = await axios.post(
+        `${BASE_URL}/admin/registerAdmin`,
+        formData
+      );
       console.log("Data submitted successfully:", response.data);
       // Reset form after successful submission if needed
       setFormData({
@@ -38,6 +66,7 @@ function RegisterAdmin() {
         email: "",
         contact_1: "",
         password: "",
+        department_master_id: "",
       });
     } catch (error) {
       console.error("Error submitting data:", error);
@@ -149,6 +178,21 @@ function RegisterAdmin() {
                   value={formData.password}
                   onChange={handleChange}
                 />
+              </div>
+              <div className="col-12">
+                <label htmlFor="">Select Department</label>
+                <select
+                  name="department_master_id"
+                  value={formData.department_master_id}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Department</option>
+                  {departments.map((department) => (
+                    <option key={department.id} value={department.id}>
+                      {department.dept_name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div>

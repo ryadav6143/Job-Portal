@@ -110,3 +110,10 @@ function GetRights() {
 }
 
 export default GetRights;
+/*
+api_name 
+api_type
+path 
+url
+role_type_master_id
+*/

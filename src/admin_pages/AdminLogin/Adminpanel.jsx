@@ -6,14 +6,13 @@ import "./Adminpanel.css";
 function Adminpanel() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
-    // Check login status on component mount
     const checkLoginStatus = () => {
-      const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+      const token = localStorage.getItem("Token");
+      const loggedIn = token ? true : false;
       setIsLoggedIn(loggedIn);
     };
-
     checkLoginStatus();
-  }, []); // Empty dependency array means this effect runs once on component mount
+  }, []);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -21,8 +20,8 @@ function Adminpanel() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    localStorage.removeItem("Token");
   };
-
   return (
     <div className="admin-container1">
       <div className="admin-data">

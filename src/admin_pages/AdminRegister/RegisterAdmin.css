@@ -1,6 +1,6 @@
 .reg-container {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: 50px;
+  padding: 100px 50px 100px 50px;
   border-radius: 20px;
   select {
     /* border: 1px solid black; */
@@ -30,6 +30,7 @@
 .reg-ad-btn {
   float: right;
   margin-right: 30px;
+  margin-top: 20px;
 }
 .form-heading {
   p {
@@ -49,7 +50,5 @@
   }
 }
 .reg-container-main {
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-top:2%;
+  margin: 2% 15% 2% 15%;
 }

@@ -239,7 +239,7 @@ function SideBar() {
                     </li>
                     {/* Super Admin List */}
                     <li>
-                      <div className="dropdown show">
+                      <div className="dropdown show" >
                         <a
                           className="btn dropdown-toggle"
                           href="#"
