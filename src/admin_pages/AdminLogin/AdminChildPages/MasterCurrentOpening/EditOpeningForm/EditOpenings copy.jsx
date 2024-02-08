@@ -410,7 +410,7 @@ function EditOpenings() {
                   <input
                     type="checkbox"
                     id="checkbox2"
-                    checked={interviewSchedule}
+                    checked={addToInterviewSchedule}
                   onChange={() => handleCheckboxChange("addToInterviewSchedule")}
                   />
                   <span className="slider round"></span>

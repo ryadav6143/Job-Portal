@@ -9,7 +9,7 @@ function MasterCurrentOpening() {
   const navigate = useNavigate();
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
   const [jobProfiles, setJobProfiles] = useState([]);
-
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -18,9 +18,11 @@ function MasterCurrentOpening() {
         const response = await adminApiService.getJobProfile();
         console.log("response get", response.data);
         setJobProfiles(response.data);
-
+   
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching job profiles:', error);
+        setLoading(false);
       }
     };
 
@@ -39,6 +41,22 @@ function MasterCurrentOpening() {
   const handleEditForm = (profileId) => {
     console.log("Job Profile ID:", profileId);
     navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
+};
+
+
+const handleDelete = async (profileId) => {
+  try {
+    const confirmDelete = window.confirm("Are you sure you want to delete this job profile?");
+    if (confirmDelete) {
+      await adminApiService.deleteJobProfileById(profileId);
+      // Remove the deleted profile from the state
+      setJobProfiles(jobProfiles.filter(profile => profile.id !== profileId));
+      alert("Job profile deleted successfully");
+    }
+  } catch (error) {
+    console.error("Error deleting job profile:", error);
+    alert("Failed to delete job profile. Please try again later.");
+  }
 };
 
 
@@ -69,11 +87,11 @@ function MasterCurrentOpening() {
 
 
   const [masterTable, setMasterTable] = useState([...MasterTable]);
-  const handleDelete = (index) => {
-    const updatedMasterTable = [...masterTable];
-    updatedMasterTable.splice((page - 1) * rowsPerPage + index, 1);
-    setMasterTable(updatedMasterTable);
-  };
+  // const handleDelete = (index) => {
+  //   const updatedMasterTable = [...masterTable];
+  //   updatedMasterTable.splice((page - 1) * rowsPerPage + index, 1);
+  //   setMasterTable(updatedMasterTable);
+  // };
 
 
 
@@ -89,6 +107,11 @@ function MasterCurrentOpening() {
   };
   return (
     <>
+        {loading && (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    )} 
       <div className="center-container">
         <div className="new-opening-btn">
           <button>
@@ -127,7 +150,7 @@ function MasterCurrentOpening() {
                       </button>
                     </td>
                     <td>
-                      <button type="button" id="del-btn">
+                      <button type="button" id="del-btn" onClick={() => handleDelete(data.id)}>
                         DELETE
                       </button>
                     </td>

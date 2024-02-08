@@ -240,8 +240,7 @@ function EditExperience() {
                         id=""
                         value={experience.designation}
                         onChange={(e) =>
-                          handleExperienceArrayChange(
-                            index,
+                          handleExperienceArrayChange(index,
                             "designation",
                             e.target.value
                           )

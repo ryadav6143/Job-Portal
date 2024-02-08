@@ -12,6 +12,9 @@ function CandidateLogut({ handleLogout }) {
         <div id="logout-btn">
           <button
             onClick={() => {
+              localStorage.clear();
+            
+              sessionStorage.clear();
               handleLogout();
             }}
           >
