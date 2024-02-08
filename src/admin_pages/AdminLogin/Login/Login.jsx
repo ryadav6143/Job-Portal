@@ -1,23 +1,44 @@
 import "./Login.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../assets/logos/logo.png";
+import axios from "axios";
+import { BASE_URL } from "../../../config/config";
 
 function Login({ handleLogin }) {
+  const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const handleFormSubmit = (e) => {
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    // Check for token in local storage upon component mount
+    const token = localStorage.getItem("Token");
+    if (token) {
+      handleLogin();
+    }
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    if (username === "admin" && password === "admin") {
-      handleLogin();
-      localStorage.setItem("isLoggedIn", true);
-    } else {
-      alert("Invalid credentials");
+    try {
+      const response = await axios.post(`${BASE_URL}/adminLogin/login_admin`, {
+        login_field: username,
+        password: password,
+      });
+      if (response.data.token) {
+        handleLogin();
+        localStorage.setItem("Token", JSON.stringify(response.data));
+      } else {
+        setError("Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setError("Invalid username and password");
     }
   };
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -26,7 +47,7 @@ function Login({ handleLogin }) {
     <>
       <div className="login-container">
         <div className="logo-section">
-          <img className="logo-img" src={logo} />
+          <img className="logo-img" src={logo} alt="Logo" />
         </div>
         <div style={{ textAlign: "center" }}>
           <p className="login-content"> ADMIN PANEL</p>
@@ -69,6 +90,7 @@ function Login({ handleLogin }) {
             </button>
           </div>
         </form>
+        {error && <p>{error}</p>}
         <div className="design-content">
           <p>Design & Developed By CorusView</p>
         </div>

@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import "./MediStaff.css";
 import Laxshmikant from "../../../assets/images/Laxmikant Soni.jpg";
-// import Hemant from "../../../assets/images/Hemantpal.jpg";
-// import Ruby from "../../../assets/images/RubyBhat.jpg";
-// import Mohsin from "../../../assets/images/Mohsin Ali.jpg";
 import $ from "jquery";
 function MediStaff() {
   useEffect(() => {
