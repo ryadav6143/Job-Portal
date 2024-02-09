@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { Document, Page } from 'react-pdf';
+import { Modal, Button } from "react-bootstrap";
 function Reports() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedPost, setSelectedPost] = useState('');
@@ -14,6 +15,11 @@ function Reports() {
   const [posts, setPosts] = useState([]);
   const [subposts, setSubposts] = useState([]);
 
+
+  const [showPdfModal, setShowPdfModal] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState("");
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
+  
   useEffect(() => {
     fetchData();
   }, []);
@@ -30,6 +36,8 @@ function Reports() {
     }
   };
 
+
+  
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
     setSelectedCategory(selectedCategory);
@@ -73,7 +81,39 @@ function Reports() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+
+  const handleResumeClick = async (candidateId) => {
+    try {
+      const response = await axios.get(`http://192.168.1.8:8090/v1/api/candidates/renderCandidateResume?candidate_id=${candidateId}`, {
+        responseType: 'blob'
+      });  
+  
+      if (response.headers['content-type'] === 'application/pdf') {
+        const blob = new Blob([response.data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);  
+        setPdfUrl(url);
+        setShowPdfModal(true);
+      } else {
+        alert('No resume available for this candidate.');
+      }
+    } catch (error) {
+      console.error("Error fetching resume:", error);
+      alert('Error fetching resume.');
+    }
+  };
+  
+
+  
+  const handleCandidateInfoClick = (candidate) => {
+    setSelectedCandidate(candidate);
+  };
+
+  
+
+
+
   return (
+    <>
     <div className="container mt-5">
       <div className="row mb-3">
         <div className="col-md-4">
@@ -123,24 +163,64 @@ function Reports() {
         <tbody>
           {currentItems.map((candidate) => (
             <tr key={candidate.id}>
-              <td>{candidate.candidate.first_name|| "-"}</td>
-              <td>{candidate.candidate.email|| "-"}</td>
-              <td>{candidate.candidate.contact_1|| "-"}</td>
-              <td>{candidate.applied_post_master?.post_name|| "-"}</td>
-              <td>{candidate.applied_subpost_master?.subpost_name|| "-"}</td>
-              <td>{candidate.job_category_master?.category_name|| "-"}</td>
-              <td>{candidate.candidate.specialization|| "-"}</td>
-              <td>
-        {candidate.candidate.resume_file_link ?
-          <a href={candidate.candidate.resume_file_link} target="_blank" rel="noopener noreferrer">
-            View Resume
-          </a> :
-          "-"}
-      </td>
+            <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.first_name || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.email || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.contact_1 || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.applied_post_master?.post_name || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.applied_subpost_master?.subpost_name || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.job_category_master?.category_name || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.specialization || "-"}</td>
+              
+              <td><Button variant="primary" onClick={() => handleResumeClick(candidate.id)}>View Resume</Button></td>
+
+
             </tr>
           ))}
         </tbody>
       </table>
+      <Modal show={showPdfModal} onHide={() => setShowPdfModal(false)} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Resume</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {pdfUrl && <iframe src={pdfUrl} style={{ width: '100%', height: '600px' }}></iframe>}
+        </Modal.Body>
+      </Modal>
+
+
+      <Modal show={selectedCandidate !== null} onHide={() => setSelectedCandidate(null)}>
+  <Modal.Header closeButton>
+    <Modal.Title>Candidate Information</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    {selectedCandidate && (
+      <div>
+        {/* Personal Information */}
+        <div>
+          <h5>Personal Information</h5>
+          <p><strong>First Name:</strong> {selectedCandidate.candidate.first_name}</p>
+          <p><strong>Email:</strong> {selectedCandidate.candidate.email}</p>
+          <p><strong>Contact:</strong> {selectedCandidate.candidate.contact_1}</p>
+        </div>
+        {/* Education */}
+        <div style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", marginBottom: "20px" }}>
+          <h5 style={{ backgroundColor: "#f8f9fa", padding: "10px" }}>Education</h5>
+          <p><strong>Subpost Name:</strong> {selectedCandidate.applied_subpost_master?.subpost_name}</p>
+          <p><strong>Category Name:</strong> {selectedCandidate.job_category_master?.category_name}</p>
+        </div>
+        {/* Experience */}
+        <div style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", marginBottom: "20px" }}>
+          <h5 style={{ backgroundColor: "#f8f9fa", padding: "10px" }}>Experience</h5>
+          <p><strong>Specialization:</strong> {selectedCandidate.candidate.specialization}</p>
+        </div>
+      </div>
+    )}
+  </Modal.Body>
+</Modal>
+
+
+     
+              
 
       <Pagination>
         {Array.from({ length: Math.ceil(filteredData.length / itemsPerPage) }).map((_, index) => (
@@ -150,6 +230,11 @@ function Reports() {
         ))}
       </Pagination>
     </div>
+    
+ </>
+
+
+
   );
 }
 
