@@ -94,11 +94,6 @@ function CandidateLogin({ handleLogin }) {
         </div>
       </div>
 
-      {errorMessage && (
-        <div className="error-message">
-          <p>{errorMessage}</p>
-        </div>
-      )}
 
       {/* <form onSubmit={handleFormSubmit} className="login-form">
           <label htmlFor="username">Username:</label>

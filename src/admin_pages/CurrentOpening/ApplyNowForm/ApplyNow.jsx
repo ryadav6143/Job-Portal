@@ -349,7 +349,6 @@ function ApplyNow() {
     if (isCurrentStepValid) {
       const emailToCheck = formValues.UserDetails.email.trim();
       const contactToCheck = formValues.UserDetails.contact_1.trim();
-
       try {
         const responseEmail = await fetch(
           `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${emailToCheck}`,
@@ -361,7 +360,6 @@ function ApplyNow() {
             },
           }
         );
-
         const responseContact = await fetch(
           `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${contactToCheck}`,
           {

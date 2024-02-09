@@ -3,6 +3,11 @@ import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import { BASE_URL } from "../../../config/config";
+
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import { FormControl } from "@mui/material";
+import close from "../../../assets/logos/close.png";
 function AddSubPostApplied() {
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
@@ -10,6 +15,8 @@ function AddSubPostApplied() {
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [newPost, setNewPost] = useState("");
   const [updatePost, setUpdatePost] = useState("");
+  const [open, setOpen] = useState(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
   // -----------------------------Fetching data from applied_subpost------------------------------
   useEffect(() => {
     fetchData();
@@ -119,54 +126,105 @@ function AddSubPostApplied() {
       .catch((error) => console.error("Error updating post:", error));
   };
 
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+  
+  const handleOpenUpdateModal = (subPost) => {
+    setSelectedPost(subPost);
+    setUpdatePost(subPost.subpost_name);
+    setUpdateModalOpen(true);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setUpdateModalOpen(false);
+    setSelectedPost(null);
+    setUpdatePost("");
+  };
+  
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "400",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
     <>
       <div className="container-1">
-        <form action="">
-          <label htmlFor="postSelect">Select Post:</label>
-          <select
-            id="postSelect"
-            value={selectedPostId}
-            className="select-jc"
-            onChange={(e) => handleSelectPost(e)} // Pass the event object directly
-          >
-            <option value="">Select Post</option>
-            {postData.map((post) => (
-              <option key={post.id} value={post.id}>
-                {post.post_name}
-              </option>
-            ))}
-          </select>
+        <div>
+          <button onClick={() => setOpen(true)}>Add Sub post</button>
+        </div>
 
-          <label htmlFor="">Add Sub Post Applied For</label>
-          {/* <input type="text" placeholder="Sub Post Applied For" /> */}
-          <input
-            type="text"
-            id=""
-            placeholder="Sub Post Applied For"
-            value={selectedPost ? selectedPost.post_name : newPost}
-            onChange={(e) => {
-              const newValue = e.target.value;
-              if (selectedPost) {
-                setSelectedPost((prev) => ({
-                  ...prev,
-                  subpost_name: newValue,
-                }));
-              } else {
-                setNewPost(newValue);
-              }
-            }}
-          />
-          {selectedPost ? (
-            <button type="button" onClick={handleUpdateSubPost}>
-              UPDATE NOW
-            </button>
-          ) : (
-            <button type="button" onClick={handleAddSubPost}>
-              ADD NOW
-            </button>
-          )}
-        </form>
+        <Modal
+          open={open} // Control the open state of the modal
+          onClose={() => setOpen(false)} // Close the modal when onClose event occurs
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <FormControl>
+              <div>
+                <form>
+                  <img onClick={handleCloseModal} className="Examtype-close-btn" src={close} />
+                  <label className="AC-SetLabel-Name" htmlFor="postSelect">
+                    Select Post:
+                  </label>
+                  <select
+                    id="postSelect"
+                    value={selectedPostId}
+                    className="select-jc"
+                    onChange={(e) => handleSelectPost(e)} // Pass the event object directly
+                  >
+                    <option value="">Select Post</option>
+                    {postData.map((post) => (
+                      <option key={post.id} value={post.id}>
+                        {post.post_name}
+                      </option>
+                    ))}
+                  </select>
+
+                  <label
+                    style={{ marginTop: "20px" }}
+                    className="AC-SetLabel-Name"
+                    htmlFor=""
+                  >
+                    Add Sub Post Applied For
+                  </label>
+
+                  <input
+                    type="text"
+                    id=""
+                    className="Ac-set-input"
+                    placeholder="Sub Post Applied For"
+                    value={selectedPost ? selectedPost.post_name : newPost}
+                    onChange={(e) => {
+                      const newValue = e.target.value;
+                      if (selectedPost) {
+                        setSelectedPost((prev) => ({
+                          ...prev,
+                          subpost_name: newValue,
+                        }));
+                      } else {
+                        setNewPost(newValue);
+                      }
+                    }}
+                  />
+
+                  <button id="set-btn" type="button" onClick={handleAddSubPost}>
+                    ADD NOW
+                  </button>
+                </form>
+              </div>
+            </FormControl>
+          </Box>
+        </Modal>
+
         {/* <button type="button" onClick={handleAddSubPost}>
           ADD NOW
         </button> */}
@@ -193,8 +251,62 @@ function AddSubPostApplied() {
                   <td>{subPost.subpost_name}</td>
                   <td>
                     <button id="table-btns">
-                      <img src={updatebtn} className="up-del-btn" alt="" />
+                      <img onClick={() => handleOpenUpdateModal(subPost)} src={updatebtn} className="up-del-btn" alt="" />
                     </button>
+                    <Modal
+        open={updateModalOpen}
+        onClose={handleCloseUpdateModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <FormControl>
+            <div>
+              <form>
+                <img onClick={handleCloseUpdateModal} className="Examtype-close-btn" src={close} />
+                <label className="AC-SetLabel-Name" htmlFor="postSelect">
+                  Select Post:
+                </label>
+                <select
+                  id="postSelect"
+                  value={selectedPostId}
+                  className="select-jc"
+                  onChange={(e) => handleSelectPost(e)}
+                >
+                  <option value="">Select Post</option>
+                  {postData.map((post) => (
+                    <option key={post.id} value={post.id}>
+                      {post.post_name}
+                    </option>
+                  ))}
+                </select>
+
+                <label
+                  style={{ marginTop: "20px" }}
+                  className="AC-SetLabel-Name"
+                  htmlFor=""
+                >
+                  Update Sub Post Applied For
+                </label>
+
+                <input
+                  type="text"
+                  id=""
+                  className="Ac-set-input"
+                  placeholder="Sub Post Applied For"
+                  value={updatePost}
+                  onChange={(e) => setUpdatePost(e.target.value)}
+                />
+
+                <button id="set-btn" type="button" onClick={handleUpdateSubPost}>
+                  UPDATE NOW
+                </button>
+              </form>
+            </div>
+          </FormControl>
+        </Box>
+      </Modal>
+                    
                   </td>
                   <td>
                     <button

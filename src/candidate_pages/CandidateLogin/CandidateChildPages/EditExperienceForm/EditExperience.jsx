@@ -203,6 +203,7 @@ function EditExperience() {
                     )}
                   </div>
                   <div className="col-md-4">
+               
                     {/* *Name of Institute / Company */}
                     <div className="UD-form-section">
                       <label className="UD-SetLabel-Name">
@@ -272,7 +273,9 @@ function EditExperience() {
                         }
                       ></input>
                     </div>
+                  
                   </div>
+               
                 </div>
 
                 <div className="row">
