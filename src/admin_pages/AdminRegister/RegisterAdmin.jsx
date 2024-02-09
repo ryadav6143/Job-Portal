@@ -56,7 +56,7 @@ function RegisterAdmin() {
         formData
       );
       console.log("Data submitted successfully:", response.data);
-      // Reset form after successful submission if needed
+
       setFormData({
         title_first_name: "",
         first_name: "",
