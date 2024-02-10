@@ -41,11 +41,11 @@ function EditPersonalDetails() {
   //   }
   // };
   useEffect(() => {
-    console.log("use-state");
+    // console.log("use-state");
     setData(apiData)
   }, [apiData]);
 
-  console.log("apiData", apiData);
+  // console.log("apiData", apiData);
  
 
   const handleImageChange = async (event) => {
@@ -54,13 +54,13 @@ function EditPersonalDetails() {
       try {
         let accessToken = localStorage.getItem("Token");
         accessToken = JSON.parse(accessToken);
-        console.log("accessToken", accessToken.token);
+        // console.log("accessToken", accessToken.token);
 
         const responseData = await candidatesApiService.uploadProfileImage(
           file,
           accessToken.token
         );
-        console.log("Image upload successful:", responseData);
+        // console.log("Image upload successful:", responseData);
 
         setSelectedImage(URL.createObjectURL(file));
       } catch (error) {
@@ -78,7 +78,7 @@ function EditPersonalDetails() {
     try {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
-      console.log(updateField);
+      // console.log(updateField);
 
       await candidatesApiService.updateCandidatePersonalInfo(
         accessToken.token,
@@ -133,7 +133,7 @@ function EditPersonalDetails() {
     setErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      console.log("Form Submitted Successfully");
+      // console.log("Form Submitted Successfully");
       return false;
     } else {
       console.log("Form has errors");
@@ -164,7 +164,7 @@ function EditPersonalDetails() {
   });
 
   const handleFieldChange = (fieldName, value) => {
-    console.log("handlefild", fieldName, value, updateField);
+    // console.log("handlefild", fieldName, value, updateField);
     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setErrors({
@@ -210,7 +210,7 @@ function EditPersonalDetails() {
       try {
         let accessToken = localStorage.getItem("Token");
         accessToken = JSON.parse(accessToken);
-        console.log("accessToken", accessToken.token);
+        // console.log("accessToken", accessToken.token);
 
         const imageUrl = await candidatesApiService.fetchCandidateImage(
           accessToken.token
@@ -231,7 +231,7 @@ function EditPersonalDetails() {
   }, []);
 
  
-console.log("loading",loading)
+// console.log("loading",loading)
   return (
     <>  
   

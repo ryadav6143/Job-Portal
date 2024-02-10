@@ -7,7 +7,7 @@ function AddSubPostApplied() {
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
-  const [selectedPostId, setSelectedPostId] = useState(null);
+  const [selectedPostId, setSelectedPostId] = useState("");
   const [newPost, setNewPost] = useState("");
   const [updatePost, setUpdatePost] = useState("");
   // -----------------------------Fetching data from applied_subpost------------------------------

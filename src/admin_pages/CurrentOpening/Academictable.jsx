@@ -24,7 +24,7 @@ function Academictable() {
     const fetchJobProfiles = async () => {
       try {
         const response = await adminApiService.getJobProfile();
-        console.log("fetch response.data", response.data);
+        // console.log("fetch response.data", response.data);
         setJobProfiles(response.data);
 
       } catch (error) {
@@ -37,7 +37,7 @@ function Academictable() {
 
 
   const handleApply = async (data) => {
-    console.log("Selected Job Profile:", data);
+    // console.log("Selected Job Profile:", data);
     const requestData = {
       applied_post_masters_id: data.applied_post_masters_id,
       job_category_master_id: data.job_category_master_id,
@@ -59,7 +59,7 @@ function Academictable() {
     // } 
     try {
       const response = await adminApiService.addApplied(requestData, accessToken); // Use adminApiService
-      console.log("Response:", response);    
+      // console.log("Response:", response);    
       alert("Post Applied Successfully");
     }
     catch (error) {
@@ -86,7 +86,7 @@ function Academictable() {
       applyLink: "/apply-now",
       lastDate: profile.last_date_to_apply || "N/A",
     }));
-  console.log("AcademicTable:", AcademicTable);
+  // console.log("AcademicTable:", AcademicTable);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

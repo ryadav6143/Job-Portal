@@ -8,8 +8,8 @@ function AddPostApplied() {
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
   // ------------------Fetching Data from job_category_master-id-------------------------------
   useEffect(() => {
     addPostApplied();

@@ -19,7 +19,7 @@ export const ApiDataProvider = ({ children }) => {
         accessToken.token
       );
       updateApiData(fetchedData);
-      console.log("fetchedData", fetchedData); 
+      // console.log("fetchedData", fetchedData); 
 
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -31,7 +31,7 @@ export const ApiDataProvider = ({ children }) => {
 
     fetchData();
   }, [apiData]);
-console.log("context api Data_>>",apiData)
+// console.log("context api Data_>>",apiData)
   return (
 //     <ApiDataContext.Provider value={{ apiData,loading }}>
 //       {children}
