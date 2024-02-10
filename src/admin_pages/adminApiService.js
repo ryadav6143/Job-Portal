@@ -5,7 +5,6 @@ const adminApiService = {
   getJobCategories: () => {
     return axios.get(`${BASE_URL}/jobCategory`);
   },
-
   getDepartments: () => {
     return axios.get(`${BASE_URL}/departmentMaster`);
   },
@@ -15,9 +14,9 @@ const adminApiService = {
   postJobProfile: (formValues) => {
     return axios.post(`${BASE_URL}/jobProfileMaster`,formValues);
   },
-  getJobProfile: () => {
-    return axios.get(`${BASE_URL}/jobProfileMaster`);
-  },
+  // getJobProfile: () => {
+  //   return axios.get(`${BASE_URL}/jobProfileMaster`);
+  // },
   getJobProfileById: (id) => {
     return axios.get(`${BASE_URL}/jobProfileMaster/${id}`);
   },
@@ -47,26 +46,25 @@ const adminApiService = {
     } catch (error) {
       throw error;
     }
-  }
-  // addApplied: async (tokenFromLocalStorage, requestData) => {
-  //   try {
-  //     const response = await axios.post(
-  //       `${BASE_URL}/candidateAppliedPost/addApplied`,
-  //       requestData,
-  //       {
-  //         headers: {
-  //           'access-token': tokenFromLocalStorage,
-  //         },
-  //       }
-  //     );
-
-  //     console.log('Save Changes Response:', response);
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error('Error saving changes:', error.message);
-  //     throw error;
-  //   }
-  // },
+  },
+  getCandidatesAppliedPost: async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/candidateAppliedPost/getCandidatesAppliedPost`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  renderCandidateResume: async (candidateId) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/candidates/renderCandidateResume?candidate_id=${candidateId}`, {
+        responseType: 'blob'
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
  
   
 };

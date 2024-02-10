@@ -56,7 +56,7 @@ function AddOpenings() {
       try {
         const response = await adminApiService.getDepartments();
         setDepartmant(response.data);
-        console.log("department", response.data);
+        // console.log("department", response.data);
       } catch (error) {
         console.error("Error fetching departments:", error);
       }
@@ -175,14 +175,15 @@ function AddOpenings() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Sending request with formValues:', formValues);
+    // console.log('Sending request with formValues:', formValues);
   
     try {
       const response = await adminApiService.postJobProfile(formValues);
-      console.log('API Response:', response.data);
+      // console.log('API Response:', response.data);
   
       // Add any additional logic after successful submission
       console.log('Job profile submitted successfully!', response.data);
+      alert("submit form Successfully")
       navigate("/adminpanel");
     } catch (error) {
       console.error('Error submitting job profile:', error);
@@ -354,29 +355,29 @@ function AddOpenings() {
             <div className="row toggle-btns">
               <div className="col-4">
                 <p>Add To Current Opening</p>
-                <label class="switch">
+                <label className="switch">
                   <input type="checkbox" id="checkbox" 
                    checked={addToCurrentOpening}
                    onChange={() => handleCheckboxChange('addToCurrentOpening')}/>
-                  <div class="slider round"></div>
+                  <div className="slider round"></div>
                 </label>
               </div>
               <div className="col-4">
                 <p>Add To Interview Schedule</p>
-                <label class="switch">
+                <label className="switch">
                   <input type="checkbox" id="checkbox" 
                    checked={addToInterviewSchedule}
                    onChange={() => handleCheckboxChange('addToInterviewSchedule')}/>
-                  <div class="slider round"></div>
+                  <div className="slider round"></div>
                 </label>
               </div>
               <div className="col-4">
                 <p>Publish To Job Profile</p>
-                <label class="switch">
+                <label className="switch">
                   <input type="checkbox" name="publish_to_job_profile" id="checkbox" 
                    checked={publishToJobProfile}
                    onChange={() => handleCheckboxChange('publishToJobProfile')}/>
-                  <div class="slider round"></div>
+                  <div className="slider round"></div>
                 </label>
               </div>
             </div>
