@@ -18,7 +18,7 @@ function Reports() {
 
   const [showPdfModal, setShowPdfModal] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
-  const [selectedCandidate, setSelectedCandidate] = useState(null);
+
   
   useEffect(() => {
     fetchData();
@@ -104,10 +104,7 @@ function Reports() {
   
 
   
-  const handleCandidateInfoClick = (candidate) => {
-    setSelectedCandidate(candidate);
-  };
-
+  
   
 
 
@@ -163,13 +160,13 @@ function Reports() {
         <tbody>
           {currentItems.map((candidate) => (
             <tr key={candidate.id}>
-            <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.first_name || "-"}</td>
-                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.email || "-"}</td>
-                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.contact_1 || "-"}</td>
-                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.applied_post_master?.post_name || "-"}</td>
-                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.applied_subpost_master?.subpost_name || "-"}</td>
-                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.job_category_master?.category_name || "-"}</td>
-                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.specialization || "-"}</td>
+              <td>{candidate.candidate.first_name || "-"}</td>
+              <td>{candidate.candidate.email || "-"}</td>
+              <td>{candidate.candidate.contact_1 || "-"}</td>
+              <td>{candidate.applied_post_master?.post_name || "-"}</td>
+              <td>{candidate.applied_subpost_master?.subpost_name || "-"}</td>
+              <td>{candidate.job_category_master?.category_name || "-"}</td>
+              <td>{candidate.candidate.specialization || "-"}</td>
               
               <td><Button variant="primary" onClick={() => handleResumeClick(candidate.id)}>View Resume</Button></td>
 
@@ -186,41 +183,6 @@ function Reports() {
           {pdfUrl && <iframe src={pdfUrl} style={{ width: '100%', height: '600px' }}></iframe>}
         </Modal.Body>
       </Modal>
-
-
-      <Modal show={selectedCandidate !== null} onHide={() => setSelectedCandidate(null)}>
-  <Modal.Header closeButton>
-    <Modal.Title>Candidate Information</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-    {selectedCandidate && (
-      <div>
-        {/* Personal Information */}
-        <div>
-          <h5>Personal Information</h5>
-          <p><strong>First Name:</strong> {selectedCandidate.candidate.first_name}</p>
-          <p><strong>Email:</strong> {selectedCandidate.candidate.email}</p>
-          <p><strong>Contact:</strong> {selectedCandidate.candidate.contact_1}</p>
-        </div>
-        {/* Education */}
-        <div style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", marginBottom: "20px" }}>
-          <h5 style={{ backgroundColor: "#f8f9fa", padding: "10px" }}>Education</h5>
-          <p><strong>Subpost Name:</strong> {selectedCandidate.applied_subpost_master?.subpost_name}</p>
-          <p><strong>Category Name:</strong> {selectedCandidate.job_category_master?.category_name}</p>
-        </div>
-        {/* Experience */}
-        <div style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", marginBottom: "20px" }}>
-          <h5 style={{ backgroundColor: "#f8f9fa", padding: "10px" }}>Experience</h5>
-          <p><strong>Specialization:</strong> {selectedCandidate.candidate.specialization}</p>
-        </div>
-      </div>
-    )}
-  </Modal.Body>
-</Modal>
-
-
-     
-              
 
       <Pagination>
         {Array.from({ length: Math.ceil(filteredData.length / itemsPerPage) }).map((_, index) => (

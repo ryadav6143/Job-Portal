@@ -20,12 +20,54 @@ const adminApiService = {
   },
   getJobProfileById: (id) => {
     return axios.get(`${BASE_URL}/jobProfileMaster/${id}`);
-},
+  },
+  deleteJobProfileById: (profileID) => {
+    return axios.delete(`${BASE_URL}/jobProfileMaster/${profileID}`);
+  },
+  updateJobProfile: async (updatedData) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/jobProfileMaster`, updatedData);
+    return response.data;
+  } catch (error) {
+    throw new Error("Error updating job profile:", error);
+  }
+  },
+  addApplied: async (requestData, accessToken) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/candidateAppliedPost/addApplied`,
+        requestData,
+        {
+          headers: {
+            'access-token': accessToken
+          }
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  // addApplied: async (tokenFromLocalStorage, requestData) => {
+  //   try {
+  //     const response = await axios.post(
+  //       `${BASE_URL}/candidateAppliedPost/addApplied`,
+  //       requestData,
+  //       {
+  //         headers: {
+  //           'access-token': tokenFromLocalStorage,
+  //         },
+  //       }
+  //     );
 
-putJobProfile: (id, data) => {
-  return axios.put(`${BASE_URL}/jobProfileMaster/${id}`, data);
-},
-
+  //     console.log('Save Changes Response:', response);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error('Error saving changes:', error.message);
+  //     throw error;
+  //   }
+  // },
+ 
   
 };
 
