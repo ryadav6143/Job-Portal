@@ -34,10 +34,10 @@ function EditOpenings() {
         setInterviewSchedule(data.publish_to_schedule_interview);
         setPublishToJobProfile(data.publish_to_job_profile);
         setFormValues(data);
-        console.log("Fetched data:", data);
-        console.log("CurrentOpening", data.publish_to_vacancy);
-        console.log("InterviewSchedule", data.publish_to_schedule_interview);
-        console.log("JobProfile", data.publish_to_job_profile);
+        // console.log("Fetched data:", data);
+        // console.log("CurrentOpening", data.publish_to_vacancy);
+        // console.log("InterviewSchedule", data.publish_to_schedule_interview);
+        // console.log("JobProfile", data.publish_to_job_profile);
         setSelectedCategory(data.job_category_master.category_name);
         setSelectedDepartment(data.department_master.dept_name);
         setSelectedPost(data.applied_post_master.post_name);
@@ -60,7 +60,7 @@ function EditOpenings() {
       try {
         const response = await adminApiService.getJobCategories();
         setJobCategories(response.data);
-        console.log("response.data", response.data)
+        // console.log("response.data", response.data)
       } catch (error) {
         console.error("Error fetching job categories:", error);
       }
@@ -75,7 +75,7 @@ function EditOpenings() {
       try {
         const response = await adminApiService.getDepartments();
         setDepartmant(response.data);
-        console.log("department", response.data);
+        // console.log("department", response.data);
       } catch (error) {
         console.error("Error fetching departments:", error);
       }
@@ -247,7 +247,7 @@ function EditOpenings() {
     switch (fieldName) {
       case "publish_to_vacancy":
         setCurrentOpening(updatedValue);
-        console.log("currentOpening:", updatedValue);
+        // console.log("currentOpening:", updatedValue);
         setUpdateField((prevValues) => ({
           ...prevValues,
           [fieldName]: updatedValue.toString(),
@@ -255,7 +255,7 @@ function EditOpenings() {
         break;
       case "publish_to_schedule_interview":
         setInterviewSchedule(updatedValue);
-        console.log("interviewSchedule:", updatedValue);
+        // console.log("interviewSchedule:", updatedValue);
         setUpdateField((prevValues) => ({
           ...prevValues,
           [fieldName]: updatedValue.toString(),
@@ -263,7 +263,7 @@ function EditOpenings() {
         break;
       case "publish_to_job_profile":
         setPublishToJobProfile(updatedValue);
-        console.log("publishToJobProfile:", updatedValue);
+        // console.log("publishToJobProfile:", updatedValue);
         setUpdateField((prevValues) => ({
           ...prevValues,
           [fieldName]: updatedValue.toString(),
@@ -277,7 +277,7 @@ function EditOpenings() {
 
 
   const handleInputChange = (fieldName, value) => {
-    console.log("handlefild", fieldName, value, updateField);
+    // console.log("handlefild", fieldName, value, updateField);
     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setFormValues((prev) => ({ ...prev, [fieldName]: value.toString() }));
   }
@@ -292,7 +292,7 @@ function EditOpenings() {
         ...updateField,
         jobprofile_id: profileID,
       }
-      console.log(updateField);
+      // console.log(updateField);
       await adminApiService.updateJobProfile(updatedData);
 
       setUpdateField({});

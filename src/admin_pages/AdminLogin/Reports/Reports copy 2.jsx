@@ -3,6 +3,7 @@ import { Pagination } from "react-bootstrap";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Document, Page } from 'react-pdf';
+import "./Reports.css";
 import { Modal, Button } from "react-bootstrap";
 function Reports() {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -18,7 +19,7 @@ function Reports() {
 
   const [showPdfModal, setShowPdfModal] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
-
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
   
   useEffect(() => {
     fetchData();
@@ -31,6 +32,10 @@ function Reports() {
       console.log("fetch data ",response.data)
       const uniqueCategories = [...new Set(response.data.map(candidate => candidate.job_category_master?.category_name))];
       setCategories(uniqueCategories);
+      setSelectedCategory('');
+      setPosts(response.data.map(candidate => candidate.applied_post_master?.post_name));
+      setSelectedPost('');
+      setSelectedSubpost('');
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -41,13 +46,14 @@ function Reports() {
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
     setSelectedCategory(selectedCategory);
-    setSelectedPost('');
-    setSelectedSubpost('');
+   
     const filteredPosts = data
       .filter(candidate => !selectedCategory || candidate.job_category_master?.category_name === selectedCategory)
       .map(candidate => candidate.applied_post_master?.post_name);
     const uniquePosts = [...new Set(filteredPosts)];
     setPosts(uniquePosts);
+    setSelectedPost('');
+    setSelectedSubpost('');
   };
 
   const handlePostChange = (e) => {
@@ -104,7 +110,10 @@ function Reports() {
   
 
   
-  
+  const handleCandidateInfoClick = (candidate) => {
+    setSelectedCandidate(candidate);
+  };
+
   
 
 
@@ -160,13 +169,13 @@ function Reports() {
         <tbody>
           {currentItems.map((candidate) => (
             <tr key={candidate.id}>
-              <td>{candidate.candidate.first_name || "-"}</td>
-              <td>{candidate.candidate.email || "-"}</td>
-              <td>{candidate.candidate.contact_1 || "-"}</td>
-              <td>{candidate.applied_post_master?.post_name || "-"}</td>
-              <td>{candidate.applied_subpost_master?.subpost_name || "-"}</td>
-              <td>{candidate.job_category_master?.category_name || "-"}</td>
-              <td>{candidate.candidate.specialization || "-"}</td>
+            <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.first_name || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.email || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.contact_1 || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.applied_post_master?.post_name || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.applied_subpost_master?.subpost_name || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.job_category_master?.category_name || "-"}</td>
+                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.specialization || "-"}</td>
               
               <td><Button variant="primary" onClick={() => handleResumeClick(candidate.id)}>View Resume</Button></td>
 
@@ -176,13 +185,51 @@ function Reports() {
         </tbody>
       </table>
       <Modal show={showPdfModal} onHide={() => setShowPdfModal(false)} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Resume</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {pdfUrl && <iframe src={pdfUrl} style={{ width: '100%', height: '600px' }}></iframe>}
-        </Modal.Body>
-      </Modal>
+  <Modal.Header closeButton>
+    <Modal.Title>Resume</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    {pdfUrl && <iframe src={pdfUrl} className="pdf-iframe"></iframe>}
+  </Modal.Body>
+</Modal>
+
+
+
+  <Modal show={selectedCandidate !== null} onHide={() => setSelectedCandidate(null)}>
+  <Modal.Header closeButton>
+    <Modal.Title>Candidate Information</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    {selectedCandidate && (
+      <div>
+        {/* Personal Information */}
+        <div>
+          <h5>Personal Information</h5>
+          <p><strong>First Name:</strong> {selectedCandidate.candidate.first_name}</p>
+          <p><strong>Email:</strong> {selectedCandidate.candidate.email}</p>
+          <p><strong>Contact:</strong> {selectedCandidate.candidate.contact_1}</p>
+        </div>
+        
+        {/* Education */}
+        <div className="education-section">
+          <h5 className="section-heading">Education</h5>
+          <p><strong>Subpost Name:</strong> {selectedCandidate.applied_subpost_master?.subpost_name}</p>
+          <p><strong>Category Name:</strong> {selectedCandidate.job_category_master?.category_name}</p>
+        </div>
+        {/* Experience */}
+        <div className="experience-section">
+          <h5 className="section-heading">Experience</h5>
+          <p><strong>Specialization:</strong> {selectedCandidate.candidate.specialization}</p>
+        </div>
+      </div>
+    )}
+  </Modal.Body>
+</Modal>
+
+
+
+     
+              
 
       <Pagination>
         {Array.from({ length: Math.ceil(filteredData.length / itemsPerPage) }).map((_, index) => (
