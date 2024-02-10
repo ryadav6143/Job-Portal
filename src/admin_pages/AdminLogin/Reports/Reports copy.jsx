@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Pagination } from "react-bootstrap";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Reports() {
