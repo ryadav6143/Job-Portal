@@ -24,10 +24,11 @@ function Login({ handleLogin }) {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${BASE_URL}/adminLogin/login_admin`, {
+      const response = await axios.post(`${BASE_URL}/adminLogin/login_admin`,({
         login_field: username,
         password: password,
-      });
+      }));
+      console.log(response)
       if (response.data.token) {
         handleLogin();
         localStorage.setItem("Token", JSON.stringify(response.data));
@@ -38,6 +39,7 @@ function Login({ handleLogin }) {
       console.error("Error during login:", error);
       setError("Invalid username and password");
     }
+
   };
 
   const handleTogglePassword = () => {

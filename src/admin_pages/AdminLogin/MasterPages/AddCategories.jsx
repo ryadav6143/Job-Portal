@@ -5,6 +5,8 @@ import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 import { BASE_URL } from "../../../config/config";
 import axios from "axios";
+import updatebtn from "../../../assets/logos/update.png";
+import deletebtn from "../../../assets/logos/delete.png";
 
 function AddCategories() {
   const [data, setData] = useState([]);
@@ -241,10 +243,10 @@ function AddCategories() {
                   <td>{category.category_name}</td>
                   <td>
                     <button
-                      id="update-btn"
+                      id="table-btns"
                       onClick={() => handleSelectCategoryForUpdate(category.id)}
                     >
-                      UPDATE
+                      <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
                     <Modal
                       open={updateModalOpen}
@@ -300,10 +302,10 @@ function AddCategories() {
                   </td>
                   <td>
                     <button
-                      id="delete-btn"
+                      id="table-btns"
                       onClick={() => handleDeleteCategory(category.id)}
                     >
-                      DELETE
+                      <img src={deletebtn} className="up-del-btn" alt="" />
                     </button>
                   </td>
                 </tr>

@@ -11,7 +11,7 @@ function AddDepartment() {
   const [newDepartmentName, setNewDepartmentName] = useState("");
   const [editingDepartmentId, setEditingDepartmentId] = useState(null);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
- 
+
   useEffect(() => {
     // Fetch data from the API
     axios
@@ -33,8 +33,8 @@ function AddDepartment() {
         // Update state after successful deletion
         setDepartments(departments.filter((dept) => dept.id !== id));
         console.log("Department deleted successfully!");
-          // Clear the input field
-          setNewDepartmentName("");
+        // Clear the input field
+        setNewDepartmentName("");
       })
       .catch((error) => {
         console.error("Error deleting department:", error);
@@ -114,7 +114,6 @@ function AddDepartment() {
     p: 4,
   };
 
-
   const handleCloseModal = () => {
     setOpen(false);
   };
@@ -123,7 +122,7 @@ function AddDepartment() {
     <>
       <div className="container-1">
         <div>
-        <button onClick={() => setOpen(true)}>Add Department</button>
+          <button onClick={() => setOpen(true)}>Add Department</button>
         </div>
         <Modal
           open={open}
@@ -133,7 +132,11 @@ function AddDepartment() {
         >
           <Box sx={style}>
             <form>
-              <img onClick={handleCloseModal} className="Ad-close-btn" src={close} />
+              <img
+                onClick={handleCloseModal}
+                className="Ad-close-btn"
+                src={close}
+              />
               <label className="AC-SetLabel-Name" htmlFor="departmentName">
                 Add Department
               </label>
@@ -144,11 +147,10 @@ function AddDepartment() {
                 value={newDepartmentName}
                 onChange={(e) => setNewDepartmentName(e.target.value)}
               />
-          
-                <button type="button" onClick={handleAdd} id="set-btn">
-                  ADD
-                </button>
-           
+
+              <button type="button" onClick={handleAdd} id="set-btn">
+                ADD
+              </button>
             </form>
           </Box>
         </Modal>
@@ -194,38 +196,50 @@ function AddDepartment() {
                     <button
                       id="table-btns"
                       onClick={() =>
-                        handleUpdate (department.id, department.dept_name)
+                        handleUpdate(department.id, department.dept_name)
                       }
                     >
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
                     <Modal
-          open={updateModalOpen}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <form>
-              <img onClick={handleClose} className="Ad-close-btn" src={close} />
-              <label className="AC-SetLabel-Name" htmlFor="departmentName">
-                Update Department
-              </label>
-              <input
-                type="text"
-                id="departmentName"
-                placeholder="Add Your Departments"
-                value={newDepartmentName}
-                onChange={(e) => setNewDepartmentName(e.target.value)}
-              />
-             
-                <button type="button" onClick={handleSave} id="set-btn">
-                  UPDATE
-                </button>
-            
-            </form>
-          </Box>
-        </Modal>
+                      open={updateModalOpen}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <form>
+                          <img
+                            onClick={handleClose}
+                            className="Ad-close-btn"
+                            src={close}
+                          />
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="departmentName"
+                          >
+                            Update Department
+                          </label>
+                          <input
+                            type="text"
+                            id="departmentName"
+                            placeholder="Add Your Departments"
+                            value={newDepartmentName}
+                            onChange={(e) =>
+                              setNewDepartmentName(e.target.value)
+                            }
+                          />
+
+                          <button
+                            type="button"
+                            onClick={handleSave}
+                            id="set-btn"
+                          >
+                            UPDATE
+                          </button>
+                        </form>
+                      </Box>
+                    </Modal>
                   </td>
                   <td>
                     <button

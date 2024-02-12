@@ -179,8 +179,6 @@ function AddPostApplied() {
     setOpen(false);
   };
 
- 
-
   const style = {
     position: "absolute",
     top: "50%",
@@ -350,11 +348,11 @@ function AddPostApplied() {
                     >
                       <Box sx={style}>
                         <form>
-                        <img
-             onClick={handleCloseUpdateModal}
-                    className="postapplied-close-btn"
-                    src={close}
-                  />
+                          <img
+                            onClick={handleCloseUpdateModal}
+                            className="postapplied-close-btn"
+                            src={close}
+                          />
                           <div>
                             <label>Select Category</label>
                             <select
@@ -398,7 +396,11 @@ function AddPostApplied() {
                             }}
                           />
 
-                          <button   id="set-btn" type="button" onClick={handleUpdatePost}>
+                          <button
+                            id="set-btn"
+                            type="button"
+                            onClick={handleUpdatePost}
+                          >
                             UPDATE NOW
                           </button>
                         </form>

@@ -129,7 +129,7 @@ function AddSubPostApplied() {
   const handleCloseModal = () => {
     setOpen(false);
   };
-  
+
   const handleOpenUpdateModal = (subPost) => {
     setSelectedPost(subPost);
     setUpdatePost(subPost.subpost_name);
@@ -141,7 +141,7 @@ function AddSubPostApplied() {
     setSelectedPost(null);
     setUpdatePost("");
   };
-  
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -171,7 +171,11 @@ function AddSubPostApplied() {
             <FormControl>
               <div>
                 <form>
-                  <img onClick={handleCloseModal} className="Examtype-close-btn" src={close} />
+                  <img
+                    onClick={handleCloseModal}
+                    className="Examtype-close-btn"
+                    src={close}
+                  />
                   <label className="AC-SetLabel-Name" htmlFor="postSelect">
                     Select Post:
                   </label>
@@ -251,62 +255,77 @@ function AddSubPostApplied() {
                   <td>{subPost.subpost_name}</td>
                   <td>
                     <button id="table-btns">
-                      <img onClick={() => handleOpenUpdateModal(subPost)} src={updatebtn} className="up-del-btn" alt="" />
+                      <img
+                        onClick={() => handleOpenUpdateModal(subPost)}
+                        src={updatebtn}
+                        className="up-del-btn"
+                        alt=""
+                      />
                     </button>
                     <Modal
-        open={updateModalOpen}
-        onClose={handleCloseUpdateModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <FormControl>
-            <div>
-              <form>
-                <img onClick={handleCloseUpdateModal} className="Examtype-close-btn" src={close} />
-                <label className="AC-SetLabel-Name" htmlFor="postSelect">
-                  Select Post:
-                </label>
-                <select
-                  id="postSelect"
-                  value={selectedPostId}
-                  className="select-jc"
-                  onChange={(e) => handleSelectPost(e)}
-                >
-                  <option value="">Select Post</option>
-                  {postData.map((post) => (
-                    <option key={post.id} value={post.id}>
-                      {post.post_name}
-                    </option>
-                  ))}
-                </select>
+                      open={updateModalOpen}
+                      onClose={handleCloseUpdateModal}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <FormControl>
+                          <div>
+                            <form>
+                              <img
+                                onClick={handleCloseUpdateModal}
+                                className="Examtype-close-btn"
+                                src={close}
+                              />
+                              <label
+                                className="AC-SetLabel-Name"
+                                htmlFor="postSelect"
+                              >
+                                Select Post:
+                              </label>
+                              <select
+                                id="postSelect"
+                                value={selectedPostId}
+                                className="select-jc"
+                                onChange={(e) => handleSelectPost(e)}
+                              >
+                                <option value="">Select Post</option>
+                                {postData.map((post) => (
+                                  <option key={post.id} value={post.id}>
+                                    {post.post_name}
+                                  </option>
+                                ))}
+                              </select>
 
-                <label
-                  style={{ marginTop: "20px" }}
-                  className="AC-SetLabel-Name"
-                  htmlFor=""
-                >
-                  Update Sub Post Applied For
-                </label>
+                              <label
+                                style={{ marginTop: "20px" }}
+                                className="AC-SetLabel-Name"
+                                htmlFor=""
+                              >
+                                Update Sub Post Applied For
+                              </label>
 
-                <input
-                  type="text"
-                  id=""
-                  className="Ac-set-input"
-                  placeholder="Sub Post Applied For"
-                  value={updatePost}
-                  onChange={(e) => setUpdatePost(e.target.value)}
-                />
+                              <input
+                                type="text"
+                                id=""
+                                className="Ac-set-input"
+                                placeholder="Sub Post Applied For"
+                                value={updatePost}
+                                onChange={(e) => setUpdatePost(e.target.value)}
+                              />
 
-                <button id="set-btn" type="button" onClick={handleUpdateSubPost}>
-                  UPDATE NOW
-                </button>
-              </form>
-            </div>
-          </FormControl>
-        </Box>
-      </Modal>
-                    
+                              <button
+                                id="set-btn"
+                                type="button"
+                                onClick={handleUpdateSubPost}
+                              >
+                                UPDATE NOW
+                              </button>
+                            </form>
+                          </div>
+                        </FormControl>
+                      </Box>
+                    </Modal>
                   </td>
                   <td>
                     <button

@@ -77,9 +77,11 @@ function CandidateLogin({ handleLogin }) {
               required
               className="password-input"
             />
+            
             <span className="password-toggle" onClick={handleTogglePassword}>
               <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
             </span>
+            <a className="forgot-pass" href="/forgetpassword">Forgotten Password?</a>
           </div>
 
           <div className="btn-login">
@@ -87,7 +89,7 @@ function CandidateLogin({ handleLogin }) {
               Login
             </button>
           </div>
-          <a href="/forgetpassword">Forgotten Password?</a>
+          
         </form>
         <div className="design-content">
           <p>Design & Developed By Corus View</p>
