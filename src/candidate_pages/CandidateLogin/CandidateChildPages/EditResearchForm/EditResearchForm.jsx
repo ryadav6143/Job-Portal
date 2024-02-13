@@ -43,7 +43,7 @@ function EditResearchForm() {
         accessToken = JSON.parse(accessToken);
         // console.log("accessToken", accessToken.token);
         setLoading(true);
-        const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);
+        const fetchedData = await candidatesApiService.getCandidateResearchWork(accessToken.token);
         console.log("response", fetchedData);
         setData(fetchedData);
         setLoading(false);

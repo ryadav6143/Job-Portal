@@ -3,7 +3,8 @@ import "./Master.css";
 import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
-import { BASE_URL } from "../../../config/config";
+// import { BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 function AddPostApplied() {
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
@@ -15,14 +16,14 @@ function AddPostApplied() {
     addPostApplied();
   }, []);
   function addPostApplied() {
-    fetch(`${BASE_URL}/jobCategory`)
+    fetch(`${ADMIN_BASE_URL}/jobCategory`)
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching job categories:", error));
   }
   // ------------------GET DATA FROM API--------------------------------
   function getPost() {
-    fetch(`${BASE_URL}/appliedPost`)
+    fetch(`${ADMIN_BASE_URL}/appliedPost`)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -42,7 +43,7 @@ function AddPostApplied() {
 
     axios
       .post(
-        `${BASE_URL}/appliedPost`,
+        `${ADMIN_BASE_URL}/appliedPost`,
         {
           post_name: newCategory,
           job_category_master_id: selectedCategoryId,
@@ -64,7 +65,7 @@ function AddPostApplied() {
 
   // ------------------DELETE DATA FROM API--------------------------------
   const handleDeletePost = (categoryId) => {
-    fetch(`${BASE_URL}/appliedPost/${categoryId}`, {
+    fetch(`${ADMIN_BASE_URL}/appliedPost/${categoryId}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -84,7 +85,7 @@ function AddPostApplied() {
   // const handleUpdatePost = () => {
   //   if (!selectedCategory) return;
 
-  //   fetch(`${BASE_URL}/appliedPost/${selectedCategory.id}`, {
+  //   fetch(`${ADMIN_BASE_URL}/appliedPost/${selectedCategory.id}`, {
   //     method: "PUT",
   //     headers: {
   //       "Content-Type": "application/json",
@@ -109,7 +110,7 @@ function AddPostApplied() {
 
     axios
       .put(
-        `${BASE_URL}/appliedPost/${selectedCategoryId}`,
+        `${ADMIN_BASE_URL}/appliedPost/${selectedCategoryId}`,
         {
           post_name: selectedCategory.post_name,
           job_category_master_id: selectedCategory.job_category_master_id,

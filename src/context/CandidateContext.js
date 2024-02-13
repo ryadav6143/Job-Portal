@@ -10,7 +10,7 @@ export const ApiDataProvider = ({ children }) => {
     setApiData(newData);
     setLoading(false);
   };
-  const fetchData = async () => {
+  const fetchCandidateData = async () => {
     try {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
@@ -18,8 +18,9 @@ export const ApiDataProvider = ({ children }) => {
       const fetchedData = await candidatesApiService.getCandidateById(
         accessToken.token
       );
+      
       updateApiData(fetchedData);
-      // console.log("fetchedData", fetchedData); 
+      console.log("fetchedData", fetchedData); 
 
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -28,9 +29,8 @@ export const ApiDataProvider = ({ children }) => {
   };
   useEffect(() => {
    
-
-    fetchData();
-  }, [apiData]);
+    fetchCandidateData();
+  }, []);
 // console.log("context api Data_>>",apiData)
   return (
 //     <ApiDataContext.Provider value={{ apiData,loading }}>
@@ -38,7 +38,7 @@ export const ApiDataProvider = ({ children }) => {
 //     </ApiDataContext.Provider>
 //   );
 // };
-<ApiDataContext.Provider value={{ apiData, loading, fetchData }}>
+<ApiDataContext.Provider value={{ apiData, loading, fetchCandidateData }}>
 {loading ? (
   <div className="loader-container">
     <div className="loader"></div>

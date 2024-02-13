@@ -16,7 +16,7 @@ import { useContext } from "react";
 // import axios from "axios";
 function EditPersonalDetails() {
   // ---------profile image source---------
-  const {apiData,loading,fetchData }=useApiData()
+  const {apiData,loading,fetchCandidateData }=useApiData()
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   const [errors, setErrors] = useState({});
@@ -24,7 +24,7 @@ function EditPersonalDetails() {
   const [data, setData] = useState(apiData);
   const [updateField, setUpdateField] = useState({});
   // const [loading, setLoading] = useState(true);
-  // const fetchData = async () => {
+  // const fetchCandidateData = async () => {
   //   try {
   //     let accessToken = localStorage.getItem("Token");
   //     accessToken = JSON.parse(accessToken);
@@ -41,7 +41,7 @@ function EditPersonalDetails() {
   //   }
   // };
   useEffect(() => {
-    // console.log("use-state");
+    
     setData(apiData)
   }, [apiData]);
 
@@ -60,7 +60,7 @@ function EditPersonalDetails() {
           file,
           accessToken.token
         );
-        // console.log("Image upload successful:", responseData);
+        console.log("Image upload successful:", responseData);
 
         setSelectedImage(URL.createObjectURL(file));
       } catch (error) {
@@ -86,7 +86,7 @@ function EditPersonalDetails() {
       );
 
       setUpdateField({});
-      fetchData();
+      fetchCandidateData();
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }

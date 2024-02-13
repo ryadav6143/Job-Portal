@@ -6,7 +6,8 @@ import trash from "../../../assets/logos/trash-bin.gif";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
-import { BASE_URL } from "../../../config/config";
+// import { ADMIN_BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 import axios from "axios";
 
 function AddCategories() {
@@ -20,7 +21,7 @@ function AddCategories() {
 
   const getJobCategory = () => {
     axios
-      .get(`${BASE_URL}/jobCategory`)
+      .get(`${ADMIN_BASE_URL}/jobCategory`)
       .then((response) => {
         setData(response.data);
       })
@@ -40,7 +41,7 @@ function AddCategories() {
 
     axios
       .post(
-        `${BASE_URL}/jobCategory`,
+        `${ADMIN_BASE_URL}/jobCategory`,
         {
           category_name: newCategory,
         },
@@ -67,7 +68,7 @@ function AddCategories() {
   // ------------------DELETE DATA FROM API--------------------------------
   const handleDeleteCategory = (categoryId) => {
     axios
-      .delete(`${BASE_URL}/jobCategory/${categoryId}`)
+      .delete(`${ADMIN_BASE_URL}/jobCategory/${categoryId}`)
       .then((response) => {
         if (response.status === 200) {
           // Remove the deleted category from the state
@@ -86,7 +87,7 @@ function AddCategories() {
 
     axios
       .put(
-        `${BASE_URL}/jobCategory/${selectedCategory.id}`,
+        `${ADMIN_BASE_URL}/jobCategory/${selectedCategory.id}`,
         {
           category_name: selectedCategory.category_name,
         },
