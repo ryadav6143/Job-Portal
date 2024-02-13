@@ -8,15 +8,16 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 import candidatesApiService from "../../../candidateService";
 function EditProgramsForm() {
-  const [data, setData] = useState([{
+  const [data, setData] = useState({
     candidate_seminar_organiseds: [],
     candidate_seminar_attends: [],
     candidate_other_membership_infos: [],
-    awards_won: "",
-    extra_activities: "",
+    awards_won: '',
+    extra_activities: '',
     any_other_info: '',
     expected_joining_time: '',
-  }]);
+  });
+  
   const [loading, setLoading] = useState(true);
   const [updateField, setUpdateField] = useState({})
   const [membershipInfoField, setMembershipInfoField] = useState({})
@@ -29,7 +30,7 @@ function EditProgramsForm() {
       // console.log("accessToken", accessToken.token);
       setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateSeminarPage(accessToken.token);
-      console.log("response", fetchedData);
+      // console.log("response", fetchedData);
       setData(fetchedData);
       setLoading(false);
     } catch (error) {

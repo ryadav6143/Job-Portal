@@ -472,8 +472,8 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={`${country.country}-${index}`} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -681,8 +681,8 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={`${country.country}-${index}`} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -912,8 +912,8 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={`${country.country}-${index}`} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -1123,8 +1123,8 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={`${country.country}-${index}`} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -1344,8 +1344,8 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={`${country.country}-${index}`} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -1571,8 +1571,8 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={`${country.country}-${index}`} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -1776,8 +1776,8 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={`${country.country}-${index}`} value={country.country}>
                         {country.country}
                       </option>
                     ))}

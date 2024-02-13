@@ -32,7 +32,7 @@ function EditExperience() {
       const fetchedData = await candidatesApiService.getExperienceById(
         accessToken.token
       );
-      console.log("check response",fetchedData)
+      // console.log("check response",fetchedData)
       setEducations(fetchedData);
       setLoading(false);
       
@@ -117,7 +117,7 @@ function EditExperience() {
       return updatedEducation;
     });
   };  
-  console.log("updateField>>>>>>>>", updateField);
+  // console.log("updateField>>>>>>>>", updateField);
   
   
   //   const handleExperienceChange = (index, field, value) => {

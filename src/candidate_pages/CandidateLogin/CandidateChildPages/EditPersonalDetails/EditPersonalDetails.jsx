@@ -322,6 +322,7 @@ function EditPersonalDetails() {
                       id=""
                       required
                       value={data.email}
+                      readOnly
                       // onChange={(e) => handleFieldChange('email', e.target.value)}
                     />
                     <FontAwesomeIcon
@@ -345,6 +346,7 @@ function EditPersonalDetails() {
                       id=""
                       required
                       value={data.contact_1}
+                      readOnly
                       // onChange={(e) => handleFieldChange('contact_1', e.target.value)}
                     />
                     <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />

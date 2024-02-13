@@ -44,7 +44,7 @@ function EditResearchForm() {
         // console.log("accessToken", accessToken.token);
         setLoading(true);
         const fetchedData = await candidatesApiService.getCandidateResearchWork(accessToken.token);
-        console.log("response", fetchedData);
+        // console.log("response", fetchedData);
         setData(fetchedData);
         setLoading(false);
       } catch (error) {
@@ -54,7 +54,7 @@ function EditResearchForm() {
     };
 
     useEffect(() => {
-      console.log("use-state")
+      // console.log("use-state")
       fetchData();
     }, []);
 

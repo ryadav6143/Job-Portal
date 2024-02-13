@@ -20,7 +20,7 @@ export const ApiDataProvider = ({ children }) => {
       );
       
       updateApiData(fetchedData);
-      console.log("fetchedData", fetchedData); 
+      // console.log("fetchedData", fetchedData); 
 
     } catch (error) {
       console.error("Error fetching data:", error.message);
