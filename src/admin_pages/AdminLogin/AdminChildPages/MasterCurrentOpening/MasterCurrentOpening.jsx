@@ -10,17 +10,14 @@ function MasterCurrentOpening() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
   const [jobProfiles, setJobProfiles] = useState([]);
 
-
-
   useEffect(() => {
     const fetchJobProfiles = async () => {
       try {
         const response = await adminApiService.getJobProfile();
         console.log("response get", response.data);
         setJobProfiles(response.data);
-
       } catch (error) {
-        console.error('Error fetching job profiles:', error);
+        console.error("Error fetching job profiles:", error);
       }
     };
 
@@ -28,7 +25,6 @@ function MasterCurrentOpening() {
   }, []);
 
   const handleNavigation = () => {
-
     if (isAdminLoggedIn) {
       navigate("/add-openings");
     } else {
@@ -39,8 +35,7 @@ function MasterCurrentOpening() {
   const handleEditForm = (profileId) => {
     console.log("Job Profile ID:", profileId);
     navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
-};
-
+  };
 
   //-----------------------------------Adding Table-------------------------------
   const [page, setPage] = useState(1);
@@ -54,8 +49,9 @@ function MasterCurrentOpening() {
     lastDate: profile.last_date_to_apply || "N/A",
     isActive: profile.is_active ? "Yes" : "No",
     listToCurrentOpening: profile.publish_to_vacancy ? "Yes" : "No",
-    listToInterviewSchedule: profile.publish_to_schedule_interview ? "Yes" : "No",
-
+    listToInterviewSchedule: profile.publish_to_schedule_interview
+      ? "Yes"
+      : "No",
   }));
   console.log("MasterTable:", MasterTable);
   const handleChangePage = (event, newPage) => {
@@ -67,15 +63,12 @@ function MasterCurrentOpening() {
 
   const MasterData = MasterTable.slice(startIndex, endIndex);
 
-
   const [masterTable, setMasterTable] = useState([...MasterTable]);
   const handleDelete = (index) => {
     const updatedMasterTable = [...masterTable];
     updatedMasterTable.splice((page - 1) * rowsPerPage + index, 1);
     setMasterTable(updatedMasterTable);
   };
-
-
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
@@ -122,7 +115,11 @@ function MasterCurrentOpening() {
                     <td>{data.listToCurrentOpening}</td>
                     <td>{data.listToInterviewSchedule}</td>
                     <td>
-                      <button type="button" id="edit-btn" onClick={() => handleEditForm(data.id)}>
+                      <button
+                        type="button"
+                        id="edit-btn"
+                        onClick={() => handleEditForm(data.id)}
+                      >
                         <a>EDIT</a>
                       </button>
                     </td>
@@ -153,4 +150,3 @@ function MasterCurrentOpening() {
 }
 
 export default MasterCurrentOpening;
-

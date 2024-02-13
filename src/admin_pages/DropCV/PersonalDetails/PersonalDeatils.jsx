@@ -396,7 +396,7 @@ import {
                   <select
                     name="country"
                     className="set-dropdown"
-                    value={selectedCountry}z
+                    value={selectedCountry}
                     onChange={handleCountryChange}
                     required
                   >
