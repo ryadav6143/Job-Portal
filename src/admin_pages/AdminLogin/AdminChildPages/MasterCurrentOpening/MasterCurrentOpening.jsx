@@ -30,7 +30,6 @@ function MasterCurrentOpening() {
   }, []);
 
   const handleNavigation = () => {
-
     if (isAdminLoggedIn) {
       navigate("/add-openings");
     } else {
@@ -41,8 +40,7 @@ function MasterCurrentOpening() {
   const handleEditForm = (profileId) => {
     // console.log("Job Profile ID:", profileId);
     navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
-};
-
+  };
 
 const handleDelete = async (profileId) => {
   try {
@@ -72,8 +70,9 @@ const handleDelete = async (profileId) => {
     lastDate: profile.last_date_to_apply || "N/A",
     isActive: profile.is_active ? "Yes" : "No",
     listToCurrentOpening: profile.publish_to_vacancy ? "Yes" : "No",
-    listToInterviewSchedule: profile.publish_to_schedule_interview ? "Yes" : "No",
-
+    listToInterviewSchedule: profile.publish_to_schedule_interview
+      ? "Yes"
+      : "No",
   }));
   // console.log("MasterTable:", MasterTable);
   const handleChangePage = (event, newPage) => {
@@ -85,15 +84,12 @@ const handleDelete = async (profileId) => {
 
   const MasterData = MasterTable.slice(startIndex, endIndex);
 
-
   const [masterTable, setMasterTable] = useState([...MasterTable]);
   // const handleDelete = (index) => {
   //   const updatedMasterTable = [...masterTable];
   //   updatedMasterTable.splice((page - 1) * rowsPerPage + index, 1);
   //   setMasterTable(updatedMasterTable);
   // };
-
-
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
@@ -145,7 +141,11 @@ const handleDelete = async (profileId) => {
                     <td>{data.listToCurrentOpening}</td>
                     <td>{data.listToInterviewSchedule}</td>
                     <td>
-                      <button type="button" id="edit-btn" onClick={() => handleEditForm(data.id)}>
+                      <button
+                        type="button"
+                        id="edit-btn"
+                        onClick={() => handleEditForm(data.id)}
+                      >
                         <a>EDIT</a>
                       </button>
                     </td>
@@ -176,4 +176,3 @@ const handleDelete = async (profileId) => {
 }
 
 export default MasterCurrentOpening;
-

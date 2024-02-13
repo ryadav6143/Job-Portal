@@ -52,3 +52,38 @@
   border: none;
   /* background-color: transparent; */
 }
+
+.edit-collapse{
+  margin-left: 0px !important;
+}
+
+.sidenav-icon{
+  width: 24px;
+}
+.sidebar-set{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding-top: 25px;
+}
+
+.sidebar-set span{
+  font-size: 16px;
+    font-weight: 700;
+    color: #574c4c;
+    padding-left: 10px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.set-a{
+  border: none;
+padding-top: 25px;
+border-right: none !important;
+}
+
+#sidebar{
+  border: none !important;
+}
+
+.master-dd{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}

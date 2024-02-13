@@ -15,8 +15,8 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footers";
 import OTPVerification from "./OTPVerifivation/OTPVerification";
 import apiService from "../../Services/ApiServices";
-
-
+// import { BASE_URL } from "../../config/config";
+import { CANDIDATE_BASE_URL } from "../../config/config";
 
 const steps = ["", "", ""];
 
@@ -137,7 +137,6 @@ function Dropcv() {
 
   const handleNext = async () => {
     const isCurrentStepValid = validateCurrentStep();
-    
 
     if (isCurrentStepValid) {
       const emailToCheck = formData.personalDetails.email.trim();
@@ -146,7 +145,7 @@ function Dropcv() {
       try {
         console.log("emailToCheck", emailToCheck);
         const response_email = await fetch(
-          `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${emailToCheck}`,
+          `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${emailToCheck}`,
           {
             method: "GET",
             headers: {
@@ -156,7 +155,7 @@ function Dropcv() {
           }
         );
         const response_contact = await fetch(
-          `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${contactToCheck}`,
+          `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${contactToCheck}`,
           {
             method: "GET",
             headers: {
@@ -183,12 +182,12 @@ function Dropcv() {
 
         if (data) {
           // setErrors({ email: "This email is already registered." });
-          // alert("This email is already registered.");
-          setDangerAlertVisible(true);
+          alert("This email is already registered.");
+          // setDangerAlertVisible(true);
         } else if (data_contact) {
           // setErrors({ contact_1: "This contact is already registered." });
-          // alert("This contact is already registered.");
-          setDangerAlertVisible(true);
+          alert("This contact is already registered.");
+          // setDangerAlertVisible(true);
         } else {
           console.log("contact does not exist in database");
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -201,9 +200,6 @@ function Dropcv() {
     console.log(formData);
   };
 
-
-
-  
   // --------------------------------------------------------------------------------
   const validateCurrentStep = () => {
     // modified validation function for all steps
@@ -417,17 +413,10 @@ function Dropcv() {
         return true;
     }
   };
-  // --------------------------------------------------------------------------------
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
     setErrors({});
   };
-
-  // const handleVerifivation = () => {
-  //   navigate("/verify");
-  // };
-  // ----------------------------------------------------------
 
   let componentToShow;
   switch (selectedComponent) {
@@ -523,10 +512,10 @@ function Dropcv() {
                 )}
                 <Box sx={{ flex: "1 1 auto" }} />
                 {dangerAlertVisible && (
-        <div className="alert alert-danger" role="alert">
-          This email or contact is already registered.
-        </div>
-      )}
+                  <div className="alert alert-danger" role="alert">
+                    This email or contact is already registered.
+                  </div>
+                )}
                 <Button onClick={handleNext} className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>

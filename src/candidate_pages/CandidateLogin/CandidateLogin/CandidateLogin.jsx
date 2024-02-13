@@ -76,9 +76,11 @@ function CandidateLogin({ handleLogin }) {
               required
               className="password-input"
             />
+            
             <span className="password-toggle" onClick={handleTogglePassword}>
               <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
             </span>
+            <a className="forgot-pass" href="/forgetpassword">Forgotten Password?</a>
           </div>
 
           <div className="btn-login">
@@ -86,18 +88,13 @@ function CandidateLogin({ handleLogin }) {
               Login
             </button>
           </div>
-          <a href="/forgetpassword">Forgotten Password?</a>
+          
         </form>
         <div className="design-content">
           <p>Design & Developed By Corus View</p>
         </div>
       </div>
 
-      {errorMessage && (
-        <div className="error-message">
-          <p>{errorMessage}</p>
-        </div>
-      )}
 
       {/* <form onSubmit={handleFormSubmit} className="login-form">
           <label htmlFor="username">Username:</label>

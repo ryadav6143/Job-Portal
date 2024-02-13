@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import plusicon from "../../../../assets/logos/plus-sign.png";
-
+import plusicon from "../../../../assets/logos/plus.png";
+import minusicon from "../../../../assets/logos/minus.png";
 import "./EditProgramsForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-
 
 import candidatesApiService from "../../../candidateService";
 function EditProgramsForm() {
@@ -19,13 +18,13 @@ function EditProgramsForm() {
   });
   
   const [loading, setLoading] = useState(true);
-  const [updateField, setUpdateField] = useState({})
-  const [membershipInfoField, setMembershipInfoField] = useState({})
-  const [seminarOrganisedField, setSeminarOrganisedField] = useState({})
-  const [seminarAttendField, setSeminarAttendField] = useState({})
+  const [updateField, setUpdateField] = useState({});
+  const [membershipInfoField, setMembershipInfoField] = useState({});
+  const [seminarOrganisedField, setSeminarOrganisedField] = useState({});
+  const [seminarAttendField, setSeminarAttendField] = useState({});
   const fetchData = async () => {
     try {
-      let accessToken = localStorage.getItem('Token');
+      let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       // console.log("accessToken", accessToken.token);
       setLoading(true);
@@ -34,7 +33,7 @@ function EditProgramsForm() {
       setData(fetchedData);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error.message);
+      console.error("Error fetching data:", error.message);
       setLoading(false);
     }
   };
@@ -44,12 +43,11 @@ function EditProgramsForm() {
   useEffect(() => {
     const body = document.body;
     if (loading) {
-      body.style.overflow = 'hidden';
+      body.style.overflow = "hidden";
     } else {
-      body.style.overflow = 'auto';
+      body.style.overflow = "auto";
     }
   }, [loading]);
-
 
   const handleAddOrganised = () => {
     setData((prevData) => ({
@@ -57,22 +55,25 @@ function EditProgramsForm() {
       candidate_seminar_organiseds: [
         ...prevData.candidate_seminar_organiseds,
         {
-          organise_date_from: '',
-          organise_date_to: '',
-          name_of_course: '',
-          sponsered_by: '',
-          participants_number: '',
-          name_of_institute: '',
-          name_of_industry: '',
+          organise_date_from: "",
+          organise_date_to: "",
+          name_of_course: "",
+          sponsered_by: "",
+          participants_number: "",
+          name_of_institute: "",
+          name_of_industry: "",
         },
       ],
     }));
   };
 
-
-
-
-
+  const handleRemoveOrganised = (index) => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_seminar_organiseds:
+        prevData.candidate_seminar_organiseds.filter((_, i) => i !== index),
+    }));
+  };
 
   const handleAddOtherAttend = () => {
     setData((prevData) => ({
@@ -80,30 +81,47 @@ function EditProgramsForm() {
       candidate_seminar_attends: [
         ...prevData.candidate_seminar_attends,
         {
-          attend_date_from: '',
-          attend_date_to: '',
-          name_of_course: '',
-          sponsered_by: '',
+          attend_date_from: "",
+          attend_date_to: "",
+          name_of_course: "",
+          sponsered_by: "",
         },
       ],
     }));
   };
+
+  const handleRemoveOtherAttend = (index) => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_seminar_attends: prevData.candidate_seminar_attends.filter(
+        (_, i) => i !== index
+      ),
+    }));
+  };
+
   const handleAddOtherInfo = () => {
     setData((prevData) => ({
       ...prevData,
       candidate_other_membership_infos: [
         ...prevData.candidate_other_membership_infos,
         {
-          member_of_institute_name: '',
-          membership_date_from: '',
-          membership_date_to: '',
-          position_held: '',
-          contribution: ''
+          member_of_institute_name: "",
+          membership_date_from: "",
+          membership_date_to: "",
+          position_held: "",
+          contribution: "",
         },
       ],
     }));
   };
 
+  const handleRemoveOtherInfo = (index) => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_other_membership_infos:
+        prevData.candidate_other_membership_infos.filter((_, i) => i !== index),
+    }));
+  };
 
   const handleOrganisedChange = (index, field, value) => {
     const updatedOrganised = [...data.candidate_seminar_organiseds];
@@ -120,8 +138,6 @@ function EditProgramsForm() {
       organised_id: seminarOrganisedId,
     }));
   };
-
-
 
   const handleOtherAttendChange = (index, field, value) => {
     const updatedAttend = [...data.candidate_seminar_attends];
@@ -154,48 +170,57 @@ function EditProgramsForm() {
     }));
   };
   const handleChange = (fieldName, value) => {
-    console.log("handlefild", fieldName, value, updateField)
-    setUpdateField(prev => ({ ...prev, [fieldName]: value.toString() }))
-    setData(prev => ({ ...prev, [fieldName]: value.toString() }))
+    console.log("handlefild", fieldName, value, updateField);
+    setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
+    setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
   };
-
-
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
-  
+
     // Check if dateString is empty or dateObject is invalid
     if (!dateString || isNaN(dateObject.getTime())) {
-      return ''; // Return an empty string for invalid or empty dates
+      return ""; // Return an empty string for invalid or empty dates
     }
-  
-    const day = dateObject.getDate().toString().padStart(2, '0');
-    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+
+    const day = dateObject.getDate().toString().padStart(2, "0");
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
     const year = dateObject.getFullYear();
-  
+
     return `${year}-${month}-${day}`;
   };
-  
 
   const hasChanges = (field) => {
     return field && Object.keys(field).length > 0;
   };
   const handleSaveChanges = async () => {
     try {
-      let accessToken = localStorage.getItem('Token');
+      let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
 
       if (membershipInfoField && hasChanges(membershipInfoField)) {
-        await candidatesApiService.updateCandidateMembershipInfo(accessToken.token, { other_membership_info: [membershipInfoField] });
+        await candidatesApiService.updateCandidateMembershipInfo(
+          accessToken.token,
+          { other_membership_info: [membershipInfoField] }
+        );
       }
       if (updateField && hasChanges(updateField)) {
-        await candidatesApiService.updateCandidatePersonalInfo(accessToken.token, updateField);
+        await candidatesApiService.updateCandidatePersonalInfo(
+          accessToken.token,
+          updateField
+        );
       }
       if (seminarOrganisedField && hasChanges(seminarOrganisedField)) {
-        await candidatesApiService.updateCandidateSeminarOrganised(accessToken.token, { seminar_organised: [seminarOrganisedField] });
+        await candidatesApiService.updateCandidateSeminarOrganised(
+          accessToken.token,
+          { seminar_organised: [seminarOrganisedField] }
+        );
       }
       if (seminarAttendField && hasChanges(seminarAttendField)) {
-        await candidatesApiService.updateCandidateSeminarAttend(accessToken.token, { seminar_attend: [seminarAttendField] });
+        await candidatesApiService.updateCandidateSeminarAttend(
+          accessToken.token,
+          { seminar_attend: [seminarAttendField] }
+        );
       }
       setSeminarAttendField();
       setSeminarOrganisedField();
@@ -203,11 +228,9 @@ function EditProgramsForm() {
       setMembershipInfoField();
       fetchData();
     } catch (error) {
-      console.error('Error saving changes:', error.message);
+      console.error("Error saving changes:", error.message);
     }
   };
-
-
 
   return (
     <>
@@ -250,206 +273,249 @@ function EditProgramsForm() {
                 </button>
               </p>
             </div> */}
-              <div>
-              <p className="HS-heading">Organized<button onClick={handleAddOrganised} type="button" className="editprofile-plus-button">+</button></p>
+            <div>
+              <p className="HS-heading">Organized</p>
             </div>
 
-            {data?.candidate_seminar_organiseds?.map((seminar_organised, index) => (
-              <div key={index}>
-                <div className="row">
-                  <div className="col-md-4">
-                    {/* Date From*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Date From
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="date"
-                        placeholder="MM/DD/YYYY"
-                        name="organise_date_from"
-                        id=""
-                        value={formatDateForInput(seminar_organised.organise_date_from)}
-                        onChange={(e) =>
-                          handleOrganisedChange(
-                            index,
-                            "organise_date_from",
-                            e.target.value
-                          )
-                        }
-                      ></input>
+            {data?.candidate_seminar_organiseds?.map(
+              (seminar_organised, index) => (
+                <div key={index}>
+                  {index > 0 && <hr style={{ margin: "24px 0" }} />}
+                  <div className="row">
+                    <div>
+                      {data?.candidate_seminar_organiseds.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveOrganised(index)}
+                          className="minus-buttons"
+                        >
+                          <img src={minusicon} alt="Remove Organized Seminar" />
+                        </button>
+                      )}
+                      {index ===
+                        data?.candidate_seminar_organiseds.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={handleAddOrganised}
+                          className="plus-buttons"
+                        >
+                          <img src={plusicon} alt="Add Organized Seminar" />
+                        </button>
+                      )}
+                    </div>
+                    <div className="col-md-4">
+                      {/* Date From*/}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>Date From
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="date"
+                          placeholder="MM/DD/YYYY"
+                          name="organise_date_from"
+                          id=""
+                          value={formatDateForInput(
+                            seminar_organised.organise_date_from
+                          )}
+                          onChange={(e) =>
+                            handleOrganisedChange(
+                              index,
+                              "organise_date_from",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
+                    </div>
+
+                    <div className="col-md-4">
+                      {/* Date To */}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>Date To
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="date"
+                          placeholder=" MM/DD/YYYY"
+                          name="organise_date_to"
+                          id=""
+                          value={formatDateForInput(
+                            seminar_organised.organise_date_to
+                          )}
+                          onChange={(e) =>
+                            handleOrganisedChange(
+                              index,
+                              "organise_date_to",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
+                    </div>
+
+                    <div className="col-md-4">
+                      {/* Name of the Course*/}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>Name of the Course
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="text"
+                          placeholder=" "
+                          name="name_of_course"
+                          id=""
+                          value={seminar_organised.name_of_course}
+                          onChange={(e) =>
+                            handleOrganisedChange(
+                              index,
+                              "name_of_course",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="col-md-4">
-                    {/* Date To */}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Date To
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="date"
-                        placeholder=" MM/DD/YYYY"
-                        name="organise_date_to"
-                        id=""
-                        value={formatDateForInput(seminar_organised.organise_date_to)}
-                        onChange={(e) =>
-                          handleOrganisedChange(
-                            index,
-                            "organise_date_to",
-                            e.target.value
-                          )
-                        }
-                      ></input>
+                  <div className="row">
+                    <div className="col-md-4">
+                      {/* Sponsored By*/}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>Sponsored By
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="text"
+                          placeholder=" "
+                          name="sponsered_by"
+                          id=""
+                          value={seminar_organised.sponsered_by}
+                          onChange={(e) =>
+                            handleOrganisedChange(
+                              index,
+                              "sponsered_by",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
+                    </div>
+
+                    <div className="col-md-4">
+                      {/* No. of Participants */}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>No. of Participants
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="text"
+                          placeholder=" "
+                          name="participants_number"
+                          id=""
+                          value={seminar_organised.participants_number}
+                          onChange={(e) =>
+                            handleOrganisedChange(
+                              index,
+                              "participants_number",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
+                    </div>
+
+                    <div className="col-md-4">
+                      {/* From Institutes*/}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>From Institutes
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="text"
+                          placeholder=" "
+                          name="name_of_institute"
+                          id=""
+                          value={seminar_organised.name_of_institute}
+                          onChange={(e) =>
+                            handleOrganisedChange(
+                              index,
+                              "name_of_institute",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="col-md-4">
-                    {/* Name of the Course*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Name of the Course
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="name_of_course"
-                        id=""
-                        value={seminar_organised.name_of_course}
-                        onChange={(e) =>
-                          handleOrganisedChange(
-                            index,
-                            "name_of_course",
-                            e.target.value
-                          )
-                        }
-                      ></input>
+                  <div className="row">
+                    <div className="col-md-4">
+                      {/* From Industry*/}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>From Industry
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="text"
+                          placeholder=" "
+                          name="name_of_industry"
+                          id=""
+                          value={seminar_organised.name_of_industry}
+                          onChange={(e) =>
+                            handleOrganisedChange(
+                              index,
+                              "name_of_industry",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div className="row">
-                  <div className="col-md-4">
-                    {/* Sponsored By*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Sponsored By
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="sponsered_by"
-                        id=""
-                        value={seminar_organised.sponsered_by}
-                        onChange={(e) =>
-                          handleOrganisedChange(
-                            index,
-                            "sponsered_by",
-                            e.target.value
-                          )
-                        }
-                      ></input>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4">
-                    {/* No. of Participants */}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>No. of Participants
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="participants_number"
-                        id=""
-                        value={seminar_organised.participants_number}
-                        onChange={(e) =>
-                          handleOrganisedChange(
-                            index,
-                            "participants_number",
-                            e.target.value
-                          )
-                        }
-                      ></input>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4">
-                    {/* From Institutes*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>From Institutes
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="name_of_institute"
-                        id=""
-                        value={seminar_organised.name_of_institute}
-                        onChange={(e) =>
-                          handleOrganisedChange(
-                            index,
-                            "name_of_institute",
-                            e.target.value
-                          )
-                        }
-                      ></input>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-md-4">
-                    {/* From Industry*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>From Industry
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="name_of_industry"
-                        id=""
-                        value={seminar_organised.name_of_industry}
-                        onChange={(e) =>
-                          handleOrganisedChange(
-                            index,
-                            "name_of_industry",
-                            e.target.value
-                          )
-                        }
-                      ></input>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+              )
+            )}
 
             {/* Attended*/}
 
             <div>
-              <p className="HS-heading">
-                Attended{" "}
-                <button
-                  onClick={handleAddOtherAttend}
-                  type="button"
-                  className="plus-buttons"
-                >
-                  <img src={plusicon} />
-                </button>
-              </p>
+              <p className="HS-heading">Attended </p>
             </div>
 
             {data?.candidate_seminar_attends?.map((seminar_attend, index) => (
               <div key={index}>
+                {index > 0 && <hr style={{ margin: "24px 0" }} />}
                 <div className="row">
+                  <div>
+                    {data?.candidate_seminar_attends.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveOtherAttend(index)}
+                        className="minus-buttons"
+                      >
+                        <img
+                          src={minusicon}
+                          alt="Remove Other Seminar Attend"
+                        />
+                      </button>
+                    )}
+                    {index === data?.candidate_seminar_attends.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={handleAddOtherAttend}
+                        className="plus-buttons"
+                      >
+                        <img src={plusicon} alt="Add Other Seminar Attend" />
+                      </button>
+                    )}
+                  </div>
                   <div className="col-md-4">
                     {/* Date From*/}
                     <div className="UD-form-section">
@@ -461,7 +527,9 @@ function EditProgramsForm() {
                         type="date"
                         placeholder="dd/mm/yyyy"
                         name="attend_date_from"
-                        value={formatDateForInput(seminar_attend.attend_date_from)}
+                        value={formatDateForInput(
+                          seminar_attend.attend_date_from
+                        )}
                         onChange={(e) =>
                           handleOtherAttendChange(
                             index,
@@ -484,7 +552,9 @@ function EditProgramsForm() {
                         type="date"
                         placeholder="dd/mm/yyyy"
                         name="attend_date_to"
-                        value={formatDateForInput(seminar_attend.attend_date_to)}
+                        value={formatDateForInput(
+                          seminar_attend.attend_date_to
+                        )}
                         onChange={(e) =>
                           handleOtherAttendChange(
                             index,
@@ -550,139 +620,178 @@ function EditProgramsForm() {
             {/* Other Information*/}
 
             <div>
-              <p className="HS-heading">Other Information<button onClick={handleAddOtherInfo} type="button" className="editprofile-plus-button">+</button></p>
+              <p className="HS-heading">Other Information</p>
             </div>
 
-            {data?.candidate_other_membership_infos?.map((other_membership_info, index) => (
-              <div key={index}>
-                <div className="row" style={{ marginTop: "-30px" }}>
-                  <div className="col-md-12">
-                    {/* Membership of University/Institute/Industry Bodies*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Membership of University/Institute/Industry
-                        Bodies/Professional Bodies
-                      </label>
-                      <input
-                        style={{ width: "99.5%" }}
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=""
-                        name="member_of_institute_name"
-                        id=""
-                        value={other_membership_info.member_of_institute_name}
-                        onChange={(e) =>
-                          handleOtherInformationChange(
-                            index,
-                            "member_of_institute_name",
-                            e.target.value
-                          )
-                        }
-                      ></input>
+            {data?.candidate_other_membership_infos?.map(
+              (other_membership_info, index) => (
+                <div key={index}>
+                  {index > 0 && <hr style={{ margin: "24px 0" }} />}
+                  <div className="row" style={{ marginTop: "-20px" }}>
+                    <div>
+                      {data?.candidate_other_membership_infos.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveOtherInfo(index)}
+                          className="minus-buttons"
+                        >
+                          <img
+                            src={minusicon}
+                            alt="Remove Other Membership Info"
+                          />
+                        </button>
+                      )}
+                      {index ===
+                        data?.candidate_other_membership_infos.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={handleAddOtherInfo}
+                          className="plus-buttons"
+                        >
+                          <img src={plusicon} alt="Add Other Membership Info" />
+                        </button>
+                      )}
+                    </div>
+                    <div className="col-md-12">
+                      {/* Membership of University/Institute/Industry Bodies*/}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>Membership of
+                          University/Institute/Industry Bodies/Professional
+                          Bodies
+                        </label>
+                        <input
+                          style={{ width: "99.5%" }}
+                          className="UD-set-input"
+                          type="text"
+                          placeholder=""
+                          name="member_of_institute_name"
+                          id=""
+                          value={other_membership_info.member_of_institute_name}
+                          onChange={(e) =>
+                            handleOtherInformationChange(
+                              index,
+                              "member_of_institute_name",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Attended*/}
+
+                  <div>
+                    <p className="HS-heading">Attended</p>
+                  </div>
+
+                  <div className="row" style={{ marginTop: "-30px" }}>
+                    <div className="col-md-4">
+                      {/* Date From*/}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>Date From
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="date"
+                          placeholder="MM/DD/YYYY "
+                          name="membership_date_from"
+                          id=""
+                          value={formatDateForInput(
+                            other_membership_info.membership_date_from
+                          )}
+                          onChange={(e) =>
+                            handleOtherInformationChange(
+                              index,
+                              "membership_date_from",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
+                    </div>
+
+                    <div className="col-md-4">
+                      {/* Date To */}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>Date To
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="date"
+                          placeholder=" MM/DD/YYYY"
+                          name="membership_date_to"
+                          id=""
+                          value={formatDateForInput(
+                            other_membership_info.membership_date_to
+                          )}
+                          onChange={(e) =>
+                            handleOtherInformationChange(
+                              index,
+                              "membership_date_to",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
+                    </div>
+
+                    <div className="col-md-4">
+                      {/* Position Held*/}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>Position Held
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="text"
+                          placeholder=" "
+                          name="position_held"
+                          id=""
+                          value={other_membership_info.position_held}
+                          onChange={(e) =>
+                            handleOtherInformationChange(
+                              index,
+                              "position_held",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md-4">
+                      {/* Contribution*/}
+                      <div className="UD-form-section">
+                        <label className="UD-SetLabel-Name">
+                          <span></span>Contribution
+                        </label>
+                        <input
+                          className="UD-set-input"
+                          type="text"
+                          placeholder=" "
+                          name="contribution"
+                          id=""
+                          value={other_membership_info.contribution}
+                          onChange={(e) =>
+                            handleOtherInformationChange(
+                              index,
+                              "contribution",
+                              e.target.value
+                            )
+                          }
+                        ></input>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                {/* Attended*/}
-
-                <div>
-                  <p className="HS-heading">Attended</p>
-                </div>
-
-                <div className="row" style={{ marginTop: "-30px" }}>
-                  <div className="col-md-4">
-                    {/* Date From*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Date From
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="date"
-                        placeholder="MM/DD/YYYY "
-                        name="membership_date_from"
-                        id=""
-                        value={formatDateForInput(other_membership_info.membership_date_from)}
-                        onChange={(e) =>
-                          handleOtherInformationChange(
-                            index,
-                            "membership_date_from",
-                            e.target.value
-                          )
-                        }
-                      ></input>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4">
-                    {/* Date To */}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Date To
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="date"
-                        placeholder=" MM/DD/YYYY"
-                        name="membership_date_to"
-                        id=""
-                        value={formatDateForInput(other_membership_info.membership_date_to)}
-                        onChange={(e) =>
-                          handleOtherInformationChange(
-                            index,
-                            "membership_date_to",
-                            e.target.value
-                          )
-                        }
-                      ></input>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4">
-                    {/* Position Held*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Position Held
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="position_held"
-                        id=""
-                        value={other_membership_info.position_held}
-                        onChange={(e) =>
-                          handleOtherInformationChange(index, "position_held",
-                            e.target.value
-                          )
-                        }
-                      ></input>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-md-4">
-                    {/* Contribution*/}
-                    <div className="UD-form-section">
-                      <label className="UD-SetLabel-Name">
-                        <span></span>Contribution
-                      </label>
-                      <input
-                        className="UD-set-input"
-                        type="text"
-                        placeholder=" "
-                        name="contribution"
-                        id=""
-                        value={other_membership_info.contribution}
-                        onChange={(e) => handleOtherInformationChange(index, "contribution", e.target.value)}
-                      ></input>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+              )
+            )}
 
             <div className="row" style={{ marginTop: "-30px" }}>
               <div className="col-md-12">
@@ -777,7 +886,11 @@ function EditProgramsForm() {
             </div>
 
             <div>
-              <button className="savebtn" type="button" onClick={handleSaveChanges}>
+              <button
+                className="savebtn"
+                type="button"
+                onClick={handleSaveChanges}
+              >
                 Save Changes
               </button>
             </div>

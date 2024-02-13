@@ -16,9 +16,11 @@ function OTPVerification({ transferAllData, otpData }) {
     try {
       console.log("Contact 1:", otp, otpData);
 
-      const response = await apiService.verifyContactOTP({
+      const response = await apiService.verifyEmailOTP({
         ...otpData,
-        input_otp: parseInt(otp),
+        // inputOTP: parseInt(otp),
+      
+        inputOTP: otp,
       });
 
       if (response) {

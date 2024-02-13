@@ -4,17 +4,46 @@ import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 // import { BASE_URL } from "../../../config/config";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import { FormControl } from "@mui/material";
+import close from "../../../assets/logos/close.png";
+// import { BASE_URL } from "../../../config/config";
 import { ADMIN_BASE_URL } from "../../../config/config";
 function AddPostApplied() {
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
+  // const [selectedCategory, setSelectedCategory] = useState(null);
+  // const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   // ------------------Fetching Data from job_category_master-id-------------------------------
   useEffect(() => {
-    addPostApplied();
+    getJobCategory();
   }, []);
+  function getJobCategory() {
+    axios
+      .get(`${ADMIN_BASE_URL}/jobCategory`)
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching job categories:", error);
+      });
+  }
+  // ------------------GET DATA FROM API--------------------------------
+  function getPost() {
+    axios
+      .get(`${ADMIN_BASE_URL}/appliedPost`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   function addPostApplied() {
     fetch(`${ADMIN_BASE_URL}/jobCategory`)
       .then((response) => response.json())
@@ -22,15 +51,15 @@ function AddPostApplied() {
       .catch((error) => console.error("Error fetching job categories:", error));
   }
   // ------------------GET DATA FROM API--------------------------------
-  function getPost() {
-    fetch(`${ADMIN_BASE_URL}/appliedPost`)
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }
-  useEffect(() => {
-    getPost();
-  }, []);
+  // function getPost() {
+  //   fetch(`${ADMIN_BASE_URL}/appliedPost`)
+  //     .then((response) => response.json())
+  //     .then((data) => setData(data))
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // }
+  // useEffect(() => {
+  //   getPost();
+  // }, []);
   // ------------------GET DATA FROM API--------------------------------
 
   // ------------------POST DATA TO API--------------------------------
@@ -113,6 +142,7 @@ function AddPostApplied() {
         `${ADMIN_BASE_URL}/appliedPost/${selectedCategoryId}`,
         {
           post_name: selectedCategory.post_name,
+          // category_name: selectedCategory.job_category_master_id.category_name,
           job_category_master_id: selectedCategory.job_category_master_id,
         },
         {
@@ -131,6 +161,7 @@ function AddPostApplied() {
         // Reset the selected category
         setSelectedCategory(null);
         setSelectedCategoryId(null);
+        setUpdateModalOpen(false);
       })
       .catch((error) => console.error("Error updating post:", error));
   };
@@ -149,14 +180,110 @@ function AddPostApplied() {
     const selectedPost = data.find((post) => post.id === categoryId);
     setSelectedCategoryId(categoryId); // Set the selected category ID
     setSelectedCategory(selectedPost); // Set the selected category object
+    setUpdateModalOpen(true);
+  };
+  const handleCloseUpdateModal = () => {
+    setUpdateModalOpen(false);
   };
 
   // ------------------UPDATE DATA IN API--------------------------------
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "700",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
     <>
       <div className="container-1">
-        <form>
+        <div>
+          <button onClick={() => setOpen(true)}>Add Post Applied</button>
+        </div>
+        <Modal
+          open={open} // Control the open state of the modal
+          onClose={handleCloseModal} // Close the modal when onClose event occurs
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <FormControl>
+              <div>
+                <form>
+                  <img
+                    onClick={handleCloseModal}
+                    className="update-close-btn"
+                    src={close}
+                  />
+                  <div>
+                    <label className="AC-SetLabel-Name">Select Category</label>
+                    <select
+                      name="category"
+                      className="select-jc"
+                      value={selectedCategoryId}
+                      onChange={handleSelectCategory}
+                    >
+                      <option value="">Select Category</option>
+                      {categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.category_name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <label
+                    style={{ marginTop: "20px" }}
+                    className="AC-SetLabel-Name"
+                    htmlFor="categoryInput"
+                  >
+                    Add Post Applied For
+                  </label>
+                  <input
+                    type="text"
+                    className="Ac-set-input"
+                    id="categoryInput"
+                    placeholder="Add Post"
+                    value={
+                      selectedCategory
+                        ? selectedCategory.post_name
+                        : newCategory
+                    }
+                    onChange={(e) => {
+                      const newValue = e.target.value;
+                      if (selectedCategory) {
+                        setSelectedCategory((prev) => ({
+                          ...prev,
+                          post_name: newValue,
+                        }));
+                      } else {
+                        setNewCategory(newValue);
+                      }
+                    }}
+                  />
+
+                  <button id="set-btn" type="button" onClick={handleAddPost}>
+                    ADD NOW
+                  </button>
+                </form>
+              </div>
+            </FormControl>
+          </Box>
+        </Modal>
+        {/* <form>
           <div>
             <label>Select Category</label>
             <select
@@ -177,6 +304,7 @@ function AddPostApplied() {
           <label htmlFor="categoryInput">Add Post Applied For</label>
           <input
             type="text"
+            className="select-jc"
             id="categoryInput"
             placeholder="Add Post"
             value={selectedCategory ? selectedCategory.post_name : newCategory}
@@ -201,7 +329,7 @@ function AddPostApplied() {
               ADD NOW
             </button>
           )}
-        </form>
+        </form> */}
       </div>
 
       <div className="master-table ">
@@ -228,6 +356,72 @@ function AddPostApplied() {
                     >
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
+                    <Modal
+                      open={updateModalOpen}
+                      onClose={handleCloseUpdateModal}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <form>
+                          <img
+                            onClick={handleCloseUpdateModal}
+                            className="postapplied-close-btn"
+                            src={close}
+                          />
+                          <div>
+                            <label>Select Category</label>
+                            <select
+                              name="category"
+                              className="select-jc"
+                              value={selectedCategoryId}
+                              onChange={handleSelectCategory}
+                            >
+                              <option value="">Select Category</option>
+                              {categories.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                  {category.category_name}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+
+                          <label htmlFor="categoryInput">
+                            Add Post Applied For
+                          </label>
+                          <input
+                            type="text"
+                            className="select-jc"
+                            id="categoryInput"
+                            placeholder="Add Post"
+                            value={
+                              selectedCategory
+                                ? selectedCategory.post_name
+                                : newCategory
+                            }
+                            onChange={(e) => {
+                              const newValue = e.target.value;
+                              if (selectedCategory) {
+                                setSelectedCategory((prev) => ({
+                                  ...prev,
+                                  post_name: newValue,
+                                }));
+                              } else {
+                                setNewCategory(newValue);
+                              }
+                            }}
+                          />
+
+                          <button
+                            id="set-btn"
+                            type="button"
+                            onClick={handleUpdatePost}
+                          >
+                            UPDATE NOW
+                          </button>
+                        </form>
+                      </Box>
+                    </Modal>
                   </td>
                   <td>
                     <button
@@ -246,5 +440,5 @@ function AddPostApplied() {
     </>
   );
 }
-
+}
 export default AddPostApplied;

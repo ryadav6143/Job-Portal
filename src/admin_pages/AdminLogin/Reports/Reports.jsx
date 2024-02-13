@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
-import { Document, Page } from 'react-pdf';
+// import { Document, Page } from 'react-pdf';
 import { Modal, Button } from "react-bootstrap";
 import adminApiService from "../../adminApiService";
 import "./Reports.css"

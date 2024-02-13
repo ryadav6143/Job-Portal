@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Super.css";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 
 function CreateRole() {
+  const [newRoleName, setNewRoleName] = useState("");
   const Role = [
     {
       role_id: "1",
@@ -56,18 +57,55 @@ function CreateRole() {
       rights: "Test",
     },
   ];
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
 
+    // Construct the data object to be sent to the API
+    const newRoleData = {
+      role_name: newRoleName,
+      // You may include other fields here if needed
+    };
+
+    try {
+      // Send a POST request to your API endpoint
+      const response = await fetch("YOUR_API_ENDPOINT_HERE", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Add any other headers if needed (e.g., authentication token)
+        },
+        body: JSON.stringify(newRoleData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add new role");
+      }
+
+      // Optionally, you can handle success response here (e.g., show a success message)
+      console.log("New role added successfully");
+    } catch (error) {
+      // Handle any errors that occur during the API call (e.g., show an error message)
+      console.error("Error adding new role:", error.message);
+    }
+  };
   return (
     <>
       <div className="super-container">
         <div className="super-admin-form">
-          <form action="">
-            <label htmlFor="">Create New Role</label>
-            <input type="text" placeholder="Role Name " />
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="roleNameInput">Create New Role</label>
+            <input
+              type="text"
+              id="roleNameInput"
+              name="role_name"
+              placeholder="Role Name"
+              value={newRoleName}
+              onChange={(e) => setNewRoleName(e.target.value)}
+            />
+            <button type="submit" id="set-btn">
+              ADD
+            </button>
           </form>
-          <button type="submit" id="set-btn">
-            ADD
-          </button>
         </div>
 
         <div className="super-admin-table">
@@ -109,3 +147,4 @@ function CreateRole() {
 }
 
 export default CreateRole;
+//  role_type_name

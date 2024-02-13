@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./RegisterAdmin.css";
 import medilogo from "../../assets/logos/medi-logo.png";
 import axios from "axios";
+// import { BASE_URL } from "../../config/config";
+import { ADMIN_BASE_URL } from "../../config/config";
 
 function RegisterAdmin() {
+  const [departments, setDepartments] = useState([]);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [formData, setFormData] = useState({
     title_first_name: "",
     first_name: "",
@@ -13,22 +17,68 @@ function RegisterAdmin() {
     email: "",
     contact_1: "",
     password: "",
+    department_master_id: "",
   });
+  const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    getDepartment();
+  }, []);
+  function getDepartment() {
+    axios
+      .get(`${ADMIN_BASE_URL}/departmentMaster`)
+      .then((response) => {
+        setDepartments(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching departments:", error);
+      });
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const newValue = name === "department_master_id" ? parseInt(value) : value;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: newValue,
     });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post(
+  //       `${BASE_URL}/admin/registerAdmin`,
+  //       formData
+  //     );
+
+  //       setFormData({
+  //         title_first_name: "",
+  //         first_name: "",
+  //         middle_name: "",
+  //         last_name: "",
+  //         gender: "",
+  //         email: "",
+  //         contact_1: "",
+  //         password: "",
+  //         department_master_id: "",
+  //       });
+  //       alert("Admin registered successfully");
+
+  //   } catch (error) {
+  //     console.error("Error submitting data:", error);
+  //   }
+  // };
+
+  //new
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("your_api_endpoint_here", formData);
-      console.log("Data submitted successfully:", response.data);
-      // Reset form after successful submission if needed
+      // Make a request to register the admin
+      const response = await axios.post(
+        `${ADMIN_BASE_URL}/admin/registerAdmin`,
+        formData
+      );
+
       setFormData({
         title_first_name: "",
         first_name: "",
@@ -38,9 +88,20 @@ function RegisterAdmin() {
         email: "",
         contact_1: "",
         password: "",
+        department_master_id: "",
       });
+      alert("Admin registered successfully");
     } catch (error) {
-      console.error("Error submitting data:", error);
+      // Check if the error message is "email or contact already exist"
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.error === "email or contact already exist"
+      ) {
+      } else {
+        console.error("Error submitting data:", error);
+        alert("Email or contact already exists.");
+      }
     }
   };
 
@@ -149,6 +210,21 @@ function RegisterAdmin() {
                   value={formData.password}
                   onChange={handleChange}
                 />
+              </div>
+              <div className="col-12">
+                <label htmlFor="">Select Department</label>
+                <select
+                  name="department_master_id"
+                  value={formData.department_master_id}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Department</option>
+                  {departments.map((department) => (
+                    <option key={department.id} value={department.id}>
+                      {department.dept_name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div>
