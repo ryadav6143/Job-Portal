@@ -161,7 +161,7 @@ function MediStaff() {
                 <div className="blocks block-05">
                   <div className="collection-list-wrapper-4 w-dyn-list">
                     <div role="list" className="collection-list-3 w-dyn-items">
-                      <div role="listitem" class="collection-item-2 w-dyn-item">
+                      <div role="listitem" className="collection-item-2 w-dyn-item">
                         <img
                           src={Laxshmikant}
                           loading="lazy"

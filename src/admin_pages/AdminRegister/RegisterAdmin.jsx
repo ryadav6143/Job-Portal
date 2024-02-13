@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./RegisterAdmin.css";
 import medilogo from "../../assets/logos/medi-logo.png";
 import axios from "axios";
-import { BASE_URL } from "../../config/config";
+// import { BASE_URL } from "../../config/config";
+import { ADMIN_BASE_URL } from "../../config/config";
 
 function RegisterAdmin() {
   const [departments, setDepartments] = useState([]);
@@ -24,7 +25,7 @@ function RegisterAdmin() {
   }, []);
   function getDepartment() {
     axios
-      .get(`${BASE_URL}/departmentMaster`)
+      .get(`${ADMIN_BASE_URL}/departmentMaster`)
       .then((response) => {
         setDepartments(response.data);
       })
@@ -74,7 +75,7 @@ function RegisterAdmin() {
     try {
       // Make a request to register the admin
       const response = await axios.post(
-        `${BASE_URL}/admin/registerAdmin`,
+        `${ADMIN_BASE_URL}/admin/registerAdmin`,
         formData
       );
 

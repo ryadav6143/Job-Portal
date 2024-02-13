@@ -3,7 +3,8 @@ import "./Master.css";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import axios from "axios";
-import { BASE_URL } from "../../../config/config";
+// import { BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import close from "../../../assets/logos/close.png";
@@ -25,7 +26,7 @@ function AddSubjects() {
   useEffect(() => {
     // Fetch data from the API
     axios
-      .get(`${BASE_URL}/subjectMaster`)
+      .get(`${ADMIN_BASE_URL}/subjectMaster`)
       .then((response) => {
         // Update state with the fetched data
         setSubject(response.data);
@@ -38,7 +39,7 @@ function AddSubjects() {
   const handleAdd = () => {
     // Send a post request to the API to add a new department
     axios
-      .post(`${BASE_URL}/subjectMaster`, {
+      .post(`${ADMIN_BASE_URL}/subjectMaster`, {
         subject_name: newSubject,
         subject_type: newSubjectType,
         description: newSubjectDescription,
@@ -63,7 +64,7 @@ function AddSubjects() {
   };
   const handleSubmitUpdate = () => {
     axios
-      .put(`${BASE_URL}/subjectMaster/${editingSubject.id}`, {
+      .put(`${ADMIN_BASE_URL}/subjectMaster/${editingSubject.id}`, {
         subject_name: newSubject,
         subject_type: newSubjectType,
         description: newSubjectDescription,
@@ -88,7 +89,7 @@ function AddSubjects() {
   const handleDelete = (id) => {
     // Send a delete request to the API
     axios
-      .delete(`${BASE_URL}/subjectMaster/${id}`)
+      .delete(`${ADMIN_BASE_URL}/subjectMaster/${id}`)
       .then((response) => {
         // Update state after successful deletion
         setSubject(subject.filter((subj) => subj.id !== id));

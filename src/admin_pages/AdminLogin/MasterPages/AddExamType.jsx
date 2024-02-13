@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { BASE_URL } from "../../../config/config";
+// import { ADMIN_BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import Modal from "@mui/material/Modal";
@@ -18,7 +19,7 @@ function AddExamType() {
   // -----------------------------FETCHING EXAMTYPEMASTER API----------
   function examType() {
     axios
-      .get(`${BASE_URL}/examTypeMaster`)
+      .get(`${ADMIN_BASE_URL}/examTypeMaster`)
       .then((response) => setData(response.data))
       .catch((error) => console.error("Error fetching data:", error));
   }
@@ -37,7 +38,7 @@ function AddExamType() {
     }
 
     axios
-      .post(`${BASE_URL}/examTypeMaster`, {
+      .post(`${ADMIN_BASE_URL}/examTypeMaster`, {
         exam_name: newExamType,
       })
       .then((response) => {
@@ -52,7 +53,7 @@ function AddExamType() {
   // --------------------DELETE DATA FROM API--------------------------------
   const handleDeleteExamType = (examId) => {
     axios
-      .delete(`${BASE_URL}/examTypeMaster/${examId}`)
+      .delete(`${ADMIN_BASE_URL}/examTypeMaster/${examId}`)
       .then(() => {
         // Remove the deleted item from the state
         const updatedData = data.filter((exam) => exam.id !== examId);
@@ -64,7 +65,7 @@ function AddExamType() {
     if (!selectedExam) return;
 
     axios
-      .put(`${BASE_URL}/examTypeMaster/${selectedExam.id}`, {
+      .put(`${ADMIN_BASE_URL}/examTypeMaster/${selectedExam.id}`, {
         exam_name: selectedExam.exam_name,
       })
       .then((response) => {

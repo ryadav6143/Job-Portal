@@ -2,41 +2,23 @@ import React, { useState, useEffect } from "react";
 import "./EditQualificationForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
-
+import { useApiData } from "../../../../context/CandidateContext";
 function EditQualificationForm() {
+  const {apiData,loading }=useApiData()
   const [updateField, setUpdateField] = useState({});
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
 
-  const fetchData = async () => {
-    try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      // console.log("accessToken", accessToken.token);
-      setLoading(true);
-      const candidateResponse = await candidatesApiService.getEducationById(
-        accessToken.token
-      );
-      // console.log("response-......", candidateResponse);
-      setData(candidateResponse);
-      setLoading(false); 
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-      setLoading(false);
-    }
-  };
+  const [data, setData] = useState(apiData);
   useEffect(() => {
-    const body = document.body;
-    if (loading) {
-      body.style.overflow = 'hidden';
-    } else {
-      body.style.overflow = 'auto';
-    }
-  }, [loading]);
+    console.log("use-state");
+    setData(apiData)
+  }, [apiData]);
+
+  console.log("qualification apiData", apiData);
+
+ 
   useEffect(() => {
     candidatesApiService
       .getCandidatesCountries()
@@ -48,13 +30,10 @@ function EditQualificationForm() {
       });
   }, []);
 
-  useEffect(() => {
-    // console.log("use-state");
-    fetchData();
-  }, []);
+
 
   const handleFieldChange = (fieldName, value, educationType, e) => {
-    // console.log("handleField", fieldName, value);
+    console.log("handleField", fieldName, value);
     // ----------------------------------------------------------------------------
     // [fieldName, value] = e.target;
     setFormData({
@@ -69,22 +48,29 @@ function EditQualificationForm() {
     });
     // ----------------------------------------------------------------------------
     if (educationType === "highSchoolData") {
-      const updatedData = data.map(item =>
-        item.exam_types_master_id === 7
-          ? { ...item, [fieldName]: value.toString() }
-          : item
-      );
-    
+      const updatedData = {
+        ...data,
+        candidate_educations: data.candidate_educations.map((education) =>
+          education.exam_types_master_id === 7
+            ? { ...education, [fieldName]: value.toString() }
+            : education
+        ),
+      };
       setData(updatedData);
 
-      const highSchoolData = data.find(item => item.exam_types_master_id === 7);
+      const highSchoolData = data.candidate_educations.find(
+        (education) => education.exam_types_master_id === 7
+      );
+
       if (highSchoolData) {
         const additionalInfo = {
           exam_types_master_id: highSchoolData.exam_types_master_id,
           id: highSchoolData.id,
           [fieldName]: value.toString(),
         };
-        // console.log("Additional Info:", additionalInfo);
+
+        console.log("Additional Info:", additionalInfo);
+
         setUpdateField((prev) => ({
           ...prev,
           exam_types_master_id: highSchoolData.exam_types_master_id,
@@ -94,15 +80,19 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "higherSecondaryData") {
-         const updatedData = data.map(item =>
-        item.exam_types_master_id === 8
-          ? { ...item, [fieldName]: value.toString() }
-          : item
-      );
-
+      const updatedData = {
+        ...data,
+        candidate_educations: data.candidate_educations.map((education) =>
+          education.exam_types_master_id === 8
+            ? { ...education, [fieldName]: value.toString() }
+            : education
+        ),
+      };
       setData(updatedData);
 
-      const higherSecondaryData = data.find(item => item.exam_types_master_id === 8);
+      const higherSecondaryData = data.candidate_educations.find(
+        (education) => education.exam_types_master_id === 8
+      );
 
       if (higherSecondaryData) {
         const additionalInfo = {
@@ -111,7 +101,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        // console.log("Additional Info:", additionalInfo);
+        console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -122,15 +112,19 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "diplomaData") {
-      const updatedData = data.map(item =>
-        item.exam_types_master_id === 1
-          ? { ...item, [fieldName]: value.toString() }
-          : item
-      );
-      // console.log("diplomaData>>",updatedData)
+      const updatedData = {
+        ...data,
+        candidate_educations: data.candidate_educations.map((education) =>
+          education.exam_types_master_id === 1
+            ? { ...education, [fieldName]: value.toString() }
+            : education
+        ),
+      };
       setData(updatedData);
 
-      const diplomaData = data.find(item => item.exam_types_master_id === 1);
+      const diplomaData = data.candidate_educations.find(
+        (education) => education.exam_types_master_id === 1
+      );
 
       if (diplomaData) {
         const additionalInfo = {
@@ -139,7 +133,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        // console.log("Additional Info:", additionalInfo);
+        console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -150,14 +144,19 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "graduationData") {
-      const updatedData = data.map(item =>
-        item.exam_types_master_id === 2
-          ? { ...item, [fieldName]: value.toString() }
-          : item
-      );
+      const updatedData = {
+        ...data,
+        candidate_educations: data.candidate_educations.map((education) =>
+          education.exam_types_master_id === 2
+            ? { ...education, [fieldName]: value.toString() }
+            : education
+        ),
+      };
       setData(updatedData);
 
-      const graduationData = data.find(item => item.exam_types_master_id === 2);   
+      const graduationData = data.candidate_educations.find(
+        (education) => education.exam_types_master_id === 2
+      );
 
       if (graduationData) {
         const additionalInfo = {
@@ -166,7 +165,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        // console.log("Additional Info:", additionalInfo);
+        console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -177,14 +176,20 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "postGraduationData") {
-      const updatedData = data.map(item =>
-        item.exam_types_master_id === 3
-          ? { ...item, [fieldName]: value.toString() }
-          : item
-      );
+      const updatedData = {
+        ...data,
+        candidate_educations: data.candidate_educations.map((education) =>
+          education.exam_types_master_id === 3
+            ? { ...education, [fieldName]: value.toString() }
+            : education
+        ),
+      };
       setData(updatedData);
 
-      const postGraduationData = data.find(item => item.exam_types_master_id === 3);
+      const postGraduationData = data.candidate_educations.find(
+        (education) => education.exam_types_master_id === 3
+      );
+
       if (postGraduationData) {
         const additionalInfo = {
           exam_types_master_id: postGraduationData.exam_types_master_id,
@@ -192,7 +197,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        // console.log("Additional Info:", additionalInfo);
+        console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -203,14 +208,19 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "mphilData") {
-      const updatedData = data.map(item =>
-        item.exam_types_master_id === 5
-          ? { ...item, [fieldName]: value.toString() }
-          : item
-      );
+      const updatedData = {
+        ...data,
+        candidate_educations: data.candidate_educations.map((education) =>
+          education.exam_types_master_id === 5
+            ? { ...education, [fieldName]: value.toString() }
+            : education
+        ),
+      };
       setData(updatedData);
 
-      const mphilData = data.find(item => item.exam_types_master_id === 5);
+      const mphilData = data.candidate_educations.find(
+        (education) => education.exam_types_master_id === 5
+      );
 
       if (mphilData) {
         const additionalInfo = {
@@ -219,7 +229,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        // console.log("Additional Info:", additionalInfo);
+        console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -230,14 +240,19 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "phdData") {
-      const updatedData = data.map(item =>
-        item.exam_types_master_id === 4
-          ? { ...item, [fieldName]: value.toString() }
-          : item
-      );
+      const updatedData = {
+        ...data,
+        candidate_educations: data.candidate_educations.map((education) =>
+          education.exam_types_master_id === 4
+            ? { ...education, [fieldName]: value.toString() }
+            : education
+        ),
+      };
       setData(updatedData);
 
-      const phdData = data.find(item => item.exam_types_master_id === 4);
+      const phdData = data.candidate_educations.find(
+        (education) => education.exam_types_master_id === 4
+      );
 
       if (phdData) {
         const additionalInfo = {
@@ -246,7 +261,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        // console.log("Additional Info:", additionalInfo);
+        console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -259,14 +274,19 @@ function EditQualificationForm() {
     let gateData;
 
     if (educationType === "gateData") {
-      const updatedData = data.map(item =>
-        item.exam_types_master_id === 11
-          ? { ...item, [fieldName]: value.toString() }
-          : item
-      );
+      const updatedData = {
+        ...data,
+        candidate_educations: data.candidate_educations.map((education) =>
+          education.exam_types_master_id === 11
+            ? { ...education, [fieldName]: value.toString() }
+            : education
+        ),
+      };
       setData(updatedData);
 
-      const gateData = data.find(item => item.exam_types_master_id === 11);
+      gateData = data.candidate_educations.find(
+        (education) => education.exam_types_master_id === 11
+      );
 
       if (gateData && gateData.exam_types_master) {
         const additionalInfo = {
@@ -275,7 +295,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        // console.log("Additional Info:", additionalInfo);
+        console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -286,14 +306,19 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "neetData") {
-      const updatedData = data.map(item =>
-        item.exam_types_master_id === 9
-          ? { ...item, [fieldName]: value.toString() }
-          : item
-      );
+      const updatedData = {
+        ...data,
+        candidate_educations: data.candidate_educations.map((education) =>
+          education.exam_types_master_id === 9
+            ? { ...education, [fieldName]: value.toString() }
+            : education
+        ),
+      };
       setData(updatedData);
 
-      const neetData = data.find(item => item.exam_types_master_id === 9);
+      const neetData = data.candidate_educations.find(
+        (education) => education.exam_types_master_id === 9
+      );
 
       if (neetData) {
         const additionalInfo = {
@@ -302,7 +327,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        // console.log("Additional Info:", additionalInfo);
+        console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -314,30 +339,34 @@ function EditQualificationForm() {
     }
   };
 
+  const highSchoolData = data.candidate_educations.find(
+    (education) => education.exam_types_master_id === 7
+  );
+  const higherSecondaryData = data.candidate_educations.find(
+    (education) => education.exam_types_master_id === 8
+  );
+  const diplomaData = data.candidate_educations.find(
+    (education) => education.exam_types_master_id === 1
+  );
+  const graduationData = data.candidate_educations.find(
+    (education) => education.exam_types_master_id === 2
+  );
+  const postGraduationData = data.candidate_educations.find(
+    (education) => education.exam_types_master_id === 3
+  );
+  const mphilData = data.candidate_educations.find(
+    (education) => education.exam_types_master_id === 5
+  );
+  const phdData = data.candidate_educations.find(
+    (education) => education.exam_types_master_id === 4
+  );
+  const gateData = data.candidate_educations.find(
+    (education) => education.exam_types_master_id === 11
+  );
 
-  // console.log("Data>>>>>",data)
-  const highSchoolData = data.find(item => item.exam_types_master_id === 7);
-  
-  
-const higherSecondaryData = data.find(item => item.exam_types_master_id === 8);
-
-const diplomaData = data.find(item => item.exam_types_master_id === 1);
-
-const graduationData = data.find(item => item.exam_types_master_id === 2);   
-  
-const postGraduationData = data.find(item => item.exam_types_master_id === 3);
-
-const mphilData = data.find(item => item.exam_types_master_id === 5);
-
-const phdData = data.find(item => item.exam_types_master_id === 4);
-
-const neetData = data.find(item => item.exam_types_master_id === 9);
-
-const gateData = data.find(item => item.exam_types_master_id === 11);
-
-
-
-
+  const neetData = data.candidate_educations.find(
+    (education) => education.exam_types_master_id === 9
+  );
   const [countries, setCountries] = useState([]);
 
 
@@ -348,13 +377,13 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
     try {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
-      // console.log(updateField);
+      console.log(updateField);
       await candidatesApiService.updateCandidateEducation(accessToken.token,
         { educations: [updateField] }
       );
 
       setUpdateField({});
-      fetchData();
+      // fetchData();
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }
@@ -422,17 +451,19 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
     year_end: "",
   });
 
+
+  console.log("loading",loading)
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <div className="loader-container">
           <div className="loader"></div>
         </div>
-      )}
+      )} */}
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"
-          style={{ marginTop: "90px", paddingLeft: "50px" }}
+          style={{ marginTop: "90px", paddingLeft: "50px" ,paddingRight:"50px"}}
         >
           <div>
             <div>
@@ -452,7 +483,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
               <p className="HS-heading">High School</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -659,7 +690,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
               <p className="HS-heading">Higher secondary</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -892,7 +923,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
               <p className="HS-heading">Diploma</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1103,7 +1134,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
               <p className="HS-heading">Graduation</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1324,7 +1355,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
               <p className="HS-heading">Post Graduation</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1555,7 +1586,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
               <p className="HS-heading">M. Phil</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1760,7 +1791,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
               <p className="HS-heading">PhD</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* *Country */}
                 <div className="UD-form-section">
@@ -1957,7 +1988,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
               <p className="HS-heading">Qualified Examination</p>
             </div>
 
-            <div className="row" style={{ marginTop: "-40px" }}>
+            <div className="row" style={{ marginTop: "-20px" }}>
               <div className="col-md-4">
                 {/* Gate*/}
                 <div className="UD-form-section">

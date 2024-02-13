@@ -14,7 +14,7 @@ function ScheduledAcademics() {
     const fetchJobProfiles = async () => {
       try {
         const response = await adminApiService.getJobProfile();
-        console.log("response get", response.data);
+        // console.log("response get", response.data);
         setJobProfiles(response.data);
 
       } catch (error) {
@@ -39,7 +39,7 @@ function ScheduledAcademics() {
       schedule_interview_date_2: profile.schedule_interview_date_2 || "N/A",
       schedule_interview_date_3: profile.schedule_interview_date_3 || "N/A",
     }));
-  console.log("ScheduledAcademicsTable", ScheduledAcademicsTable)
+  // console.log("ScheduledAcademicsTable", ScheduledAcademicsTable)
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

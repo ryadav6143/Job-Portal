@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../../../config/config";
+// import { ADMIN_BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import Modal from "@mui/material/Modal";
@@ -15,7 +16,7 @@ function AddDepartment() {
   useEffect(() => {
     // Fetch data from the API
     axios
-      .get(`${BASE_URL}/departmentMaster`)
+      .get(`${ADMIN_BASE_URL}/departmentMaster`)
       .then((response) => {
         // Update state with the fetched data
         setDepartments(response.data);
@@ -28,7 +29,7 @@ function AddDepartment() {
   const handleDelete = (id) => {
     // Send a delete request to the API
     axios
-      .delete(`${BASE_URL}/departmentMaster/${id}`)
+      .delete(`${ADMIN_BASE_URL}/departmentMaster/${id}`)
       .then((response) => {
         // Update state after successful deletion
         setDepartments(departments.filter((dept) => dept.id !== id));
@@ -43,7 +44,7 @@ function AddDepartment() {
   const handleAdd = () => {
     // Send a post request to the API to add a new department
     axios
-      .post(`${BASE_URL}/departmentMaster`, {
+      .post(`${ADMIN_BASE_URL}/departmentMaster`, {
         dept_name: newDepartmentName,
       })
       .then((response) => {
@@ -67,7 +68,7 @@ function AddDepartment() {
   const handleSave = () => {
     // Send a put request to the API to update the department
     axios
-      .put(`${BASE_URL}/departmentMaster/${editingDepartmentId}`, {
+      .put(`${ADMIN_BASE_URL}/departmentMaster/${editingDepartmentId}`, {
         dept_name: newDepartmentName,
       })
       .then((response) => {

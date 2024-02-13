@@ -3,26 +3,30 @@ import "./Master.css";
 import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
-import { BASE_URL } from "../../../config/config";
+// import { BASE_URL } from "../../../config/config";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
+// import { BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 function AddPostApplied() {
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  // const [selectedCategory, setSelectedCategory] = useState(null);
+  // const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [open, setOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
   // ------------------Fetching Data from job_category_master-id-------------------------------
   useEffect(() => {
     getJobCategory();
   }, []);
   function getJobCategory() {
     axios
-      .get(`${BASE_URL}/jobCategory`)
+      .get(`${ADMIN_BASE_URL}/jobCategory`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -33,17 +37,29 @@ function AddPostApplied() {
   // ------------------GET DATA FROM API--------------------------------
   function getPost() {
     axios
-      .get(`${BASE_URL}/appliedPost`)
+      .get(`${ADMIN_BASE_URL}/appliedPost`)
       .then((response) => {
         setData(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+  function addPostApplied() {
+    fetch(`${ADMIN_BASE_URL}/jobCategory`)
+      .then((response) => response.json())
+      .then((data) => setCategories(data))
+      .catch((error) => console.error("Error fetching job categories:", error));
   }
-  useEffect(() => {
-    getPost();
-  }, []);
+  // ------------------GET DATA FROM API--------------------------------
+  // function getPost() {
+  //   fetch(`${ADMIN_BASE_URL}/appliedPost`)
+  //     .then((response) => response.json())
+  //     .then((data) => setData(data))
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // }
+  // useEffect(() => {
+  //   getPost();
+  // }, []);
   // ------------------GET DATA FROM API--------------------------------
 
   // ------------------POST DATA TO API--------------------------------
@@ -56,7 +72,7 @@ function AddPostApplied() {
 
     axios
       .post(
-        `${BASE_URL}/appliedPost`,
+        `${ADMIN_BASE_URL}/appliedPost`,
         {
           post_name: newCategory,
           job_category_master_id: selectedCategoryId,
@@ -78,7 +94,7 @@ function AddPostApplied() {
 
   // ------------------DELETE DATA FROM API--------------------------------
   const handleDeletePost = (categoryId) => {
-    fetch(`${BASE_URL}/appliedPost/${categoryId}`, {
+    fetch(`${ADMIN_BASE_URL}/appliedPost/${categoryId}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -98,7 +114,7 @@ function AddPostApplied() {
   // const handleUpdatePost = () => {
   //   if (!selectedCategory) return;
 
-  //   fetch(`${BASE_URL}/appliedPost/${selectedCategory.id}`, {
+  //   fetch(`${ADMIN_BASE_URL}/appliedPost/${selectedCategory.id}`, {
   //     method: "PUT",
   //     headers: {
   //       "Content-Type": "application/json",
@@ -123,7 +139,7 @@ function AddPostApplied() {
 
     axios
       .put(
-        `${BASE_URL}/appliedPost/${selectedCategoryId}`,
+        `${ADMIN_BASE_URL}/appliedPost/${selectedCategoryId}`,
         {
           post_name: selectedCategory.post_name,
           // category_name: selectedCategory.job_category_master_id.category_name,
@@ -424,5 +440,5 @@ function AddPostApplied() {
     </>
   );
 }
-
+}
 export default AddPostApplied;

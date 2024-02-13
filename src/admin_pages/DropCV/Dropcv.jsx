@@ -15,7 +15,8 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footers";
 import OTPVerification from "./OTPVerifivation/OTPVerification";
 import apiService from "../../Services/ApiServices";
-import { BASE_URL } from "../../config/config";
+// import { BASE_URL } from "../../config/config";
+import { CANDIDATE_BASE_URL } from "../../config/config";
 
 const steps = ["", "", ""];
 
@@ -144,7 +145,7 @@ function Dropcv() {
       try {
         console.log("emailToCheck", emailToCheck);
         const response_email = await fetch(
-          `${BASE_URL}/register/isemail_contact_exist?data=${emailToCheck}`,
+          `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${emailToCheck}`,
           {
             method: "GET",
             headers: {
@@ -154,7 +155,7 @@ function Dropcv() {
           }
         );
         const response_contact = await fetch(
-          `${BASE_URL}/register/isemail_contact_exist?data=${contactToCheck}`,
+          `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${contactToCheck}`,
           {
             method: "GET",
             headers: {

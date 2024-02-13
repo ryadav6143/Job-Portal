@@ -465,9 +465,9 @@ import {
                     required
                   >
                     <option value="">Select a category</option>
-                    {categories.map((category) => (
+                    {categories.map((category,index) => (
                       <option
-                        key={category.category_name}
+                        key={index}
                         value={category.category_name}
                       >
                         {category.category_name}
