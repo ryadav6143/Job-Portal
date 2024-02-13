@@ -13,7 +13,6 @@ function CandidateLogin({ handleLogin }) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await candidatesService.loginCandidate({
         login_field: username,
@@ -22,7 +21,7 @@ function CandidateLogin({ handleLogin }) {
       console.log("resposne", response);
       if (response.data.token) {
         handleLogin();
-        // localStorage.setItem("isLoggedIn", true);
+        
         localStorage.setItem("Token", JSON.stringify(response.data));
 
         // sessionStorage.setItem("Token", response.data);

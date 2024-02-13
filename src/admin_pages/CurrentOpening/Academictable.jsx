@@ -1,16 +1,30 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import "./CurrentOpening.css";
 import adminApiService from "../adminApiService";
+
 function Academictable() {
 
   const [jobProfiles, setJobProfiles] = useState([]);
+
+  let tokenFromLocalStorage = localStorage.getItem("Token");
+  tokenFromLocalStorage = JSON.parse(tokenFromLocalStorage);
+  const accessToken = tokenFromLocalStorage?.token || "";
+
+
+  const [token, setToken] = useState(tokenFromLocalStorage || "");
+
+
+
+
+
+
   useEffect(() => {
     const fetchJobProfiles = async () => {
       try {
         const response = await adminApiService.getJobProfile();
-        console.log("response get", response.data);
+        console.log("fetch response.data", response.data);
         setJobProfiles(response.data);
 
       } catch (error) {
@@ -21,18 +35,57 @@ function Academictable() {
     fetchJobProfiles();
   }, []);
 
+
+  const handleApply = async (data) => {
+    console.log("Selected Job Profile:", data);
+    const requestData = {
+      applied_post_masters_id: data.applied_post_masters_id,
+      job_category_master_id: data.job_category_master_id,
+      department_master_id: data.department_master_id,
+      job_profile_master_id: data.job_profile_master_id
+    };
+
+    // try {
+    //   const response = await axios.post(
+    //     "http://192.168.1.8:8090/v1/api/candidateAppliedPost/addApplied", requestData,
+    //     {
+    //       headers: {
+    //         'access-token':accessToken
+    //       }
+    //     }
+    //   );
+    //   console.log("Response:", response);    
+    //   alert("Post Applied Successfully");
+    // } 
+    try {
+      const response = await adminApiService.addApplied(requestData, accessToken); // Use adminApiService
+      console.log("Response:", response);    
+      alert("Post Applied Successfully");
+    }
+    catch (error) {
+      alert("you already applied",)
+      console.error("Error applying:", error);
+    }
+  };
+
+
   const [page, setPage] = useState(1);
-  
+
   const rowsPerPage = 10;
 
   const AcademicTable = jobProfiles
-  .filter((profile) => profile.publish_to_vacancy) 
-  .map((profile) => ({
-    category: profile.job_category_master?.category_name || "N/A",
-    department: profile.department_master?.dept_name || "N/A",
-    applyLink: "/apply-now",
-    lastDate: profile.last_date_to_apply || "N/A",
-  }));
+    .filter((profile) => profile.publish_to_vacancy)
+    .map((profile) => ({
+      job_profile_master_id: profile.id,
+      applied_post_masters_id: profile.applied_post_masters_id,
+      job_category_master_id: profile.job_category_master_id,
+      department_master_id: profile.department_master_id,
+      category: profile.job_category_master?.category_name || "N/A",
+      post: profile.applied_post_master?.post_name || "N/A",
+      department: profile.department_master?.dept_name || "N/A",
+      applyLink: "/apply-now",
+      lastDate: profile.last_date_to_apply || "N/A",
+    }));
   console.log("AcademicTable:", AcademicTable);
 
   const handleChangePage = (event, newPage) => {
@@ -61,6 +114,7 @@ function Academictable() {
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
                 <th scope="col">Category</th>
+                <th scope="col">Post</th>
                 <th scope="col">Detartment</th>
                 <th scope="col">Apply</th>
                 <th scope="col">Last Date</th>
@@ -70,12 +124,23 @@ function Academictable() {
               {AcademicData.map((data, index) => (
                 <tr key={index}>
                   <td>{data.category}</td>
+                  <td>{data.post}</td>
                   <td>{data.department}</td>
-                  <td>
-                    <button type="button" className="apn-btn">
+                   <td>
+                    {!tokenFromLocalStorage && (
                       <a href={data.applyLink}>APPLY NOW</a>
-                    </button>
+                    )}
+                    {tokenFromLocalStorage && (
+                      <button
+                        type="button"
+                        className="apn-btn"
+                        onClick={() => handleApply(data, data.id)}
+                      >
+                        APPLY NOW
+                      </button>
+                    )}
                   </td>
+
                   <td>{formatDateForInput(data.lastDate)}</td>
                 </tr>
               ))}
