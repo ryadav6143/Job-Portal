@@ -686,7 +686,7 @@ function EditProgramsForm() {
                     <p className="HS-heading">Attended</p>
                   </div>
 
-                  <div className="row" style={{ marginTop: "-30px" }}>
+                  <div className="row" style={{ marginTop: "0px" }}>
                     <div className="col-md-4">
                       {/* Date From*/}
                       <div className="UD-form-section">

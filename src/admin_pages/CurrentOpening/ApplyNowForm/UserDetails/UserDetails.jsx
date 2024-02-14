@@ -15,7 +15,9 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
-
+  const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
   // const [countries, setCountries] = useState([]);
   // const [accessToken] = useState('Bearer sL-eX7S-pFFAg1dGBc-26ZSRCkNicfdu50p3ZLtaS4kTtjijpJIpqgs9hg6lWvXsHgg');
 
@@ -70,6 +72,38 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   //   pin_code: '',
 
   // });
+
+
+  useEffect(() => {
+    apiService
+      .getCountries()
+      .then((response) => {
+        setCountries(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching countries:", error);
+      });
+  }, []);
+
+  const handleCountryChange = (event) => {
+    const countryValue = event.target.value;
+    setSelectedCountry(countryValue);
+    setSelectedCity('');
+    setErrors({
+      ...errors,
+      country: '',
+    });
+  };
+
+  const handleCityChange = (event) => {
+    const cityValue = event.target.value;
+    setSelectedCity(cityValue);
+    setErrors({
+      ...errors,
+      city: '',
+    });
+  };
+
 
   useEffect(() => {
     // Fetch data from the API using Axios
@@ -575,16 +609,24 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     <span>*</span>Country
                   </label>
                   <select
-                    onChange={handleInputChange}
-                    name="country"
-                    className="UD-set-dropdown"
-                    value={formValues.country}
-                  >
-                    <option value="country">Select country</option>
-                    <option value="country 1"> country 1</option>
-                    <option value=" country 2"> country 2</option>
-                    <option value="country 3"> country 3</option>
-                  </select>
+              name="country"
+              className="set-dropdown"
+              value={selectedCountry}
+              onChange={handleCountryChange}
+              required
+            >
+              <option key="" value="">
+                Select a country
+              </option>
+              {countries.map((countryData) => (
+                <option
+                  key={countryData.iso2}
+                  value={countryData.country}
+                >
+                  {countryData.country}
+                </option>
+              ))}
+            </select>
                   {/* <select
                     name="country"
                     className="UD-set-dropdown"
@@ -634,16 +676,21 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     <span>*</span>Current Job City
                   </label>
                   <select
-                    onChange={handleInputChange}
-                    name="city"
-                    className="UD-set-dropdown"
-                    value={formValues.city}
-                  >
-                    <option value="">Select Current Job City</option>
-                    <option value="Job City 1"> Job City 1</option>
-                    <option value="Job City 2"> Job City 2</option>
-                    <option value="Job City 3"> Job City 3</option>
-                  </select>
+              name="city"
+              className="set-dropdown"
+              value={selectedCity}
+              onChange={handleCityChange}
+              required
+            >
+              <option key="" value="">
+                Select a city
+              </option>
+              {(countries.find((country) => country.country === selectedCountry)?.cities || []).map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))}
+            </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.city}</span>
