@@ -11,7 +11,7 @@ import AddDegree from "../MasterPages/AddDegree";
 import AddCategories from "../MasterPages/AddCategories";
 import Reports from "../Reports/Reports";
 import AdminList from "../SuperAdmin/AdminList";
-import CreateRole from "../SuperAdmin/CreateRole";
+// import CreateRole from "../SuperAdmin/CreateRole";
 import GetRole from "../SuperAdmin/GetRole";
 import GetRights from "../SuperAdmin/GetRights";
 import AddSubjects from "../MasterPages/AddSubjects";
@@ -22,6 +22,7 @@ import reports from "../../../assets/logos/report.png";
 import superadmin from "../../../assets/logos/setting.png";
 import list from "../../../assets/logos/list.png";
 import jobprofile from "../../../assets/logos/jobprofile.png";
+// import CreateRights from "../SuperAdmin/CreateRight";
 
 function SideBar() {
   // ---------------------------------------------------------------------------------------
@@ -73,9 +74,12 @@ function SideBar() {
     case "Component14":
       componentToShow = <GetRights />;
       break;
-    case "Component15":
-      componentToShow = <CreateRole />;
-      break;
+    // case "Component15":
+    //   componentToShow = <CreateRole />;
+    //   break;
+    // case "Component17":
+    //   componentToShow = <CreateRights />;
+    //   break;
     case "Component16":
       componentToShow = <AddSubjects />;
       break;
@@ -263,13 +267,20 @@ function SideBar() {
                         >
                           Admin List
                         </a>
-                        <a
+                        {/* <a
                           className="dropdown-item"
                           href="#"
                           onClick={() => showComponent("Component15")}
                         >
                           Create Role
                         </a>
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          onClick={() => showComponent("Component17")}
+                        >
+                          Create Rights
+                        </a> */}
 
                         <a
                           className="dropdown-item"
