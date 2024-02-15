@@ -360,7 +360,7 @@ const handleRemoveResearches = (index) => {
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"
-          style={{ marginTop: "90px", paddingLeft: "50px" }}
+          style={{ marginTop: "90px", paddingLeft: "50px",   paddingRight: "50px" }}
         >
           <div>
             <div>

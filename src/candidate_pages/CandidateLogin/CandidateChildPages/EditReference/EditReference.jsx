@@ -104,7 +104,7 @@ function EditReference() {
   return (
     <>
     <form id='myForm' onSubmit={handleSaveChanges}>
-    <div className="container" style={{marginTop:"90px", paddingLeft:"50px"}}>
+    <div className="container" style={{marginTop:"90px", paddingLeft:"50px",   paddingRight: "50px",}}>
       <div>
         <div>
           <h5 className="UD-heading">Reference &nbsp; <FontAwesomeIcon   className="edit-pen-icon" icon={faPen} /></h5>
@@ -356,7 +356,7 @@ function EditReference() {
 
         
 
-        <div className="row"  style={{ marginTop: "-30px" }}>
+        <div className="row"  style={{ marginTop: "-10px" }}>
         <div className="col-md-12">
             {/* Statement of Purpose*/}
             <div className="UD-form-section">

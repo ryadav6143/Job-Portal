@@ -675,118 +675,118 @@ function ApplyNow() {
           return true;
         }
       case 2:
-        // const companyName =
-        //   formValues.UserDetails.experiences[0].company_experience_name;
-        // const userDesignation =
-        //   formValues.UserDetails.experiences[0].designation;
-        // const userJoiningDate =
-        //   formValues.UserDetails.experiences[0].exp_work_from;
-        // const userLeavingDate =
-        //   formValues.UserDetails.experiences[0].exp_work_to;
+        const companyName =
+          formValues.UserDetails.experiences[0].company_experience_name;
+        const userDesignation =
+          formValues.UserDetails.experiences[0].designation;
+        const userJoiningDate =
+          formValues.UserDetails.experiences[0].exp_work_from;
+        const userLeavingDate =
+          formValues.UserDetails.experiences[0].exp_work_to;
 
-        // if (!formValues.UserDetails.experiences[0].company_experience_name) {
-        //   errors.company_experience_name = "! Company Name is Required";
-        // } else {
-        //   const isValidCompanyName = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
-        //     companyName
-        //   );
+        if (!formValues.UserDetails.experiences[0].company_experience_name) {
+          errors.company_experience_name = "! Company Name is Required";
+        } else {
+          const isValidCompanyName = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
+            companyName
+          );
 
-        //   if (!isValidCompanyName) {
-        //     errors.company_experience_name =
-        //       "! Please enter a valid company name";
-        //   }
-        // }
-        // if (!userDesignation) {
-        //   errors.designation = "! Designation is Required";
-        // } else {
-        //   const isValidDesignation = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
-        //     userDesignation
-        //   );
+          if (!isValidCompanyName) {
+            errors.company_experience_name =
+              "! Please enter a valid company name";
+          }
+        }
+        if (!userDesignation) {
+          errors.designation = "! Designation is Required";
+        } else {
+          const isValidDesignation = /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/.test(
+            userDesignation
+          );
 
-        //   if (!isValidDesignation) {
-        //     errors.designation = "! Please enter a valid designation";
-        //   }
-        // }
-        // if (!formValues.UserDetails.experiences[0].gross_pay) {
-        //   errors.gross_pay = "Current Gross-Pay is Required";
-        // } else {
-        //   const numericValue = parseFloat(
-        //     formValues.UserDetails.experiences[0].gross_pay
-        //   );
+          if (!isValidDesignation) {
+            errors.designation = "! Please enter a valid designation";
+          }
+        }
+        if (!formValues.UserDetails.experiences[0].gross_pay) {
+          errors.gross_pay = "Current Gross-Pay is Required";
+        } else {
+          const numericValue = parseFloat(
+            formValues.UserDetails.experiences[0].gross_pay
+          );
 
-        //   if (isNaN(numericValue) || numericValue <= 0) {
-        //     errors.gross_pay = "Please enter a valid Gross-Pay .";
-        //   } else if (
-        //     !/^\d+(\.\d+)?$/.test(
-        //       formValues.UserDetails.experiences[0].gross_pay
-        //     )
-        //   ) {
-        //     errors.gross_pay = "Please enter a valid Gross-Pay .";
-        //   }
-        // }
+          if (isNaN(numericValue) || numericValue <= 0) {
+            errors.gross_pay = "Please enter a valid Gross-Pay .";
+          } else if (
+            !/^\d+(\.\d+)?$/.test(
+              formValues.UserDetails.experiences[0].gross_pay
+            )
+          ) {
+            errors.gross_pay = "Please enter a valid Gross-Pay .";
+          }
+        }
 
-        // const currentDate = new Date();
-        // const enteredJoiningDate = new Date(userJoiningDate);
-        // if (!userJoiningDate) {
-        //   errors.exp_work_from = "! Joining Date is Required";
-        // } else {
-        //   const currentDate = new Date();
-        //   const enteredJoiningDate = new Date(userJoiningDate);
+        const currentDate = new Date();
+        const enteredJoiningDate = new Date(userJoiningDate);
+        if (!userJoiningDate) {
+          errors.exp_work_from = "! Joining Date is Required";
+        } else {
+          const currentDate = new Date();
+          const enteredJoiningDate = new Date(userJoiningDate);
 
-        //   const isJoiningDateValid =
-        //     enteredJoiningDate < currentDate &&
-        //     enteredJoiningDate >=
-        //       new Date(currentDate.getFullYear() - 100, 0, 1);
+          const isJoiningDateValid =
+            enteredJoiningDate < currentDate &&
+            enteredJoiningDate >=
+              new Date(currentDate.getFullYear() - 100, 0, 1);
 
-        //   if (!isJoiningDateValid) {
-        //     errors.exp_work_from = "! Please enter a valid Joining Date";
-        //   }
-        // }
+          if (!isJoiningDateValid) {
+            errors.exp_work_from = "! Please enter a valid Joining Date";
+          }
+        }
 
-        // if (!userLeavingDate) {
-        //   errors.exp_work_to = "! Leaving Date is Required";
-        // } else {
-        //   const enteredLeavingDate = new Date(userLeavingDate);
+        if (!userLeavingDate) {
+          errors.exp_work_to = "! Leaving Date is Required";
+        } else {
+          const enteredLeavingDate = new Date(userLeavingDate);
 
-        //   const isLeavingDateValid =
-        //     enteredLeavingDate < currentDate &&
-        //     enteredLeavingDate >=
-        //       new Date(currentDate.getFullYear() - 100, 0, 1);
+          const isLeavingDateValid =
+            enteredLeavingDate < currentDate &&
+            enteredLeavingDate >=
+              new Date(currentDate.getFullYear() - 100, 0, 1);
 
-        //   if (!isLeavingDateValid) {
-        //     errors.exp_work_to = "! Please enter a valid Leaving Date";
-        //   }
+          if (!isLeavingDateValid) {
+            errors.exp_work_to = "! Please enter a valid Leaving Date";
+          }
 
-        //   if (enteredJoiningDate >= enteredLeavingDate) {
-        //     errors.exp_work_from =
-        //       "! Joining Date should be before Leaving Date";
-        //     errors.exp_work_to = "! Leaving Date should be after Joining Date";
-        //   }
-        // }
+          if (enteredJoiningDate >= enteredLeavingDate) {
+            errors.exp_work_from =
+              "! Joining Date should be before Leaving Date";
+            errors.exp_work_to = "! Leaving Date should be after Joining Date";
+          }
+        }
 
-        // if (!total_academic_exp) {
-        //   errors.total_academic_exp = "Total Academic Experience is Required.";
-        // } else if (isNaN(total_academic_exp)) {
-        //   errors.total_academic_exp = "Please enter a valid number.";
-        // } else {
-        //   const numericValue = parseFloat(total_academic_exp);
-        //   if (numericValue < 0 || numericValue > 100) {
-        //     errors.total_academic_exp =
-        //       "Please enter a number between 0 and 100.";
-        //   }
-        // }
-        // if (!total_industrial_exp) {
-        //   errors.total_industrial_exp =
-        //     "Total Industry Experience is Required.";
-        // } else if (isNaN(total_industrial_exp)) {
-        //   errors.total_industrial_exp = "Please enter a valid number.";
-        // } else {
-        //   const numericValue = parseFloat(total_industrial_exp);
-        //   if (numericValue < 0 || numericValue > 100) {
-        //     errors.total_industrial_exp =
-        //       "Please enter a number between 0 and 100.";
-        //   }
-        // }
+        if (!total_academic_exp) {
+          errors.total_academic_exp = "Total Academic Experience is Required.";
+        } else if (isNaN(total_academic_exp)) {
+          errors.total_academic_exp = "Please enter a valid number.";
+        } else {
+          const numericValue = parseFloat(total_academic_exp);
+          if (numericValue < 0 || numericValue > 100) {
+            errors.total_academic_exp =
+              "Please enter a number between 0 and 100.";
+          }
+        }
+        if (!total_industrial_exp) {
+          errors.total_industrial_exp =
+            "Total Industry Experience is Required.";
+        } else if (isNaN(total_industrial_exp)) {
+          errors.total_industrial_exp = "Please enter a valid number.";
+        } else {
+          const numericValue = parseFloat(total_industrial_exp);
+          if (numericValue < 0 || numericValue > 100) {
+            errors.total_industrial_exp =
+              "Please enter a number between 0 and 100.";
+          }
+        }
 
         if (Object.keys(errors).length > 0) {
           // If there are errors, set the state with error messages
