@@ -186,6 +186,19 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
+  getCandidatesById: (accessToken,listID) => {
+    return axios.get(`${ADMIN_BASE_URL}/admin/getCandidatesById/${listID}`,{
+      headers: {
+        'access-token': accessToken,
+      },
+    }
+   
+    );
+  },
+
+
+
+
 };
 
 
