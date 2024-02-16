@@ -153,7 +153,7 @@ function Reports() {
             </select>
           </div>
 
-          <div className="col-md-4">
+          {/* <div className="col-md-4">
             <label>Select Subpost:</label>
             <select className="form-control" value={selectedSubpost} onChange={handleSubpostChange}>
               <option value="">All</option>
@@ -161,7 +161,7 @@ function Reports() {
                 <option key={index} value={subpost}>{subpost}</option>
               ))}
             </select>
-          </div>
+          </div> */}
         </div>
 
         <table className="table">
@@ -171,7 +171,7 @@ function Reports() {
               <th>Email</th>
               <th>Contact</th>
               <th>Post Name</th>
-              <th>Subpost Name</th>
+              {/* <th>Subpost Name</th> */}
               <th>Category Name</th>
               <th>Specialization</th>
               <th>Resume</th>
@@ -184,7 +184,7 @@ function Reports() {
                 <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.email || "-"}</td>
                 <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.contact_1 || "-"}</td>
                 <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.applied_post_master?.post_name || "-"}</td>
-                <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.applied_subpost_master?.subpost_name || "-"}</td>
+                {/* <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.applied_subpost_master?.subpost_name || "-"}</td> */}
                 <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.job_category_master?.category_name || "-"}</td>
                 <td onClick={() => handleCandidateInfoClick(candidate)} style={{ cursor: 'pointer' }}>{candidate.candidate.specialization || "-"}</td>
 

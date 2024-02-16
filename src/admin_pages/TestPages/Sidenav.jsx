@@ -11,7 +11,7 @@ import AddDegree from "../AdminLogin/MasterPages/AddDegree";
 import AddCategories from "../AdminLogin/MasterPages/AddCategories";
 import Reports from "../AdminLogin/Reports/Reports";
 import AdminList from "../AdminLogin/SuperAdmin/AdminList";
-import CreateRole from "../AdminLogin/SuperAdmin/CreateRole";
+// import CreateRole from "../AdminLogin/SuperAdmin/CreateRole";
 import GetRole from "../AdminLogin/SuperAdmin/GetRole";
 import GetRights from "../AdminLogin/SuperAdmin/GetRights";
 import AddSubjects from "../AdminLogin/MasterPages/AddSubjects";
@@ -72,9 +72,9 @@ function Sidenav() {
     case "Component14":
       componentToShow = <GetRights />;
       break;
-    case "Component15":
-      componentToShow = <CreateRole />;
-      break;
+    // case "Component15":
+    //   componentToShow = <CreateRole />;
+    //   break;
     case "Component16":
       componentToShow = <AddSubjects />;
       break;
@@ -247,13 +247,13 @@ function Sidenav() {
                           >
                             Admin List
                           </a>
-                          <a
+                          {/* <a
                             className="dropdown-item"
                             href="#"
                             onClick={() => showComponent("Component15")}
                           >
                             Create Role
-                          </a>
+                          </a> */}
 
                           <a
                             className="dropdown-item"
