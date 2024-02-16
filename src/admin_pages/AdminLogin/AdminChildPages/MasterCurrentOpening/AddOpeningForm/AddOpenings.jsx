@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AddOpenings.css";
 import adminApiService from "../../../../adminApiService";
+import close from "../../../../../assets/logos/close.png"
 function AddOpenings() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -37,7 +38,7 @@ function AddOpenings() {
   responsible_contact: "",
   });
 
-
+  
   
   useEffect(() => {
     const fetchJobCategories = async () => {
@@ -195,7 +196,9 @@ function AddOpenings() {
     <div>
 
       <div className="new-openings">
+      <img  className="cls-btn" src={close}/>
         <p>job_profile_master</p>
+      
         <p className="master-heading">Add New Opening</p>
         <div className="new-openings-form">
           <form onSubmit={handleSubmit} >

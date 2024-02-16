@@ -4,6 +4,7 @@ import "./MasterCurrentOpening.css";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import adminApiService from "../../../adminApiService";
+import AddOpenings from "./AddOpeningForm/AddOpenings";
 
 function MasterCurrentOpening() {
   const navigate = useNavigate();
@@ -11,17 +12,16 @@ function MasterCurrentOpening() {
   const [jobProfiles, setJobProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const fetchJobProfiles = async () => {
       try {
         const response = await adminApiService.getJobProfile();
         // console.log("response get", response.data);
         setJobProfiles(response.data);
-   
+
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching job profiles:', error);
+        console.error("Error fetching job profiles:", error);
         setLoading(false);
       }
     };
@@ -42,21 +42,24 @@ function MasterCurrentOpening() {
     navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
   };
 
-const handleDelete = async (profileId) => {
-  try {
-    const confirmDelete = window.confirm("Are you sure you want to delete this job profile?");
-    if (confirmDelete) {
-      await adminApiService.deleteJobProfileById(profileId);
-      // Remove the deleted profile from the state
-      setJobProfiles(jobProfiles.filter(profile => profile.id !== profileId));
-      alert("Job profile deleted successfully");
+  const handleDelete = async (profileId) => {
+    try {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this job profile?"
+      );
+      if (confirmDelete) {
+        await adminApiService.deleteJobProfileById(profileId);
+        // Remove the deleted profile from the state
+        setJobProfiles(
+          jobProfiles.filter((profile) => profile.id !== profileId)
+        );
+        alert("Job profile deleted successfully");
+      }
+    } catch (error) {
+      console.error("Error deleting job profile:", error);
+      alert("Failed to delete job profile. Please try again later.");
     }
-  } catch (error) {
-    console.error("Error deleting job profile:", error);
-    alert("Failed to delete job profile. Please try again later.");
-  }
-};
-
+  };
 
   //-----------------------------------Adding Table-------------------------------
   const [page, setPage] = useState(1);
@@ -101,22 +104,34 @@ const handleDelete = async (profileId) => {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
+  const [selectedComponent, setSelectedComponent] = useState();
+  const showComponent = (componentName) => {
+    setSelectedComponent(componentName);
+  };
+  let componentToShow;
+  switch (selectedComponent) {
+    case "Component1":
+      componentToShow = <AddOpenings />;
+      break;
+  }
   return (
     <>
-        {loading && (
-      <div className="loader-container">
-        <div className="loader"></div>
-      </div>
-    )} 
-      <div className="center-container">
-        <div className="new-opening-btn">
+      {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
+
+<div className="new-opening-btn">
           <button>
-            <a onClick={handleNavigation}>Add New Openings</a>
+            <a onClick={() => showComponent("Component1")}>Add New Openings</a>
           </button>
         </div>
-
+      <div className="center-container">
+        
+        {componentToShow}
         <div className="master-table ">
-          <p className="table-heading">Admin-Table</p>
+          <p className="table-heading">Current Openings</p>
           <div className="">
             <table className="table table-responsive">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
@@ -150,7 +165,11 @@ const handleDelete = async (profileId) => {
                       </button>
                     </td>
                     <td>
-                      <button type="button" id="del-btn" onClick={() => handleDelete(data.id)}>
+                      <button
+                        type="button"
+                        id="del-btn"
+                        onClick={() => handleDelete(data.id)}
+                      >
                         DELETE
                       </button>
                     </td>
