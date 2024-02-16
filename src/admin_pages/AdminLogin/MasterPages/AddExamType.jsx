@@ -123,8 +123,8 @@ function AddExamType() {
   return (
     <>
       <div className="container-1">
-        <div>
-          <button onClick={() => setOpen(true)}>Add Exam Type</button>
+        <div className="new-opening-btn">
+          <button  onClick={() => setOpen(true)}>Add Exam Type</button>
         </div>
         <Modal
           open={open} // Control the open state of the modal

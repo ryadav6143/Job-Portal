@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./AddOpenings.css";
 import adminApiService from "../../../../adminApiService";
 import close from "../../../../../assets/logos/close.png"
-function AddOpenings() {
+function AddOpenings({ onClose }) {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -191,14 +191,16 @@ function AddOpenings() {
     }
   };
   
+  const handleClose = () => {
+    onClose(); // calling onClose function provided by parent component
+  }; 
 
   return (
     <div>
 
       <div className="new-openings">
-      <img  className="cls-btn" src={close}/>
-        <p>job_profile_master</p>
-      
+      <img  onClick={handleClose}  className="cls-btn" src={close}/>
+  
         <p className="master-heading">Add New Opening</p>
         <div className="new-openings-form">
           <form onSubmit={handleSubmit} >

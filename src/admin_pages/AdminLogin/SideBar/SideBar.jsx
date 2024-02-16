@@ -287,14 +287,14 @@ function SideBar() {
                           href="#"
                           onClick={() => showComponent("Component14")}
                         >
-                          Get Rights
+                           Rights List
                         </a>
                         <a
                           className="dropdown-item"
                           href="#"
                           onClick={() => showComponent("Component13")}
                         >
-                          Get Role
+                       Role List
                         </a>
                       </div>
                     </div>

@@ -138,8 +138,8 @@ function AddSubjects() {
   return (
     <>
       <div className="container-1">
-        <div>
-          <button onClick={() => setOpen(true)}>Add Subject</button>
+        <div className="new-opening-btn">
+          <button  onClick={() => setOpen(true)}>Add Subject</button>
         </div>
         <Modal
           open={open}

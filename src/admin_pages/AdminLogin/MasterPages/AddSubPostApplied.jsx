@@ -160,7 +160,7 @@ function AddSubPostApplied() {
     <>
       <div className="container-1">
         <div>
-          <button onClick={() => setOpen(true)}>Add Sub post</button>
+          <button className="new-opening-btn" onClick={() => setOpen(true)}>Add Sub post</button>
         </div>
 
         <Modal

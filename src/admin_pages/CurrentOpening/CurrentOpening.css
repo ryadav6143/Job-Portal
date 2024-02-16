@@ -46,9 +46,10 @@
 }
 .table-heading {
   /* padding-bottom: 15px; */
+  font-weight: 500;
   padding-top: 20px;
   font-size: 30px;
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
 }
 .pagination {
   float: right;

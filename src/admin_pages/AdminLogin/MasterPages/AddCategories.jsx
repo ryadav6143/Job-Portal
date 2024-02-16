@@ -157,7 +157,7 @@ function AddCategories() {
   return (
     <>
       <div className="container-1">
-        <div>
+        <div className="new-opening-btn">
           <button onClick={handleOpen}>Add Categories</button>
         </div>
 

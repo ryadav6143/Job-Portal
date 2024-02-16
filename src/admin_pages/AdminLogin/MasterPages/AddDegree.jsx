@@ -73,7 +73,10 @@ function AddDegree() {
             onChange={(e) => setNewDegree(e.target.value)}
           />
         </form>
+        <div className="new-opening-btn">
         <button type="button">ADD NOW</button>
+        </div>
+
       </div>
 
       <div className="master-table ">

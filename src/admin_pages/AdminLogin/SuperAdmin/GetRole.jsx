@@ -141,10 +141,10 @@ function GetRole() {
 
   return (
     <>
-      <h1>ROLE PAGE</h1>
-      <div className="super-container">
+      
+      <div className="admin-list">
         <div className="container-1">
-          <div>
+          <div className="new-opening-btn">
             <button onClick={handleOpen}>ADD New Role</button>
           </div>
           <Modal
