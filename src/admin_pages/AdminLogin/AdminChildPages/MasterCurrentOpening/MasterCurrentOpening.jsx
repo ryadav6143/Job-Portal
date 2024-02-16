@@ -16,7 +16,7 @@ function MasterCurrentOpening() {
     const fetchJobProfiles = async () => {
       try {
         const response = await adminApiService.getJobProfile();
-        // console.log("response get", response.data);
+        console.log("response get", response.data);
         setJobProfiles(response.data);
    
         setLoading(false);
