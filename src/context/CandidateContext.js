@@ -1,3 +1,4 @@
+import React from 'react';
 import { createContext, useContext, useState, useEffect } from 'react';
 import candidatesApiService from '../candidate_pages/candidateService';
 
