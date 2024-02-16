@@ -450,7 +450,7 @@ function GetRights() {
               ))}
             </select>
 
-            <button onClick={handleUpdate}>Submit</button>
+            <button id="set-btn" onClick={handleUpdate}>Submit</button>
           </form>
         </Box>
       </Modal>

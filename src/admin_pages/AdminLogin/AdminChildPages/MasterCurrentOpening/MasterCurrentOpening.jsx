@@ -11,7 +11,7 @@ function MasterCurrentOpening() {
   // const navigate = useNavigate();
   // const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
   // const [jobProfiles, setJobProfiles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   // useEffect(() => {
   //   const fetchJobProfiles = async () => {
@@ -106,18 +106,23 @@ function MasterCurrentOpening() {
   //   return `${day}-${month}-${year}`;
   // };
   const [selectedComponent, setSelectedComponent] = useState();
+  const [isButtonVisible, setIsButtonVisible] = useState(true);
   const showComponent = (componentName) => {
     setSelectedComponent(componentName);
+    setIsButtonVisible(false);
   };
   let componentToShow;
+
   switch (selectedComponent) {
     case "Component1":
       componentToShow = <AddOpenings />;
       break;
+
     default:
       componentToShow = <MasterTable />;
-      // componentToShow = <AddOpenings />;
+    // componentToShow = <AddOpenings />;
   }
+
   return (
     <>
       {/* {loading && (
@@ -126,11 +131,13 @@ function MasterCurrentOpening() {
         </div>
       )} */}
 
-      <div className="new-opening-btn">
-        <button>
-          <a onClick={() => showComponent("Component1")}>Add New Openings</a>
-        </button>
-      </div>
+      {isButtonVisible && (
+        <div className="new-opening-btn">
+          <button>
+            <a onClick={() => showComponent("Component1")}>Add New Openings</a>
+          </button>
+        </div>
+      )}
       <div className="center-container">
         {componentToShow}
         {/* <div className="master-table ">
