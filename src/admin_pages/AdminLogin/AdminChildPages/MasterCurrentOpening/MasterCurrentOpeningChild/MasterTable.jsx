@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import adminApiService from "../../../../adminApiService";
+import EditOpenings from "../EditOpeningForm/EditOpenings";
 // import AddOpenings from "./AddOpeningForm/AddOpenings";
 
 function MasterTable() {
@@ -11,6 +12,7 @@ function MasterTable() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
   const [jobProfiles, setJobProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
 
   useEffect(() => {
     const fetchJobProfiles = async () => {
@@ -39,7 +41,8 @@ function MasterTable() {
 
   const handleEditForm = (profileId) => {
     // console.log("Job Profile ID:", profileId);
-    navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
+    // navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
+    setIsEditFormOpen(true);
   };
 
   const handleDelete = async (profileId) => {
@@ -108,66 +111,87 @@ function MasterTable() {
   const showComponent = (componentName) => {
     setSelectedComponent(componentName);
   };
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
+
+  const handleEditButtonClick = () => {
+    setIsEditOpen(true);
+  };
   return (
-    <div className="master-table ">
-      <p className="table-heading">Current Openings</p>
-      <div className="">
-        <table className="table table-responsive">
-          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
-            <tr>
-              <th scope="col">Category</th>
-              <th scope="col">Detartment</th>
-              <th scope="col">Last Date</th>
-              <th scope="col">isActive</th>
-              <th scope="col">List to Current Opening</th>
-              <th scope="col">List to Interview Schedule</th>
-              <th scope="col">edit</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {MasterData.map((data, index) => (
-              <tr key={index}>
-                <td>{data.category}</td>
-                <td>{data.department}</td>
-                <td>{formatDateForInput(data.lastDate)}</td>
-                <td>{data.isActive}</td>
-                <td>{data.listToCurrentOpening}</td>
-                <td>{data.listToInterviewSchedule}</td>
-                <td>
-                  <button
-                    type="button"
-                    id="edit-btn"
-                    onClick={() => handleEditForm(data.id)}
-                  >
-                    <a>EDIT</a>
-                  </button>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    id="del-btn"
-                    onClick={() => handleDelete(data.id)}
-                  >
-                    DELETE
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="pagination">
-          <Stack spacing={2}>
-            <Pagination
-              count={Math.ceil(MasterTable.length / rowsPerPage)}
-              page={page}
-              onChange={handleChangePage}
-              shape="rounded"
-            />
-          </Stack>
+    <>
+      {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
         </div>
-      </div>
-    </div>
+      )}
+
+      {!isEditFormOpen && (
+        <div className="master-table ">
+          <p className="table-heading">Current Openings</p>
+          <div className="">
+            <table className="table table-responsive">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+                <tr>
+                  <th scope="col">Category</th>
+                  <th scope="col">Department</th>
+                  <th scope="col">Last Date</th>
+                  <th scope="col">isActive</th>
+                  <th scope="col">List to Current Opening</th>
+                  <th scope="col">List to Interview Schedule</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {MasterData.map((data, index) => (
+                  <tr key={index}>
+                    <td>{data.category}</td>
+                    <td>{data.department}</td>
+                    <td>{formatDateForInput(data.lastDate)}</td>
+                    <td>{data.isActive}</td>
+                    <td>{data.listToCurrentOpening}</td>
+                    <td>{data.listToInterviewSchedule}</td>
+                    <td>
+                      <button
+                        type="button"
+                        id="edit-btn"
+                        onClick={() => handleEditForm(data.id)}
+                      >
+                        <a>EDIT</a>
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        id="del-btn"
+                        onClick={() => handleDelete(data.id)}
+                      >
+                        DELETE
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="pagination">
+              <Stack spacing={2}>
+                <Pagination
+                  count={Math.ceil(MasterTable.length / rowsPerPage)}
+                  page={page}
+                  onChange={handleChangePage}
+                  shape="rounded"
+                />
+              </Stack>
+            </div>
+          </div>
+        </div>
+      )}
+      {isEditFormOpen && (
+        <div className="edit-form-container">
+          <EditOpenings />
+        </div>
+      )}
+    </>
   );
 }
 
