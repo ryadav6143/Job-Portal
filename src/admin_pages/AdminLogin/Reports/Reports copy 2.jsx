@@ -10,7 +10,7 @@ function Reports() {
   const [selectedPost, setSelectedPost] = useState('');
   const [selectedSubpost, setSelectedSubpost] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  // const itemsPerPage = 3;
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([]);
   const [posts, setPosts] = useState([]);
@@ -19,15 +19,29 @@ function Reports() {
   const [pdfUrl, setPdfUrl] = useState("");
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [jobCategories, setJobCategories] = useState([]);
+  const [post, setPost] = useState([]);
+  const [subPost, setSubPost] = useState([]);
+  const [formValues, setFormValues] = useState({});
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [updateField, setUpdateField] = useState({});
   useEffect(() => {
     fetchData();
-  }, [currentPage, selectedCategory, selectedPost, selectedSubpost]); 
+  }, [currentPage, selectedCategory, selectedPost, selectedSubpost, itemsPerPage]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://192.168.1.8:8090/v1/api/candidateAppliedPost/getCandidatesAppliedPostPaginated?page=${currentPage}&limit=${itemsPerPage}`);
-      setData(response.data); 
+      let accessToken = localStorage.getItem("Token");
+      accessToken = JSON.parse(accessToken);
+      const response = await axios.get(`http://192.168.1.8:8090/v1/api/candidateAppliedPost/getCandidatesAppliedPostSorted?page=${currentPage}&limit=${itemsPerPage}&category=${selectedCategory}&appliedPost=${selectedPost}`,
+        {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        }
+
+      );
+      setData(response.data);
       const uniqueCategories = [...new Set(response.data.map(candidate => candidate.job_category_master?.category_name))];
       setCategories(uniqueCategories);
       setPosts(response.data.map(candidate => candidate.applied_post_master?.post_name));
@@ -37,6 +51,22 @@ function Reports() {
       setLoading(false);
     }
   };
+
+
+  useEffect(() => {
+    const fetchJobCategories = async () => {
+      try {
+        const response = await adminApiService.getJobCategories();
+        setJobCategories(response.data);
+        console.log("response.data", response.data)
+      } catch (error) {
+        console.error("Error fetching job categories:", error);
+      }
+    };
+
+    fetchJobCategories();
+  }, []);
+
 
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
@@ -74,8 +104,69 @@ function Reports() {
   };
 
   const handleCandidateInfoClick = (candidate) => {
-    setSelectedCandidate(candidate);
+    console.log("Selected Candidate Data:", candidate);
+    setSelectedCandidate(candidate.id);
   };
+
+  const handleCategory = (fieldName, value) => {
+    const selectedCategoryData = jobCategories.find(
+      (category) => category.category_name === value
+    );
+    setSelectedCategory(value);
+    setUpdateField((prevValues) => ({
+      ...prevValues, [fieldName]: value.toString(),
+      job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",
+    }));
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [fieldName]: value,
+      job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",
+    }));
+    const selectedPostData =
+      selectedCategoryData &&
+      selectedCategoryData.applied_post_masters.map((post) => post.post_name);
+    setPost(selectedPostData || []);
+    setSelectedPost("");
+    setSubPost([]);
+  };
+
+  const handlePost = (fieldName, value) => {
+    if (selectedCategory === "") {
+      alert("Please select a category first");
+      return;
+    }
+
+    const selectedPostObject = jobCategories
+      .find((category) => category.category_name === selectedCategory)
+      .applied_post_masters.find((post) => post.post_name === value);
+    const selectedSubPostData = selectedPostObject && selectedPostObject.applied_subpost_masters.map((subpost) => subpost.subpost_name);
+    setSelectedPost(value);
+    setUpdateField((prevValues) => ({
+      ...prevValues, [fieldName]: value.toString(),
+      applied_post_masters_id: selectedPostObject ? selectedPostObject.id : "",
+    }));
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [fieldName]: value,
+      applied_post_masters_id: selectedPostObject ? selectedPostObject.id : "",
+    }));
+    setSubPost(selectedSubPostData || []);
+  };
+
+
+  const fetchCandidateDetails = async (candidateId) => {
+    try {
+      let accessToken = localStorage.getItem("Token");
+      accessToken = JSON.parse(accessToken);
+      const response = await adminApiService.getCandidatesById(accessToken.token, candidateId);
+      console.log("getCandidatesById>>", response.data)
+      setSelectedCandidate(response.data);
+    } catch (error) {
+      console.error("Error fetching candidate details:", error);
+    }
+  };
+
+
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
@@ -87,16 +178,23 @@ function Reports() {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
-
+  const isNextPageAvailable = data.length === itemsPerPage;
   const nextPage = () => {
-    setCurrentPage(currentPage + 1);
+    if (isNextPageAvailable) {
+      setCurrentPage(currentPage + 1);
+    }
   };
-  
+
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
+  useEffect(() => {
+    console.log("Selected Candidate:", selectedCandidate);
+  }, [selectedCandidate]);
+
+
 
   return (
     <>
@@ -109,22 +207,49 @@ function Reports() {
         <div className="row mb-3">
           <div className="col-md-4">
             <label>Select Category:</label>
-            <select className="form-control" value={selectedCategory} onChange={handleCategoryChange}>
+            <select
+              name="category_name"
+              id="categoryDropdown"
+              value={selectedCategory}
+              className="form-control"
+              // onChange={handleCategory}
+              onChange={(e) =>
+                handleCategory("category_name", e.target.value)
+              }
+
+            >
               <option value="">All</option>
-              {categories.map((category, index) => (
-                <option key={index} value={category}>{category}</option>
+              {jobCategories.map((category) => (
+                <option key={category.category_name} value={category.category_name}>
+                  {category.category_name}
+                </option>
               ))}
             </select>
           </div>
           <div className="col-md-4">
             <label>Select Post:</label>
-            <select className="form-control" value={selectedPost} onChange={handlePostChange}>
+            <select id="dropdown"
+              name="post_name"
+              className="form-control"
+              onClick={() => {
+                if (selectedCategory === "") {
+                  alert("Please select a category first");
+                }
+              }}
+              onChange={(e) =>
+                handlePost("post_name", e.target.value)
+              }
+
+            >
               <option value="">All</option>
-              {posts.map((post, index) => (
-                <option key={index} value={post}>{post}</option>
+              {post.map((post) => (
+                <option key={post} value={post}>
+                  {post}
+                </option>
               ))}
             </select>
           </div>
+         
         </div>
 
         <table className="table">
@@ -153,7 +278,15 @@ function Reports() {
             ))}
           </tbody>
         </table>
-
+        <div className="col-md-4">
+            <label>Row:</label>
+            <input
+              type="number"
+              className="row-input"
+              value={itemsPerPage}
+              onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+            />
+          </div>
         <Modal show={showPdfModal} onHide={() => setShowPdfModal(false)} size="lg">
           <Modal.Header closeButton>
             <Modal.Title>Resume</Modal.Title>
