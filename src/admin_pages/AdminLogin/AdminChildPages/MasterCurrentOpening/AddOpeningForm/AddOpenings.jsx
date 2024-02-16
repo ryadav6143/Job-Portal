@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AddOpenings.css";
 import adminApiService from "../../../../adminApiService";
-function AddOpenings() {
+import close from "../../../../../assets/logos/close.png"
+function AddOpenings({ onClose }) {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -37,7 +38,7 @@ function AddOpenings() {
   responsible_contact: "",
   });
 
-
+  
   
   useEffect(() => {
     const fetchJobCategories = async () => {
@@ -190,12 +191,16 @@ function AddOpenings() {
     }
   };
   
+  const handleClose = () => {
+    onClose(); // calling onClose function provided by parent component
+  }; 
 
   return (
     <div>
 
       <div className="new-openings">
-        <p>job_profile_master</p>
+      <img  onClick={handleClose}  className="cls-btn" src={close}/>
+  
         <p className="master-heading">Add New Opening</p>
         <div className="new-openings-form">
           <form onSubmit={handleSubmit} >

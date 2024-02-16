@@ -122,8 +122,8 @@ function AddDepartment() {
   return (
     <>
       <div className="container-1">
-        <div>
-          <button onClick={() => setOpen(true)}>Add Department</button>
+        <div className="new-opening-btn">
+          <button  onClick={() => setOpen(true)}>Add Department</button>
         </div>
         <Modal
           open={open}

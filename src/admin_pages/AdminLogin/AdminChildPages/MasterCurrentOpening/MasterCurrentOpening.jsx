@@ -4,119 +4,137 @@ import "./MasterCurrentOpening.css";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import adminApiService from "../../../adminApiService";
+import AddOpenings from "./AddOpeningForm/AddOpenings";
+import MasterTable from "./MasterCurrentOpeningChild/MasterTable";
 
 function MasterCurrentOpening() {
-  const navigate = useNavigate();
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
-  const [jobProfiles, setJobProfiles] = useState([]);
+  // const navigate = useNavigate();
+  // const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
+  // const [jobProfiles, setJobProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   const fetchJobProfiles = async () => {
+  //     try {
+  //       const response = await adminApiService.getJobProfile();
+  //       // console.log("response get", response.data);
+  //       setJobProfiles(response.data);
 
-  useEffect(() => {
-    const fetchJobProfiles = async () => {
-      try {
-        const response = await adminApiService.getJobProfile();
-        console.log("response get", response.data);
-        setJobProfiles(response.data);
-   
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching job profiles:', error);
-        setLoading(false);
-      }
-    };
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching job profiles:", error);
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchJobProfiles();
-  }, []);
+  //   fetchJobProfiles();
+  // }, []);
 
-  const handleNavigation = () => {
-    if (isAdminLoggedIn) {
-      navigate("/add-openings");
-    } else {
-      alert("Admin not logged in. Redirect to login.");
-    }
-  };
-
-  const handleEditForm = (profileId) => {
-    // console.log("Job Profile ID:", profileId);
-    navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
-  };
-
-const handleDelete = async (profileId) => {
-  try {
-    const confirmDelete = window.confirm("Are you sure you want to delete this job profile?");
-    if (confirmDelete) {
-      await adminApiService.deleteJobProfileById(profileId);
-      // Remove the deleted profile from the state
-      setJobProfiles(jobProfiles.filter(profile => profile.id !== profileId));
-      alert("Job profile deleted successfully");
-    }
-  } catch (error) {
-    console.error("Error deleting job profile:", error);
-    alert("Failed to delete job profile. Please try again later.");
-  }
-};
-
-
-  //-----------------------------------Adding Table-------------------------------
-  const [page, setPage] = useState(1);
-  const rowsPerPage = 10;
-
-  const MasterTable = jobProfiles.map((profile) => ({
-    id: profile.id,
-    category: profile.job_category_master?.category_name || "N/A",
-    department: profile.department_master?.dept_name || "N/A",
-    applyLink: "/apply-now",
-    lastDate: profile.last_date_to_apply || "N/A",
-    isActive: profile.is_active ? "Yes" : "No",
-    listToCurrentOpening: profile.publish_to_vacancy ? "Yes" : "No",
-    listToInterviewSchedule: profile.publish_to_schedule_interview
-      ? "Yes"
-      : "No",
-  }));
-  // console.log("MasterTable:", MasterTable);
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-  const startIndex = (page - 1) * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
-  // Debugging line to check MasterTable array
-
-  const MasterData = MasterTable.slice(startIndex, endIndex);
-
-  const [masterTable, setMasterTable] = useState([...MasterTable]);
-  // const handleDelete = (index) => {
-  //   const updatedMasterTable = [...masterTable];
-  //   updatedMasterTable.splice((page - 1) * rowsPerPage + index, 1);
-  //   setMasterTable(updatedMasterTable);
+  // const handleNavigation = () => {
+  //   if (isAdminLoggedIn) {
+  //     navigate("/add-openings");
+  //   } else {
+  //     alert("Admin not logged in. Redirect to login.");
+  //   }
   // };
 
-  const formatDateForInput = (dateString) => {
-    const dateObject = new Date(dateString);
-    if (isNaN(dateObject.getTime())) {
-      return "";
-    }
-    const day = dateObject.getDate().toString().padStart(2, "0");
-    const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
-    const year = dateObject.getFullYear();
-    return `${day}-${month}-${year}`;
+  // const handleEditForm = (profileId) => {
+  //   // console.log("Job Profile ID:", profileId);
+  //   navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
+  // };
+
+  // const handleDelete = async (profileId) => {
+  //   try {
+  //     const confirmDelete = window.confirm(
+  //       "Are you sure you want to delete this job profile?"
+  //     );
+  //     if (confirmDelete) {
+  //       await adminApiService.deleteJobProfileById(profileId);
+  //       // Remove the deleted profile from the state
+  //       setJobProfiles(
+  //         jobProfiles.filter((profile) => profile.id !== profileId)
+  //       );
+  //       alert("Job profile deleted successfully");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error deleting job profile:", error);
+  //     alert("Failed to delete job profile. Please try again later.");
+  //   }
+  // };
+
+  // //-----------------------------------Adding Table-------------------------------
+  // const [page, setPage] = useState(1);
+  // const rowsPerPage = 10;
+
+  // const MasterTable = jobProfiles.map((profile) => ({
+  //   id: profile.id,
+  //   category: profile.job_category_master?.category_name || "N/A",
+  //   department: profile.department_master?.dept_name || "N/A",
+  //   applyLink: "/apply-now",
+  //   lastDate: profile.last_date_to_apply || "N/A",
+  //   isActive: profile.is_active ? "Yes" : "No",
+  //   listToCurrentOpening: profile.publish_to_vacancy ? "Yes" : "No",
+  //   listToInterviewSchedule: profile.publish_to_schedule_interview
+  //     ? "Yes"
+  //     : "No",
+  // }));
+  // // console.log("MasterTable:", MasterTable);
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
+  // const startIndex = (page - 1) * rowsPerPage;
+  // const endIndex = startIndex + rowsPerPage;
+  // // Debugging line to check MasterTable array
+
+  // const MasterData = MasterTable.slice(startIndex, endIndex);
+
+  // const [masterTable, setMasterTable] = useState([...MasterTable]);
+  // // const handleDelete = (index) => {
+  // //   const updatedMasterTable = [...masterTable];
+  // //   updatedMasterTable.splice((page - 1) * rowsPerPage + index, 1);
+  // //   setMasterTable(updatedMasterTable);
+  // // };
+
+  // const formatDateForInput = (dateString) => {
+  //   const dateObject = new Date(dateString);
+  //   if (isNaN(dateObject.getTime())) {
+  //     return "";
+  //   }
+  //   const day = dateObject.getDate().toString().padStart(2, "0");
+  //   const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
+  //   const year = dateObject.getFullYear();
+  //   return `${day}-${month}-${year}`;
+  // };
+  const [selectedComponent, setSelectedComponent] = useState();
+  const showComponent = (componentName) => {
+    setSelectedComponent(componentName);
   };
+  let componentToShow;
+  switch (selectedComponent) {
+    case "Component1":
+      componentToShow = <AddOpenings />;
+      break;
+    default:
+      componentToShow = <MasterTable />;
+      // componentToShow = <AddOpenings />;
+  }
   return (
     <>
-        {loading && (
-      <div className="loader-container">
-        <div className="loader"></div>
-      </div>
-    )} 
-      <div className="center-container">
-        <div className="new-opening-btn">
-          <button>
-            <a onClick={handleNavigation}>Add New Openings</a>
-          </button>
+      {/* {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
         </div>
+      )} */}
 
-        <div className="master-table ">
-          <p className="table-heading">Admin-Table</p>
+      <div className="new-opening-btn">
+        <button>
+          <a onClick={() => showComponent("Component1")}>Add New Openings</a>
+        </button>
+      </div>
+      <div className="center-container">
+        {componentToShow}
+        {/* <div className="master-table ">
+          <p className="table-heading">Current Openings</p>
           <div className="">
             <table className="table table-responsive">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
@@ -150,7 +168,11 @@ const handleDelete = async (profileId) => {
                       </button>
                     </td>
                     <td>
-                      <button type="button" id="del-btn" onClick={() => handleDelete(data.id)}>
+                      <button
+                        type="button"
+                        id="del-btn"
+                        onClick={() => handleDelete(data.id)}
+                      >
                         DELETE
                       </button>
                     </td>
@@ -169,7 +191,7 @@ const handleDelete = async (profileId) => {
               </Stack>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

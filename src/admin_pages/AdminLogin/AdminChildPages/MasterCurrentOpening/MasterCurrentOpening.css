@@ -101,7 +101,7 @@ input:checked + .slider:before {
 }
 .new-opening-btn {
   position: absolute;
-  right: 0;
+  right: 30px;
   margin: 1%;
   button {
     font-family: "Open Sans", sans-serif;

@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Main, Route, Routes } from "react-router-dom";
 import Home from "./admin_pages/Home/Home";
 import CurrentOpening from "./admin_pages/CurrentOpening/CurrentOpening";

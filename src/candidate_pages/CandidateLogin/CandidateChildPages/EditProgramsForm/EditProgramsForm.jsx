@@ -654,7 +654,7 @@ function EditProgramsForm() {
                     </div>
                     <div className="col-md-12">
                       {/* Membership of University/Institute/Industry Bodies*/}
-                      <div className="UD-form-section">
+                      <div style={{ marginTop: "30px" }}>
                         <label className="UD-SetLabel-Name">
                           <span></span>Membership of
                           University/Institute/Industry Bodies/Professional
@@ -686,7 +686,7 @@ function EditProgramsForm() {
                     <p className="HS-heading">Attended</p>
                   </div>
 
-                  <div className="row" style={{ marginTop: "0px" }}>
+                  <div className="row" style={{ marginTop: "4px" }}>
                     <div className="col-md-4">
                       {/* Date From*/}
                       <div className="UD-form-section">

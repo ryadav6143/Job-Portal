@@ -180,49 +180,7 @@ function Reports() {
           </tbody>
         </table>
 
-        <Modal show={showPdfModal} onHide={() => setShowPdfModal(false)} size="lg">
-          <Modal.Header closeButton>
-            <Modal.Title>Resume</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {pdfUrl && <iframe src={pdfUrl} className="pdf-iframe"></iframe>}
-          </Modal.Body>
-        </Modal>
 
-        <Modal show={selectedCandidate !== null} onHide={() => setSelectedCandidate(null)} dialogClassName="modal-lg">
-          <Modal.Header closeButton>
-            <Modal.Title>Candidate Information</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {selectedCandidate && (
-              <div>
-                <div>
-                  <h5>Personal Information</h5>
-                  <p><strong>First Name:</strong> {selectedCandidate.candidate.first_name}</p>
-                  <p><strong>Email:</strong> {selectedCandidate.candidate.email}</p>
-                  <p><strong>Contact:</strong> {selectedCandidate.candidate.contact_1}</p>
-                  <p><strong>city:</strong> {selectedCandidate.candidate.city}</p>
-                </div>
-                <div className="lower-box">
-                  <div className="education-section">
-                    <h5 className="section-heading">Education</h5>
-                    {selectedCandidate.candidate.candidate_educations && selectedCandidate.candidate.candidate_educations.map((education, index) => (
-                      <p key={index}><strong></strong> {education.exam_types_master.exam_name || "NULL"}-({education.degree_types_name || "NULL"})  </p>
-                    ))}
-                  </div>
-                  <div className="experience-section">
-                    <h5 className="section-heading">Experience</h5>
-                    {selectedCandidate.candidate.candidate_experiences && selectedCandidate.candidate.candidate_experiences.map((experience, index) => (
-                      <><p key={index}><strong>Company name:</strong> {experience.company_experience_name || "NULL"}&nbsp;&nbsp;&nbsp;&nbsp;<strong>Designation:</strong> {experience.designation || "NULL"}</p>
-                        <p key={index}><strong>From:</strong>-({formatDateForInput(experience.exp_work_from) || "NULL"})&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<strong>To:</strong>({formatDateForInput(experience.exp_work_to) || "NULL"})  </p>
-                      </>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-          </Modal.Body>
-        </Modal>
 
         <Pagination>
           <Pagination.Prev onClick={prevPage} />

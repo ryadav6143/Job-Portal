@@ -65,3 +65,8 @@
 #master-sub-headings {
   font-weight: 600;
 }
+
+.cls-btn{
+  width: 20px;
+  float: right;
+}

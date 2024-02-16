@@ -259,8 +259,8 @@ function AdminList() {
             ))}
           </tbody>
         </table>
-      </div>
-      <Pagination>
+
+        <Pagination>
           <Pagination.Prev onClick={prevPage} />
           {Array.from({
             length: Math.ceil(admins.length / itemsPerPage),
@@ -277,6 +277,8 @@ function AdminList() {
           ))}
           <Pagination.Next onClick={nextPage} />
         </Pagination>
+      </div>
+    
     </>
   );
 }
