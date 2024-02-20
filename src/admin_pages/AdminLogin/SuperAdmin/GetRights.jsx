@@ -340,7 +340,7 @@ function GetRights() {
                   ))}
                 </select>
                 <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                <button id="set-btn" className="submit-btn" type="submit">
+                <button id="add-new-btn" className="submit-btn" type="submit">
                   ADD NOW
                 </button>
               </form>

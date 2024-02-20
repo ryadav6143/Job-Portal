@@ -210,8 +210,8 @@ function AdminList() {
             ))}
           </select>
 
-          <button id="set-btn" onClick={handleSubmit}>
-            update NOW
+          <button id="update-new-btn" onClick={handleSubmit}>
+            UPDATE NOW
           </button>
         </form>
       </div>
