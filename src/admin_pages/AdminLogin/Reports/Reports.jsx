@@ -3,7 +3,7 @@ import { Pagination } from "react-bootstrap";
 import { Modal, Button } from "react-bootstrap";
 import adminApiService from "../../adminApiService";
 import "./Reports.css";
-import axios from "axios";
+
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 function Reports() {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -26,25 +26,38 @@ function Reports() {
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [updateField, setUpdateField] = useState({});
   useEffect(() => {
-    fetchData();
+    fetchDataFromService();
   }, [currentPage, selectedCategory, selectedPost, selectedSubpost, itemsPerPage]);
 
-  const fetchData = async () => {
-    try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      const response = await axios.get(`http://192.168.1.8:8090/v1/api/candidateAppliedPost/getCandidatesAppliedPostSorted?page=${currentPage}&limit=${itemsPerPage}&category=${selectedCategory}&appliedPost=${selectedPost}`,
-        {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        }
+  // const fetchData = async () => {
+  //   try {
+  //     let accessToken = localStorage.getItem("Token");
+  //     accessToken = JSON.parse(accessToken);
+  //     const response = await axios.get(`http://192.168.1.8:8090/v1/api/candidateAppliedPost/getCandidatesAppliedPostSorted?page=${currentPage}&limit=${itemsPerPage}&category=${selectedCategory}&appliedPost=${selectedPost}`,
+  //       {
+  //         headers: {
+  //           'access-token': accessToken.token,
+  //         },
+  //       }
 
-      );
-      setData(response.data);
-      const uniqueCategories = [...new Set(response.data.map(candidate => candidate.job_category_master?.category_name))];
+  //     );
+  //     setData(response.data);
+  //     const uniqueCategories = [...new Set(response.data.map(candidate => candidate.job_category_master?.category_name))];
+  //     setCategories(uniqueCategories);
+  //     setPosts(response.data.map(candidate => candidate.applied_post_master?.post_name));
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     setLoading(false);
+  //   }
+  // };
+  const fetchDataFromService = async () => {
+    try {
+      const data = await adminApiService.fetchData(currentPage, itemsPerPage, selectedCategory, selectedPost);
+      setData(data);
+      const uniqueCategories = [...new Set(data.map(candidate => candidate.job_category_master?.category_name))];
       setCategories(uniqueCategories);
-      setPosts(response.data.map(candidate => candidate.applied_post_master?.post_name));
+      setPosts(data.map(candidate => candidate.applied_post_master?.post_name));
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
