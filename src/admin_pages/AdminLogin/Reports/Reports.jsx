@@ -27,6 +27,7 @@ function Reports() {
   const [updateField, setUpdateField] = useState({});
   useEffect(() => {
     fetchDataFromService();
+    
   }, [currentPage, selectedCategory, selectedPost, selectedSubpost, itemsPerPage]);
 
   // const fetchData = async () => {
@@ -294,55 +295,18 @@ function Reports() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((candidate) => (
-                  <tr key={candidate.id}>
-                    <td
-                      onClick={() => handleCandidateInfoClick(candidate)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {candidate.candidate.first_name || "-"}
-                    </td>
-                    <td
-                      onClick={() => handleCandidateInfoClick(candidate)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {candidate.candidate.email || "-"}
-                    </td>
-                    <td
-                      onClick={() => handleCandidateInfoClick(candidate)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {candidate.candidate.contact_1 || "-"}
-                    </td>
-                    <td
-                      onClick={() => handleCandidateInfoClick(candidate)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {candidate.applied_post_master?.post_name || "-"}
-                    </td>
-                    <td
-                      onClick={() => handleCandidateInfoClick(candidate)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {candidate.job_category_master?.category_name || "-"}
-                    </td>
-                    <td
-                      onClick={() => handleCandidateInfoClick(candidate)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {candidate.candidate.specialization || "-"}
-                    </td>
-                    <td>
-                      <Button
-                        variant="primary"
-                        onClick={() => handleResumeClick(candidate.id)}
-                      >
-                        View Resume
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+            {data.map((candidate) => (
+              <tr key={candidate.id}>
+                <td style={{ cursor: 'pointer' }}>{candidate.candidate.first_name || "-"}</td>
+                <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.candidate.email || "-"}</td>
+                <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.candidate.contact_1 || "-"}</td>
+                <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.applied_post_master?.post_name || "-"}</td>
+                <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.job_category_master?.category_name || "-"}</td>
+                <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.candidate.specialization || "-"}</td>
+                <td><Button variant="primary" onClick={() => handleResumeClick(candidate.id)}>View Resume</Button></td>
+              </tr>
+            ))}
+          </tbody>
             </table>
             <div className="row">
               <div className="col-md-4">
@@ -365,99 +329,56 @@ function Reports() {
               </div>
             </div>
 
-            <Modal
-              show={showPdfModal}
-              onHide={() => setShowPdfModal(false)}
-              size="lg"
-            >
-              <Modal.Header closeButton>
-                <Modal.Title>Resume</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                {pdfUrl && (
-                  <iframe src={pdfUrl} className="pdf-iframe"></iframe>
-                )}
-              </Modal.Body>
-            </Modal>
-
-            <Modal
-              show={selectedCandidate !== null}
-              onHide={() => setSelectedCandidate(null)}
-              dialogClassName="modal-lg"
-            >
-              <Modal.Header closeButton>
-                <Modal.Title>Candidate Information</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                {selectedCandidate && (
-                  <div>
-                    <div>
-                      <h5>Personal Information</h5>
-                      <p>
-                        <strong>First Name:</strong>{" "}
-                        {selectedCandidate.candidate.first_name}
-                      </p>
-                      <p>
-                        <strong>Email:</strong>{" "}
-                        {selectedCandidate.candidate.email}
-                      </p>
-                      <p>
-                        <strong>Contact:</strong>{" "}
-                        {selectedCandidate.candidate.contact_1}
-                      </p>
-                      <p>
-                        <strong>city:</strong>{" "}
-                        {selectedCandidate.candidate.city}
-                      </p>
-                    </div>
-                    <div className="lower-box">
-                      <div className="education-section">
-                        <h5 className="section-heading">Education</h5>
-                        {selectedCandidate.candidate.candidate_educations &&
-                          selectedCandidate.candidate.candidate_educations.map(
-                            (education, index) => (
-                              <p key={index}>
-                                <strong></strong>{" "}
-                                {education.exam_types_master.exam_name ||
-                                  "NULL"}
-                                -({education.degree_types_name || "NULL"}){" "}
-                              </p>
-                            )
-                          )}
-                      </div>
-                      <div className="experience-section">
-                        <h5 className="section-heading">Experience</h5>
-                        {selectedCandidate.candidate.candidate_experiences &&
-                          selectedCandidate.candidate.candidate_experiences.map(
-                            (experience, index) => (
-                              <>
-                                <p key={index}>
-                                  <strong>Company name:</strong>{" "}
-                                  {experience.company_experience_name || "NULL"}
-                                  &nbsp;&nbsp;&nbsp;&nbsp;
-                                  <strong>Designation:</strong>{" "}
-                                  {experience.designation || "NULL"}
-                                </p>
-                                <p key={index}>
-                                  <strong>From:</strong>-(
-                                  {formatDateForInput(
-                                    experience.exp_work_from
-                                  ) || "NULL"}
-                                  )&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                  &nbsp;&nbsp;&nbsp;<strong>To:</strong>(
-                                  {formatDateForInput(experience.exp_work_to) ||
-                                    "NULL"}
-                                  ){" "}
-                                </p>
-                              </>
-                            )
-                          )}
-                      </div>
-                    </div>
+            <Dialog open={selectedCandidate !== null} onClose={() => setSelectedCandidate(null)}>
+  <DialogTitle>Personal Information</DialogTitle>
+  <DialogContent>
+    {selectedCandidate && (
+      <div>
+        <p><strong>First Name:</strong> {selectedCandidate.first_name}</p>
+        <p><strong>Email:</strong> {selectedCandidate.email}</p>
+        <p><strong>Contact:</strong> {selectedCandidate.contact_1}</p>
+        <p><strong>City:</strong> {selectedCandidate.city}</p>
+        
+        <div className="lower-box">
+                  <div className="education-section">
+                    <h5 className="section-heading">Education</h5>
+                    {selectedCandidate.candidate_educations && selectedCandidate.candidate_educations.map((education, index) => (
+                      <p key={index}><strong></strong> {education.exam_types_master.exam_name || "NULL"}-({education.degree_types_name || "NULL"})  </p>
+                    ))}
                   </div>
-                )}
-              </Modal.Body>
-            </Modal>
+          <div className="experience-section">
+            <h5 className="section-heading">Experience</h5>
+            {selectedCandidate.candidate_experiences && selectedCandidate.candidate_experiences.map((experience, index) => (
+              <div key={index}>
+                <p><strong>Company name:</strong> {experience.company_experience_name || "NULL"}</p>
+                <p><strong>Designation:</strong> {experience.designation || "NULL"}</p>
+                <p><strong>From:</strong> ({formatDateForInput(experience.exp_work_from) || "NULL"})</p>
+                <p><strong>To:</strong> ({formatDateForInput(experience.exp_work_to) || "NULL"})</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={() => setSelectedCandidate(null)} color="primary">Close</Button>
+  </DialogActions>
+</Dialog>
+
+
+
+      <Dialog open={showPdfDialog} onClose={handleClosePdfDialog} maxWidth="md">
+          <DialogTitle>Resume</DialogTitle>
+          <DialogContent>
+            <embed src={pdfUrl} type="application/pdf" width="400px" height="500px" />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClosePdfDialog} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
 
             {/* <Pagination>
           <Pagination.Prev onClick={prevPage} />
