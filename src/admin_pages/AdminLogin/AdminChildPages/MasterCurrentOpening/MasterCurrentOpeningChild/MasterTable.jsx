@@ -107,16 +107,9 @@ function MasterTable() {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
-  const [selectedComponent, setSelectedComponent] = useState();
-  const showComponent = (componentName) => {
-    setSelectedComponent(componentName);
-  };
+  
 
-  const [isEditOpen, setIsEditOpen] = useState(false);
 
-  const handleEditButtonClick = () => {
-    setIsEditOpen(true);
-  };
   return (
     <>
       {loading && (

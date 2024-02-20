@@ -136,6 +136,7 @@ function GetRole() {
     setModalData((prev) => ({ ...prev, [fieldName]: value.toString() }));
   
     console.log("Updated selectedAdmin:",updateField);
+    
   };
 
 
@@ -210,7 +211,7 @@ function GetRole() {
                 value={modalData.role_type_name || ""}
                 onChange={(e) => handleFieldChange('role_type_name', e.target.value)}
               />    
-              <button onClick={handleUpdate}>Update</button>
+              <button id="set-btn" onClick={handleUpdate}>UPDATE NOW</button>
             </form>
           </div>
         </div>

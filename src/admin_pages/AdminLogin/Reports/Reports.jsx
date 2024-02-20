@@ -278,11 +278,11 @@ function Reports() {
             ))}
           </tbody>
         </table>
-        <div className="col-md-4">
+        <div className="col-md-4">  
             <label>Row:</label>
             <input
               type="number"
-              className="row-input"
+              
               value={itemsPerPage}
               onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
             />
