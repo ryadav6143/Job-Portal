@@ -609,24 +609,24 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     <span>*</span>Country
                   </label>
                   <select
-              name="country"
-              className="set-dropdown"
-              value={selectedCountry}
-              onChange={handleCountryChange}
-              required
-            >
-              <option key="" value="">
-                Select a country
-              </option>
-              {countries.map((countryData) => (
-                <option
-                  key={countryData.iso2}
-                  value={countryData.country}
-                >
-                  {countryData.country}
-                </option>
-              ))}
-            </select>
+                    name="country"
+                    className="set-dropdown"
+                    value={selectedCountry}
+                    onChange={handleCountryChange}
+
+                  >
+                    <option key="" value="">
+                      Select a country
+                    </option>
+                    {countries.map((countryData) => (
+                      <option
+                        key={countryData.iso2}
+                        value={countryData.country}
+                      >
+                        {countryData.country}
+                      </option>
+                    ))}
+                  </select>
                   {/* <select
                     name="country"
                     className="UD-set-dropdown"
@@ -647,8 +647,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
             </div>
 
             <div className="row">
-              <div className="col-md-4">
-                {/* *State */}
+              {/* <div className="col-md-4">
+       
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
                     <span>*</span>State
@@ -667,7 +667,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.state_province}</span>
-              </div>
+              </div> */}
 
               <div className="col-md-4">
                 {/**Current Job City */}
@@ -676,21 +676,21 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     <span>*</span>Current Job City
                   </label>
                   <select
-              name="city"
-              className="set-dropdown"
-              value={selectedCity}
-              onChange={handleCityChange}
-              required
-            >
-              <option key="" value="">
-                Select a city
-              </option>
-              {(countries.find((country) => country.country === selectedCountry)?.cities || []).map((city) => (
-                <option key={city} value={city}>
-                  {city}
-                </option>
-              ))}
-            </select>
+                    name="city"
+                    className="set-dropdown"
+                    value={selectedCity}
+                    onChange={handleCityChange}
+
+                  >
+                    <option key="" value="">
+                      Select a city
+                    </option>
+                    {(countries.find((country) => country.country === selectedCountry)?.cities || []).map((city) => (
+                      <option key={city} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                  </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.city}</span>

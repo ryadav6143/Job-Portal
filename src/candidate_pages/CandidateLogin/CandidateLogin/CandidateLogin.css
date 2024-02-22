@@ -1,4 +1,4 @@
-.close-btn{
+.close-btn {
     width: 20px;
     float: right;
     position: absolute;
@@ -8,7 +8,7 @@
 
 }
 
-.forgot-pass{
+.forgot-pass {
     text-decoration: none;
     color: grey;
     font-family: "Open Sans", sans-serif;

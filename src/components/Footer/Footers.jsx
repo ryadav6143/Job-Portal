@@ -60,7 +60,7 @@ function Footers() {
           <p>Designed and Developed By Corusview </p>
         </div>
         <div>
-          <p>Privacy Policy | Terms of uses</p>
+          <p>Privacy Policy | Terms of Use</p>
         </div>
       </div>
     </>

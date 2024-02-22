@@ -507,9 +507,7 @@ function ApplyNow() {
         if (!religion) {
           errors.religion = "! Relegion is Required";
         }
-        if (!city) {
-          errors.city = "! City is Required";
-        }
+   
         if (!cast_category_name) {
           errors.cast_category_name = "! Cast Category is Required";
         }
@@ -520,9 +518,13 @@ function ApplyNow() {
           errors.address_1 = "! Address is Required";
         }
 
-        if (!country) {
-          errors.country = "! Country is Required";
-        }
+        // if (!country) {
+        //   errors.country = "! Country is required.";
+        // }
+
+        // if (!city) {
+        //   errors.city = "! City is required.";
+        // }
         if (!state_province) {
           errors.state_province = "! State is Required";
         }

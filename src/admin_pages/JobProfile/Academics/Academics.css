@@ -1,15 +1,21 @@
 .apply-for-dean {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-top: 50px;
   /* justify-content: space-between; */
+  -ms-flex-pack: distribute;
   justify-content: space-around;
 }
+
 .apply-for-dean p {
   font-size: 50px;
   font-family: "Open Sans", sans-serif;
   font-weight: 700;
 }
+
 .apply-for-dean button {
   border: none;
   padding: 10px;
@@ -18,36 +24,45 @@
   margin-top: 20px;
   font-family: "Open Sans", sans-serif;
   font-weight: bold;
-  a{
-    color:  black;
+
+  a {
+    color: black;
     text-decoration: none;
   }
 }
+
 .courses {
   margin-left: 10.3%;
   margin-right: 10.3%;
   font-family: "Open Sans", sans-serif;
   color: rgba(0, 0, 0, 0.759);
 }
+
 .my-table {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin-left: 10.3%;
   margin-right: 10.3%;
 }
+
 .table thead th,
 .table tbody td {
   color: rgba(0, 0, 0, 0.73);
 }
+
 .table tr {
   padding-left: 20px;
   padding-right: 20px;
 }
+
 /* ......................................... */
 details {
   font-size: 16px;
   padding-bottom: 1%;
   font-family: "Open Sans", sans-serif;
 }
+
 #my-dropdown {
   border-radius: 10px;
   background-color: #ececec;
@@ -56,6 +71,7 @@ details {
   padding-right: 10px;
   padding-left: 1px;
 }
+
 #my-dropdown::marker {
   display: none !important;
   color: #ececec;
@@ -71,32 +87,38 @@ details {
   padding: 2px;
   margin: 2px;
 }
+
 details[open] #my-dropdown::before {
   content: "▼";
   rotate: 180deg;
   margin-right: -15px;
 }
 
-details[open] > summary {
+details[open]>summary {
   background-color: white;
 }
+
 .table-dropdown {
   margin-left: 10.3%;
   margin-right: 10.3%;
 }
+
 .drp-table {
   margin-top: -10px;
 }
+
 /* ......................................... */
 @media only screen and (max-width: 767px) {
   .my-table {
     margin-left: 5%;
     margin-right: 5%;
   }
+
   .table-dropdown {
     margin-left: 5%;
     margin-right: 5%;
   }
+
   #my-dropdown {
     text-align: center;
   }
