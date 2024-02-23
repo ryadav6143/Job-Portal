@@ -17,7 +17,6 @@ import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
 import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
 import { CANDIDATE_BASE_URL } from "../../../config/config";
-// import { useState } from "react";
 import apiService from "../../../Services/ApiServices";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
@@ -334,6 +333,7 @@ function ApplyNow() {
   //   //else {}
   // };
 
+  //final
   const handleNext = async () => {
     console.log("Form formValues:", formValues);
     let newSkipped = skipped;
@@ -346,10 +346,11 @@ function ApplyNow() {
     setSkipped(newSkipped);
 
     const isCurrentStepValid = inputValidations();
-    console.log("isCurrentStepValid>>>>",isCurrentStepValid)
+    console.log("isCurrentStepValid", isCurrentStepValid);
     if (isCurrentStepValid) {
+      // setActiveStep((prevActiveStep) => prevActiveStep + 1);
       const emailToCheck = formValues.UserDetails.email.trim();
-      const contactToCheck = formValues.UserDetails.contact_1.trim();
+      const contactToCheck = formValues.UserDetails.contact_1.trim().toString();
       try {
         const responseEmail = await fetch(
           `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${emailToCheck}`,
@@ -371,18 +372,20 @@ function ApplyNow() {
             },
           }
         );
-
+        console.log("response", responseEmail.ok, responseContact.ok);
         if (!responseEmail.ok) {
+          console.log("response", responseEmail.ok, responseContact.ok);
           throw new Error(`HTTP error! Status: ${responseEmail.status}`);
         }
 
         if (!responseContact.ok) {
+          console.log("response", responseEmail.ok, responseContact.ok);
           throw new Error(`HTTP error! Status: ${responseContact.status}`);
         }
 
         const dataEmail = await responseEmail.json();
         const dataContact = await responseContact.json();
-
+        console.log("dataEmail", dataEmail, dataContact);
         if (dataEmail) {
           alert("This email is already registered.");
           // setErrors({ email: "This email is already registered." });
@@ -508,7 +511,7 @@ function ApplyNow() {
         if (!religion) {
           errors.religion = "! Relegion is Required";
         }
-   
+
         if (!cast_category_name) {
           errors.cast_category_name = "! Cast Category is Required";
         }
@@ -526,9 +529,9 @@ function ApplyNow() {
         if (!city) {
           errors.city = "! City is required.";
         }
-        if (!state_province) {
-          errors.state_province = "! State is Required";
-        }
+        // if (!state_province) {
+        //   errors.state_province = "! State is Required";
+        // }
         if (!applied_post_masters_id) {
           errors.applied_post_masters_id = "! Post Applied is Required";
         }

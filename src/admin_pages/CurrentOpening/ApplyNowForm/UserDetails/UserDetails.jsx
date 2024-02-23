@@ -16,8 +16,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   // const [countries, setCountries] = useState([]);
   // const [accessToken] = useState('Bearer sL-eX7S-pFFAg1dGBc-26ZSRCkNicfdu50p3ZLtaS4kTtjijpJIpqgs9hg6lWvXsHgg');
 
@@ -73,7 +73,6 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
 
   // });
 
-
   useEffect(() => {
     apiService
       .getCountries()
@@ -88,8 +87,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const handleCountryChange = (event) => {
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
-    setSelectedCity('');
-    console.log('Selected Country:', countryValue);
+    setSelectedCity("");
+    console.log("Selected Country:", countryValue);
     setFormValues((prevValues) => ({
       UserDetails: {
         ...prevValues.UserDetails,
@@ -98,7 +97,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     }));
     setErrors({
       ...errors,
-      country: '',
+      country: "",
     });
   };
 
@@ -107,7 +106,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const handleCityChange = (event) => {
     const cityValue = event.target.value;
     setSelectedCity(cityValue);
-    console.log('Selected city:', cityValue);
+    console.log("Selected city:", cityValue);
     setFormValues((prevValues) => ({
       UserDetails: {
         ...prevValues.UserDetails,
@@ -116,7 +115,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     }));
     setErrors({
       ...errors,
-      city: '',
+      city: "",
     });
   };
 
@@ -348,7 +347,6 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     id=""
                     onChange={handleInputChange}
                     value={formValues.specialization}
-
                   ></input>
                 </div>
                 <span className="error-message">{errors.specialization}</span>
@@ -628,7 +626,6 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     className="set-dropdown"
                     value={selectedCountry}
                     onChange={handleCountryChange}
-
                   >
                     <option key="" value="">
                       Select a country
@@ -685,7 +682,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
               </div> */}
 
               <div className="col-md-4">
-                {/**Current Job City */}
+                {/* *Current Job City */}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
                     <span>*</span>Current Job City
@@ -695,12 +692,15 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     className="set-dropdown"
                     value={selectedCity}
                     onChange={handleCityChange}
-
                   >
                     <option key="" value="">
                       Select a city
                     </option>
-                    {(countries.find((country) => country.country === selectedCountry)?.cities || []).map((city) => (
+                    {(
+                      countries.find(
+                        (country) => country.country === selectedCountry
+                      )?.cities || []
+                    ).map((city) => (
                       <option key={city} value={city}>
                         {city}
                       </option>
