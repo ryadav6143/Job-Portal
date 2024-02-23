@@ -89,21 +89,36 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
     setSelectedCity('');
+    console.log('Selected Country:', countryValue);
+    setFormValues((prevValues) => ({
+      UserDetails: {
+        ...prevValues.UserDetails,
+        country: countryValue,
+      },
+    }));
     setErrors({
       ...errors,
       country: '',
     });
   };
 
+
+
   const handleCityChange = (event) => {
     const cityValue = event.target.value;
     setSelectedCity(cityValue);
+    console.log('Selected city:', cityValue);
+    setFormValues((prevValues) => ({
+      UserDetails: {
+        ...prevValues.UserDetails,
+        city: cityValue,
+      },
+    }));
     setErrors({
       ...errors,
       city: '',
     });
   };
-
 
   useEffect(() => {
     // Fetch data from the API using Axios

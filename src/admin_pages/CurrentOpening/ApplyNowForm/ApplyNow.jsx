@@ -16,7 +16,7 @@ import OTPVerification from "../../DropCV/OTPVerifivation/OTPVerification";
 import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
 import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
-
+import { CANDIDATE_BASE_URL } from "../../../config/config";
 // import { useState } from "react";
 import apiService from "../../../Services/ApiServices";
 const steps = ["", "", "", "", "", ""];
@@ -346,12 +346,13 @@ function ApplyNow() {
     setSkipped(newSkipped);
 
     const isCurrentStepValid = inputValidations();
+    console.log("isCurrentStepValid>>>>",isCurrentStepValid)
     if (isCurrentStepValid) {
       const emailToCheck = formValues.UserDetails.email.trim();
       const contactToCheck = formValues.UserDetails.contact_1.trim();
       try {
         const responseEmail = await fetch(
-          `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${emailToCheck}`,
+          `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${emailToCheck}`,
           {
             method: "GET",
             headers: {
@@ -361,7 +362,7 @@ function ApplyNow() {
           }
         );
         const responseContact = await fetch(
-          `http://192.168.1.8:8090/v1/api/register/isemail_contact_exist?data=${contactToCheck}`,
+          `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${contactToCheck}`,
           {
             method: "GET",
             headers: {
@@ -453,7 +454,7 @@ function ApplyNow() {
         } else if (!/\S+@\S+\.\S+/.test(email)) {
           errors.email = "! Please enter a valid email address.";
         } else {
-          const apiUrl = `http://192.168.1.15:8090/v1/api/register/isemail_contact_exist?data=${encodeURIComponent(
+          const apiUrl = `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${encodeURIComponent(
             email
           )}`;
 
@@ -518,13 +519,13 @@ function ApplyNow() {
           errors.address_1 = "! Address is Required";
         }
 
-        // if (!country) {
-        //   errors.country = "! Country is required.";
-        // }
+        if (!country) {
+          errors.country = "! Country is required.";
+        }
 
-        // if (!city) {
-        //   errors.city = "! City is required.";
-        // }
+        if (!city) {
+          errors.city = "! City is required.";
+        }
         if (!state_province) {
           errors.state_province = "! State is Required";
         }

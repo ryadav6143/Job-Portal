@@ -128,8 +128,10 @@ function Academictable() {
                   <td>{data.department}</td>
                    <td>
                     {!tokenFromLocalStorage && (
-                      <a href={data.applyLink}>APPLY NOW</a>
-                    )}
+                       <button className="apn-btn"> <a href={data.applyLink}>APPLY NOW</a></button>
+                    )}             
+
+
                     {tokenFromLocalStorage && (
                       <button
                         type="button"
