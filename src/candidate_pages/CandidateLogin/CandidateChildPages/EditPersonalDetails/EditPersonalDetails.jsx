@@ -98,6 +98,7 @@ function EditPersonalDetails() {
 
       setUpdateField({});
       fetchCandidateData();
+      window.location.reload();
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }
@@ -176,7 +177,7 @@ function EditPersonalDetails() {
   const handleCountryChange = (event) => {
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
-    setSelectedCity(""); // Reset selected city when country changes
+    setSelectedCity(""); 
     console.log("Selected Country:", countryValue);
     setUpdateField((prev) => ({
       ...prev,
@@ -202,9 +203,6 @@ function EditPersonalDetails() {
       city: "",
     });
   };
-  
-
-
 
   const handleFieldChange = (fieldName, value) => {
     // console.log("handlefild", fieldName, value, updateField);
@@ -247,7 +245,7 @@ function EditPersonalDetails() {
     const year = dateObject.getFullYear();
     return `${year}-${month}-${day}`;
   };
-  // --------------end others fields section----------------
+ 
   useEffect(() => {
     const fetchImage = async () => {
       try {
@@ -274,7 +272,7 @@ function EditPersonalDetails() {
   }, []);
 
  
-  // console.log("loading",loading)
+ 
   return (
     <>
 
