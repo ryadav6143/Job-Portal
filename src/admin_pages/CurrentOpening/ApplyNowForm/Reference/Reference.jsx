@@ -378,7 +378,7 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
             </div>
           </div>
         </div>
-      </form> 
+      </form>
     </>
   );
 }
