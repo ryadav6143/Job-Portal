@@ -281,9 +281,9 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
                     <span>*</span>Post Applied For
-                    <span className="set-others">
+                    {/* <span className="set-others">
                       &nbsp;(If Others, Please Specify)
-                    </span>
+                    </span> */}
                   </label>
                   <select
                     id="postDropdown"
