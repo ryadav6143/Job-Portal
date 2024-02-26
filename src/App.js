@@ -27,6 +27,7 @@ import PageNotFound from "./admin_pages/PageNotFound/PageNotFound";
 import EditOpenings from "./admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings";
 import RegisterAdmin from "./admin_pages/AdminRegister/RegisterAdmin";
 import Sidenav from "./admin_pages/TestPages/Sidenav";
+import Notification from "./Notification/Notification";
 function App() {
   return (
     <>
@@ -78,6 +79,7 @@ function App() {
           <Route path="test" element={<TestPages />}></Route>
           <Route path="admin_register" element={<RegisterAdmin />}></Route>
           <Route path="sidenav" element={<Sidenav />}></Route>
+          <Route path="notification" element={<Notification />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>
         </Routes>
       </Main>
