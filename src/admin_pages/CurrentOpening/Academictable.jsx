@@ -17,7 +17,7 @@ function Academictable() {
     const fetchJobProfiles = async () => {
       try {
         const response = await adminApiService.getJobProfile();
-        console.log("fetch response.data", response.data);
+        // console.log("fetch response.data", response.data);
         setJobProfiles(response.data);
       } catch (error) {
         console.error("Error fetching job profiles:", error);
@@ -28,7 +28,7 @@ function Academictable() {
   }, []);
 
   const handleApply = async (data) => {
-    console.log("Selected Job Profile:", data);
+    // console.log("Selected Job Profile:", data);
     const requestData = {
       applied_post_masters_id: data.applied_post_masters_id,
       job_category_master_id: data.job_category_master_id,
@@ -53,7 +53,7 @@ function Academictable() {
         requestData,
         accessToken
       ); // Use adminApiService
-      console.log("Response:", response);
+      // console.log("Response:", response);
       alert("Post Applied Successfully");
     } catch (error) {
       alert("you already applied");
@@ -78,7 +78,7 @@ function Academictable() {
       applyLink: "/apply-now",
       lastDate: profile.last_date_to_apply || "N/A",
     }));
-  console.log("AcademicTable:", AcademicTable);
+  // console.log("AcademicTable:", AcademicTable);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -120,8 +120,12 @@ function Academictable() {
                   <td>{data.department}</td>
                   <td>
                     {!tokenFromLocalStorage && (
-                      <a href={data.applyLink}>APPLY NOW</a>
+                      <button className="apn-btn">
+                        {" "}
+                        <a href={data.applyLink}>APPLY NOW</a>
+                      </button>
                     )}
+
                     {tokenFromLocalStorage && (
                       <button
                         type="button"

@@ -41,10 +41,8 @@
   margin-top: 2% !important;
 }
 
-.hidden {
-  Box {
-    display: none;
-  }
+.hidden Box {
+  display: none;
 }
 
 @media only screen and (max-width: 767px) {

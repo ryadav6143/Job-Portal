@@ -13,6 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: white !important;
+
 }
 
 code {
@@ -28,8 +29,6 @@ select{
   appearance: none;
   
 }
-
-
 
 ::-webkit-scrollbar {
   width: 5px;

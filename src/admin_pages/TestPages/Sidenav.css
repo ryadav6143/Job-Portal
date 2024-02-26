@@ -1,0 +1,25 @@
+.app {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    transition: width 0.3s ease;
+  }
+  
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  .collapsed .sidebar {
+    width: 0;
+    overflow: hidden;
+  }
+  
+  button {
+    margin-bottom: 10px;
+  }

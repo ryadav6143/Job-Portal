@@ -29,23 +29,23 @@ function EditResearchForm() {
   const [copyrightField, setCopyrightField] = useState({});
   const [updateField, setUpdateField] = useState({});
 
-  const fetchData = async () => {
-    try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      // console.log("accessToken", accessToken.token);
-      setLoading(true);
-      const fetchedData = await candidatesApiService.getCandidateById(
-        accessToken.token
-      );
-      console.log("response", fetchedData);
-      setData(fetchedData);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-      setLoading(false);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     let accessToken = localStorage.getItem("Token");
+  //     accessToken = JSON.parse(accessToken);
+  //     // console.log("accessToken", accessToken.token);
+  //     setLoading(true);
+  //     const fetchedData = await candidatesApiService.getCandidateById(
+  //       accessToken.token
+  //     );
+  //     console.log("response", fetchedData);
+  //     setData(fetchedData);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error.message);
+  //     setLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     console.log("use-state");
@@ -61,6 +61,36 @@ function EditResearchForm() {
     }
   }, [loading]);
 
+    const fetchData = async () => {
+      try {
+        let accessToken = localStorage.getItem('Token');
+        accessToken = JSON.parse(accessToken);
+        // console.log("accessToken", accessToken.token);
+        setLoading(true);
+        const fetchedData = await candidatesApiService.getCandidateResearchWork(accessToken.token);
+        // console.log("response", fetchedData);
+        setData(fetchedData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+        setLoading(false);
+      }
+    };
+
+    useEffect(() => {
+      // console.log("use-state")
+      fetchData();
+    }, []);
+
+    useEffect(() => {
+      const body = document.body;
+      if (loading) {
+        body.style.overflow = 'hidden';
+      } else {
+        body.style.overflow = 'auto';
+      }
+    }, [loading]);
+   
   const handleAddResearches = () => {
     setData((prevData) => ({
       ...prevData,
@@ -330,7 +360,7 @@ const handleRemoveResearches = (index) => {
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"
-          style={{ marginTop: "90px", paddingLeft: "50px" }}
+          style={{ marginTop: "90px", paddingLeft: "50px",   paddingRight: "50px" }}
         >
           <div>
             <div>

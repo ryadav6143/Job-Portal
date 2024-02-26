@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./RegisterAdmin.css";
 import medilogo from "../../assets/logos/medi-logo.png";
 import axios from "axios";
-import { BASE_URL } from "../../config/config";
+// import { BASE_URL } from "../../config/config";
+import { ADMIN_BASE_URL } from "../../config/config";
 
 function RegisterAdmin() {
   const [departments, setDepartments] = useState([]);
@@ -24,7 +25,7 @@ function RegisterAdmin() {
   }, []);
   function getDepartment() {
     axios
-      .get(`${BASE_URL}/departmentMaster`)
+      .get(`${ADMIN_BASE_URL}/departmentMaster`)
       .then((response) => {
         setDepartments(response.data);
       })
@@ -42,41 +43,65 @@ function RegisterAdmin() {
     });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post(
+  //       `${BASE_URL}/admin/registerAdmin`,
+  //       formData
+  //     );
+
+  //       setFormData({
+  //         title_first_name: "",
+  //         first_name: "",
+  //         middle_name: "",
+  //         last_name: "",
+  //         gender: "",
+  //         email: "",
+  //         contact_1: "",
+  //         password: "",
+  //         department_master_id: "",
+  //       });
+  //       alert("Admin registered successfully");
+
+  //   } catch (error) {
+  //     console.error("Error submitting data:", error);
+  //   }
+  // };
+
+  //new
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Make a request to register the admin
       const response = await axios.post(
-        `${BASE_URL}/admin/registerAdmin`,
+        `${ADMIN_BASE_URL}/admin/registerAdmin`,
         formData
       );
 
-      if (response.data.error) {
-        const errorMessage = response.data.error.toLowerCase();
-        if (errorMessage.includes("email")) {
-          alert("Email already registered. Please use a different email.");
-        } else if (errorMessage.includes("contact")) {
-          alert(
-            "Contact number already registered. Please use a different contact number."
-          );
-        } else {
-          alert(response.data.error);
-        }
-      } else {
-        setFormData({
-          title_first_name: "",
-          first_name: "",
-          middle_name: "",
-          last_name: "",
-          gender: "",
-          email: "",
-          contact_1: "",
-          password: "",
-          department_master_id: "",
-        });
-        alert("Admin registered successfully");
-      }
+      setFormData({
+        title_first_name: "",
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        gender: "",
+        email: "",
+        contact_1: "",
+        password: "",
+        department_master_id: "",
+      });
+      alert("Admin registered successfully");
     } catch (error) {
-      console.error("Error submitting data:", error);
+      // Check if the error message is "email or contact already exist"
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.error === "email or contact already exist"
+      ) {
+      } else {
+        console.error("Error submitting data:", error);
+        alert("Email or contact already exists.");
+      }
     }
   };
 
@@ -210,16 +235,6 @@ function RegisterAdmin() {
           </div>
         </form>
       </div>
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowModal(false)}>
-              &times;
-            </span>
-            <p>Form submitted successfully!</p>
-          </div>
-        </div>
-      )}
     </>
   );
 }

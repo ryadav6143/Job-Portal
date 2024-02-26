@@ -7,17 +7,16 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 import candidatesApiService from "../../../candidateService";
 function EditProgramsForm() {
-  const [data, setData] = useState([
-    {
-      candidate_seminar_organiseds: [],
-      candidate_seminar_attends: [],
-      candidate_other_membership_infos: [],
-      awards_won: "",
-      extra_activities: "",
-      any_other_info: "",
-      expected_joining_time: "",
-    },
-  ]);
+  const [data, setData] = useState({
+    candidate_seminar_organiseds: [],
+    candidate_seminar_attends: [],
+    candidate_other_membership_infos: [],
+    awards_won: '',
+    extra_activities: '',
+    any_other_info: '',
+    expected_joining_time: '',
+  });
+  
   const [loading, setLoading] = useState(true);
   const [updateField, setUpdateField] = useState({});
   const [membershipInfoField, setMembershipInfoField] = useState({});
@@ -29,10 +28,8 @@ function EditProgramsForm() {
       accessToken = JSON.parse(accessToken);
       // console.log("accessToken", accessToken.token);
       setLoading(true);
-      const fetchedData = await candidatesApiService.getCandidateById(
-        accessToken.token
-      );
-      console.log("response", fetchedData);
+      const fetchedData = await candidatesApiService.getCandidateSeminarPage(accessToken.token);
+      // console.log("response", fetchedData);
       setData(fetchedData);
       setLoading(false);
     } catch (error) {
@@ -657,7 +654,7 @@ function EditProgramsForm() {
                     </div>
                     <div className="col-md-12">
                       {/* Membership of University/Institute/Industry Bodies*/}
-                      <div className="UD-form-section">
+                      <div style={{ marginTop: "30px" }}>
                         <label className="UD-SetLabel-Name">
                           <span></span>Membership of
                           University/Institute/Industry Bodies/Professional
@@ -689,7 +686,7 @@ function EditProgramsForm() {
                     <p className="HS-heading">Attended</p>
                   </div>
 
-                  <div className="row" style={{ marginTop: "-30px" }}>
+                  <div className="row" style={{ marginTop: "4px" }}>
                     <div className="col-md-4">
                       {/* Date From*/}
                       <div className="UD-form-section">

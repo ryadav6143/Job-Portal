@@ -3,7 +3,8 @@ import "./Master.css";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import axios from "axios";
-import { BASE_URL } from "../../../config/config";
+// import { BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import close from "../../../assets/logos/close.png";
@@ -21,11 +22,11 @@ function AddSubjects() {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [newCategory, setNewCategory] = useState("");
-  
+
   useEffect(() => {
     // Fetch data from the API
     axios
-      .get(`${BASE_URL}/subjectMaster`)
+      .get(`${ADMIN_BASE_URL}/subjectMaster`)
       .then((response) => {
         // Update state with the fetched data
         setSubject(response.data);
@@ -38,7 +39,7 @@ function AddSubjects() {
   const handleAdd = () => {
     // Send a post request to the API to add a new department
     axios
-      .post(`${BASE_URL}/subjectMaster`, {
+      .post(`${ADMIN_BASE_URL}/subjectMaster`, {
         subject_name: newSubject,
         subject_type: newSubjectType,
         description: newSubjectDescription,
@@ -63,7 +64,7 @@ function AddSubjects() {
   };
   const handleSubmitUpdate = () => {
     axios
-      .put(`${BASE_URL}/subjectMaster/${editingSubject.id}`, {
+      .put(`${ADMIN_BASE_URL}/subjectMaster/${editingSubject.id}`, {
         subject_name: newSubject,
         subject_type: newSubjectType,
         description: newSubjectDescription,
@@ -77,7 +78,7 @@ function AddSubjects() {
         setNewSubjectName("");
         setNewSubjectType("");
         setNewSubjectDescription("");
-        setUpdateModalOpen(false); 
+        setUpdateModalOpen(false);
         console.log("Subject updated successfully!");
       })
       .catch((error) => {
@@ -85,11 +86,10 @@ function AddSubjects() {
       });
   };
 
-
   const handleDelete = (id) => {
     // Send a delete request to the API
     axios
-      .delete(`${BASE_URL}/subjectMaster/${id}`)
+      .delete(`${ADMIN_BASE_URL}/subjectMaster/${id}`)
       .then((response) => {
         // Update state after successful deletion
         setSubject(subject.filter((subj) => subj.id !== id));
@@ -99,7 +99,6 @@ function AddSubjects() {
         console.error("Error deleting Subject:", error);
       });
   };
-
 
   const handleSelectPostForUpdate = (categoryId) => {
     setSelectedCategoryId(categoryId);
@@ -113,7 +112,6 @@ function AddSubjects() {
     const category = categories.find((cat) => cat.id === event.target.value);
     setSelectedCategory(category);
   };
-
 
   const handleCloseUpdateModal = () => {
     setUpdateModalOpen(false);
@@ -133,7 +131,6 @@ function AddSubjects() {
     p: 4,
   };
 
-
   const handleCloseModal = () => {
     setOpen(false);
   };
@@ -141,8 +138,8 @@ function AddSubjects() {
   return (
     <>
       <div className="container-1">
-      <div>
-        <button onClick={() => setOpen(true)}>Add Subject</button>
+        <div className="new-opening-btn">
+          <button  onClick={() => setOpen(true)}>Add Subject</button>
         </div>
         <Modal
           open={open}
@@ -151,44 +148,56 @@ function AddSubjects() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-          <form>
-          <img onClick={handleCloseModal} className="Ad-close-btn" src={close} />
-          <label style={{marginTop:"20px"}} className="AC-SetLabel-Name" htmlFor="SubjectName">Add Subject Name</label>
-          <input
-            type="text"
-            id="SubjectName"
-            className="Ac-set-input"
-            placeholder="Add Your Subject Name"
-            value={newSubject}
-            onChange={(e) => setNewSubjectName(e.target.value)}
-          />
-          <label className="AC-SetLabel-Name" htmlFor="SubjectType">Add Subject Type</label>
-          <input
-            type="text"
-            id="SubjectType"
-            className="Ac-set-input"
-            placeholder="Add Subject Type"
-            value={newSubjectType}
-            onChange={(e) => setNewSubjectType(e.target.value)}
-          />
-          <label className="AC-SetLabel-Name" htmlFor="SubjectDescription">Add Subject Description</label>
-          <input
-            type="text"
-            className="Ac-set-input"
-            id="SubjectDescription"
-            placeholder="Add Description"
-            value={newSubjectDescription}
-            onChange={(e) => setNewSubjectDescription(e.target.value)}
-          />
-         
-            <button id="set-btn" type="button" onClick={handleAdd}>
-              ADD
-            </button>
-       
-        </form>
+            <form>
+              <img
+                onClick={handleCloseModal}
+                className="Ad-close-btn"
+                src={close}
+              />
+              <label
+                style={{ marginTop: "20px" }}
+                className="AC-SetLabel-Name"
+                htmlFor="SubjectName"
+              >
+                Add Subject Name
+              </label>
+              <input
+                type="text"
+                id="SubjectName"
+                className="Ac-set-input"
+                placeholder="Add Your Subject Name"
+                value={newSubject}
+                onChange={(e) => setNewSubjectName(e.target.value)}
+              />
+              <label className="AC-SetLabel-Name" htmlFor="SubjectType">
+                Add Subject Type
+              </label>
+              <input
+                type="text"
+                id="SubjectType"
+                className="Ac-set-input"
+                placeholder="Add Subject Type"
+                value={newSubjectType}
+                onChange={(e) => setNewSubjectType(e.target.value)}
+              />
+              <label className="AC-SetLabel-Name" htmlFor="SubjectDescription">
+                Add Subject Description
+              </label>
+              <input
+                type="text"
+                className="Ac-set-input"
+                id="SubjectDescription"
+                placeholder="Add Description"
+                value={newSubjectDescription}
+                onChange={(e) => setNewSubjectDescription(e.target.value)}
+              />
+
+              <button id="set-btn" type="button" onClick={handleAdd}>
+                ADD
+              </button>
+            </form>
           </Box>
         </Modal>
-        
       </div>
 
       <div className="master-table ">
@@ -218,54 +227,73 @@ function AddSubjects() {
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
                     <Modal
-        open={updateModalOpen}
-        onClose={handleCloseUpdateModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-        <form>
-        <img
-             onClick={handleCloseUpdateModal}
-                    className="postapplied-close-btn"
-                    src={close}
-                  />
-          <label className="AC-SetLabel-Name" htmlFor="SubjectName">Add Subject Name</label>
-          <input
-            type="text"
-            id="SubjectName"
-            className="Ac-set-input"
-            placeholder="Add Your Subject Name"
-            value={newSubject}
-            onChange={(e) => setNewSubjectName(e.target.value)}
-          />
-          <label className="AC-SetLabel-Name"  htmlFor="SubjectType">Add Subject Type</label>
-          <input
-            type="text"
-            id="SubjectType"
-            className="Ac-set-input"
-            placeholder="Add Subject Type"
-            value={newSubjectType}
-            onChange={(e) => setNewSubjectType(e.target.value)}
-          />
-          <label className="AC-SetLabel-Name" htmlFor="SubjectDescription">Add Subject Description</label>
-          <input
-            type="text"
-            className="Ac-set-input"
-            id="SubjectDescription"
-            placeholder="Add Description"
-            value={newSubjectDescription}
-            onChange={(e) => setNewSubjectDescription(e.target.value)}
-          />
-        
-            <button id="set-btn" type="button" onClick={handleSubmitUpdate}>
-              UPDATE
-            </button>
-          
-        </form>
-        </Box>
-      </Modal>
+                      open={updateModalOpen}
+                      onClose={handleCloseUpdateModal}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <form>
+                          <img
+                            onClick={handleCloseUpdateModal}
+                            className="postapplied-close-btn"
+                            src={close}
+                          />
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="SubjectName"
+                          >
+                            Add Subject Name
+                          </label>
+                          <input
+                            type="text"
+                            id="SubjectName"
+                            className="Ac-set-input"
+                            placeholder="Add Your Subject Name"
+                            value={newSubject}
+                            onChange={(e) => setNewSubjectName(e.target.value)}
+                          />
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="SubjectType"
+                          >
+                            Add Subject Type
+                          </label>
+                          <input
+                            type="text"
+                            id="SubjectType"
+                            className="Ac-set-input"
+                            placeholder="Add Subject Type"
+                            value={newSubjectType}
+                            onChange={(e) => setNewSubjectType(e.target.value)}
+                          />
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="SubjectDescription"
+                          >
+                            Add Subject Description
+                          </label>
+                          <input
+                            type="text"
+                            className="Ac-set-input"
+                            id="SubjectDescription"
+                            placeholder="Add Description"
+                            value={newSubjectDescription}
+                            onChange={(e) =>
+                              setNewSubjectDescription(e.target.value)
+                            }
+                          />
 
+                          <button
+                            id="set-btn"
+                            type="button"
+                            onClick={handleSubmitUpdate}
+                          >
+                            UPDATE
+                          </button>
+                        </form>
+                      </Box>
+                    </Modal>
                   </td>
                   <td>
                     <button

@@ -16,7 +16,7 @@ import { useContext } from "react";
 // import axios from "axios";
 function EditPersonalDetails() {
   // ---------profile image source---------
-  const {apiData,loading,fetchData }=useApiData()
+  const {apiData,loading,fetchCandidateData }=useApiData()
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   const [errors, setErrors] = useState({});
@@ -24,7 +24,7 @@ function EditPersonalDetails() {
   const [data, setData] = useState(apiData);
   const [updateField, setUpdateField] = useState({});
   // const [loading, setLoading] = useState(true);
-  // const fetchData = async () => {
+  // const fetchCandidateData = async () => {
   //   try {
   //     let accessToken = localStorage.getItem("Token");
   //     accessToken = JSON.parse(accessToken);
@@ -41,11 +41,11 @@ function EditPersonalDetails() {
   //   }
   // };
   useEffect(() => {
-    console.log("use-state");
+    
     setData(apiData)
   }, [apiData]);
 
-  console.log("apiData", apiData);
+  // console.log("apiData", apiData);
  
 
   const handleImageChange = async (event) => {
@@ -54,7 +54,7 @@ function EditPersonalDetails() {
       try {
         let accessToken = localStorage.getItem("Token");
         accessToken = JSON.parse(accessToken);
-        console.log("accessToken", accessToken.token);
+        // console.log("accessToken", accessToken.token);
 
         const responseData = await candidatesApiService.uploadProfileImage(
           file,
@@ -78,7 +78,7 @@ function EditPersonalDetails() {
     try {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
-      console.log(updateField);
+      // console.log(updateField);
 
       await candidatesApiService.updateCandidatePersonalInfo(
         accessToken.token,
@@ -86,7 +86,7 @@ function EditPersonalDetails() {
       );
 
       setUpdateField({});
-      fetchData();
+      fetchCandidateData();
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }
@@ -133,7 +133,7 @@ function EditPersonalDetails() {
     setErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      console.log("Form Submitted Successfully");
+      // console.log("Form Submitted Successfully");
       return false;
     } else {
       console.log("Form has errors");
@@ -164,7 +164,7 @@ function EditPersonalDetails() {
   });
 
   const handleFieldChange = (fieldName, value) => {
-    console.log("handlefild", fieldName, value, updateField);
+    // console.log("handlefild", fieldName, value, updateField);
     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setErrors({
@@ -210,7 +210,7 @@ function EditPersonalDetails() {
       try {
         let accessToken = localStorage.getItem("Token");
         accessToken = JSON.parse(accessToken);
-        console.log("accessToken", accessToken.token);
+        // console.log("accessToken", accessToken.token);
 
         const imageUrl = await candidatesApiService.fetchCandidateImage(
           accessToken.token
@@ -231,7 +231,7 @@ function EditPersonalDetails() {
   }, []);
 
  
-console.log("loading",loading)
+// console.log("loading",loading)
   return (
     <>  
   
@@ -322,6 +322,7 @@ console.log("loading",loading)
                       id=""
                       required
                       value={data.email}
+                      readOnly
                       // onChange={(e) => handleFieldChange('email', e.target.value)}
                     />
                     <FontAwesomeIcon
@@ -345,6 +346,7 @@ console.log("loading",loading)
                       id=""
                       required
                       value={data.contact_1}
+                      readOnly
                       // onChange={(e) => handleFieldChange('contact_1', e.target.value)}
                     />
                     <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />

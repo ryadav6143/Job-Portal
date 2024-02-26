@@ -1,20 +1,18 @@
-.is-table {
-  th {
-    font-size: 15px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    color: #667085 !important;
-    font-weight: 500;
-    font-family: "Open Sans", sans-serif;
-    background-color: #fcfcfd;
-  }
-  td {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    color: #667085 !important;
-    font-weight: 400;
-    font-family: "Open Sans", sans-serif;
-  }
+.is-table td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #667085 !important;
+  font-weight: 400;
+  font-family: "Open Sans", sans-serif;
+}
+.is-table th {
+  font-size: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #667085 !important;
+  font-weight: 500;
+  font-family: "Open Sans", sans-serif;
+  background-color: #fcfcfd;
 }
 
 .SCA-table {

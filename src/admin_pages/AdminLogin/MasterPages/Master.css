@@ -3,30 +3,30 @@
   margin-right: 8%;
   margin-top: 5%;
   font-family: "Open Sans", sans-serif;
-  label {
-    font-size: 16px;
-    font-weight: 600;
-  }
-  button {
-    background-color: transparent;
-    padding: 3px 20px 3px 20px;
-    font-weight: 600;
-    border: 2px solid black;
-    float: right;
-  }
-  button:hover {
-    background-color: black;
-    color: white;
-    transition: 0.3s ease;
-  }
-  input:focus {
-    outline: none;
-  }
-  input {
-    font-size: 18px;
-    border: none;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.799);
-  }
+}
+.container-1 label {
+  font-size: 16px;
+  font-weight: 600;
+}
+.container-1 button {
+  background-color: transparent;
+  padding: 3px 20px 3px 20px;
+  font-weight: 600;
+  border: 2px solid black;
+  float: right;
+}
+.container-1 button:hover {
+  background-color: black;
+  color: white;
+  transition: 0.3s ease;
+}
+.container-1 input {
+  font-size: 18px;
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.799);
+}
+.container-1 input:focus {
+  outline: none;
 }
 /* #update-btn {
   background-color: #0b6623e5;
@@ -108,8 +108,6 @@
   top: -20px;
 }
 
-
-
 .category-publish-btn {
   margin-top: 20px !important;
 }
@@ -130,23 +128,23 @@
   position: absolute;
   cursor: pointer;
   left: 92%;
- top: 11px;
+  top: 11px;
 }
 
-.Examtype-close-btn{
+.Examtype-close-btn {
   width: 20px;
   float: right;
   position: absolute;
   cursor: pointer;
   left: 100%;
- top: -21px;
+  top: -21px;
 }
 
-.postapplied-close-btn{
+.postapplied-close-btn {
   width: 20px;
   float: right;
   position: absolute;
   cursor: pointer;
   left: 92%;
- top: 11px;
+  top: 11px;
 }

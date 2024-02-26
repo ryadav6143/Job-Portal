@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
-import { BASE_URL } from "../../../config/config";
+// import { BASE_URL } from "../../../config/config";
 
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
+// import { ADMIN_BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 function AddSubPostApplied() {
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
-  const [selectedPostId, setSelectedPostId] = useState(null);
+  const [selectedPostId, setSelectedPostId] = useState("");
   const [newPost, setNewPost] = useState("");
   const [updatePost, setUpdatePost] = useState("");
   const [open, setOpen] = useState(false);
@@ -24,7 +26,7 @@ function AddSubPostApplied() {
 
   const fetchData = () => {
     axios
-      .get(`${BASE_URL}/appliedSubPost`)
+      .get(`${ADMIN_BASE_URL}/appliedSubPost`)
       .then((response) => {
         setData(response.data);
       })
@@ -40,7 +42,7 @@ function AddSubPostApplied() {
 
   const fetchAppliedPost = () => {
     axios
-      .get(`${BASE_URL}/appliedPost`)
+      .get(`${ADMIN_BASE_URL}/appliedPost`)
       .then((response) => {
         setPostData(response.data);
       })
@@ -66,7 +68,7 @@ function AddSubPostApplied() {
 
     axios
       .post(
-        `${BASE_URL}/appliedSubPost`,
+        `${ADMIN_BASE_URL}/appliedSubPost`,
         {
           applied_post_masters_id: Number(selectedPostId), // Convert to number
           subpost_name: newPost,
@@ -89,7 +91,7 @@ function AddSubPostApplied() {
   // -----------------------------Fetching data from applied_post------------------------------
   const handleDeleteSubPost = (subPostId) => {
     axios
-      .delete(`${BASE_URL}/appliedSubPost/${subPostId}`)
+      .delete(`${ADMIN_BASE_URL}/appliedSubPost/${subPostId}`)
       .then((response) => {
         console.log("Subpost deleted successfully");
         fetchData(); // Refresh the data after deletion
@@ -107,7 +109,7 @@ function AddSubPostApplied() {
 
     axios
       .put(
-        `${BASE_URL}/appliedSubPost/${selectedPost.id}`,
+        `${ADMIN_BASE_URL}/appliedSubPost/${selectedPost.id}`,
         {
           applied_post_masters_id: Number(selectedPostId),
           subpost_name: updatePost,
@@ -129,7 +131,7 @@ function AddSubPostApplied() {
   const handleCloseModal = () => {
     setOpen(false);
   };
-  
+
   const handleOpenUpdateModal = (subPost) => {
     setSelectedPost(subPost);
     setUpdatePost(subPost.subpost_name);
@@ -141,7 +143,7 @@ function AddSubPostApplied() {
     setSelectedPost(null);
     setUpdatePost("");
   };
-  
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -158,7 +160,7 @@ function AddSubPostApplied() {
     <>
       <div className="container-1">
         <div>
-          <button onClick={() => setOpen(true)}>Add Sub post</button>
+          <button className="new-opening-btn" onClick={() => setOpen(true)}>Add Sub post</button>
         </div>
 
         <Modal
@@ -171,7 +173,11 @@ function AddSubPostApplied() {
             <FormControl>
               <div>
                 <form>
-                  <img onClick={handleCloseModal} className="Examtype-close-btn" src={close} />
+                  <img
+                    onClick={handleCloseModal}
+                    className="Examtype-close-btn"
+                    src={close}
+                  />
                   <label className="AC-SetLabel-Name" htmlFor="postSelect">
                     Select Post:
                   </label>
@@ -251,62 +257,77 @@ function AddSubPostApplied() {
                   <td>{subPost.subpost_name}</td>
                   <td>
                     <button id="table-btns">
-                      <img onClick={() => handleOpenUpdateModal(subPost)} src={updatebtn} className="up-del-btn" alt="" />
+                      <img
+                        onClick={() => handleOpenUpdateModal(subPost)}
+                        src={updatebtn}
+                        className="up-del-btn"
+                        alt=""
+                      />
                     </button>
                     <Modal
-        open={updateModalOpen}
-        onClose={handleCloseUpdateModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <FormControl>
-            <div>
-              <form>
-                <img onClick={handleCloseUpdateModal} className="Examtype-close-btn" src={close} />
-                <label className="AC-SetLabel-Name" htmlFor="postSelect">
-                  Select Post:
-                </label>
-                <select
-                  id="postSelect"
-                  value={selectedPostId}
-                  className="select-jc"
-                  onChange={(e) => handleSelectPost(e)}
-                >
-                  <option value="">Select Post</option>
-                  {postData.map((post) => (
-                    <option key={post.id} value={post.id}>
-                      {post.post_name}
-                    </option>
-                  ))}
-                </select>
+                      open={updateModalOpen}
+                      onClose={handleCloseUpdateModal}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <FormControl>
+                          <div>
+                            <form>
+                              <img
+                                onClick={handleCloseUpdateModal}
+                                className="Examtype-close-btn"
+                                src={close}
+                              />
+                              <label
+                                className="AC-SetLabel-Name"
+                                htmlFor="postSelect"
+                              >
+                                Select Post:
+                              </label>
+                              <select
+                                id="postSelect"
+                                value={selectedPostId}
+                                className="select-jc"
+                                onChange={(e) => handleSelectPost(e)}
+                              >
+                                <option value="">Select Post</option>
+                                {postData.map((post) => (
+                                  <option key={post.id} value={post.id}>
+                                    {post.post_name}
+                                  </option>
+                                ))}
+                              </select>
 
-                <label
-                  style={{ marginTop: "20px" }}
-                  className="AC-SetLabel-Name"
-                  htmlFor=""
-                >
-                  Update Sub Post Applied For
-                </label>
+                              <label
+                                style={{ marginTop: "20px" }}
+                                className="AC-SetLabel-Name"
+                                htmlFor=""
+                              >
+                                Update Sub Post Applied For
+                              </label>
 
-                <input
-                  type="text"
-                  id=""
-                  className="Ac-set-input"
-                  placeholder="Sub Post Applied For"
-                  value={updatePost}
-                  onChange={(e) => setUpdatePost(e.target.value)}
-                />
+                              <input
+                                type="text"
+                                id=""
+                                className="Ac-set-input"
+                                placeholder="Sub Post Applied For"
+                                value={updatePost}
+                                onChange={(e) => setUpdatePost(e.target.value)}
+                              />
 
-                <button id="set-btn" type="button" onClick={handleUpdateSubPost}>
-                  UPDATE NOW
-                </button>
-              </form>
-            </div>
-          </FormControl>
-        </Box>
-      </Modal>
-                    
+                              <button
+                                id="set-btn"
+                                type="button"
+                                onClick={handleUpdateSubPost}
+                              >
+                                UPDATE NOW
+                              </button>
+                            </form>
+                          </div>
+                        </FormControl>
+                      </Box>
+                    </Modal>
                   </td>
                   <td>
                     <button

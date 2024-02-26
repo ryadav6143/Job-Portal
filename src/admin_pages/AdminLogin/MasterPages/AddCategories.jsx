@@ -3,8 +3,11 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
-import { BASE_URL } from "../../../config/config";
+// import { ADMIN_BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 import axios from "axios";
+import updatebtn from "../../../assets/logos/update.png";
+import deletebtn from "../../../assets/logos/delete.png";
 
 function AddCategories() {
   const [data, setData] = useState([]);
@@ -16,7 +19,7 @@ function AddCategories() {
 
   const getJobCategory = () => {
     axios
-      .get(`${BASE_URL}/jobCategory`)
+      .get(`${ADMIN_BASE_URL}/jobCategory`)
       .then((response) => {
         setData(response.data);
       })
@@ -36,7 +39,7 @@ function AddCategories() {
 
     axios
       .post(
-        `${BASE_URL}/jobCategory`,
+        `${ADMIN_BASE_URL}/jobCategory`,
         {
           category_name: newCategory,
         },
@@ -63,7 +66,7 @@ function AddCategories() {
   // ------------------DELETE DATA FROM API--------------------------------
   const handleDeleteCategory = (categoryId) => {
     axios
-      .delete(`${BASE_URL}/jobCategory/${categoryId}`)
+      .delete(`${ADMIN_BASE_URL}/jobCategory/${categoryId}`)
       .then((response) => {
         if (response.status === 200) {
           // Remove the deleted category from the state
@@ -82,7 +85,7 @@ function AddCategories() {
 
     axios
       .put(
-        `${BASE_URL}/jobCategory/${selectedCategory.id}`,
+        `${ADMIN_BASE_URL}/jobCategory/${selectedCategory.id}`,
         {
           category_name: selectedCategory.category_name,
         },
@@ -154,7 +157,7 @@ function AddCategories() {
   return (
     <>
       <div className="container-1">
-        <div>
+        <div className="new-opening-btn">
           <button onClick={handleOpen}>Add Categories</button>
         </div>
 
@@ -241,10 +244,10 @@ function AddCategories() {
                   <td>{category.category_name}</td>
                   <td>
                     <button
-                      id="update-btn"
+                      id="table-btns"
                       onClick={() => handleSelectCategoryForUpdate(category.id)}
                     >
-                      UPDATE
+                      <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
                     <Modal
                       open={updateModalOpen}
@@ -300,10 +303,10 @@ function AddCategories() {
                   </td>
                   <td>
                     <button
-                      id="delete-btn"
+                      id="table-btns"
                       onClick={() => handleDeleteCategory(category.id)}
                     >
-                      DELETE
+                      <img src={deletebtn} className="up-del-btn" alt="" />
                     </button>
                   </td>
                 </tr>

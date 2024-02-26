@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AddOpenings.css";
 import adminApiService from "../../../../adminApiService";
+import close from "../../../../../assets/logos/close.png";
+import MasterTable from "../MasterCurrentOpeningChild/MasterTable";
 function AddOpenings() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -18,27 +20,25 @@ function AddOpenings() {
 
   const [formValues, setFormValues] = useState({
     job_category_master_id: 0,
-  department_master_id: 0,
-  applied_subpost_master_id: 0,
-  applied_post_masters_id: 0,
-  education_require: "",
-  qualification_require: "",
-  last_date_to_apply: "",
-  publish_to_vacancy: false,
-  publish_to_schedule_interview: false,
-  publish_to_job_profile: false,
-  schedule_interview_date_1: null,
-  schedule_interview_date_2: null,
-  schedule_interview_date_3: null,
-  number_of_vacancy: 0,
-  eligibility_criteria: "",
-  // is_active: true,
-  salary_grade: "",
-  responsible_contact: "",
+    department_master_id: 0,
+    applied_subpost_master_id: 0,
+    applied_post_masters_id: 0,
+    education_require: "",
+    qualification_require: "",
+    last_date_to_apply: "",
+    publish_to_vacancy: false,
+    publish_to_schedule_interview: false,
+    publish_to_job_profile: false,
+    schedule_interview_date_1: null,
+    schedule_interview_date_2: null,
+    schedule_interview_date_3: null,
+    number_of_vacancy: 0,
+    eligibility_criteria: "",
+    // is_active: true,
+    salary_grade: "",
+    responsible_contact: "",
   });
 
-
-  
   useEffect(() => {
     const fetchJobCategories = async () => {
       try {
@@ -65,11 +65,9 @@ function AddOpenings() {
     fetchDepartments();
   }, []);
 
-
   // const handleclick = () => {
   //   navigate("/adminpanel");
   // };
-
 
   const handleCategory = (event) => {
     const selectedCategory = event.target.value;
@@ -79,24 +77,32 @@ function AddOpenings() {
     );
     setFormValues({
       ...formValues,
-      job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",
+      job_category_master_id: selectedCategoryData
+        ? selectedCategoryData.id
+        : "",
     });
-    setPost(selectedCategoryData ? selectedCategoryData.applied_post_masters : []);
+    setPost(
+      selectedCategoryData ? selectedCategoryData.applied_post_masters : []
+    );
     setSelectedPost("");
     setSubPost([]);
   };
-  
+
   const handlePost = (event) => {
     const selectedPost = event.target.value;
     setSelectedPost(selectedPost);
-    const selectedPostData = post.find((post) => post.post_name === selectedPost);
+    const selectedPostData = post.find(
+      (post) => post.post_name === selectedPost
+    );
     setFormValues({
       ...formValues,
       applied_post_masters_id: selectedPostData ? selectedPostData.id : "",
     });
-    setSubPost(selectedPostData ? selectedPostData.applied_subpost_masters : []);
+    setSubPost(
+      selectedPostData ? selectedPostData.applied_subpost_masters : []
+    );
   };
-  
+
   const handleSubPost = (event) => {
     const selectedSubPostName = event.target.value;
     setSelectedSubPost(selectedSubPostName);
@@ -106,10 +112,12 @@ function AddOpenings() {
     // Additional logic with selectedSubPostData if needed
     setFormValues({
       ...formValues,
-      applied_subpost_master_id: selectedSubPostData ? selectedSubPostData.id : "",
+      applied_subpost_master_id: selectedSubPostData
+        ? selectedSubPostData.id
+        : "",
     });
   };
-  
+
   const handleDepartmant = (event) => {
     const selectedDepartment = event.target.value;
     setSelectedDepartment(selectedDepartment);
@@ -118,28 +126,30 @@ function AddOpenings() {
     );
     setFormValues({
       ...formValues,
-      department_master_id: selectedDepartmentData ? selectedDepartmentData.id : "",
+      department_master_id: selectedDepartmentData
+        ? selectedDepartmentData.id
+        : "",
     });
   };
-  
 
   const handleCheckboxChange = (checkboxName) => {
     switch (checkboxName) {
-      case 'addToCurrentOpening':
+      case "addToCurrentOpening":
         setAddToCurrentOpening((prev) => !prev);
         setFormValues((prevValues) => ({
           ...prevValues,
           publish_to_vacancy: !prevValues.publish_to_vacancy,
         }));
         break;
-      case 'addToInterviewSchedule':
+      case "addToInterviewSchedule":
         setAddToInterviewSchedule((prev) => !prev);
         setFormValues((prevValues) => ({
           ...prevValues,
-          publish_to_schedule_interview: !prevValues.publish_to_schedule_interview,
+          publish_to_schedule_interview:
+            !prevValues.publish_to_schedule_interview,
         }));
         break;
-      case 'publishToJobProfile':
+      case "publishToJobProfile":
         setPublishToJobProfile((prev) => !prev);
         setFormValues((prevValues) => ({
           ...prevValues,
@@ -150,12 +160,12 @@ function AddOpenings() {
         break;
     }
   };
-  
+
   const handleSetAllCheckboxes = (value) => {
     setAddToCurrentOpening(value);
     setAddToInterviewSchedule(value);
     setPublishToJobProfile(value);
-  
+
     setFormValues({
       ...formValues,
       publish_to_vacancy: value,
@@ -171,224 +181,279 @@ function AddOpenings() {
       [name]: value,
     });
   };
- 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     // console.log('Sending request with formValues:', formValues);
-  
+
     try {
       const response = await adminApiService.postJobProfile(formValues);
       // console.log('API Response:', response.data);
-  
+
       // Add any additional logic after successful submission
-      console.log('Job profile submitted successfully!', response.data);
-      alert("submit form Successfully")
+      console.log("Job profile submitted successfully!", response.data);
+      alert("submit form Successfully");
       navigate("/adminpanel");
     } catch (error) {
-      console.error('Error submitting job profile:', error);
+      console.error("Error submitting job profile:", error);
     }
   };
-  
+
+  const [showForm, setShowForm] = useState(true); // State to toggle form visibility
+
+  const handleFormCloseAndShowTable = () => {
+    setShowForm(false); // Close the form
+    window.location.reload();
+  };
 
   return (
     <div>
+      {showForm ? (
+        <div className="new-openings">
+          <img
+            onClick={handleFormCloseAndShowTable}
+            className="cls-btn"
+            src={close}
+            alt="Close Button"
+          />
 
-      <div className="new-openings">
-        <p>job_profile_master</p>
-        <p className="master-heading">Add New Opening</p>
-        <div className="new-openings-form">
-          <form onSubmit={handleSubmit} >
-            <div className="row">
-              <div className="col-6">
-                <label htmlFor="">No. Of Openings</label>
-                <input type="number" placeholder="Add No. Of Openings" name="number_of_vacancy" 
-                  value={formValues.number_of_vacancy}
-                  onChange={handleInputChange}/>
-              </div>
+          <p className="master-heading">Add New Opening</p>
+          <div className="new-openings-form">
+            <form onSubmit={handleSubmit}>
+              <div className="row">
+                <div className="col-6">
+                  <label htmlFor="">No. Of Openings</label>
+                  <input
+                    type="number"
+                    placeholder="Add No. Of Openings"
+                    name="number_of_vacancy"
+                    value={formValues.number_of_vacancy}
+                    onChange={handleInputChange}
+                  />
+                </div>
 
-              <div className="col-6">
-                <label htmlFor="dropdown2">Category</label>
-                <select
-                  name="category_name"
-                  id="categoryDropdown"
-                  value={selectedCategory}
-                  onChange={handleCategory}
-                  required
-                >
-                  <option value="">Select a category</option>
-                  {jobCategories.map((category) => (
-                    <option
-                      key={category.category_name}
-                      value={category.category_name}
-                    >
-                      {category.category_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-6">
-                <label htmlFor="dropdown2">Department</label>
-                <select
-                  id="departmentDropdown"
-                  value={selectedDepartment}
-                  onChange={handleDepartmant}
-                >
-                  <option value="">Select Department</option>
-                  {departmant.map((department) => (
-                    <option
-                      key={department.id} // assuming 'id' is unique for each department
-                      value={department.dept_name}
-                    >
-                      {department.dept_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-6">
-                <label htmlFor="">Post</label>
-                <select
-                  id="dropdown"
-                  onChange={handlePost}
-                  value={selectedPost}
-                  required
-                >
-                  <option value="">Select a post</option>
-                  {post.map((post) => (
-                    <option key={post.post_name} value={post.post_name}>
-                      {post.post_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-6">
-                <label htmlFor="dropdown2">SubPost</label>
-                <select
-                  id="dropdown2"
-                  value={selectedSubPost}
-                  onChange={handleSubPost}
-                >
-                  <option value="">-- Select SubPost --</option>
-                  {Array.isArray(subPost) &&
-                    subPost.map((subpost) => (
+                <div className="col-6">
+                  <label htmlFor="dropdown2">Category</label>
+                  <select
+                    name="category_name"
+                    id="categoryDropdown"
+                    value={selectedCategory}
+                    onChange={handleCategory}
+                    required
+                  >
+                    <option value="">Select a category</option>
+                    {jobCategories.map((category) => (
                       <option
-                        key={subpost.subpost_name}
-                        value={subpost.subpost_name}
+                        key={category.category_name}
+                        value={category.category_name}
                       >
-                        {subpost.subpost_name}
+                        {category.category_name}
                       </option>
                     ))}
-                </select>
+                  </select>
+                </div>
               </div>
-              <div className="col-6">
-                <label htmlFor=""> Qualification & Experience</label>
-                <input
-                  type="text"
-                  placeholder=" Add Qualification And Experience"
-                  name="education_require"
-                  value={formValues.education_require}
-                  onChange={handleInputChange}
-                />
+              <div className="row">
+                <div className="col-6">
+                  <label htmlFor="dropdown2">Department</label>
+                  <select
+                    id="departmentDropdown"
+                    value={selectedDepartment}
+                    onChange={handleDepartmant}
+                  >
+                    <option value="">Select Department</option>
+                    {departmant.map((department) => (
+                      <option
+                        key={department.id} // assuming 'id' is unique for each department
+                        value={department.dept_name}
+                      >
+                        {department.dept_name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-6">
+                  <label htmlFor="">Post</label>
+                  <select
+                    id="dropdown"
+                    onChange={handlePost}
+                    value={selectedPost}
+                    required
+                  >
+                    <option value="">Select a post</option>
+                    {post.map((post) => (
+                      <option key={post.post_name} value={post.post_name}>
+                        {post.post_name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-            </div>
+              <div className="row">
+                <div className="col-6">
+                  <label htmlFor="dropdown2">SubPost</label>
+                  <select
+                    id="dropdown2"
+                    value={selectedSubPost}
+                    onChange={handleSubPost}
+                  >
+                    <option value="">-- Select SubPost --</option>
+                    {Array.isArray(subPost) &&
+                      subPost.map((subpost) => (
+                        <option
+                          key={subpost.subpost_name}
+                          value={subpost.subpost_name}
+                        >
+                          {subpost.subpost_name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+                <div className="col-6">
+                  <label htmlFor=""> Qualification & Experience</label>
+                  <input
+                    type="text"
+                    placeholder=" Add Qualification And Experience"
+                    name="education_require"
+                    value={formValues.education_require}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
 
-            <div className="row">
-              <div className="col-6">
-                <label htmlFor=""> Highly Desirable</label>
-                <input type="text" placeholder="Add Highly Desirable"
-                 name="qualification_require"
-                 value={formValues.qualification_require}
-                 onChange={handleInputChange} />
+              <div className="row">
+                <div className="col-6">
+                  <label htmlFor=""> Highly Desirable</label>
+                  <input
+                    type="text"
+                    placeholder="Add Highly Desirable"
+                    name="qualification_require"
+                    value={formValues.qualification_require}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="col-6">
+                  <label htmlFor="">Last Date</label>
+                  <input
+                    type="date"
+                    name="last_date_to_apply"
+                    value={formValues.last_date_to_apply}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
-              <div className="col-6">
-                <label htmlFor="">Last Date</label>
-                <input type="date" name="last_date_to_apply" 
-                value={formValues.last_date_to_apply}
-                onChange={handleInputChange}/>
+              <div>
+                <p id="master-sub-headings">
+                  Required Fields For Interview Schedule
+                </p>
               </div>
-            </div>
-            <div>
-              <p id="master-sub-headings">
-                Required Fields For Interview Schedule
-              </p>
-            </div>
-            <div className="row">
-              <div className="col-6">
-                <label htmlFor="">Eligibility criteria</label>
-                <input type="text"
-                 placeholder="Add Eligibility Criteria" 
-                 name="eligibility_criteria"
-                           value={formValues.eligibility_criteria}
-                           onChange={handleInputChange}/>
+              <div className="row">
+                <div className="col-6">
+                  <label htmlFor="">Eligibility criteria</label>
+                  <input
+                    type="text"
+                    placeholder="Add Eligibility Criteria"
+                    name="eligibility_criteria"
+                    value={formValues.eligibility_criteria}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="col-6">
+                  <label htmlFor="">Add Responsible Person's Contact </label>
+                  <input
+                    type="text"
+                    placeholder="Add Contact"
+                    name="responsible_contact"
+                    value={formValues.responsible_contact}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
-              <div className="col-6">
-                <label htmlFor="">Add Responsible Person's Contact </label>
-                <input type="text" placeholder="Add Contact" name="responsible_contact"
-                 value={formValues.responsible_contact}
-                 onChange={handleInputChange} />
+              <div className="row">
+                <div className="col-4">
+                  <label htmlFor="">Day-1</label>
+                  <input
+                    type="date"
+                    name="schedule_interview_date_1"
+                    value={formValues.schedule_interview_date_1}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="col-4">
+                  <label htmlFor="">Day-2</label>
+                  <input
+                    type="date"
+                    name="schedule_interview_date_2"
+                    value={formValues.schedule_interview_date_2}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="col-4">
+                  <label htmlFor="">Day-3</label>
+                  <input
+                    type="date"
+                    name="schedule_interview_date_3"
+                    value={formValues.schedule_interview_date_3}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-4">
-                <label htmlFor="">Day-1</label>
-                <input type="date" name="schedule_interview_date_1" 
-                value={formValues.schedule_interview_date_1}
-                onChange={handleInputChange}/>
+              <div className="row toggle-btns">
+                <div className="col-4">
+                  <p>Add To Current Opening</p>
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      id="checkbox"
+                      checked={addToCurrentOpening}
+                      onChange={() =>
+                        handleCheckboxChange("addToCurrentOpening")
+                      }
+                    />
+                    <div className="slider round"></div>
+                  </label>
+                </div>
+                <div className="col-4">
+                  <p>Add To Interview Schedule</p>
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      id="checkbox"
+                      checked={addToInterviewSchedule}
+                      onChange={() =>
+                        handleCheckboxChange("addToInterviewSchedule")
+                      }
+                    />
+                    <div className="slider round"></div>
+                  </label>
+                </div>
+                <div className="col-4">
+                  <p>Publish To Job Profile</p>
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      name="publish_to_job_profile"
+                      id="checkbox"
+                      checked={publishToJobProfile}
+                      onChange={() =>
+                        handleCheckboxChange("publishToJobProfile")
+                      }
+                    />
+                    <div className="slider round"></div>
+                  </label>
+                </div>
               </div>
-              <div className="col-4">
-                <label htmlFor="">Day-2</label>
-                <input type="date" name="schedule_interview_date_2" 
-                 value={formValues.schedule_interview_date_2}
-                 onChange={handleInputChange}/>
+              <div>
+                <button type="submit" id="add-job" onClick={handleSubmit}>
+                  SUBMIT
+                </button>
               </div>
-              <div className="col-4">
-                <label htmlFor="">Day-3</label>
-                <input type="date" name="schedule_interview_date_3" 
-                  value={formValues.schedule_interview_date_3}
-                  onChange={handleInputChange}/>
-              </div>
-            </div>
-            <div className="row toggle-btns">
-              <div className="col-4">
-                <p>Add To Current Opening</p>
-                <label className="switch">
-                  <input type="checkbox" id="checkbox" 
-                   checked={addToCurrentOpening}
-                   onChange={() => handleCheckboxChange('addToCurrentOpening')}/>
-                  <div className="slider round"></div>
-                </label>
-              </div>
-              <div className="col-4">
-                <p>Add To Interview Schedule</p>
-                <label className="switch">
-                  <input type="checkbox" id="checkbox" 
-                   checked={addToInterviewSchedule}
-                   onChange={() => handleCheckboxChange('addToInterviewSchedule')}/>
-                  <div className="slider round"></div>
-                </label>
-              </div>
-              <div className="col-4">
-                <p>Publish To Job Profile</p>
-                <label className="switch">
-                  <input type="checkbox" name="publish_to_job_profile" id="checkbox" 
-                   checked={publishToJobProfile}
-                   onChange={() => handleCheckboxChange('publishToJobProfile')}/>
-                  <div className="slider round"></div>
-                </label>
-              </div>
-            </div>
-            <div>
-              <button type="submit" id="add-job" onClick={handleSubmit}>
-                SUBMIT
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
+      ) : (
+        <MasterTable />
+      )}
     </div>
   );
 }

@@ -1,16 +1,17 @@
 // apiService.js
 import axios from "axios";
-import { BASE_URL } from "../config/config";
+
+import { CANDIDATE_BASE_URL } from "../config/config";
 
 const apiService = {
   
   // -------------------
   getJobCategories: () => {
-    return axios.get(`${BASE_URL}/jobCategory`);
+    return axios.get(`${CANDIDATE_BASE_URL}/jobCategory`);
   },
 
   getSubjectMaster: () => {
-    return axios.get(`${BASE_URL}/subjectMaster`);
+    return axios.get(`${CANDIDATE_BASE_URL}/subjectMaster`);
   },
 
   getCountries: () => {
@@ -18,39 +19,39 @@ const apiService = {
   },
 
   getCandidates: () => {
-    return axios.post(`${BASE_URL}/candidates`);
+    return axios.post(`${CANDIDATE_BASE_URL}/candidates`);
   },
 
   getExamTypes: () => {
-    return axios.get(`${BASE_URL}/examTypeMaster`);
+    return axios.get(`${CANDIDATE_BASE_URL}/examTypeMaster`);
   },
 
   generateOTP: (otpData) => {
-    return axios.post(`${BASE_URL}/otp/generateOTP`, otpData);
+    return axios.post(`${CANDIDATE_BASE_URL}/otp/generateOTP`, otpData);
   },
   verifyContactOTP: (verificationData) => {
     return axios.post(
-      `${BASE_URL}/otp/verifyCandidateContactOTP`,
+      `${CANDIDATE_BASE_URL}/otp/verifyCandidateContactOTP`,
       verificationData
     );
   },
   verifyEmailOTP: (emaildataOTP) => {
     return axios.post(
-      `${BASE_URL}/otp/verifyCandidateEmailOTP`,
+      `${CANDIDATE_BASE_URL}/otp/verifyCandidateEmailOTP`,
       emaildataOTP
     );
   },
   submitCandidateData: (formData) => {
-    return axios.post(`${BASE_URL}/candidates/drop_cv`, formData);
+    return axios.post(`${CANDIDATE_BASE_URL}/candidates/drop_cv`, formData);
   },
   submitApplyNowData: (formData) => {
-    return axios.post(`${BASE_URL}/candidates/apply_now`, formData);
+    return axios.post(`${CANDIDATE_BASE_URL}/candidates/apply_now`, formData);
   },
   getAppliedPosts: () => {
-    return axios.get(`${BASE_URL}/appliedPost`);
+    return axios.get(`${CANDIDATE_BASE_URL}/appliedPost`);
   },
   getDepartments: () => {
-    return axios.get(`${BASE_URL}/departmentMaster`);
+    return axios.get(`${CANDIDATE_BASE_URL}/departmentMaster`);
   },
 };
 

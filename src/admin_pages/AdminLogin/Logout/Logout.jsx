@@ -6,7 +6,7 @@ import AdminDashboard from "../AdminDashboard/AdminDashboard";
 function Logout({ handleLogout }) {
   return (
     <>
-      <div className="admin-header">
+      <div className="admin-header fixed-top   " >
         <div>
           <img className="admin-logo" src={medilogo} alt="" />
         </div>

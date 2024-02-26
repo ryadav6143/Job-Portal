@@ -3,7 +3,8 @@ import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 
-import { BASE_URL } from "../../../config/config";
+// import { ADMIN_BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 
 function AddDegree() {
   const [data, setData] = useState([]);
@@ -14,7 +15,7 @@ function AddDegree() {
   // ------------------GET DATA FROM API--------------------------------
   const degreeTypeMaster = () => {
     axios
-      .get(`${BASE_URL}/degreeTypeMaster`)
+      .get(`${ADMIN_BASE_URL}/degreeTypeMaster`)
       .then((response) => {
         setData(response.data);
       })
@@ -32,7 +33,7 @@ function AddDegree() {
   }, []);
   const fetchexamType = () => {
     axios
-      .get(`${BASE_URL}/examTypeMaster`)
+      .get(`${ADMIN_BASE_URL}/examTypeMaster`)
       .then((response) => {
         setExamTypes(response.data);
       })
@@ -72,7 +73,10 @@ function AddDegree() {
             onChange={(e) => setNewDegree(e.target.value)}
           />
         </form>
+        <div className="new-opening-btn">
         <button type="button">ADD NOW</button>
+        </div>
+
       </div>
 
       <div className="master-table ">

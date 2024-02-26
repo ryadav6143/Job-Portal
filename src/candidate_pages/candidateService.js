@@ -1,13 +1,13 @@
 import axios from "axios";
-import {BASE_URL} from "../config/config"
-
-// const BASE_URL = "http://192.168.1.8:8090/v1/api";
+// import {CANDIDATE_BASE_URL} from "../config/config"
+import { CANDIDATE_BASE_URL } from "../config/config";
+// const CANDIDATE_BASE_URL = "http://192.168.1.8:8090/v1/api";
 
 const candidatesApiService = {
 
   uploadCV: async (formData, accessToken) => {
     try {
-      const response = await axios.put(`${BASE_URL}/candidates/upload_cv`, formData, {
+      const response = await axios.put(`${CANDIDATE_BASE_URL}/candidates/upload_cv`, formData, {
         headers: {
           'access-token': accessToken,
         },
@@ -19,15 +19,15 @@ const candidatesApiService = {
   },
 
   loginCandidate: (data) => {
-    return axios.post(`${BASE_URL}/login/candidate_login`, data);
+    return axios.post(`${CANDIDATE_BASE_URL}/login/candidate_login`, data);
   },
   ForgetCandidatePassword: (data) => {
-    return axios.put(`${BASE_URL}/candidates/candidate_forgot_password`, data);
+    return axios.put(`${CANDIDATE_BASE_URL}/candidates/candidate_forgot_password`, data);
   },
 
   getCandidateById: async (accessToken) => {
     try {
-      const response = await axios.get(`${BASE_URL}/candidates/getCandidateById/`, {
+      const response = await axios.get(`${CANDIDATE_BASE_URL}/candidates/getCandidatePersonal`, {
         headers: {
           'access-token': accessToken,
         },
@@ -38,6 +38,57 @@ const candidatesApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
+  getEducationById: async (accessToken) => {
+    try {
+      const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatEducation/getCandidateEducation`, {
+        headers: {
+          'access-token': accessToken,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
+  getExperienceById: async (accessToken) => {
+    try {
+      const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatExperience/getCandidateExperience`, {
+        headers: {
+          'access-token': accessToken,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
+  getCandidateResearchWork: async (accessToken) => {
+    try {
+      const response = await axios.get(`${CANDIDATE_BASE_URL}/candidates/getCandidateResearchPageById`, {
+        headers: {
+          'access-token': accessToken,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
+  getCandidateSeminarPage: async (accessToken) => {
+    try {
+      const response = await axios.get(`${CANDIDATE_BASE_URL}/candidates/getCandidateSeminarPageById`, {
+        headers: {
+          'access-token': accessToken,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
+ 
 
   uploadProfileImage: async (file, accessToken) => {
     try {
@@ -45,7 +96,7 @@ const candidatesApiService = {
       formData.append('profile_image', file);
       // formData.append('candidate_id', candidatesId);
 
-      const response = await fetch(`${BASE_URL}/candidates/profile_image`, {
+      const response = await fetch(`${CANDIDATE_BASE_URL}/candidates/profile_image`, {
         method: 'PUT',
         body: formData,
         headers: {
@@ -68,7 +119,7 @@ const candidatesApiService = {
   },
   fetchCandidateImage: async (accessToken) => {
     try {
-      const response = await axios.get(`${BASE_URL}/candidates/renderCandidatePic`, {
+      const response = await axios.get(`${CANDIDATE_BASE_URL}/candidates/renderCandidatePic`, {
         headers: {
           'access-token': accessToken,
         },
@@ -91,7 +142,7 @@ const candidatesApiService = {
   updateCandidatePersonalInfo: async (accessToken, updateField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidates/updateCandidatePersonalById`,
+        `${CANDIDATE_BASE_URL}/candidates/updateCandidatePersonalById`,
         updateField,
         {
           headers: {
@@ -110,7 +161,7 @@ const candidatesApiService = {
   updateCandidateEducation: async (accessToken, updateField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidatEducation/updateCandidateEducation`,
+        `${CANDIDATE_BASE_URL}/candidatEducation/updateCandidateEducation`,
         updateField,
         {
           headers: {
@@ -130,7 +181,7 @@ const candidatesApiService = {
   updateCandidateExperience: async (accessToken, updateField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidatExperience/updateCandidateExperience`,
+        `${CANDIDATE_BASE_URL}/candidatExperience/updateCandidateExperience`,
         updateField,
         {
           headers: {
@@ -148,7 +199,7 @@ const candidatesApiService = {
   updateCandidateResearches: async (accessToken, researchField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidatResearch/updateCandidateResearchWork`,
+        `${CANDIDATE_BASE_URL}/candidatResearch/updateCandidateResearchWork`,
         researchField,
         {
           headers: {
@@ -166,7 +217,7 @@ const candidatesApiService = {
   updateCandidateJournalPublications: async (accessToken, journalPublicationField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidatJournalPublication/updateCandidateJournalPublications`,
+        `${CANDIDATE_BASE_URL}/candidatJournalPublication/updateCandidateJournalPublications`,
         journalPublicationField,
         {
           headers: {
@@ -184,7 +235,7 @@ const candidatesApiService = {
   updateCandidateConferancePublications: async (accessToken, ConferancePublicationField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidatConferancePublication/updateCandidateConferancePublications`,
+        `${CANDIDATE_BASE_URL}/candidatConferancePublication/updateCandidateConferancePublications`,
         ConferancePublicationField,
         {
           headers: {
@@ -202,7 +253,7 @@ const candidatesApiService = {
   updateCandidatePatent: async (accessToken, patentField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidatPatent/updateCandidatePatent`,
+        `${CANDIDATE_BASE_URL}/candidatPatent/updateCandidatePatent`,
         patentField,
         {
           headers: {
@@ -220,7 +271,7 @@ const candidatesApiService = {
   updateCandidateCopyright: async (accessToken, copyrightField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidatCopyright/updateCandidateCopyright`,
+        `${CANDIDATE_BASE_URL}/candidatCopyright/updateCandidateCopyright`,
         copyrightField,
         {
           headers: {
@@ -238,7 +289,7 @@ const candidatesApiService = {
   updateCandidateMembershipInfo: async (accessToken, membershipInfoField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidateMembershipInfo/updateCandidateMembershipInfo`,
+        `${CANDIDATE_BASE_URL}/candidateMembershipInfo/updateCandidateMembershipInfo`,
         membershipInfoField,
         {
           headers: {
@@ -256,7 +307,7 @@ const candidatesApiService = {
   updateCandidateSeminarOrganised: async (accessToken, seminarOrganisedField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidateSeminarOrganised/updateCandidateSeminarOrganised`,
+        `${CANDIDATE_BASE_URL}/candidateSeminarOrganised/updateCandidateSeminarOrganised`,
         seminarOrganisedField,
         {
           headers: {
@@ -274,7 +325,7 @@ const candidatesApiService = {
   updateCandidateSeminarAttend: async (accessToken, seminarAttendField) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/candidateSeminarAttend/updateCandidateSeminarAttend`,
+        `${CANDIDATE_BASE_URL}/candidateSeminarAttend/updateCandidateSeminarAttend`,
         seminarAttendField,
         {
           headers: {

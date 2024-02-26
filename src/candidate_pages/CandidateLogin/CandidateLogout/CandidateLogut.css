@@ -5,10 +5,12 @@
     margin-right: 40px;
     margin-top: 12px;
   }
+
   img {
     width: 30px !important;
   }
 }
+
 .admin-header {
   position: relative;
   z-index: 10;

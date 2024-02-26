@@ -45,7 +45,7 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
 
     if (!file) {
       setErrors({
-        candidate_cv: "! CV file is Required",
+        candidate_cv: "! Resume file is Required",
       });
       return false;
     }
@@ -378,7 +378,7 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
             </div>
           </div>
         </div>
-      </form> 
+      </form>
     </>
   );
 }

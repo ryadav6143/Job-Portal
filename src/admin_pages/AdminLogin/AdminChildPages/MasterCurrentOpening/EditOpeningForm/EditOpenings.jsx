@@ -4,6 +4,7 @@ import "./EditOpenings.css";
 import adminApiService from "../../../../adminApiService";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import close from "../../../../../assets/logos/close.png";
 function EditOpenings() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -22,7 +23,7 @@ function EditOpenings() {
   const [formValues, setFormValues] = useState({});
   const [updateField, setUpdateField] = useState({});
   const [post, setPost] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
@@ -44,7 +45,6 @@ function EditOpenings() {
         setSelectedSubPost(data.applied_subpost_master.subpost_name);
 
         setLoading(false);
-
       } catch (error) {
         console.error("Error fetching job profile:", error);
         setLoading(false);
@@ -53,7 +53,6 @@ function EditOpenings() {
 
     fetchData();
   }, [id]);
-
 
   useEffect(() => {
     const fetchJobCategories = async () => {
@@ -69,7 +68,6 @@ function EditOpenings() {
     fetchJobCategories();
   }, []);
 
-
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
@@ -84,22 +82,24 @@ function EditOpenings() {
     fetchDepartments();
   }, []);
 
-
-
-
   const handleCategory = (fieldName, value) => {
     const selectedCategoryData = jobCategories.find(
       (category) => category.category_name === value
     );
     setSelectedCategory(value);
     setUpdateField((prevValues) => ({
-      ...prevValues, [fieldName]: value.toString(),
-      job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",
+      ...prevValues,
+      [fieldName]: value.toString(),
+      job_category_master_id: selectedCategoryData
+        ? selectedCategoryData.id
+        : "",
     }));
     setFormValues((prevValues) => ({
       ...prevValues,
       [fieldName]: value,
-      job_category_master_id: selectedCategoryData ? selectedCategoryData.id : "",
+      job_category_master_id: selectedCategoryData
+        ? selectedCategoryData.id
+        : "",
     }));
     const selectedPostData =
       selectedCategoryData &&
@@ -113,12 +113,16 @@ function EditOpenings() {
     const selectedPostObject = jobCategories
       .find((category) => category.category_name === selectedCategory)
       .applied_post_masters.find((post) => post.post_name === value);
-    const selectedSubPostData = selectedPostObject && selectedPostObject.applied_subpost_masters.map((subpost) => subpost.subpost_name);
+    const selectedSubPostData =
+      selectedPostObject &&
+      selectedPostObject.applied_subpost_masters.map(
+        (subpost) => subpost.subpost_name
+      );
     setSelectedPost(value);
     setUpdateField((prevValues) => ({
-      ...prevValues, [fieldName]: value.toString(),
+      ...prevValues,
+      [fieldName]: value.toString(),
       applied_post_masters_id: selectedPostObject ? selectedPostObject.id : "",
-
     }));
     setFormValues((prevValues) => ({
       ...prevValues,
@@ -128,27 +132,30 @@ function EditOpenings() {
     setSubPost(selectedSubPostData || []);
   };
 
-
   const handleSubPost = (fieldName, value) => {
     const selectedSubPostObject = jobCategories
       .find((category) => category.category_name === selectedCategory)
       .applied_post_masters.find((post) => post.post_name === selectedPost)
-      .applied_subpost_masters.find((subpost) => subpost.subpost_name === value);
+      .applied_subpost_masters.find(
+        (subpost) => subpost.subpost_name === value
+      );
 
     setSelectedSubPost(value);
     setUpdateField((prevValues) => ({
-      ...prevValues, [fieldName]: value.toString(),
-      applied_subpost_master_id: selectedSubPostObject ? selectedSubPostObject.id : "",
-
+      ...prevValues,
+      [fieldName]: value.toString(),
+      applied_subpost_master_id: selectedSubPostObject
+        ? selectedSubPostObject.id
+        : "",
     }));
     setFormValues((prevValues) => ({
       ...prevValues,
       [fieldName]: value,
-      applied_subpost_master_id: selectedSubPostObject ? selectedSubPostObject.id : "",
+      applied_subpost_master_id: selectedSubPostObject
+        ? selectedSubPostObject.id
+        : "",
     }));
-
   };
-
 
   const handleDepartmant = (fieldName, value) => {
     const selectedDepartmentData = departmant.find(
@@ -156,17 +163,20 @@ function EditOpenings() {
     );
     setSelectedDepartment(value);
     setUpdateField((prevValues) => ({
-      ...prevValues, [fieldName]: value.toString(),
-      department_master_id: selectedDepartmentData ? selectedDepartmentData.id : "",
+      ...prevValues,
+      [fieldName]: value.toString(),
+      department_master_id: selectedDepartmentData
+        ? selectedDepartmentData.id
+        : "",
     }));
     setFormValues((prevValues) => ({
       ...prevValues,
       [fieldName]: value,
-      department_master_id: selectedDepartmentData ? selectedDepartmentData.id : "",
+      department_master_id: selectedDepartmentData
+        ? selectedDepartmentData.id
+        : "",
     }));
   };
-
-
 
   // const handleCheckboxChange = (checkboxName) => {
   //   switch (checkboxName) {
@@ -201,7 +211,6 @@ function EditOpenings() {
   //       break;
   //   }
   // };
-
 
   // const handleCheckboxChange = (fieldName, value) => {
   //   switch (fieldName) {
@@ -274,13 +283,11 @@ function EditOpenings() {
     }
   };
 
-
-
   const handleInputChange = (fieldName, value) => {
     // console.log("handlefild", fieldName, value, updateField);
     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setFormValues((prev) => ({ ...prev, [fieldName]: value.toString() }));
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -291,7 +298,7 @@ function EditOpenings() {
       const updatedData = {
         ...updateField,
         jobprofile_id: profileID,
-      }
+      };
       // console.log(updateField);
       await adminApiService.updateJobProfile(updatedData);
 
@@ -299,10 +306,8 @@ function EditOpenings() {
       navigate("/adminpanel");
     } catch (error) {
       console.error("Error updating job profile:", error);
-
     }
   };
-
 
   const formatDateForInput = (dateString) => {
     const date = new Date(dateString);
@@ -312,16 +317,28 @@ function EditOpenings() {
     return `${year}-${month}-${day}`;
   };
 
+  const [showForm, setShowForm] = useState(true); // State to toggle form visibility
+
+  const handleFormCloseAndShowTable = () => {
+    setShowForm(false); // Close the form
+    window.location.reload(); // Refresh the window
+  };
+
   return (
-    <> 
-    
-   
+    <>
       <div className="new-openings">
-      {loading && (
-      <div className="loader-container">
-        <div className="loader"></div>
-      </div>
-    )} 
+        <img
+          onClick={handleFormCloseAndShowTable}
+          className="cls-btn"
+          src={close}
+          alt="Close Button"
+        />
+
+        {loading && (
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        )}
         <p className="master-heading">Edit-Openings Data</p>
         <div className="new-openings-form">
           <form onSubmit={handleSubmit}>
@@ -349,11 +366,13 @@ function EditOpenings() {
                   onChange={(e) =>
                     handleCategory("category_name", e.target.value)
                   }
-
                 >
                   <option value="">Select a category</option>
                   {jobCategories.map((category) => (
-                    <option key={category.category_name} value={category.category_name}>
+                    <option
+                      key={category.category_name}
+                      value={category.category_name}
+                    >
                       {category.category_name}
                     </option>
                   ))}
@@ -381,11 +400,10 @@ function EditOpenings() {
               </div>
               <div className="col-6">
                 <label htmlFor="">Post</label>
-                <select id="dropdown"
+                <select
+                  id="dropdown"
                   name="post_name"
-                  onChange={(e) =>
-                    handlePost("post_name", e.target.value)
-                  }
+                  onChange={(e) => handlePost("post_name", e.target.value)}
                   // value={selectedPost}
                 >
                   <option value="">{selectedPost} </option>
@@ -395,13 +413,13 @@ function EditOpenings() {
                     </option>
                   ))}
                 </select>
-
               </div>
             </div>
             <div className="row">
               <div className="col-6">
                 <label htmlFor="dropdown2">SubPost</label>
-                <select id="dropdown2"
+                <select
+                  id="dropdown2"
                   name="subpost_name"
                   // value={selectedSubPost}
                   // onChange={handleSubPost}
@@ -457,7 +475,9 @@ function EditOpenings() {
               </div>
             </div>
             <div>
-              <p id="master-sub-headings">Required Fields For Interview Schedule</p>
+              <p id="master-sub-headings">
+                Required Fields For Interview Schedule
+              </p>
             </div>
             <div className="row">
               <div className="col-6">
@@ -491,9 +511,14 @@ function EditOpenings() {
                 <input
                   type="date"
                   name="schedule_interview_date_1"
-                  value={formatDateForInput(formValues.schedule_interview_date_1)}
+                  value={formatDateForInput(
+                    formValues.schedule_interview_date_1
+                  )}
                   onChange={(e) =>
-                    handleInputChange("schedule_interview_date_1", e.target.value)
+                    handleInputChange(
+                      "schedule_interview_date_1",
+                      e.target.value
+                    )
                   }
                 />
               </div>
@@ -502,9 +527,14 @@ function EditOpenings() {
                 <input
                   type="date"
                   name="schedule_interview_date_2"
-                  value={formatDateForInput(formValues.schedule_interview_date_2)}
+                  value={formatDateForInput(
+                    formValues.schedule_interview_date_2
+                  )}
                   onChange={(e) =>
-                    handleInputChange("schedule_interview_date_2", e.target.value)
+                    handleInputChange(
+                      "schedule_interview_date_2",
+                      e.target.value
+                    )
                   }
                 />
               </div>
@@ -513,9 +543,14 @@ function EditOpenings() {
                 <input
                   type="date"
                   name="schedule_interview_date_3"
-                  value={formatDateForInput(formValues.schedule_interview_date_3)}
+                  value={formatDateForInput(
+                    formValues.schedule_interview_date_3
+                  )}
                   onChange={(e) =>
-                    handleInputChange("schedule_interview_date_3", e.target.value)
+                    handleInputChange(
+                      "schedule_interview_date_3",
+                      e.target.value
+                    )
                   }
                 />
               </div>
@@ -529,7 +564,9 @@ function EditOpenings() {
                     id="checkbox1"
                     name="publish_to_vacancy"
                     checked={currentOpening}
-                    onChange={() => handleCheckboxChange("publish_to_vacancy", currentOpening)}
+                    onChange={() =>
+                      handleCheckboxChange("publish_to_vacancy", currentOpening)
+                    }
                   />
                   <span className="slider round"></span>
                 </label>
@@ -542,7 +579,12 @@ function EditOpenings() {
                     id="checkbox2"
                     name="publish_to_schedule_interview"
                     checked={interviewSchedule}
-                    onChange={() => handleCheckboxChange("publish_to_schedule_interview", interviewSchedule)}
+                    onChange={() =>
+                      handleCheckboxChange(
+                        "publish_to_schedule_interview",
+                        interviewSchedule
+                      )
+                    }
                   />
                   <span className="slider round"></span>
                 </label>
@@ -555,7 +597,12 @@ function EditOpenings() {
                     id="checkbox3"
                     name="publish_to_job_profile"
                     checked={publishToJobProfile}
-                    onChange={() => handleCheckboxChange("publish_to_job_profile", publishToJobProfile)}
+                    onChange={() =>
+                      handleCheckboxChange(
+                        "publish_to_job_profile",
+                        publishToJobProfile
+                      )
+                    }
                   />
                   <span className="slider round"></span>
                 </label>
@@ -570,7 +617,7 @@ function EditOpenings() {
           </form>
         </div>
       </div>
-      </>
+    </>
   );
 }
 

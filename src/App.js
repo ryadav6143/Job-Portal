@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Main, Route, Routes } from "react-router-dom";
 import Home from "./admin_pages/Home/Home";
 import CurrentOpening from "./admin_pages/CurrentOpening/CurrentOpening";
@@ -25,6 +26,7 @@ import ForgottenPassword from "./candidate_pages/CandidateLogin/CandidateLogin/F
 import PageNotFound from "./admin_pages/PageNotFound/PageNotFound";
 import EditOpenings from "./admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings";
 import RegisterAdmin from "./admin_pages/AdminRegister/RegisterAdmin";
+import Sidenav from "./admin_pages/TestPages/Sidenav";
 function App() {
   return (
     <>
@@ -75,6 +77,7 @@ function App() {
           <Route path="edit-openings/:id" element={<EditOpenings />}></Route>
           <Route path="test" element={<TestPages />}></Route>
           <Route path="admin_register" element={<RegisterAdmin />}></Route>
+          <Route path="sidenav" element={<Sidenav />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>
         </Routes>
       </Main>

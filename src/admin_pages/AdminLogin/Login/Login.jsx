@@ -4,7 +4,8 @@ import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../assets/logos/logo.png";
 import axios from "axios";
-import { BASE_URL } from "../../../config/config";
+// import { BASE_URL } from "../../../config/config";
+import { ADMIN_BASE_URL } from "../../../config/config";
 
 function Login({ handleLogin }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,10 +25,11 @@ function Login({ handleLogin }) {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${BASE_URL}/adminLogin/login_admin`, {
+      const response = await axios.post(`${ADMIN_BASE_URL}/adminLogin/login_admin`,({
         login_field: username,
         password: password,
-      });
+      }));
+      console.log(response)
       if (response.data.token) {
         handleLogin();
         localStorage.setItem("Token", JSON.stringify(response.data));
@@ -38,6 +40,7 @@ function Login({ handleLogin }) {
       console.error("Error during login:", error);
       setError("Invalid username and password");
     }
+
   };
 
   const handleTogglePassword = () => {
