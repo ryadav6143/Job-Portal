@@ -5,7 +5,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import adminApiService from "../../../../adminApiService";
 import EditOpenings from "../EditOpeningForm/EditOpenings";
-// import AddOpenings from "./AddOpeningForm/AddOpenings";
+
 
 function MasterTable() {
   const navigate = useNavigate();
@@ -13,12 +13,12 @@ function MasterTable() {
   const [jobProfiles, setJobProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
-
+  const [selectedProfileId, setSelectedProfileId] = useState(null);
   useEffect(() => {
     const fetchJobProfiles = async () => {
       try {
         const response = await adminApiService.getJobProfile();
-        // console.log("response get", response.data);
+        console.log("response get", response.data);
         setJobProfiles(response.data);
 
         setLoading(false);
@@ -43,6 +43,7 @@ function MasterTable() {
     // console.log("Job Profile ID:", profileId);
     // navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
     setIsEditFormOpen(true);
+    setSelectedProfileId(profileId);
   };
 
   const handleDelete = async (profileId) => {
@@ -52,7 +53,7 @@ function MasterTable() {
       );
       if (confirmDelete) {
         await adminApiService.deleteJobProfileById(profileId);
-        // Remove the deleted profile from the state
+
         setJobProfiles(
           jobProfiles.filter((profile) => profile.id !== profileId)
         );
@@ -66,7 +67,7 @@ function MasterTable() {
 
   //-----------------------------------Adding Table-------------------------------
   const [page, setPage] = useState(1);
-  const rowsPerPage = 10;
+  const rowsPerPage = 5;
 
   const MasterTable = jobProfiles.map((profile) => ({
     id: profile.id,
@@ -181,7 +182,7 @@ function MasterTable() {
       )}
       {isEditFormOpen && (
         <div className="edit-form-container">
-          <EditOpenings />
+          <EditOpenings profileId={selectedProfileId}/>
         </div>
       )}
     </>

@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import "./EditOpenings.css";
 import adminApiService from "../../../../adminApiService";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+
 import close from "../../../../../assets/logos/close.png";
-function EditOpenings() {
+function EditOpenings({ profileId }) {
   const navigate = useNavigate();
+  // console.log("Profile ID:", profileId);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [departmant, setDepartmant] = useState([]);
   const [jobCategories, setJobCategories] = useState([]);
-  const [postShow, setPostShow] = useState([]);
+  
   const [selectedPost, setSelectedPost] = useState("");
   const [subPost, setSubPost] = useState([]);
   const [selectedSubPost, setSelectedSubPost] = useState("");
@@ -29,7 +30,7 @@ function EditOpenings() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await adminApiService.getJobProfileById(id);
+        const response = await adminApiService.getJobProfileById(profileId);
         const data = response.data;
         setCurrentOpening(data.publish_to_vacancy);
         setInterviewSchedule(data.publish_to_schedule_interview);
@@ -300,8 +301,10 @@ function EditOpenings() {
         jobprofile_id: profileID,
       };
       // console.log(updateField);
-      await adminApiService.updateJobProfile(updatedData);
-
+      // await adminApiService.updateJobProfile(updatedData);
+      let accessToken = localStorage.getItem("Token");
+      accessToken = JSON.parse(accessToken);
+      await adminApiService.updateJobProfile(accessToken.token, updatedData);
       setUpdateField({});
       navigate("/adminpanel");
     } catch (error) {
