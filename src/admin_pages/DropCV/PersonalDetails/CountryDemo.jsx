@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function CountryDemo() {
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://countriesnow.space/api/v0.1/countries');
+        const response = await fetch(
+          "https://countriesnow.space/api/v0.1/countries"
+        );
         const data = await response.json();
         setCountries(data.data);
       } catch (error) {
-        console.error('Error fetching countries:', error);
+        console.error("Error fetching countries:", error);
       }
     };
 
@@ -22,7 +24,7 @@ function CountryDemo() {
   const handleCountryChange = (event) => {
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
-    setSelectedCity(''); 
+    setSelectedCity("");
   };
 
   return (
@@ -61,7 +63,10 @@ function CountryDemo() {
           <option key="" value="">
             Select a city
           </option>
-          {(countries.find((country) => country.country === selectedCountry)?.cities || []).map((city) => (
+          {(
+            countries.find((country) => country.country === selectedCountry)
+              ?.cities || []
+          ).map((city) => (
             <option key={city} value={city}>
               {city}
             </option>
