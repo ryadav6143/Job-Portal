@@ -1,38 +1,30 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import React from "react";
+import Slide from "@mui/material/Slide";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
-function Notification() {
-    const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
+function Notification({ open, handleClose, alertMessage, alertSeverity }) {
+    /**alertSeverity== */
+    alertSeverity=alertSeverity?alertSeverity:"default"
   return (
-    <div>
-      <Button onClick={handleClick}>Open Snackbar</Button>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity="success"
-          variant="filled"
-          sx={{ width: '100%' }}
-          autoHideDuration={1200}
-        >
-          This is a success Alert inside a Snackbar!
-        </Alert>
-      </Snackbar>
-    </div>
-  )
+    <Snackbar
+      open={open}
+      autoHideDuration={2000}
+      onClose={handleClose}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }} // Positioning at top right
+      sx={{ width: "25%" }}
+      variant="filled"
+      TransitionComponent={Slide}
+    >
+      <Alert
+        onClose={handleClose}
+        severity={alertSeverity}
+        sx={{ width: "100%" }}
+      >
+        {alertMessage}
+      </Alert>
+    </Snackbar>
+  );
 }
 
-export default Notification
+export default Notification;
