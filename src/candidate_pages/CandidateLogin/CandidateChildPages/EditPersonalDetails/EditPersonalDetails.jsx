@@ -10,17 +10,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
-
-import {useApiData} from "../../../../context/CandidateContext";
-import { useContext } from "react";
+import apiService from "../../../../Services/ApiServices";
+import { useApiData } from "../../../../context/CandidateContext";
+// import { useContext } from "react";
 // import axios from "axios";
 function EditPersonalDetails() {
   // ---------profile image source---------
-  const {apiData,loading,fetchCandidateData }=useApiData()
+  const { apiData, loading, fetchCandidateData } = useApiData()
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   const [errors, setErrors] = useState({});
-
+  const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   const [data, setData] = useState(apiData);
   const [updateField, setUpdateField] = useState({});
   // const [loading, setLoading] = useState(true);
@@ -41,12 +43,21 @@ function EditPersonalDetails() {
   //   }
   // };
   useEffect(() => {
-    
+
     setData(apiData)
   }, [apiData]);
 
   // console.log("apiData", apiData);
- 
+  useEffect(() => {
+    apiService
+      .getCountries()
+      .then((response) => {
+        setCountries(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching countries:", error);
+      });
+  }, []);
 
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
@@ -70,7 +81,7 @@ function EditPersonalDetails() {
     }
   };
 
- 
+
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();
@@ -87,58 +98,57 @@ function EditPersonalDetails() {
 
       setUpdateField({});
       fetchCandidateData();
+      window.location.reload();
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }
 
-    let errors = {};
-    if (!formValues.first_name) {
-      errors.first_name = "! First Name is Required.";
-    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.first_name)) {
-      errors.first_name = "! Please enter a valid name.";
-    }
-    if (!formValues.last_name) {
-      errors.last_name = "! Last Name is Required.";
-    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.last_name)) {
-      errors.last_name = "! Please enter a valid name.";
-    }
+    // let errors = {};
+    // if (!formValues.first_name) {
+    //   errors.first_name = "! First Name is Required.";
+    // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.first_name)) {
+    //   errors.first_name = "! Please enter a valid name.";
+    // }
+    // if (!formValues.last_name) {
+    //   errors.last_name = "! Last Name is Required.";
+    // } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.last_name)) {
+    //   errors.last_name = "! Please enter a valid name.";
+    // }
 
-    if (!formValues.gender) {
-      errors.gender = "! Gender is Required";
-    }
-    if (!formValues.religion) {
-      errors.religion = "! Religion is Required";
-    }
-    if (!formValues.cast_category_name) {
-      errors.cast_category_name = "! Cast Category is Required";
-    }
-    if (!formValues.marital_status) {
-      errors.marital_status = "! Marital Status is Required";
-    }
-    if (!formValues.address_1) {
-      errors.address_1 = "! Current Address  is Required";
-    }
-    if (!formValues.country) {
-      errors.country = "! Country is Required";
-    }
-    if (!formValues.city) {
-      errors.city = "! City is Required";
-    }
-    if (!formValues.state_province) {
-      errors.state_province = "! State is Required";
-    }
-    if (!formValues.pin_code) {
-      errors.pin_code = "! Pin Code is Required";
-    }
-    setErrors(errors);
+    // if (!formValues.gender) {
+    //   errors.gender = "! Gender is Required";
+    // }
+    // if (!formValues.religion) {
+    //   errors.religion = "! Religion is Required";
+    // }
+    // if (!formValues.cast_category_name) {
+    //   errors.cast_category_name = "! Cast Category is Required";
+    // }
+    // if (!formValues.marital_status) {
+    //   errors.marital_status = "! Marital Status is Required";
+    // }
+    // if (!formValues.address_1) {
+    //   errors.address_1 = "! Current Address  is Required";
+    // }
+    // if (!formValues.country) {
+    //   errors.country = "! Country is Required";
+    // }
+    // if (!formValues.city) {
+    //   errors.city = "! City is Required";
+    // }
 
-    if (Object.keys(errors).length === 0) {
-      // console.log("Form Submitted Successfully");
-      return false;
-    } else {
-      console.log("Form has errors");
-      return true;
-    }
+    // if (!formValues.pin_code) {
+    //   errors.pin_code = "! Pin Code is Required";
+    // }
+    // setErrors(errors);
+
+    // if (Object.keys(errors).length === 0) {
+    //   // console.log("Form Submitted Successfully");
+    //   return false;
+    // } else {
+    //   console.log("Form has errors");
+    //   return true;
+    // }
   };
   const [formValues, setFormValues] = useState({
     editDetails: {
@@ -157,11 +167,42 @@ function EditPersonalDetails() {
       address_1: "",
       contact_2: "",
       country: "",
-      state_province: "",
+      // state_province: "",
       city: "",
       pin_code: "",
     },
   });
+
+
+  const handleCountryChange = (event) => {
+    const countryValue = event.target.value;
+    setSelectedCountry(countryValue);
+    setSelectedCity(""); 
+    console.log("Selected Country:", countryValue);
+    setUpdateField((prev) => ({
+      ...prev,
+      country: countryValue,
+      city: "", // Reset city in updateField as well
+    }));
+    setErrors({
+      ...errors,
+      country: "",
+    });
+  };
+  
+  const handleCityChange = (event) => {
+    const cityValue = event.target.value;
+    setSelectedCity(cityValue);
+    console.log("Selected city:", cityValue);
+    setUpdateField((prev) => ({
+      ...prev,
+      city: cityValue,
+    }));
+    setErrors({
+      ...errors,
+      city: "",
+    });
+  };
 
   const handleFieldChange = (fieldName, value) => {
     // console.log("handlefild", fieldName, value, updateField);
@@ -204,7 +245,7 @@ function EditPersonalDetails() {
     const year = dateObject.getFullYear();
     return `${year}-${month}-${day}`;
   };
-  // --------------end others fields section----------------
+ 
   useEffect(() => {
     const fetchImage = async () => {
       try {
@@ -231,17 +272,17 @@ function EditPersonalDetails() {
   }, []);
 
  
-// console.log("loading",loading)
+ 
   return (
-    <>  
-  
-  {/* {loading && (
+    <>
+
+      {/* {loading && (
         <div className="loader-container">
           <div className="loader"></div>
         </div>
       )} */}
 
-{/* {!loading && ( */}
+      {/* {!loading && ( */}
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div style={{ marginTop: "7%" }}>
           <div style={{ paddingLeft: "50px" }}>
@@ -323,7 +364,7 @@ function EditPersonalDetails() {
                       required
                       value={data.email}
                       readOnly
-                      // onChange={(e) => handleFieldChange('email', e.target.value)}
+                    // onChange={(e) => handleFieldChange('email', e.target.value)}
                     />
                     <FontAwesomeIcon
                       className="UD-set-icon"
@@ -347,7 +388,7 @@ function EditPersonalDetails() {
                       required
                       value={data.contact_1}
                       readOnly
-                      // onChange={(e) => handleFieldChange('contact_1', e.target.value)}
+                    // onChange={(e) => handleFieldChange('contact_1', e.target.value)}
                     />
                     <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                   </div>
@@ -689,26 +730,51 @@ function EditPersonalDetails() {
                 </div>
 
                 <div className="col-md-4">
-                  {/* *Country */}
-                  <div className="UD-form-section">
-                    <label className="UD-SetLabel-Name">
-                      <span>*</span> Country
-                    </label>
-                    <select name="country" className="UD-set-dropdown">
-                      <option value="">Select country</option>
-                      <option value=""> country</option>
-                      <option value=""> country</option>
-                      <option value=""> country</option>
-                    </select>
-                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                  </div>
-                  <span className="error-message">{errors.country}</span>
+                {/* *Country */}
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span>*</span>Country
+                  </label>
+                  <select
+                    name="country"
+                    className="set-dropdown"
+                    value={selectedCountry}
+                    onChange={handleCountryChange}
+                  >
+                    <option key="" value="">
+                      {data.country}
+                    </option>
+                    {countries.map((countryData) => (
+                      <option
+                        key={countryData.iso2}
+                        value={countryData.country}
+                      >
+                        {countryData.country}
+                      </option>
+                    ))}
+                  </select>
+                  {/* <select
+                    name="country"
+                    className="UD-set-dropdown"
+                    value={formValues.country}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">Select country</option>
+                    {countries.map((country, index) => (
+              <option key={index} value={country}>
+                {country}
+              </option>
+            ))}
+                  </select> */}
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
+                <span className="error-message">{errors.country}</span>
+              </div>
               </div>
 
               <div className="row">
-                <div className="col-md-4">
-                  {/* *State */}
+                {/* <div className="col-md-4">
+                  
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
                       <span>*</span>State
@@ -722,19 +788,32 @@ function EditPersonalDetails() {
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                   <span className="error-message">{errors.state_province}</span>
-                </div>
+                </div> */}
 
                 <div className="col-md-4">
-                  {/**Current Job City */}
+                  {/* *Current Job City */}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
                       <span>*</span>Current Job City
                     </label>
-                    <select name="city" className="UD-set-dropdown">
-                      <option value="">Select Current Job City</option>
-                      <option value=""> Job City</option>
-                      <option value=""> Job City</option>
-                      <option value=""> Job City</option>
+                    <select
+                      name="city"
+                      className="set-dropdown"
+                      value={selectedCity}
+                      onChange={handleCityChange}
+                    >
+                      <option key="" value="">
+                      {data.city}
+                      </option>
+                      {(
+                        countries.find(
+                          (country) => country.country === selectedCountry
+                        )?.cities || []
+                      ).map((city) => (
+                        <option key={city} value={city}>
+                          {city}
+                        </option>
+                      ))}
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
@@ -778,7 +857,7 @@ function EditPersonalDetails() {
           </div>
         </div>
       </form>
-  {/* )} */}
+      {/* )} */}
     </>
   );
 }

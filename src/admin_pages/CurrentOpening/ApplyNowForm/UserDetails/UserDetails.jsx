@@ -7,7 +7,6 @@ import {
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import "./UserDetails.css";
-
 import apiService from "../../../../Services/ApiServices";
 function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [posts, setPosts] = useState([]);
