@@ -150,11 +150,12 @@ function MasterTable() {
                     <td>
                       <button
                         type="button"
+                       
                         id="table-btns"
                         onClick={() => handleEditForm(data.id)}
                       >
                         
-                        <a> <img src={updatebtn} className="up-del-btn" alt="" /></a>
+                        <a> <img className="up-del-btn" src={updatebtn}  alt="" /></a>
                       </button>
                     </td>
                     <td>
@@ -163,7 +164,7 @@ function MasterTable() {
                         id="table-btns"
                         onClick={() => handleDelete(data.id)}
                       >
-                    <img src={deletebtn} className="up-del-btn" alt="" />
+                    <img className="up-del-btn" src={deletebtn}  alt="" />
                       </button>
                     </td>
                   </tr>
