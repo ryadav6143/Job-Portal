@@ -108,7 +108,7 @@ function MasterTable() {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
-  
+
 
 
   return (
@@ -123,6 +123,30 @@ function MasterTable() {
         <div className="master-table ">
           <p className="table-heading">Current Openings</p>
           <div className="">
+            <div className="row">
+              <label>Non-Active:</label>
+              <div >
+                <input
+                  className="set-input"
+                  type="number"
+                  placeholder="non-Active count"
+                  name=""
+                  id=""
+                ></input>
+              </div>
+
+              <div >
+              <label>schedule for interview:</label>
+                <input
+                  className="set-input"
+                  type="number"
+                  placeholder="schedule for interview count"
+                  name=""
+                  id=""
+                ></input>
+              </div>
+            </div>
+
             <table className="table table-responsive">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
                 <tr>
@@ -182,7 +206,7 @@ function MasterTable() {
       )}
       {isEditFormOpen && (
         <div className="edit-form-container">
-          <EditOpenings profileId={selectedProfileId}/>
+          <EditOpenings profileId={selectedProfileId} />
         </div>
       )}
     </>
