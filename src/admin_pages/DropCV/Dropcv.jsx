@@ -205,7 +205,7 @@ function Dropcv() {
           setAlertMessage("This email is already registered.");
           setAlertSeverity("error");
           setOpen(true);
-          // window.scrollTo({ top: 0, behavior: 'smooth' });
+          
          
         } else if (data_contact) {
       
@@ -213,7 +213,7 @@ function Dropcv() {
           setAlertMessage("This contact is already registered.");
           setAlertSeverity("error");
           setOpen(true);
-          // window.scrollTo({ top: 0, behavior: 'smooth' });
+         
        
         } else {
           console.log("contact does not exist in database");

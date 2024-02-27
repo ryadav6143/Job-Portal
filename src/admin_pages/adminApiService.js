@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Notification from "../Notification/Notification";
 import { ADMIN_BASE_URL } from "../config/config";
 
 const adminApiService = {
@@ -29,6 +29,12 @@ const adminApiService = {
       });
       return response.data;
     } catch (error) {
+      Notification({
+        open: true,
+        handleClose: () => {}, // Define handleClose function if needed
+        alertMessage: `Error posting job profile: ${error.message}`,
+        alertSeverity: "error",
+      });
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
