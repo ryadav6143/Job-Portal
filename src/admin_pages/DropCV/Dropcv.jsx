@@ -203,7 +203,7 @@ function Dropcv() {
           // alert("This email is already registered.");
 
           setAlertMessage("This email is already registered.");
-          setAlertSeverity("success");
+          setAlertSeverity("error");
           setOpen(true);
           // window.scrollTo({ top: 0, behavior: 'smooth' });
          
