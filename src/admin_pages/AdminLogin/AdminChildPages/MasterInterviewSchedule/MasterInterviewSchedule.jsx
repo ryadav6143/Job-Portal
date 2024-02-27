@@ -33,7 +33,7 @@ function MasterInterviewSchedule() {
     .map(profile => ({
       eligibility_criteria: profile.eligibility_criteria || "N/A",
       department: profile.department_master?.dept_name || "N/A",
-      post:profile.applied_post_master?.post_name || "N/A",
+      post: profile.applied_post_master?.post_name || "N/A",
       lastDate: profile.last_date_to_apply || "N/A",
       schedule_interview_date_1: profile.schedule_interview_date_1 || "N/A",
       schedule_interview_date_2: profile.schedule_interview_date_2 || "N/A",
@@ -59,6 +59,14 @@ function MasterInterviewSchedule() {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
+
+  const isDateBeforeToday = (dateString) => {
+    const dateObject = new Date(dateString);
+    const today = new Date();
+    return dateObject < today;
+  };
+
+
   return (
     <>
       <div>
@@ -67,7 +75,7 @@ function MasterInterviewSchedule() {
 
         <div className="table-responsive">
           <table className="table is-table">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+            <thead className="thead">
               <tr>
                 <th scope="col">S.No &#x2193;</th>
                 <th scope="col">Department &#x2193;</th>
@@ -79,19 +87,7 @@ function MasterInterviewSchedule() {
               </tr>
             </thead>
             <tbody>
-              {/* {ScheduledAcademicData.map((data, index) => (
-                <tr key={index}>
-                  <td>
-                    <b> {data["S.No"]} </b>
-                  </td>
-                  <td>{data["Discipline / Subject"]}</td>
-                  <td>{data["Eligibility criteria"]}</td>
-                  <td>{data["Day 1"]}</td>
-                  <td>{data["Day 2"]}</td>
-                  <td>{data["Day 3"]}</td>
-                </tr>
-              ))} */}
-              {ScheduledAcademicData.map((data, index) => (
+                {ScheduledAcademicData.map((data, index) => (
                 <tr key={index}>
                   <td>
                     <b>{index + 1}</b>
@@ -99,10 +95,20 @@ function MasterInterviewSchedule() {
                   <td>{data.department}</td>
                   <td>{data.post}</td>
                   <td>{data.eligibility_criteria}</td>
-                  <td>{formatDateForInput(data.schedule_interview_date_1)}</td>
+                  {/* <td className="date1">{formatDateForInput(data.schedule_interview_date_1)}</td>
                   <td>{formatDateForInput(data.schedule_interview_date_2)}</td>
-                  <td>{formatDateForInput(data.schedule_interview_date_3)}</td>
-     
+                  <td>{formatDateForInput(data.schedule_interview_date_3)}</td> */}
+
+                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_1) ? "red" : "inherit" }}>
+                    {formatDateForInput(data.schedule_interview_date_1)}
+                  </td>
+                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_2) ? "red" : "inherit" }}>
+                    {formatDateForInput(data.schedule_interview_date_2)}
+                  </td>
+                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_3) ? "red" : "inherit" }}>
+                    {formatDateForInput(data.schedule_interview_date_3)}
+                  </td>
+
                 </tr>
               ))}
 

@@ -13,10 +13,13 @@
     padding-bottom: 15px;
     color: #667085 !important;
     font-weight: 400;
+    
     font-family: "Open Sans", sans-serif;
   }
 }
-
+td[style*="color: red"] {
+  color: rgba(255, 0, 0, 0.507) !important;
+}
 .SCA-table {
   padding: 3% 10% 1% 10%;
 }
