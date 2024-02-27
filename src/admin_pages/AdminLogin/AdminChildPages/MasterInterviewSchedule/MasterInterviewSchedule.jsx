@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import "./MasterInterviewSchedule.css";
-// import adminApiService from "../../adminApiService";
+
 import adminApiService from "../../../adminApiService";
 
 function MasterInterviewSchedule() {
   const [jobProfiles, setJobProfiles] = useState([]);
-
+  const [interviewSchedule, setInterviewSchedule] = useState(false);
 
 
   useEffect(() => {
@@ -15,7 +15,18 @@ function MasterInterviewSchedule() {
       try {
         const response = await adminApiService.getJobProfile();
         // console.log("response get", response.data);
+        
         setJobProfiles(response.data);
+       
+        response.data.forEach(profile => {
+          // Assuming profile.publish_to_schedule_interview is a boolean value
+          // You can modify this if it's a different type
+          setInterviewSchedule(prevState => ({
+            ...prevState,
+            [profile.id]: profile.publish_to_schedule_interview
+          }));
+        });
+  
 
       } catch (error) {
         console.error('Error fetching job profiles:', error);
@@ -28,18 +39,51 @@ function MasterInterviewSchedule() {
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
 
-  const ScheduledAcademicsTable = jobProfiles
-    .filter(profile => profile.publish_to_schedule_interview)
-    .map(profile => ({
-      eligibility_criteria: profile.eligibility_criteria || "N/A",
-      department: profile.department_master?.dept_name || "N/A",
-      post: profile.applied_post_master?.post_name || "N/A",
-      lastDate: profile.last_date_to_apply || "N/A",
-      schedule_interview_date_1: profile.schedule_interview_date_1 || "N/A",
-      schedule_interview_date_2: profile.schedule_interview_date_2 || "N/A",
-      schedule_interview_date_3: profile.schedule_interview_date_3 || "N/A",
-    }));
+  const handleCheckboxChange = async (index, checked) => {
+    try {
+      const accessToken = JSON.parse(localStorage.getItem("Token")).token;
+      const jobId = jobProfiles[index].id;
+      const updatedData = {
+        jobprofile_id: jobId,
+        publish_to_schedule_interview: checked
+      };
+      await adminApiService.updateJobProfile(accessToken, updatedData);
+      // Update the jobProfiles state with the updated data
+      const updatedJobProfiles = [...jobProfiles];
+      // Update only the specific job profile with the modified fields
+      updatedJobProfiles[index].publish_to_schedule_interview = checked;
+      setJobProfiles(updatedJobProfiles);
+    } catch (error) {
+      console.error('Error updating job profile:', error);
+    }
+  };
+
+
+  // const ScheduledAcademicsTable = jobProfiles
+  //   .filter(profile => profile.publish_to_schedule_interview)
+  //   .map(profile => ({
+  //     eligibility_criteria: profile.eligibility_criteria || "N/A",
+  //     department: profile.department_master?.dept_name || "N/A",
+  //     post: profile.applied_post_master?.post_name || "N/A",
+  //     lastDate: profile.last_date_to_apply || "N/A",
+  //     schedule_interview_date_1: profile.schedule_interview_date_1 || "N/A",
+  //     schedule_interview_date_2: profile.schedule_interview_date_2 || "N/A",
+  //     schedule_interview_date_3: profile.schedule_interview_date_3 || "N/A",
+  //     publish_to_schedule_interview: profile.publish_to_schedule_interview
+  //   }));
+  const ScheduledAcademicsTable = jobProfiles.map(profile => ({
+    eligibility_criteria: profile.eligibility_criteria || "N/A",
+    department: profile.department_master?.dept_name || "N/A",
+    post: profile.applied_post_master?.post_name || "N/A",
+    lastDate: profile.last_date_to_apply || "N/A",
+    schedule_interview_date_1: profile.schedule_interview_date_1 || "N/A",
+    schedule_interview_date_2: profile.schedule_interview_date_2 || "N/A",
+    schedule_interview_date_3: profile.schedule_interview_date_3 || "N/A",
+    publish_to_schedule_interview: profile.publish_to_schedule_interview,
+    
+  }));
   // console.log("ScheduledAcademicsTable", ScheduledAcademicsTable)
+ 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -77,17 +121,18 @@ function MasterInterviewSchedule() {
           <table className="table is-table">
             <thead className="thead">
               <tr>
-                <th scope="col">S.No &#x2193;</th>
-                <th scope="col">Department &#x2193;</th>
-                <th scope="col">Post &#x2193;</th>
-                <th scope="col">Eligibility criteria &#x2193;</th>
-                <th scope="col">Day 1 &#x2193;</th>
-                <th scope="col">Day 2 &#x2193;</th>
-                <th scope="col">Day 3 &#x2193;</th>
+                <th scope="col">S.No&#x2193;</th>
+                <th scope="col">Department&#x2193;</th>
+                <th scope="col">Post&#x2193;</th>
+                <th scope="col">Eligibility criteria&#x2193;</th>
+                <th scope="col">Day 1&#x2193;</th>
+                <th scope="col">Day 2&#x2193;</th>
+                <th scope="col">Day 3&#x2193;</th>
+                <th scope="col">Add to interview&#x2193;</th>
               </tr>
             </thead>
             <tbody>
-                {ScheduledAcademicData.map((data, index) => (
+              {ScheduledAcademicData.map((data, index) => (
                 <tr key={index}>
                   <td>
                     <b>{index + 1}</b>
@@ -95,10 +140,6 @@ function MasterInterviewSchedule() {
                   <td>{data.department}</td>
                   <td>{data.post}</td>
                   <td>{data.eligibility_criteria}</td>
-                  {/* <td className="date1">{formatDateForInput(data.schedule_interview_date_1)}</td>
-                  <td>{formatDateForInput(data.schedule_interview_date_2)}</td>
-                  <td>{formatDateForInput(data.schedule_interview_date_3)}</td> */}
-
                   <td style={{ color: isDateBeforeToday(data.schedule_interview_date_1) ? "red" : "inherit" }}>
                     {formatDateForInput(data.schedule_interview_date_1)}
                   </td>
@@ -108,6 +149,21 @@ function MasterInterviewSchedule() {
                   <td style={{ color: isDateBeforeToday(data.schedule_interview_date_3) ? "red" : "inherit" }}>
                     {formatDateForInput(data.schedule_interview_date_3)}
                   </td>
+                  <td>
+                
+                    <label className="switch">
+                    <input
+  type="checkbox"
+  id={`checkbox${index}`} // Ensure unique IDs for each checkbox
+  name="publish_to_schedule_interview"
+  checked={data.publish_to_schedule_interview} // Set checked based on the property
+  onChange={() => handleCheckboxChange(index, !data.publish_to_schedule_interview)} // Toggle the value on change
+/>
+
+                      <span className="slider round"></span>
+                    </label>
+                  </td>
+
 
                 </tr>
               ))}

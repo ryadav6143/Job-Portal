@@ -303,7 +303,7 @@ function Reports() {
                 <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.applied_post_master?.post_name || "-"}</td>
                 <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.job_category_master?.category_name || "-"}</td>
                 <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.candidate.specialization || "-"}</td>
-                <td><Button variant="primary" onClick={() => handleResumeClick(candidate.id)}>View Resume</Button></td>
+                <td><Button variant="primary" onClick={() => handleResumeClick(candidate.id)}>View</Button></td>
               </tr>
             ))}
           </tbody>
