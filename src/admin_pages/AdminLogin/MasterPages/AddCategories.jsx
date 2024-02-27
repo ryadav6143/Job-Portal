@@ -144,8 +144,6 @@ function AddCategories() {
     } else {
       setOpen(false);
     }
-    // Close the modal when'x' button is clicked
-
     setOpen(false);
     setNewCategory();
     setSelectedCategory();

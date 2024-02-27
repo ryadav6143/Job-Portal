@@ -5,6 +5,8 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import adminApiService from "../../../../adminApiService";
 import EditOpenings from "../EditOpeningForm/EditOpenings";
+import updatebtn from "../../../../../assets/logos/update.png"
+import deletebtn from "../../../../../assets/logos/delete.png";
 
 
 function MasterTable() {
@@ -148,19 +150,20 @@ function MasterTable() {
                     <td>
                       <button
                         type="button"
-                        id="edit-btn"
+                        id="table-btns"
                         onClick={() => handleEditForm(data.id)}
                       >
-                        <a>EDIT</a>
+                        
+                        <a> <img src={updatebtn} className="up-del-btn" alt="" /></a>
                       </button>
                     </td>
                     <td>
                       <button
                         type="button"
-                        id="del-btn"
+                        id="table-btns"
                         onClick={() => handleDelete(data.id)}
                       >
-                        DELETE
+                    <img src={deletebtn} className="up-del-btn" alt="" />
                       </button>
                     </td>
                   </tr>
