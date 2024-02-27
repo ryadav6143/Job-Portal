@@ -1,20 +1,19 @@
-import React from 'react'
-import Headers from "../../../components/Header/Header"
-import Footers from "../../../components/Footer/Footers"
-import "./Administrative.css"
+import React from "react";
+import Headers from "../../../components/Header/Header";
+import Footers from "../../../components/Footer/Footers";
+import "./Administrative.css";
 
 function Administrative() {
-
   return (
     <>
-    <Headers></Headers>
+      <Headers></Headers>
       <div className="apply-for-dean">
         <div className="post-name">
           <p>DEAN</p>
         </div>
         <div></div>
         <div></div>
-        <div>
+        <div className="apply-btn-jp">
           <button type="button">Apply Now</button>
         </div>
       </div>
@@ -582,4 +581,4 @@ function Administrative() {
   );
 }
 
-export default Administrative
+export default Administrative;

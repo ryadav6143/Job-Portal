@@ -1,47 +1,42 @@
-/* .faq-body {
-  margin-left: 10%;
-  margin-right: 10%;
-
+/* root for colors */
+:root {
+  --heading-colors: #28282b;
 }
-.accordion-item {
-  margin: 10px;
-  border: none !important;
-  background-color: transparent !important;
+/* root for font-sizes */
+:root {
+  --heading-font-size: 4vw;
 }
-.accordion-button:not(.collapsed) {
-  color: var(--bs-accordion-active-color);
+.headings p {
+  font-size: var(--heading-font-size);
+  color: var(--heading-colors);
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Playfair Display", serif;
+  letter-spacing: 1px;
 }
-.accordion-body {
-  background-color: #f1f1f1 !important;
-  margin-left: -19.1%;
-  border-radius: 10px !important;
-
-  p {
-    border-left: 3px solid #88c128;
-    padding-left: 10px;
+@media screen and (max-width: 320px) {
+  /* Styles for smaller smartphones */
+  .headings p {
+    font-size: 30px;
   }
 }
-.accordion-header {
-  button {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 600;
-    font-size: 17px;
-    border-radius: 10px !important;
-    background-color: white !important;
+
+@media screen and (min-width: 321px) and (max-width: 480px) {
+  .headings p {
+    font-size: 30px;
   }
 }
-.accordion-button:not(.collapsed)::after {
-  background-image: url("../../assets//logos/minus-sign.png");
-  transform: var(--bs-accordion-btn-icon-transform);
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  /* Styles for tablets */
 }
-.accordion-button::after {
-  flex-shrink: 0;
-  width: var(--bs-accordion-btn-icon-width);
-  height: var(--bs-accordion-btn-icon-width);
-  margin-left: auto;
-  background-image: url("../../assets//logos/plus-sign.png");
-  background-repeat: no-repeat;
-  background-size: var(--bs-accordion-btn-icon-width);
-  transition: var(--bs-accordion-btn-icon-transition);
-} */
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  /* Styles for small desktops and tablets in landscape */
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+  /* Styles for larger desktops and laptops */
+}
+
+/* Additional media queries for larger screens can be added if needed */

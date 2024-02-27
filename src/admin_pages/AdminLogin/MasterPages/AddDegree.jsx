@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
-
-// import { ADMIN_BASE_URL } from "../../../config/config";
 import { ADMIN_BASE_URL } from "../../../config/config";
 
 function AddDegree() {

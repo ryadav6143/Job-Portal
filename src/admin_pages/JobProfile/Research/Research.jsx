@@ -1,12 +1,12 @@
 import React from "react";
-import Headers from "../../../components/Header/Header"
-import Footers from "../../../components/Footer/Footers"
+import Headers from "../../../components/Header/Header";
+import Footers from "../../../components/Footer/Footers";
 import "./Research.css";
 
 function Research() {
   return (
     <>
-    <Headers></Headers>
+      <Headers></Headers>
 
       <div className="apply-for-dean">
         <div className="post-name">
@@ -14,8 +14,10 @@ function Research() {
         </div>
         <div></div>
         <div></div>
-        <div>
-        <button type="button"><a href="/apply-now">Apply Now</a> </button>
+        <div className="apply-btn-jp">
+          <button type="button">
+            <a href="/apply-now">Apply Now</a>
+          </button>
         </div>
       </div>
       <div className="courses">
@@ -577,8 +579,7 @@ function Research() {
           </div>
         </details>
       </div>
-    <Footers></Footers>
-
+      <Footers></Footers>
     </>
   );
 }

@@ -48,7 +48,9 @@ function AddPostApplied() {
       fetch(`${ADMIN_BASE_URL}/jobCategory`)
         .then((response) => response.json())
         .then((data) => setCategories(data))
-        .catch((error) => console.error("Error fetching job categories:", error));
+        .catch((error) =>
+          console.error("Error fetching job categories:", error)
+        );
     }
     // ------------------GET DATA FROM API--------------------------------
     // function getPost() {
@@ -214,8 +216,8 @@ function AddPostApplied() {
             <button onClick={() => setOpen(true)}>Add Post Applied</button>
           </div>
           <Modal
-            open={open} // Control the open state of the modal
-            onClose={handleCloseModal} // Close the modal when onClose event occurs
+            open={open}
+            onClose={handleCloseModal}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
@@ -229,7 +231,9 @@ function AddPostApplied() {
                       src={close}
                     />
                     <div>
-                      <label className="AC-SetLabel-Name">Select Category</label>
+                      <label className="AC-SetLabel-Name">
+                        Select Category
+                      </label>
                       <select
                         name="category"
                         className="select-jc"

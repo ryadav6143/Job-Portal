@@ -13,7 +13,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: white !important;
-
 }
 
 code {
@@ -21,13 +20,14 @@ code {
     monospace;
 }
 
-.container{
-  font-family: 'Open Sans', sans-serif; 
+.container {
+  font-family: "Open Sans", sans-serif;
 }
 
-select{
-  appearance: none;
-  
+select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
 }
 
 ::-webkit-scrollbar {
