@@ -95,6 +95,7 @@ function AddExamType() {
         // Reset the selected exam
         setSelectedExam(null);
         setUpdateModalOpen(false);
+        examType();
       })
       .catch((error) => console.error("Error updating exam type:", error));
   };

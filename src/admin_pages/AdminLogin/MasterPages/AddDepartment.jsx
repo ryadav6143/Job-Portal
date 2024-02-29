@@ -14,96 +14,79 @@ function AddDepartment() {
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
   useEffect(() => {
-    // Fetch data from the API
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
     axios
       .get(`${ADMIN_BASE_URL}/departmentMaster`)
       .then((response) => {
-        // Update state with the fetched data
         setDepartments(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []); 
+  };
 
   const handleDelete = (id) => {
     let accessToken = localStorage.getItem("Token");
     accessToken = JSON.parse(accessToken);
     axios
-      // .delete(`${ADMIN_BASE_URL}/departmentMaster/${id}`)
       .delete(`${ADMIN_BASE_URL}/departmentMaster/${id}`, {
         headers: {
           'access-token': accessToken.token
-      }
-    })
+        }
+      })
       .then((response) => {
-        // Update state after successful deletion
         setDepartments(departments.filter((dept) => dept.id !== id));
         console.log("Department deleted successfully!");
-        // Clear the input field
         setNewDepartmentName("");
       })
       .catch((error) => {
         console.error("Error deleting department:", error);
       });
   };
-  // const handleAdd = () => {   
-  //   axios.post(`${ADMIN_BASE_URL}/departmentMaster`, {dept_name: newDepartmentName,})
-  //     .then((response) => {
-  //       setDepartments([...departments, response.data]);
-  //       console.log("Department added successfully!");
-  //      setNewDepartmentName("");
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error adding department:", error);
-  //     });
-  // };
-
-
-  const handleAdd = () => {   
+ 
+  const handleAdd = () => {
     let accessToken = localStorage.getItem("Token");
     accessToken = JSON.parse(accessToken);
 
     axios.post(`${ADMIN_BASE_URL}/departmentMaster`, { dept_name: newDepartmentName }, {
-        headers: {
-            'access-token': accessToken.token
-        }
+      headers: {
+        'access-token': accessToken.token
+      }
     })
     .then((response) => {
-        setDepartments([...departments, response.data]);
-        console.log("Department added successfully!");
-        setNewDepartmentName("");
+      setDepartments([...departments, response.data]);
+      console.log("Department added successfully!");
+      setNewDepartmentName("");
     })
     .catch((error) => {
-        console.error("Error adding department:", error);
+      console.error("Error adding department:", error);
     });
-};
+  };
 
 
 
   const handleUpdate = (id, currentDeptName) => {
-
-
-    // Set the current department for editing
     setEditingDepartmentId(id);
     setNewDepartmentName(currentDeptName);
-    setOpen(true);
     setUpdateModalOpen(true);
   };
+
   const handleSave = () => {
     let accessToken = localStorage.getItem("Token");
     accessToken = JSON.parse(accessToken);
-    // Send a put request to the API to update the department
     axios
-      .put(`${ADMIN_BASE_URL}/departmentMaster/${editingDepartmentId}`, {
-            dept_name: newDepartmentName,
-        }, {
-          headers: {
-            'access-token': accessToken.token
+      .put(`${ADMIN_BASE_URL}/departmentMaster`, {
+        dept_name: newDepartmentName,
+        department_id: editingDepartmentId
+      }, {
+        headers: {
+          'access-token': accessToken.token
         }
-        })
+      })
       .then((response) => {
-        // Update state after successful update
         setDepartments(
           departments.map((dept) =>
             dept.id === editingDepartmentId
@@ -112,19 +95,16 @@ function AddDepartment() {
           )
         );
         console.log("Department updated successfully!");
-        // Clear the input field and reset editing state
         setNewDepartmentName("");
         setEditingDepartmentId(null);
-        setOpen(false);
-        // Reload the page
+        setUpdateModalOpen(false);
+        fetchData(); // Refetch data after update
       })
       .catch((error) => {
         console.error("Error updating department:", error);
       });
   };
-
   const handleClose = () => {
-    setOpen(false);
     setEditingDepartmentId(null);
     setNewDepartmentName("");
     setUpdateModalOpen(false);
