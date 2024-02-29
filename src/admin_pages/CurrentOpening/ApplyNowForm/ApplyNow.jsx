@@ -18,6 +18,7 @@ import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
 import { CANDIDATE_BASE_URL } from "../../../config/config";
 import apiService from "../../../Services/ApiServices";
+import Notification from "../../../Notification/Notification";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
   const [otpButtonclicked, setOtpButtonclicked] = useState(false);
@@ -254,6 +255,11 @@ function ApplyNow() {
   const [selectedComponent, setSelectedComponent] = useState();
   const [formValuesToSend, setformValuesToSend] = useState();
 
+  const [open, setOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("success");
+
+
   // const transferAllData =async ()=>{
   //   try {
   //     const formValuesToSend = new formValues();
@@ -313,6 +319,19 @@ function ApplyNow() {
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
+  };
+
+  const handleClick = () => {
+    setOpen(true);
+   
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
   };
 
   // const handleNext = () => {
@@ -387,11 +406,19 @@ function ApplyNow() {
         const dataContact = await responseContact.json();
         console.log("dataEmail", dataEmail, dataContact);
         if (dataEmail) {
-          alert("This email is already registered.");
-          // setErrors({ email: "This email is already registered." });
+          // alert("This email is already registered.");
+         
+
+          setAlertMessage("This email is already registered.");
+          setAlertSeverity("error");
+          setOpen(true);
+          
         } else if (dataContact) {
-          alert("This contact is already registered.");
-          // setErrors({ contact_1: "This contact is already registered." });
+          // alert("This contact is already registered.");
+          setAlertMessage("This contact is already registered.");
+          setAlertSeverity("error");
+          setOpen(true);
+         
         } else {
           console.log("Email and contact do not exist in the database");
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -971,6 +998,7 @@ function ApplyNow() {
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={handleNext} className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                  <Notification open={open} handleClose={handleClose} alertMessage={alertMessage} alertSeverity={alertSeverity} />
                 </Button>
               </Box>
             </React.Fragment>

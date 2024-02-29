@@ -187,10 +187,13 @@ function AddOpenings() {
     // console.log('Sending request with formValues:', formValues);
 
     try {
-      const response = await adminApiService.postJobProfile(formValues);
-      // console.log('API Response:', response.data);
-
-      // Add any additional logic after successful submission
+    
+      let accessToken = localStorage.getItem("Token");
+      accessToken = JSON.parse(accessToken);
+      const response = await adminApiService.postJobProfile(
+        accessToken.token,
+        formValues
+      );      
       console.log("Job profile submitted successfully!", response.data);
       alert("submit form Successfully");
       navigate("/adminpanel");

@@ -17,6 +17,7 @@ import OTPVerification from "./OTPVerifivation/OTPVerification";
 import apiService from "../../Services/ApiServices";
 // import { BASE_URL } from "../../config/config";
 import { CANDIDATE_BASE_URL } from "../../config/config";
+import Notification from "../../Notification/Notification";
 
 const steps = ["", "", ""];
 
@@ -27,6 +28,10 @@ function Dropcv() {
   const [formErrors, setFormErrors] = useState({});
   const [showHeaderFooter, setShowHeaderFooter] = useState(true); // New state
   const [dangerAlertVisible, setDangerAlertVisible] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("success");
+  
 
   // console.log("IS fresher data......................./", isFresher);
   const initialEducation = {
@@ -61,6 +66,19 @@ function Dropcv() {
       candidate_cv: "",
     },
   });
+
+  const handleClick = () => {
+    setOpen(true);
+   
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const handleCheckboxChange = (newIsFresher) => {
     setIsFresher(newIsFresher);
@@ -181,13 +199,22 @@ function Dropcv() {
         console.log("fetch-data contact", data_contact);
 
         if (data) {
-          // setErrors({ email: "This email is already registered." });
-          alert("This email is already registered.");
-          // setDangerAlertVisible(true);
+         
+          // alert("This email is already registered.");
+
+          setAlertMessage("This email is already registered.");
+          setAlertSeverity("error");
+          setOpen(true);
+          
+         
         } else if (data_contact) {
-          // setErrors({ contact_1: "This contact is already registered." });
-          alert("This contact is already registered.");
-          // setDangerAlertVisible(true);
+      
+          // alert("This contact is already registered.");
+          setAlertMessage("This contact is already registered.");
+          setAlertSeverity("error");
+          setOpen(true);
+         
+       
         } else {
           console.log("contact does not exist in database");
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -516,8 +543,9 @@ function Dropcv() {
                     This email or contact is already registered.
                   </div>
                 )}
-                <Button onClick={handleNext} className="next-btn">
+                <Button onClick={handleNext } className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                  <Notification open={open} handleClose={handleClose} alertMessage={alertMessage} alertSeverity={alertSeverity} />
                 </Button>
               </Box>
             </React.Fragment>

@@ -59,6 +59,13 @@ function ScheduledAcademics() {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
+
+
+  const isDateBeforeToday = (dateString) => {
+    const dateObject = new Date(dateString);
+    const today = new Date();
+    return dateObject < today;
+  };
   return (
     <>
       <div className="SCA-table">
@@ -99,9 +106,18 @@ function ScheduledAcademics() {
                   <td>{data.department}</td>
                   <td>{data.post}</td>
                   <td>{data.eligibility_criteria}</td>
-                  <td>{formatDateForInput(data.schedule_interview_date_1)}</td>
+                  {/* <td>{formatDateForInput(data.schedule_interview_date_1)}</td>
                   <td>{formatDateForInput(data.schedule_interview_date_2)}</td>
-                  <td>{formatDateForInput(data.schedule_interview_date_3)}</td>
+                  <td>{formatDateForInput(data.schedule_interview_date_3)}</td> */}
+                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_1) ? "red" : "inherit" }}>
+                    {formatDateForInput(data.schedule_interview_date_1)}
+                  </td>
+                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_2) ? "red" : "inherit" }}>
+                    {formatDateForInput(data.schedule_interview_date_2)}
+                  </td>
+                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_3) ? "red" : "inherit" }}>
+                    {formatDateForInput(data.schedule_interview_date_3)}
+                  </td>
      
                 </tr>
               ))}

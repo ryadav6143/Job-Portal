@@ -5,7 +5,9 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import adminApiService from "../../../../adminApiService";
 import EditOpenings from "../EditOpeningForm/EditOpenings";
-// import AddOpenings from "./AddOpeningForm/AddOpenings";
+import updatebtn from "../../../../../assets/logos/update.png"
+import deletebtn from "../../../../../assets/logos/delete.png";
+
 
 function MasterTable() {
   const navigate = useNavigate();
@@ -13,12 +15,12 @@ function MasterTable() {
   const [jobProfiles, setJobProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
-
+  const [selectedProfileId, setSelectedProfileId] = useState(null);
   useEffect(() => {
     const fetchJobProfiles = async () => {
       try {
         const response = await adminApiService.getJobProfile();
-        // console.log("response get", response.data);
+        console.log("response get", response.data);
         setJobProfiles(response.data);
 
         setLoading(false);
@@ -43,6 +45,7 @@ function MasterTable() {
     // console.log("Job Profile ID:", profileId);
     // navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
     setIsEditFormOpen(true);
+    setSelectedProfileId(profileId);
   };
 
   const handleDelete = async (profileId) => {
@@ -52,7 +55,7 @@ function MasterTable() {
       );
       if (confirmDelete) {
         await adminApiService.deleteJobProfileById(profileId);
-        // Remove the deleted profile from the state
+
         setJobProfiles(
           jobProfiles.filter((profile) => profile.id !== profileId)
         );
@@ -66,7 +69,7 @@ function MasterTable() {
 
   //-----------------------------------Adding Table-------------------------------
   const [page, setPage] = useState(1);
-  const rowsPerPage = 10;
+  const rowsPerPage = 5;
 
   const MasterTable = jobProfiles.map((profile) => ({
     id: profile.id,
@@ -107,7 +110,7 @@ function MasterTable() {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
-  
+
 
 
   return (
@@ -122,6 +125,30 @@ function MasterTable() {
         <div className="master-table ">
           <p className="table-heading">Current Openings</p>
           <div className="">
+            <div className="row">
+              <label>Non-Active:</label>
+              <div >
+                <input
+                  className="set-input"
+                  type="number"
+                  placeholder="non-Active count"
+                  name=""
+                  id=""
+                ></input>
+              </div>
+
+              <div >
+              <label>schedule for interview:</label>
+                <input
+                  className="set-input"
+                  type="number"
+                  placeholder="schedule for interview count"
+                  name=""
+                  id=""
+                ></input>
+              </div>
+            </div>
+
             <table className="table table-responsive">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
                 <tr>
@@ -147,19 +174,21 @@ function MasterTable() {
                     <td>
                       <button
                         type="button"
-                        id="edit-btn"
+                       
+                        id="table-btns"
                         onClick={() => handleEditForm(data.id)}
                       >
-                        <a>EDIT</a>
+                        
+                        <a> <img className="up-del-btn" src={updatebtn}  alt="" /></a>
                       </button>
                     </td>
                     <td>
                       <button
                         type="button"
-                        id="del-btn"
+                        id="table-btns"
                         onClick={() => handleDelete(data.id)}
                       >
-                        DELETE
+                    <img className="up-del-btn" src={deletebtn}  alt="" />
                       </button>
                     </td>
                   </tr>
@@ -181,7 +210,7 @@ function MasterTable() {
       )}
       {isEditFormOpen && (
         <div className="edit-form-container">
-          <EditOpenings />
+          <EditOpenings profileId={selectedProfileId} />
         </div>
       )}
     </>

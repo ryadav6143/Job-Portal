@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Notification from "../Notification/Notification";
 import { ADMIN_BASE_URL } from "../config/config";
 
 const adminApiService = {
@@ -12,26 +12,66 @@ const adminApiService = {
   getJobProfile: () => {
     return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster`);
   },
-  postJobProfile: (formValues) => {
-    return axios.post(`${ADMIN_BASE_URL}/jobProfileMaster`,formValues);
+  // postJobProfile: (formValues,accessToken) => {
+  //   return axios.post(`${ADMIN_BASE_URL}/jobProfileMaster`,
+  //   {headers: {
+  //     'access-token': accessToken,
+  //   }},
+  //   formValues);
+  // },
+
+  postJobProfile: async (accessToken,formValues) => {
+    try {
+      const response = await axios.post(`${ADMIN_BASE_URL}/jobProfileMaster`,formValues, {
+        headers: {
+          'access-token': accessToken,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      Notification({
+        open: true,
+        handleClose: () => {}, // Define handleClose function if needed
+        alertMessage: `Error posting job profile: ${error.message}`,
+        alertSeverity: "error",
+      });
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
   },
+
   // getJobProfile: () => {
   //   return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster`);
   // },
-  getJobProfileById: (id) => {
-    return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/${id}`);
+  getJobProfileById: (profileId) => {
+    return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/${profileId}`);
   },
   deleteJobProfileById: (profileID) => {
     return axios.delete(`${ADMIN_BASE_URL}/jobProfileMaster/${profileID}`);
   },
-  updateJobProfile: async (updatedData) => {
-  try {
-    const response = await axios.put(`${ADMIN_BASE_URL}/jobProfileMaster`, updatedData);
-    return response.data;
-  } catch (error) {
-    throw new Error("Error updating job profile:", error);
-  }
+  // updateJobProfile: async (updatedData) => {
+  // try {
+  //   const response = await axios.put(`${ADMIN_BASE_URL}/jobProfileMaster`, updatedData);
+  //   return response.data;
+  // } catch (error) {
+  //   throw new Error("Error updating job profile:", error);
+  // }
+  // },
+
+  updateJobProfile: async (accessToken,profileID) => {
+    try {
+      const response = await axios.put(`${ADMIN_BASE_URL}/jobProfileMaster`,profileID, {
+        headers: {
+          'access-token': accessToken,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
   },
+
+
+
   addApplied: async (requestData, accessToken) => {
     try {
       const response = await axios.post(

@@ -36,11 +36,16 @@ function AddExamType() {
       alert("Please enter a valid exam type.");
       return;
     }
-
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
-      .post(`${ADMIN_BASE_URL}/examTypeMaster`, {
+    .post(`${ADMIN_BASE_URL}/examTypeMaster`, {
         exam_name: newExamType,
-      })
+    }, {
+      headers: {
+        'access-token': accessToken.token
+    }
+    })
       .then((response) => {
         setData([...data, response.data]);
         setNewExamType("");
@@ -52,8 +57,14 @@ function AddExamType() {
 
   // --------------------DELETE DATA FROM API--------------------------------
   const handleDeleteExamType = (examId) => {
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
-      .delete(`${ADMIN_BASE_URL}/examTypeMaster/${examId}`)
+      .delete(`${ADMIN_BASE_URL}/examTypeMaster/${examId}`,{
+        headers: {
+          'access-token': accessToken.token
+      }
+      })
       .then(() => {
         // Remove the deleted item from the state
         const updatedData = data.filter((exam) => exam.id !== examId);
@@ -63,11 +74,17 @@ function AddExamType() {
   };
   const handleUpdateExamType = () => {
     if (!selectedExam) return;
-
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
-      .put(`${ADMIN_BASE_URL}/examTypeMaster/${selectedExam.id}`, {
+    .put(`${ADMIN_BASE_URL}/examTypeMaster`, {
+      examtypes_id:selectedExam.id,
         exam_name: selectedExam.exam_name,
-      })
+    }, {
+      headers: {
+        'access-token': accessToken.token
+    }
+    })
       .then((response) => {
         // Update the state with the updated data
         setData(
@@ -175,7 +192,7 @@ function AddExamType() {
                 <th scope="col">Sr. No.</th>
                 <th scope="col">EXAM TYPE</th>
                 <th scope="col">UPDATE</th>
-                <th scope="col">DELETE</th>
+                {/* <th scope="col">DELETE</th> */}
               </tr>
             </thead>
             <tbody>
@@ -247,14 +264,14 @@ function AddExamType() {
                         </Box>
                       </Modal>
                     </td>
-                    <td>
+                    {/* <td>
                       <button
                         id="table-btns"
                         onClick={() => handleDeleteExamType(parseInt(exam.id))}
                       >
                         <img src={deletebtn} className="up-del-btn" alt="" />
                       </button>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
             </tbody>

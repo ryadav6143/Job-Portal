@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 // import { checkEmailExistence } from "../../../Services/ApiServices";
 
-  function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
+function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -25,14 +25,12 @@ import {
 
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
- 
+
   // -------------for jobcategory, post applies , sub post  ---------------
 
   // -------------------------------------dob----------------------
 
   // -------------------------------------dob----------------------
-
-
 
   useEffect(() => {
     apiService
@@ -164,7 +162,7 @@ import {
         subjects_master_id: selectedSubjectData ? selectedSubjectData.id : "",
       },
     }));
- };
+  };
   const handleCountryChange = (event) => {
     // set errors to null for country when changed
     setErrors({
@@ -180,7 +178,6 @@ import {
         country: countryValue,
         city: "",
         // Add additional fields if needed
-        
       },
     }));
   };
@@ -214,7 +211,6 @@ import {
       [name]: value ? "" : "This field is required",
     }));
   };
-
 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
   const [formErrors, setFormErrors] = useState({
@@ -358,7 +354,7 @@ import {
                   <FontAwesomeIcon className="set-icon" icon={faEnvelope} />
                 </div>
                 <span className="error-message">{errors.email}</span>
-               {/* ---------- */}
+                {/* ---------- */}
                 {/* <span className="error-message">{emailExistenceError}</span> */}
                 {/* ----------- */}
               </div>
@@ -465,11 +461,8 @@ import {
                     required
                   >
                     <option value="">Select a category</option>
-                    {categories.map((category,index) => (
-                      <option
-                        key={index}
-                        value={category.category_name}
-                      >
+                    {categories.map((category, index) => (
+                      <option key={index} value={category.category_name}>
                         {category.category_name}
                       </option>
                     ))}

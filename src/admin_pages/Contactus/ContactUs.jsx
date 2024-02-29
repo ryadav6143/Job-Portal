@@ -52,7 +52,11 @@ function ContactUs() {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="">Email</label>
-                <input type="email" placeholder="Enter Email Address " required />
+                <input
+                  type="email"
+                  placeholder="Enter Email Address "
+                  required
+                />
               </div>
               <div className="col-6">
                 <label htmlFor="">Phone Number</label>

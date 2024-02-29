@@ -14,7 +14,9 @@
   font-family: "Open Sans", sans-serif;
   background-color: #fcfcfd;
 }
-
+td[style*="color: red"] {
+  color: rgba(255, 0, 0, 0.507) !important;
+}
 .SCA-table {
   padding: 3% 10% 1% 10%;
 }

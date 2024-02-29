@@ -37,12 +37,18 @@ function AddSubjects() {
   }, []); // The empty dependency array ensures the useEffect runs only once when the component mounts
 
   const handleAdd = () => {
-    // Send a post request to the API to add a new department
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
       .post(`${ADMIN_BASE_URL}/subjectMaster`, {
         subject_name: newSubject,
         subject_type: newSubjectType,
         description: newSubjectDescription,
+      },
+      {
+        headers: {           
+          "access-token": accessToken.token 
+        },
       })
       .then((response) => {
         // Update state after successful addition
@@ -56,6 +62,7 @@ function AddSubjects() {
       });
   };
   const handleUpdate = (subject) => {
+    
     setEditingSubject(subject);
     setNewSubjectName(subject.subject_name);
     setNewSubjectType(subject.subject_type);
@@ -63,12 +70,21 @@ function AddSubjects() {
     setUpdateModalOpen(true);
   };
   const handleSubmitUpdate = () => {
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
       .put(`${ADMIN_BASE_URL}/subjectMaster/${editingSubject.id}`, {
         subject_name: newSubject,
         subject_type: newSubjectType,
         description: newSubjectDescription,
-      })
+      }
+      ,
+      {
+        headers: {           
+          "access-token": accessToken.token 
+        },
+      }
+      )
       .then((response) => {
         const updatedSubjects = subject.map((subj) =>
           subj.id === editingSubject.id ? response.data : subj
@@ -87,9 +103,14 @@ function AddSubjects() {
   };
 
   const handleDelete = (id) => {
-    // Send a delete request to the API
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
-      .delete(`${ADMIN_BASE_URL}/subjectMaster/${id}`)
+      .delete(`${ADMIN_BASE_URL}/subjectMaster/${id}`,{
+        headers: {           
+          "access-token": accessToken.token 
+        },
+      })
       .then((response) => {
         // Update state after successful deletion
         setSubject(subject.filter((subj) => subj.id !== id));
@@ -214,9 +235,9 @@ function AddSubjects() {
               </tr>
             </thead>
             <tbody>
-              {subject.map((subject) => (
+              {subject.map((subject,index) => (
                 <tr key={subject.id}>
-                  <td>{subject.id}</td>
+                   <td>{index + 1}</td>
                   <td>{subject.subject_name}</td>
                   <td>{subject.subject_type}</td>
                   <td>

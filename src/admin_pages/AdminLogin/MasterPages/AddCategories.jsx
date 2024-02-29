@@ -36,7 +36,8 @@ function AddCategories() {
   // ------------------POST DATA TO API--------------------------------
   const handleAddCategory = () => {
     // Send a POST request to the API to add a new category
-
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
       .post(
         `${ADMIN_BASE_URL}/jobCategory`,
@@ -44,8 +45,8 @@ function AddCategories() {
           category_name: newCategory,
         },
         {
-          headers: {
-            "Content-Type": "application/json",
+          headers: {           
+            "access-token": accessToken.token 
           },
         }
       )
@@ -60,13 +61,20 @@ function AddCategories() {
         console.error("Error adding category:", error);
       });
   };
+  
 
   // ------------------POST DATA TO API--------------------------------
 
   // ------------------DELETE DATA FROM API--------------------------------
   const handleDeleteCategory = (categoryId) => {
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
-      .delete(`${ADMIN_BASE_URL}/jobCategory/${categoryId}`)
+      .delete(`${ADMIN_BASE_URL}/jobCategory/${categoryId}`, {
+        headers: {           
+          "access-token": accessToken.token 
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           // Remove the deleted category from the state
@@ -82,7 +90,8 @@ function AddCategories() {
   // ------------------UPDATE DATA IN API--------------------------------
   const handleUpdateCategory = () => {
     if (!selectedCategory) return;
-
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
       .put(
         `${ADMIN_BASE_URL}/jobCategory/${selectedCategory.id}`,
@@ -90,8 +99,8 @@ function AddCategories() {
           category_name: selectedCategory.category_name,
         },
         {
-          headers: {
-            "Content-Type": "application/json",
+          headers: {           
+            "access-token": accessToken.token 
           },
         }
       )
@@ -135,8 +144,6 @@ function AddCategories() {
     } else {
       setOpen(false);
     }
-    // Close the modal when'x' button is clicked
-
     setOpen(false);
     setNewCategory();
     setSelectedCategory();
