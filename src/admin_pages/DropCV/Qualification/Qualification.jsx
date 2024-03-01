@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import "./Qualification.css";
 import apiService from "../../../Services/ApiServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,10 +12,15 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
   const [degrees, setDegrees] = useState([]);
   const [selectedDegree, setSelectedDegree] = useState("");
   const [data, setData] = useState([]);
-
+  const hasMounted = useRef(false);
   useEffect(() => {
-    apiService
-      .getExamTypes()
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
+    const controller = new AbortController();
+    const signal = controller.signal;
+    apiService.getExamTypes(signal)
       .then((response) => {
         setData(response.data);
         const uniqueExams = Array.from(
@@ -38,6 +43,11 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+
+      return () => {
+        // Cleanup function to abort the request when the component unmounts
+        controller.abort();
+      };
   }, []);
 
   const handleExamChange = (event) => {

@@ -6,24 +6,24 @@ import { CANDIDATE_BASE_URL } from "../config/config";
 const apiService = {
   
   // -------------------
-  getJobCategories: () => {
-    return axios.get(`${CANDIDATE_BASE_URL}/jobCategory`);
+  getJobCategories: (signal) => {
+    return axios.get(`${CANDIDATE_BASE_URL}/jobCategory`,{signal});
   },
 
-  getSubjectMaster: () => {
-    return axios.get(`${CANDIDATE_BASE_URL}/subjectMaster`);
+  getSubjectMaster: (signal) => {
+    return axios.get(`${CANDIDATE_BASE_URL}/subjectMaster`,{signal});
   },
 
-  getCountries: () => {
-    return axios.get("https://countriesnow.space/api/v0.1/countries");
+  getCountries: (signal) => {
+    return axios.get("https://countriesnow.space/api/v0.1/countries",{signal});
   },
 
   getCandidates: () => {
     return axios.post(`${CANDIDATE_BASE_URL}/candidates`);
   },
 
-  getExamTypes: () => {
-    return axios.get(`${CANDIDATE_BASE_URL}/examTypeMaster`);
+  getExamTypes: (signal) => {
+    return axios.get(`${CANDIDATE_BASE_URL}/examTypeMaster`,{signal});
   },
 
   generateOTP: (otpData) => {
