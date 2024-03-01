@@ -28,6 +28,7 @@ function AddSubPostApplied() {
     axios
       .get(`${ADMIN_BASE_URL}/appliedSubPost`)
       .then((response) => {
+        console.log("response.data>>>>",response.data)
         setData(response.data);
       })
       .catch((error) => {
@@ -167,6 +168,7 @@ function AddSubPostApplied() {
         console.log("API Response:", response.data);
         fetchData();
         setUpdatePost("");
+        setUpdateModalOpen(false);
       })
       .catch((error) => console.error("Error updating post:", error));
   };
@@ -264,6 +266,7 @@ function AddSubPostApplied() {
                 <th scope="col">ID</th>
                 {/* <th scope="col">Post</th> */}
                 <th scope="col">Sub Post</th>
+                <th scope="col">Post</th>
                 <th scope="col">UPDATE</th>
                 <th scope="col">DELETE</th>
               </tr>
@@ -274,6 +277,7 @@ function AddSubPostApplied() {
                   <td>{index + 1}</td>
                   {/* <td>{subPost.applied_post_master.post_name}</td> */}
                   <td>{subPost.subpost_name}</td>
+                  <td>{subPost.applied_post_master.post_name}</td>
                   <td>
                     <button id="table-btns">
                       <img
