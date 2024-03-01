@@ -55,6 +55,8 @@ function AddCategories() {
         setData([...data, response.data]);
         // Clear the input field after successful submission
         setNewCategory("");
+        setOpen(false);
+        getJobCategory();
       })
       .catch((error) => {
         setNewCategory("");
@@ -87,7 +89,7 @@ function AddCategories() {
   };
   // ------------------DELETE DATA FROM API--------------------------------
 
-  // ------------------UPDATE DATA IN API--------------------------------
+
   const handleUpdateCategory = () => {
     if (!selectedCategory) return;
     let accessToken = localStorage.getItem("Token");
@@ -114,6 +116,7 @@ function AddCategories() {
         // Reset the selected category
         setSelectedCategory(null);
         setUpdateModalOpen(false);
+        getJobCategory();
       })
       .catch((error) => console.error("Error updating category:", error));
   };

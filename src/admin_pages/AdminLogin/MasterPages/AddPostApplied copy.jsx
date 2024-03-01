@@ -13,37 +13,36 @@ function AddPostApplied() {
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-
+  // const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [open, setOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
-
+  // const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
-
+  const [putID, setPutId] = useState("");
   const [selectedPost, setSelectedPost] = useState(null);
 
   // ------------------Fetching Data from job_category_master-id-------------------------------
+  useEffect(() => {
+    getJobCategory();
+    getPost();
+  }, []);
   function getJobCategory() {
     axios
       .get(`${ADMIN_BASE_URL}/jobCategory`)
       .then((response) => {
-        // console.log("category api>>", response.data);
+        console.log("category api>>", response.data);
         setCategories(response.data);
       })
       .catch((error) => {
         console.error("Error fetching job categories:", error);
       });
   }
-  useEffect(() => {
-    getPost();
-    getJobCategory();
-  }, [categories.category_name]);
-  
   // ------------------GET DATA FROM API--------------------------------
   function getPost() {
     axios
       .get(`${ADMIN_BASE_URL}/appliedPost`)
       .then((response) => {
-        // console.log("Post api>>", response.data);
+        console.log("Post api>>", response.data);
         setData(response.data);
       })
       .catch((error) => {
@@ -51,7 +50,7 @@ function AddPostApplied() {
       });
   }
   const handleAddPost = () => {
-    // console.log(selectedCategoryId, "check category");
+    console.log(selectedCategoryId, "check category");
     if (!selectedCategoryId) {
       console.error("Please select a category.");
       return;
@@ -74,11 +73,10 @@ function AddPostApplied() {
         }
       )
       .then((response) => {
-        // setData([...data, response.data]);
+        setData([...data, response.data]);
         setNewCategory("");
-        // getJobCategory();
-        // getPost();
-        setOpen(false);
+        getJobCategory();
+        getPost();
         handleCloseModal();
       })
       .catch((error) => console.error("Error adding post:", error));
@@ -110,6 +108,33 @@ function AddPostApplied() {
   };
 
 
+  const handleUpdatePost = () => {
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
+
+    axios
+      .put(
+        `${ADMIN_BASE_URL}/appliedPost`,
+        {
+          appliedpost_id: putID,
+          post_name: selectedPost.post_name,
+          job_category_master_id: selectedCategoryId,
+        },
+        {
+          headers: {
+            "access-token": accessToken.token,
+          },
+        }
+      )
+      .then((response) => {
+        setData(data.map(post => post.id === selectedCategoryId ? response.data : post));
+        setSelectedCategory("");
+        setSelectedCategoryId("");
+        getPost();
+        setUpdateModalOpen(false);
+      })
+      .catch((error) => console.error("Error updating post:", error));
+  };
 
 
   const handleSelectCategory = (e) => {
@@ -122,12 +147,43 @@ function AddPostApplied() {
     setSelectedCategory(selectedCategoryObj);
   };
 
+  const handlePutSelectCategory = (e) => {
+    const categoryId = e.target.value;
+
+    console.log("Categories:", categories);
+    console.log("Selected Category ID:", categoryId);
 
 
+    const selectedCategoryObj = categories.find(
+      (category) => category.id === categoryId
+    );
+
+    console.log("Selected Category Object:", selectedCategoryObj);
+
+
+    setSelectedCategoryId(categoryId);
+    setSelectedCategory(categoryId);
+    setSelectedPost("");
+  };
+
+
+
+
+
+
+  const handleSelectPostForUpdate = (categoryId) => {
+    const selectedPost = data.find((post) => post.id === categoryId);
+    setSelectedCategoryId(categoryId);
+    setSelectedCategory(selectedPost);
+    setPutId(categoryId);
+
+    setUpdateModalOpen(true);
+  };
   const handleCloseUpdateModal = () => {
     setUpdateModalOpen(false);
+  };
 
-  }
+
 
 
 
@@ -153,53 +209,13 @@ function AddPostApplied() {
     p: 4,
   };
 
-
-  const handleSelectPostForUpdate = (postId) => {
-    // Find the selected post from the data array
-    const selectedPost = data.find(post => post.id === postId);
-    setSelectedPost(selectedPost);
-    setUpdateModalOpen(true);
-  };
-
-
-
-  const handleUpdatePost = () => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    const updatedData = {
-      appliedpost_id: selectedPost.id, // Assuming appliedpost_id holds the ID of the applied post
-      job_category_master_id: selectedPost.job_category_master.id,
-      post_name: selectedPost.post_name
-      // Add more fields if needed
-    };
-
-    // Send PUT request to your API endpoint
-    axios.put(`${ADMIN_BASE_URL}/appliedPost`, updatedData, {
-      headers: {
-        "access-token": accessToken.token,
-      },
-    })
-      .then(response => {
-        // Handle successful response if needed
-        // console.log("Update successful:", response.data);
-        // Close the modal or perform any other action
-        handleCloseUpdateModal();
-        getPost();
-      })
-      .catch(error => {
-        // Handle error if needed
-        console.error("Update failed:", error);
-      });
-  };
-
-
   return (
     <>
       <div className="container-1">
         <div>
           <button onClick={() => setOpen(true)}>Add Post Applied</button>
         </div>
-        {open&&<Modal
+        <Modal
           open={open}
           onClose={handleCloseModal}
           aria-labelledby="modal-modal-title"
@@ -223,9 +239,9 @@ function AddPostApplied() {
                       onChange={handleSelectCategory}
                     >
                       <option value="">Select Category</option>
-                      {categories && categories.length > 0 && categories.map((category) => (
+                      {categories.map((category) => (
                         <option key={category.id} value={category.id}>
-                          {category&&category.category_name&&category.category_name}
+                          {category.category_name}
                         </option>
                       ))}
                     </select>
@@ -268,7 +284,8 @@ function AddPostApplied() {
               </div>
             </FormControl>
           </Box>
-        </Modal>}
+        </Modal>
+
       </div>
 
       <div className="master-table ">
@@ -285,7 +302,7 @@ function AddPostApplied() {
               </tr>
             </thead>
             <tbody>
-              {data&&data.map((category, index) => (
+              {data.map((category, index) => (
                 <tr key={category.id}>
                   <td>{index + 1}</td>
                   <td>{category.post_name}</td>
@@ -315,29 +332,23 @@ function AddPostApplied() {
                             <select
                               name="category"
                               className="select-jc"
-                              value={selectedPost ? selectedPost.job_category_master.id : ""}
-                              onChange={(e) => {
-                                const selectedCategoryId = parseInt(e.target.value);
-                                // console.log("Selected category ID:", selectedCategoryId);
-                                const selectedCategory = categories.find(category => category.id === selectedCategoryId);
-                                // console.log("selectedCategory>>>>>>>>>>", selectedCategory)
-                                setSelectedPost(prevState => ({
-                                  ...prevState,
-                                  job_category_master: selectedCategory
-                                }));
-                              }}
+                              value={selectedCategory ? selectedCategory.category_name : ""}
+                              onChange={handlePutSelectCategory}
                             >
-                              {categories.map(category => (
+                              <option value="">Select Category</option>
+                              {categories.map((category) => (
                                 <option key={category.id} value={category.id}>
-                                  {category&&category.category_name&&category.category_name}
+                                  {category.category_name}
                                 </option>
                               ))}
                             </select>
+
                           </div>
 
                           <label htmlFor="categoryInput">
                             Add Post Applied For
                           </label>
+
                           <input
                             type="text"
                             className="select-jc"
@@ -345,11 +356,10 @@ function AddPostApplied() {
                             placeholder="Add Post"
                             value={selectedPost ? selectedPost.post_name : ""}
                             onChange={(e) => {
-                              const value = e.target.value;
-                              // console.log("Selected post name:", value);
-                              setSelectedPost(prevState => ({
-                                ...prevState,
-                                post_name: value
+                              const newValue = e.target.value;
+                              setSelectedPost((prev) => ({
+                                ...prev,
+                                post_name: newValue,
                               }));
                             }}
                           />
