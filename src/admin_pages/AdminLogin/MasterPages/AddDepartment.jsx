@@ -39,7 +39,7 @@ function AddDepartment() {
       })
       .then((response) => {
         setDepartments(departments.filter((dept) => dept.id !== id));
-        console.log("Department deleted successfully!");
+        // console.log("Department deleted successfully!");
         setNewDepartmentName("");
       })
       .catch((error) => {
@@ -58,8 +58,9 @@ function AddDepartment() {
     })
     .then((response) => {
       setDepartments([...departments, response.data]);
-      console.log("Department added successfully!");
+      // console.log("Department added successfully!");
       setNewDepartmentName("");
+      setOpen(false);
     })
     .catch((error) => {
       console.error("Error adding department:", error);
@@ -94,7 +95,7 @@ function AddDepartment() {
               : dept
           )
         );
-        console.log("Department updated successfully!");
+        // console.log("Department updated successfully!");
         setNewDepartmentName("");
         setEditingDepartmentId(null);
         setUpdateModalOpen(false);

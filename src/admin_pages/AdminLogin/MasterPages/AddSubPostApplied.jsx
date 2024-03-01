@@ -28,7 +28,7 @@ function AddSubPostApplied() {
     axios
       .get(`${ADMIN_BASE_URL}/appliedSubPost`)
       .then((response) => {
-        console.log("response.data>>>>",response.data)
+        // console.log("response.data>>>>",response.data)
         setData(response.data);
       })
       .catch((error) => {
@@ -60,8 +60,8 @@ function AddSubPostApplied() {
   };
 
   const handleAddSubPost = () => {
-    console.log("check category->", selectedPostId);
-    console.log("typed data->", newPost);
+    // console.log("check category->", selectedPostId);
+    // console.log("typed data->", newPost);
     if (!selectedPostId) {
       console.error("Please select a category.");
       return;
@@ -83,7 +83,7 @@ function AddSubPostApplied() {
       )
 
       .then((response) => {
-        console.log("API Response:", response.data);
+        // console.log("API Response:", response.data);
         setData([...data, response.data]);
         setNewPost("");
         fetchData();
@@ -103,7 +103,7 @@ function AddSubPostApplied() {
         }
       },)
       .then((response) => {
-        console.log("Subpost deleted successfully");
+        // console.log("Subpost deleted successfully");
         fetchData();
       })
       .catch((error) => console.error("Error deleting subpost:", error));
@@ -117,8 +117,8 @@ function AddSubPostApplied() {
   const [updatePost, setUpdatePost] = useState("");
   const handleOpenUpdateModal = (SubPostID) => {
     const selectedSubPost = data.find(subpost => subpost.id === SubPostID);
-    console.log("Selected Post:", selectedSubPost.applied_post_master.post_name);
-    console.log("Selected Subpost Name:", selectedSubPost.subpost_name);
+    // console.log("Selected Post:", selectedSubPost.applied_post_master.post_name);
+    // console.log("Selected Subpost Name:", selectedSubPost.subpost_name);
     setSelectedPost(selectedSubPost); // Set the selected subpost id
     setUpdatePost(selectedSubPost.subpost_name); // Set the update post name
     setUpdateModalOpen(true);
@@ -165,7 +165,7 @@ function AddSubPostApplied() {
         }
       )
       .then((response) => {
-        console.log("API Response:", response.data);
+        // console.log("API Response:", response.data);
         fetchData();
         setUpdatePost("");
         setUpdateModalOpen(false);
@@ -317,7 +317,7 @@ function AddSubPostApplied() {
                                 onChange={(e) => {
                                   const selectedPostId = parseInt(e.target.value);
                                   const selectedPostData = postData.find((post) => post.id === selectedPostId);
-                              console.log("selectedPost>>>>>>",selectedPostId)
+                              // console.log("selectedPost>>>>>>",selectedPostId)
                                   setSelectedPost(prevState => ({
                                     ...prevState,
                                     applied_post_master: selectedPostData
@@ -349,7 +349,7 @@ function AddSubPostApplied() {
                                 placeholder="Sub Post Applied For"
                                 onChange={(e) => {
                                   setUpdatePost(e.target.value);
-                                  console.log("Updated sub post:", e.target.value);
+                                  // console.log("Updated sub post:", e.target.value);
                                 }}
                               />
 

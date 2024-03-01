@@ -185,7 +185,7 @@ function AddDegree() {
         },
       })
       .then((response) => {
-        console.log("Degree updated successfully!");
+        // console.log("Degree updated successfully!");
         setUpdateModalOpen(false);
         degreeTypeMaster();
       })
@@ -309,7 +309,7 @@ function AddDegree() {
                                   className="select-jc"
                                   value={selectedExamType}
                                   onChange={(e) => {
-                                    console.log("Selected Exam Type:", e.target.value);
+                                    // console.log("Selected Exam Type:", e.target.value);
                                     const selectedId =
                                       examTypes.find((exam) => exam.exam_name === e.target.value)?.id || "";
                                     setSelectedExamId(selectedId);
@@ -339,7 +339,7 @@ function AddDegree() {
                                 name="degree_name"
                                 value={updateData?.degree_name || ""}
                                 onChange={(e) => {
-                                  console.log("Updated Degree Name:", e.target.value);
+                                  // console.log("Updated Degree Name:", e.target.value);
                                   setUpdateData({ ...updateData, degree_name: e.target.value });
                                 }}
                               />

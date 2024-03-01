@@ -58,7 +58,7 @@ fetchData();
       .then((response) => {
         // Update state after successful addition
         setSubject([...subject, response.data]);
-        console.log("Department added successfully!");
+        // console.log("Department added successfully!");
         // Clear the input field
         setNewSubjectName("");
         setOpen(false);
@@ -104,7 +104,7 @@ fetchData();
         setNewSubjectDescription("");
         setUpdateModalOpen(false);
         fetchData()
-        console.log("Subject updated successfully!");
+        // console.log("Subject updated successfully!");
       })
       .catch((error) => {
         console.error("Error updating subject:", error);
@@ -123,7 +123,7 @@ fetchData();
       .then((response) => {
         // Update state after successful deletion
         setSubject(subject.filter((subj) => subj.id !== id));
-        console.log("Subject deleted successfully!");
+        // console.log("Subject deleted successfully!");
       })
       .catch((error) => {
         console.error("Error deleting Subject:", error);

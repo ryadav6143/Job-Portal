@@ -80,6 +80,7 @@ function AddPostApplied() {
         // getPost();
         setOpen(false);
         handleCloseModal();
+        getPost();
       })
       .catch((error) => console.error("Error adding post:", error));
   };
