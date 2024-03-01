@@ -4,7 +4,7 @@ import { ADMIN_BASE_URL } from "../config/config";
 
 const adminApiService = {
   getJobCategories: () => {
-    return axios.get(`${ADMIN_BASE_URL}/jobCategory`);
+    return axios.get(`${ADMIN_BASE_URL}/jobCategory`,{});
   },
   getDepartments: () => {
     return axios.get(`${ADMIN_BASE_URL}/departmentMaster`);
