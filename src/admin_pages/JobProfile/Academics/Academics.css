@@ -1,3 +1,6 @@
+:root {
+  --hide-col: #ececec;
+}
 .apply-for-dean {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -5,7 +8,6 @@
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-top: 50px;
-  /* justify-content: space-between; */
   -ms-flex-pack: distribute;
   justify-content: space-around;
 }
@@ -16,7 +18,7 @@
   font-weight: 700;
 }
 
-.apply-for-dean button {
+/* .apply-for-dean button {
   border: none;
   padding: 10px;
   width: 130px;
@@ -24,13 +26,26 @@
   margin-top: 20px;
   font-family: "Open Sans", sans-serif;
   font-weight: bold;
-
-  a {
-    color: black;
-    text-decoration: none;
-  }
 }
+.apply-for-dean button a {
+  color: black;
+  text-decoration: none;
+} */
 
+.apply-btn-jp button {
+  border: none;
+  padding: 10px;
+  width: 130px;
+  border-radius: 50px;
+  margin-top: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+.apply-btn-jp a {
+  color: black;
+  text-decoration: none;
+}
 .courses {
   margin-left: 10.3%;
   margin-right: 10.3%;
@@ -74,8 +89,11 @@ details {
 
 #my-dropdown::marker {
   display: none !important;
-  color: #ececec;
-  /* margin-left: -10px !important; */
+  color: var(--hide-col) !important;
+}
+.hide-dropdown-btn {
+  display: none !important;
+  color: var(--hide-col) !important;
 }
 
 #my-dropdown::before {
@@ -94,7 +112,7 @@ details[open] #my-dropdown::before {
   margin-right: -15px;
 }
 
-details[open]>summary {
+details[open] > summary {
   background-color: white;
 }
 

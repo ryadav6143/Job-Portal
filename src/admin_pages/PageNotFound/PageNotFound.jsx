@@ -15,7 +15,7 @@ function PageNotFound() {
         <div className="data-404">
           <p>Something's wrong here...</p>
           <p>
-            We can not find the page yoy are looking for. Please head back to
+            We can not find the page you are looking for. Please head back to
             Home Page
           </p>
         </div>

@@ -22,10 +22,6 @@ function AddPostApplied() {
   const [selectedPost, setSelectedPost] = useState(null);
 
   // ------------------Fetching Data from job_category_master-id-------------------------------
-  useEffect(() => {
-    getJobCategory();
-    getPost();
-  }, []);
   function getJobCategory() {
     axios
       .get(`${ADMIN_BASE_URL}/jobCategory`)
@@ -37,6 +33,11 @@ function AddPostApplied() {
         console.error("Error fetching job categories:", error);
       });
   }
+  useEffect(() => {
+    getPost();
+    getJobCategory();
+  }, [categories.category_name]);
+  
   // ------------------GET DATA FROM API--------------------------------
   function getPost() {
     axios
@@ -73,10 +74,11 @@ function AddPostApplied() {
         }
       )
       .then((response) => {
-        setData([...data, response.data]);
+        // setData([...data, response.data]);
         setNewCategory("");
-        getJobCategory();
-        getPost();
+        // getJobCategory();
+        // getPost();
+        setOpen(false);
         handleCloseModal();
       })
       .catch((error) => console.error("Error adding post:", error));
@@ -197,7 +199,7 @@ function AddPostApplied() {
         <div>
           <button onClick={() => setOpen(true)}>Add Post Applied</button>
         </div>
-        <Modal
+        {open&&<Modal
           open={open}
           onClose={handleCloseModal}
           aria-labelledby="modal-modal-title"
@@ -223,10 +225,9 @@ function AddPostApplied() {
                       <option value="">Select Category</option>
                       {categories && categories.length > 0 && categories.map((category) => (
                         <option key={category.id} value={category.id}>
-                          {category.category_name}
+                          {category&&category.category_name&&category.category_name}
                         </option>
                       ))}
-
                     </select>
                   </div>
 
@@ -267,8 +268,7 @@ function AddPostApplied() {
               </div>
             </FormControl>
           </Box>
-        </Modal>
-
+        </Modal>}
       </div>
 
       <div className="master-table ">
@@ -285,7 +285,7 @@ function AddPostApplied() {
               </tr>
             </thead>
             <tbody>
-              {data.map((category, index) => (
+              {data&&data.map((category, index) => (
                 <tr key={category.id}>
                   <td>{index + 1}</td>
                   <td>{category.post_name}</td>
@@ -327,17 +327,15 @@ function AddPostApplied() {
                             >
                               {categories.map(category => (
                                 <option key={category.id} value={category.id}>
-                                  {category.category_name}
+                                  {category&&category.category_name&&category.category_name}
                                 </option>
                               ))}
                             </select>
-
                           </div>
 
                           <label htmlFor="categoryInput">
                             Add Post Applied For
                           </label>
-
                           <input
                             type="text"
                             className="select-jc"

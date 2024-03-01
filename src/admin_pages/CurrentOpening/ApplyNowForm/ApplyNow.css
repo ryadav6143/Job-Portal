@@ -1,6 +1,7 @@
 /* contact form box styling */
 .apply-now-forms {
   margin: 5% 10% 5% 10%;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 25px 50px 25px 50px;
   border-radius: 20px;
@@ -41,10 +42,8 @@
   margin-top: 2% !important;
 }
 
-.hidden {
-  Box {
-    display: none;
-  }
+.hidden Box {
+  display: none;
 }
 
 @media only screen and (max-width: 767px) {

@@ -13,9 +13,9 @@ function Technical() {
         </div>
         <div></div>
         <div></div>
-        <div>
+        <div className="apply-btn-jp">
           <button type="button">
-            <a href="/apply-now">Apply Now</a>{" "}
+            <a href="/apply-now">Apply Now</a>
           </button>
         </div>
       </div>

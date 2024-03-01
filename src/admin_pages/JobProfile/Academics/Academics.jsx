@@ -14,7 +14,7 @@ function Academics() {
         </div>
         <div></div>
         <div></div>
-        <div>
+        <div className="apply-btn-jp">
           <button type="button"><a href="/apply-now">Apply Now</a> </button>
         </div>
       </div>
@@ -83,7 +83,7 @@ function Academics() {
       </div>
       <div className="table-dropdown">
         <details>
-          <summary id="my-dropdown">
+          <summary id="my-dropdown"zzz>
             Computer Science & Engineering / IT
           </summary>
           <div className="drp-table table-responsive">

@@ -104,7 +104,7 @@ function AddSubPostApplied() {
       },)
       .then((response) => {
         console.log("Subpost deleted successfully");
-        fetchData(); // Refresh the data after deletion
+        fetchData();
       })
       .catch((error) => console.error("Error deleting subpost:", error));
   };
@@ -181,7 +181,9 @@ function AddSubPostApplied() {
     <>
       <div className="container-1">
         <div>
-          <button className="new-opening-btn" onClick={() => setOpen(true)}>Add Sub post</button>
+          <button className="new-opening-btn" onClick={() => setOpen(true)}>
+            Add Sub post
+          </button>
         </div>
 
         <Modal

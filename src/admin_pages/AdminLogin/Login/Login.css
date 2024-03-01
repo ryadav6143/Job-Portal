@@ -32,10 +32,6 @@ input {
   position: relative;
 }
 
-/* .password-input {
-    width: calc(100% - 30px);
-  } */
-
 .password-toggle {
   position: absolute;
   right: 5px;
@@ -86,7 +82,6 @@ input {
 .reset-pass {
   border: none;
   background: none;
-  /* margin-left: -7px; */
   font-size: 15px;
   color: darkslategray;
   text-decoration: none;
