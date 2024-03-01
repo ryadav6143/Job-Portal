@@ -13,10 +13,10 @@ import { ADMIN_BASE_URL } from "../../../config/config";
 function AddSubPostApplied() {
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
-  const [selectedPost, setSelectedPost] = useState("");
+
   const [selectedPostId, setSelectedPostId] = useState("");
   const [newPost, setNewPost] = useState("");
-  const [updatePost, setUpdatePost] = useState("");
+
   const [open, setOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   // -----------------------------Fetching data from applied_subpost------------------------------
@@ -65,7 +65,8 @@ function AddSubPostApplied() {
       console.error("Please select a category.");
       return;
     }
-
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
       .post(
         `${ADMIN_BASE_URL}/appliedSubPost`,
@@ -75,7 +76,7 @@ function AddSubPostApplied() {
         },
         {
           headers: {
-            "Content-Type": "application/json",
+            "access-token": accessToken.token,
           },
         }
       )
@@ -84,14 +85,22 @@ function AddSubPostApplied() {
         console.log("API Response:", response.data);
         setData([...data, response.data]);
         setNewPost("");
+        fetchData();
+        setOpen(false);
       })
       .catch((error) => console.error("Error adding post:", error));
   };
 
   // -----------------------------Fetching data from applied_post------------------------------
   const handleDeleteSubPost = (subPostId) => {
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
     axios
-      .delete(`${ADMIN_BASE_URL}/appliedSubPost/${subPostId}`)
+      .delete(`${ADMIN_BASE_URL}/appliedSubPost/${subPostId}`, {
+        headers: {
+          "access-token": accessToken.token,
+        }
+      },)
       .then((response) => {
         console.log("Subpost deleted successfully");
         fetchData(); // Refresh the data after deletion
@@ -99,44 +108,22 @@ function AddSubPostApplied() {
       .catch((error) => console.error("Error deleting subpost:", error));
   };
 
-  const handleUpdateSubPost = () => {
-    if (!selectedPostId) {
-      console.error("Please select a category.");
-      return;
-    }
-
-    console.log("Updating sub-post:", selectedPost);
-
-    axios
-      .put(
-        `${ADMIN_BASE_URL}/appliedSubPost/${selectedPost.id}`,
-        {
-          applied_post_masters_id: Number(selectedPostId),
-          subpost_name: updatePost,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log("API Response:", response.data);
-        fetchData(); // Refresh the data after update
-        setUpdatePost(""); // Clear the update field after updating
-      })
-      .catch((error) => console.error("Error updating post:", error));
-  };
 
   const handleCloseModal = () => {
     setOpen(false);
   };
-
-  const handleOpenUpdateModal = (subPost) => {
-    setSelectedPost(subPost);
-    setUpdatePost(subPost.subpost_name);
+  const [selectedPost, setSelectedPost] = useState("");
+  const [updatePost, setUpdatePost] = useState("");
+  const handleOpenUpdateModal = (SubPostID) => {
+    const selectedSubPost = data.find(subpost => subpost.id === SubPostID);
+    console.log("Selected Post:", selectedSubPost.applied_post_master.post_name);
+    console.log("Selected Subpost Name:", selectedSubPost.subpost_name);
+    setSelectedPost(selectedSubPost); // Set the selected subpost id
+    setUpdatePost(selectedSubPost.subpost_name); // Set the update post name
     setUpdateModalOpen(true);
   };
+
+
 
   const handleCloseUpdateModal = () => {
     setUpdateModalOpen(false);
@@ -155,6 +142,38 @@ function AddSubPostApplied() {
     boxShadow: 24,
     p: 4,
   };
+
+
+
+  const handleUpdateSubPost = () => {    
+    
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
+    axios
+      .put(
+        `${ADMIN_BASE_URL}/appliedSubPost`,
+        {
+          appliedSubPost_id:selectedPost.id,
+          applied_post_masters_id:selectedPost.applied_post_master.id,  
+          subpost_name:updatePost
+        },
+        {
+          headers: {
+            "access-token": accessToken.token,
+          },
+        }
+      )
+      .then((response) => {
+        console.log("API Response:", response.data);
+        fetchData();
+        setUpdatePost("");
+      })
+      .catch((error) => console.error("Error updating post:", error));
+  };
+
+
+
+
 
   return (
     <>
@@ -258,7 +277,7 @@ function AddSubPostApplied() {
                   <td>
                     <button id="table-btns">
                       <img
-                        onClick={() => handleOpenUpdateModal(subPost)}
+                        onClick={() => handleOpenUpdateModal(subPost.id)}
                         src={updatebtn}
                         className="up-del-btn"
                         alt=""
@@ -286,11 +305,20 @@ function AddSubPostApplied() {
                                 Select Post:
                               </label>
                               <select
-                                id="postSelect"
-                                value={selectedPostId}
+                                id="postSelect"                             
                                 className="select-jc"
-                                onChange={(e) => handleSelectPost(e)}
-                              >
+                                value={selectedPost ? selectedPost.applied_post_master.id : ""}                       
+                                onChange={(e) => {
+                                  const selectedPostId = parseInt(e.target.value);
+                                  const selectedPostData = postData.find((post) => post.id === selectedPostId);
+                              console.log("selectedPost>>>>>>",selectedPostId)
+                                  setSelectedPost(prevState => ({
+                                    ...prevState,
+                                    applied_post_master: selectedPostData
+                                  }));                             
+                                  setUpdatePost(""); 
+                                }}
+                             >
                                 <option value="">Select Post</option>
                                 {postData.map((post) => (
                                   <option key={post.id} value={post.id}>
@@ -310,16 +338,19 @@ function AddSubPostApplied() {
                               <input
                                 type="text"
                                 id=""
+                                value={updatePost}                                
                                 className="Ac-set-input"
                                 placeholder="Sub Post Applied For"
-                                value={updatePost}
-                                onChange={(e) => setUpdatePost(e.target.value)}
+                                onChange={(e) => {
+                                  setUpdatePost(e.target.value);
+                                  console.log("Updated sub post:", e.target.value);
+                                }}
                               />
 
                               <button
                                 id="set-btn"
                                 type="button"
-                                onClick={handleUpdateSubPost}
+                              onClick={handleUpdateSubPost}
                               >
                                 UPDATE NOW
                               </button>
@@ -328,6 +359,7 @@ function AddSubPostApplied() {
                         </FormControl>
                       </Box>
                     </Modal>
+
                   </td>
                   <td>
                     <button

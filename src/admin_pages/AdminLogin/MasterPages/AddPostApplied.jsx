@@ -317,10 +317,8 @@ function AddPostApplied() {
                               className="select-jc"
                               value={selectedPost ? selectedPost.job_category_master.id : ""}
                               onChange={(e) => {
-                                const selectedCategoryId = parseInt(e.target.value);
-                                // console.log("Selected category ID:", selectedCategoryId);
-                                const selectedCategory = categories.find(category => category.id === selectedCategoryId);
-                                // console.log("selectedCategory>>>>>>>>>>", selectedCategory)
+                                const selectedCategoryId = parseInt(e.target.value);                               
+                                const selectedCategory = categories.find(category => category.id === selectedCategoryId);                                
                                 setSelectedPost(prevState => ({
                                   ...prevState,
                                   job_category_master: selectedCategory
