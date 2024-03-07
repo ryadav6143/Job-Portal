@@ -2,18 +2,22 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background: -o-radial-gradient(1.39% 60.37%,
+  background: -o-radial-gradient(
+      1.39% 60.37%,
       98.61% 311.66%,
       #040404 0.1%,
       rgba(4, 4, 4, 0.6) 43.85%,
       rgba(255, 255, 255, 0) 100%,
-      rgba(255, 255, 255, 0) 100%),
+      rgba(255, 255, 255, 0) 100%
+    ),
     url("../../assets/images/institute.jpg");
-  background: radial-gradient(98.61% 311.66% at 1.39% 60.37%,
+  background: radial-gradient(
+      98.61% 311.66% at 1.39% 60.37%,
       #040404 0.1%,
       rgba(4, 4, 4, 0.6) 43.85%,
       rgba(255, 255, 255, 0) 100%,
-      rgba(255, 255, 255, 0) 100%),
+      rgba(255, 255, 255, 0) 100%
+    ),
     url("../../assets/images/institute.jpg");
   font-family: "Playfair Display", serif;
   line-height: 1;
@@ -160,14 +164,18 @@
   -webkit-box-pack: space-evenly;
   -ms-flex-pack: space-evenly;
   justify-content: space-evenly;
-  background: -o-radial-gradient(5.56% 21.36%,
+  background: -o-radial-gradient(
+      5.56% 21.36%,
       186.03% 1135.93%,
       rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0) 81.75%),
+      rgba(0, 0, 0, 0) 81.75%
+    ),
     url("../../assets/images/Banner.JPG") !important;
-  background: radial-gradient(186.03% 1135.93% at 5.56% 21.36%,
+  background: radial-gradient(
+      186.03% 1135.93% at 5.56% 21.36%,
       rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0) 81.75%),
+      rgba(0, 0, 0, 0) 81.75%
+    ),
     url("../../assets/images/Banner.JPG") !important;
   background-position: center !important;
   background-size: cover !important;
@@ -199,20 +207,18 @@
 
 .side-left {
   margin-left: 20% !important;
-  /* margin-right: -10% !important; */
 }
 
 .staff-heading {
   font-size: 25px;
   text-align: center;
   font-family: "Open Sans", sans-serif;
-
-  span {
-    font-size: 30px;
-    letter-spacing: 2px;
-    font-weight: 500;
-    font-family: "Playfair Display", serif;
-  }
+}
+.staff-heading span {
+  font-size: 30px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  font-family: "Playfair Display", serif;
 }
 
 .purpose {
@@ -247,27 +253,25 @@
   -ms-flex-pack: center;
   justify-content: center;
   gap: 3px;
-
-  div {
-    width: 19%;
-    height: 295px;
-    background-color: #d9d9d9;
-    display: -ms-grid;
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-  }
+}
+.purpose-data div {
+  width: 19%;
+  height: 295px;
+  background-color: #d9d9d9;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
 }
 
 .big-img {
   width: 37% !important;
-
-  img {
-    -o-object-fit: cover;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
+}
+.big-img img {
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .purpose-quotes {
@@ -288,29 +292,23 @@
   padding-bottom: 6%;
 }
 
-.women {
-  img {
-    -o-object-fit: cover;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
+.women img {
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
-.mask3 {
-  img {
-    width: 100%;
-    height: 100%;
-  }
+.mask3 img {
+  width: 100%;
+  height: 100%;
 }
 
-.circular-logo {
-  img {
-    -o-object-fit: contain;
-    object-fit: contain;
-    width: 90%;
-    height: 90%;
-  }
+.circular-logo img {
+  -o-object-fit: contain;
+  object-fit: contain;
+  width: 90%;
+  height: 90%;
 }
 
 .remove-bg {
@@ -327,19 +325,22 @@
   letter-spacing: 3px;
   font-family: "Open Sans", sans-serif;
   line-height: 1;
-
-  span {
-    letter-spacing: 3px !important;
-    font-family: "Playfair Display", serif;
-    font-weight: 600;
-    letter-spacing: 2px;
-    font-size: 40px;
-  }
+}
+.medi-heading span {
+  letter-spacing: 3px !important;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 40px;
 }
 
 /* ....................................MEDICAPS STAFF SECTION............................... */
 .hr-corner {
-  background: -o-linear-gradient(269.29deg, rgba(0, 0, 0, 0) 3.39%, #000000 94.22%),
+  background: -o-linear-gradient(
+      269.29deg,
+      rgba(0, 0, 0, 0) 3.39%,
+      #000000 94.22%
+    ),
     -o-linear-gradient(bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../../assets/images/institute.jpg");
   background: linear-gradient(180.71deg, rgba(0, 0, 0, 0) 3.39%, #000000 94.22%),
@@ -355,15 +356,14 @@
 .hr-conrer-heading {
   color: white;
   margin-left: 55%;
-
-  button {
-    background-color: transparent;
-    border: none;
-    font-size: 50px;
-    color: white;
-    margin-right: 20px;
-    margin-top: -50px;
-  }
+}
+.hr-conrer-heading button {
+  background-color: transparent;
+  border: none;
+  font-size: 50px;
+  color: white;
+  margin-right: 20px;
+  margin-top: -50px;
 }
 
 .buttons {
@@ -371,15 +371,14 @@
   display: -ms-flexbox;
   display: flex;
   margin-left: 55%;
-
-  button {
-    background-color: transparent;
-    border: none;
-    font-size: 50px;
-    color: white;
-    margin-right: 20px;
-    margin-top: -50px;
-  }
+}
+.buttons button {
+  background-color: transparent;
+  border: none;
+  font-size: 50px;
+  color: white;
+  margin-right: 20px;
+  margin-top: -50px;
 }
 
 .hr-conrer-heading p:nth-child(1) {
@@ -405,23 +404,21 @@
   -webkit-box-pack: space-evenly;
   -ms-flex-pack: space-evenly;
   justify-content: space-evenly;
-
-  div {
-    width: 293px;
-    height: 290px;
-    border-radius: 35px;
-    overflow: hidden;
-
-    p {
-      font-size: 17px;
-      color: rgba(255, 255, 255, 0.758);
-      padding-left: 20px;
-      width: 250px;
-      letter-spacing: 2px;
-      font-family: "Open Sans", sans-serif;
-      margin-top: 80%;
-    }
-  }
+}
+.slider-imgs div {
+  width: 293px;
+  height: 290px;
+  border-radius: 35px;
+  overflow: hidden;
+}
+.slider-imgs div p {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.758);
+  padding-left: 20px;
+  width: 250px;
+  letter-spacing: 2px;
+  font-family: "Open Sans", sans-serif;
+  margin-top: 80%;
 }
 
 .card1,
@@ -434,7 +431,13 @@
 }
 
 .card1 {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(36.91%, rgba(0, 0, 0, 0)), color-stop(100.74%, #000000)),
+  background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(36.91%, rgba(0, 0, 0, 0)),
+      color-stop(100.74%, #000000)
+    ),
     url("../../assets/images/slider2.JPG");
   background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 36.91%, #000000 100.74%),
     url("../../assets/images/slider2.JPG");
@@ -443,7 +446,13 @@
 }
 
 .card2 {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(36.91%, rgba(0, 0, 0, 0)), color-stop(100.74%, #000000)),
+  background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(36.91%, rgba(0, 0, 0, 0)),
+      color-stop(100.74%, #000000)
+    ),
     url("../../assets/images/slider1.JPG");
   background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 36.91%, #000000 100.74%),
     url("../../assets/images/slider1.JPG");
@@ -452,7 +461,13 @@
 }
 
 .card3 {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(36.91%, rgba(0, 0, 0, 0)), color-stop(100.74%, #000000)),
+  background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(36.91%, rgba(0, 0, 0, 0)),
+      color-stop(100.74%, #000000)
+    ),
     url("../../assets/images/ChinmayArondekar.jpg");
   background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 36.91%, #000000 100.74%),
     url("../../assets/images/ChinmayArondekar.jpg");
@@ -461,7 +476,13 @@
 }
 
 .card4 {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(36.91%, rgba(0, 0, 0, 0)), color-stop(100.74%, #000000)),
+  background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(36.91%, rgba(0, 0, 0, 0)),
+      color-stop(100.74%, #000000)
+    ),
     url("../../assets/images/Mohsin\ Ali.jpg");
   background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 36.91%, #000000 100.74%),
     url("../../assets/images/Mohsin\ Ali.jpg");
@@ -474,10 +495,9 @@
   height: 400px !important;
   background-size: cover;
   background-position: center;
-
-  p {
-    margin-top: 115% !important;
-  }
+}
+.active-card p {
+  margin-top: 115% !important;
 }
 
 @media only screen and (max-width: 767px) {
@@ -520,16 +540,14 @@
 
   .perks-heading {
     text-align: center;
-
-    p {
-      font-size: 20px;
-      letter-spacing: 3px;
-    }
-
-    span {
-      font-size: 35px;
-      letter-spacing: 3px;
-    }
+  }
+  .perks-heading p {
+    font-size: 20px;
+    letter-spacing: 3px;
+  }
+  .perks-heading span {
+    font-size: 35px;
+    letter-spacing: 3px;
   }
 
   .perks-list {
@@ -546,16 +564,15 @@
     -ms-flex-pack: center;
     justify-content: center;
     gap: 2px;
-
-    div {
-      width: 30%;
-      height: 155px;
-      background-color: #d9d9d9;
-      display: -ms-grid;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-    }
+  }
+  .purpose-data div {
+    width: 30%;
+    height: 155px;
+    background-color: #d9d9d9;
+    display: -ms-grid;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
   }
 
   .side-left {
@@ -579,48 +596,37 @@
     width: 60.5% !important;
   }
 
-  .circular-logo {
-    img {
-      width: 90%;
-      height: 90%;
-    }
+  .circular-logo img {
+    width: 90%;
+    height: 90%;
   }
 
-  .big-img {
-    img {
-      width: 100%;
-      height: 100%;
-    }
+  .big-img img {
+    width: 100%;
+    height: 100%;
   }
 
-  .women {
-    img {
-      width: 100%;
-      height: 100%;
-    }
+  .women img {
+    width: 100%;
+    height: 100%;
   }
 
-  .mask3 {
-    img {
-      width: 100%;
-      height: 100%;
-    }
+  .mask3 img {
+    width: 100%;
+    height: 100%;
   }
 
-  .purpose-quotes {
-    p {
-      font-size: 15px;
-    }
+  .purpose-quotes p {
+    font-size: 15px;
   }
 
   .hr-conrer-heading {
     width: auto;
     margin-left: 0%;
     text-align: center;
-
-    p {
-      font-size: 20px !important;
-    }
+  }
+  .hr-conrer-heading p {
+    font-size: 20px !important;
   }
 
   .buttons {
@@ -670,11 +676,6 @@
   .slider-imgs {
     margin-top: 15%;
   }
-
-  /* .side-left {
-    margin-left: 2% !important;
-    margin-right: 2% !important;
-  } */
   .perks-heading {
     text-align: center;
   }

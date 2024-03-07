@@ -8,14 +8,18 @@
 }
 
 .is-background {
-  background: -o-radial-gradient(54.31% 100%,
+  background: -o-radial-gradient(
+      54.31% 100%,
       96.31% 96.31%,
       rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0) 100%),
+      rgba(0, 0, 0, 0) 100%
+    ),
     url("../../assets/images/Background2.JPG");
-  background: radial-gradient(96.31% 96.31% at 54.31% 100%,
+  background: radial-gradient(
+      96.31% 96.31% at 54.31% 100%,
       rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0) 100%),
+      rgba(0, 0, 0, 0) 100%
+    ),
     url("../../assets/images/Background2.JPG");
   background-position: center;
   background-repeat: no-repeat;
@@ -31,10 +35,9 @@
   color: white;
   text-align: center;
   letter-spacing: 1px;
-
-  span {
-    border-bottom: 2px solid maroon;
-  }
+}
+.data span {
+  border-bottom: 2px solid maroon;
 }
 
 .sub-heading {
@@ -78,30 +81,27 @@
   margin-left: 15%;
   margin-top: 10%;
   margin-bottom: 10%;
-
-  ul {
-    list-style: none;
-    margin: auto;
-    font-size: 15px;
-    font-weight: 600;
-  }
-
-  li {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    border: 1px solid rgba(128, 128, 128, 0.305);
-    border-radius: 15px;
-    width: 200px;
-    padding: 10px;
-    padding-left: 15px;
-    -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    color: rgba(0, 0, 0, 0.851);
-  }
-
-  img {
-    margin-right: 12px;
-  }
+}
+.for-mobile img {
+  margin-right: 12px;
+}
+.for-mobile ul {
+  list-style: none;
+  margin: auto;
+  font-size: 15px;
+  font-weight: 600;
+}
+.for-mobile li {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(128, 128, 128, 0.305);
+  border-radius: 15px;
+  width: 200px;
+  padding: 10px;
+  padding-left: 15px;
+  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  color: rgba(0, 0, 0, 0.851);
 }
 
 .notes {
@@ -112,10 +112,9 @@
   font-family: "Open Sans", sans-serif;
   color: rgba(0, 0, 0, 0.615);
   font-weight: 600;
-
-  span {
-    font-weight: 400;
-  }
+}
+.notes span {
+  font-weight: 400;
 }
 
 @media only screen and (max-width: 767px) {
@@ -125,14 +124,18 @@
   }
 
   .is-background {
-    background: -o-radial-gradient(54.31% 100%,
+    background: -o-radial-gradient(
+        54.31% 100%,
         96.31% 96.31%,
         rgba(0, 0, 0, 0.6) 0%,
-        rgba(0, 0, 0, 0) 100%),
+        rgba(0, 0, 0, 0) 100%
+      ),
       url("../../assets/images/Background2.JPG");
-    background: radial-gradient(96.31% 96.31% at 54.31% 100%,
+    background: radial-gradient(
+        96.31% 96.31% at 54.31% 100%,
         rgba(0, 0, 0, 0.6) 0%,
-        rgba(0, 0, 0, 0) 100%),
+        rgba(0, 0, 0, 0) 100%
+      ),
       url("../../assets/images/Background2.JPG");
     background-position: center;
     background-repeat: no-repeat;
@@ -182,11 +185,9 @@
     display: block;
   }
 
-  .data {
-    span {
-      font-size: 5vw;
-      border-bottom: 2px solid maroon;
-    }
+  .data span {
+    font-size: 5vw;
+    border-bottom: 2px solid maroon;
   }
 }
 
@@ -198,7 +199,6 @@
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
-
   /* Your tablet styles for portrait orientation here */
   .is-header {
     margin-left: 5% !important;

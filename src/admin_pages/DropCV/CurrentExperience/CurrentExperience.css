@@ -1,10 +1,15 @@
 .row1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 .CE-form {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  margin-top: 5%; /* to be remove */
+  margin-top: 5%;
 }
 
 .CE-heading {
@@ -45,6 +50,7 @@
   border-radius: 45px;
   border: 1px solid;
   border-color: #eff0f6;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   color: #6f6c90;
   font-size: 15px;
@@ -81,8 +87,6 @@
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-  /* Your styles for iPad Air go here */
-
   .set-input {
     width: 100% !important;
   }

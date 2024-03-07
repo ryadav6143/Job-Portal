@@ -16,6 +16,7 @@ function AddDegree() {
   const [selectedExamId, setSelectedExamId] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [updateData, setUpdateData] = useState(null);
   // ------------------GET DATA FROM API--------------------------------
   const degreeTypeMaster = () => {
     axios
@@ -31,7 +32,51 @@ function AddDegree() {
     degreeTypeMaster();
   }, []);
 
+
+  // const fetchUpdateData = (id) => {
+  //   let accessToken = localStorage.getItem("Token");
+  //   accessToken = JSON.parse(accessToken);
+  //   axios
+  //     .get(`${ADMIN_BASE_URL}/degreeTypeMaster/${id}`, {
+  //       headers: {
+  //         "access-token": accessToken.token,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       setUpdateData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching update data:", error);
+  //     });
+  // };
+
+
   // ------------------GET DATA FROM API--------------------------------
+
+  const fetchUpdateData = (id) => {
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
+    axios
+      .get(`${ADMIN_BASE_URL}/degreeTypeMaster/${id}`, {
+        headers: {
+          "access-token": accessToken.token,
+        },
+      })
+      .then((response) => {
+        setUpdateData(response.data);
+        // After fetching update data, also update the selected exam type in the state
+        setSelectedExamType(response.data.exam_types_master.exam_name);
+      })
+      .catch((error) => {
+        console.error("Error fetching update data:", error);
+      });
+  };
+
+
+
+
+
+
   useEffect(() => {
     fetchexamType();
   }, []);
@@ -64,36 +109,46 @@ function AddDegree() {
       )
       .then((response) => {
         setData([...data, response.data]);
+        setIsModalOpen(false); // Close the modal after adding degree
+        degreeTypeMaster(); // Fetch data again after adding degree
       })
       .catch((error) => console.error("Error adding category:", error));
   };
-  const handleDelete = (id) => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .delete(`${ADMIN_BASE_URL}/degreeTypeMaster/${id}`, {
-        headers: {
-          "access-token": accessToken.token,
-        },
-      })
-      .then((response) => {
-        // Update state after successful deletion
-        // setSubject(subject.filter((subj) => subj.id !== id));
-        console.log("degree deleted successfully!");
-      })
-      .catch((error) => {
-        console.error("Error deleting Subject:", error);
-      });
-  };
 
+
+  // ------------------------when allow to delete----------------
+
+  // const handleDelete = (id) => {
+  //   let accessToken = localStorage.getItem("Token");
+  //   accessToken = JSON.parse(accessToken);
+  //   axios
+  //     .delete(`${ADMIN_BASE_URL}/degreeTypeMaster/${id}`, {
+  //       headers: {
+  //         "access-token": accessToken.token,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log("degree deleted successfully!");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error deleting Subject:", error);
+  //     });
+  // };
+  // ----------------------------------------------------
   const handleOpenModal = () => {
     setIsModalOpen(true);
-   
+
   };
-  const handleOpenUpdateModal = () => {
+  const handleOpenUpdateModal = (id) => {
+    fetchUpdateData(id);
+    const selectedExam = examTypes.find((exam) => exam.id === updateData.exam_types_master_id);
+    if (selectedExam) {
+      setSelectedExamType(selectedExam.exam_name);
+      setSelectedExamId(selectedExam.id);
+    }
     setUpdateModalOpen(true);
-    // Additional logic if needed
   };
+
 
 
   const handleCloseModal = () => {
@@ -113,6 +168,31 @@ function AddDegree() {
     p: 4,
   };
 
+
+
+  const handleUpdateDegree = () => {
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
+    const payload = {
+      exam_types_master_id: selectedExamId,
+      degree_name: updateData.degree_name,
+      degreetypes_id: updateData.id,
+    };
+    axios
+      .put(`${ADMIN_BASE_URL}/degreeTypeMaster`, payload, {
+        headers: {
+          "access-token": accessToken.token,
+        },
+      })
+      .then((response) => {
+        // console.log("Degree updated successfully!");
+        setUpdateModalOpen(false);
+        degreeTypeMaster();
+      })
+      .catch((error) => {
+        console.error("Error updating degree:", error);
+      });
+  };
   return (
     <>
       <div className="container-1">
@@ -176,6 +256,7 @@ function AddDegree() {
                 <button id="set-btn" type="button" onClick={handleAddDegree}>
                   ADD NOW
                 </button>
+
               </form>
             </FormControl>
           </Box>
@@ -192,7 +273,7 @@ function AddDegree() {
                 <th scope="col">Exam Name</th>
                 <th scope="col">Degree Name</th>
                 <th scope="col">UPDATE</th>
-                <th scope="col">DELETE</th>
+                {/* <th scope="col">DELETE</th> */}
               </tr>
             </thead>
             <tbody>
@@ -202,7 +283,7 @@ function AddDegree() {
                   <td>{category.exam_types_master?.exam_name}</td>
                   <td>{category.degree_name}</td>
                   <td>
-                    <button onClick={handleOpenUpdateModal} id="table-btns">
+                    <button onClick={() => handleOpenUpdateModal(category.id)} id="table-btns">
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
 
@@ -215,68 +296,71 @@ function AddDegree() {
                       <Box sx={style}>
                         <FormControl>
                           <div>
-                          <form action="">
-                <div>
-                  <img
-                    onClick={() => setUpdateModalOpen(false)}
-                    className="Ac-close-btn"
-                    src={close}
-                  />
-                  <label className="AC-SetLabel-Name">Update Exam Type</label>
-                  <select
-                    name="examType"
-                    className="select-jc "
-                    value={selectedExamType}
-                    onChange={(e) => {
-                      const selectedId =
-                        examTypes.find(
-                          (exam) => exam.exam_name === e.target.value
-                        )?.id || "";
-                      setSelectedExamId(selectedId);
-                      setSelectedExamType(e.target.value);
-                    }}
-                  >
-                    <option value="">Update Exam Type</option>
-                    {[
-                      ...new Set(
-                        examTypes.map((examType) => examType.exam_name)
-                      ),
-                    ].map((uniqueExamName, index) => (
-                      <option key={index} value={uniqueExamName}>
-                        {uniqueExamName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                            <form action="">
+                              <div>
+                                <img
+                                  onClick={() => setUpdateModalOpen(false)}
+                                  className="Ac-close-btn"
+                                  src={close}
+                                />
+                                <label className="AC-SetLabel-Name">Update Exam Type</label>
+                                <select
+                                  name="examType"
+                                  className="select-jc"
+                                  value={selectedExamType}
+                                  onChange={(e) => {
+                                    // console.log("Selected Exam Type:", e.target.value);
+                                    const selectedId =
+                                      examTypes.find((exam) => exam.exam_name === e.target.value)?.id || "";
+                                    setSelectedExamId(selectedId);
+                                    setSelectedExamType(e.target.value);
+                                  }}
+                                >
 
-                <label className="AC-SetLabel-Name" htmlFor="">
-                  Update Degree
-                </label>
-                <input
-                  className="Ac-set-input"
-                  type="text"
-                  placeholder="Update Required Degree"
-                  value={newDegree}
-                  onChange={(e) => setNewDegree(e.target.value)}
-                />
+                                  <option value="">Update Exam Type</option>
+                                  {[...new Set(examTypes.map((examType) => examType.exam_name))].map(
+                                    (uniqueExamName, index) => (
+                                      <option key={index} value={uniqueExamName}>
+                                        {uniqueExamName}
+                                      </option>
+                                    )
+                                  )}
+                                </select>
 
-                <button id="set-btn" type="button" onClick={handleAddDegree}>
-                  Update NOW
-                </button>
-              </form>
+                              </div>
+
+                              <label className="AC-SetLabel-Name" htmlFor="">
+                                Update Degree
+                              </label>
+                              <input
+                                className="Ac-set-input"
+                                type="text"
+                                placeholder="Update Required Degree"
+                                name="degree_name"
+                                value={updateData?.degree_name || ""}
+                                onChange={(e) => {
+                                  // console.log("Updated Degree Name:", e.target.value);
+                                  setUpdateData({ ...updateData, degree_name: e.target.value });
+                                }}
+                              />
+                              <button id="set-btn" type="button" onClick={handleUpdateDegree}>
+                                Update NOW
+                              </button>
+                            </form>
                           </div>
                         </FormControl>
                       </Box>
                     </Modal>
+
                   </td>
-                  <td>
+                  {/* <td>
                     <button
                       id="table-btns"
                       onClick={() => handleDelete(category.id)}
                     >
                       <img src={deletebtn} className="up-del-btn" alt="" />
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

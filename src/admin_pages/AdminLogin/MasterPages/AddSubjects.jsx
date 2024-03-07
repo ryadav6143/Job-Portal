@@ -24,7 +24,12 @@ function AddSubjects() {
   const [newCategory, setNewCategory] = useState("");
 
   useEffect(() => {
-    // Fetch data from the API
+fetchData();
+   
+  }, []); 
+
+
+  const fetchData = () => {
     axios
       .get(`${ADMIN_BASE_URL}/subjectMaster`)
       .then((response) => {
@@ -34,7 +39,7 @@ function AddSubjects() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []); // The empty dependency array ensures the useEffect runs only once when the component mounts
+  };
 
   const handleAdd = () => {
     let accessToken = localStorage.getItem("Token");
@@ -53,9 +58,11 @@ function AddSubjects() {
       .then((response) => {
         // Update state after successful addition
         setSubject([...subject, response.data]);
-        console.log("Department added successfully!");
+        // console.log("Department added successfully!");
         // Clear the input field
         setNewSubjectName("");
+        setOpen(false);
+        fetchData();
       })
       .catch((error) => {
         console.error("Error adding department:", error);
@@ -73,8 +80,9 @@ function AddSubjects() {
     let accessToken = localStorage.getItem("Token");
     accessToken = JSON.parse(accessToken);
     axios
-      .put(`${ADMIN_BASE_URL}/subjectMaster/${editingSubject.id}`, {
+      .put(`${ADMIN_BASE_URL}/subjectMaster`, {
         subject_name: newSubject,
+        subjects_id:editingSubject.id,
         subject_type: newSubjectType,
         description: newSubjectDescription,
       }
@@ -95,7 +103,8 @@ function AddSubjects() {
         setNewSubjectType("");
         setNewSubjectDescription("");
         setUpdateModalOpen(false);
-        console.log("Subject updated successfully!");
+        fetchData()
+        // console.log("Subject updated successfully!");
       })
       .catch((error) => {
         console.error("Error updating subject:", error);
@@ -114,7 +123,7 @@ function AddSubjects() {
       .then((response) => {
         // Update state after successful deletion
         setSubject(subject.filter((subj) => subj.id !== id));
-        console.log("Subject deleted successfully!");
+        // console.log("Subject deleted successfully!");
       })
       .catch((error) => {
         console.error("Error deleting Subject:", error);

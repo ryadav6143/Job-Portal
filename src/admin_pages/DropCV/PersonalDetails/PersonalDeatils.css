@@ -1,5 +1,8 @@
 .row1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 .error-message {
@@ -10,9 +13,10 @@
   font-weight: 600;
 }
 .personaldetails-form {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin-top: 4%;
-  /* margin-left: 5%; */
   font-family: "Open Sans", sans-serif;
 }
 
@@ -48,7 +52,8 @@
   border-radius: 45px;
   color: #6f6c90;
   border-color: #eff0f6;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  /* -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
 }
 
 .custom-dropdown {
@@ -61,6 +66,7 @@
   border-radius: 45px;
   border: 1px solid;
   border-color: #eff0f6;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   color: #6f6c90;
   font-size: 14px;
@@ -97,8 +103,6 @@
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-  
-
   .set-input {
     width: 80% !important;
     font-size: 12px !important;
@@ -118,6 +122,4 @@
   .form-section {
     margin-bottom: 15px;
   }
-
-  /* Add more responsive styles as needed */
 }

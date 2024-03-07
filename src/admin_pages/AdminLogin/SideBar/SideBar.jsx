@@ -89,7 +89,7 @@ function SideBar() {
   }
   return (
     <>
-      <div >
+      <div>
         <div class="container-fluid">
           <div class="row flex-nowrap">
             <div class="col-auto px-3 sidebar-set">
@@ -287,14 +287,14 @@ function SideBar() {
                           href="#"
                           onClick={() => showComponent("Component14")}
                         >
-                           Rights List
+                          Rights List
                         </a>
                         <a
                           className="dropdown-item"
                           href="#"
                           onClick={() => showComponent("Component13")}
                         >
-                       Role List
+                          Role List
                         </a>
                       </div>
                     </div>

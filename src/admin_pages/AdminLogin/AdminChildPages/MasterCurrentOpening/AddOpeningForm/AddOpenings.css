@@ -11,40 +11,38 @@
   backdrop-filter: blur(10px);
   border-radius: 20px;
 }
-.new-openings-form {
-  select {
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid black;
-    width: 100%;
-    height: 50px;
-  }
-  select:focus {
-    background-color: transparent;
-    outline: none;
-    border: none;
-    border-bottom: 2px solid green;
-  }
-  input:focus {
-    background-color: transparent;
-    outline: none;
-    border: none;
-    border-bottom: 2px solid green;
-  }
-  input {
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid black;
-    height: 50px;
-  }
-  label {
-    margin-bottom: -5px;
-    margin-top: 15px;
-    font-family: "Open Sans", sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    margin-left: 10px;
-  }
+.new-openings-form select {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid black;
+  width: 100%;
+  height: 50px;
+}
+.new-openings-form select:focus {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid green;
+}
+.new-openings-form input:focus {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid green;
+}
+.new-openings-form input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid black;
+  height: 50px;
+}
+.new-openings-form label {
+  margin-bottom: -5px;
+  margin-top: 15px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  margin-left: 10px;
 }
 #add-job {
   position: absolute;
@@ -66,7 +64,7 @@
   font-weight: 600;
 }
 
-.cls-btn{
+.cls-btn {
   width: 20px;
   float: right;
 }

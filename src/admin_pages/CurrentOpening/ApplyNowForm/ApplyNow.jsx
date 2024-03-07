@@ -556,9 +556,7 @@ function ApplyNow() {
         if (!city) {
           errors.city = "! City is required.";
         }
-        // if (!state_province) {
-        //   errors.state_province = "! State is Required";
-        // }
+
         if (!applied_post_masters_id) {
           errors.applied_post_masters_id = "! Post Applied is Required";
         }
@@ -853,15 +851,25 @@ function ApplyNow() {
         }
       case 5:
         // validation for activeStep5
-        if (!formValues.UserDetails.hearing_source_about_us) {
-          errors.hearing_source_about_us = "! This field is Required";
-        }
 
         if (!formValues.UserDetails.candidate_cv) {
-          errors.candidate_cv = "! Candidate CV is Required";
-        }
-        if (!accept) {
-          errors.accept = "! Please confirm";
+          errors.candidate_cv = "Candidate Resume is Required";
+        } else {
+          const allowedExtensions = ["pdf", "doc", "docx"];
+          const maxFileSize = 2 * 1024 * 1024; // 2MB in bytes
+
+          const file = formValues.UserDetails.candidate_cv;
+          const fileNameParts = file.name.split(".");
+          const fileExtension =
+            fileNameParts[fileNameParts.length - 1].toLowerCase();
+          const fileSize = file.size;
+
+          if (!allowedExtensions.includes(fileExtension)) {
+            errors.candidate_cv =
+              "Invalid file format. Please upload a PDF, DOC, or DOCX file.";
+          } else if (fileSize > maxFileSize) {
+            errors.candidate_cv = "File size exceeds the limit of 2MB.";
+          }
         }
 
         if (Object.keys(errors).length > 0) {

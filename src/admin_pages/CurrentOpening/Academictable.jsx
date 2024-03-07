@@ -15,13 +15,7 @@ function Academictable() {
   tokenFromLocalStorage = JSON.parse(tokenFromLocalStorage);
   const accessToken = tokenFromLocalStorage?.token || "";
 
-
   const [token, setToken] = useState(tokenFromLocalStorage || "");
-
-
-
-
-
 
   useEffect(() => {
     const fetchJobProfiles = async () => {
@@ -29,15 +23,13 @@ function Academictable() {
         const response = await adminApiService.getJobProfile();
         // console.log("fetch response.data", response.data);
         setJobProfiles(response.data);
-
       } catch (error) {
-        console.error('Error fetching job profiles:', error);
+        console.error("Error fetching job profiles:", error);
       }
     };
 
     fetchJobProfiles();
   }, []);
-
 
   const handleApply = async (data) => {
     // console.log("Selected Job Profile:", data);
@@ -45,7 +37,7 @@ function Academictable() {
       applied_post_masters_id: data.applied_post_masters_id,
       job_category_master_id: data.job_category_master_id,
       department_master_id: data.department_master_id,
-      job_profile_master_id: data.job_profile_master_id
+      job_profile_master_id: data.job_profile_master_id,
     };
 
     // try {
@@ -57,9 +49,9 @@ function Academictable() {
     //       }
     //     }
     //   );
-    //   console.log("Response:", response);    
+    //   console.log("Response:", response);
     //   alert("Post Applied Successfully");
-    // } 
+    // }
     try {
       const response = await adminApiService.addApplied(requestData, accessToken); // Use adminApiService
       // console.log("Response:", response);    
@@ -76,7 +68,6 @@ function Academictable() {
       console.error("Error applying:", error);
     }
   };
-
 
   const [page, setPage] = useState(1);
 
@@ -135,11 +126,13 @@ function Academictable() {
                   <td>{data.category}</td>
                   <td>{data.post}</td>
                   <td>{data.department}</td>
-                   <td>
+                  <td>
                     {!tokenFromLocalStorage && (
-                       <button className="apn-btn"> <a href={data.applyLink}>APPLY NOW</a></button>
-                    )}             
-
+                      <button className="apn-btn">
+                        {" "}
+                        <a href={data.applyLink}>APPLY NOW</a>
+                      </button>
+                    )}
 
                     {tokenFromLocalStorage && (
                       <button
