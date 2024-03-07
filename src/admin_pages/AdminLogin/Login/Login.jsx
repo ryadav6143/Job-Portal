@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../assets/logos/logo.png";
+import Notification from "../../../Notification/Notification";
 import axios from "axios";
 // import { BASE_URL } from "../../../config/config";
 import { ADMIN_BASE_URL } from "../../../config/config";
@@ -12,7 +13,11 @@ function Login({ handleLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState("")
+  const [errorNotification, setErrorNotification] = useState({
+    open: false,
+   
+  });
   useEffect(() => {
     // Check for token in local storage upon component mount
     const token = localStorage.getItem("Token");
@@ -33,18 +38,30 @@ function Login({ handleLogin }) {
       if (response.data.token) {
         handleLogin();
         localStorage.setItem("Token", JSON.stringify(response.data));
+        setErrorNotification({
+          open: true,
+          message: "Login Successful",
+        });
       } else {
         setError("Invalid credentials");
+       
       }
     } catch (error) {
-      console.error("Error during login:", error);
-      setError("Invalid username and password");
+      console.error("Error during login:", error.response.data.message);
+      setErrorNotification({
+        open: true,
+        message: error.response.data.message || "Invalid credentials",
+      });
+      setErrorMessage("invalid username and password");
     }
 
   };
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
+  };
+  const handleCloseNotification = () => {
+    setErrorNotification({ ...errorNotification, open: false });
   };
   return (
     <>
@@ -91,6 +108,12 @@ function Login({ handleLogin }) {
             <button type="submit" className="login-button">
               Login
             </button>
+            <Notification
+        open={errorNotification.open}
+        handleClose={handleCloseNotification}
+        alertMessage={errorNotification.message}
+        alertSeverity="error"
+      />
           </div>
         </form>
         {error && <p>{error}</p>}

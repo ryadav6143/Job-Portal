@@ -23,29 +23,31 @@ function CandidateLogin({ handleLogin }) {
         login_field: username,
         password: password,
       });
-      setErrorNotification({
-        open: true,
-        message:"Login Successfully",
-      });
+      // setErrorNotification({
+      //   open: true,
+      //   message:"Login Successfully",
+      // });
       console.log("resposne", response);
       if (response.data.token) {
         handleLogin();
         
         localStorage.setItem("Token", JSON.stringify(response.data));
-
+       
+          setErrorNotification({
+            open: true,
+            message: "Login Successful",
+          });
+      
         // sessionStorage.setItem("Token", response.data);
       } else {
         setErrorMessage("Invalid credentials");
-        setErrorNotification({
-          open: true,
-          message:"Invalid credentials",
-        });
+       
       }
     } catch (error) {
       console.error("Error during login:", error.response.data.message);
       setErrorNotification({
         open: true,
-        message: error.response.data.message,
+        message: error.response.data.message || "Invalid credentials",
       });
       setErrorMessage("invalid username and password");
     }

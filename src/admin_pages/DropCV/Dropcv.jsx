@@ -538,11 +538,7 @@ function Dropcv() {
                   </Button>
                 )}
                 <Box sx={{ flex: "1 1 auto" }} />
-                {dangerAlertVisible && (
-                  <div className="alert alert-danger" role="alert">
-                    This email or contact is already registered.
-                  </div>
-                )}
+              
                 <Button onClick={handleNext } className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                   <Notification open={open} handleClose={handleClose} alertMessage={alertMessage} alertSeverity={alertSeverity} />

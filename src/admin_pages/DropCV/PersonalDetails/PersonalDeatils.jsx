@@ -276,6 +276,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   </label>
 
                   <input
+                  autoFocus
                     className="set-input"
                     type="text"
                     name="first_name"
