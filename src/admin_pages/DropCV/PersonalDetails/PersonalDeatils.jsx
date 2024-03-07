@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 
 import "./PersonalDeatils.css";
 import apiService from "../../../Services/ApiServices";
@@ -25,24 +25,67 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
+   // --------------------------------------------------FORM VALIDATION-------------------------------------------
+  //  const [formErrors, setFormErrors] = useState({
+  //   title_first_name: "",
+  //   first_name: "",
+  //   middle_name: "",
+  //   last_name: "",
+  //   dob: "",
+  //   gender: "",
+  //   email: "",
+  //   password: "",
+  //   contact_1: "",
+  //   country: "",
+  //   city: "",
+  //   subjects_master_id: "",
+  //   applied_post_masters_id: "",
+  //   applied_subpost_master_id: "",
+  //   job_category_master_id: "",
+  // });
+
+  const hasMounted = useRef(false);
 
   // -------------for jobcategory, post applies , sub post  ---------------
 
   // -------------------------------------dob----------------------
 
   // -------------------------------------dob----------------------
-
+  
   useEffect(() => {
-    apiService
-      .getJobCategories()
-      .then((response) => {
-        const data = response.data;
-        setCategories(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching job categories:", error);
-      });
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const fetchData = async () => {
+      try {
+        const categoriesResponse = await apiService.getJobCategories(signal);
+        setCategories(categoriesResponse.data);
+
+        const subjectRes = await apiService.getSubjectMaster(signal)
+        setSubjects(subjectRes.data);
+
+        const countriesRes = await apiService.getCountries(signal)
+        setCountries(countriesRes.data.data);
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          // Request was aborted, you can handle it if needed
+          console.error('Error fetching job categories:', error);
+        } else {
+          console.error('Error fetching job categories:', error);
+        }
+      }
+    };
+
+    fetchData();
+      return () => {
+        // Cleanup function to abort the request when the component unmounts
+        controller.abort();
+      };
   }, []);
+
   useEffect(() => {
     if (selectedPost) {
       const selectedPostData = posts.find(
@@ -56,26 +99,8 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       setSubposts([]);
     }
   }, [selectedPost, posts]);
-  useEffect(() => {
-    apiService
-      .getSubjectMaster()
-      .then((response) => {
-        setSubjects(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching subjects:", error);
-      });
-  }, []);
-  useEffect(() => {
-    apiService
-      .getCountries()
-      .then((response) => {
-        setCountries(response.data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching countries:", error);
-      });
-  }, []);
+ 
+ 
 
   const handleCategoryChange = (event) => {
     setErrors({
@@ -102,6 +127,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     setSelectedPost("");
     setSubposts([]);
   };
+  
   const handlePostChange = (event) => {
     setErrors({
       ...errors,
@@ -212,24 +238,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     }));
   };
 
-  // --------------------------------------------------FORM VALIDATION-------------------------------------------
-  const [formErrors, setFormErrors] = useState({
-    title_first_name: "",
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    dob: "",
-    gender: "",
-    email: "",
-    password: "",
-    contact_1: "",
-    country: "",
-    city: "",
-    subjects_master_id: "",
-    applied_post_masters_id: "",
-    applied_subpost_master_id: "",
-    job_category_master_id: "",
-  });
+ 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
 
   return (
