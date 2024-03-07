@@ -3,8 +3,11 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import "./CurrentOpening.css";
 import adminApiService from "../adminApiService";
-
+import Notification from "../../Notification/Notification";
 function Academictable() {
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("info");
 
   const [jobProfiles, setJobProfiles] = useState([]);
 
@@ -60,10 +63,16 @@ function Academictable() {
     try {
       const response = await adminApiService.addApplied(requestData, accessToken); // Use adminApiService
       // console.log("Response:", response);    
-      alert("Post Applied Successfully");
+      // alert("Post Applied Successfully");
+      setNotificationMessage("Post Applied Successfully");
+      setNotificationSeverity("success");
+      setShowNotification(true);
     }
     catch (error) {
-      alert("you already applied",)
+      // alert("you already applied",)
+      setNotificationMessage("You already applied");
+      setNotificationSeverity("error");
+      setShowNotification(true);
       console.error("Error applying:", error);
     }
   };
@@ -140,7 +149,14 @@ function Academictable() {
                       >
                         APPLY NOW
                       </button>
+                      
                     )}
+                     <Notification
+        open={showNotification}
+        handleClose={() => setShowNotification(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
                   </td>
 
                   <td>{formatDateForInput(data.lastDate)}</td>

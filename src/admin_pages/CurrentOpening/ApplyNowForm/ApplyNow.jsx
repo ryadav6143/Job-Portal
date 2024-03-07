@@ -853,16 +853,16 @@ function ApplyNow() {
         }
       case 5:
         // validation for activeStep5
-        // if (!formValues.UserDetails.hearing_source_about_us) {
-        //   errors.hearing_source_about_us = "! This field is Required";
-        // }
+        if (!formValues.UserDetails.hearing_source_about_us) {
+          errors.hearing_source_about_us = "! This field is Required";
+        }
 
-        // if (!formValues.UserDetails.candidate_cv) {
-        //   errors.candidate_cv = "! Candidate CV is Required";
-        // }
-        // if (!accept) {
-        //   errors.accept = "! Please confirm";
-        // }
+        if (!formValues.UserDetails.candidate_cv) {
+          errors.candidate_cv = "! Candidate CV is Required";
+        }
+        if (!accept) {
+          errors.accept = "! Please confirm";
+        }
 
         if (Object.keys(errors).length > 0) {
           setErrors(errors);

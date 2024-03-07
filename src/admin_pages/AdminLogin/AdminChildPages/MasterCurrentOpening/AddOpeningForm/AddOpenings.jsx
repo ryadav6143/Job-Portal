@@ -4,6 +4,7 @@ import "./AddOpenings.css";
 import adminApiService from "../../../../adminApiService";
 import close from "../../../../../assets/logos/close.png";
 import MasterTable from "../MasterCurrentOpeningChild/MasterTable";
+import Notification from "../../../../../Notification/Notification";
 function AddOpenings() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -17,6 +18,11 @@ function AddOpenings() {
   const [addToCurrentOpening, setAddToCurrentOpening] = useState(false);
   const [addToInterviewSchedule, setAddToInterviewSchedule] = useState(false);
   const [publishToJobProfile, setPublishToJobProfile] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
+
+
 
   const [formValues, setFormValues] = useState({
     job_category_master_id: 0,
@@ -195,10 +201,16 @@ function AddOpenings() {
         formValues
       );      
       console.log("Job profile submitted successfully!", response.data);
-      alert("submit form Successfully");
+      // alert("submit form Successfully");
+      setNotificationMessage("Job profile submitted successfully!");
+      setNotificationSeverity("success");
+      setShowNotification(true);
       navigate("/adminpanel");
     } catch (error) {
       console.error("Error submitting job profile:", error);
+      setNotificationMessage("Error submitting job profile. Please try again later.");
+      setNotificationSeverity("error");
+      setShowNotification(true);
     }
   };
 
@@ -450,6 +462,12 @@ function AddOpenings() {
                 <button type="submit" id="add-job" onClick={handleSubmit}>
                   SUBMIT
                 </button>
+                <Notification
+        open={showNotification}
+        handleClose={() => setShowNotification(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
               </div>
             </form>
           </div>

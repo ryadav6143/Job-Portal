@@ -3,6 +3,7 @@ import { Pagination } from "react-bootstrap";
 import { Modal, Button } from "react-bootstrap";
 import adminApiService from "../../adminApiService";
 import "./Reports.css";
+import Notification from "../../../Notification/Notification";
 
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 function Reports() {
@@ -25,6 +26,9 @@ function Reports() {
   const [formValues, setFormValues] = useState({});
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [updateField, setUpdateField] = useState({});
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("error");
   useEffect(() => {
     fetchDataFromService();
     
@@ -110,11 +114,17 @@ function Reports() {
         setPdfUrl(url);
         setShowPdfDialog(true); // Open dialog when PDF is fetched
       } else {
-        alert("No resume available for this candidate.");
+       
+        setNotificationMessage("No resume available for this candidate.");
+        setNotificationSeverity("error");
+        setShowNotification(true);
       }
     } catch (error) {
       console.error("Error fetching resume:", error);
-      alert("Error fetching resume.");
+      
+      setNotificationMessage("Error fetching resume.");
+      setNotificationSeverity("error");
+      setShowNotification(true);
     }
   };
 
@@ -158,7 +168,8 @@ function Reports() {
 
   const handlePost = (fieldName, value) => {
     if (selectedCategory === "") {
-      alert("Please select a category first");
+      
+     
       return;
     }
 
@@ -267,7 +278,9 @@ function Reports() {
                   className="form-control"
                   onClick={() => {
                     if (selectedCategory === "") {
-                      alert("Please select a category first");
+                      setNotificationMessage("Please select a category first");
+                      setNotificationSeverity("error");
+                      setShowNotification(true);
                     }
                   }}
                   onChange={(e) => handlePost("post_name", e.target.value)}
@@ -304,6 +317,12 @@ function Reports() {
                 <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.job_category_master?.category_name || "-"}</td>
                 <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.candidate.specialization || "-"}</td>
                 <td><Button variant="primary" onClick={() => handleResumeClick(candidate.id)}>View</Button></td>
+                <Notification
+        open={showNotification}
+        handleClose={() => setShowNotification(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
               </tr>
             ))}
           </tbody>
