@@ -5,13 +5,17 @@ import adminApiService from "../../adminApiService";
 import "./Reports.css";
 import Notification from "../../../Notification/Notification";
 
+// import updatebtn from "../../../assets/logos/update.png";
+import updatebtn from "../../../assets/logos/view.png";
+import viewbtn from "../../../assets/logos/view-resume.png";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 function Reports() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPost, setSelectedPost] = useState("");
   const [selectedSubpost, setSelectedSubpost] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [count, setCount] = useState([]);
   const [categories, setCategories] = useState([]);
   const [posts, setPosts] = useState([]);
   const [subposts, setSubposts] = useState([]);
@@ -20,6 +24,7 @@ function Reports() {
   const [pdfUrl, setPdfUrl] = useState("");
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingPopup, setLoadingPopup] = useState(true);
   const [jobCategories, setJobCategories] = useState([]);
   const [post, setPost] = useState([]);
   const [subPost, setSubPost] = useState([]);
@@ -31,7 +36,7 @@ function Reports() {
   const [notificationSeverity, setNotificationSeverity] = useState("error");
   useEffect(() => {
     fetchDataFromService();
-    
+
   }, [currentPage, selectedCategory, selectedPost, selectedSubpost, itemsPerPage]);
 
   // const fetchData = async () => {
@@ -59,7 +64,10 @@ function Reports() {
   const fetchDataFromService = async () => {
     try {
       const data = await adminApiService.fetchData(currentPage, itemsPerPage, selectedCategory, selectedPost);
-      setData(data);
+      console.log("check count ", data)
+      setData(data.candidateappliedpostData);
+      setCount(data);
+   
       const uniqueCategories = [...new Set(data.map(candidate => candidate.job_category_master?.category_name))];
       setCategories(uniqueCategories);
       setPosts(data.map(candidate => candidate.applied_post_master?.post_name));
@@ -84,7 +92,7 @@ function Reports() {
     fetchJobCategories();
   }, []);
 
-
+ 
   // const handleCategoryChange = (e) => {
   //   const selectedCategory = e.target.value;
   //   setSelectedCategory(selectedCategory);
@@ -106,6 +114,7 @@ function Reports() {
 
   const handleResumeClick = async (candidateId) => {
     try {
+      
       const resumeData = await adminApiService.renderCandidateResume(
         candidateId
       );
@@ -197,16 +206,21 @@ function Reports() {
 
   const fetchCandidateDetails = async (candidateId) => {
     try {
+      setLoadingPopup(true);
+    
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       const response = await adminApiService.getCandidatesById(
         accessToken.token,
         candidateId
       );
+   
       console.log("getCandidatesById>>", response.data);
       setSelectedCandidate(response.data);
+      setLoadingPopup(false);
     } catch (error) {
       console.error("Error fetching candidate details:", error);
+      setLoadingPopup(false);
     }
   };
 
@@ -236,6 +250,20 @@ function Reports() {
     console.log("Selected Candidate:", selectedCandidate);
   }, [selectedCandidate]);
 
+
+
+  useEffect(() => {
+    if (selectedCandidate) {
+      fetchCandidateDetails(selectedCandidate.candidate_id);
+    }
+  }, [selectedCandidate]);
+
+  const openCandidateDetails = (candidateId) => {
+    setSelectedCandidate({ candidate_id: candidateId });
+  };
+
+
+  
   return (
     <>
       <div className="center-container">
@@ -246,14 +274,20 @@ function Reports() {
                 <div className="loader"></div>
               </div>
             )}
-            <div className="row mb-3">
-              <div className="col-md-4">
+            <div className="col-md-2 flex-container">
+              <label className="labelCount">Total No. of Candidates:</label>
+              <input className="form-control totalCount" disabled value={count?.TotalApplicationCount || ""} />
+
+            </div>
+
+            <div className="row">
+              <div className="col-md-4 ">
                 <label>Select Category:</label>
                 <select
                   name="category_name"
                   id="categoryDropdown"
                   value={selectedCategory}
-                  className="form-control "
+                  className="form-control"
                   // onChange={handleCategory}
                   onChange={(e) =>
                     handleCategory("category_name", e.target.value)
@@ -270,7 +304,19 @@ function Reports() {
                   ))}
                 </select>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-1" style={{ width: "0px" }}>
+                {/* <label>Select Category:</label> */}
+                <input
+                  className="form-control CategoryCount"
+                  disabled
+                  value={count?.CategoryCount || ""}
+                />
+              </div>  
+
+
+
+              {/* <div className="row"> */}
+              <div className="col-md-4 pl-0">
                 <label>Select Post:</label>
                 <select
                   id="dropdown"
@@ -294,6 +340,7 @@ function Reports() {
                 </select>
               </div>
             </div>
+            {/* </div> */}
 
             <table className="table">
               <thead>
@@ -304,28 +351,35 @@ function Reports() {
                   <th>Post Name</th>
                   <th>Category Name</th>
                   <th>Specialization</th>
+                  <th>View Details</th>
                   <th>Resume</th>
                 </tr>
               </thead>
               <tbody>
-            {data.map((candidate) => (
-              <tr key={candidate.id}>
-                <td style={{ cursor: 'pointer' }}>{candidate.candidate.first_name || "-"}</td>
-                <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.candidate.email || "-"}</td>
-                <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.candidate.contact_1 || "-"}</td>
-                <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.applied_post_master?.post_name || "-"}</td>
-                <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.job_category_master?.category_name || "-"}</td>
-                <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>{candidate.candidate.specialization || "-"}</td>
-                <td><Button variant="primary" onClick={() => handleResumeClick(candidate.id)}>View</Button></td>
-                <Notification
+                {data.map((candidate) => (
+                  <tr key={candidate.id}>
+                    <td >{candidate.candidate.first_name || "-"}</td>
+                    <td>{candidate.candidate.email || "-"}</td>
+                    <td>{candidate.candidate.contact_1 || "-"}</td>
+                    <td>{candidate.applied_post_master?.post_name || "-"}</td>
+                    <td>{candidate.job_category_master?.category_name || "-"}</td>
+                    <td>{candidate.candidate.specialization || "-"}</td>
+                    {/* <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}><img src={updatebtn} className="up-del-btn" alt=""/></td> */}
+                    <td onClick={() => openCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}>
+        <img src={updatebtn} className="up-del-btn" alt=""/>
+      </td>
+                    
+                    <td variant="primary" onClick={() => handleResumeClick(candidate.id)} style={{ cursor: 'pointer' }}><img src={viewbtn} className="up-del-btn" alt=""/></td>
+                  
+                    <Notification
         open={showNotification}
         handleClose={() => setShowNotification(false)}
         alertMessage={notificationMessage}
         alertSeverity={notificationSeverity}
       />
-              </tr>
-            ))}
-          </tbody>
+                  </tr>
+                ))}
+              </tbody>
             </table>
             <div className="row">
               <div className="col-md-4">
@@ -348,56 +402,63 @@ function Reports() {
               </div>
             </div>
 
-            <Dialog open={selectedCandidate !== null} onClose={() => setSelectedCandidate(null)}>
-  <DialogTitle>Personal Information</DialogTitle>
-  <DialogContent>
-    {selectedCandidate && (
-      <div>
-        <p><strong>First Name:</strong> {selectedCandidate.first_name}</p>
-        <p><strong>Email:</strong> {selectedCandidate.email}</p>
-        <p><strong>Contact:</strong> {selectedCandidate.contact_1}</p>
-        <p><strong>City:</strong> {selectedCandidate.city}</p>
-        
-        <div className="lower-box">
-                  <div className="education-section">
-                    <h5 className="section-heading">Education</h5>
-                    {selectedCandidate.candidate_educations && selectedCandidate.candidate_educations.map((education, index) => (
-                      <p key={index}><strong></strong> {education.exam_types_master.exam_name || "NULL"}-({education.degree_types_name || "NULL"})  </p>
-                    ))}
-                  </div>
-          <div className="experience-section">
-            <h5 className="section-heading">Experience</h5>
-            {selectedCandidate.candidate_experiences && selectedCandidate.candidate_experiences.map((experience, index) => (
-              <div key={index}>
-                <p><strong>Company name:</strong> {experience.company_experience_name || "NULL"}</p>
-                <p><strong>Designation:</strong> {experience.designation || "NULL"}</p>
-                <p><strong>From:</strong> ({formatDateForInput(experience.exp_work_from) || "NULL"})</p>
-                <p><strong>To:</strong> ({formatDateForInput(experience.exp_work_to) || "NULL"})</p>
+            {/* <Dialog open={selectedCandidate !== null} onClose={() => setSelectedCandidate(null)}> */}
+            <Dialog open={!!selectedCandidate} >
+            {loadingPopup && (
+              <div className="loaderPopupContainer">
+              <p className="wait">Please wait</p>
+                <div className="loaderPopup"></div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    )}
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={() => setSelectedCandidate(null)} color="primary">Close</Button>
-  </DialogActions>
-</Dialog>
+            )}
+              <DialogTitle>Personal Information</DialogTitle>
+              <DialogContent>
+                {selectedCandidate && (
+                  <div>
+                    <p><strong>First Name:</strong> {selectedCandidate.first_name}</p>
+                    <p><strong>Email:</strong> {selectedCandidate.email}</p>
+                    <p><strong>Contact:</strong> {selectedCandidate.contact_1}</p>
+                    <p><strong>City:</strong> {selectedCandidate.city}</p>
+
+                    <div className="lower-box">
+                      <div className="education-section">
+                        <h5 className="section-heading">Education</h5>
+                        {selectedCandidate.candidate_educations && selectedCandidate.candidate_educations.map((education, index) => (
+                          <p key={index}><strong></strong> {education.exam_types_master.exam_name || "NULL"}-({education.degree_types_name || "NULL"})  </p>
+                        ))}
+                      </div>
+                      <div className="experience-section">
+                        <h5 className="section-heading">Experience</h5>
+                        {selectedCandidate.candidate_experiences && selectedCandidate.candidate_experiences.map((experience, index) => (
+                          <div key={index}>
+                            <p><strong>Company name:</strong> {experience.company_experience_name || "NULL"}</p>
+                            <p><strong>Designation:</strong> {experience.designation || "NULL"}</p>
+                            <p><strong>From:</strong> ({formatDateForInput(experience.exp_work_from) || "NULL"})</p>
+                            <p><strong>To:</strong> ({formatDateForInput(experience.exp_work_to) || "NULL"})</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setSelectedCandidate(null)} style={{position:"sticky"}} color="primary">Close</Button>
+              </DialogActions>
+            </Dialog>
 
 
 
-      <Dialog open={showPdfDialog} onClose={handleClosePdfDialog} maxWidth="md">
-          <DialogTitle>Resume</DialogTitle>
-          <DialogContent>
-            <embed src={pdfUrl} type="application/pdf" width="400px" height="500px" />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClosePdfDialog} color="primary">
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
+            <Dialog open={showPdfDialog} onClose={handleClosePdfDialog} maxWidth="md">
+              <DialogTitle>Resume</DialogTitle>
+              <DialogContent>
+                <embed src={pdfUrl} type="application/pdf" width="400px" height="500px" />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClosePdfDialog} color="primary">
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
 
             {/* <Pagination>
           <Pagination.Prev onClick={prevPage} />
