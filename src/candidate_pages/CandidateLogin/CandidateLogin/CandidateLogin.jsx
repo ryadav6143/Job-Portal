@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../assets/logos/logo.png";
 import candidatesService from "../../candidateService";
 import Notification from "../../../Notification/Notification";
+import { useNavigate } from "react-router-dom";
 function CandidateLogin({ handleLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +17,7 @@ function CandidateLogin({ handleLogin }) {
    
   });
 
+  const navigate=useNavigate()
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -29,8 +31,8 @@ function CandidateLogin({ handleLogin }) {
       // });
       console.log("resposne", response);
       if (response.data.token) {
-        handleLogin();
-        
+        // handleLogin();
+        navigate(`/user-login`)
         localStorage.setItem("Token", JSON.stringify(response.data));
        
           setErrorNotification({

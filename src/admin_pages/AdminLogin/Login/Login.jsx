@@ -7,8 +7,9 @@ import Notification from "../../../Notification/Notification";
 import axios from "axios";
 // import { BASE_URL } from "../../../config/config";
 import { ADMIN_BASE_URL } from "../../../config/config";
+import { useNavigate } from "react-router-dom";
 
-function Login({ handleLogin }) {
+function Login( handleLogin ) {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,11 +19,13 @@ function Login({ handleLogin }) {
     open: false,
    
   });
+
+  const navigate = useNavigate()
   useEffect(() => {
     // Check for token in local storage upon component mount
     const token = localStorage.getItem("Token");
     if (token) {
-      handleLogin();
+      // handleLogin();
     }
   }, []); // Empty dependency array ensures this effect runs only once on component mount
 
@@ -36,8 +39,9 @@ function Login({ handleLogin }) {
       }));
       console.log(response)
       if (response.data.token) {
-        handleLogin();
         localStorage.setItem("Token", JSON.stringify(response.data));
+        // handleLogin();
+        navigate(`/adminpanel`)
         setErrorNotification({
           open: true,
           message: "Login Successful",
@@ -47,7 +51,7 @@ function Login({ handleLogin }) {
        
       }
     } catch (error) {
-      console.error("Error during login:", error.response.data.message);
+      console.error("Error during login:", error);
       setErrorNotification({
         open: true,
         message: error.response.data.message || "Invalid credentials",
