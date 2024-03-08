@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import "./OTPVerification.css";
 import { useNavigate } from "react-router-dom";
 import apiService from "../../../Services/ApiServices";
+import Notification from "../../../Notification/Notification";
 
 function OTPVerification({ transferAllData, otpData }) {
   console.log("AllData", transferAllData);
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [verificationError, setVerificationError] = useState(null);
-  let isOtpVerified = false;
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false); // State to manage Notification visibility
+  const [notificationMessage, setNotificationMessage] = useState(""); // State to manage Notification message
+  const [notificationSeverity, setNotificationSeverity] = useState("info"); // State to manage Notification severity
+
 
   const { contact_1 } = otpData;
   let digit = contact_1 ? contact_1.slice(-2) : "";
@@ -19,27 +24,49 @@ function OTPVerification({ transferAllData, otpData }) {
       const response = await apiService.verifyEmailOTP({
         ...otpData,
         // inputOTP: parseInt(otp),
-      
+
         inputOTP: otp,
       });
 
-      if (response) {
+      if (response && response.data) {
         // setIsOtpVerified(response.data);
-        isOtpVerified = response.data;
-        console.log("otp", response.data, isOtpVerified);
+        // isOtpVerified = response.data;
+        // console.log("otp", response.data, isOtpVerified);
 
-        alert(`OTP Verified !,${isOtpVerified}`);
+        // // alert(`OTP Verified !,${isOtpVerified}`);
+        // setNotificationMessage(`OTP Verified! ${isOtpVerified}`);
+        // setNotificationSeverity("success");
+        // setNotificationOpen(true);
+        setIsOtpVerified(response.data);
+        console.log("otp", response.data, isOtpVerified);
+  
+        setNotificationMessage(`OTP Verified! ${response.data}`);
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
       }
       // else {
       //   setVerificationError("Invalid OTP. Please try again.");
       //   setIsOtpVerified(false);
       //   alert("Incorrect OTP. Please try again.");
       // }
+      else {
+        // If response is either falsy or response.data is falsy, it means OTP verification failed
+        setVerificationError("Invalid OTP. Please try again.");
+        setIsOtpVerified(false);
+  
+        setNotificationMessage("Incorrect OTP. Please try again.");
+        setNotificationSeverity("error");
+        setNotificationOpen(true);
+      }
     } catch (error) {
       console.error("Error during OTP verification", error);
       setVerificationError("An error occurred during OTP verification.");
       // setIsOtpVerified(false);
-      alert("An error occurred during OTP verification. Please try again.");
+      // alert("An error occurred during OTP verification. Please try again.");
+      setNotificationMessage("An error occurred during OTP verification. Please try again.");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
+    
     }
   };
 
@@ -50,12 +77,20 @@ function OTPVerification({ transferAllData, otpData }) {
       });
 
       console.log("API Response:", response);
-      alert("OTP Resent Successfully!");
+      // alert("OTP Resent Successfully!");
+      setNotificationMessage("OTP Resent Successfully!");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
     } catch (error) {
       console.error("Error during OTP generation", error);
-      alert("Failed to resend OTP. Please try again.");
+      // alert("Failed to resend OTP. Please try again.");
+      setNotificationMessage("Failed to resend OTP. Please try again.");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
+
+
   const submitsuccess = async () => {
     console.log("at-submit", isOtpVerified);
 
@@ -76,7 +111,10 @@ function OTPVerification({ transferAllData, otpData }) {
           console.error("Failed to post form data and file to the API", error);
         }
       } else {
-        alert("Please verify OTP first!");
+        // alert("Please verify OTP first!");
+        setNotificationMessage("Please verify OTP first!");
+        setNotificationSeverity("warning");
+        setNotificationOpen(true);
       }
     } else {
       if (isOtpVerified) {
@@ -95,9 +133,16 @@ function OTPVerification({ transferAllData, otpData }) {
           console.error("Failed to post form data and file to the API", error);
         }
       } else {
-        alert("Please verify OTP first!");
+        // alert("Please verify OTP first!");
+        setNotificationMessage("Please verify OTP first!");
+        setNotificationSeverity("warning");
+        setNotificationOpen(true);
       }
     }
+  };
+
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
   };
   return (
     <>
@@ -134,6 +179,12 @@ function OTPVerification({ transferAllData, otpData }) {
           Submit
         </button>
       </div>
+      <Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
     </>
   );
 }

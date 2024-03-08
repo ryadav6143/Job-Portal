@@ -259,7 +259,6 @@ function ApplyNow() {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("success");
 
-
   // const transferAllData =async ()=>{
   //   try {
   //     const formValuesToSend = new formValues();
@@ -323,11 +322,10 @@ function ApplyNow() {
 
   const handleClick = () => {
     setOpen(true);
-   
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -407,18 +405,15 @@ function ApplyNow() {
         console.log("dataEmail", dataEmail, dataContact);
         if (dataEmail) {
           // alert("This email is already registered.");
-         
 
           setAlertMessage("This email is already registered.");
           setAlertSeverity("error");
           setOpen(true);
-          
         } else if (dataContact) {
           // alert("This contact is already registered.");
           setAlertMessage("This contact is already registered.");
           setAlertSeverity("error");
           setOpen(true);
-         
         } else {
           console.log("Email and contact do not exist in the database");
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -998,7 +993,12 @@ function ApplyNow() {
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={handleNext} className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                  <Notification open={open} handleClose={handleClose} alertMessage={alertMessage} alertSeverity={alertSeverity} />
+                  <Notification
+                    open={open}
+                    handleClose={handleClose}
+                    alertMessage={alertMessage}
+                    alertSeverity={alertSeverity}
+                  />
                 </Button>
               </Box>
             </React.Fragment>

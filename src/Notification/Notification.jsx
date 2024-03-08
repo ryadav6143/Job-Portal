@@ -3,6 +3,7 @@ import Slide from "@mui/material/Slide";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
+
 function Notification({ open, handleClose, alertMessage, alertSeverity }) {
   alertSeverity = alertSeverity ? alertSeverity : "default";
   return (

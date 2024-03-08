@@ -149,7 +149,7 @@ function MasterTable() {
               </div>
             </div>
 
-            <table className="table table-responsive">
+            <table style={{marginTop:"30px"}} className="table table-responsive">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
                 <tr>
                   <th scope="col">Category</th>
