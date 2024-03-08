@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 import "./MasterCurrentOpening.css";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import adminApiService from "../../../adminApiService";
+
 import AddOpenings from "./AddOpeningForm/AddOpenings";
 import MasterTable from "./MasterCurrentOpeningChild/MasterTable";
 
