@@ -8,8 +8,6 @@ import JobProfile from "../admin_pages/JobProfile/JobProfile";
 import FAQ from "../admin_pages/FAQ/FAQ";
 import DropCV from "../admin_pages/DropCV/Dropcv";
 import ForgottenPassword from "../candidate_pages/CandidateLogin/CandidateLogin/ForgottenPassword";
-import CandidatePanel from "../candidate_pages/CandidateLogin/CandidatePanel";
-import Adminpanel from "../admin_pages/AdminLogin/Adminpanel";
 import CandidateLogin from "../candidate_pages/CandidateLogin/CandidateLogin/CandidateLogin";
 import Login from "../admin_pages/AdminLogin/Login/Login";
 import Qualification from "../admin_pages/DropCV/Qualification/Qualification";
@@ -21,14 +19,13 @@ import Administrative from "../admin_pages/JobProfile/Administrative/Administrat
 import Research from "../admin_pages/JobProfile/Research/Research";
 import Technical from "../admin_pages/JobProfile/Technical/Technical";
 import ApplyNow from "../admin_pages/CurrentOpening/ApplyNowForm/ApplyNow";
-import EditOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings";
+
 import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin"
 import PageNotFound from "../admin_pages/PageNotFound/PageNotFound";
 import ContactUs from "../admin_pages/Contactus/ContactUs";
 import Submitsuccess from "../admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 import OTPVerification from "../admin_pages/DropCV/OTPVerifivation/OTPVerification";
 import TestPages from "../admin_pages/TestPages/TestPages";
-import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 
 console.log("inside UnAuthRoutes");
 const UnAuthRoutes = [
@@ -119,14 +116,8 @@ const UnAuthRoutes = [
     path="verification-successfull"
     element={<UnAuthGuards component={<Submitsuccess />} />}
   ></Route>,
-  <Route
-    path="add-openings"
-    element={<UnAuthGuards component={<AddOpenings />} />}
-  ></Route>,
-  <Route
-    path="edit-openings/:id"
-    element={<UnAuthGuards component={<EditOpenings />} />}
-  ></Route>,
+ ,
+
   <Route
     path="test"
     element={<UnAuthGuards component={<TestPages />} />}
