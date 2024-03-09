@@ -4,6 +4,7 @@ import AdminAuthGaurd from "../gaurd/AdminAuthGaurd";
 import Adminpanel from "../admin_pages/AdminLogin/Adminpanel";
 import EditOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings";
 import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
+import MasterCurrentOpening from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/MasterCurrentOpening";
 
 
 console.log("inside Candidate-Auth Routes")
@@ -17,6 +18,10 @@ const AdminAuthRoutes = [
   <Route
   path="edit-openings/:id"
   element={<AdminAuthGaurd component={<EditOpenings />} />}
+></Route>,
+  <Route
+  path="master-currentopening"
+  element={<AdminAuthGaurd component={<MasterCurrentOpening />} />}
 ></Route>,
 
 ]

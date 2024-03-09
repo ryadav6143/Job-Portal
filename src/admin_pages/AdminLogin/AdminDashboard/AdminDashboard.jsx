@@ -1,7 +1,7 @@
 import React from "react";
 import SideBar from "../SideBar/SideBar";
 import "./AdminDashboard.css";
-import Sidenav from "../../TestPages/Sidenav";
+import AdminAuthRoutes from "../../../routes/AdminAuthRoutes";
 
 function AdminDashboard() {
   return (
