@@ -5,7 +5,7 @@ import CandidatePanel from "../candidate_pages/CandidateLogin/CandidatePanel";
 
 console.log("inside Candidate-Auth Routes")
 const CandidateAuthRoutes = [
-    // <Route exact path="/" element={<UnAuthGuards component ={<Home/>} />}></Route>,
+  
     <Route path="user-login" element={<CandidateAuthGaurd component ={<CandidatePanel />} />} ></Route>
 
 ]

@@ -29,15 +29,54 @@ import TestPages from "../admin_pages/TestPages/TestPages";
 
 console.log("inside UnAuthRoutes");
 const UnAuthRoutes = [
+
+  //belongs to drop cv form  please check
+  <Route
+  path="/drop-cv"
+  element={<UnAuthGuards component={<DropCV />} />}
+></Route>,
+
+<Route
+path="personaldetails"
+element={<UnAuthGuards component={<PersonalDetails />} />}
+></Route>,
+
+  <Route
+  path="currentexperience"
+  element={<UnAuthGuards component={<CurrentExperience />} />}
+></Route>,
+
+<Route path="qualification" element=  {<UnAuthGuards component={<Qualification />}/>}  ></Route>,
+
+//end
+
+
+// belongs to apply now form please check
+
+<Route
+path="apply-now"
+element={<UnAuthGuards component={<ApplyNow />} />}
+></Route>,
+
+<Route
+path="userdetails"
+element={<UnAuthGuards component={<UserDetails />} />}
+></Route>,
+
+ <Route
+    path="research-jobs"
+    element={<UnAuthGuards component={<Research />} />}
+  ></Route>,
+// end 
+
+
+
   <Route
     exact
     path="/"
     element={<UnAuthGuards component={<Home />} />}
   ></Route>,
-  <Route
-    path="/current-opening"
-    element={<UnAuthGuards component={<CurrentOpening />} />}
-  ></Route>,
+ 
   <Route
     path="/job-profile"
     element={<UnAuthGuards component={<JobProfile />} />}
@@ -50,10 +89,7 @@ const UnAuthRoutes = [
     path="/faq-section"
     element={<UnAuthGuards component={<FAQ />} />}
   ></Route>,
-  <Route
-    path="/drop-cv"
-    element={<UnAuthGuards component={<DropCV />} />}
-  ></Route>,
+ 
   <Route
     path="/forgetpassword"
     element={<UnAuthGuards component={<ForgottenPassword />} />}
@@ -66,19 +102,11 @@ const UnAuthRoutes = [
     path="/admin-login"
     element={<UnAuthGuards component={<Login />} />}
   ></Route>,
-  <Route
-    path="personaldetails"
-    element={<UnAuthGuards component={<PersonalDetails />} />}
-  ></Route>,
-  <Route path="qualification" element={<Qualification />}></Route>,
-  <Route
-    path="currentexperience"
-    element={<UnAuthGuards component={<CurrentExperience />} />}
-  ></Route>,
-  <Route
-    path="userdetails"
-    element={<UnAuthGuards component={<UserDetails />} />}
-  ></Route>,
+  
+ 
+ 
+
+ 
   <Route
     path="academics-jobs"
     element={<UnAuthGuards component={<Academics />} />}
@@ -87,19 +115,16 @@ const UnAuthRoutes = [
     path="administrative-jobs"
     element={<UnAuthGuards component={<Administrative />} />}
   ></Route>,
-  <Route
-    path="research-jobs"
-    element={<UnAuthGuards component={<Research />} />}
-  ></Route>,
+ 
   <Route
     path="technical-jobs"
     element={<UnAuthGuards component={<Technical />} />}
   ></Route>,
-  <Route
-    path="apply-now"
-    element={<UnAuthGuards component={<ApplyNow />} />}
-  ></Route>,
 
+  <Route
+  path="/current-opening"
+  element={<UnAuthGuards component={<CurrentOpening />} />}
+ ></Route>,
   <Route
     path="contact-us"
     element={<UnAuthGuards component={<ContactUs />} />}

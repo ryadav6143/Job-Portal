@@ -8,8 +8,7 @@ import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrent
 
 console.log("inside Candidate-Auth Routes")
 const AdminAuthRoutes = [
-    // <Route exact path="/" element={<UnAuthGuards component ={<Home/>} />}></Route>,
-    // <Route path="user-login" element={<AdminAuthGaurd component ={<CandidatePanel />} />} ></Route>
+    
     <Route path="adminpanel" element= {<AdminAuthGaurd component ={<Adminpanel />} />}></Route>,
     <Route
     path="add-openings"
