@@ -45,8 +45,8 @@ function AddCategories() {
           category_name: newCategory,
         },
         {
-          headers: {           
-            "access-token": accessToken.token 
+          headers: {
+            "access-token": accessToken.token,
           },
         }
       )
@@ -63,7 +63,6 @@ function AddCategories() {
         console.error("Error adding category:", error);
       });
   };
-  
 
   // ------------------POST DATA TO API--------------------------------
 
@@ -73,8 +72,8 @@ function AddCategories() {
     accessToken = JSON.parse(accessToken);
     axios
       .delete(`${ADMIN_BASE_URL}/jobCategory/${categoryId}`, {
-        headers: {           
-          "access-token": accessToken.token 
+        headers: {
+          "access-token": accessToken.token,
         },
       })
       .then((response) => {
@@ -89,7 +88,6 @@ function AddCategories() {
   };
   // ------------------DELETE DATA FROM API--------------------------------
 
-
   const handleUpdateCategory = () => {
     if (!selectedCategory) return;
     let accessToken = localStorage.getItem("Token");
@@ -101,8 +99,8 @@ function AddCategories() {
           category_name: selectedCategory.category_name,
         },
         {
-          headers: {           
-            "access-token": accessToken.token 
+          headers: {
+            "access-token": accessToken.token,
           },
         }
       )

@@ -1,3 +1,4 @@
+/* eslint-disable no-sparse-arrays */
 import React from "react";
 import { Route } from "react-router-dom";
 import UnAuthGuards from "../gaurd/UnAuthGuards";
