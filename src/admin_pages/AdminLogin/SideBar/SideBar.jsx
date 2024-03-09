@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import MasterCurrentOpening from "../AdminChildPages/MasterCurrentOpening/MasterCurrentOpening";
 import MasterJobProfile from "../AdminChildPages/MasterJobProfile/MasterJobProfile";
 import MasterInterviewSchedule from "../AdminChildPages/MasterInterviewSchedule/MasterInterviewSchedule";
@@ -9,7 +10,7 @@ import AddDepartment from "../MasterPages/AddDepartment";
 import AddExamType from "../MasterPages/AddExamType";
 import AddDegree from "../MasterPages/AddDegree";
 import AddCategories from "../MasterPages/AddCategories";
-import Reports from "../Reports/Reports";
+// import Reports from "../Reports/Reports";
 import AdminList from "../SuperAdmin/AdminList";
 // import CreateRole from "../SuperAdmin/CreateRole";
 import GetRole from "../SuperAdmin/GetRole";
@@ -32,15 +33,15 @@ function SideBar() {
   };
   let componentToShow;
   switch (selectedComponent) {
-    case "Component1":
-      componentToShow = <MasterCurrentOpening />;
-      break;
-    case "Component2":
-      componentToShow = <MasterJobProfile />;
-      break;
-    case "Component3":
-      componentToShow = <MasterInterviewSchedule />;
-      break;
+    // case "admin-dashboard/master":
+    //   componentToShow = <MasterCurrentOpening />;
+    //   break;
+    // case "Component2":
+    //   componentToShow = <MasterJobProfile />;
+    //   break;
+    // case "Component3":
+    //   componentToShow = <MasterInterviewSchedule />;
+    //   break;
     case "Component4":
       componentToShow = <MasterFAQ />;
       break;
@@ -63,7 +64,7 @@ function SideBar() {
       componentToShow = <AddCategories />;
       break;
     case "Component11":
-      componentToShow = <Reports />;
+      // componentToShow = <Reports />;
       break;
     case "Component12":
       componentToShow = <AdminList />;
@@ -84,7 +85,7 @@ function SideBar() {
       componentToShow = <AddSubjects />;
       break;
     default:
-      componentToShow = <MasterCurrentOpening />;
+      // componentToShow = <MasterCurrentOpening />;
       break;
   }
   return (
@@ -102,44 +103,21 @@ function SideBar() {
                     id="sidebar-nav"
                     class="list-group border-0 rounded-0 text-sm-start min-vh-100"
                   >
-                    <a
-                      onClick={() => showComponent("Component1")}
-                      href="#"
-                      class="list-group-item border-end-0 d-inline-block text-truncate set-a"
-                      data-bs-parent="#sidebar"
-                    >
-                      <img
-                        src={opening}
-                        class="bi bi-bootstrap sidenav-icon"
-                      ></img>{" "}
-                      <span> Master Curent Opening</span>{" "}
-                    </a>
-                    <a
-                      onClick={() => showComponent("Component2")}
-                      href="#"
-                      class="list-group-item border-end-0 d-inline-block text-truncate set-a"
-                      data-bs-parent="#sidebar"
-                    >
-                      <img
-                        src={jobprofile}
-                        class="bi bi-film sidenav-icon"
-                      ></img>{" "}
-                      <span> Master Job Profile</span>
-                    </a>
-                    <a
-                      onClick={() => showComponent("Component3")}
-                      href="#"
-                      class="list-group-item border-end-0 d-inline-block text-truncate set-a"
-                      data-bs-parent="#sidebar"
-                    >
-                      <img
-                        src={interview}
-                        class="bi bi-heart sidenav-icon"
-                      ></img>{" "}
-                      <span> Master Interview Schedule</span>
-                    </a>
+                  <Link to="/admin-dashboard/current-openings" className="list-group-item border-end-0 d-inline-block text-truncate set-a">
+                  <img src={opening} className="bi bi-bootstrap sidenav-icon" alt="Opening Icon" /> <span> Master Current Opening</span>
+                  </Link>
+                  <Link to="/admin-dashboard/job-profile" className="list-group-item border-end-0 d-inline-block text-truncate set-a">
+                    <img src={jobprofile} className="bi bi-bootstrap sidenav-icon" alt="Opening Icon" /> <span> Master Job Profile</span>
+                  </Link>
+                  <Link to="/admin-dashboard/interview-schedule" className="list-group-item border-end-0 d-inline-block text-truncate set-a">
+                  <img src={interview} className="bi bi-bootstrap sidenav-icon" alt="Opening Icon" /> <span>Master Interview Schedule</span>
+                  </Link>
+                 
 
                     <div className="dropdown show">
+                    {/* <Link to="/admin-dashboard/reports" className="list-group-item border-end-0 d-inline-block text-truncate set-a">
+                  <img src={reports} className="bi bi-bootstrap sidenav-icon" alt="Opening Icon" /> <span>Reports</span>
+                  </Link> */}
                       <a
                         className="btn dropdown-toggle set-a"
                         href="#"
@@ -160,13 +138,16 @@ function SideBar() {
                         className="dropdown-menu master-dd"
                         aria-labelledby="dropdownMenuLink"
                       >
-                        <a
+                         <Link to="/admin-dashboard/reports" className="list-group-item border-end-0 d-inline-block text-truncate set-a">
+                  <img src={reports} className="bi bi-bootstrap sidenav-icon" alt="Opening Icon" /> <span>Applied Candidates</span>
+                  </Link>
+                        {/* <a
                           className="dropdown-item "
                           href="#"
                           onClick={() => showComponent("Component11")}
                         >
                           Applied Candidates
-                        </a>
+                        </a> */}
                       </div>
                     </div>
 

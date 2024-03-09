@@ -266,6 +266,7 @@ function Reports() {
   
   return (
     <>
+    <h1>Hello Reoorts</h1>
       <div className="center-container">
         <div className="admin-list">
           <div>
