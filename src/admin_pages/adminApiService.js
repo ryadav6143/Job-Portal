@@ -214,6 +214,7 @@ const adminApiService = {
    
     );
   },
+
   fetchData: async (currentPage, itemsPerPage, selectedCategory, selectedPost) => {
     try {
   
@@ -225,7 +226,21 @@ const adminApiService = {
       return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
-      throw error; // Rethrow the error to handle it in the calling function
+      throw error; 
+    }
+  },
+  getAllInterview: async (currentPage, itemsPerPage) => {
+    try {
+  
+      const response = await axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}`, {
+        headers: {
+          'access-token': getAccessToken(),
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error; 
     }
   }
 

@@ -90,3 +90,25 @@ td[style*="color: red"] {
     margin-bottom: 20px;
   }
 }
+.sizeofrow{
+  width: 100%;
+}
+
+.labelbox{
+  white-space: nowrap;
+  margin-right:5px;
+  margin-top: -3px;
+}
+
+
+.showcountbox{
+  width: auto; 
+  max-width: 5em;
+  text-align: center;
+  margin-bottom: 24px;
+  margin-right: 12px;
+}
+.countbox{
+  display: flex;
+  height: 45px;
+}

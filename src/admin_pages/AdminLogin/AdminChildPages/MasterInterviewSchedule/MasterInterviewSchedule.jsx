@@ -1,41 +1,64 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "@mui/material/Pagination";
+// import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import "./MasterInterviewSchedule.css";
-
+import { Pagination } from "react-bootstrap";
 import adminApiService from "../../../adminApiService";
 
 function MasterInterviewSchedule() {
   const [jobProfiles, setJobProfiles] = useState([]);
+  const [counts, setCounts] = useState([]);
   const [interviewSchedule, setInterviewSchedule] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
 
 
   useEffect(() => {
-    const fetchJobProfiles = async () => {
+    const fetchData = async () => {
       try {
-        const response = await adminApiService.getJobProfile();
-        // console.log("response get", response.data);
-
-        setJobProfiles(response.data);
-
-        response.data.forEach(profile => {
-          // Assuming profile.publish_to_schedule_interview is a boolean value
-          // You can modify this if it's a different type
-          setInterviewSchedule(prevState => ({
-            ...prevState,
-            [profile.id]: profile.publish_to_schedule_interview
-          }));
-        });
-
-
+        const response = await adminApiService.getAllInterview(currentPage, itemsPerPage);
+        console.log(response,"<<<<<<<check data")
+        setJobProfiles(response.jobprofileData);
+        setCounts(response);
       } catch (error) {
-        console.error('Error fetching job profiles:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchJobProfiles();
-  }, []);
+    fetchData();
+  }, [currentPage, itemsPerPage]);
 
+
+  // useEffect(() => {
+  //   const fetchJobProfiles = async () => {
+  //     try {
+  //       const response = await adminApiService.getJobProfile();
+  //       // console.log("response get", response.data);
+
+  //       setJobProfiles(response.data);
+
+  //       response.data.forEach(profile => {
+  //         // Assuming profile.publish_to_schedule_interview is a boolean value
+  //         // You can modify this if it's a different type
+  //         setInterviewSchedule(prevState => ({
+  //           ...prevState,
+  //           [profile.id]: profile.publish_to_schedule_interview
+  //         }));
+  //       });
+
+
+  //     } catch (error) {
+  //       console.error('Error fetching job profiles:', error);
+  //     }
+  //   };
+
+  //   fetchJobProfiles();
+  // }, []);
+
+
+
+
+  
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
 
@@ -58,19 +81,6 @@ function MasterInterviewSchedule() {
     }
   };
 
-
-  // const ScheduledAcademicsTable = jobProfiles
-  //   .filter(profile => profile.publish_to_schedule_interview)
-  //   .map(profile => ({
-  //     eligibility_criteria: profile.eligibility_criteria || "N/A",
-  //     department: profile.department_master?.dept_name || "N/A",
-  //     post: profile.applied_post_master?.post_name || "N/A",
-  //     lastDate: profile.last_date_to_apply || "N/A",
-  //     schedule_interview_date_1: profile.schedule_interview_date_1 || "N/A",
-  //     schedule_interview_date_2: profile.schedule_interview_date_2 || "N/A",
-  //     schedule_interview_date_3: profile.schedule_interview_date_3 || "N/A",
-  //     publish_to_schedule_interview: profile.publish_to_schedule_interview
-  //   }));
   const ScheduledAcademicsTable = jobProfiles.map(profile => ({
     eligibility_criteria: profile.eligibility_criteria || "N/A",
     department: profile.department_master?.dept_name || "N/A",
@@ -84,15 +94,19 @@ function MasterInterviewSchedule() {
   }));
   // console.log("ScheduledAcademicsTable", ScheduledAcademicsTable)
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+
+  
   const startIndex = (page - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const ScheduledAcademicData = ScheduledAcademicsTable.slice(
     startIndex,
     endIndex
   );
+
+
+
+
+  
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
     if (isNaN(dateObject.getTime())) {
@@ -111,18 +125,60 @@ function MasterInterviewSchedule() {
   };
 
 
+
+
+  const isNextPageAvailable = jobProfiles.length === itemsPerPage;
+  console.log("jobprofiles>>",isNextPageAvailable)
+  const nextPage = () => {
+    if (isNextPageAvailable) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+
   return (
     <>
       <div className="master-table">
         <p className="SCA-heading">Master Interview Schedule </p>
         {/* <p className="table-des">A descriptive body text comes here</p> */}
-
-        <div className="table-responsive fixe-table">
+        <div className="row sizeofrow" >
+          <div className="col-md countbox">
+          <label className="labelbox">Total JobTypes Count:</label>
+                <input
+                  className="form-control showcountbox"
+                  disabled
+                  value={counts?.TotalJobTypesCount || ""}
+                />
+          </div>
+               <div className="col-md countbox">
+               <label className="labelbox">Total Vacancy:</label>
+                <input
+                  className="form-control showcountbox"
+                  disabled
+                  value={counts?.TotalVacancy || ""}
+                />
+                </div> 
+               <div className="col-md countbox">
+               <label className="labelbox">Total Active Vacancy:</label>
+                <input
+                  className="form-control showcountbox"
+                  disabled
+                  value={counts?.TotalActiveVacancy || ""}
+                />
+               </div>
+               
+              </div>
+        <div className="table-responsive fixe-table">          
           <table className="table is-table">
-
             <thead className="thead">
               <tr>
-                <th scope="col">S.No&#x2193;</th>
+                {/* <th scope="col">S.No&#x2193;</th> */}
                 <th scope="col">Department&#x2193;</th>
                 <th scope="col">Post&#x2193;</th>
                 <th scope="col">Eligibility criteria&#x2193;</th>
@@ -135,9 +191,9 @@ function MasterInterviewSchedule() {
             <tbody className="tbody">
               {ScheduledAcademicData.map((data, index) => (
                 <tr key={index}>
-                  <td>
+                  {/* <td>
                     <b>{index + 1}</b>
-                  </td>
+                  </td> */}
                   <td>{data.department}</td>
                   <td>{data.post}</td>
                   <td>{data.eligibility_criteria}</td>
@@ -172,14 +228,12 @@ function MasterInterviewSchedule() {
             </tbody>
           </table>
           <div className="pagination">
-            <Stack spacing={2}>
-              <Pagination
-                count={Math.ceil(ScheduledAcademicsTable.length / rowsPerPage)}
-                page={page}
-                onChange={handleChangePage}
-                shape="rounded"
-              />
-            </Stack>
+          <Pagination>
+                      <Pagination.Prev onClick={prevPage} />
+                      <Pagination.Item>{currentPage}</Pagination.Item>
+                      <Pagination.Next onClick={nextPage} />
+                    </Pagination>
+              
           </div>
         </div>
       </div>
