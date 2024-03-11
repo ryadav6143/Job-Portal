@@ -98,7 +98,6 @@
   padding: 0;
   margin: 0;
   margin-top: 10px;
-  font-size: 15px;
   position: absolute;
 }
 
@@ -123,6 +122,11 @@
   font-weight: bold;
 }
 .sidebar-icon {
-  max-width: max-content;
-  max-height: max-content !important;
+  
+  position: absolute;
+  margin-top: 20px;
+ 
+}
+.sidebar-icon button {
+  /* border:  none !important; */
 }

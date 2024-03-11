@@ -13,17 +13,17 @@ function SideBar() {
   return (
     <>
       <div>
-        <div class="container-fluid">
-          <div class="row flex-nowrap">
-            <div class="col-auto px-3 sidebar-set">
+        <div className="container-fluid">
+          <div className="row flex-nowrap">
+            <div className="col-auto px-3 sidebar-set">
               <div
                 id="sidebar"
-                class="collapse collapse-horizontal show border-end edit-collapse"
+                className="collapse collapse-horizontal show border-end edit-collapse"
               >
                 <div style={{ marginTop: "50px" }}>
                   <div
                     id="sidebar-nav"
-                    class="list-group border-0 rounded-0 text-sm-start min-vh-100"
+                    className="list-group border-0 rounded-0 text-sm-start min-vh-100"
                   >
                     <Link
                       to="/admin-dashboard/current-openings"
@@ -71,7 +71,7 @@ function SideBar() {
                       >
                         <img
                           src={reports}
-                          class="bi bi-heart sidenav-icon"
+                          className="bi bi-heart sidenav-icon"
                         ></img>{" "}
                         <span>Reports</span>
                       </a>
@@ -169,8 +169,8 @@ function SideBar() {
                       >
                         <img
                           src={superadmin}
-                          class="bi bi-heart sidenav-icon"
-                        ></img>{" "}
+                          className="bi bi-heart sidenav-icon"
+                        ></img>
                         <span>Super Admin</span>
                       </a>
 
@@ -206,7 +206,7 @@ function SideBar() {
             </div>
 
             <main class="sidebar-icon">
-              <a
+              <button
                 href="#"
                 data-bs-target="#sidebar"
                 data-bs-toggle="collapse"
@@ -216,8 +216,8 @@ function SideBar() {
                   style={{ color: "black" }}
                   className="bi bi-list bi-lg py-2 p-1"
                 ></i>
-                <span>&#62;</span>
-              </a>
+                <span>=</span>
+              </button>
             </main>
           </div>
         </div>

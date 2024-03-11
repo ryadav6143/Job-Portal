@@ -48,6 +48,7 @@ function AdminDashboard() {
             flexShrink: 0,
             textAlign: "left",
             overflowY: "auto",
+            overflowX: "hidden",
           }}
         >
           <SideBar />
@@ -75,8 +76,7 @@ function AdminDashboard() {
           </main>
         </div>
         <div style={{ flexGrow: 1, overflowY: "auto" }}>
-          {" "}
-          <Outlet />{" "}
+          <Outlet />
         </div>
       </div>
     </div>
