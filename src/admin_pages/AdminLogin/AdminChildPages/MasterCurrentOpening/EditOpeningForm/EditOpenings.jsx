@@ -306,7 +306,8 @@ function EditOpenings({ profileId }) {
       accessToken = JSON.parse(accessToken);
       await adminApiService.updateJobProfile(accessToken.token, updatedData);
       setUpdateField({});
-      navigate("/adminpanel");
+      window.location.reload();
+      // navigate("/admin-dashboard");
     } catch (error) {
       console.error("Error updating job profile:", error);
     }
@@ -613,7 +614,7 @@ function EditOpenings({ profileId }) {
             </div>
 
             <div>
-              <button type="submit" id="add-job">
+              <button type="submit"  id="add-job">
                 SUBMIT
               </button>
             </div>

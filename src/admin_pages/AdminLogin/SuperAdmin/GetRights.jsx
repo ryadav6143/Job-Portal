@@ -27,12 +27,18 @@ function GetRights() {
     url: "",
     role_type_master_id: "",
   });
-
+  // useEffect(() => {
+  
+  
+  // }, []);
+  useEffect(() => {
+    fetchRoleList();
+    fetchRights();
+  }, []);
   const fetchRights = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      const response = await adminApiService.getRightsList(accessToken.token);
+   
+      const response = await adminApiService.getRightsList();
       console.log("check rights data>>>>>", response);
       setRights(response);
     } catch (error) {
@@ -40,25 +46,19 @@ function GetRights() {
     }
   };
 
-  useEffect(() => {
-    fetchRights();
-  }, []);
+ 
 
-  useEffect(() => {
-    const fetchRoleList = async () => {
-      try {
-        let accessToken = localStorage.getItem("Token");
-        accessToken = JSON.parse(accessToken);
 
-        const response = await adminApiService.getRoleList(accessToken.token);
-        console.log("role data>>>>>>", response);
-        setRole(response);
-      } catch (error) {
-        console.error("Error fetching admin list:", error.message);
-      }
-    };
-    fetchRoleList();
-  }, []);
+  const fetchRoleList = async () => {
+    try {
+            const response = await adminApiService.getRoleList();
+      console.log("role data>>>>>>", response);
+      setRole(response);
+    } catch (error) {
+      console.error("Error fetching admin list:", error.message);
+    }
+  };
+
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -99,10 +99,9 @@ function GetRights() {
     const confirmDelete = window.confirm("Are you sure you want to delete?");
     if (confirmDelete) {
       try {
-        let accessToken = localStorage.getItem("Token");
-        accessToken = JSON.parse(accessToken);
-        await adminApiService.deleteRightsById(accessToken.token, rightsID);
-        // After successful deletion, fetch the updated list of rights
+      
+        await adminApiService.deleteRightsById( rightsID);
+
         const updatedRights = rights.filter((right) => right.id !== rightsID);
         setRights(updatedRights);
       } catch (error) {
@@ -115,17 +114,16 @@ function GetRights() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-
+     
       const response = await adminApiService.createRights(
-        accessToken.token,
+    
         formData
       );
-      console.log("Response after adding rights:", response);
-
-      handleClose();
-      fetchRights();
+      console.log("Response after adding rights:", response);    
+      handleClose();    
+    fetchRights();
+       fetchRoleList();
+  
     } catch (error) {
       console.error("Error adding rights:", error);
       if (
@@ -139,6 +137,7 @@ function GetRights() {
       }
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -155,11 +154,10 @@ function GetRights() {
         console.error("No admin selected for update.");
         return;
       }
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+     
       const updateData = { ...updateField, rights_id: modalData.id };
       const updatedAdminList = await adminApiService.updateRights(
-        accessToken.token,
+   
         updateData
       );
       console.log("updatedAdminList", updatedAdminList);
@@ -230,7 +228,8 @@ function GetRights() {
                     <td>{data.api_type}</td>
                     <td>{data.path}</td>
                     <td>{data.url}</td>
-                    <td>{data.role_types_master.role_type_name}</td>
+                    <td>{data.role_types_master ? data.role_types_master.role_type_name : ""}</td>
+
                     <td>
                       <button id="table-btns" onClick={() => openModal(data)}>
                         <img src={updatebtn} className="up-del-btn" alt="" />

@@ -43,10 +43,9 @@ function GetRole() {
 
   const fetchRoleList = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+     
 
-      const response = await adminApiService.getRoleList(accessToken.token);
+      const response = await adminApiService.getRoleList();
       console.log("role data>>>>>>", response);
       setRole(response);
     } catch (error) {
@@ -71,7 +70,7 @@ function GetRole() {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       const response = await adminApiService.deleteAdminRoleById(
-        accessToken.token,
+     
         roleID
       );
       console.log("Response after deleting role:", response);
@@ -90,10 +89,9 @@ function GetRole() {
         console.error("No admin selected for update.");
         return;
       }
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+
       const  updateData={ ...updateField,roletypes_id:modalData.id}
-      const updatedAdminList = await adminApiService.updateRoleById(accessToken.token,updateData);
+      const updatedAdminList = await adminApiService.updateRoleById(updateData);
       console.log("updatedAdminList",updatedAdminList);
       setModalData(updatedAdminList);
       closeModal(); // Close the modal after successful update
@@ -109,10 +107,9 @@ function GetRole() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+     
       const response = await adminApiService.createRole(
-        accessToken.token,
+     
         formData
       );
       console.log("Response after adding rights:", response);

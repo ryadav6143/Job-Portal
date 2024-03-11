@@ -40,20 +40,9 @@ function Academictable() {
       job_profile_master_id: data.job_profile_master_id,
     };
 
-    // try {
-    //   const response = await axios.post(
-    //     "http://192.168.1.8:8090/v1/api/candidateAppliedPost/addApplied", requestData,
-    //     {
-    //       headers: {
-    //         'access-token':accessToken
-    //       }
-    //     }
-    //   );
-    //   console.log("Response:", response);
-    //   alert("Post Applied Successfully");
-    // }
+ 
     try {
-      const response = await adminApiService.addApplied(requestData, accessToken); // Use adminApiService
+      const response = await adminApiService.addApplied(requestData); // Use adminApiService
       // console.log("Response:", response);    
       // alert("Post Applied Successfully");
       setNotificationMessage("Post Applied Successfully");

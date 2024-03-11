@@ -37,7 +37,7 @@ function AddPostApplied() {
     getPost();
     getJobCategory();
   }, [categories.category_name]);
-  
+
   // ------------------GET DATA FROM API--------------------------------
   function getPost() {
     axios
@@ -200,7 +200,7 @@ function AddPostApplied() {
         <div>
           <button onClick={() => setOpen(true)}>Add Post Applied</button>
         </div>
-        {open&&<Modal
+        {open && <Modal
           open={open}
           onClose={handleCloseModal}
           aria-labelledby="modal-modal-title"
@@ -226,7 +226,7 @@ function AddPostApplied() {
                       <option value="">Select Category</option>
                       {categories && categories.length > 0 && categories.map((category) => (
                         <option key={category.id} value={category.id}>
-                          {category&&category.category_name&&category.category_name}
+                          {category && category.category_name && category.category_name}
                         </option>
                       ))}
                     </select>
@@ -274,9 +274,9 @@ function AddPostApplied() {
 
       <div className="master-table ">
         <p className="table-heading">CURRENT APPLIED POST AVAILABLE</p>
-        <div className="">
+        <div className="table-responsive fixe-table">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">POST</th>
@@ -286,7 +286,7 @@ function AddPostApplied() {
               </tr>
             </thead>
             <tbody>
-              {data&&data.map((category, index) => (
+              {data && data.map((category, index) => (
                 <tr key={category.id}>
                   <td>{index + 1}</td>
                   <td>{category.post_name}</td>
@@ -318,8 +318,8 @@ function AddPostApplied() {
                               className="select-jc"
                               value={selectedPost ? selectedPost.job_category_master.id : ""}
                               onChange={(e) => {
-                                const selectedCategoryId = parseInt(e.target.value);                               
-                                const selectedCategory = categories.find(category => category.id === selectedCategoryId);                                
+                                const selectedCategoryId = parseInt(e.target.value);
+                                const selectedCategory = categories.find(category => category.id === selectedCategoryId);
                                 setSelectedPost(prevState => ({
                                   ...prevState,
                                   job_category_master: selectedCategory
@@ -328,7 +328,7 @@ function AddPostApplied() {
                             >
                               {categories.map(category => (
                                 <option key={category.id} value={category.id}>
-                                  {category&&category.category_name&&category.category_name}
+                                  {category && category.category_name && category.category_name}
                                 </option>
                               ))}
                             </select>

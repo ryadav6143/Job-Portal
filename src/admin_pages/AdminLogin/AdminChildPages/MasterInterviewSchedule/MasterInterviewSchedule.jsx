@@ -15,9 +15,9 @@ function MasterInterviewSchedule() {
       try {
         const response = await adminApiService.getJobProfile();
         // console.log("response get", response.data);
-        
+
         setJobProfiles(response.data);
-       
+
         response.data.forEach(profile => {
           // Assuming profile.publish_to_schedule_interview is a boolean value
           // You can modify this if it's a different type
@@ -26,7 +26,7 @@ function MasterInterviewSchedule() {
             [profile.id]: profile.publish_to_schedule_interview
           }));
         });
-  
+
 
       } catch (error) {
         console.error('Error fetching job profiles:', error);
@@ -41,13 +41,13 @@ function MasterInterviewSchedule() {
 
   const handleCheckboxChange = async (index, checked) => {
     try {
-      const accessToken = JSON.parse(localStorage.getItem("Token")).token;
+
       const jobId = jobProfiles[index].id;
       const updatedData = {
         jobprofile_id: jobId,
         publish_to_schedule_interview: checked
       };
-      await adminApiService.updateJobProfile(accessToken, updatedData);
+      await adminApiService.updateJobProfile(updatedData);
       // Update the jobProfiles state with the updated data
       const updatedJobProfiles = [...jobProfiles];
       // Update only the specific job profile with the modified fields
@@ -80,10 +80,10 @@ function MasterInterviewSchedule() {
     schedule_interview_date_2: profile.schedule_interview_date_2 || "N/A",
     schedule_interview_date_3: profile.schedule_interview_date_3 || "N/A",
     publish_to_schedule_interview: profile.publish_to_schedule_interview,
-    
+
   }));
   // console.log("ScheduledAcademicsTable", ScheduledAcademicsTable)
- 
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -113,12 +113,13 @@ function MasterInterviewSchedule() {
 
   return (
     <>
-      <div>
+      <div className="master-table">
         <p className="SCA-heading">Master Interview Schedule </p>
         {/* <p className="table-des">A descriptive body text comes here</p> */}
 
-        <div className="table-responsive">
+        <div className="table-responsive fixe-table">
           <table className="table is-table">
+
             <thead className="thead">
               <tr>
                 <th scope="col">S.No&#x2193;</th>
@@ -131,7 +132,7 @@ function MasterInterviewSchedule() {
                 <th scope="col">Add to interview&#x2193;</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="tbody">
               {ScheduledAcademicData.map((data, index) => (
                 <tr key={index}>
                   <td>
@@ -150,15 +151,15 @@ function MasterInterviewSchedule() {
                     {formatDateForInput(data.schedule_interview_date_3)}
                   </td>
                   <td>
-                
+
                     <label className="switch">
-                    <input
-  type="checkbox"
-  id={`checkbox${index}`} // Ensure unique IDs for each checkbox
-  name="publish_to_schedule_interview"
-  checked={data.publish_to_schedule_interview} // Set checked based on the property
-  onChange={() => handleCheckboxChange(index, !data.publish_to_schedule_interview)} // Toggle the value on change
-/>
+                      <input
+                        type="checkbox"
+                        id={`checkbox${index}`} // Ensure unique IDs for each checkbox
+                        name="publish_to_schedule_interview"
+                        checked={data.publish_to_schedule_interview} // Set checked based on the property
+                        onChange={() => handleCheckboxChange(index, !data.publish_to_schedule_interview)} // Toggle the value on change
+                      />
 
                       <span className="slider round"></span>
                     </label>

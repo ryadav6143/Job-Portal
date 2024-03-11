@@ -222,10 +222,9 @@ function Reports() {
     try {
       setLoadingPopup(true);
 
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+
       const response = await adminApiService.getCandidatesById(
-        accessToken.token,
+
         candidateId
       );
 
@@ -356,78 +355,82 @@ function Reports() {
               </div>
               {/* </div> */}
 
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>First Name</th>
-                    <th>Email</th>
-                    <th>Contact</th>
-                    <th>Post Name</th>
-                    <th>Category Name</th>
-                    <th>Specialization</th>
-                    <th>View Details</th>
-                    <th>Resume</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((candidate) => (
-                    <tr key={candidate.id}>
-                      <td>{candidate.candidate.first_name || "-"}</td>
-                      <td>{candidate.candidate.email || "-"}</td>
-                      <td>{candidate.candidate.contact_1 || "-"}</td>
-                      <td>{candidate.applied_post_master?.post_name || "-"}</td>
-                      <td>
-                        {candidate.job_category_master?.category_name || "-"}
-                      </td>
-                      <td>{candidate.candidate.specialization || "-"}</td>
-                      {/* <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}><img src={updatebtn} className="up-del-btn" alt=""/></td> */}
-                      <td
-                        onClick={() =>
-                          openCandidateDetails(candidate.candidate_id)
-                        }
-                        style={{ cursor: "pointer" }}
-                      >
-                        <img src={updatebtn} className="up-del-btn" alt="" />
-                      </td>
-
-                      <td
-                        variant="primary"
-                        onClick={() => handleResumeClick(candidate.id)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <img src={viewbtn} className="up-del-btn" alt="" />
-                      </td>
-
-                      <Notification
-                        open={showNotification}
-                        handleClose={() => setShowNotification(false)}
-                        alertMessage={notificationMessage}
-                        alertSeverity={notificationSeverity}
-                      />
+              <div className="table-responsive fixe-table">
+                <table className="table">
+                  <thead className="thead">
+                    <tr>
+                      <th>First Name</th>
+                      <th>Email</th>
+                      <th>Contact</th>
+                      <th>Post Name</th>
+                      <th>Category Name</th>
+                      <th>Specialization</th>
+                      <th>View Details</th>
+                      <th>Resume</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className="row">
-                <div className="col-md-4">
-                  <label>Row:</label>
-                  <input
-                    className="set-row-input "
-                    id="specific-input"
-                    type="number"
-                    value={itemsPerPage}
-                    onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="col-md-4"></div>
-                <div className="col-md-4">
-                  <Pagination>
-                    <Pagination.Prev onClick={prevPage} />
-                    <Pagination.Item>{currentPage}</Pagination.Item>
-                    <Pagination.Next onClick={nextPage} />
-                  </Pagination>
+                  </thead>
+                  <tbody>
+                    {data.map((candidate) => (
+                      <tr key={candidate.id}>
+                        <td>{candidate.candidate.first_name || "-"}</td>
+                        <td>{candidate.candidate.email || "-"}</td>
+                        <td>{candidate.candidate.contact_1 || "-"}</td>
+                        <td>{candidate.applied_post_master?.post_name || "-"}</td>
+                        <td>
+                          {candidate.job_category_master?.category_name || "-"}
+                        </td>
+                        <td>{candidate.candidate.specialization || "-"}</td>
+                        {/* <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}><img src={updatebtn} className="up-del-btn" alt=""/></td> */}
+                        <td
+                          onClick={() =>
+                            openCandidateDetails(candidate.candidate_id)
+                          }
+                          style={{ cursor: "pointer" }}
+                        >
+                          <img src={updatebtn} className="up-del-btn" alt="" />
+                        </td>
+
+                        <td
+                          variant="primary"
+                          onClick={() => handleResumeClick(candidate.id)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <img src={viewbtn} className="up-del-btn" alt="" />
+                        </td>
+
+                        <Notification
+                          open={showNotification}
+                          handleClose={() => setShowNotification(false)}
+                          alertMessage={notificationMessage}
+                          alertSeverity={notificationSeverity}
+                        />
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="row">
+                  <div className="col-md-4">
+                    <label>Row:</label>
+                    <input
+                      className="set-row-input "
+                      id="specific-input"
+                      type="number"
+                      value={itemsPerPage}
+                      onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                    />
+                  </div>
+                  <div className="col-md-4"></div>
+                  <div className="col-md-4">
+                    <Pagination>
+                      <Pagination.Prev onClick={prevPage} />
+                      <Pagination.Item>{currentPage}</Pagination.Item>
+                      <Pagination.Next onClick={nextPage} />
+                    </Pagination>
+                  </div>
                 </div>
               </div>
+
+
 
               {/* <Dialog open={selectedCandidate !== null} onClose={() => setSelectedCandidate(null)}> */}
               <Dialog open={!!selectedCandidate}>

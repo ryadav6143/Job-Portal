@@ -3,6 +3,9 @@ import Notification from "../Notification/Notification";
 import { ADMIN_BASE_URL } from "../config/config";
 
 const adminApiService = {
+
+
+  
   getJobCategories: () => {
     return axios.get(`${ADMIN_BASE_URL}/jobCategory`,{});
   },
@@ -12,19 +15,11 @@ const adminApiService = {
   getJobProfile: () => {
     return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster`);
   },
-  // postJobProfile: (formValues,accessToken) => {
-  //   return axios.post(`${ADMIN_BASE_URL}/jobProfileMaster`,
-  //   {headers: {
-  //     'access-token': accessToken,
-  //   }},
-  //   formValues);
-  // },
-
-  postJobProfile: async (accessToken,formValues) => {
+  postJobProfile: async (formValues) => {
     try {
       const response = await axios.post(`${ADMIN_BASE_URL}/jobProfileMaster`,formValues, {
         headers: {
-          'access-token': accessToken,
+          'access-token': getAccessToken(),
         },
       });
       return response.data;
@@ -37,31 +32,18 @@ const adminApiService = {
       });
       throw new Error(`Error fetching data: ${error.message}`);
     }
-  },
-
-  // getJobProfile: () => {
-  //   return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster`);
-  // },
+  }, 
   getJobProfileById: (profileId) => {
     return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/${profileId}`);
   },
   deleteJobProfileById: (profileID) => {
     return axios.delete(`${ADMIN_BASE_URL}/jobProfileMaster/${profileID}`);
   },
-  // updateJobProfile: async (updatedData) => {
-  // try {
-  //   const response = await axios.put(`${ADMIN_BASE_URL}/jobProfileMaster`, updatedData);
-  //   return response.data;
-  // } catch (error) {
-  //   throw new Error("Error updating job profile:", error);
-  // }
-  // },
-
-  updateJobProfile: async (accessToken,profileID) => {
+  updateJobProfile: async (profileID) => {
     try {
       const response = await axios.put(`${ADMIN_BASE_URL}/jobProfileMaster`,profileID, {
         headers: {
-          'access-token': accessToken,
+          'access-token': getAccessToken(),
         },
       });
       return response.data;
@@ -69,17 +51,14 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-
-
-
-  addApplied: async (requestData, accessToken) => {
+  addApplied: async (requestData) => {
     try {
       const response = await axios.post(
         `${ADMIN_BASE_URL}/candidateAppliedPost/addApplied`,
         requestData,
         {
           headers: {
-            'access-token': accessToken
+            'access-token': getAccessToken(),
           }
         }
       );
@@ -88,14 +67,14 @@ const adminApiService = {
       throw error;
     }
   },
-  getCandidatesAppliedPost: async () => {
-    try {
-      const response = await axios.get(`${ADMIN_BASE_URL}/candidateAppliedPost/getCandidatesAppliedPost`);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  },
+  // getCandidatesAppliedPost: async () => {
+  //   try {
+  //     const response = await axios.get(`${ADMIN_BASE_URL}/candidateAppliedPost/getCandidatesAppliedPost`);
+  //     return response.data;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // },
   renderCandidateResume: async (candidateId) => {
     try {
       const response = await axios.get(`${ADMIN_BASE_URL}/candidates/renderCandidateResume?candidate_id=${candidateId}`, {
@@ -106,11 +85,11 @@ const adminApiService = {
       throw error;
     }
   },
-  getAdminList: async (accessToken) => {
+  getAdminList: async () => {
     try {
       const response = await axios.get(`${ADMIN_BASE_URL}/admin/getAdmin`, {
         headers: {
-          'access-token': accessToken,
+          'access-token': getAccessToken(),
         },
       });
       return response.data;
@@ -118,11 +97,11 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  getRoleList: async (accessToken) => {
+  getRoleList: async () => {
     try {
       const response = await axios.get(`${ADMIN_BASE_URL}/adminRole/getRole`, {
         headers: {
-          'access-token': accessToken,
+          'access-token': getAccessToken(),
         },
       });
       return response.data;
@@ -130,11 +109,11 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  getRightsList: async (accessToken) => {
+  getRightsList: async () => {
     try {
       const response = await axios.get(`${ADMIN_BASE_URL}/adminRights/getRights`, {
         headers: {
-          'access-token': accessToken,
+          'access-token': getAccessToken(),
         },
       });
       return response.data;
@@ -142,11 +121,11 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  createRole: async (accessToken,data) => {
+  createRole: async (data) => {
     try {
       const response = await axios.post(`${ADMIN_BASE_URL}/adminRole/createRole`,data, {
         headers: {
-          'access-token': accessToken,
+          'access-token': getAccessToken(),
         },
       });
       return response.data;
@@ -154,11 +133,11 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  createRights: async (accessToken,data) => {
+  createRights: async (data) => {
     try {
       const response = await axios.post(`${ADMIN_BASE_URL}/adminRights/createRights`,data, {
         headers: {
-          'access-token': accessToken,
+          'access-token': getAccessToken(),
         },
       });
       return response.data;
@@ -166,11 +145,11 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  updateRights: async (accessToken,data) => {
+  updateRights: async (data) => {
     try {
       const response = await axios.put(`${ADMIN_BASE_URL}/adminRights/updateRights`,data, {
         headers: {
-          'access-token': accessToken,
+          'access-token': getAccessToken(),
         },
       });
       return response.data;
@@ -178,47 +157,47 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  deleteAdminRoleById: (accessToken,roleID) => {
+  deleteAdminRoleById: (roleID) => {
     return axios.delete(`${ADMIN_BASE_URL}/adminRole/removeRoleById/${roleID}`,{
       headers: {
-        'access-token': accessToken,
+        'access-token': getAccessToken(),
       },
     }
    
     );
   },
-  deleteRightsById: (accessToken,rightsID) => {
+  deleteRightsById: (rightsID) => {
     return axios.delete(`${ADMIN_BASE_URL}/adminRights/removeRights/${rightsID}`,{
       headers: {
-        'access-token': accessToken,
+        'access-token': getAccessToken(),
       },
     }
    
     );
   },
-  deleteAdminById: (accessToken,adminID) => {
+  deleteAdminById: (adminID) => {
     return axios.delete(`${ADMIN_BASE_URL}/admin/removeAdmin/${adminID}`,{
       headers: {
-        'access-token': accessToken,
+        'access-token': getAccessToken(),
       },
     }
    
     );
   },
-  updateRoleById: (accessToken,data) => {
+  updateRoleById: (data) => {
     return axios.put(`${ADMIN_BASE_URL}/adminRole/updateRoleById`,data,{
       headers: {
-        'access-token': accessToken,
+        'access-token': getAccessToken(),
       },
     }
    
     );
   },
-  updateAdminBySuperAdmin: async (accessToken,updateData) => {
+  updateAdminBySuperAdmin: async (updateData) => {
     try {
       const response = await axios.put(`${ADMIN_BASE_URL}/admin/updateAdminBySuperAdmin`,updateData, {
         headers: {
-          'access-token': accessToken,
+          'access-token': getAccessToken(),
         },
       });
       return response.data;
@@ -226,10 +205,10 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  getCandidatesById: (accessToken,listID) => {
+  getCandidatesById: (listID) => {
     return axios.get(`${ADMIN_BASE_URL}/admin/getCandidatesById/${listID}`,{
       headers: {
-        'access-token': accessToken,
+        'access-token': getAccessToken(),
       },
     }
    
@@ -237,11 +216,10 @@ const adminApiService = {
   },
   fetchData: async (currentPage, itemsPerPage, selectedCategory, selectedPost) => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+  
       const response = await axios.get(`${ADMIN_BASE_URL}/candidateAppliedPost/getCandidatesAppliedPostSorted?page=${currentPage}&limit=${itemsPerPage}&category=${selectedCategory}&appliedPost=${selectedPost}`, {
         headers: {
-          'access-token': accessToken.token,
+          'access-token': getAccessToken(),
         },
       });
       return response.data;
@@ -255,5 +233,8 @@ const adminApiService = {
 
 };
 
-
+function getAccessToken() {
+  const accessToken = localStorage.getItem("Token");
+  return accessToken ? JSON.parse(accessToken).token : null;
+}
 export default adminApiService;

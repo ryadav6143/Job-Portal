@@ -138,7 +138,7 @@ function MasterTable() {
               </div>
 
               <div >
-              <label>schedule for interview:</label>
+                <label>schedule for interview:</label>
                 <input
                   className="set-input"
                   type="number"
@@ -149,62 +149,65 @@ function MasterTable() {
               </div>
             </div>
 
-            <table style={{marginTop:"30px"}} className="table table-responsive">
-              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
-                <tr>
-                  <th scope="col">Category</th>
-                  <th scope="col">Department</th>
-                  <th scope="col">Last Date</th>
-                  <th scope="col">isActive</th>
-                  <th scope="col">List to Current Opening</th>
-                  <th scope="col">List to Interview Schedule</th>
-                  <th scope="col">Edit</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {MasterData.map((data, index) => (
-                  <tr key={index}>
-                    <td>{data.category}</td>
-                    <td>{data.department}</td>
-                    <td>{formatDateForInput(data.lastDate)}</td>
-                    <td>{data.isActive}</td>
-                    <td>{data.listToCurrentOpening}</td>
-                    <td>{data.listToInterviewSchedule}</td>
-                    <td>
-                      <button
-                        type="button"
-                       
-                        id="table-btns"
-                        onClick={() => handleEditForm(data.id)}
-                      >
-                        
-                        <a> <img className="up-del-btn" src={updatebtn}  alt="" /></a>
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        type="button"
-                        id="table-btns"
-                        onClick={() => handleDelete(data.id)}
-                      >
-                    <img className="up-del-btn" src={deletebtn}  alt="" />
-                      </button>
-                    </td>
+            <div className="table-responsive fixe-table" style={{ marginTop: '30px' }}>
+              <table className="table ">
+                <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                  <tr>
+                    <th scope="col">Category</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Last Date</th>
+                    <th scope="col">isActive</th>
+                    <th scope="col">List to Current Opening</th>
+                    <th scope="col">List to Interview Schedule</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="pagination">
-              <Stack spacing={2}>
-                <Pagination
-                  count={Math.ceil(MasterTable.length / rowsPerPage)}
-                  page={page}
-                  onChange={handleChangePage}
-                  shape="rounded"
-                />
-              </Stack>
+                </thead>
+                <tbody>
+                  {MasterData.map((data, index) => (
+                    <tr key={index}>
+                      <td>{data.category}</td>
+                      <td>{data.department}</td>
+                      <td>{formatDateForInput(data.lastDate)}</td>
+                      <td>{data.isActive}</td>
+                      <td>{data.listToCurrentOpening}</td>
+                      <td>{data.listToInterviewSchedule}</td>
+                      <td>
+                        <button
+                          type="button"
+
+                          id="table-btns"
+                          onClick={() => handleEditForm(data.id)}
+                        >
+
+                          <a> <img className="up-del-btn" src={updatebtn} alt="" /></a>
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          type="button"
+                          id="table-btns"
+                          onClick={() => handleDelete(data.id)}
+                        >
+                          <img className="up-del-btn" src={deletebtn} alt="" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="pagination">
+                <Stack spacing={2}>
+                  <Pagination
+                    count={Math.ceil(MasterTable.length / rowsPerPage)}
+                    page={page}
+                    onChange={handleChangePage}
+                    shape="rounded"
+                  />
+                </Stack>
+              </div>
             </div>
+
           </div>
         </div>
       )}

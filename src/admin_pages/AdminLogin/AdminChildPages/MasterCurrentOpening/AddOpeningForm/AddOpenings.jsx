@@ -194,10 +194,9 @@ function AddOpenings() {
 
     try {
     
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+   
       const response = await adminApiService.postJobProfile(
-        accessToken.token,
+        
         formValues
       );      
       console.log("Job profile submitted successfully!", response.data);
