@@ -1,8 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import AdminAuthGaurd from "../gaurd/AdminAuthGaurd";
-import Adminpanel from "../admin_pages/AdminLogin/Adminpanel";
-import EditOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings";
+
 import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 import AdminDashboard from "../admin_pages/AdminLogin/AdminDashboard/AdminDashboard.jsx";
 import MasterCurrentOpening from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/MasterCurrentOpening";

@@ -113,11 +113,11 @@ function MasterInterviewSchedule() {
 
   return (
     <>
-      <div>
+      <div style={{marginTop:"30px"}} className="master-table ">
         <p className="SCA-heading">Master Interview Schedule </p>
         {/* <p className="table-des">A descriptive body text comes here</p> */}
 
-        <div className="table-responsive">
+        <div className="table-responsive  ">
           <table className="table is-table">
             <thead className="thead">
               <tr>

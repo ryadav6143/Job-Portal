@@ -12,6 +12,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
 import apiService from "../../../../Services/ApiServices";
 import { useApiData } from "../../../../context/CandidateContext";
+import Footers from "../../../../components/Footer/Footers";
 // import { useContext } from "react";
 // import axios from "axios";
 function EditPersonalDetails() {
@@ -857,6 +858,8 @@ function EditPersonalDetails() {
           </div>
         </div>
       </form>
+
+      {/* <Footers></Footers> */}
       {/* )} */}
     </>
   );

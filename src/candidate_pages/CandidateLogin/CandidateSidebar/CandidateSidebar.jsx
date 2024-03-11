@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./CandidateSidebar.css";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -60,37 +61,37 @@ function CandidateSidebar() {
     }
   };
 
-  const renderComponent = () => {
-    switch (screen) {
-      case 0:
-        return (<ApiDataProvider>
-          <EditPersonalDetails />;
-        </ApiDataProvider>)
-        break;
-      case 1:
-        return (<ApiDataProvider>
-        <EditQualificationForm />
-        </ApiDataProvider>);
-        break;
-      case 2:
-        return (<ApiDataProvider>
-          <EditExperience />
-          </ApiDataProvider>);
-        break;
-      case 3:
-        return <EditResearchForm />;
-        break;
-      case 4:
-        return <EditProgramsForm />;
-        break;
-      case 5:
-        return <EditReference />;
-        break;
-      default:
-        return <EditPersonalDetails />;
-        break;
-    }
-  };
+  // const renderComponent = () => {
+  //   switch (screen) {
+  //     // case 0:
+  //     //   return (<ApiDataProvider>
+  //     //     <EditPersonalDetails />;
+  //     //   </ApiDataProvider>)
+  //     //   break;
+  //     case 1:
+  //       return (<ApiDataProvider>
+  //       <EditQualificationForm />
+  //       </ApiDataProvider>);
+  //       break;
+  //     case 2:
+  //       return (<ApiDataProvider>
+  //         <EditExperience />
+  //         </ApiDataProvider>);
+  //       break;
+  //     case 3:
+  //       return <EditResearchForm />;
+  //       break;
+  //     case 4:
+  //       return <EditProgramsForm />;
+  //       break;
+  //     case 5:
+  //       return <EditReference />;
+  //       break;
+  //     // default:
+  //     //   return <EditPersonalDetails />;
+  //     //   break;
+  //   }
+  // };
 
   return (
     <>
@@ -114,7 +115,7 @@ function CandidateSidebar() {
                       className="set-menu-icon"
                       icon={faIdCardClip}
                     />
-                    <a onClick={() => setScreen(0)}>&nbsp; Personal Details</a>
+                    <Link to="/candidate-dashboard/personal-details">&nbsp;Personal Details</Link>
                   </li>
 
                   <li>
@@ -122,35 +123,38 @@ function CandidateSidebar() {
                       className="set-menu-icon"
                       icon={faBuildingColumns}
                     />
-                    <a onClick={() => setScreen(1)}>
+                    <Link to="/candidate-dashboard/personal-qualification" >
                       &nbsp; Academic Professional Qualifications
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faBriefcase}
                     />
-                    <a onClick={() => setScreen(2)}>&nbsp; Experience</a>
+                    <Link to="/candidate-dashboard/personal-experience" >&nbsp; Experience</Link>
                   </li>
                   <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faSearch}
                     />
-                    <a onClick={() => setScreen(3)}>&nbsp; Research Work</a>
+                    <Link to="/candidate-dashboard/personal-research">&nbsp; Research Work</Link>
                   </li>
                   <li>
                     {" "}
                     <FontAwesomeIcon className="set-menu-icon" icon={faUsers} />
-                    <a onClick={() => setScreen(4)}>
+
+                    <Link to="/candidate-dashboard/personal-programs "> Seminars/Short Term Courses/Summer Schools/Winter
+                      Schools </Link>
+                    {/* <a onClick={() => setScreen(4)}>
                       &nbsp; Seminars/Short Term Courses/Summer Schools/Winter
                       Schools
-                    </a>
+                    </a> */}
                   </li>
                   <li>
                     <FontAwesomeIcon className="set-menu-icon" icon={faFile} />
-                    <a onClick={() => setScreen(5)}>&nbsp; Reference/ Resume</a>
+                    <Link to="/candidate-dashboard/personal-reference">&nbsp; Reference/ Resume</Link>
                   </li>
                   <li>
                     <a
@@ -165,10 +169,10 @@ function CandidateSidebar() {
             </div>
           </div>
         </div>
-        <div className="col-md-10">{renderComponent()}</div>
+        {/* <div className="col-md-10">{renderComponent()}</div> */}
       </div>
       {/* --------------------sidebar end------------------------------ */}
-      <Footers></Footers>
+      {/* <Footers></Footers> */}
     </>
   );
 }

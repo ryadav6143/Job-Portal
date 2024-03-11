@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-
+// import { Link } from "react-router-dom";
 import "./MasterCurrentOpening.css";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
+
 
 import AddOpenings from "./AddOpeningForm/AddOpenings";
 import MasterTable from "./MasterCurrentOpeningChild/MasterTable";
@@ -135,6 +134,10 @@ function MasterCurrentOpening() {
         <div className="new-opening-btn">
           <button>
             <a onClick={() => showComponent("Component1")}>Add New Openings</a>
+            {/* <Link to="/admin-dashboard/current-openings/add-openings">
+              {" "}
+              Add New Openings
+            </Link> */}
           </button>
         </div>
       )}

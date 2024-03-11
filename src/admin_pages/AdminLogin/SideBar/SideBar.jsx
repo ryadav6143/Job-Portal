@@ -8,6 +8,7 @@ import reports from "../../../assets/logos/report.png";
 import superadmin from "../../../assets/logos/setting.png";
 import list from "../../../assets/logos/list.png";
 import jobprofile from "../../../assets/logos/jobprofile.png";
+import Hamburgermenu from "../../../assets/logos/hamburger (1).png"
 
 function SideBar() {
   return (
@@ -216,7 +217,7 @@ function SideBar() {
                   style={{ color: "black" }}
                   className="bi bi-list bi-lg py-2 p-1"
                 ></i>
-                <span>=</span>
+                <span>< img className="hamburger" src={Hamburgermenu}/></span>
               </button>
             </main>
           </div>

@@ -32,7 +32,7 @@ function CandidateLogin({ handleLogin }) {
       console.log("resposne", response);
       if (response.data.token) {
         // handleLogin();
-        navigate(`/user-login`)
+        navigate(`/candidate-dashboard`)
         localStorage.setItem("Token", JSON.stringify(response.data));
        
           setErrorNotification({
