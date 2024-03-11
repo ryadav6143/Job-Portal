@@ -261,9 +261,9 @@ function AddSubPostApplied() {
 
       <div className="master-table ">
         <p className="table-heading">CURRENT APPLIED SUB POST AVAILABLE</p>
-        <div className="">
+        <div className="table-responsive fixe-table">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">ID</th>
                 {/* <th scope="col">Post</th> */}

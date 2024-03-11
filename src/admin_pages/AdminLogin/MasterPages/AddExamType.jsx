@@ -39,13 +39,13 @@ function AddExamType() {
     let accessToken = localStorage.getItem("Token");
     accessToken = JSON.parse(accessToken);
     axios
-    .post(`${ADMIN_BASE_URL}/examTypeMaster`, {
+      .post(`${ADMIN_BASE_URL}/examTypeMaster`, {
         exam_name: newExamType,
-    }, {
-      headers: {
-        'access-token': accessToken.token
-    }
-    })
+      }, {
+        headers: {
+          'access-token': accessToken.token
+        }
+      })
       .then((response) => {
         setData([...data, response.data]);
         setNewExamType("");
@@ -60,10 +60,10 @@ function AddExamType() {
     let accessToken = localStorage.getItem("Token");
     accessToken = JSON.parse(accessToken);
     axios
-      .delete(`${ADMIN_BASE_URL}/examTypeMaster/${examId}`,{
+      .delete(`${ADMIN_BASE_URL}/examTypeMaster/${examId}`, {
         headers: {
           'access-token': accessToken.token
-      }
+        }
       })
       .then(() => {
         // Remove the deleted item from the state
@@ -77,14 +77,14 @@ function AddExamType() {
     let accessToken = localStorage.getItem("Token");
     accessToken = JSON.parse(accessToken);
     axios
-    .put(`${ADMIN_BASE_URL}/examTypeMaster`, {
-      examtypes_id:selectedExam.id,
+      .put(`${ADMIN_BASE_URL}/examTypeMaster`, {
+        examtypes_id: selectedExam.id,
         exam_name: selectedExam.exam_name,
-    }, {
-      headers: {
-        'access-token': accessToken.token
-    }
-    })
+      }, {
+        headers: {
+          'access-token': accessToken.token
+        }
+      })
       .then((response) => {
         // Update the state with the updated data
         setData(
@@ -142,7 +142,7 @@ function AddExamType() {
     <>
       <div className="container-1">
         <div className="new-opening-btn">
-          <button  onClick={() => setOpen(true)}>Add Exam Type</button>
+          <button onClick={() => setOpen(true)}>Add Exam Type</button>
         </div>
         <Modal
           open={open} // Control the open state of the modal
@@ -186,9 +186,9 @@ function AddExamType() {
 
       <div className="master-table ">
         <p className="table-heading">CURRENT EXAM TYPE AVAILABLE</p>
-        <div className="">
+        <div className="table-responsive fixe-table">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">Sr. No.</th>
                 <th scope="col">EXAM TYPE</th>

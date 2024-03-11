@@ -235,9 +235,9 @@ function AddCategories() {
       {/* -------------------------update form ---------------------------------------- */}
       <div className="master-table ">
         <p className="table-heading">CURRENT CATEGORIES AVAILABLE</p>
-        <div className="">
+        <div className="table-responsive fixe-table">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">S No.</th>
                 <th scope="col">NAME</th>
