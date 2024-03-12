@@ -355,7 +355,7 @@ function Reports() {
               </div>
               {/* </div> */}
 
-              <div className="table-responsive fixe-table">
+              <div className="table-responsive ">
                 <table className="table">
                   <thead className="thead">
                     <tr>
@@ -396,7 +396,7 @@ function Reports() {
 
                         <td
                           variant="primary"
-                          onClick={() => handleResumeClick(candidate.id)}
+                          onClick={() => handleResumeClick(candidate.candidate_id)}
                           style={{ cursor: "pointer" }}
                         >
                           <img src={viewbtn} className="up-del-btn" alt="" />

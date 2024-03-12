@@ -81,8 +81,8 @@ function EditReference() {
   const handleSaveChanges = async () => {
     try {
      
-      console.log(updateField);
-      await candidatesApiService.updateCandidatePersonalInfo( updateField);
+      console.log("resume check>>>>>>",updateField);
+      await candidatesApiService.updateCandidatePersonalInfo(updateField);
       setUpdateField({});
       fetchData();
     } catch (error) {
