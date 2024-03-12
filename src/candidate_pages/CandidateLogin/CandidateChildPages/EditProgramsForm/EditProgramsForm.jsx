@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 import candidatesApiService from "../../../candidateService";
+import Footers from "../../../../components/Footer/Footers";
 function EditProgramsForm() {
   const [data, setData] = useState({
     candidate_seminar_organiseds: [],
@@ -896,6 +897,7 @@ function EditProgramsForm() {
             </div>
           </div>
         </div>
+        {/* <Footers></Footers> */}
       </form>
     </>
   );

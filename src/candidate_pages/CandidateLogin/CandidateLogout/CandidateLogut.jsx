@@ -1,11 +1,11 @@
 import React from "react";
 import "./CandidateLogut.css";
 import medilogo from "../../../assets/logos/medi-logo.png";
-import CandidateDashboard from "../CandidateDashboard/CandidateDashboard";
+// import CandidateDashboard from "../CandidateDashboard/CandidateDashboard";
 function CandidateLogut({ handleLogout }) {
   return (
     <>
-      <div className="admin-header">
+      {/* <div className="admin-header">
         <div>
           <img className="admin-logo" src={medilogo} alt="" />
         </div>
@@ -21,10 +21,10 @@ function CandidateLogut({ handleLogout }) {
             LOGOUT
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div className="show-dashboard">
-        <CandidateDashboard></CandidateDashboard>
+        {/* <CandidateDashboard></CandidateDashboard> */}
       </div>
     </>
   );

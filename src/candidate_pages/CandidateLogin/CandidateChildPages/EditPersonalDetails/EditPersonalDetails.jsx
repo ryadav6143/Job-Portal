@@ -12,47 +12,47 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
 import apiService from "../../../../Services/ApiServices";
 import { useApiData } from "../../../../context/CandidateContext";
+import Footers from "../../../../components/Footer/Footers";
 // import { useContext } from "react";
 // import axios from "axios";
-function EditPersonalDetails() {
+function EditPersonalDetails({token}) {
   // ---------profile image source---------
-  const { apiData, loading, fetchCandidateData } = useApiData()
+  // const { apiData, loading, fetchCandidateData } = useApiData()
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   const [errors, setErrors] = useState({});
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  const [data, setData] = useState(apiData);
+  const [data, setData] = useState({});
   const [updateField, setUpdateField] = useState({});
   // const [loading, setLoading] = useState(true);
-  // const fetchCandidateData = async () => {
-  //   try {
-  //     let accessToken = localStorage.getItem("Token");
-  //     accessToken = JSON.parse(accessToken);
-  //     setLoading(true);
-  //     const fetchedData = await candidatesApiService.getCandidateById(
-  //       accessToken.token
-  //     );
-  //     console.log("response", fetchedData);
-  //     setData(fetchedData);
-  //     setLoading(false); 
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error.message);
-  //     setLoading(false);
-  //   }
-  // };
-  useEffect(() => {
 
-    setData(apiData)
-  }, [apiData]);
+  const fetchCandidateData = async () => {
+    try {
+     // setLoading(true);
+      const fetchedData = await candidatesApiService.getCandidateById();
+      setData(fetchedData)
+      console.log("fetchedData", fetchedData); 
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
+  // useEffect(() => {
+
+  //   setData(apiData)
+  // }, [apiData]);
+  useEffect(() => {
+    fetchCandidateData()
+  }, []);
 
   // console.log("apiData", apiData);
   useEffect(() => {
     apiService
       .getCountries()
       .then((response) => {
-        setCountries(response.data.data);
+        // setCountries(response.data.data);
       })
       .catch((error) => {
         console.error("Error fetching countries:", error);
@@ -275,13 +275,13 @@ function EditPersonalDetails() {
  
   return (
     <>
-
+        {/* <h1>Hello</h1> */}
       {/* {loading && (
         <div className="loader-container">
           <div className="loader"></div>
         </div>
       )} */}
-
+      
       {/* {!loading && ( */}
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div style={{ marginTop: "7%" }}>
@@ -362,7 +362,7 @@ function EditPersonalDetails() {
                       name="email"
                       id=""
                       required
-                      value={data.email}
+                      value={data?.email}
                       readOnly
                     // onChange={(e) => handleFieldChange('email', e.target.value)}
                     />
@@ -386,7 +386,7 @@ function EditPersonalDetails() {
                       name="contact_1"
                       id=""
                       required
-                      value={data.contact_1}
+                      value={data?.contact_1}
                       readOnly
                     // onChange={(e) => handleFieldChange('contact_1', e.target.value)}
                     />
@@ -406,7 +406,7 @@ function EditPersonalDetails() {
                       placeholder=" "
                       name="specialization"
                       id=""
-                      value={data.specialization}
+                      value={data?.specialization}
                       onChange={(e) =>
                         handleFieldChange("specialization", e.target.value)
                       }
@@ -480,7 +480,7 @@ function EditPersonalDetails() {
                     <select
                       name="title_first_name"
                       className="UD-set-dropdown"
-                      value={data.title_first_name}
+                      value={data?.title_first_name}
                       onChange={(e) =>
                         handleFieldChange("title_first_name", e.target.value)
                       }
@@ -506,7 +506,7 @@ function EditPersonalDetails() {
                       name="first_name"
                       placeholder="Enter First Name"
                       id=""
-                      value={data.first_name}
+                      value={data?.first_name}
                       onChange={(e) =>
                         handleFieldChange("first_name", e.target.value)
                       }
@@ -527,7 +527,7 @@ function EditPersonalDetails() {
                       name="middle_name"
                       placeholder="Enter Middle Name "
                       id=""
-                      value={data.middle_name}
+                      value={data?.middle_name}
                       onChange={(e) =>
                         handleFieldChange("middle_name", e.target.value)
                       }
@@ -551,7 +551,7 @@ function EditPersonalDetails() {
                       name="last_name"
                       placeholder="Enter last Name"
                       id=""
-                      value={data.last_name}
+                      value={data?.last_name}
                       onChange={(e) =>
                         handleFieldChange("last_name", e.target.value)
                       }
@@ -574,7 +574,7 @@ function EditPersonalDetails() {
                       name="dob"
                       placeholder=""
                       id=""
-                      value={formatDateForInput(data.dob)}
+                      value={formatDateForInput(data?.dob)}
                       onChange={(e) => handleFieldChange("dob", e.target.value)}
                       readOnly
                     />
@@ -591,7 +591,7 @@ function EditPersonalDetails() {
                     <select
                       name="gender"
                       className="UD-set-dropdown"
-                      value={data.gender}
+                      value={data?.gender}
                       onChange={(e) =>
                         handleFieldChange("gender", e.target.value)
                       }
@@ -621,7 +621,7 @@ function EditPersonalDetails() {
                       name="religion"
                       placeholder="Enter Religion"
                       id=""
-                      value={data.religion}
+                      value={data?.religion}
                       onChange={(e) =>
                         handleFieldChange("religion", e.target.value)
                       }
@@ -643,7 +643,7 @@ function EditPersonalDetails() {
                       name="cast_category_name"
                       placeholder="Enter Category"
                       id=""
-                      value={data.cast_category_name}
+                      value={data?.cast_category_name}
                       onChange={(e) =>
                         handleFieldChange("cast_category_name", e.target.value)
                       }
@@ -663,7 +663,7 @@ function EditPersonalDetails() {
                     <select
                       name="marital_status"
                       id=""
-                      value={data.marital_status}
+                      value={data?.marital_status}
                       onChange={(e) =>
                         handleFieldChange("marital_status", e.target.value)
                       }
@@ -696,7 +696,7 @@ function EditPersonalDetails() {
                       name="address_1"
                       placeholder="Enter Address"
                       id=""
-                      value={data.address_1}
+                      value={data?.address_1}
                       onChange={(e) =>
                         handleFieldChange("address_1", e.target.value)
                       }
@@ -719,7 +719,7 @@ function EditPersonalDetails() {
                       name="contact_2"
                       placeholder="(123) 456 - 7890"
                       id=""
-                      value={data.contact_2}
+                      value={data?.contact_2}
                       onChange={(e) =>
                         handleFieldChange("contact_2", e.target.value)
                       }
@@ -742,7 +742,7 @@ function EditPersonalDetails() {
                     onChange={handleCountryChange}
                   >
                     <option key="" value="">
-                      {data.country}
+                      {data?.country}
                     </option>
                     {countries.map((countryData) => (
                       <option
@@ -803,7 +803,7 @@ function EditPersonalDetails() {
                       onChange={handleCityChange}
                     >
                       <option key="" value="">
-                      {data.city}
+                      {data?.city}
                       </option>
                       {(
                         countries.find(
@@ -833,7 +833,7 @@ function EditPersonalDetails() {
                       name="pin_code"
                       placeholder="Enter Pin Code "
                       id=""
-                      value={data.pin_code}
+                      value={data?.pin_code}
                       onChange={(e) =>
                         handleFieldChange("pin_code", e.target.value)
                       }
@@ -857,7 +857,9 @@ function EditPersonalDetails() {
           </div>
         </div>
       </form>
-      {/* )} */}
+
+       {/* // <Footers></Footers> */}
+        {/* )}  */}
     </>
   );
 }

@@ -1,12 +1,13 @@
 import React,{useEffect,useState} from "react";
 import { useNavigate } from "react-router-dom";
 
-const CandidateAuthGaurd = ({component})=>{
+const CandidateAuthGaurd = ({component:Component})=>{
 const [status,setStatus]= useState(false);
+const [token, setToken] = useState(null); // New state to store the token
 const navigate = useNavigate();
 useEffect(()=>{
     checkToken();
-},[component])
+},[])
 
 const checkToken = ()=>{
 let Token = localStorage.getItem("Token")
@@ -18,6 +19,7 @@ if(Token && Token.length){
     const base64EncodedPayload = splitToken[1]
     const decodedPayload = atob(base64EncodedPayload)
     candidate = JSON.parse(decodedPayload).candidate_id?JSON.parse(decodedPayload).candidate_id:false
+    setToken(Token.token);
     console.log(decodedPayload,candidate);
 }
 
@@ -36,7 +38,7 @@ if(Token && Token.length){
         return
     }
 }
-return status?<React.Fragment>{component}</React.Fragment>:<React.Fragment></React.Fragment>
+return status?<React.Fragment>{Component}</React.Fragment>:<React.Fragment></React.Fragment>
 }
 
 export default CandidateAuthGaurd

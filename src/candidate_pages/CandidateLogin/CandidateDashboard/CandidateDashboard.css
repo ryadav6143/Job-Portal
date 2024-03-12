@@ -1,0 +1,15 @@
+.sidebar {
+    max-width: 20%;
+    flex-shrink: 0;
+    text-align: left;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+  }
+  
+  /* @media (max-width: 768px) {
+    .sidebar {
+      overflow-y: hidden;
+    }
+  } */
+  
