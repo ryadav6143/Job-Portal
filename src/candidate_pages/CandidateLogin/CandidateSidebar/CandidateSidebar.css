@@ -56,25 +56,16 @@
   flex-wrap: wrap;
 }
 
+.set-col-2{
+  width: 100%;
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+}
+
 .isClose {
   display: none;
 }
 
-@media only screen and (max-width: 767px) {
-  .logo-coloured {
-    margin-left: 1%;
-  }
 
-  .logs {
-    margin-right: 0.1%;
-  }
-
-  .log-res {
-    width: 20px;
-    height: 20px;
-    margin: 15px;
-  }
-}
 
 .user-logo {
   width: 200px;
@@ -96,10 +87,7 @@
 }
 
 
-.set-col-2{
-  width: 100%;
-  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
-}
+
 /* .......................................... */
 
 .set-menu a {
@@ -150,6 +138,23 @@
   color: red;
   /* Set the desired color for the active link */
   /* Add any other styles as needed */
+}
+
+
+@media only screen and (max-width: 767px) {
+  .logo-coloured {
+    margin-left: 1%;
+  }
+
+  .logs {
+    margin-right: 0.1%;
+  }
+
+  .log-res {
+    width: 20px;
+    height: 20px;
+    margin: 15px;
+  }
 }
 
 @media only screen and (max-width: 767px) {

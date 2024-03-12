@@ -151,6 +151,7 @@ function AdminList() {
       <div>
         <form onSubmit={handleSubmit}>
           <img
+          style={{marginTop:"-30px", marginLeft:"30px"}}
             onClick={handleCloseModal}
             className="Examtype-close-btn"
             src={close}
@@ -209,8 +210,8 @@ function AdminList() {
     </FormControl>
   </Box>
         </Modal>
-      
-      <div className="admin-list">
+    
+      <div className="admin-list ">
         
         <p className="table-heading">List Of Admins</p>
         <table className="table table-responsive">

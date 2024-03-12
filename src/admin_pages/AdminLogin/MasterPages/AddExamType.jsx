@@ -215,7 +215,20 @@ function AddExamType() {
                         {" "}
                         <img src={updatebtn} className="up-del-btn" alt="" />
                       </button>
-                      <Modal
+                     
+                    </td>
+                    {/* <td>
+                      <button
+                        id="table-btns"
+                        onClick={() => handleDeleteExamType(parseInt(exam.id))}
+                      >
+                        <img src={deletebtn} className="up-del-btn" alt="" />
+                      </button>
+                    </td> */}
+                  </tr>
+                ))}
+
+<Modal
                         open={updateModalOpen}
                         onClose={handleUpdateModalClose}
                         aria-labelledby="modal-modal-title"
@@ -264,17 +277,6 @@ function AddExamType() {
                           </FormControl>
                         </Box>
                       </Modal>
-                    </td>
-                    {/* <td>
-                      <button
-                        id="table-btns"
-                        onClick={() => handleDeleteExamType(parseInt(exam.id))}
-                      >
-                        <img src={deletebtn} className="up-del-btn" alt="" />
-                      </button>
-                    </td> */}
-                  </tr>
-                ))}
             </tbody>
           </table>
         </div>

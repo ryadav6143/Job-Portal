@@ -257,7 +257,19 @@ function AddCategories() {
                     >
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
-                    <Modal
+                    
+                  </td>
+                  <td>
+                    <button
+                      id="table-btns"
+                      onClick={() => handleDeleteCategory(category.id)}
+                    >
+                      <img src={deletebtn} className="up-del-btn" alt="" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+              <Modal
                       open={updateModalOpen}
                       onClose={handleCloseUpdateModal}
                       aria-labelledby="modal-modal-title"
@@ -308,17 +320,6 @@ function AddCategories() {
                         </FormControl>
                       </Box>
                     </Modal>
-                  </td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDeleteCategory(category.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
             </tbody>
           </table>
         </div>

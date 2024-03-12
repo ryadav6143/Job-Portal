@@ -289,7 +289,21 @@ function AddSubPostApplied() {
                         alt=""
                       />
                     </button>
-                    <Modal
+                  
+
+                  </td>
+                  <td>
+                    <button
+                      id="table-btns"
+                      onClick={() => handleDeleteSubPost(subPost.id)}
+                    >
+                      <img src={deletebtn} className="up-del-btn" alt="" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+
+<Modal
                       open={updateModalOpen}
                       onClose={handleCloseUpdateModal}
                       aria-labelledby="modal-modal-title"
@@ -300,6 +314,7 @@ function AddSubPostApplied() {
                           <div>
                             <form>
                               <img
+                              style={{marginTop:"-30px", marginLeft:"18px"}}
                                 onClick={handleCloseUpdateModal}
                                 className="Examtype-close-btn"
                                 src={close}
@@ -365,18 +380,6 @@ function AddSubPostApplied() {
                         </FormControl>
                       </Box>
                     </Modal>
-
-                  </td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDeleteSubPost(subPost.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
             </tbody>
           </table>
         </div>

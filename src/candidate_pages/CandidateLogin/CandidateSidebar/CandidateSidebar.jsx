@@ -12,18 +12,19 @@ import {
   faFile,
 } from "@fortawesome/free-solid-svg-icons";
 
+import  {ApiDataProvider}  from "..//..//../context/CandidateContext";
 function CandidateSidebar() {
   const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // const [uploadedImage, setUploadedImage] = useState(null);
-  // const handleImageUpload = (event) => {
-  //   // Handle image upload logic here
-  //   const uploadedFile = event.target.files[0];
-  //   // Perform necessary validations and set the uploaded image
-  //   setUploadedImage(URL.createObjectURL(uploadedFile));
-  // };
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const handleImageUpload = (event) => {
+    // Handle image upload logic here
+    const uploadedFile = event.target.files[0];
+    // Perform necessary validations and set the uploaded image
+    setUploadedImage(URL.createObjectURL(uploadedFile));
+  };
 
   useEffect(() => {
     // Update isOpen state only if the window width is less than 768
@@ -54,7 +55,37 @@ function CandidateSidebar() {
     }
   };
 
-
+  // const renderComponent = () => {
+  //   switch (screen) {
+  //     // case 0:
+  //     //   return (<ApiDataProvider>
+  //     //     <EditPersonalDetails />;
+  //     //   </ApiDataProvider>)
+  //     //   break;
+  //     case 1:
+  //       return (<ApiDataProvider>
+  //       <EditQualificationForm />
+  //       </ApiDataProvider>);
+  //       break;
+  //     case 2:
+  //       return (<ApiDataProvider>
+  //         <EditExperience />
+  //         </ApiDataProvider>);
+  //       break;
+  //     case 3:
+  //       return <EditResearchForm />;
+  //       break;
+  //     case 4:
+  //       return <EditProgramsForm />;
+  //       break;
+  //     case 5:
+  //       return <EditReference />;
+  //       break;
+  //     // default:
+  //     //   return <EditPersonalDetails />;
+  //     //   break;
+  //   }
+  // };
 
   return (
     <>
@@ -132,10 +163,10 @@ function CandidateSidebar() {
             </div>
           </div>
         </div>
-    
+        {/* <div className="col-md-10">{renderComponent()}</div> */}
       </div>
       {/* --------------------sidebar end------------------------------ */}
-   
+      {/* <Footers></Footers> */}
     </>
   );
 }

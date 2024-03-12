@@ -287,7 +287,20 @@ function AddDegree() {
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
 
-                    <Modal
+                  
+
+                  </td>
+                  {/* <td>
+                    <button
+                      id="table-btns"
+                      onClick={() => handleDelete(category.id)}
+                    >
+                      <img src={deletebtn} className="up-del-btn" alt="" />
+                    </button>
+                  </td> */}
+                </tr>
+              ))}
+                <Modal
                       open={updateModalOpen}
                       onClose={() => setUpdateModalOpen(false)}
                       aria-labelledby="modal-modal-title"
@@ -351,18 +364,6 @@ function AddDegree() {
                         </FormControl>
                       </Box>
                     </Modal>
-
-                  </td>
-                  {/* <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDelete(category.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td> */}
-                </tr>
-              ))}
             </tbody>
           </table>
         </div>
