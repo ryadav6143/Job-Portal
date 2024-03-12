@@ -9,6 +9,7 @@ import JobProfile from "../admin_pages/JobProfile/JobProfile";
 import FAQ from "../admin_pages/FAQ/FAQ";
 import DropCV from "../admin_pages/DropCV/Dropcv";
 import ForgottenPassword from "../candidate_pages/CandidateLogin/CandidateLogin/ForgottenPassword";
+
 import CandidateLogin from "../candidate_pages/CandidateLogin/CandidateLogin/CandidateLogin";
 import Login from "../admin_pages/AdminLogin/Login/Login";
 import Qualification from "../admin_pages/DropCV/Qualification/Qualification";
@@ -20,64 +21,26 @@ import Administrative from "../admin_pages/JobProfile/Administrative/Administrat
 import Research from "../admin_pages/JobProfile/Research/Research";
 import Technical from "../admin_pages/JobProfile/Technical/Technical";
 import ApplyNow from "../admin_pages/CurrentOpening/ApplyNowForm/ApplyNow";
-
+import EditOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings";
 import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin"
 import PageNotFound from "../admin_pages/PageNotFound/PageNotFound";
 import ContactUs from "../admin_pages/Contactus/ContactUs";
 import Submitsuccess from "../admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 import OTPVerification from "../admin_pages/DropCV/OTPVerifivation/OTPVerification";
 import TestPages from "../admin_pages/TestPages/TestPages";
+import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 
 console.log("inside UnAuthRoutes");
 const UnAuthRoutes = [
-
-  //belongs to drop cv form  please check
-  <Route
-  path="/drop-cv"
-  element={<UnAuthGuards component={<DropCV />} />}
-></Route>,
-
-<Route
-path="personaldetails"
-element={<UnAuthGuards component={<PersonalDetails />} />}
-></Route>,
-
-  <Route
-  path="currentexperience"
-  element={<UnAuthGuards component={<CurrentExperience />} />}
-></Route>,
-
-<Route path="qualification" element=  {<UnAuthGuards component={<Qualification />}/>}  ></Route>,
-
-//end
-
-
-// belongs to apply now form please check
-
-<Route
-path="apply-now"
-element={<UnAuthGuards component={<ApplyNow />} />}
-></Route>,
-
-<Route
-path="userdetails"
-element={<UnAuthGuards component={<UserDetails />} />}
-></Route>,
-
- <Route
-    path="research-jobs"
-    element={<UnAuthGuards component={<Research />} />}
-  ></Route>,
-// end 
-
-
-
   <Route
     exact
     path="/"
     element={<UnAuthGuards component={<Home />} />}
   ></Route>,
- 
+  <Route
+    path="/current-opening"
+    element={<UnAuthGuards component={<CurrentOpening />} />}
+  ></Route>,
   <Route
     path="/job-profile"
     element={<UnAuthGuards component={<JobProfile />} />}
@@ -90,7 +53,10 @@ element={<UnAuthGuards component={<UserDetails />} />}
     path="/faq-section"
     element={<UnAuthGuards component={<FAQ />} />}
   ></Route>,
- 
+  <Route
+    path="/drop-cv"
+    element={<UnAuthGuards component={<DropCV />} />}
+  ></Route>,
   <Route
     path="/forgetpassword"
     element={<UnAuthGuards component={<ForgottenPassword />} />}
@@ -103,11 +69,19 @@ element={<UnAuthGuards component={<UserDetails />} />}
     path="/admin-login"
     element={<UnAuthGuards component={<Login />} />}
   ></Route>,
-  
- 
- 
-
- 
+  <Route
+    path="personaldetails"
+    element={<UnAuthGuards component={<PersonalDetails />} />}
+  ></Route>,
+  <Route path="qualification" element={<Qualification />}></Route>,
+  <Route
+    path="currentexperience"
+    element={<UnAuthGuards component={<CurrentExperience />} />}
+  ></Route>,
+  <Route
+    path="userdetails"
+    element={<UnAuthGuards component={<UserDetails />} />}
+  ></Route>,
   <Route
     path="academics-jobs"
     element={<UnAuthGuards component={<Academics />} />}
@@ -116,16 +90,19 @@ element={<UnAuthGuards component={<UserDetails />} />}
     path="administrative-jobs"
     element={<UnAuthGuards component={<Administrative />} />}
   ></Route>,
- 
+  <Route
+    path="research-jobs"
+    element={<UnAuthGuards component={<Research />} />}
+  ></Route>,
   <Route
     path="technical-jobs"
     element={<UnAuthGuards component={<Technical />} />}
   ></Route>,
-
   <Route
-  path="/current-opening"
-  element={<UnAuthGuards component={<CurrentOpening />} />}
- ></Route>,
+    path="apply-now"
+    element={<UnAuthGuards component={<ApplyNow />} />}
+  ></Route>,
+
   <Route
     path="contact-us"
     element={<UnAuthGuards component={<ContactUs />} />}
@@ -142,8 +119,14 @@ element={<UnAuthGuards component={<UserDetails />} />}
     path="verification-successfull"
     element={<UnAuthGuards component={<Submitsuccess />} />}
   ></Route>,
- ,
-
+  <Route
+    path="add-openings"
+    element={<UnAuthGuards component={<AddOpenings />} />}
+  ></Route>,
+  <Route
+    path="edit-openings/:id"
+    element={<UnAuthGuards component={<EditOpenings />} />}
+  ></Route>,
   <Route
     path="test"
     element={<UnAuthGuards component={<TestPages />} />}

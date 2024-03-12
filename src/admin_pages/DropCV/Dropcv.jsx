@@ -69,7 +69,6 @@ function Dropcv() {
 
   const handleClick = () => {
     setOpen(true);
-   
   };
 
   const handleClose = (event, reason) => {
