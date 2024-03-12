@@ -17,36 +17,43 @@ import Footers from "../../../../components/Footer/Footers";
 // import axios from "axios";
 function EditPersonalDetails() {
   // ---------profile image source---------
-  const { apiData, loading, fetchCandidateData } = useApiData()
+  // const { apiData, loading, fetchCandidateData } = useApiData()
+
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   const [errors, setErrors] = useState({});
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  const [data, setData] = useState(apiData);
+  const [data, setData] = useState("");
+  // const [data, setData] = useState(apiData);
   const [updateField, setUpdateField] = useState({});
   // const [loading, setLoading] = useState(true);
-  // const fetchCandidateData = async () => {
-  //   try {
-  //     let accessToken = localStorage.getItem("Token");
-  //     accessToken = JSON.parse(accessToken);
-  //     setLoading(true);
-  //     const fetchedData = await candidatesApiService.getCandidateById(
-  //       accessToken.token
-  //     );
-  //     console.log("response", fetchedData);
-  //     setData(fetchedData);
-  //     setLoading(false); 
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error.message);
-  //     setLoading(false);
-  //   }
-  // };
+  const fetchCandidateData = async () => {
+    try {
+      let accessToken = localStorage.getItem("Token");
+      accessToken = JSON.parse(accessToken);
+      // setLoading(true);
+      const fetchedData = await candidatesApiService.getCandidateById(
+        accessToken.token
+      );
+      console.log("response", fetchedData);
+      setData(fetchedData);
+      // setLoading(false); 
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+      // setLoading(false);
+    }
+  };
+
+  // useEffect(() => {
+
+  //   setData(apiData)
+  // }, [apiData]);
   useEffect(() => {
 
-    setData(apiData)
-  }, [apiData]);
+    fetchCandidateData();
+  }, []);
 
   // console.log("apiData", apiData);
   useEffect(() => {

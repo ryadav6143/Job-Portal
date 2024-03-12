@@ -36,13 +36,7 @@ function CandidateDashboard() {
           width: "100%",
         }}
       >
-        <div style={{
-            maxWidth: "20%",
-            flexShrink: 0,
-            textAlign: "left",
-            // overflowY: "auto",
-            // overflowX: "hidden",
-          }}
+        <div className="sidebar"
         >
           <CandidateSidebar />
         </div>

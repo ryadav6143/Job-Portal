@@ -105,7 +105,7 @@ function CandidateSidebar() {
 
       {/* ------------sidebar start----------------- */}
       <div className="row1">
-        <div className={`col-md-2 ${isOpen ? "isClose" : ""}`}>
+        <div className={`col-md-2 set-col-2 ${isOpen ? "isClose" : ""}`}>
           <div className="set-sidebar">
             <div>
               <nav>
@@ -157,12 +157,12 @@ function CandidateSidebar() {
                     <Link to="/candidate-dashboard/personal-reference">&nbsp; Reference/ Resume</Link>
                   </li>
                   <li>
-                    <a
-                      href="/current-opening"
+                    <Link
+                  to="/candidate-dashboard/current-opening"
                       style={{ textDecoration: "underline" }}
                     >
                       Current Openings
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>
