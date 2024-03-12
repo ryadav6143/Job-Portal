@@ -55,7 +55,7 @@ function CandidateDashboard() {
       {/* Body end */}
     </div>
     
-      <Footers></Footers>
+      {/* <Footers></Footers> */}
     </>
   );
 }

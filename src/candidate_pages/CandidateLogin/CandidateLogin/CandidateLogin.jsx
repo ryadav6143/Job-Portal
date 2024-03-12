@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./CandidateLogin.css";
+import { useNavigate } from "react-router-dom";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../assets/logos/logo.png";
 import candidatesService from "../../candidateService";
 import Notification from "../../../Notification/Notification";
-import { useNavigate } from "react-router-dom";
 function CandidateLogin({ handleLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +16,9 @@ function CandidateLogin({ handleLogin }) {
     open: false,
    
   });
-
+  const removeToken=(()=>{
+    localStorage.removeItem("Token");
+  })()
   const navigate=useNavigate()
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +32,7 @@ function CandidateLogin({ handleLogin }) {
       //   message:"Login Successfully",
       // });
       console.log("resposne", response);
-      if (response.data.token) {
+      if (response&&response.data&&response.data.token) {
         // handleLogin();
         navigate(`/candidate-dashboard`)
         localStorage.setItem("Token", JSON.stringify(response.data));
@@ -39,14 +41,14 @@ function CandidateLogin({ handleLogin }) {
             open: true,
             message: "Login Successful",
           });
-      
+          candidatesService.setAccessToken(response.data.token);
         // sessionStorage.setItem("Token", response.data);
       } else {
         setErrorMessage("Invalid credentials");
        
       }
     } catch (error) {
-      console.error("Error during login:", error.response.data.message);
+      console.error("Error during login:", error);
       setErrorNotification({
         open: true,
         message: error.response.data.message || "Invalid credentials",
