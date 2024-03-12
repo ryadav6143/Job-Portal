@@ -24,6 +24,22 @@ function EditExperience() {
   const [updateNewField, setUpdateNewField] = useState({});
   const [educations, setEducations] = useState([]);
   const [data, setData] = useState(apiData);
+
+
+
+  const fetchPersonalData = async () => {
+    try {
+     // setLoading(true);
+      const fetchedData = await candidatesApiService.getCandidateById();
+      setData(fetchedData)
+      console.log("fetchedData", fetchedData); 
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
+
+
   const fetchData = async () => {
     try {
 
@@ -43,7 +59,7 @@ function EditExperience() {
 
 
   useEffect(() => {
- 
+    fetchPersonalData();
     fetchData();
   }, []);
 

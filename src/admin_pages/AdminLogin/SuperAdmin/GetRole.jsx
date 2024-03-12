@@ -43,9 +43,7 @@ function GetRole() {
 
   const fetchRoleList = async () => {
     try {
-     
-
-      const response = await adminApiService.getRoleList();
+            const response = await adminApiService.getRoleList();
       console.log("role data>>>>>>", response);
       setRole(response);
     } catch (error) {

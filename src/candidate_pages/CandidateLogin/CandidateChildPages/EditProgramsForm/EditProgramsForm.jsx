@@ -23,9 +23,26 @@ function EditProgramsForm() {
   const [membershipInfoField, setMembershipInfoField] = useState({});
   const [seminarOrganisedField, setSeminarOrganisedField] = useState({});
   const [seminarAttendField, setSeminarAttendField] = useState({});
-  const fetchData = async () => {
+
+
+
+
+  const fetchCandidateData = async () => {
     try {
-   
+     // setLoading(true);
+      const fetchedData = await candidatesApiService.getCandidateById();
+      setData(fetchedData)
+      console.log("fetchedData", fetchedData); 
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
+
+
+
+  const fetchData = async () => {
+    try {   
       setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateSeminarPage();
       // console.log("response", fetchedData);
@@ -38,6 +55,7 @@ function EditProgramsForm() {
   };
   useEffect(() => {
     fetchData();
+    fetchCandidateData();
   }, []);
   useEffect(() => {
     const body = document.body;

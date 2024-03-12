@@ -7,6 +7,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
+import adminApiService from "../../adminApiService";
 
 function AddDegree() {
   const [data, setData] = useState([]);
@@ -18,40 +19,33 @@ function AddDegree() {
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [updateData, setUpdateData] = useState(null);
   // ------------------GET DATA FROM API--------------------------------
-  const degreeTypeMaster = () => {
-    axios
-      .get(`${ADMIN_BASE_URL}/degreeTypeMaster`)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+
+  const fetchexamType = async () => {
+    try {
+      const response = await adminApiService.getExam();
+      setExamTypes(response.data);
+    } catch (error) {
+      console.error("Error fetching exam types:", error);
+    }
   };
+
+
+  const degreeTypeMaster = async () => {
+    try {
+      const response = await adminApiService.getDegreeTypeMaster();
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching degree type master data:", error);
+    }
+  };
+
   useEffect(() => {
     degreeTypeMaster();
+    fetchexamType();
   }, []);
 
 
-  // const fetchUpdateData = (id) => {
-  //   let accessToken = localStorage.getItem("Token");
-  //   accessToken = JSON.parse(accessToken);
-  //   axios
-  //     .get(`${ADMIN_BASE_URL}/degreeTypeMaster/${id}`, {
-  //       headers: {
-  //         "access-token": accessToken.token,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       setUpdateData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching update data:", error);
-  //     });
-  // };
 
-
-  // ------------------GET DATA FROM API--------------------------------
 
   const fetchUpdateData = (id) => {
     let accessToken = localStorage.getItem("Token");
@@ -76,20 +70,6 @@ function AddDegree() {
 
 
 
-
-  useEffect(() => {
-    fetchexamType();
-  }, []);
-  const fetchexamType = () => {
-    axios
-      .get(`${ADMIN_BASE_URL}/examTypeMaster`)
-      .then((response) => {
-        setExamTypes(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  };
 
   const handleAddDegree = () => {
     let accessToken = localStorage.getItem("Token");
@@ -141,7 +121,7 @@ function AddDegree() {
   };
   const handleOpenUpdateModal = (id) => {
     fetchUpdateData(id);
-    const selectedExam = examTypes.find((exam) => exam.id === updateData.exam_types_master_id);
+    const selectedExam = examTypes.find((exam) => exam.id === updateData?.exam_types_master_id);
     if (selectedExam) {
       setSelectedExamType(selectedExam.exam_name);
       setSelectedExamId(selectedExam.id);
@@ -267,7 +247,7 @@ function AddDegree() {
         <p className="table-heading">CURRENT DEGREES AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
-          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">Sr. No.</th>
                 <th scope="col">Exam Name</th>

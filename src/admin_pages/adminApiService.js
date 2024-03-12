@@ -9,6 +9,71 @@ const adminApiService = {
   getJobCategories: () => {
     return axios.get(`${ADMIN_BASE_URL}/jobCategory`,{});
   },
+
+  AddCategory: async (data) => {
+    try {
+      const response = await axios.post(`${ADMIN_BASE_URL}/jobCategory`,data, {
+        headers: {
+          'access-token': getAccessToken(),
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
+DeleteCategory: (categoryId) => {
+    axios
+      .delete(`${ADMIN_BASE_URL}/jobCategory/${categoryId}`, {
+        headers: {
+          "access-token": getAccessToken(),
+        },
+      })    
+  },
+
+  updateCategory: async (updateID,data) => {
+    try {
+      const response = await axios.put(`${ADMIN_BASE_URL}/jobCategory/${updateID}`,data ,{
+        headers: {
+          'access-token': getAccessToken(),
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
+
+// -----------------------
+  
+getExam: () => {
+  return axios.get(`${ADMIN_BASE_URL}/examTypeMaster`);
+},
+
+getDegreeTypeMaster : () => {
+  return axios.get(`${ADMIN_BASE_URL}/degreeTypeMaster`);
+},
+
+getDegreeById: async (DegreeId)=>{
+  try { 
+    const response = await axios.get(`${ADMIN_BASE_URL}/degreeTypeMaster/${DegreeId}`, {
+      headers: {
+        "access-token": getAccessToken(),
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error fetching update data: ${error.message}`);
+  }
+},
+
+
+
+
+
+
+
+  
   getDepartments: () => {
     return axios.get(`${ADMIN_BASE_URL}/departmentMaster`);
   },
