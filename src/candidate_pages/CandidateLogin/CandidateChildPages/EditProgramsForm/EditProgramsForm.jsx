@@ -25,11 +25,9 @@ function EditProgramsForm() {
   const [seminarAttendField, setSeminarAttendField] = useState({});
   const fetchData = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      // console.log("accessToken", accessToken.token);
+   
       setLoading(true);
-      const fetchedData = await candidatesApiService.getCandidateSeminarPage(accessToken.token);
+      const fetchedData = await candidatesApiService.getCandidateSeminarPage();
       // console.log("response", fetchedData);
       setData(fetchedData);
       setLoading(false);
@@ -196,30 +194,29 @@ function EditProgramsForm() {
   };
   const handleSaveChanges = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+
 
       if (membershipInfoField && hasChanges(membershipInfoField)) {
         await candidatesApiService.updateCandidateMembershipInfo(
-          accessToken.token,
+     
           { other_membership_info: [membershipInfoField] }
         );
       }
       if (updateField && hasChanges(updateField)) {
         await candidatesApiService.updateCandidatePersonalInfo(
-          accessToken.token,
+        
           updateField
         );
       }
       if (seminarOrganisedField && hasChanges(seminarOrganisedField)) {
         await candidatesApiService.updateCandidateSeminarOrganised(
-          accessToken.token,
+     
           { seminar_organised: [seminarOrganisedField] }
         );
       }
       if (seminarAttendField && hasChanges(seminarAttendField)) {
         await candidatesApiService.updateCandidateSeminarAttend(
-          accessToken.token,
+     
           { seminar_attend: [seminarAttendField] }
         );
       }

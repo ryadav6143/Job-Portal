@@ -63,13 +63,12 @@ function EditPersonalDetails({token}) {
     const file = event.target.files[0];
     if (file) {
       try {
-        let accessToken = localStorage.getItem("Token");
-        accessToken = JSON.parse(accessToken);
-        // console.log("accessToken", accessToken.token);
+
+
 
         const responseData = await candidatesApiService.uploadProfileImage(
           file,
-          accessToken.token
+
         );
         console.log("Image upload successful:", responseData);
 
@@ -87,12 +86,10 @@ function EditPersonalDetails({token}) {
     e.preventDefault();
 
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      // console.log(updateField);
+     
 
       await candidatesApiService.updateCandidatePersonalInfo(
-        accessToken.token,
+      
         updateField
       );
 
@@ -249,12 +246,10 @@ function EditPersonalDetails({token}) {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        let accessToken = localStorage.getItem("Token");
-        accessToken = JSON.parse(accessToken);
-        // console.log("accessToken", accessToken.token);
+  
 
         const imageUrl = await candidatesApiService.fetchCandidateImage(
-          accessToken.token
+  
         );
 
         if (imageUrl) {

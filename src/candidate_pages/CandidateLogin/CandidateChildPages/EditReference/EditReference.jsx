@@ -49,18 +49,7 @@ function EditReference() {
         let formData = new FormData();
         formData.append('candidate_cv', file);
 
-        let accessToken = localStorage.getItem('Token');
-        accessToken = JSON.parse(accessToken);
-        console.log("accessToken", accessToken.token);
-
-        // let response = await fetch('http://192.168.1.15:8090/v1/api/candidates/upload_cv', {
-        //   method: 'PUT',
-        //   body: formData,
-        //   headers: {
-        //     'access-token': accessToken.token,
-        //   },
-        // });
-        const response = await candidatesApiService.uploadCV(formData, accessToken.token);
+        const response = await candidatesApiService.uploadCV(formData);
 
         if (response.ok) {
           const responseData = await response.json();
@@ -91,10 +80,9 @@ function EditReference() {
   };
   const handleSaveChanges = async () => {
     try {
-      let accessToken = localStorage.getItem('Token');
-      accessToken = JSON.parse(accessToken);
+     
       console.log(updateField);
-      await candidatesApiService.updateCandidatePersonalInfo(accessToken.token, updateField);
+      await candidatesApiService.updateCandidatePersonalInfo( updateField);
       setUpdateField({});
       fetchData();
     } catch (error) {

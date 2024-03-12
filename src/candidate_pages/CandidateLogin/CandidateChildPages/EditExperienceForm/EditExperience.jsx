@@ -26,11 +26,10 @@ function EditExperience() {
   const [data, setData] = useState(apiData);
   const fetchData = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+
       setLoading(true);
       const fetchedData = await candidatesApiService.getExperienceById(
-        accessToken.token
+    
       );
       // console.log("check response",fetchedData)
       setEducations(fetchedData);
@@ -142,15 +141,14 @@ function EditExperience() {
 
   const handleSaveChanges = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+ 
       console.log(updateField);
 
-      await candidatesApiService.updateCandidateExperience(accessToken.token, {
+      await candidatesApiService.updateCandidateExperience( {
         experiences: [updateField],
       });
       await candidatesApiService.updateCandidatePersonalInfo(
-        accessToken.token,
+
         updateNewField
       );
       setUpdateField({});

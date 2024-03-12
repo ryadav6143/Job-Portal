@@ -244,8 +244,6 @@ const adminApiService = {
     }
   }
 
-
-
 };
 
 function getAccessToken() {
