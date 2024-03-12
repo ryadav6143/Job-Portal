@@ -17,7 +17,7 @@ function MasterInterviewSchedule() {
     const fetchData = async () => {
       try {
         const response = await adminApiService.getAllInterview(currentPage, itemsPerPage);
-        console.log(response,"<<<<<<<check data")
+        console.log(response, "<<<<<<<check data")
         setJobProfiles(response.jobprofileData);
         setCounts(response);
       } catch (error) {
@@ -58,7 +58,7 @@ function MasterInterviewSchedule() {
 
 
 
-  
+
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
 
@@ -94,15 +94,7 @@ function MasterInterviewSchedule() {
   }));
   // console.log("ScheduledAcademicsTable", ScheduledAcademicsTable)
 
-
-  
-
-
-
-
-
-  
-  const formatDateForInput = (dateString) => {
+ const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
     if (isNaN(dateObject.getTime())) {
       return "";
@@ -128,7 +120,7 @@ function MasterInterviewSchedule() {
     endIndex
   );
   const isNextPageAvailable = jobProfiles.length === itemsPerPage;
-  console.log("jobprofiles>>",isNextPageAvailable)
+  console.log("jobprofiles>>", isNextPageAvailable)
 
 
   const nextPage = () => {
@@ -143,7 +135,7 @@ function MasterInterviewSchedule() {
     }
   };
 
-  
+
 
   return (
     <>
@@ -152,32 +144,32 @@ function MasterInterviewSchedule() {
         {/* <p className="table-des">A descriptive body text comes here</p> */}
         <div className="row sizeofrow" >
           <div className="col-md countbox">
-          <label className="labelbox">Total JobTypes Count:</label>
-                <input
-                  className="form-control showcountbox"
-                  disabled
-                  value={counts?.TotalJobTypesCount || ""}
-                />
+            <label className="labelbox">Total JobTypes Count:</label>
+            <input
+              className="form-control showcountbox"
+              disabled
+              value={counts?.TotalJobTypesCount || ""}
+            />
           </div>
-               <div className="col-md countbox">
-               <label className="labelbox">Total Vacancy:</label>
-                <input
-                  className="form-control showcountbox"
-                  disabled
-                  value={counts?.TotalVacancy || ""}
-                />
-                </div> 
-               <div className="col-md countbox">
-               <label className="labelbox">Total Active Vacancy:</label>
-                <input
-                  className="form-control showcountbox"
-                  disabled
-                  value={counts?.TotalActiveVacancy || ""}
-                />
-               </div>
-               
-              </div>
-        <div className="table-responsive fixe-table">          
+          <div className="col-md countbox">
+            <label className="labelbox">Total Vacancy:</label>
+            <input
+              className="form-control showcountbox"
+              disabled
+              value={counts?.TotalVacancy || ""}
+            />
+          </div>
+          <div className="col-md countbox">
+            <label className="labelbox">Total Active Vacancy:</label>
+            <input
+              className="form-control showcountbox"
+              disabled
+              value={counts?.TotalActiveVacancy || ""}
+            />
+          </div>
+
+        </div>
+        <div className="table-responsive fixe-table">
           <table className="table is-table">
             <thead className="thead">
               <tr>
@@ -197,9 +189,9 @@ function MasterInterviewSchedule() {
                   {/* <td>
                     <b>{index + 1}</b>
                   </td> */}
-                    <td>
-      <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
-    </td>
+                  <td>
+                    <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
+                  </td>
                   <td>{data.department}</td>
                   <td>{data.post}</td>
                   <td>{data.eligibility_criteria}</td>
@@ -234,26 +226,26 @@ function MasterInterviewSchedule() {
             </tbody>
           </table>
           <div className="row">
-          <div className="col-md-4">
-                    <label>Row:</label>
-                    <input
-                      className="set-row-input "
-                      id="specific-input"
-                      type="number"
-                      value={itemsPerPage}
-                      onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-                    />
-                  </div>
-                  <div className="col-md-4"></div>
-                  <div className="col-md-4">
-                    <Pagination>
-                      <Pagination.Prev onClick={prevPage} />
-                      <Pagination.Item>{currentPage}</Pagination.Item>
-                      <Pagination.Next onClick={nextPage} />
-                    </Pagination>
-                  </div>
+            <div className="col-md-4">
+              <label>Row:</label>
+              <input
+                className="set-row-input "
+                id="specific-input"
+                type="number"
+                value={itemsPerPage}
+                onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+              />
+            </div>
+            <div className="col-md-4"></div>
+            <div className="col-md-4">
+              <Pagination>
+                <Pagination.Prev onClick={prevPage} />
+                <Pagination.Item>{currentPage}</Pagination.Item>
+                <Pagination.Next onClick={nextPage} />
+              </Pagination>
+            </div>
           </div>
-          
+
         </div>
       </div>
     </>

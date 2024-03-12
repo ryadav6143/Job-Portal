@@ -6,11 +6,32 @@ import AdminAuthRoutes from "../../../routes/AdminAuthRoutes";
 import Sidenav from "../../TestPages/Sidenav";
 import AdminHeader from "../admin_header/AdminHeader";
 
+
+import { Container, Row, Col, Card } from "react-bootstrap";
+
 function AdminDashboard() {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
+
+  const totalInterviews = 50;
+  const totalApplies = 200;
+  const totalProfiles = 1000;
+  const totalOpenings = 20;
+  const adminDetails = {
+    name: "John Doe",
+    email: "admin@example.com",
+    role: "Admin",
+  };
+
+
+
   return (
-    <div
+    <>
+
+
+
+
+      <div
       style={{
         display: "flex",
         flexDirection: "column",
@@ -54,6 +75,64 @@ function AdminDashboard() {
           <SideBar />
         </div>
 
+        {/* <h1>rahul</h1> */}
+ 
+        {/* <Container className="mt-4">
+      <Row>
+        <Col md={3} >
+          <Card style={{ background: "#40189D" }}>
+            <Card.Body style={{ color: "white" }}> 
+              <h5>Total Interviews</h5>
+              <p >{totalInterviews}</p> 
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={3}>
+          <Card style={{ background: "cyan" }}>
+            <Card.Body style={{ color: "white" }}>
+              <h5>Total Applies</h5>
+              <p >{totalApplies}</p> 
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={3}>
+          <Card  style={{ background: "#20c997" }}>
+            <Card.Body style={{ color: "white" }}>
+              <h5>Total Profiles</h5>
+              <p>{totalProfiles}</p> 
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={3}>
+          <Card  style={{ background: "green" }}>
+            <Card.Body style={{ color: "white" }}>
+              <h5>Total Openings</h5>
+              <p>{totalOpenings}</p> 
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <Row className="mt-4">
+        <Col md={6}>
+          <Card>
+            <Card.Header>
+              <h5>Admin Details</h5>
+            </Card.Header>
+            <Card.Body>
+              <p>Name: {adminDetails.name}</p>
+              <p>Email: {adminDetails.email}</p>
+              <p>Role: {adminDetails.role}</p>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <Row className="mt-4">
+        <Col>
+    
+        </Col>
+      </Row>
+    </Container> */}
+
         <div>
           <main>
             <nav aria-label="breadcrumb">
@@ -75,11 +154,21 @@ function AdminDashboard() {
             </nav>
           </main>
         </div>
+
+     
+
+        
         <div style={{ flexGrow: 1, overflowY: "auto" }}>
-          <Outlet />
-        </div>
+          <Outlet />   
+        </div>    
       </div>
+
     </div>
+ 
+
+
+    </>
+  
   );
 }
 export default AdminDashboard;

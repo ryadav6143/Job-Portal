@@ -125,14 +125,14 @@ function ScheduledAcademics() {
             </tbody>
           </table>
           <div className="pagination">
-            <Stack spacing={2}>
+            {/* <Stack spacing={2}>
               <Pagination
                 count={Math.ceil(ScheduledAcademicsTable.length / rowsPerPage)}
                 page={page}
                 onChange={handleChangePage}
                 shape="rounded"
               />
-            </Stack>
+            </Stack> */}
           </div>
         </div>
       </div>

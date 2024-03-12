@@ -292,7 +292,7 @@ function Reports() {
                   value={count?.TotalApplicationCount || ""}
                 />
               </div>
-
+              <p className="SCA-heading">Reports</p>
               <div className="row">
                 <div className="col-md-4 ">
                   <label>Select Category:</label>
@@ -359,6 +359,7 @@ function Reports() {
                 <table className="table">
                   <thead className="thead">
                     <tr>
+                      <th>S.No.</th>
                       <th>First Name</th>
                       <th>Email</th>
                       <th>Contact</th>
@@ -370,8 +371,11 @@ function Reports() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map((candidate) => (
+                    {data.map((candidate, index) => (
                       <tr key={candidate.id}>
+                        <td>
+                          <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
+                        </td>
                         <td>{candidate.candidate.first_name || "-"}</td>
                         <td>{candidate.candidate.email || "-"}</td>
                         <td>{candidate.candidate.contact_1 || "-"}</td>
