@@ -15,7 +15,7 @@ function GetRole() {
     role_type_name: ""
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 2;
   const [modalData, setModalData] = useState({});
   const [updateField, setUpdateField] = useState({});
   useEffect(() => {
@@ -245,13 +245,34 @@ function GetRole() {
               ))}
             </tbody>
           </table>
-          <Pagination>
+          {/* <Pagination>
             {Array.from({ length: Math.ceil(Role.length / itemsPerPage) }).map((_, index) => (
               <Pagination.Item key={index} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
                 {index + 1}
               </Pagination.Item>
             ))}
-          </Pagination>
+          </Pagination> */}
+         <Pagination>
+  <Pagination.Prev
+    onClick={() =>
+      setCurrentPage((prevPage) =>
+        prevPage > 1 ? prevPage - 1 : prevPage
+      )
+    }
+  />
+  <Pagination.Item>{currentPage}</Pagination.Item>
+  <Pagination.Next
+    onClick={() =>
+      setCurrentPage((nextPage) =>
+        nextPage < Math.ceil(Role.length / itemsPerPage)
+          ? nextPage + 1
+          : nextPage
+      )
+    }
+  />
+</Pagination>
+
+
         </div>
       </div>
     </>

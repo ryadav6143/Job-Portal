@@ -10,7 +10,7 @@ function MasterInterviewSchedule() {
   const [counts, setCounts] = useState([]);
   const [interviewSchedule, setInterviewSchedule] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [itemsPerPage, setItemsPerPage] = useState(2);
 
 
   useEffect(() => {
@@ -96,12 +96,7 @@ function MasterInterviewSchedule() {
 
 
   
-  const startIndex = (page - 1) * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
-  const ScheduledAcademicData = ScheduledAcademicsTable.slice(
-    startIndex,
-    endIndex
-  );
+
 
 
 
@@ -126,9 +121,16 @@ function MasterInterviewSchedule() {
 
 
 
-
+  const startIndex = (page - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+  const ScheduledAcademicData = ScheduledAcademicsTable.slice(
+    startIndex,
+    endIndex
+  );
   const isNextPageAvailable = jobProfiles.length === itemsPerPage;
   console.log("jobprofiles>>",isNextPageAvailable)
+
+
   const nextPage = () => {
     if (isNextPageAvailable) {
       setCurrentPage(currentPage + 1);
@@ -141,6 +143,7 @@ function MasterInterviewSchedule() {
     }
   };
 
+  
 
   return (
     <>
@@ -178,7 +181,7 @@ function MasterInterviewSchedule() {
           <table className="table is-table">
             <thead className="thead">
               <tr>
-                {/* <th scope="col">S.No&#x2193;</th> */}
+                <th scope="col">S.No&#x2193;</th>
                 <th scope="col">Department&#x2193;</th>
                 <th scope="col">Post&#x2193;</th>
                 <th scope="col">Eligibility criteria&#x2193;</th>
@@ -194,6 +197,9 @@ function MasterInterviewSchedule() {
                   {/* <td>
                     <b>{index + 1}</b>
                   </td> */}
+                    <td>
+      <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
+    </td>
                   <td>{data.department}</td>
                   <td>{data.post}</td>
                   <td>{data.eligibility_criteria}</td>
@@ -227,14 +233,27 @@ function MasterInterviewSchedule() {
 
             </tbody>
           </table>
-          <div className="pagination">
-          <Pagination>
+          <div className="row">
+          <div className="col-md-4">
+                    <label>Row:</label>
+                    <input
+                      className="set-row-input "
+                      id="specific-input"
+                      type="number"
+                      value={itemsPerPage}
+                      onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                    />
+                  </div>
+                  <div className="col-md-4"></div>
+                  <div className="col-md-4">
+                    <Pagination>
                       <Pagination.Prev onClick={prevPage} />
                       <Pagination.Item>{currentPage}</Pagination.Item>
                       <Pagination.Next onClick={nextPage} />
                     </Pagination>
-              
+                  </div>
           </div>
+          
         </div>
       </div>
     </>

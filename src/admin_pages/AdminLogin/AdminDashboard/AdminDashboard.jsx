@@ -62,7 +62,7 @@ function AdminDashboard() {
                   const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
                   const isLast = index === pathnames.length - 1;
                   return (
-                    <li class="breadcrumb-item" key={routeTo}>
+                    <li class="breadcrumb-item" style={{marginLeft:"15px"}} key={routeTo}>
                       {isLast ? (
                         <span>{name}</span>
                       ) : (

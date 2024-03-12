@@ -34,7 +34,7 @@ function Reports() {
   const [post, setPost] = useState([]);
   const [subPost, setSubPost] = useState([]);
   const [formValues, setFormValues] = useState({});
-  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [itemsPerPage, setItemsPerPage] = useState(2);
   const [updateField, setUpdateField] = useState({});
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
