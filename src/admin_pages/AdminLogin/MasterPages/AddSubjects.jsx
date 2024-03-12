@@ -256,7 +256,19 @@ fetchData();
                     >
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
-                    <Modal
+                   
+                  </td>
+                  <td>
+                    <button
+                      id="table-btns"
+                      onClick={() => handleDelete(subject.id)}
+                    >
+                      <img src={deletebtn} className="up-del-btn" alt="" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+               <Modal
                       open={updateModalOpen}
                       onClose={handleCloseUpdateModal}
                       aria-labelledby="modal-modal-title"
@@ -324,17 +336,6 @@ fetchData();
                         </form>
                       </Box>
                     </Modal>
-                  </td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDelete(subject.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
             </tbody>
           </table>
         </div>

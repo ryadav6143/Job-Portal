@@ -449,8 +449,9 @@ function GetRights() {
               ))}
             </select>
 
-            <button id="set-btn" onClick={handleUpdate}>Submit</button>
+          
           </form>
+          <button style={{marginTop:"20px"}} id="set-btn" onClick={handleUpdate}>Submit</button>
         </Box>
       </Modal>
         </div>

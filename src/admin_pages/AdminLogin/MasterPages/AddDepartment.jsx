@@ -218,7 +218,20 @@ function AddDepartment() {
                     >
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
-                    <Modal
+                 
+                  </td>
+                  <td>
+                    <button
+                      id="table-btns"
+                      onClick={() => handleDelete(department.id)}
+                    >
+                      <img src={deletebtn} className="up-del-btn" alt="" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+
+<Modal
                       open={updateModalOpen}
                       onClose={handleClose}
                       aria-labelledby="modal-modal-title"
@@ -257,17 +270,6 @@ function AddDepartment() {
                         </form>
                       </Box>
                     </Modal>
-                  </td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDelete(department.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
             </tbody>
           </table>
         </div>
