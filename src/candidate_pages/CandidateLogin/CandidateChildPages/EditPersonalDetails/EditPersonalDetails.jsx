@@ -27,43 +27,20 @@ function EditPersonalDetails({token}) {
   const [data, setData] = useState({});
   const [updateField, setUpdateField] = useState({});
   // const [loading, setLoading] = useState(true);
-  // const fetchCandidateData = async () => {
-  //   try {
-  //     let accessToken = localStorage.getItem("Token");
-  //     accessToken = JSON.parse(accessToken);
-  //     setLoading(true);
-  //     const fetchedData = await candidatesApiService.getCandidateById(
-  //       accessToken.token
-  //     );
-  //     console.log("response", fetchedData);
-  //     setData(fetchedData);
-  //     setLoading(false); 
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error.message);
-  //     setLoading(false);
-  //   }
-  // };
+
   const fetchCandidateData = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      // setLoading(true);
-      const fetchedData = await candidatesApiService.getCandidateById(
-        accessToken.token
-      );
-      
+     // setLoading(true);
+      const fetchedData = await candidatesApiService.getCandidateById();
       setData(fetchedData)
       console.log("fetchedData", fetchedData); 
-
     } catch (error) {
       console.error("Error fetching data:", error.message);
-    
     }
   };
 
   useEffect(() => {
     fetchCandidateData()
-   
   }, []);
 
   // console.log("apiData", apiData);
@@ -294,7 +271,6 @@ function EditPersonalDetails({token}) {
  
   return (
     <>
-        <h1>Hello</h1>
       {/* {loading && (
         <div className="loader-container">
           <div className="loader"></div>

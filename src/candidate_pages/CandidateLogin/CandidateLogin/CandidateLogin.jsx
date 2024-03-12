@@ -41,7 +41,7 @@ function CandidateLogin({ handleLogin }) {
             open: true,
             message: "Login Successful",
           });
-          candidatesService.setAccessToken(response.data.token);
+          candidatesService.setAccessToken(response.data);
         // sessionStorage.setItem("Token", response.data);
       } else {
         setErrorMessage("Invalid credentials");

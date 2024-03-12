@@ -1,9 +1,27 @@
+import {useState} from 'react'
 import axios from "axios";
 // import {CANDIDATE_BASE_URL} from "../config/config"
 import { CANDIDATE_BASE_URL } from "../config/config";
 // const CANDIDATE_BASE_URL = "http://192.168.1.8:8090/v1/api";
 
-const candidatesApiService = {
+
+const candidatesApiService = (()=>{
+  // const [accessToken,setAccessToken]=useState("");
+  let accessToken = localStorage.getItem('Token')?JSON.parse(localStorage.getItem('Token')):null ;
+  console.log("candidatesApiService-accessToken", accessToken)
+return { 
+  
+  setAccessToken: (token) => {
+    console.log("setAccessToken",token)
+    // localStorage.setItem('Token', token);
+    accessToken=token
+
+  },
+
+  getAccessToken: () => {
+    accessToken = localStorage.getItem('Token')
+    return accessToken;
+  },
 
   uploadCV: async (formData, accessToken) => {
     try {
@@ -25,11 +43,13 @@ const candidatesApiService = {
     return axios.put(`${CANDIDATE_BASE_URL}/candidates/candidate_forgot_password`, data);
   },
 
-  getCandidateById: async (accessToken) => {
+  getCandidateById: async () => {
+    
     try {
+      console.log("getCandidateById-accessToken",accessToken)
       const response = await axios.get(`${CANDIDATE_BASE_URL}/candidates/getCandidatePersonal`, {
         headers: {
-          'access-token': accessToken,
+          'access-token': accessToken.token,
         },
       });
 
@@ -340,8 +360,8 @@ const candidatesApiService = {
       throw error;
     }
   },
-
 };
+})();
 
 
 

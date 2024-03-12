@@ -4,7 +4,7 @@ import CandidateAuthGaurd from "../gaurd/CandidateAuthGaurd";
 import CandidatePanel from "../candidate_pages/CandidateLogin/CandidatePanel";
 import CandidateDashboard from "../candidate_pages/CandidateLogin/CandidateDashboard/CandidateDashboard"
 // import  {ApiDataProvider}  from "../candidate_pages/CandidateLogin/ApiDataContext";
-import {ApiDataProvider} from "../context/CandidateContext.js"
+// import {ApiDataProvider} from "../context/CandidateContext.js"
 import EditPersonalDetails from "../candidate_pages/CandidateLogin/CandidateChildPages/EditPersonalDetails/EditPersonalDetails";
 
 import EditProgramsForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/EditProgramsForm";
