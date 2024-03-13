@@ -9,7 +9,6 @@ import JobProfile from "../admin_pages/JobProfile/JobProfile";
 import FAQ from "../admin_pages/FAQ/FAQ";
 import DropCV from "../admin_pages/DropCV/Dropcv";
 import ForgottenPassword from "../candidate_pages/CandidateLogin/CandidateLogin/ForgottenPassword";
-
 import CandidateLogin from "../candidate_pages/CandidateLogin/CandidateLogin/CandidateLogin";
 import Login from "../admin_pages/AdminLogin/Login/Login";
 import Qualification from "../admin_pages/DropCV/Qualification/Qualification";
@@ -22,7 +21,7 @@ import Research from "../admin_pages/JobProfile/Research/Research";
 import Technical from "../admin_pages/JobProfile/Technical/Technical";
 import ApplyNow from "../admin_pages/CurrentOpening/ApplyNowForm/ApplyNow";
 import EditOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings";
-import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin"
+import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin";
 import PageNotFound from "../admin_pages/PageNotFound/PageNotFound";
 import ContactUs from "../admin_pages/Contactus/ContactUs";
 import Submitsuccess from "../admin_pages/DropCV/OTPVerifivation/Submitsuccess";
