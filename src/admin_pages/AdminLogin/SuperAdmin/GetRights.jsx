@@ -204,7 +204,7 @@ function GetRights() {
           <div className="new-opening-btn">
             <button onClick={() => setOpen(true)}>ADD New Rights</button>
           </div>
-          <p className="table-heading">Define rights to role </p>
+          <p className="SCA-heading">Define rights to role </p>
 
           <div>
             <table className="table table-responsive">

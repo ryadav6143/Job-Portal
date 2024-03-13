@@ -226,7 +226,7 @@ function EditExperience() {
           className="container"
           style={{
             marginTop: "90px",
-            paddingLeft: "50px",
+            
             paddingRight: "50px",
           }}
         >

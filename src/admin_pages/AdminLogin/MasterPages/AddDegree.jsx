@@ -46,24 +46,16 @@ function AddDegree() {
 
 
 
-
-  const fetchUpdateData = (id) => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .get(`${ADMIN_BASE_URL}/degreeTypeMaster/${id}`, {
-        headers: {
-          "access-token": accessToken.token,
-        },
-      })
-      .then((response) => {
-        setUpdateData(response.data);
-        // After fetching update data, also update the selected exam type in the state
-        setSelectedExamType(response.data.exam_types_master.exam_name);
-      })
-      .catch((error) => {
-        console.error("Error fetching update data:", error);
-      });
+  const fetchUpdateData =async (id) => {
+    try {
+      const response = await adminApiService.getDegreeById(id);
+      console.log("check pput api response",response)
+      setUpdateData(response);
+      setSelectedExamType(response.exam_types_master.exam_name);
+    } catch (error) {
+      console.error("Error fetching degree data:", error);
+  
+    }
   };
 
 
@@ -71,29 +63,77 @@ function AddDegree() {
 
 
 
-  const handleAddDegree = () => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .post(
-        `${ADMIN_BASE_URL}/degreeTypeMaster`,
-        {
-          exam_types_master_id: selectedExamId,
-          degree_name: newDegree,
-        },
-        {
-          headers: {
-            "access-token": accessToken.token,
-          },
-        }
-      )
-      .then((response) => {
-        setData([...data, response.data]);
-        setIsModalOpen(false); // Close the modal after adding degree
-        degreeTypeMaster(); // Fetch data again after adding degree
-      })
-      .catch((error) => console.error("Error adding category:", error));
+  // const handleAddDegree = () => {
+  //   let accessToken = localStorage.getItem("Token");
+  //   accessToken = JSON.parse(accessToken);
+  //   axios
+  //     .post(
+  //       `${ADMIN_BASE_URL}/degreeTypeMaster`,
+  //       {
+  //         exam_types_master_id: selectedExamId,
+  //         degree_name: newDegree,
+  //       },
+  //       {
+  //         headers: {
+  //           "access-token": accessToken.token,
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       setData([...data, response.data]);
+  //       setIsModalOpen(false);
+  //       degreeTypeMaster();
+  //     })
+  //     .catch((error) => console.error("Error adding category:", error));
+  // };
+
+
+  const handleAddDegree = async () => {  
+    try {
+      const response = await adminApiService.addDegreeType(selectedExamId, newDegree);
+      setData([...data, response]);
+      setIsModalOpen(false);
+      degreeTypeMaster(); 
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+
+  // const handleUpdateDegree = () => {
+  //   let accessToken = localStorage.getItem("Token");
+  //   accessToken = JSON.parse(accessToken);
+  //   const payload = {
+  //     exam_types_master_id: selectedExamId,
+  //     degree_name: updateData.degree_name,
+  //     degreetypes_id: updateData.id,
+  //   };
+  //   axios
+  //     .put(`${ADMIN_BASE_URL}/degreeTypeMaster`, payload, {
+  //       headers: {
+  //         "access-token": accessToken.token,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       // console.log("Degree updated successfully!");
+  //       setUpdateModalOpen(false);
+  //       degreeTypeMaster();
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error updating degree:", error);
+  //     });
+  // };
+
+  const handleUpdateDegree = async () => {    
+    try {
+      await adminApiService.updateDegree(selectedExamId, updateData);
+      setUpdateModalOpen(false);
+      degreeTypeMaster(); 
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
 
   // ------------------------when allow to delete----------------
@@ -150,29 +190,7 @@ function AddDegree() {
 
 
 
-  const handleUpdateDegree = () => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    const payload = {
-      exam_types_master_id: selectedExamId,
-      degree_name: updateData.degree_name,
-      degreetypes_id: updateData.id,
-    };
-    axios
-      .put(`${ADMIN_BASE_URL}/degreeTypeMaster`, payload, {
-        headers: {
-          "access-token": accessToken.token,
-        },
-      })
-      .then((response) => {
-        // console.log("Degree updated successfully!");
-        setUpdateModalOpen(false);
-        degreeTypeMaster();
-      })
-      .catch((error) => {
-        console.error("Error updating degree:", error);
-      });
-  };
+ 
   return (
     <>
       <div className="container-1">
@@ -244,7 +262,7 @@ function AddDegree() {
       </div>
 
       <div className="master-table ">
-        <p className="table-heading">CURRENT DEGREES AVAILABLE</p>
+        <p className="SCA-heading">CURRENT DEGREES AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">

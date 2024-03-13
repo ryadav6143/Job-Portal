@@ -44,7 +44,10 @@ function CandidateDashboard() {
             <CandidateSidebar />
           </div>
 
-          <div style={{ flexGrow: 1, overflowY: "auto" }} className="edit-form-outlet">
+          <div
+            style={{ flexGrow: 1, overflowY: "auto" }}
+            className="edit-form-outlet"
+          >
             <Outlet />
           </div>
         </div>

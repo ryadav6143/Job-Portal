@@ -213,7 +213,7 @@ function AdminList() {
     
       <div className="admin-list ">
         
-        <p className="table-heading">List Of Admins</p>
+        <p className="SCA-heading">List Of Admins</p>
         <table className="table table-responsive">
           <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
             <tr>

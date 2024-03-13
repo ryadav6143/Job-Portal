@@ -26,6 +26,10 @@
   margin-top: 5%;
 }
 
+.editdetails-form-container {
+  margin-top: 5%;
+}
+
 /* Media query for screens smaller than 600px (adjust the breakpoint as needed) */
 @media (max-width: 600px) {
   .savebtn {

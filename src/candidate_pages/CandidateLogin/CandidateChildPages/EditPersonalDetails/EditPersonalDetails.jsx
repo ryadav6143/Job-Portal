@@ -277,7 +277,7 @@ function EditPersonalDetails({ token }) {
 
       {/* {!loading && ( */}
       <form id="myForm" onSubmit={handleSaveChanges}>
-        <div className="editdetails-form-container">
+        <div className="editdetails-form-container "  >
           <div style={{ paddingLeft: "50px" }}>
             {selectedImage ? (
               <img
@@ -324,7 +324,7 @@ function EditPersonalDetails({ token }) {
             className="container"
             style={{
               marginTop: "30px",
-              paddingLeft: "50px",
+            
               paddingRight: "50px",
             }}
           >

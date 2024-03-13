@@ -5,6 +5,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
 import plusicon from "../../../../assets/logos/plus.png";
 import minusicon from "../../../../assets/logos/minus.png";
+import Notification from "../../../../Notification/Notification";
 function EditResearchForm() {
   // const [researches, setResearches] = useState({ candidate_research_works: [{}] });
   // const [journal_publications, setjournal_publications] = useState([{}]);
@@ -12,6 +13,10 @@ function EditResearchForm() {
   // const [conference_publications, setconference_publications] = useState([{}]);
   // const [patents, setPatents] = useState([{}]);
   // const [copyrights, setCopyrights] = useState([{}]);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("");
+  
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
     candidate_research_works: [],
@@ -299,13 +304,15 @@ const handleRemoveResearches = (index) => {
   };
   const handleSaveChanges = async () => {
     try {
-  
+      let changesMade = false;
       console.log(researchField);
       if (researchField && hasChanges(researchField)) {
         await candidatesApiService.updateCandidateResearches(
       
           { researches: [researchField] }
         );
+        showNotification("Research field updated successfully", "success");
+        changesMade = true;
       }
 
       if (journalPublicationField && hasChanges(journalPublicationField)) {
@@ -313,6 +320,8 @@ const handleRemoveResearches = (index) => {
       
           { journals_publications: [journalPublicationField] }
         );
+        showNotification("Journal publication field updated successfully", "success");
+        changesMade = true;
       }
 
       if (
@@ -323,29 +332,51 @@ const handleRemoveResearches = (index) => {
        
           { conference_publications: [conferancePublicationField] }
         );
+        showNotification("Conference publication field updated successfully", "success");
+        changesMade = true;
       }
 
       if (patentField && hasChanges(patentField)) {
         await candidatesApiService.updateCandidatePatent( {
           patents: [patentField],
         });
+        showNotification("Patent field updated successfully", "success");
+        changesMade = true;
       }
 
       if (copyrightField && hasChanges(copyrightField)) {
         await candidatesApiService.updateCandidateCopyright({
           copyrights: [copyrightField],
         });
+        showNotification("Copyright field updated successfully", "success");
+        changesMade = true;
       }
-      setResearchField({});
-      setJournalPublicationField({});
-      setConferancePublicationField({});
-      setPatentField({});
-      setCopyrightField({});
-      fetchData();
-    } catch (error) {
+      if (changesMade) {
+        setResearchField({});
+        setJournalPublicationField({});
+        setConferancePublicationField({});
+        setPatentField({});
+        setCopyrightField({});
+        fetchData();
+      } else {
+        showNotification("No changes were made", "warning");
+      }
+    }  catch (error) {
       console.error("Error saving changes:", error.message);
+      showNotification("Error saving changes: " + error.message, "error");
     }
   };
+
+  const handleNotificationClose = () => {
+    setNotificationOpen(false);
+  };
+
+  const showNotification = (message, severity) => {
+    setNotificationMessage(message);
+    setNotificationSeverity(severity);
+    setNotificationOpen(true);
+  };
+
 
   return (
     <>
@@ -357,7 +388,7 @@ const handleRemoveResearches = (index) => {
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"
-          style={{ marginTop: "90px", paddingLeft: "50px",   paddingRight: "50px" }}
+          style={{ marginTop: "90px", paddingRight: "50px" }}
         >
           <div>
             <div>
@@ -1319,6 +1350,12 @@ const handleRemoveResearches = (index) => {
           </div>
         </div>
       </form>
+      <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
     </>
   );
 }

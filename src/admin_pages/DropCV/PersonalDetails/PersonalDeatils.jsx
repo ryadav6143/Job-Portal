@@ -8,6 +8,7 @@ import {
   faEnvelope,
   faMobile,
   faAngleDown,
+  faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
 // import { checkEmailExistence } from "../../../Services/ApiServices";
 
@@ -53,10 +54,10 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   // -------------------------------------dob----------------------
   
   useEffect(() => {
-    if (!hasMounted.current) {
-      hasMounted.current = true;
-      return;
-    }
+    // if (!hasMounted.current) {
+    //   hasMounted.current = true;
+    //   return;
+    // }
     const controller = new AbortController();
     const signal = controller.signal;
     const fetchData = async () => {
@@ -316,7 +317,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     onChange={handleInputChange}
                     value={formData.dob}
                     required
+                    style={{ width: "100%" }} 
                   ></input>
+                  {/* <FontAwesomeIcon className="set-icon" icon={faCalendar} /> */}
                 </div>
                 <span className="error-message">{errors.dob}</span>
               </div>
