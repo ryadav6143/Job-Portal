@@ -5,12 +5,16 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
-
+import Notification from "../../../../Notification/Notification";
 function EditQualificationForm() {
   const [updateField, setUpdateField] = useState({});
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("");
+
 
   const fetchData = async () => {
     try {
@@ -342,18 +346,20 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();
-
     try {
- 
-      // console.log(updateField);
       await candidatesApiService.updateCandidateEducation(
         { educations: [updateField] }
       );
-
       setUpdateField({});
       fetchData();
+      setNotificationMessage("Changes saved successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
     } catch (error) {
       console.error("Error saving changes:", error.message);
+      setNotificationMessage("Error saving changes.");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
 
     const currentYear = new Date().getFullYear();
@@ -418,6 +424,10 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
     board_university_name: "",
     year_end: "",
   });
+
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
+  };
 
   return (
     <>
@@ -2061,6 +2071,12 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
           </div>
         </div>
       </form>
+      <Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
     </>
   );
 }

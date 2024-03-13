@@ -6,6 +6,7 @@ import plusicon from "../../../../assets/logos/plus.png";
 import minusicon from "../../../../assets/logos/minus.png"
 import candidatesApiService from "../../../candidateService";
 import {useApiData} from "../../../../context/CandidateContext";
+import Notification from "../../../../Notification/Notification";
 function EditExperience() {
   // const [educations, setEducations] = useState({
   //   candidate_experiences: [],
@@ -24,7 +25,9 @@ function EditExperience() {
   const [updateNewField, setUpdateNewField] = useState({});
   const [educations, setEducations] = useState([]);
   const [data, setData] = useState(apiData);
-
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
 
 
   const fetchPersonalData = async () => {
@@ -155,23 +158,47 @@ function EditExperience() {
     setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
   };
 
+  // const handleSaveChanges = async () => {
+  //   try {
+ 
+  //     console.log(updateField);
+
+  //     await candidatesApiService.updateCandidateExperience( {
+  //       experiences: [updateField],
+  //     });
+  //     await candidatesApiService.updateCandidatePersonalInfo(
+
+  //       updateNewField
+        
+  //     );
+  //     setUpdateField({});
+  //     setUpdateNewField({});
+  //     // fetchData();
+  //   } catch (error) {
+  //     console.error("Error saving changes:", error.message);
+  //     setNotificationMessage("Error saving changes.");
+  //     setNotificationSeverity("error");
+  //     setNotificationOpen(true);
+  //   }
+  // };
+
+
   const handleSaveChanges = async () => {
     try {
- 
-      console.log(updateField);
-
-      await candidatesApiService.updateCandidateExperience( {
+      await candidatesApiService.updateCandidateExperience({
         experiences: [updateField],
       });
-      await candidatesApiService.updateCandidatePersonalInfo(
-
-        updateNewField
-      );
+      await candidatesApiService.updateCandidatePersonalInfo(updateNewField);
       setUpdateField({});
       setUpdateNewField({});
-      // fetchData();
+      setNotificationMessage("Changes saved successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
     } catch (error) {
       console.error("Error saving changes:", error.message);
+      setNotificationMessage("Error saving changes.");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
 
@@ -544,6 +571,12 @@ function EditExperience() {
           </div>
         </div>
       </form>
+      <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
     </>
   );
 }
