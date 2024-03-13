@@ -18,6 +18,7 @@ import AddSubjects from "../admin_pages/AdminLogin/MasterPages/AddSubjects.jsx";
 import AdminList from "../admin_pages/AdminLogin/SuperAdmin/AdminList.jsx";
 import GetRights from "../admin_pages/AdminLogin/SuperAdmin/GetRights.jsx";
 import GetRole from "../admin_pages/AdminLogin/SuperAdmin/GetRole.jsx";
+import EditOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings.jsx";
 console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
   // <Route path="adminpanel" element= {<AdminAuthGaurd component ={<Adminpanel />} />}></Route>,
@@ -29,7 +30,10 @@ const AdminAuthRoutes = [
     <Route
       path="current-openings"
       element={<AdminAuthGaurd component={<MasterCurrentOpening />} />}
-    />
+>
+<Route element={<AdminAuthGaurd component={<AddOpenings />} />}/>
+      <Route element={<AdminAuthGaurd component={<EditOpenings />} />}/>
+      </Route>
     <Route
       path="job-profile"
       element={<AdminAuthGaurd component={<MasterJobProfile />} />}

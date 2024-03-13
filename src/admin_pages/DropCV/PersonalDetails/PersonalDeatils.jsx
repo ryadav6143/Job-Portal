@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import "./PersonalDeatils.css";
 import apiService from "../../../Services/ApiServices";
@@ -26,7 +26,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
-   // --------------------------------------------------FORM VALIDATION-------------------------------------------
+  // --------------------------------------------------FORM VALIDATION-------------------------------------------
   //  const [formErrors, setFormErrors] = useState({
   //   title_first_name: "",
   //   first_name: "",
@@ -52,7 +52,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   // -------------------------------------dob----------------------
 
   // -------------------------------------dob----------------------
-  
+
   useEffect(() => {
     // if (!hasMounted.current) {
     //   hasMounted.current = true;
@@ -65,26 +65,26 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         const categoriesResponse = await apiService.getJobCategories(signal);
         setCategories(categoriesResponse.data);
 
-        const subjectRes = await apiService.getSubjectMaster(signal)
+        const subjectRes = await apiService.getSubjectMaster(signal);
         setSubjects(subjectRes.data);
 
-        const countriesRes = await apiService.getCountries(signal)
+        const countriesRes = await apiService.getCountries(signal);
         setCountries(countriesRes.data.data);
       } catch (error) {
-        if (error.name === 'AbortError') {
+        if (error.name === "AbortError") {
           // Request was aborted, you can handle it if needed
-          console.error('Error fetching job categories:', error);
+          console.error("Error fetching job categories:", error);
         } else {
-          console.error('Error fetching job categories:', error);
+          console.error("Error fetching job categories:", error);
         }
       }
     };
 
     fetchData();
-      return () => {
-        // Cleanup function to abort the request when the component unmounts
-        controller.abort();
-      };
+    return () => {
+      // Cleanup function to abort the request when the component unmounts
+      controller.abort();
+    };
   }, []);
 
   useEffect(() => {
@@ -100,8 +100,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       setSubposts([]);
     }
   }, [selectedPost, posts]);
- 
- 
 
   const handleCategoryChange = (event) => {
     setErrors({
@@ -128,7 +126,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     setSelectedPost("");
     setSubposts([]);
   };
-  
+
   const handlePostChange = (event) => {
     setErrors({
       ...errors,
@@ -239,7 +237,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     }));
   };
 
- 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
 
   return (
@@ -286,7 +283,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   </label>
 
                   <input
-                  autoFocus
+                    autoFocus
                     className="set-input"
                     type="text"
                     name="first_name"
@@ -317,9 +314,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     onChange={handleInputChange}
                     value={formData.dob}
                     required
-                    style={{ width: "100%" }} 
                   ></input>
-                  {/* <FontAwesomeIcon className="set-icon" icon={faCalendar} /> */}
                 </div>
                 <span className="error-message">{errors.dob}</span>
               </div>
