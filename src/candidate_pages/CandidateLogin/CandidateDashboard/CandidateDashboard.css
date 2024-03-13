@@ -5,11 +5,16 @@
     overflow-y: auto;
     overflow-x: hidden;
     height: 100%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-right: 50px;
   }
   
-  /* @media (max-width: 768px) {
+  .edit-form-outlet::-webkit-scrollbar {
+    width: 0px;
+  }
+  @media only screen and (max-width: 767px) {
     .sidebar {
-      overflow-y: hidden;
+      box-shadow: none;
+      margin-right: 0px;
     }
-  } */
-  
+  }

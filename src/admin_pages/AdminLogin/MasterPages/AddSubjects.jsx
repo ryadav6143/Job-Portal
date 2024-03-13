@@ -231,7 +231,7 @@ fetchData();
       </div>
 
       <div className="master-table ">
-        <p className="table-heading">CURRENT SUBJECTS AVAILABLE</p>
+        <p className="SCA-heading">CURRENT SUBJECTS AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
           <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">

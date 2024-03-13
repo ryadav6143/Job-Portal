@@ -214,7 +214,7 @@ function GetRole() {
 
 
         <div className="super-admin-table">
-          <p className="table-heading">Assign Specific Role to Users</p>
+          <p className="SCA-heading">Assign Specific Role to Users</p>
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>

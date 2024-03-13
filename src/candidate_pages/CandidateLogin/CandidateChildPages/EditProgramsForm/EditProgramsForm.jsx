@@ -4,7 +4,7 @@ import minusicon from "../../../../assets/logos/minus.png";
 import "./EditProgramsForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-
+import Notification from "../../../../Notification/Notification";
 import candidatesApiService from "../../../candidateService";
 import Footers from "../../../../components/Footer/Footers";
 function EditProgramsForm() {
@@ -24,7 +24,9 @@ function EditProgramsForm() {
   const [seminarOrganisedField, setSeminarOrganisedField] = useState({});
   const [seminarAttendField, setSeminarAttendField] = useState({});
 
-
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("");
 
 
   const fetchCandidateData = async () => {
@@ -213,39 +215,64 @@ function EditProgramsForm() {
   const handleSaveChanges = async () => {
     try {
 
+      let changesMade = false;
 
       if (membershipInfoField && hasChanges(membershipInfoField)) {
         await candidatesApiService.updateCandidateMembershipInfo(
      
           { other_membership_info: [membershipInfoField] }
         );
+        showNotification("Membership info updated successfully", "success");
+        changesMade = true;
       }
       if (updateField && hasChanges(updateField)) {
         await candidatesApiService.updateCandidatePersonalInfo(
         
           updateField
         );
+        showNotification("Personal info updated successfully", "success");
+        changesMade = true;
       }
       if (seminarOrganisedField && hasChanges(seminarOrganisedField)) {
         await candidatesApiService.updateCandidateSeminarOrganised(
      
           { seminar_organised: [seminarOrganisedField] }
         );
+        showNotification("Personal info updated successfully", "success");
+        changesMade = true;
       }
       if (seminarAttendField && hasChanges(seminarAttendField)) {
         await candidatesApiService.updateCandidateSeminarAttend(
      
           { seminar_attend: [seminarAttendField] }
         );
+        showNotification("Seminar attend info updated successfully", "success");
+        changesMade = true;
       }
-      setSeminarAttendField();
-      setSeminarOrganisedField();
-      setUpdateField();
-      setMembershipInfoField();
-      fetchData();
-    } catch (error) {
+      if (changesMade) {
+        setSeminarAttendField();
+        setSeminarOrganisedField();
+        setUpdateField();
+        setMembershipInfoField();
+        fetchData();
+      } else {
+        showNotification("No changes were made", "warning");
+      }
+    }  catch (error) {
       console.error("Error saving changes:", error.message);
+      showNotification("Error saving changes: " + error.message, "error");
     }
+  };
+
+
+  const handleNotificationClose = () => {
+    setNotificationOpen(false);
+  };
+
+  const showNotification = (message, severity) => {
+    setNotificationMessage(message);
+    setNotificationSeverity(severity);
+    setNotificationOpen(true);
   };
 
   return (
@@ -260,7 +287,7 @@ function EditProgramsForm() {
           className="container"
           style={{
             marginTop: "90px",
-            paddingLeft: "50px",
+           
             paddingRight: "50px",
           }}
         >
@@ -914,6 +941,12 @@ function EditProgramsForm() {
         </div>
         {/* <Footers></Footers> */}
       </form>
+      <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
     </>
   );
 }

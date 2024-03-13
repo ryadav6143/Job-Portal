@@ -8,6 +8,7 @@ import {
   faEnvelope,
   faMobile,
   faAngleDown,
+  faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
 // import { checkEmailExistence } from "../../../Services/ApiServices";
 
@@ -316,7 +317,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     onChange={handleInputChange}
                     value={formData.dob}
                     required
+                    style={{ width: "100%" }} 
                   ></input>
+                  {/* <FontAwesomeIcon className="set-icon" icon={faCalendar} /> */}
                 </div>
                 <span className="error-message">{errors.dob}</span>
               </div>

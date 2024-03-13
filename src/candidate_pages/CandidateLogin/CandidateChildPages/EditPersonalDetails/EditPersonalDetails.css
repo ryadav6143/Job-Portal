@@ -23,6 +23,10 @@
   color: rgb(112 112 112 / 78%);
 }
 
+.editdetails-form-container {
+  margin-top: 5%;
+}
+
 /* Media query for screens smaller than 600px (adjust the breakpoint as needed) */
 @media (max-width: 600px) {
   .savebtn {
@@ -31,6 +35,9 @@
     margin: auto;
     margin-bottom: 100px;
     margin-top: 30px;
+  }
+  .editdetails-form-container {
+    margin-top: 100px;
   }
 }
 

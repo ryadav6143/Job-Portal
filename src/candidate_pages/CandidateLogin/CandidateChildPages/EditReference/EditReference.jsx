@@ -149,7 +149,7 @@ function EditReference() {
   return (
     <>
       <form id='myForm' onSubmit={handleSaveChanges}>
-        <div className="container" style={{ marginTop: "90px", paddingLeft: "50px", paddingRight: "50px", }}>
+        <div className="container" style={{ marginTop: "90px", paddingRight: "50px", }}>
           <div>
             <div>
               <h5 className="UD-heading">Reference &nbsp; <FontAwesomeIcon className="edit-pen-icon" icon={faPen} /></h5>
