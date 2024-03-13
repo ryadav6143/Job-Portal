@@ -75,13 +75,15 @@ function ScheduledAcademics() {
           <table className="table is-table">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
-                <th scope="col">S.No &#x2193;</th>
-                <th scope="col">Department &#x2193;</th>
-                <th scope="col">Post &#x2193;</th>
-                <th scope="col">Eligibility criteria &#x2193;</th>
-                <th scope="col">Day 1 &#x2193;</th>
-                <th scope="col">Day 2 &#x2193;</th>
-                <th scope="col">Day 3 &#x2193;</th>
+                {/* &#x2193; */}
+
+                <th scope="col">S.No </th>
+                <th scope="col">Department </th>
+                <th scope="col">Post </th>
+                <th scope="col">Eligibility criteria </th>
+                <th scope="col">Day 1 </th>
+                <th scope="col">Day 2 </th>
+                <th scope="col">Day 3 </th>
               </tr>
             </thead>
             <tbody>

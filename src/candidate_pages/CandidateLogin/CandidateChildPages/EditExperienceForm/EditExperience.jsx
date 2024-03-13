@@ -547,10 +547,10 @@ function EditExperience() {
                     placeholder=""
                     name="exp_benefits_others"
                     id=""
-                    value={data?.benefits_others || ""}
+                    value={data?.benefits_others|| ""}
                     onChange={(e) =>
                       handleExperienceChange(
-                        "exp_benefits_others",
+                        "benefits_others",
                         e.target.value
                       )
                     }
