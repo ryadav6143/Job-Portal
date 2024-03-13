@@ -47,17 +47,15 @@ function CandidateSidebar() {
     };
   }, []);
 
-  // const handleSideBar = () => {
-  //   if (isOpen) {
-  //     setIsOpen(false);
-  //   } else {
-  //     setIsOpen(true);
-  //   }
-  // };
-
   const handleSideBar = () => {
-    setIsOpen(!isOpen); // Toggle isOpen state
+    if (isOpen) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+    }
   };
+
+  
 
   // const renderComponent = () => {
   //   switch (screen) {
