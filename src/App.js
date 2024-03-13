@@ -13,7 +13,6 @@ function App() {
           {CandidateAuthRoutes}
           {AdminAuthRoutes}
         </Routes>
-      
       </Main>
     </>
   );
