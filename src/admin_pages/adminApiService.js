@@ -1,7 +1,7 @@
 import axios from "axios";
 import Notification from "../Notification/Notification";
 import { ADMIN_BASE_URL } from "../config/config";
-import { get } from "jquery";
+
 
 const adminApiService = {
 
