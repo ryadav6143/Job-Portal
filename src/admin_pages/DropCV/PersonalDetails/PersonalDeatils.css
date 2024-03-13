@@ -73,6 +73,7 @@
   color: rgba(160, 163, 189, 1);
 }
 
+
 @media only screen and (max-width: 767px) {
   .set-input {
     width: 100% !important;

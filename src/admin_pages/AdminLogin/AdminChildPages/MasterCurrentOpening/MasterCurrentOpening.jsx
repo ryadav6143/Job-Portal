@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./MasterCurrentOpening.css";
 
 
@@ -133,11 +133,11 @@ function MasterCurrentOpening() {
       {isButtonVisible && (
         <div className="new-opening-btn">
           <button>
-            <a onClick={() => showComponent("Component1")}>Add New Openings</a>
-            {/* <Link to="/admin-dashboard/current-openings/add-openings">
+            {/* <a onClick={() => showComponent("Component1")}>Add New Openings</a> */}
+            <Link to="/admin-dashboard/current-openings/add-openings">
               {" "}
               Add New Openings
-            </Link> */}
+            </Link>
           </button>
         </div>
       )}

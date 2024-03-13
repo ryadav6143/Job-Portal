@@ -86,3 +86,9 @@
     font-size: 14px;
   }
 }
+@supports (-webkit-touch-callout: none) {
+  /* Apply styles only if Safari supports the specified property */
+  .UD-set-input[type="date"] {
+    width: 100%; /* Set width to 100% for Safari */
+  }
+}
