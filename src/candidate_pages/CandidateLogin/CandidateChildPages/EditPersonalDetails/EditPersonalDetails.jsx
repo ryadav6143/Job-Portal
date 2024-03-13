@@ -265,7 +265,7 @@ function EditPersonalDetails({ token }) {
   const handleCloseNotification = () => {
     setNotificationOpen(false);
   };
-
+ 
   return (
     <>
       {/* <h1>Hello</h1> */}
@@ -856,8 +856,8 @@ function EditPersonalDetails({ token }) {
         alertMessage={notificationMessage}
         alertSeverity={notificationSeverity}
       />
-      {/* // <Footers></Footers> */}
-      {/* )}  */}
+       {/* // <Footers></Footers> */}
+        {/* )}  */}
     </>
   );
 }
