@@ -46,24 +46,29 @@ function EditReference() {
     fetchData();
   }, []);
 
+
+
+
+
+
   // const handleFileChange = async (event) => {
   //   const file = event.target.files[0];
-
+  
   //   if (file) {
   //     try {
   //       let formData = new FormData();
   //       formData.append('candidate_cv', file);
-
+  
   //       const response = await candidatesApiService.uploadCV(formData);
-
-  //       if (response) {
+  
+  //       if (response.ok) {
   //         const responseData = await response.json();
   //         console.log('Resume upload successful:', responseData);
   //         // Handle success, e.g., update state or show a success message
-  //         setErrorNotification({ open: true, message: 'Resume uploaded successfully', severity: 'message' });
+  //         setErrorNotification({ open: true, message: 'Resume uploaded successfully', severity: 'success' });
   //       } else {
   //         console.error('Resume upload failed:', response.status, response.statusText);
-  //         setErrorNotification({ open: true, message: 'Failed to upload resume', severity: 'error' });
+  //         setErrorNotification({ open: true, message: 'Resume uploaded successfully', severity: 'success' });
   //         // Handle error, e.g., show an error message to the user
   //       }
   //     } catch (error) {
@@ -73,72 +78,78 @@ function EditReference() {
   //     }
   //   }
   // };
-
-
-
-
-
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
   
-    if (file) {
-      try {
-        let formData = new FormData();
-        formData.append('candidate_cv', file);
-  
-        const response = await candidatesApiService.uploadCV(formData);
-  
-        if (response.ok) {
-          const responseData = await response.json();
-          console.log('Resume upload successful:', responseData);
-          // Handle success, e.g., update state or show a success message
-          setErrorNotification({ open: true, message: 'Resume uploaded successfully', severity: 'success' });
-        } else {
-          console.error('Resume upload failed:', response.status, response.statusText);
-          setErrorNotification({ open: true, message: 'Resume uploaded successfully', severity: 'success' });
-          // Handle error, e.g., show an error message to the user
-        }
-      } catch (error) {
-        console.error('Error uploading resume:', error.message);
-        setErrorNotification({ open: true, message: 'Failed to upload resume', severity: 'error' });  
-        // Handle other errors that may occur during the request
-      }
-    }
-  };
-  
-
-
-
-
-
-  // const handleChange = (field, value) => {
-  //   setData({
-  //     ...data,
-  //     [field]: value,
-  //   });
+  // const handleCloseNotification = () => {
+  //   setErrorNotification({ ...errorNotification, open: false });
   // };
+
+  // const handleSaveChanges = async () => {
+  //   try {
+     
+  //     console.log("resume check>>>>>>",updateField);
+  //     await candidatesApiService.updateCandidatePersonalInfo(updateField);
+  //     setUpdateField({});
+  //     fetchData();
+  //   } catch (error) {
+  //     console.error('Error saving changes:', error.message);
+  //   }
+  // };
+
+
+const handleFileChange = async (event) => {
+  const file = event.target.files[0];
+
+  if (file) {
+    try {
+      let formData = new FormData();
+      formData.append('candidate_cv', file);
+
+      const response = await candidatesApiService.uploadCV(formData);
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Resume upload successful:', responseData);
+        // Handle success, e.g., update state or show a success message
+        setErrorNotification({ open: true, message: 'Resume uploaded successfully', severity: 'success' });
+      } else {
+        console.error('Resume upload failed:', response.status, response.statusText);
+        setErrorNotification({ open: true, message: 'Failed to upload resume', severity: 'error' });
+        // Handle error, e.g., show an error message to the user
+      }
+    } catch (error) {
+      console.error('Error uploading resume:', error.message);
+      setErrorNotification({ open: true, message: 'Failed to upload resume', severity: 'error' });  
+      // Handle other errors that may occur during the request
+    }
+  }
+};
+
+const handleSaveChanges = async () => {
+  try {
+    console.log("resume check>>>>>>",updateField);
+    await candidatesApiService.updateCandidatePersonalInfo(updateField);
+    setUpdateField({});
+    fetchData();
+  } catch (error) {
+    console.error('Error saving changes:', error.message);
+    setErrorNotification({ open: true, message: 'Failed to save changes', severity: 'error' });
+  }
+};
+
+const handleCloseNotification = () => {
+  setErrorNotification({ ...errorNotification, open: false });
+};
+
+
 
   const handleChange = (fieldName, value) => {
     console.log("handlefild", fieldName, value, updateField)
     setUpdateField(prev => ({ ...prev, [fieldName]: value.toString()}))
     setData(prev => ({ ...prev, [fieldName]: value.toString()}))
   };
-  const handleSaveChanges = async () => {
-    try {
-     
-      console.log("resume check>>>>>>",updateField);
-      await candidatesApiService.updateCandidatePersonalInfo(updateField);
-      setUpdateField({});
-      fetchData();
-    } catch (error) {
-      console.error('Error saving changes:', error.message);
-    }
-  };
 
 
-  const handleCloseNotification = () => {
-    setErrorNotification({ ...errorNotification, open: false });
-  };
+
   return (
     <>
     <form id='myForm' onSubmit={handleSaveChanges}>
