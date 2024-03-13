@@ -1,4 +1,5 @@
 import React from "react";
+import "./Candidateco.css"
 import Academictable from "../../../../admin_pages/CurrentOpening/Academictable";
 import NonAcademictable from "../../../../admin_pages/CurrentOpening/NonAcademictable";
 function CandidateCurrentopening() {

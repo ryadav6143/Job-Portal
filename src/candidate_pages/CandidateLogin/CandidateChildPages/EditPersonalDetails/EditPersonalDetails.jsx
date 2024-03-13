@@ -13,6 +13,7 @@ import candidatesApiService from "../../../candidateService";
 import apiService from "../../../../Services/ApiServices";
 import { useApiData } from "../../../../context/CandidateContext";
 import Footers from "../../../../components/Footer/Footers";
+import Notification from "../../../../Notification/Notification";
 // import { useContext } from "react";
 // import axios from "axios";
 function EditPersonalDetails({ token }) {
@@ -26,6 +27,11 @@ function EditPersonalDetails({ token }) {
   const [selectedCity, setSelectedCity] = useState("");
   const [data, setData] = useState({});
   const [updateField, setUpdateField] = useState({});
+
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("");
+
   // const [loading, setLoading] = useState(true);
 
   const fetchCandidateData = async () => {
@@ -84,9 +90,15 @@ function EditPersonalDetails({ token }) {
 
       setUpdateField({});
       fetchCandidateData();
-      window.location.reload();
+      // window.location.reload();
+      setNotificationMessage("Changes saved successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
     } catch (error) {
       console.error("Error saving changes:", error.message);
+      setNotificationMessage("Error saving changes.");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
 
     // let errors = {};
@@ -249,6 +261,10 @@ function EditPersonalDetails({ token }) {
 
     fetchImage();
   }, []);
+
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
+  };
 
   return (
     <>
@@ -834,7 +850,12 @@ function EditPersonalDetails({ token }) {
           </div>
         </div>
       </form>
-
+      <Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       {/* // <Footers></Footers> */}
       {/* )}  */}
     </>

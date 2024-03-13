@@ -33,7 +33,7 @@ function CandidateLogin({ handleLogin }) {
       console.log("resposne", response);
       if (response && response.data && response.data.token) {
         // handleLogin();
-        navigate(`/candidate-dashboard/personal-details`);
+        navigate(`/candidate-dashboard/current-opening`);
         localStorage.setItem("Token", JSON.stringify(response.data));
 
         setErrorNotification({
