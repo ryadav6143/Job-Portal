@@ -10,6 +10,7 @@ import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 // import { ADMIN_BASE_URL } from "../../../config/config";
 import { ADMIN_BASE_URL } from "../../../config/config";
+import adminApiService from "../../adminApiService";
 function AddSubPostApplied() {
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
@@ -25,14 +26,12 @@ function AddSubPostApplied() {
   }, []);
 
   const fetchData = () => {
-    axios
-      .get(`${ADMIN_BASE_URL}/appliedSubPost`)
-      .then((response) => {
-        // console.log("response.data>>>>",response.data)
-        setData(response.data);
+    adminApiService.fetchAppliedSubPosts()
+      .then((data) => {
+        setData(data);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error(error);
       });
   };
   // -----------------------------Fetching data from applied_subpost------------------------------
@@ -42,16 +41,14 @@ function AddSubPostApplied() {
   }, []);
 
   const fetchAppliedPost = () => {
-    axios
-      .get(`${ADMIN_BASE_URL}/appliedPost`)
-      .then((response) => {
-        setPostData(response.data);
+    adminApiService.getPosts()
+      .then((data) => {
+        setPostData(data);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error(error);
       });
   };
-
   const handleSelectPost = (e) => {
     const selectedPostId = e.target.value;
     const selectedPostObj = postData.find((post) => post.id === selectedPostId);
@@ -59,56 +56,41 @@ function AddSubPostApplied() {
     setSelectedPost(selectedPostObj);
   };
 
+ 
+
+
+
+
+
   const handleAddSubPost = () => {
-    // console.log("check category->", selectedPostId);
-    // console.log("typed data->", newPost);
     if (!selectedPostId) {
       console.error("Please select a category.");
       return;
-    }
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .post(
-        `${ADMIN_BASE_URL}/appliedSubPost`,
-        {
-          applied_post_masters_id: Number(selectedPostId), // Convert to number
-          subpost_name: newPost,
-        },
-        {
-          headers: {
-            "access-token": accessToken.token,
-          },
-        }
-      )
-
+    }  
+   adminApiService.addSubPost(selectedPostId, newPost)
       .then((response) => {
-        // console.log("API Response:", response.data);
-        setData([...data, response.data]);
+        setData([...data, response]);
         setNewPost("");
         fetchData();
         setOpen(false);
       })
-      .catch((error) => console.error("Error adding post:", error));
+      .catch((error) => console.error(error));
   };
 
   // -----------------------------Fetching data from applied_post------------------------------
-  const handleDeleteSubPost = (subPostId) => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .delete(`${ADMIN_BASE_URL}/appliedSubPost/${subPostId}`, {
-        headers: {
-          "access-token": accessToken.token,
-        }
-      },)
-      .then((response) => {
-        // console.log("Subpost deleted successfully");
-        fetchData();
-      })
-      .catch((error) => console.error("Error deleting subpost:", error));
-  };
 
+  const handleDeleteSubPost = (subPostId) => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this subpost?");
+    if (isConfirmed) { 
+    adminApiService.deleteSubPost(subPostId)
+        .then(() => {
+          fetchData();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -146,31 +128,16 @@ function AddSubPostApplied() {
 
 
 
-  const handleUpdateSubPost = () => {    
-    
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .put(
-        `${ADMIN_BASE_URL}/appliedSubPost`,
-        {
-          appliedSubPost_id:selectedPost.id,
-          applied_post_masters_id:selectedPost.applied_post_master.id,  
-          subpost_name:updatePost
-        },
-        {
-          headers: {
-            "access-token": accessToken.token,
-          },
-        }
-      )
-      .then((response) => {
-        // console.log("API Response:", response.data);
+  const handleUpdateSubPost = () => {
+   adminApiService.updateSubPost(selectedPost, updatePost)
+      .then(() => {
         fetchData();
         setUpdatePost("");
         setUpdateModalOpen(false);
       })
-      .catch((error) => console.error("Error updating post:", error));
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
 
@@ -263,7 +230,7 @@ function AddSubPostApplied() {
         <p className="table-heading">CURRENT APPLIED SUB POST AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
-          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">ID</th>
                 {/* <th scope="col">Post</th> */}
@@ -279,7 +246,7 @@ function AddSubPostApplied() {
                   <td>{index + 1}</td>
                   {/* <td>{subPost.applied_post_master.post_name}</td> */}
                   <td>{subPost.subpost_name}</td>
-                  <td>{subPost.applied_post_master.post_name}</td>
+                  <td>{subPost?.applied_post_master?.post_name}</td>
                   <td>
                     <button id="table-btns">
                       <img
@@ -289,7 +256,7 @@ function AddSubPostApplied() {
                         alt=""
                       />
                     </button>
-                  
+
 
                   </td>
                   <td>
@@ -303,83 +270,83 @@ function AddSubPostApplied() {
                 </tr>
               ))}
 
-<Modal
-                      open={updateModalOpen}
-                      onClose={handleCloseUpdateModal}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <FormControl>
-                          <div>
-                            <form>
-                              <img
-                              style={{marginTop:"-30px", marginLeft:"18px"}}
-                                onClick={handleCloseUpdateModal}
-                                className="Examtype-close-btn"
-                                src={close}
-                              />
-                              <label
-                                className="AC-SetLabel-Name"
-                                htmlFor="postSelect"
-                              >
-                                Select Post:
-                              </label>
-                              <select
-                                id="postSelect"                             
-                                className="select-jc"
-                                value={selectedPost ? selectedPost.applied_post_master.id : ""}                       
-                                onChange={(e) => {
-                                  const selectedPostId = parseInt(e.target.value);
-                                  const selectedPostData = postData.find((post) => post.id === selectedPostId);
-                              // console.log("selectedPost>>>>>>",selectedPostId)
-                                  setSelectedPost(prevState => ({
-                                    ...prevState,
-                                    applied_post_master: selectedPostData
-                                  }));                             
-                                  setUpdatePost(""); 
-                                }}
-                             >
-                                <option value="">Select Post</option>
-                                {postData.map((post) => (
-                                  <option key={post.id} value={post.id}>
-                                    {post.post_name}
-                                  </option>
-                                ))}
-                              </select>
+              <Modal
+                open={updateModalOpen}
+                onClose={handleCloseUpdateModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <FormControl>
+                    <div>
+                      <form>
+                        <img
+                          style={{ marginTop: "-30px", marginLeft: "18px" }}
+                          onClick={handleCloseUpdateModal}
+                          className="Examtype-close-btn"
+                          src={close}
+                        />
+                        <label
+                          className="AC-SetLabel-Name"
+                          htmlFor="postSelect"
+                        >
+                          Select Post:
+                        </label>
+                        <select
+                          id="postSelect"
+                          className="select-jc"
+                          value={selectedPost ? selectedPost.applied_post_master.id : ""}
+                          onChange={(e) => {
+                            const selectedPostId = parseInt(e.target.value);
+                            const selectedPostData = postData.find((post) => post.id === selectedPostId);
+                            // console.log("selectedPost>>>>>>",selectedPostId)
+                            setSelectedPost(prevState => ({
+                              ...prevState,
+                              applied_post_master: selectedPostData
+                            }));
+                            setUpdatePost("");
+                          }}
+                        >
+                          <option value="">Select Post</option>
+                          {postData.map((post) => (
+                            <option key={post.id} value={post.id}>
+                              {post?.post_name}
+                            </option>
+                          ))}
+                        </select>
 
-                              <label
-                                style={{ marginTop: "20px" }}
-                                className="AC-SetLabel-Name"
-                                htmlFor=""
-                              >
-                                Update Sub Post Applied For
-                              </label>
+                        <label
+                          style={{ marginTop: "20px" }}
+                          className="AC-SetLabel-Name"
+                          htmlFor=""
+                        >
+                          Update Sub Post Applied For
+                        </label>
 
-                              <input
-                                type="text"
-                                id=""
-                                value={updatePost}                                
-                                className="Ac-set-input"
-                                placeholder="Sub Post Applied For"
-                                onChange={(e) => {
-                                  setUpdatePost(e.target.value);
-                                  // console.log("Updated sub post:", e.target.value);
-                                }}
-                              />
+                        <input
+                          type="text"
+                          id=""
+                          value={updatePost}
+                          className="Ac-set-input"
+                          placeholder="Sub Post Applied For"
+                          onChange={(e) => {
+                            setUpdatePost(e.target.value);
+                            // console.log("Updated sub post:", e.target.value);
+                          }}
+                        />
 
-                              <button
-                                id="set-btn"
-                                type="button"
-                              onClick={handleUpdateSubPost}
-                              >
-                                UPDATE NOW
-                              </button>
-                            </form>
-                          </div>
-                        </FormControl>
-                      </Box>
-                    </Modal>
+                        <button
+                          id="set-btn"
+                          type="button"
+                          onClick={handleUpdateSubPost}
+                        >
+                          UPDATE NOW
+                        </button>
+                      </form>
+                    </div>
+                  </FormControl>
+                </Box>
+              </Modal>
             </tbody>
           </table>
         </div>
