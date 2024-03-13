@@ -9,7 +9,12 @@ import {
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { useState,useEffect } from 'react';
 import candidatesApiService from '../../../candidateService';
+import Notification from '../../../../Notification/Notification';
 function EditReference() {
+  const [errorNotification, setErrorNotification] = useState({
+    open: false,
+   
+  });
   const [data, setData] = useState({   
   // reference_person_1:'',
   //   reference_person_2:'',
@@ -41,41 +46,70 @@ function EditReference() {
     fetchData();
   }, []);
 
+  // const handleFileChange = async (event) => {
+  //   const file = event.target.files[0];
+
+  //   if (file) {
+  //     try {
+  //       let formData = new FormData();
+  //       formData.append('candidate_cv', file);
+
+  //       const response = await candidatesApiService.uploadCV(formData);
+
+  //       if (response) {
+  //         const responseData = await response.json();
+  //         console.log('Resume upload successful:', responseData);
+  //         // Handle success, e.g., update state or show a success message
+  //         setErrorNotification({ open: true, message: 'Resume uploaded successfully', severity: 'message' });
+  //       } else {
+  //         console.error('Resume upload failed:', response.status, response.statusText);
+  //         setErrorNotification({ open: true, message: 'Failed to upload resume', severity: 'error' });
+  //         // Handle error, e.g., show an error message to the user
+  //       }
+  //     } catch (error) {
+  //       console.error('Error uploading resume:', error.message);
+  //       setErrorNotification({ open: true, message: 'Failed to upload resume', severity: 'error' });  
+  //       // Handle other errors that may occur during the request
+  //     }
+  //   }
+  // };
+
+
+
+
+
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
-
+  
     if (file) {
       try {
         let formData = new FormData();
         formData.append('candidate_cv', file);
-
-        let accessToken = localStorage.getItem('Token');
-        accessToken = JSON.parse(accessToken);
-        console.log("accessToken", accessToken.token);
-
-        // let response = await fetch('http://192.168.1.15:8090/v1/api/candidates/upload_cv', {
-        //   method: 'PUT',
-        //   body: formData,
-        //   headers: {
-        //     'access-token': accessToken.token,
-        //   },
-        // });
-        const response = await candidatesApiService.uploadCV(formData, accessToken.token);
-
+  
+        const response = await candidatesApiService.uploadCV(formData);
+  
         if (response.ok) {
           const responseData = await response.json();
           console.log('Resume upload successful:', responseData);
           // Handle success, e.g., update state or show a success message
+          setErrorNotification({ open: true, message: 'Resume uploaded successfully', severity: 'success' });
         } else {
           console.error('Resume upload failed:', response.status, response.statusText);
+          setErrorNotification({ open: true, message: 'Resume uploaded successfully', severity: 'success' });
           // Handle error, e.g., show an error message to the user
         }
       } catch (error) {
         console.error('Error uploading resume:', error.message);
+        setErrorNotification({ open: true, message: 'Failed to upload resume', severity: 'error' });  
         // Handle other errors that may occur during the request
       }
     }
   };
+  
+
+
+
+
 
   // const handleChange = (field, value) => {
   //   setData({
@@ -91,15 +125,19 @@ function EditReference() {
   };
   const handleSaveChanges = async () => {
     try {
-      let accessToken = localStorage.getItem('Token');
-      accessToken = JSON.parse(accessToken);
-      console.log(updateField);
-      await candidatesApiService.updateCandidatePersonalInfo(accessToken.token, updateField);
+     
+      console.log("resume check>>>>>>",updateField);
+      await candidatesApiService.updateCandidatePersonalInfo(updateField);
       setUpdateField({});
       fetchData();
     } catch (error) {
       console.error('Error saving changes:', error.message);
     }
+  };
+
+
+  const handleCloseNotification = () => {
+    setErrorNotification({ ...errorNotification, open: false });
   };
   return (
     <>
@@ -402,10 +440,16 @@ function EditReference() {
           onChange={handleFileChange}
           required
         ></input>
+      
 {data.resume_file_link && (
   <span>Current cv:- {data.resume_file_link.substring(data.resume_file_link.lastIndexOf('/') + 1).split('-')[0]}</span>
 )}
-
+   <Notification
+        open={errorNotification.open}
+        handleClose={handleCloseNotification}
+        alertMessage={errorNotification.message}
+        alertSeverity="success"
+      />
 
 
       </div>

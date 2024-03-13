@@ -41,7 +41,7 @@ function Login( handleLogin ) {
       if (response.data.token) {
         localStorage.setItem("Token", JSON.stringify(response.data));
         // handleLogin();
-        navigate(`/adminpanel`)
+        navigate(`/admin-dashboard`)
         setErrorNotification({
           open: true,
           message: "Login Successful",

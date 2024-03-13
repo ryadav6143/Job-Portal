@@ -40,27 +40,14 @@ function Academictable() {
       job_profile_master_id: data.job_profile_master_id,
     };
 
-    // try {
-    //   const response = await axios.post(
-    //     "http://192.168.1.8:8090/v1/api/candidateAppliedPost/addApplied", requestData,
-    //     {
-    //       headers: {
-    //         'access-token':accessToken
-    //       }
-    //     }
-    //   );
-    //   console.log("Response:", response);
-    //   alert("Post Applied Successfully");
-    // }
     try {
-      const response = await adminApiService.addApplied(requestData, accessToken); // Use adminApiService
-      // console.log("Response:", response);    
+      const response = await adminApiService.addApplied(requestData); // Use adminApiService
+      // console.log("Response:", response);
       // alert("Post Applied Successfully");
       setNotificationMessage("Post Applied Successfully");
       setNotificationSeverity("success");
       setShowNotification(true);
-    }
-    catch (error) {
+    } catch (error) {
       // alert("you already applied",)
       setNotificationMessage("You already applied");
       setNotificationSeverity("error");
@@ -111,7 +98,7 @@ function Academictable() {
         <p className="table-heading">ACADEMICS</p>
         <div className="table-responsive">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">Category</th>
                 <th scope="col">Post</th>
@@ -142,14 +129,13 @@ function Academictable() {
                       >
                         APPLY NOW
                       </button>
-                      
                     )}
-                     <Notification
-        open={showNotification}
-        handleClose={() => setShowNotification(false)}
-        alertMessage={notificationMessage}
-        alertSeverity={notificationSeverity}
-      />
+                    <Notification
+                      open={showNotification}
+                      handleClose={() => setShowNotification(false)}
+                      alertMessage={notificationMessage}
+                      alertSeverity={notificationSeverity}
+                    />
                   </td>
 
                   <td>{formatDateForInput(data.lastDate)}</td>

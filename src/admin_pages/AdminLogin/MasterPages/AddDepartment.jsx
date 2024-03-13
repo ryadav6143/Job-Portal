@@ -7,6 +7,7 @@ import deletebtn from "../../../assets/logos/delete.png";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import close from "../../../assets/logos/close.png";
+import adminApiService from "../../adminApiService";
 function AddDepartment() {
   const [departments, setDepartments] = useState([]);
   const [newDepartmentName, setNewDepartmentName] = useState("");
@@ -17,36 +18,14 @@ function AddDepartment() {
     fetchData();
   }, []);
 
-  const fetchData = () => {
-    axios
-      .get(`${ADMIN_BASE_URL}/departmentMaster`)
-      .then((response) => {
-        setDepartments(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+  const fetchData =async () => {
+    try {
+      const response = await adminApiService.getDepartments();
+      setDepartments(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
-
-  const handleDelete = (id) => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .delete(`${ADMIN_BASE_URL}/departmentMaster/${id}`, {
-        headers: {
-          'access-token': accessToken.token
-        }
-      })
-      .then((response) => {
-        setDepartments(departments.filter((dept) => dept.id !== id));
-        // console.log("Department deleted successfully!");
-        setNewDepartmentName("");
-      })
-      .catch((error) => {
-        console.error("Error deleting department:", error);
-      });
-  };
- 
   const handleAdd = () => {
     let accessToken = localStorage.getItem("Token");
     accessToken = JSON.parse(accessToken);
@@ -66,6 +45,26 @@ function AddDepartment() {
       console.error("Error adding department:", error);
     });
   };
+  const handleDelete = (id) => {
+    let accessToken = localStorage.getItem("Token");
+    accessToken = JSON.parse(accessToken);
+    axios
+      .delete(`${ADMIN_BASE_URL}/departmentMaster/${id}`, {
+        headers: {
+          'access-token': accessToken.token
+        }
+      })
+      .then((response) => {
+        setDepartments(departments.filter((dept) => dept.id !== id));
+        // console.log("Department deleted successfully!");
+        setNewDepartmentName("");
+      })
+      .catch((error) => {
+        console.error("Error deleting department:", error);
+      });
+  };
+ 
+ 
 
 
 
@@ -105,6 +104,11 @@ function AddDepartment() {
         console.error("Error updating department:", error);
       });
   };
+
+
+
+
+
   const handleClose = () => {
     setEditingDepartmentId(null);
     setNewDepartmentName("");
@@ -190,9 +194,9 @@ function AddDepartment() {
 
       <div className="master-table ">
         <p className="table-heading">CURRENT DEPARTMENT AVAILABLE</p>
-        <div className="">
+        <div className="table-responsive fixe-table">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Department Name</th>
@@ -201,9 +205,9 @@ function AddDepartment() {
               </tr>
             </thead>
             <tbody>
-              {departments.map((department) => (
+              {departments.map((department,index) => (
                 <tr key={department.id}>
-                  <td>{department.id}</td>
+                  <td>{index+1}</td>
                   <td>{department.dept_name}</td>
                   <td>
                     <button
@@ -214,7 +218,20 @@ function AddDepartment() {
                     >
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
-                    <Modal
+                 
+                  </td>
+                  <td>
+                    <button
+                      id="table-btns"
+                      onClick={() => handleDelete(department.id)}
+                    >
+                      <img src={deletebtn} className="up-del-btn" alt="" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+
+<Modal
                       open={updateModalOpen}
                       onClose={handleClose}
                       aria-labelledby="modal-modal-title"
@@ -253,17 +270,6 @@ function AddDepartment() {
                         </form>
                       </Box>
                     </Modal>
-                  </td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDelete(department.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
             </tbody>
           </table>
         </div>

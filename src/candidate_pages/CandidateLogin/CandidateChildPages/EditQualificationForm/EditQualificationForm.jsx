@@ -14,12 +14,10 @@ function EditQualificationForm() {
 
   const fetchData = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      // console.log("accessToken", accessToken.token);
+
       setLoading(true);
       const candidateResponse = await candidatesApiService.getEducationById(
-        accessToken.token
+    
       );
       // console.log("response-......", candidateResponse);
       setData(candidateResponse);
@@ -346,10 +344,9 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
     e.preventDefault();
 
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+ 
       // console.log(updateField);
-      await candidatesApiService.updateCandidateEducation(accessToken.token,
+      await candidatesApiService.updateCandidateEducation(
         { educations: [updateField] }
       );
 

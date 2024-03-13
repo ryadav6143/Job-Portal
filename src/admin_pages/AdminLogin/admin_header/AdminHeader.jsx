@@ -1,9 +1,16 @@
 import React from "react";
-import "./Logout.css";
+import "./adminHeader.css";
 import medilogo from "../../../assets/logos/medi-logo.png";
 import AdminDashboard from "../AdminDashboard/AdminDashboard";
+import { useNavigate } from "react-router-dom";
+function AdminHeader() {
+    const navigate = useNavigate()
+    const handleLogout=()=>{
+        localStorage.removeItem('Token')
+        localStorage.removeItem("isLoggedIn");
+        navigate('/admin-login')
+    }
 
-function Logout({ handleLogout }) {
   return (
     <>
       <div className="admin-header fixed-top   " >
@@ -12,21 +19,18 @@ function Logout({ handleLogout }) {
         </div>
         <div id="logout-btn">
           <button
-            onClick={() => {
-              handleLogout();
-              localStorage.setItem("isLoggedIn", false);
-            }}
+            onClick={() => handleLogout()}
           >
             LOGOUT
           </button>
         </div>
       </div>
-
+{/* 
       <div className="show-dashboard">
-        {/* <AdminDashboard></AdminDashboard> */}
-      </div>
+        <AdminDashboard></AdminDashboard>
+      </div> */}
     </>
   );
 }
 
-export default Logout;
+export default AdminHeader;

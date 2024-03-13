@@ -3,7 +3,7 @@
   font-family: "Open Sans", sans-serif;
 }
 .master-table {
-  padding: 2%;
+  margin-inline: 10px;
 }
 #upd-btn {
   background-color: #0b6623e5;
@@ -94,9 +94,11 @@ input:checked + .slider:before {
   border-bottom: 2px solid red;
 }
 .new-opening-btn {
-  position: absolute;
+  /* position: absolute; */
   right: 30px;
   margin: 1%;
+  margin-top: 3%;
+  float: right;
 }
 .new-opening-btn button {
   font-family: "Open Sans", sans-serif;

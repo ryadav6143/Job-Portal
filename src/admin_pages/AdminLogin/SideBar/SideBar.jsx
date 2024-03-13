@@ -1,20 +1,6 @@
 import React, { useEffect, useState } from "react";
-import MasterCurrentOpening from "../AdminChildPages/MasterCurrentOpening/MasterCurrentOpening";
-import MasterJobProfile from "../AdminChildPages/MasterJobProfile/MasterJobProfile";
-import MasterInterviewSchedule from "../AdminChildPages/MasterInterviewSchedule/MasterInterviewSchedule";
-import MasterFAQ from "../AdminChildPages/MasterFAQ/MasterFAQ";
-import AddPostApplied from "../MasterPages/AddPostApplied";
-import AddSubPostApplied from "../MasterPages/AddSubPostApplied";
-import AddDepartment from "../MasterPages/AddDepartment";
-import AddExamType from "../MasterPages/AddExamType";
-import AddDegree from "../MasterPages/AddDegree";
-import AddCategories from "../MasterPages/AddCategories";
-import Reports from "../Reports/Reports";
-import AdminList from "../SuperAdmin/AdminList";
-// import CreateRole from "../SuperAdmin/CreateRole";
-import GetRole from "../SuperAdmin/GetRole";
-import GetRights from "../SuperAdmin/GetRights";
-import AddSubjects from "../MasterPages/AddSubjects";
+import { BrowserRouter as Router, Link, useLocation } from "react-router-dom";
+
 import "./SideBar.css";
 import opening from "../../../assets/logos/book.png";
 import interview from "../../../assets/logos/interview.png";
@@ -22,122 +8,57 @@ import reports from "../../../assets/logos/report.png";
 import superadmin from "../../../assets/logos/setting.png";
 import list from "../../../assets/logos/list.png";
 import jobprofile from "../../../assets/logos/jobprofile.png";
-// import CreateRights from "../SuperAdmin/CreateRight";
+import Hamburgermenu from "../../../assets/logos/hamburger (1).png"
 
 function SideBar() {
-  // ---------------------------------------------------------------------------------------
-  const [selectedComponent, setSelectedComponent] = useState();
-  const showComponent = (componentName) => {
-    setSelectedComponent(componentName);
-  };
-  let componentToShow;
-  switch (selectedComponent) {
-    case "Component1":
-      componentToShow = <MasterCurrentOpening />;
-      break;
-    case "Component2":
-      componentToShow = <MasterJobProfile />;
-      break;
-    case "Component3":
-      componentToShow = <MasterInterviewSchedule />;
-      break;
-    case "Component4":
-      componentToShow = <MasterFAQ />;
-      break;
-    case "Component5":
-      componentToShow = <AddPostApplied />;
-      break;
-    case "Component6":
-      componentToShow = <AddSubPostApplied />;
-      break;
-    case "Component7":
-      componentToShow = <AddDepartment />;
-      break;
-    case "Component8":
-      componentToShow = <AddExamType />;
-      break;
-    case "Component9":
-      componentToShow = <AddDegree />;
-      break;
-    case "Component10":
-      componentToShow = <AddCategories />;
-      break;
-    case "Component11":
-      componentToShow = <Reports />;
-      break;
-    case "Component12":
-      componentToShow = <AdminList />;
-      break;
-    case "Component13":
-      componentToShow = <GetRole />;
-      break;
-    case "Component14":
-      componentToShow = <GetRights />;
-      break;
-    // case "Component15":
-    //   componentToShow = <CreateRole />;
-    //   break;
-    // case "Component17":
-    //   componentToShow = <CreateRights />;
-    //   break;
-    case "Component16":
-      componentToShow = <AddSubjects />;
-      break;
-    default:
-      componentToShow = <MasterCurrentOpening />;
-      break;
-  }
   return (
     <>
       <div>
-        <div class="container-fluid">
-          <div class="row flex-nowrap">
-            <div class="col-auto px-3 sidebar-set">
+        <div className="container-fluid">
+          <div className="row flex-nowrap">
+            <div className="col-auto px-3 sidebar-set">
               <div
                 id="sidebar"
-                class="collapse collapse-horizontal show border-end edit-collapse"
+                className="collapse collapse-horizontal show border-end edit-collapse"
               >
                 <div style={{ marginTop: "50px" }}>
                   <div
                     id="sidebar-nav"
-                    class="list-group border-0 rounded-0 text-sm-start min-vh-100"
+                    className="list-group border-0 rounded-0 text-sm-start min-vh-100"
                   >
-                    <a
-                      onClick={() => showComponent("Component1")}
-                      href="#"
-                      class="list-group-item border-end-0 d-inline-block text-truncate set-a"
-                      data-bs-parent="#sidebar"
+                    <Link
+                      to="/admin-dashboard/current-openings"
+                      className="list-group-item border-end-0 d-inline-block text-truncate set-a"
                     >
                       <img
                         src={opening}
-                        class="bi bi-bootstrap sidenav-icon"
-                      ></img>{" "}
-                      <span> Master Curent Opening</span>{" "}
-                    </a>
-                    <a
-                      onClick={() => showComponent("Component2")}
-                      href="#"
-                      class="list-group-item border-end-0 d-inline-block text-truncate set-a"
-                      data-bs-parent="#sidebar"
+                        className="bi bi-bootstrap sidenav-icon"
+                        alt="Opening Icon"
+                      />
+                      <span> Master Current Opening</span>
+                    </Link>
+                    <Link
+                      to="/admin-dashboard/job-profile"
+                      className="list-group-item border-end-0 d-inline-block text-truncate set-a"
                     >
                       <img
                         src={jobprofile}
-                        class="bi bi-film sidenav-icon"
-                      ></img>{" "}
+                        className="bi bi-bootstrap sidenav-icon"
+                        alt="Opening Icon"
+                      />{" "}
                       <span> Master Job Profile</span>
-                    </a>
-                    <a
-                      onClick={() => showComponent("Component3")}
-                      href="#"
-                      class="list-group-item border-end-0 d-inline-block text-truncate set-a"
-                      data-bs-parent="#sidebar"
+                    </Link>
+                    <Link
+                      to="/admin-dashboard/interview-schedule"
+                      className="list-group-item border-end-0 d-inline-block text-truncate set-a"
                     >
                       <img
                         src={interview}
-                        class="bi bi-heart sidenav-icon"
-                      ></img>{" "}
-                      <span> Master Interview Schedule</span>
-                    </a>
+                        className="bi bi-bootstrap sidenav-icon"
+                        alt="Opening Icon"
+                      />
+                      <span>Master Interview Schedule</span>
+                    </Link>
 
                     <div className="dropdown show">
                       <a
@@ -151,7 +72,7 @@ function SideBar() {
                       >
                         <img
                           src={reports}
-                          class="bi bi-heart sidenav-icon"
+                          className="bi bi-heart sidenav-icon"
                         ></img>{" "}
                         <span>Reports</span>
                       </a>
@@ -160,13 +81,12 @@ function SideBar() {
                         className="dropdown-menu master-dd"
                         aria-labelledby="dropdownMenuLink"
                       >
-                        <a
+                        <Link
+                          to="/admin-dashboard/reports"
                           className="dropdown-item "
-                          href="#"
-                          onClick={() => showComponent("Component11")}
                         >
-                          Applied Candidates
-                        </a>
+                          <span>Applied Candidates</span>
+                        </Link>
                       </div>
                     </div>
 
@@ -188,55 +108,54 @@ function SideBar() {
                         className="dropdown-menu master-dd"
                         aria-labelledby="dropdownMenuLink"
                       >
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component5")}
+                        <Link
+                          to="/admin-dashboard/add-post-applied"
+                          className="dropdown-item "
                         >
-                          Post Applied For
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component6")}
+                          <span>Post Applied For</span>
+                        </Link>
+
+                        <Link
+                          to="/admin-dashboard/add-sub-post-applied"
+                          className="dropdown-item "
                         >
-                          Sub Post Applied For
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component7")}
+                          <span>Sub Post Applied For</span>
+                        </Link>
+
+                        <Link
+                          to="/admin-dashboard/add-departments"
+                          className="dropdown-item "
                         >
-                          Departments
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component8")}
+                          <span> Departments</span>
+                        </Link>
+
+                        <Link
+                          to="/admin-dashboard/add-exam-type"
+                          className="dropdown-item "
                         >
-                          Exam Type
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component9")}
+                          <span>Exam Type</span>
+                        </Link>
+
+                        <Link
+                          to="/admin-dashboard/add-degree"
+                          className="dropdown-item "
                         >
-                          Degree (degree_types_master )
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component10")}
+                          <span> Degree (degree_types_master )</span>
+                        </Link>
+
+                        <Link
+                          to="/admin-dashboard/add-categories"
+                          className="dropdown-item "
                         >
-                          Categories
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component16")}
+                          <span> Categories</span>
+                        </Link>
+
+                        <Link
+                          to="/admin-dashboard/add-subjects"
+                          className="dropdown-item "
                         >
-                          Add Subjects
-                        </a>
+                          <span>Add Subjects</span>
+                        </Link>
                       </div>
                     </div>
                     <div className="dropdown show">
@@ -251,8 +170,8 @@ function SideBar() {
                       >
                         <img
                           src={superadmin}
-                          class="bi bi-heart sidenav-icon"
-                        ></img>{" "}
+                          className="bi bi-heart sidenav-icon"
+                        ></img>
                         <span>Super Admin</span>
                       </a>
 
@@ -260,74 +179,46 @@ function SideBar() {
                         className="dropdown-menu master-dd"
                         aria-labelledby="dropdownMenuLink"
                       >
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component12")}
+                        <Link
+                          to="/admin-dashboard/admin-list"
+                          className="dropdown-item "
                         >
-                          Admin List
-                        </a>
-                        {/* <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component15")}
-                        >
-                          Create Role
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component17")}
-                        >
-                          Create Rights
-                        </a> */}
+                          <span> Admin List</span>
+                        </Link>
 
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component14")}
+                        <Link
+                          to="/admin-dashboard/right-list"
+                          className="dropdown-item "
                         >
-                          Rights List
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => showComponent("Component13")}
+                          <span> Rights List</span>
+                        </Link>
+
+                        <Link
+                          to="/admin-dashboard/role-list"
+                          className="dropdown-item "
                         >
-                          Role List
-                        </a>
+                          <span>Role List</span>
+                        </Link>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <main class="col ps-md-2 pt-2">
-              <a
+
+            <main class="sidebar-icon">
+              <button
                 href="#"
                 data-bs-target="#sidebar"
                 data-bs-toggle="collapse"
-                class="border rounded-3 p-1 text-decoration-none"
+                className="border rounded-3 p-1 text-decoration-none"
               >
                 <i
                   style={{ color: "black" }}
-                  class="bi bi-list bi-lg py-2 p-1"
-                ></i>{" "}
-                ☰
-              </a>
-              <div class="page-header pt-3">
-                {/* ----------------breadcrumbs---------------- */}
-                {/* <div>
-              <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item"><a href="#">Library</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Data</li>
-  </ol>
-</nav>
-              </div> */}
-                {componentToShow}
-              </div>
+                  className="bi bi-list bi-lg py-2 p-1"
+                ></i>
+                <span>< img className="hamburger" src={Hamburgermenu}/></span>
+              </button>
             </main>
           </div>
         </div>

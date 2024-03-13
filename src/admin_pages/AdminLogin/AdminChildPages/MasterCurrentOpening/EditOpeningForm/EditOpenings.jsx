@@ -179,74 +179,7 @@ function EditOpenings({ profileId }) {
     }));
   };
 
-  // const handleCheckboxChange = (checkboxName) => {
-  //   switch (checkboxName) {
-  //     case "publish_to_vacancy":
-
-  //       setFormValues((prevValues) => ({...prevValues,publish_to_vacancy: !currentOpening,}));
-  //       setCurrentOpening((prev) => !prev);
-  //       console.log("currentOpening:", currentOpening);
-  //       setUpdateField((prevValues) => ({ ...prevValues, [fieldName]: value.toString(),}));
-  //       break;
-  //     case "publish_to_schedule_interview":
-
-  //       setFormValues((prevValues) => ({
-  //         ...prevValues,
-  //         publish_to_schedule_interview: !interviewSchedule,
-  //       }));
-  //       setInterviewSchedule((prev) => !prev);
-  //       console.log("interviewSchedule:", interviewSchedule);
-  //       setUpdateField((prevValues) => ({ ...prevValues, [fieldName]: value.toString(),}));
-  //       break;
-  //     case "publish_to_job_profile":
-
-  //       setFormValues((prevValues) => ({
-  //         ...prevValues,
-  //         publish_to_job_profile: !publishToJobProfile,
-  //       }));
-  //       setPublishToJobProfile((prev) => !prev);
-  //       setUpdateField((prevValues) => ({ ...prevValues, [fieldName]: value.toString(),}));
-  //       console.log("publishToJobProfile:", publishToJobProfile);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
-  // const handleCheckboxChange = (fieldName, value) => {
-  //   switch (fieldName) {
-  //     case "publish_to_vacancy":
-  //       setFormValues((prevValues) => ({
-  //         ...prevValues,
-  //         [fieldName]: !value,
-  //       }));
-  //       setCurrentOpening((prev) => !prev);
-  //       console.log("currentOpening:", !value);
-  //       setUpdateField((prevValues) => ({ ...prevValues, [fieldName]: !value.toString(),}));
-  //       break;
-  //     case "publish_to_schedule_interview":
-  //       setFormValues((prevValues) => ({
-  //         ...prevValues,
-  //         [fieldName]: !value,
-  //       }));
-  //       setInterviewSchedule((prev) => !prev);
-  //       console.log("interviewSchedule:", !value);
-  //       setUpdateField((prevValues) => ({ ...prevValues, [fieldName]: !value.toString(),}));
-  //       break;
-  //     case "publish_to_job_profile":
-  //       setFormValues((prevValues) => ({
-  //         ...prevValues,
-  //         [fieldName]: !value,
-  //       }));
-  //       setPublishToJobProfile((prev) => !prev);
-  //       console.log("publishToJobProfile:", !value);
-  //       setUpdateField((prevValues) => ({ ...prevValues, [fieldName]: !value.toString(),}));
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
+  
   const handleCheckboxChange = (fieldName, value) => {
     let updatedValue = !value; // Toggle the value
     setFormValues((prevValues) => ({
@@ -306,7 +239,8 @@ function EditOpenings({ profileId }) {
       accessToken = JSON.parse(accessToken);
       await adminApiService.updateJobProfile(accessToken.token, updatedData);
       setUpdateField({});
-      navigate("/adminpanel");
+      window.location.reload();
+      // navigate("/admin-dashboard");
     } catch (error) {
       console.error("Error updating job profile:", error);
     }
@@ -613,7 +547,7 @@ function EditOpenings({ profileId }) {
             </div>
 
             <div>
-              <button type="submit" id="add-job">
+              <button type="submit"  id="add-job">
                 SUBMIT
               </button>
             </div>

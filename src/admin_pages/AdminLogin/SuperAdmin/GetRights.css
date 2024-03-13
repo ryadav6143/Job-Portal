@@ -21,7 +21,7 @@
   /* Center modal on screen */
   padding: 20px;
   border: 1px solid #888;
-  max-width: 80%;
+  max-width: 30%;
   /* Set maximum width */
   overflow-y: auto;
   /* Enable vertical scrolling if needed */
@@ -105,14 +105,14 @@
 /* Modal content */
 .modal-content {
   position: absolute;
-  top: 50%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  max-width: 80%;
+  max-width: 30%;
   /* Set max-width to desired size */
   max-height: 80%;
   /* Set max-height to desired size */

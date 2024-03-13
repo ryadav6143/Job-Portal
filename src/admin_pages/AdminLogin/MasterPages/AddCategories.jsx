@@ -8,6 +8,7 @@ import { ADMIN_BASE_URL } from "../../../config/config";
 import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
+import adminApiService from "../../adminApiService";
 
 function AddCategories() {
   const [data, setData] = useState([]);
@@ -17,109 +18,78 @@ function AddCategories() {
   const [open, setOpen] = React.useState(false);
   // ------------------GET DATA FROM API--------------------------------
 
-  const getJobCategory = () => {
-    axios
-      .get(`${ADMIN_BASE_URL}/jobCategory`)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
+  const getJobCategory = async () => {
+    try {
+      const response = await adminApiService.getJobCategories();
+      setData(response.data);
+    }
+    catch {
+      console.error("Error fetching data:");
+    }
+  };
+
+  const handleAddCategory = async (e) => {
+    e.preventDefault();
+    try {
+
+      const response = await adminApiService.AddCategory(
+        {
+          category_name: newCategory,
+        },
+      );
+      setData([...data, response.data]);
+      setNewCategory("");
+      setOpen(false);
+      getJobCategory();
+    } catch (error) {
+      console.error("Error adding newCategory:", error);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        alert(error.response.data.message);
+      } else {
+        alert("An error occurred while adding newCategory.");
+      }
+    }
+  };
+
+
+
+  const handleDeleteCategory = (categoryId) => {
+    if (window.confirm("Are you sure you want to delete this category? This action cannot be undone.")) {
+      adminApiService.DeleteCategory(categoryId);
+      setData((prevData) => prevData.filter((category) => category.id !== categoryId));
+    } else {
+
+      console.log("Category deletion canceled.");
+    }
+  };
+
+  const handleUpdateCategory = async () => {
+    if (!selectedCategory) return;
+    const updateID = selectedCategory.id;
+    try {
+      const response = await adminApiService.updateCategory(updateID, {
+        category_name: selectedCategory.category_name,
       });
+      setData(
+        data.map((category) =>
+          category.id === selectedCategory.id ? response.data : category
+        )
+      );
+      setSelectedCategory(null);
+      setUpdateModalOpen(false);
+      getJobCategory();
+    } catch (error) {
+      console.error("Error updating category:", error);
+    }
   };
 
   useEffect(() => {
     getJobCategory();
   }, []);
-  // ------------------GET DATA FROM API--------------------------------
-
-  // ------------------POST DATA TO API--------------------------------
-  const handleAddCategory = () => {
-    // Send a POST request to the API to add a new category
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .post(
-        `${ADMIN_BASE_URL}/jobCategory`,
-        {
-          category_name: newCategory,
-        },
-        {
-          headers: {           
-            "access-token": accessToken.token 
-          },
-        }
-      )
-      .then((response) => {
-        // Update the state with the new data
-        setData([...data, response.data]);
-        // Clear the input field after successful submission
-        setNewCategory("");
-        setOpen(false);
-        getJobCategory();
-      })
-      .catch((error) => {
-        setNewCategory("");
-        console.error("Error adding category:", error);
-      });
-  };
-  
-
-  // ------------------POST DATA TO API--------------------------------
-
-  // ------------------DELETE DATA FROM API--------------------------------
-  const handleDeleteCategory = (categoryId) => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .delete(`${ADMIN_BASE_URL}/jobCategory/${categoryId}`, {
-        headers: {           
-          "access-token": accessToken.token 
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          // Remove the deleted category from the state
-          setData(data.filter((category) => category.id !== categoryId));
-        } else {
-          console.error("Error deleting category");
-        }
-      })
-      .catch((error) => console.error("Error deleting category:", error));
-  };
-  // ------------------DELETE DATA FROM API--------------------------------
-
-
-  const handleUpdateCategory = () => {
-    if (!selectedCategory) return;
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .put(
-        `${ADMIN_BASE_URL}/jobCategory/${selectedCategory.id}`,
-        {
-          category_name: selectedCategory.category_name,
-        },
-        {
-          headers: {           
-            "access-token": accessToken.token 
-          },
-        }
-      )
-      .then((response) => {
-        // Update the state with the updated data
-        setData(
-          data.map((category) =>
-            category.id === selectedCategory.id ? response.data : category
-          )
-        );
-        // Reset the selected category
-        setSelectedCategory(null);
-        setUpdateModalOpen(false);
-        getJobCategory();
-      })
-      .catch((error) => console.error("Error updating category:", error));
-  };
 
   const handleSelectCategoryForUpdate = (categoryId) => {
     const selectedCategory = data.find(
@@ -237,9 +207,9 @@ function AddCategories() {
       {/* -------------------------update form ---------------------------------------- */}
       <div className="master-table ">
         <p className="table-heading">CURRENT CATEGORIES AVAILABLE</p>
-        <div className="">
+        <div className="table-responsive fixe-table">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">S No.</th>
                 <th scope="col">NAME</th>
@@ -249,17 +219,29 @@ function AddCategories() {
             </thead>
             <tbody>
               {data.map((category, index) => (
-                <tr key={category.id}>
+                <tr key={category?.id}>
                   <td>{index + 1}</td>
-                  <td>{category.category_name}</td>
+                  <td>{category?.category_name}</td>
                   <td>
                     <button
                       id="table-btns"
-                      onClick={() => handleSelectCategoryForUpdate(category.id)}
+                      onClick={() => handleSelectCategoryForUpdate(category?.id)}
                     >
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
-                    <Modal
+                    
+                  </td>
+                  <td>
+                    <button
+                      id="table-btns"
+                      onClick={() => handleDeleteCategory(category.id)}
+                    >
+                      <img src={deletebtn} className="up-del-btn" alt="" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+              <Modal
                       open={updateModalOpen}
                       onClose={handleCloseUpdateModal}
                       aria-labelledby="modal-modal-title"
@@ -288,7 +270,7 @@ function AddCategories() {
                                 placeholder="Update Category"
                                 value={
                                   selectedCategory
-                                    ? selectedCategory.category_name
+                                    ? selectedCategory?.category_name
                                     : ""
                                 }
                                 onChange={(e) =>
@@ -310,17 +292,6 @@ function AddCategories() {
                         </FormControl>
                       </Box>
                     </Modal>
-                  </td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDeleteCategory(category.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
             </tbody>
           </table>
         </div>

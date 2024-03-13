@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
+
 import "./ScheduledAcademics.css";
 import adminApiService from "../../adminApiService";
 
@@ -125,14 +124,14 @@ function ScheduledAcademics() {
             </tbody>
           </table>
           <div className="pagination">
-            <Stack spacing={2}>
+            {/* <Stack spacing={2}>
               <Pagination
                 count={Math.ceil(ScheduledAcademicsTable.length / rowsPerPage)}
                 page={page}
                 onChange={handleChangePage}
                 shape="rounded"
               />
-            </Stack>
+            </Stack> */}
           </div>
         </div>
       </div>

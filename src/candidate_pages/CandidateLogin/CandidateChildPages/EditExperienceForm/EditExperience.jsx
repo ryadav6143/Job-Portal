@@ -24,13 +24,28 @@ function EditExperience() {
   const [updateNewField, setUpdateNewField] = useState({});
   const [educations, setEducations] = useState([]);
   const [data, setData] = useState(apiData);
+
+
+
+  const fetchPersonalData = async () => {
+    try {
+     // setLoading(true);
+      const fetchedData = await candidatesApiService.getCandidateById();
+      setData(fetchedData)
+      console.log("fetchedData", fetchedData); 
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
+
+
   const fetchData = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+
       setLoading(true);
       const fetchedData = await candidatesApiService.getExperienceById(
-        accessToken.token
+    
       );
       // console.log("check response",fetchedData)
       setEducations(fetchedData);
@@ -44,7 +59,7 @@ function EditExperience() {
 
 
   useEffect(() => {
- 
+    fetchPersonalData();
     fetchData();
   }, []);
 
@@ -142,15 +157,14 @@ function EditExperience() {
 
   const handleSaveChanges = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+ 
       console.log(updateField);
 
-      await candidatesApiService.updateCandidateExperience(accessToken.token, {
+      await candidatesApiService.updateCandidateExperience( {
         experiences: [updateField],
       });
       await candidatesApiService.updateCandidatePersonalInfo(
-        accessToken.token,
+
         updateNewField
       );
       setUpdateField({});
@@ -361,7 +375,7 @@ function EditExperience() {
                     placeholder="In Years"
                     name="total_academic_exp"
                     id=""
-                    value={data.total_academic_exp}
+                    value={data?.total_academic_exp|| ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "total_academic_exp",
@@ -384,7 +398,7 @@ function EditExperience() {
                     placeholder="In Years"
                     name="total_industrial_exp"
                     id=""
-                    value={data.total_industrial_exp}
+                    value={data?.total_industrial_exp|| ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "total_industrial_exp",
@@ -415,7 +429,7 @@ function EditExperience() {
                     placeholder=""
                     name="benefits_accommodation"
                     id=""
-                    value={data.benefits_accommodation}
+                    value={data?.benefits_accommodation|| ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "benefits_accommodation",
@@ -438,7 +452,7 @@ function EditExperience() {
                     placeholder=""
                     name="benefits_transportation"
                     id=""
-                    value={data.benefits_transportation}
+                    value={data?.benefits_transportation|| ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "benefits_transportation",
@@ -461,7 +475,7 @@ function EditExperience() {
                     placeholder=""
                     name="benefits_food"
                     id=""
-                    value={data.benefits_food}
+                    value={data?.benefits_food|| ""}
                     onChange={(e) =>
                       handleExperienceChange("benefits_food", e.target.value)
                     }
@@ -483,7 +497,7 @@ function EditExperience() {
                     placeholder=""
                     name="benefits_mediclaim"
                     id=""
-                    value={data.benefits_mediclaim}
+                    value={data?.benefits_mediclaim|| ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "benefits_mediclaim",
@@ -506,7 +520,7 @@ function EditExperience() {
                     placeholder=""
                     name="exp_benefits_others"
                     id=""
-                    value={data.benefits_others}
+                    value={data?.benefits_others || ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "exp_benefits_others",

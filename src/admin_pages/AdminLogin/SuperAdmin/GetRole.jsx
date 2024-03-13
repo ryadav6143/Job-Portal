@@ -15,7 +15,7 @@ function GetRole() {
     role_type_name: ""
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 2;
   const [modalData, setModalData] = useState({});
   const [updateField, setUpdateField] = useState({});
   useEffect(() => {
@@ -43,10 +43,7 @@ function GetRole() {
 
   const fetchRoleList = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-
-      const response = await adminApiService.getRoleList(accessToken.token);
+            const response = await adminApiService.getRoleList();
       console.log("role data>>>>>>", response);
       setRole(response);
     } catch (error) {
@@ -71,7 +68,7 @@ function GetRole() {
       let accessToken = localStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       const response = await adminApiService.deleteAdminRoleById(
-        accessToken.token,
+     
         roleID
       );
       console.log("Response after deleting role:", response);
@@ -90,10 +87,9 @@ function GetRole() {
         console.error("No admin selected for update.");
         return;
       }
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+
       const  updateData={ ...updateField,roletypes_id:modalData.id}
-      const updatedAdminList = await adminApiService.updateRoleById(accessToken.token,updateData);
+      const updatedAdminList = await adminApiService.updateRoleById(updateData);
       console.log("updatedAdminList",updatedAdminList);
       setModalData(updatedAdminList);
       closeModal(); // Close the modal after successful update
@@ -109,10 +105,9 @@ function GetRole() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+     
       const response = await adminApiService.createRole(
-        accessToken.token,
+     
         formData
       );
       console.log("Response after adding rights:", response);
@@ -248,13 +243,34 @@ function GetRole() {
               ))}
             </tbody>
           </table>
-          <Pagination>
+          {/* <Pagination>
             {Array.from({ length: Math.ceil(Role.length / itemsPerPage) }).map((_, index) => (
               <Pagination.Item key={index} active={index + 1 === currentPage} onClick={() => paginate(index + 1)}>
                 {index + 1}
               </Pagination.Item>
             ))}
-          </Pagination>
+          </Pagination> */}
+         <Pagination>
+  <Pagination.Prev
+    onClick={() =>
+      setCurrentPage((prevPage) =>
+        prevPage > 1 ? prevPage - 1 : prevPage
+      )
+    }
+  />
+  <Pagination.Item>{currentPage}</Pagination.Item>
+  <Pagination.Next
+    onClick={() =>
+      setCurrentPage((nextPage) =>
+        nextPage < Math.ceil(Role.length / itemsPerPage)
+          ? nextPage + 1
+          : nextPage
+      )
+    }
+  />
+</Pagination>
+
+
         </div>
       </div>
     </>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import "./MasterCurrentOpening.css";
-import Pagination from "@mui/material/Pagination";
+// import Pagination from "@mui/material/Pagination";
+import { Pagination } from "react-bootstrap";
 import Stack from "@mui/material/Stack";
 import adminApiService from "../../../../adminApiService";
 import EditOpenings from "../EditOpeningForm/EditOpenings";
@@ -16,30 +17,53 @@ function MasterTable() {
   const [loading, setLoading] = useState(true);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const [selectedProfileId, setSelectedProfileId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(2);
+
+
+
   useEffect(() => {
-    const fetchJobProfiles = async () => {
+    const fetchData = async () => {
       try {
-        const response = await adminApiService.getJobProfile();
-        console.log("response get", response.data);
-        setJobProfiles(response.data);
+        const response = await adminApiService.getAllInterview(currentPage, itemsPerPage);
+        console.log(response, "<<<<<<<check data")
+        setJobProfiles(response.jobprofileData);
 
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching job profiles:", error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
 
-    fetchJobProfiles();
-  }, []);
+    fetchData();
+  }, [currentPage, itemsPerPage]);
 
-  const handleNavigation = () => {
-    if (isAdminLoggedIn) {
-      navigate("/add-openings");
-    } else {
-      alert("Admin not logged in. Redirect to login.");
-    }
-  };
+
+
+  // useEffect(() => {
+  //   const fetchJobProfiles = async () => {
+  //     try {
+  //       const response = await adminApiService.getJobProfile();
+  //       console.log("response get", response.data);
+  //       setJobProfiles(response.data);
+
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching job profiles:", error);
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchJobProfiles();
+  // }, []);
+
+  // const handleNavigation = () => {
+  //   if (isAdminLoggedIn) {
+  //     navigate("/add-openings");
+  //   } else {
+  //     alert("Admin not logged in. Redirect to login.");
+  //   }
+  // };
 
   const handleEditForm = (profileId) => {
     // console.log("Job Profile ID:", profileId);
@@ -68,37 +92,75 @@ function MasterTable() {
   };
 
   //-----------------------------------Adding Table-------------------------------
-  const [page, setPage] = useState(1);
-  const rowsPerPage = 5;
+  // const [page, setPage] = useState(1);
+  // const itemsPerPage = 5;
 
-  const MasterTable = jobProfiles.map((profile) => ({
-    id: profile.id,
-    category: profile.job_category_master?.category_name || "N/A",
-    department: profile.department_master?.dept_name || "N/A",
-    applyLink: "/apply-now",
-    lastDate: profile.last_date_to_apply || "N/A",
-    isActive: profile.is_active ? "Yes" : "No",
-    listToCurrentOpening: profile.publish_to_vacancy ? "Yes" : "No",
-    listToInterviewSchedule: profile.publish_to_schedule_interview
-      ? "Yes"
-      : "No",
-  }));
+  // const MasterTable = jobProfiles.map((profile) => ({
+  //   id: profile.id,
+  //   category: profile.job_category_master?.category_name || "N/A",
+  //   department: profile.department_master?.dept_name || "N/A",
+  //   applyLink: "/apply-now",
+  //   lastDate: profile.last_date_to_apply || "N/A",
+  //   isActive: profile.is_active ? "Yes" : "No",
+  //   listToCurrentOpening: profile.publish_to_vacancy ? "Yes" : "No",
+  //   listToInterviewSchedule: profile.publish_to_schedule_interview
+  //     ? "Yes"
+  //     : "No",
+  // }));
   // console.log("MasterTable:", MasterTable);
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-  const startIndex = (page - 1) * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
+  // const startIndex = (page - 1) * itemsPerPage;
+  // const endIndex = startIndex + itemsPerPage;
   // Debugging line to check MasterTable array
 
-  const MasterData = MasterTable.slice(startIndex, endIndex);
+  // const MasterData = MasterTable.slice(startIndex, endIndex);
 
-  const [masterTable, setMasterTable] = useState([...MasterTable]);
+  // const [masterTable, setMasterTable] = useState([...MasterTable]);
   // const handleDelete = (index) => {
   //   const updatedMasterTable = [...masterTable];
-  //   updatedMasterTable.splice((page - 1) * rowsPerPage + index, 1);
+  //   updatedMasterTable.splice((page - 1) * itemsPerPage + index, 1);
   //   setMasterTable(updatedMasterTable);
   // };
+
+
+
+  // const itemsPerPage = 4;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+
+
+  // const MasterData = jobProfiles
+  //   .map((profile) => ({
+  //     id: profile.id,
+  //     category: profile.job_category_master?.category_name || "N/A",
+  //     department: profile.department_master?.dept_name || "N/A",
+  //     applyLink: "/apply-now",
+  //     lastDate: profile.last_date_to_apply || "N/A",
+  //     isActive: profile.is_active ? "Yes" : "No",
+  //     listToCurrentOpening: profile.publish_to_vacancy ? "Yes" : "No",
+  //     listToInterviewSchedule: profile.publish_to_schedule_interview
+  //       ? "Yes"
+  //       : "No",
+  //   }))
+  //   .slice(startIndex, endIndex);
+
+    const isNextPageAvailable = jobProfiles.length === itemsPerPage;
+
+    const nextPage = () => {
+      if (isNextPageAvailable) {
+        setCurrentPage(currentPage + 1);
+      }
+    };
+  
+    const prevPage = () => {
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    };
+
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
@@ -123,63 +185,58 @@ function MasterTable() {
 
       {!isEditFormOpen && (
         <div className="master-table ">
-          <p className="table-heading">Current Openings</p>
-          <div className="">
-            <div className="row">
-              <label>Non-Active:</label>
-              <div >
+          <p className="SCA-heading">Current Openings</p>
+  
+  <div className="row sizeofrow" style={{marginBottom:"-3%"}} >
+          <div className="col-md-3 countbox">
+          <label className="labelbox">Non-Active:</label>
                 <input
-                  className="set-input"
-                  type="number"
-                  placeholder="non-Active count"
-                  name=""
-                  id=""
-                ></input>
-              </div>
-
-              <div >
-              <label>schedule for interview:</label>
+                  className="form-control showcountbox"
+                  disabled
+                  // value={counts?.TotalJobTypesCount || ""}
+                />
+          </div>
+               <div className="col-md-3 countbox">
+               <label className="labelbox">Total Interview Schedule:</label>
                 <input
-                  className="set-input"
-                  type="number"
-                  placeholder="schedule for interview count"
-                  name=""
-                  id=""
-                ></input>
+                  className="form-control showcountbox"
+                  disabled
+                  // value={counts?.TotalVacancy || ""}
+                />
+                </div> 
+               
+               
               </div>
-            </div>
-
-            <table style={{marginTop:"30px"}} className="table table-responsive">
-              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
-                <tr>
-                  <th scope="col">Category</th>
-                  <th scope="col">Department</th>
-                  <th scope="col">Last Date</th>
-                  <th scope="col">isActive</th>
-                  <th scope="col">List to Current Opening</th>
-                  <th scope="col">List to Interview Schedule</th>
-                  <th scope="col">Edit</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {MasterData.map((data, index) => (
+            <div className="table-responsive fixe-table" style={{ marginTop: '30px' }}>
+              <table className="table ">
+                <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                  <tr>
+                    <th scope="col">Category</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Last Date</th>
+                    <th scope="col">isActive</th>
+                    <th scope="col">List to Current Opening</th>
+                    <th scope="col">List to Interview Schedule</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {jobProfiles.map((data, index) => (
                   <tr key={index}>
-                    <td>{data.category}</td>
-                    <td>{data.department}</td>
-                    <td>{formatDateForInput(data.lastDate)}</td>
-                    <td>{data.isActive}</td>
-                    <td>{data.listToCurrentOpening}</td>
-                    <td>{data.listToInterviewSchedule}</td>
+                    <td>{data.job_category_master?.category_name || "N/A"}</td>
+                    <td>{data.department_master?.dept_name || "N/A"}</td>
+                    <td>{formatDateForInput(data.last_date_to_apply) || "N/A"}</td>
+                    <td>{data.is_active ? "Yes" : "No"}</td>
+                    <td>{data.publish_to_vacancy ? "Yes" : "No"}</td>
+                    <td>{data.publish_to_schedule_interview ? "Yes" : "No"}</td>
                     <td>
                       <button
                         type="button"
-                       
                         id="table-btns"
                         onClick={() => handleEditForm(data.id)}
                       >
-                        
-                        <a> <img className="up-del-btn" src={updatebtn}  alt="" /></a>
+                        <img className="up-del-btn" src={updatebtn} alt="" />
                       </button>
                     </td>
                     <td>
@@ -188,24 +245,36 @@ function MasterTable() {
                         id="table-btns"
                         onClick={() => handleDelete(data.id)}
                       >
-                    <img className="up-del-btn" src={deletebtn}  alt="" />
+                        <img className="up-del-btn" src={deletebtn} alt="" />
                       </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </table>
-            <div className="pagination">
-              <Stack spacing={2}>
-                <Pagination
-                  count={Math.ceil(MasterTable.length / rowsPerPage)}
-                  page={page}
-                  onChange={handleChangePage}
-                  shape="rounded"
-                />
-              </Stack>
+              </table>
+              <div className="row">
+            <div className="col-md-4">
+              <label>Row:</label>
+              <input
+                className="set-row-input "
+                id="specific-input"
+                type="number"
+                value={itemsPerPage}
+                onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+              />
+            </div>
+            <div className="col-md-4"></div>
+            <div className="col-md-4">
+              <Pagination>
+                <Pagination.Prev onClick={prevPage} />
+                <Pagination.Item>{currentPage}</Pagination.Item>
+                <Pagination.Next onClick={nextPage} />
+              </Pagination>
             </div>
           </div>
+            </div>
+
+        
         </div>
       )}
       {isEditFormOpen && (

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Programs.css";
+
 import minusicon from "../../../../assets/logos/minus.png";
 import plusicon from "../../../../assets/logos/plus.png";
 
@@ -175,18 +175,15 @@ function Programs({ formValues, setFormValues }) {
             {/* Organized*/}
 
             <div>
-              <p className="HS-heading">
-                Organized
-               
-              </p>
+              <p className="HS-heading">Organized</p>
             </div>
 
             {formValues.seminar_organised.map((seminar_organised, index) => (
               <div key={index}>
-                 {index > 0 && <hr style={{ margin: '24px 0' }} />}
+                {index > 0 && <hr style={{ margin: "24px 0" }} />}
                 <div className="row" style={{ marginTop: "4px" }}>
                   <div>
-                  {formValues.seminar_organised.length > 1 && (
+                    {formValues.seminar_organised.length > 1 && (
                       <button
                         type="button"
                         onClick={() => handleRemoveSeminarOrganised(index)}
@@ -204,7 +201,6 @@ function Programs({ formValues, setFormValues }) {
                         <img src={plusicon} alt="Add seminar_organised" />
                       </button>
                     )}
-                    
                   </div>
                   <div className="col-md-4">
                     {/* Date From*/}
@@ -376,18 +372,15 @@ function Programs({ formValues, setFormValues }) {
             {/* Attended*/}
 
             <div>
-              <p className="HS-heading">
-                Attended
-                
-              </p>
+              <p className="HS-heading">Attended</p>
             </div>
 
             {formValues.seminar_attend.map((seminar_attend, index) => (
               <div key={index}>
-                  {index > 0 && <hr style={{ margin: '24px 0' }} />}
+                {index > 0 && <hr style={{ margin: "24px 0" }} />}
                 <div className="row" style={{ marginTop: "4px" }}>
                   <div>
-                  {formValues.seminar_attend.length > 1 && (
+                    {formValues.seminar_attend.length > 1 && (
                       <button
                         type="button"
                         onClick={() => handleRemoveSeminarAttend(index)}
@@ -405,7 +398,6 @@ function Programs({ formValues, setFormValues }) {
                         <img src={plusicon} alt="Add seminar_attend" />
                       </button>
                     )}
-                   
                   </div>
                   <div className="col-md-4">
                     {/* Date From*/}
@@ -495,14 +487,12 @@ function Programs({ formValues, setFormValues }) {
             {/* Other Information*/}
 
             <div>
-              <p className="HS-heading">Other Information
-             
-              </p>
+              <p className="HS-heading">Other Information</p>
             </div>
             {formValues.other_membership_info.map(
               (other_membership_info, index) => (
                 <div key={index}>
-                    {index > 0 && <hr style={{ margin: '24px 0' }} />}
+                  {index > 0 && <hr style={{ margin: "24px 0" }} />}
                   {/* <div className="row" style={{ marginTop: "-30px" }}>
           <div className="col-md-12">
   
@@ -526,26 +516,29 @@ function Programs({ formValues, setFormValues }) {
         </div> */}
 
                   <div className="row" style={{ marginTop: "4px" }}>
-                  <div>
-                  {formValues.other_membership_info.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveOtherMembershipInfo(index)}
-                        className="minus-buttons"
-                      >
-                        <img src={minusicon} alt="Remove other_membership_info" />
-                      </button>
-                    )}
-                    {index === formValues.other_membership_info.length - 1 && (
-                      <button
-                        type="button"
-                        onClick={handleAddother_membership_info}
-                        className="plus-buttons"
-                      >
-                        <img src={plusicon} alt="Add other_membership_info" />
-                      </button>
-                    )}
-                      
+                    <div>
+                      {formValues.other_membership_info.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveOtherMembershipInfo(index)}
+                          className="minus-buttons"
+                        >
+                          <img
+                            src={minusicon}
+                            alt="Remove other_membership_info"
+                          />
+                        </button>
+                      )}
+                      {index ===
+                        formValues.other_membership_info.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={handleAddother_membership_info}
+                          className="plus-buttons"
+                        >
+                          <img src={plusicon} alt="Add other_membership_info" />
+                        </button>
+                      )}
                     </div>
                     <div className="col-md-12">
                       {/* Membership of University/Institute/Industry Bodies*/}
@@ -578,17 +571,10 @@ function Programs({ formValues, setFormValues }) {
                   {/* Attended*/}
 
                   <div>
-                    <p className="HS-heading">
-                      Attended
-                  
-                    </p>
+                    <p className="HS-heading">Attended</p>
                   </div>
 
-
-                     
                   <div className="row" style={{ marginTop: "4px" }}>
-                  
-
                     <div className="col-md-4">
                       {/* Date From*/}
                       <div className="UD-form-section">

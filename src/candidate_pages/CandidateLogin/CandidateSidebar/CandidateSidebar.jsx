@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./CandidateSidebar.css";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,14 +11,8 @@ import {
   faUsers,
   faFile,
 } from "@fortawesome/free-solid-svg-icons";
-import EditPersonalDetails from "../CandidateChildPages/EditPersonalDetails/EditPersonalDetails";
-import EditQualificationForm from "../CandidateChildPages/EditQualificationForm/EditQualificationForm";
-import EditExperience from "../CandidateChildPages/EditExperienceForm/EditExperience";
-import EditResearchForm from "../CandidateChildPages/EditResearchForm/EditResearchForm";
-import EditProgramsForm from "../CandidateChildPages/EditProgramsForm/EditProgramsForm";
-import EditReference from "../CandidateChildPages/EditReference/EditReference";
-import Footers from "../../../components/Footer/Footers";
-import  {ApiDataProvider}  from "..//..//../context/CandidateContext";
+
+import { ApiDataProvider } from "..//..//../context/CandidateContext";
 function CandidateSidebar() {
   const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -60,37 +55,37 @@ function CandidateSidebar() {
     }
   };
 
-  const renderComponent = () => {
-    switch (screen) {
-      case 0:
-        return (<ApiDataProvider>
-          <EditPersonalDetails />;
-        </ApiDataProvider>)
-        break;
-      case 1:
-        return (<ApiDataProvider>
-        <EditQualificationForm />
-        </ApiDataProvider>);
-        break;
-      case 2:
-        return (<ApiDataProvider>
-          <EditExperience />
-          </ApiDataProvider>);
-        break;
-      case 3:
-        return <EditResearchForm />;
-        break;
-      case 4:
-        return <EditProgramsForm />;
-        break;
-      case 5:
-        return <EditReference />;
-        break;
-      default:
-        return <EditPersonalDetails />;
-        break;
-    }
-  };
+  // const renderComponent = () => {
+  //   switch (screen) {
+  //     // case 0:
+  //     //   return (<ApiDataProvider>
+  //     //     <EditPersonalDetails />;
+  //     //   </ApiDataProvider>)
+  //     //   break;
+  //     case 1:
+  //       return (<ApiDataProvider>
+  //       <EditQualificationForm />
+  //       </ApiDataProvider>);
+  //       break;
+  //     case 2:
+  //       return (<ApiDataProvider>
+  //         <EditExperience />
+  //         </ApiDataProvider>);
+  //       break;
+  //     case 3:
+  //       return <EditResearchForm />;
+  //       break;
+  //     case 4:
+  //       return <EditProgramsForm />;
+  //       break;
+  //     case 5:
+  //       return <EditReference />;
+  //       break;
+  //     // default:
+  //     //   return <EditPersonalDetails />;
+  //     //   break;
+  //   }
+  // };
 
   return (
     <>
@@ -104,7 +99,7 @@ function CandidateSidebar() {
 
       {/* ------------sidebar start----------------- */}
       <div className="row1">
-        <div className={`col-md-2 ${isOpen ? "isClose" : ""}`}>
+        <div className={`col-md-2 set-col-2 ${isOpen ? "isClose" : ""}`}>
           <div className="set-sidebar">
             <div>
               <nav>
@@ -114,7 +109,9 @@ function CandidateSidebar() {
                       className="set-menu-icon"
                       icon={faIdCardClip}
                     />
-                    <a onClick={() => setScreen(0)}>&nbsp; Personal Details</a>
+                    <Link to="/candidate-dashboard/personal-details">
+                      <span> &nbsp;Personal Details</span>
+                    </Link>
                   </li>
 
                   <li>
@@ -122,53 +119,60 @@ function CandidateSidebar() {
                       className="set-menu-icon"
                       icon={faBuildingColumns}
                     />
-                    <a onClick={() => setScreen(1)}>
-                      &nbsp; Academic Professional Qualifications
-                    </a>
+                    <Link to="/candidate-dashboard/personal-qualification">
+                      <span> &nbsp; Academic Professional Qualifications</span>
+                    </Link>
                   </li>
                   <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faBriefcase}
                     />
-                    <a onClick={() => setScreen(2)}>&nbsp; Experience</a>
+                    <Link to="/candidate-dashboard/personal-experience">
+                      <span> &nbsp; Experience</span>
+                    </Link>
                   </li>
                   <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faSearch}
                     />
-                    <a onClick={() => setScreen(3)}>&nbsp; Research Work</a>
+                    <Link to="/candidate-dashboard/personal-research">
+                      <span>&nbsp; Research Work</span>
+                    </Link>
                   </li>
                   <li>
-                    {" "}
                     <FontAwesomeIcon className="set-menu-icon" icon={faUsers} />
-                    <a onClick={() => setScreen(4)}>
-                      &nbsp; Seminars/Short Term Courses/Summer Schools/Winter
-                      Schools
-                    </a>
+                    <Link to="/candidate-dashboard/personal-programs ">
+                      <span>
+                        Seminars/Short Term Courses/Summer Schools/Winter
+                        Schools
+                      </span>
+                    </Link>
                   </li>
                   <li>
                     <FontAwesomeIcon className="set-menu-icon" icon={faFile} />
-                    <a onClick={() => setScreen(5)}>&nbsp; Reference/ Resume</a>
+                    <Link to="/candidate-dashboard/personal-reference">
+                      <span> &nbsp; Reference/ Resume</span>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/current-opening"
+                    <Link
+                      to="/candidate-dashboard/current-opening"
                       style={{ textDecoration: "underline" }}
                     >
                       Current Openings
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>
             </div>
           </div>
         </div>
-        <div className="col-md-10">{renderComponent()}</div>
+        {/* <div className="col-md-10">{renderComponent()}</div> */}
       </div>
       {/* --------------------sidebar end------------------------------ */}
-      <Footers></Footers>
+      {/* <Footers></Footers> */}
     </>
   );
 }

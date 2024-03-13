@@ -45,7 +45,7 @@
 }
 
 .set-input {
-  width: 99.5%;
+  width: 99.5% !important;
   height: 55px;
   border-radius: 45px;
   border: 1px solid;
@@ -77,13 +77,7 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .set-input {
-    width: 100% !important;
-  }
-
-  .set-dropdown {
-    width: 100% !important;
-  }
+  
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {

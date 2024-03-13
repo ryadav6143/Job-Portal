@@ -18,40 +18,33 @@ function AdminList() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
   const paginationRange = 0;
-  useEffect(() => {
-    const fetchAdminList = async () => {
-      try {
-        let accessToken = localStorage.getItem("Token");
-        accessToken = JSON.parse(accessToken);
- 
-        const response = await adminApiService.getAdminList(accessToken.token);
-        console.log("response>>>>",response)
-        setAdmins(response);
-      } catch (error) {
-        console.error("Error fetching admin list:", error.message);
-      }
-    };
+  const fetchAdminList = async () => {
+    try {
+      const response = await adminApiService.getAdminList();
+      console.log("response>>>>", response);
+      setAdmins(response);
+    } catch (error) {
+      console.error("Error fetching admin list:", error.message);
+    }
+  };
 
+  const fetchRoleList = async () => {
+    try {
+      const response = await adminApiService.getRoleList();
+      console.log("role data>>>>>>", response);
+      setRole(response);
+    } catch (error) {
+      console.error("Error fetching admin list:", error.message);
+    }
+  };
+
+  useEffect(() => {
     fetchAdminList();
   }, []);
 
-
   useEffect(() => {
-    const fetchRoleList = async () => {
-      try {
-        let accessToken = localStorage.getItem("Token");
-        accessToken = JSON.parse(accessToken);
-
-        const response = await adminApiService.getRoleList(accessToken.token);
-        console.log("role data>>>>>>", response);
-        setRole(response);
-      } catch (error) {
-        console.error("Error fetching admin list:", error.message);
-      }
-    }
     fetchRoleList();
   }, []);
-
 
   const handleOpenModal = (adminData) => {
     console.log(adminData,"adimin data")
@@ -72,13 +65,13 @@ function AdminList() {
         console.error("No admin selected for update.");
         return;
       }
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+  
       const  updateData={ ...updateField,admin_id:selectedAdmin.id}
-      const updatedAdminList = await adminApiService.updateAdminBySuperAdmin(accessToken.token,updateData);
+      const updatedAdminList = await adminApiService.updateAdminBySuperAdmin(updateData);
       console.log("updatedAdminList",updatedAdminList);
       setAdmins(updatedAdminList);
-
+      fetchAdminList();
+      fetchRoleList();
       handleCloseModal();
     } catch (error) {
       console.error("Error updating admin:", error.message);
@@ -90,13 +83,10 @@ function AdminList() {
     try {
       // Display confirmation dialog
       const confirmDelete = window.confirm("Are you sure you want to delete this admin?");
-      if (!confirmDelete) return; // If user cancels, do nothing
-  
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      
+      if (!confirmDelete) return; // If user cancels, do nothing 
+    
       // Call the delete API
-      await adminApiService.deleteAdminById(accessToken.token, adminId);
+      await adminApiService.deleteAdminById(adminId);
   
       // Update the local state after successful deletion
       setAdmins(admins.filter((admin) => admin.id !== adminId));
@@ -132,7 +122,8 @@ function AdminList() {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = admins.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentItems = admins.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = Array.isArray(admins) ? admins.slice(indexOfFirstItem, indexOfLastItem) : [];
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const nextPage = () => {
@@ -160,6 +151,7 @@ function AdminList() {
       <div>
         <form onSubmit={handleSubmit}>
           <img
+          style={{marginTop:"-30px", marginLeft:"30px"}}
             onClick={handleCloseModal}
             className="Examtype-close-btn"
             src={close}
@@ -218,8 +210,8 @@ function AdminList() {
     </FormControl>
   </Box>
         </Modal>
-      
-      <div className="admin-list">
+    
+      <div className="admin-list ">
         
         <p className="table-heading">List Of Admins</p>
         <table className="table table-responsive">

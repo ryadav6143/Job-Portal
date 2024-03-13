@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 import candidatesApiService from "../../../candidateService";
+import Footers from "../../../../components/Footer/Footers";
 function EditProgramsForm() {
   const [data, setData] = useState({
     candidate_seminar_organiseds: [],
@@ -22,13 +23,28 @@ function EditProgramsForm() {
   const [membershipInfoField, setMembershipInfoField] = useState({});
   const [seminarOrganisedField, setSeminarOrganisedField] = useState({});
   const [seminarAttendField, setSeminarAttendField] = useState({});
-  const fetchData = async () => {
+
+
+
+
+  const fetchCandidateData = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      // console.log("accessToken", accessToken.token);
+     // setLoading(true);
+      const fetchedData = await candidatesApiService.getCandidateById();
+      setData(fetchedData)
+      console.log("fetchedData", fetchedData); 
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
+
+
+
+  const fetchData = async () => {
+    try {   
       setLoading(true);
-      const fetchedData = await candidatesApiService.getCandidateSeminarPage(accessToken.token);
+      const fetchedData = await candidatesApiService.getCandidateSeminarPage();
       // console.log("response", fetchedData);
       setData(fetchedData);
       setLoading(false);
@@ -39,6 +55,7 @@ function EditProgramsForm() {
   };
   useEffect(() => {
     fetchData();
+    fetchCandidateData();
   }, []);
   useEffect(() => {
     const body = document.body;
@@ -195,30 +212,29 @@ function EditProgramsForm() {
   };
   const handleSaveChanges = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+
 
       if (membershipInfoField && hasChanges(membershipInfoField)) {
         await candidatesApiService.updateCandidateMembershipInfo(
-          accessToken.token,
+     
           { other_membership_info: [membershipInfoField] }
         );
       }
       if (updateField && hasChanges(updateField)) {
         await candidatesApiService.updateCandidatePersonalInfo(
-          accessToken.token,
+        
           updateField
         );
       }
       if (seminarOrganisedField && hasChanges(seminarOrganisedField)) {
         await candidatesApiService.updateCandidateSeminarOrganised(
-          accessToken.token,
+     
           { seminar_organised: [seminarOrganisedField] }
         );
       }
       if (seminarAttendField && hasChanges(seminarAttendField)) {
         await candidatesApiService.updateCandidateSeminarAttend(
-          accessToken.token,
+     
           { seminar_attend: [seminarAttendField] }
         );
       }
@@ -896,6 +912,7 @@ function EditProgramsForm() {
             </div>
           </div>
         </div>
+        {/* <Footers></Footers> */}
       </form>
     </>
   );

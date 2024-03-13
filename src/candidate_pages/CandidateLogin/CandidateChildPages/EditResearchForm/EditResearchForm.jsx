@@ -63,11 +63,9 @@ function EditResearchForm() {
 
     const fetchData = async () => {
       try {
-        let accessToken = localStorage.getItem('Token');
-        accessToken = JSON.parse(accessToken);
-        // console.log("accessToken", accessToken.token);
+ 
         setLoading(true);
-        const fetchedData = await candidatesApiService.getCandidateResearchWork(accessToken.token);
+        const fetchedData = await candidatesApiService.getCandidateResearchWork();
         // console.log("response", fetchedData);
         setData(fetchedData);
         setLoading(false);
@@ -301,19 +299,18 @@ const handleRemoveResearches = (index) => {
   };
   const handleSaveChanges = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
+  
       console.log(researchField);
       if (researchField && hasChanges(researchField)) {
         await candidatesApiService.updateCandidateResearches(
-          accessToken.token,
+      
           { researches: [researchField] }
         );
       }
 
       if (journalPublicationField && hasChanges(journalPublicationField)) {
         await candidatesApiService.updateCandidateJournalPublications(
-          accessToken.token,
+      
           { journals_publications: [journalPublicationField] }
         );
       }
@@ -323,19 +320,19 @@ const handleRemoveResearches = (index) => {
         hasChanges(conferancePublicationField)
       ) {
         await candidatesApiService.updateCandidateConferancePublications(
-          accessToken.token,
+       
           { conference_publications: [conferancePublicationField] }
         );
       }
 
       if (patentField && hasChanges(patentField)) {
-        await candidatesApiService.updateCandidatePatent(accessToken.token, {
+        await candidatesApiService.updateCandidatePatent( {
           patents: [patentField],
         });
       }
 
       if (copyrightField && hasChanges(copyrightField)) {
-        await candidatesApiService.updateCandidateCopyright(accessToken.token, {
+        await candidatesApiService.updateCandidateCopyright({
           copyrights: [copyrightField],
         });
       }
