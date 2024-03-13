@@ -19,7 +19,7 @@
   justify-content: space-around;
   font-family: 'Open Sans', sans-serif;
   position: relative;
-  z-index: 10;
+  z-index: 10000000;
 
 }
 
