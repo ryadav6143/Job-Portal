@@ -9,7 +9,7 @@ import axios from "axios";
 import { ADMIN_BASE_URL } from "../../../config/config";
 import { useNavigate } from "react-router-dom";
 
-function Login( handleLogin ) {
+function Login(handleLogin) {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +17,7 @@ function Login( handleLogin ) {
   const [errorMessage, setErrorMessage] = useState("")
   const [errorNotification, setErrorNotification] = useState({
     open: false,
-   
+
   });
 
   const navigate = useNavigate()
@@ -33,7 +33,7 @@ function Login( handleLogin ) {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${ADMIN_BASE_URL}/adminLogin/login_admin`,({
+      const response = await axios.post(`${ADMIN_BASE_URL}/adminLogin/login_admin`, ({
         login_field: username,
         password: password,
       }));
@@ -48,7 +48,7 @@ function Login( handleLogin ) {
         });
       } else {
         setError("Invalid credentials");
-       
+
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -113,11 +113,11 @@ function Login( handleLogin ) {
               Login
             </button>
             <Notification
-        open={errorNotification.open}
-        handleClose={handleCloseNotification}
-        alertMessage={errorNotification.message}
-        alertSeverity="error"
-      />
+              open={errorNotification.open}
+              handleClose={handleCloseNotification}
+              alertMessage={errorNotification.message}
+              alertSeverity="error"
+            />
           </div>
         </form>
         {error && <p>{error}</p>}
