@@ -8,7 +8,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
-
+import adminApiService from "../../adminApiService";
 function AddExamType() {
   const [data, setData] = useState([]);
   const [newExamType, setNewExamType] = useState("");
@@ -17,11 +17,14 @@ function AddExamType() {
   const [selectedExam, setSelectedExam] = useState(null);
   const [selectedExamId, setSelectedExamId] = useState(null);
   // -----------------------------FETCHING EXAMTYPEMASTER API----------
-  function examType() {
-    axios
-      .get(`${ADMIN_BASE_URL}/examTypeMaster`)
-      .then((response) => setData(response.data))
-      .catch((error) => console.error("Error fetching data:", error));
+  async function examType() {
+         try {
+        const response = await adminApiService.getExam();
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching exam types:", error);
+      }
+    
   }
   useEffect(() => {
     examType();
@@ -30,29 +33,44 @@ function AddExamType() {
 
   // --------------------ADD DATA TO API--------------------------------
 
+  // const handleAddExamType = () => {
+   
+  //   if (!newExamType.trim()) {
+  //     alert("Please enter a valid exam type.");
+  //     return;
+  //   }
+  //   let accessToken = localStorage.getItem("Token");
+  //   accessToken = JSON.parse(accessToken);
+  //   axios
+  //     .post(`${ADMIN_BASE_URL}/examTypeMaster`, {
+  //       exam_name: newExamType,
+  //     }, {
+  //       headers: {
+  //         'access-token': accessToken.token
+  //       }
+  //     })
+  //     .then((response) => {
+  //       setData([...data, response.data]);
+  //       setNewExamType("");
+  //       setOpen(false);
+  //     })
+  //     .catch((error) => console.error("Error adding category:", error));
+  // };
+
   const handleAddExamType = () => {
-    // Ensure newExamType is not empty before making the request
     if (!newExamType.trim()) {
       alert("Please enter a valid exam type.");
       return;
-    }
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .post(`${ADMIN_BASE_URL}/examTypeMaster`, {
-        exam_name: newExamType,
-      }, {
-        headers: {
-          'access-token': accessToken.token
-        }
-      })
+    }  
+    adminApiService.addExamType(newExamType)
       .then((response) => {
-        setData([...data, response.data]);
+        setData([...data, response]);
         setNewExamType("");
         setOpen(false);
       })
-      .catch((error) => console.error("Error adding category:", error));
+      .catch((error) => console.error(error));
   };
+
   // --------------------ADD DATA TO API--------------------------------
 
   // --------------------DELETE DATA FROM API--------------------------------
@@ -72,33 +90,51 @@ function AddExamType() {
       })
       .catch((error) => console.error("Error deleting exam type:", error));
   };
-  const handleUpdateExamType = () => {
+  // const handleUpdateExamType = () => {
+  //   if (!selectedExam) return;
+  //   let accessToken = localStorage.getItem("Token");
+  //   accessToken = JSON.parse(accessToken);
+  //   axios
+  //     .put(`${ADMIN_BASE_URL}/examTypeMaster`, {
+  //       examtypes_id: selectedExam.id,
+  //       exam_name: selectedExam.exam_name,
+  //     }, {
+  //       headers: {
+  //         'access-token': accessToken.token
+  //       }
+  //     })
+  //     .then((response) => {       
+  //       setData(
+  //         data.map((exam) =>
+  //           exam.id === selectedExam.id ? response.data : exam
+  //         )
+  //       );       
+  //       setSelectedExam(null);
+  //       setUpdateModalOpen(false);
+  //       examType();
+  //     })
+  //     .catch((error) => console.error("Error updating exam type:", error));
+  // };
+
+
+  const handleUpdateExamType = async () => {
     if (!selectedExam) return;
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .put(`${ADMIN_BASE_URL}/examTypeMaster`, {
-        examtypes_id: selectedExam.id,
-        exam_name: selectedExam.exam_name,
-      }, {
-        headers: {
-          'access-token': accessToken.token
-        }
-      })
-      .then((response) => {
-        // Update the state with the updated data
+     
+  await adminApiService.updateExamType(selectedExam)
+      .then((response) => {       
         setData(
           data.map((exam) =>
-            exam.id === selectedExam.id ? response.data : exam
+            exam.id === selectedExam.id ? response : exam
           )
-        );
-        // Reset the selected exam
+        );       
         setSelectedExam(null);
         setUpdateModalOpen(false);
         examType();
       })
-      .catch((error) => console.error("Error updating exam type:", error));
+      .catch((error) => console.error(error));
   };
+
+
 
   const handleSelectExamForUpdate = (examId) => {
     const selectedExam = data.find((exam) => exam.id === examId);

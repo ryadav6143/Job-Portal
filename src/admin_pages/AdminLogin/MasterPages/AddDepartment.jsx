@@ -18,7 +18,7 @@ function AddDepartment() {
     fetchData();
   }, []);
 
-  const fetchData =async () => {
+  const fetchData = async () => {
     try {
       const response = await adminApiService.getDepartments();
       setDepartments(response.data);
@@ -26,88 +26,55 @@ function AddDepartment() {
       console.error("Error fetching data:", error);
     }
   };
-  const handleAdd = () => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
 
-    axios.post(`${ADMIN_BASE_URL}/departmentMaster`, { dept_name: newDepartmentName }, {
-      headers: {
-        'access-token': accessToken.token
-      }
-    })
-    .then((response) => {
-      setDepartments([...departments, response.data]);
-      // console.log("Department added successfully!");
+  const handleAdd = async () => {
+      try {
+      const response = await adminApiService.addDepartment(newDepartmentName);
+      setDepartments([...departments, response]);
       setNewDepartmentName("");
       setOpen(false);
-    })
-    .catch((error) => {
-      console.error("Error adding department:", error);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   };
-  const handleDelete = (id) => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .delete(`${ADMIN_BASE_URL}/departmentMaster/${id}`, {
-        headers: {
-          'access-token': accessToken.token
-        }
-      })
-      .then((response) => {
+
+  const handleDelete = async (id) => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this department?");
+    
+    if (isConfirmed) {  
+      try {
+        await adminApiService.deleteDepartment(id);
         setDepartments(departments.filter((dept) => dept.id !== id));
-        // console.log("Department deleted successfully!");
         setNewDepartmentName("");
-      })
-      .catch((error) => {
-        console.error("Error deleting department:", error);
-      });
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
- 
- 
-
-
+  const handleSave = async () => { 
+      try {
+      const response = await adminApiService.updateDepartment(newDepartmentName, editingDepartmentId);
+      setDepartments(
+        departments.map((dept) =>
+          dept.id === editingDepartmentId
+            ? { ...dept, dept_name: response.dept_name }
+            : dept
+        )
+      );
+      setNewDepartmentName("");
+      setEditingDepartmentId(null);
+      setUpdateModalOpen(false);
+      fetchData(); 
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleUpdate = (id, currentDeptName) => {
     setEditingDepartmentId(id);
     setNewDepartmentName(currentDeptName);
     setUpdateModalOpen(true);
   };
-
-  const handleSave = () => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .put(`${ADMIN_BASE_URL}/departmentMaster`, {
-        dept_name: newDepartmentName,
-        department_id: editingDepartmentId
-      }, {
-        headers: {
-          'access-token': accessToken.token
-        }
-      })
-      .then((response) => {
-        setDepartments(
-          departments.map((dept) =>
-            dept.id === editingDepartmentId
-              ? { ...dept, dept_name: response.data.dept_name }
-              : dept
-          )
-        );
-        // console.log("Department updated successfully!");
-        setNewDepartmentName("");
-        setEditingDepartmentId(null);
-        setUpdateModalOpen(false);
-        fetchData(); // Refetch data after update
-      })
-      .catch((error) => {
-        console.error("Error updating department:", error);
-      });
-  };
-
-
-
-
 
   const handleClose = () => {
     setEditingDepartmentId(null);
@@ -139,7 +106,7 @@ function AddDepartment() {
     <>
       <div className="container-1">
         <div className="new-opening-btn">
-          <button  onClick={() => setOpen(true)}>Add Department</button>
+          <button onClick={() => setOpen(true)}>Add Department</button>
         </div>
         <Modal
           open={open}
@@ -196,7 +163,7 @@ function AddDepartment() {
         <p className="SCA-heading">CURRENT DEPARTMENT AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
-          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Department Name</th>
@@ -205,9 +172,9 @@ function AddDepartment() {
               </tr>
             </thead>
             <tbody>
-              {departments.map((department,index) => (
+              {departments.map((department, index) => (
                 <tr key={department.id}>
-                  <td>{index+1}</td>
+                  <td>{index + 1}</td>
                   <td>{department.dept_name}</td>
                   <td>
                     <button
@@ -218,7 +185,7 @@ function AddDepartment() {
                     >
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
-                 
+
                   </td>
                   <td>
                     <button
@@ -231,45 +198,45 @@ function AddDepartment() {
                 </tr>
               ))}
 
-<Modal
-                      open={updateModalOpen}
-                      onClose={handleClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
+              <Modal
+                open={updateModalOpen}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <form>
+                    <img
+                      onClick={handleClose}
+                      className="Ad-close-btn"
+                      src={close}
+                    />
+                    <label
+                      className="AC-SetLabel-Name"
+                      htmlFor="departmentName"
                     >
-                      <Box sx={style}>
-                        <form>
-                          <img
-                            onClick={handleClose}
-                            className="Ad-close-btn"
-                            src={close}
-                          />
-                          <label
-                            className="AC-SetLabel-Name"
-                            htmlFor="departmentName"
-                          >
-                            Update Department
-                          </label>
-                          <input
-                            type="text"
-                            id="departmentName"
-                            placeholder="Add Your Departments"
-                            value={newDepartmentName}
-                            onChange={(e) =>
-                              setNewDepartmentName(e.target.value)
-                            }
-                          />
+                      Update Department
+                    </label>
+                    <input
+                      type="text"
+                      id="departmentName"
+                      placeholder="Add Your Departments"
+                      value={newDepartmentName}
+                      onChange={(e) =>
+                        setNewDepartmentName(e.target.value)
+                      }
+                    />
 
-                          <button
-                            type="button"
-                            onClick={handleSave}
-                            id="set-btn"
-                          >
-                            UPDATE
-                          </button>
-                        </form>
-                      </Box>
-                    </Modal>
+                    <button
+                      type="button"
+                      onClick={handleSave}
+                      id="set-btn"
+                    >
+                      UPDATE
+                    </button>
+                  </form>
+                </Box>
+              </Modal>
             </tbody>
           </table>
         </div>

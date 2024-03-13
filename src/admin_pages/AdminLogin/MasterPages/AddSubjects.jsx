@@ -8,6 +8,7 @@ import { ADMIN_BASE_URL } from "../../../config/config";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import close from "../../../assets/logos/close.png";
+import adminApiService from "../../adminApiService";
 
 function AddSubjects() {
   const [subject, setSubject] = useState([]);
@@ -24,111 +25,94 @@ function AddSubjects() {
   const [newCategory, setNewCategory] = useState("");
 
   useEffect(() => {
-fetchData();
-   
-  }, []); 
+    fetchData();
+
+  }, []);
+
+
+  // const fetchData = () => {
+  //   axios
+  //     .get(`${ADMIN_BASE_URL}/subjectMaster`)
+  //     .then((response) => {        
+  //       setSubject(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // };
 
 
   const fetchData = () => {
-    axios
-      .get(`${ADMIN_BASE_URL}/subjectMaster`)
-      .then((response) => {
-        // Update state with the fetched data
-        setSubject(response.data);
+   adminApiService.fetchSubjects()
+      .then((data) => {
+       
+        setSubject(data);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error(error);
       });
   };
 
-  const handleAdd = () => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .post(`${ADMIN_BASE_URL}/subjectMaster`, {
-        subject_name: newSubject,
-        subject_type: newSubjectType,
-        description: newSubjectDescription,
-      },
-      {
-        headers: {           
-          "access-token": accessToken.token 
-        },
-      })
+  const handleAdd = () => {    
+   adminApiService.addSubject(newSubject, newSubjectType, newSubjectDescription)
       .then((response) => {
-        // Update state after successful addition
-        setSubject([...subject, response.data]);
-        // console.log("Department added successfully!");
-        // Clear the input field
+        setSubject([...subject, response]);
         setNewSubjectName("");
         setOpen(false);
         fetchData();
       })
       .catch((error) => {
-        console.error("Error adding department:", error);
+        console.error(error);
       });
   };
+
+
+
   const handleUpdate = (subject) => {
-    
+
     setEditingSubject(subject);
     setNewSubjectName(subject.subject_name);
     setNewSubjectType(subject.subject_type);
     setNewSubjectDescription(subject.description);
     setUpdateModalOpen(true);
   };
-  const handleSubmitUpdate = () => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .put(`${ADMIN_BASE_URL}/subjectMaster`, {
-        subject_name: newSubject,
-        subjects_id:editingSubject.id,
-        subject_type: newSubjectType,
-        description: newSubjectDescription,
-      }
-      ,
-      {
-        headers: {           
-          "access-token": accessToken.token 
-        },
-      }
-      )
-      .then((response) => {
-        const updatedSubjects = subject.map((subj) =>
-          subj.id === editingSubject.id ? response.data : subj
-        );
-        setSubject(updatedSubjects);
-        setEditingSubject(null);
-        setNewSubjectName("");
-        setNewSubjectType("");
-        setNewSubjectDescription("");
-        setUpdateModalOpen(false);
-        fetchData()
-        // console.log("Subject updated successfully!");
-      })
-      .catch((error) => {
-        console.error("Error updating subject:", error);
-      });
-  };
 
-  const handleDelete = (id) => {
-    let accessToken = localStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .delete(`${ADMIN_BASE_URL}/subjectMaster/${id}`,{
-        headers: {           
-          "access-token": accessToken.token 
-        },
-      })
-      .then((response) => {
-        // Update state after successful deletion
+
+
+  const handleSubmitUpdate = () => {
+ adminApiService.updateSubject(newSubject, editingSubject, newSubjectType, newSubjectDescription)
+    .then((response) => {
+      const updatedSubjects = subject.map((subj) =>
+        subj.id === editingSubject.id ? response : subj
+      );
+      setSubject(updatedSubjects);
+      setEditingSubject(null);
+      setNewSubjectName("");
+      setNewSubjectType("");
+      setNewSubjectDescription("");
+      setUpdateModalOpen(false);
+      fetchData();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+
+const handleDelete = (id) => {
+  const isConfirmed = window.confirm("Are you sure you want to delete this subject?");
+  if (isConfirmed) {
+   adminApiService.deleteSubject(id)
+      .then(() => {
         setSubject(subject.filter((subj) => subj.id !== id));
-        // console.log("Subject deleted successfully!");
       })
       .catch((error) => {
-        console.error("Error deleting Subject:", error);
+        console.error(error);
       });
-  };
+  }
+};
+
+
 
   const handleSelectPostForUpdate = (categoryId) => {
     setSelectedCategoryId(categoryId);
@@ -169,7 +153,7 @@ fetchData();
     <>
       <div className="container-1">
         <div className="new-opening-btn">
-          <button  onClick={() => setOpen(true)}>Add Subject</button>
+          <button onClick={() => setOpen(true)}>Add Subject</button>
         </div>
         <Modal
           open={open}
@@ -234,7 +218,7 @@ fetchData();
         <p className="SCA-heading">CURRENT SUBJECTS AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
-          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">SUBJECT NAME</th>
@@ -244,9 +228,9 @@ fetchData();
               </tr>
             </thead>
             <tbody>
-              {subject.map((subject,index) => (
+              {subject.map((subject, index) => (
                 <tr key={subject.id}>
-                   <td>{index + 1}</td>
+                  <td>{index + 1}</td>
                   <td>{subject.subject_name}</td>
                   <td>{subject.subject_type}</td>
                   <td>
@@ -256,7 +240,7 @@ fetchData();
                     >
                       <img src={updatebtn} className="up-del-btn" alt="" />
                     </button>
-                   
+
                   </td>
                   <td>
                     <button
@@ -268,74 +252,74 @@ fetchData();
                   </td>
                 </tr>
               ))}
-               <Modal
-                      open={updateModalOpen}
-                      onClose={handleCloseUpdateModal}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
+              <Modal
+                open={updateModalOpen}
+                onClose={handleCloseUpdateModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <form>
+                    <img
+                      onClick={handleCloseUpdateModal}
+                      className="postapplied-close-btn"
+                      src={close}
+                    />
+                    <label
+                      className="AC-SetLabel-Name"
+                      htmlFor="SubjectName"
                     >
-                      <Box sx={style}>
-                        <form>
-                          <img
-                            onClick={handleCloseUpdateModal}
-                            className="postapplied-close-btn"
-                            src={close}
-                          />
-                          <label
-                            className="AC-SetLabel-Name"
-                            htmlFor="SubjectName"
-                          >
-                            Add Subject Name
-                          </label>
-                          <input
-                            type="text"
-                            id="SubjectName"
-                            className="Ac-set-input"
-                            placeholder="Add Your Subject Name"
-                            value={newSubject}
-                            onChange={(e) => setNewSubjectName(e.target.value)}
-                          />
-                          <label
-                            className="AC-SetLabel-Name"
-                            htmlFor="SubjectType"
-                          >
-                            Add Subject Type
-                          </label>
-                          <input
-                            type="text"
-                            id="SubjectType"
-                            className="Ac-set-input"
-                            placeholder="Add Subject Type"
-                            value={newSubjectType}
-                            onChange={(e) => setNewSubjectType(e.target.value)}
-                          />
-                          <label
-                            className="AC-SetLabel-Name"
-                            htmlFor="SubjectDescription"
-                          >
-                            Add Subject Description
-                          </label>
-                          <input
-                            type="text"
-                            className="Ac-set-input"
-                            id="SubjectDescription"
-                            placeholder="Add Description"
-                            value={newSubjectDescription}
-                            onChange={(e) =>
-                              setNewSubjectDescription(e.target.value)
-                            }
-                          />
+                      Add Subject Name
+                    </label>
+                    <input
+                      type="text"
+                      id="SubjectName"
+                      className="Ac-set-input"
+                      placeholder="Add Your Subject Name"
+                      value={newSubject}
+                      onChange={(e) => setNewSubjectName(e.target.value)}
+                    />
+                    <label
+                      className="AC-SetLabel-Name"
+                      htmlFor="SubjectType"
+                    >
+                      Add Subject Type
+                    </label>
+                    <input
+                      type="text"
+                      id="SubjectType"
+                      className="Ac-set-input"
+                      placeholder="Add Subject Type"
+                      value={newSubjectType}
+                      onChange={(e) => setNewSubjectType(e.target.value)}
+                    />
+                    <label
+                      className="AC-SetLabel-Name"
+                      htmlFor="SubjectDescription"
+                    >
+                      Add Subject Description
+                    </label>
+                    <input
+                      type="text"
+                      className="Ac-set-input"
+                      id="SubjectDescription"
+                      placeholder="Add Description"
+                      value={newSubjectDescription}
+                      onChange={(e) =>
+                        setNewSubjectDescription(e.target.value)
+                      }
+                    />
 
-                          <button
-                            id="set-btn"
-                            type="button"
-                            onClick={handleSubmitUpdate}
-                          >
-                            UPDATE
-                          </button>
-                        </form>
-                      </Box>
-                    </Modal>
+                    <button
+                      id="set-btn"
+                      type="button"
+                      onClick={handleSubmitUpdate}
+                    >
+                      UPDATE
+                    </button>
+                  </form>
+                </Box>
+              </Modal>
             </tbody>
           </table>
         </div>

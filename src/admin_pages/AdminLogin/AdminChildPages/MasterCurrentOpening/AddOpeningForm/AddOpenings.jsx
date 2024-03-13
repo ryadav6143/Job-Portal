@@ -167,18 +167,18 @@ function AddOpenings() {
     }
   };
 
-  const handleSetAllCheckboxes = (value) => {
-    setAddToCurrentOpening(value);
-    setAddToInterviewSchedule(value);
-    setPublishToJobProfile(value);
+  // const handleSetAllCheckboxes = (value) => {
+  //   setAddToCurrentOpening(value);
+  //   setAddToInterviewSchedule(value);
+  //   setPublishToJobProfile(value);
 
-    setFormValues({
-      ...formValues,
-      publish_to_vacancy: value,
-      publish_to_schedule_interview: value,
-      publish_to_job_profile: value,
-    });
-  };
+  //   setFormValues({
+  //     ...formValues,
+  //     publish_to_vacancy: value,
+  //     publish_to_schedule_interview: value,
+  //     publish_to_job_profile: value,
+  //   });
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -193,12 +193,12 @@ function AddOpenings() {
     // console.log('Sending request with formValues:', formValues);
 
     try {
-    
-   
+
+
       const response = await adminApiService.postJobProfile(
-        
+
         formValues
-      );      
+      );
       console.log("Job profile submitted successfully!", response.data);
       // alert("submit form Successfully");
       setNotificationMessage("Job profile submitted successfully!");
@@ -462,11 +462,11 @@ function AddOpenings() {
                   SUBMIT
                 </button>
                 <Notification
-        open={showNotification}
-        handleClose={() => setShowNotification(false)}
-        alertMessage={notificationMessage}
-        alertSeverity={notificationSeverity}
-      />
+                  open={showNotification}
+                  handleClose={() => setShowNotification(false)}
+                  alertMessage={notificationMessage}
+                  alertSeverity={notificationSeverity}
+                />
               </div>
             </form>
           </div>
