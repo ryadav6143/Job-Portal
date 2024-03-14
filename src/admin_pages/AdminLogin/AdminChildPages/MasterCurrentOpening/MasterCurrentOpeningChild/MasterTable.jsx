@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 // import "./MasterCurrentOpening.css";
 // import Pagination from "@mui/material/Pagination";
 import { Pagination } from "react-bootstrap";
@@ -269,6 +269,7 @@ function MasterTable() {
                         onClick={() => handleEditForm(data.id)}
                       >
                         <img className="up-del-btn" src={updatebtn} alt="" />
+                        <Link to="/admin-dashboard/current-openings/edit-openings">{" "}Add New Openings</Link>
                       </button>
                     </td>
                     <td>

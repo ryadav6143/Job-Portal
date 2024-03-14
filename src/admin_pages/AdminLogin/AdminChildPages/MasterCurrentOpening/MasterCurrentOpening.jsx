@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Outlet, Link, } from "react-router-dom";
 import "./MasterCurrentOpening.css";
 
 
-import AddOpenings from "./AddOpeningForm/AddOpenings";
-import MasterTable from "./MasterCurrentOpeningChild/MasterTable";
+// import AddOpenings from "./AddOpeningForm/AddOpenings";
+// import MasterTable from "./MasterCurrentOpeningChild/MasterTable";
 
 function MasterCurrentOpening() {
   // const navigate = useNavigate();
@@ -106,21 +106,21 @@ function MasterCurrentOpening() {
   // };
   const [selectedComponent, setSelectedComponent] = useState();
   const [isButtonVisible, setIsButtonVisible] = useState(true);
-  const showComponent = (componentName) => {
-    setSelectedComponent(componentName);
-    setIsButtonVisible(false);
-  };
-  let componentToShow;
+  // const showComponent = (componentName) => {
+  //   setSelectedComponent(componentName);
+  //   setIsButtonVisible(false);
+  // };
+  // let componentToShow;
 
-  switch (selectedComponent) {
-    case "Component1":
-      componentToShow = <AddOpenings />;
-      break;
+  // switch (selectedComponent) {
+  //   case "Component1":
+  //     // componentToShow = <AddOpenings />;
+  //     break;
 
-    default:
-      componentToShow = <MasterTable />;
-    // componentToShow = <AddOpenings />;
-  }
+  //   default:
+  //     // componentToShow = <MasterTable />;
+  //   // componentToShow = <AddOpenings />;
+  // }
 
   return (
     <>
@@ -133,16 +133,17 @@ function MasterCurrentOpening() {
       {isButtonVisible && (
         <div className="new-opening-btn">
           <button>
-            <a onClick={() => showComponent("Component1")}>Add New Openings</a>
-            {/* <Link to="/admin-dashboard/current-openings/add-openings">
+            {/* <a onClick={() => showComponent("Component1")}>Add New Openings</a> */}
+            <Link to="/admin-dashboard/current-openings/add-openings">
               {" "}
               Add New Openings
-            </Link> */}
+            </Link>
           </button>
         </div>
       )}
       <div className="center-container">
-        {componentToShow}
+      <Outlet />  
+        {/* {componentToShow} */}
         {/* <div className="master-table ">
           <p className="table-heading">Current Openings</p>
           <div className="">
