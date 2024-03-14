@@ -14,7 +14,7 @@ function Logout({ handleLogout }) {
           <button
             onClick={() => {
               handleLogout();
-              localStorage.setItem("isLoggedIn", false);
+              sessionStorage.setItem("isLoggedIn", false);
             }}
           >
             LOGOUT

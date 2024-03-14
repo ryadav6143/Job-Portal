@@ -11,11 +11,11 @@ function Academictable() {
 
   const [jobProfiles, setJobProfiles] = useState([]);
 
-  let tokenFromLocalStorage = localStorage.getItem("Token");
-  tokenFromLocalStorage = JSON.parse(tokenFromLocalStorage);
-  const accessToken = tokenFromLocalStorage?.token || "";
+  let tokenFromsessionStorage = sessionStorage.getItem("Token");
+  tokenFromsessionStorage = JSON.parse(tokenFromsessionStorage);
+  const accessToken = tokenFromsessionStorage?.token || "";
 
-  const [token, setToken] = useState(tokenFromLocalStorage || "");
+  const [token, setToken] = useState(tokenFromsessionStorage || "");
 
   useEffect(() => {
     const fetchJobProfiles = async () => {
@@ -114,14 +114,14 @@ function Academictable() {
                   <td>{data.post}</td>
                   <td>{data.department}</td>
                   <td>
-                    {!tokenFromLocalStorage && (
+                    {!tokenFromsessionStorage && (
                       <button className="apn-btn">
                         {" "}
                         <a href={data.applyLink}>APPLY NOW</a>
                       </button>
                     )}
 
-                    {tokenFromLocalStorage && (
+                    {tokenFromsessionStorage && (
                       <button
                         type="button"
                         className="apn-btn"

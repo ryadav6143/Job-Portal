@@ -10,7 +10,7 @@ useEffect(()=>{
 },[])
 
 const checkToken = ()=>{
-let Token = localStorage.getItem("Token")
+let Token = sessionStorage.getItem("Token")
 console.log("token",Token)
 let candidate="";
 if(Token && Token.length){
@@ -29,7 +29,7 @@ if(Token && Token.length){
         return
     }else if (Token&&!candidate){
         setStatus(false);
-        localStorage.removeItem("Token");
+        sessionStorage.removeItem("Token");
         navigate(`/`)
         return
     }

@@ -571,7 +571,7 @@ const adminApiService = {
 };
 
 function getAccessToken() {
-  const accessToken = localStorage.getItem("Token");
+  const accessToken = sessionStorage.getItem("Token");
   return accessToken ? JSON.parse(accessToken).token : null;
 }
 export default adminApiService;

@@ -8,8 +8,8 @@ function CandidatePanel() {
   useEffect(() => {
     // Check login status on component mount
     const checkLoginStatus = () => {
-    // const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-    const token = localStorage.getItem("Token");
+    // const loggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+    const token = sessionStorage.getItem("Token");
     const loggedIn = token ? true : false;
     setIsLoggedIn(loggedIn);
     };
@@ -22,7 +22,7 @@ function CandidatePanel() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem("Token");
+    sessionStorage.removeItem("Token");
   };
 
   return (

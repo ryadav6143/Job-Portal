@@ -23,7 +23,7 @@ function Login(handleLogin) {
   const navigate = useNavigate()
   useEffect(() => {
     // Check for token in local storage upon component mount
-    const token = localStorage.getItem("Token");
+    const token = sessionStorage.getItem("Token");
     if (token) {
       // handleLogin();
     }
@@ -39,7 +39,7 @@ function Login(handleLogin) {
       }));
       console.log(response)
       if (response.data.token) {
-        localStorage.setItem("Token", JSON.stringify(response.data));
+        sessionStorage.setItem("Token", JSON.stringify(response.data));
         // handleLogin();
         navigate(`/admin-dashboard`)
         setErrorNotification({

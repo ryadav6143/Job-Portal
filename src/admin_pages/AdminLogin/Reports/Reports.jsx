@@ -51,7 +51,7 @@ function Reports() {
 
   // const fetchData = async () => {
   //   try {
-  //     let accessToken = localStorage.getItem("Token");
+  //     let accessToken = sessionStorage.getItem("Token");
   //     accessToken = JSON.parse(accessToken);
   //     const response = await axios.get(`http://192.168.1.8:8090/v1/api/candidateAppliedPost/getCandidatesAppliedPostSorted?page=${currentPage}&limit=${itemsPerPage}&category=${selectedCategory}&appliedPost=${selectedPost}`,
   //       {
@@ -285,7 +285,7 @@ function Reports() {
                 </div>
               )}
               <div className="col-md-2 flex-container">
-                <label className="labelCount">Total No. of Candidates:</label>
+                <label className="labelCount">Total Applications Received:</label>
                 <input
                   className="form-control totalCount"
                   disabled
@@ -355,7 +355,7 @@ function Reports() {
               </div>
               {/* </div> */}
 
-              <div className="table-responsive ">
+              <div className="table-responsive">
                 <table className="table">
                   <thead className="thead">
                     <tr>

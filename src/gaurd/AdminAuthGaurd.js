@@ -10,7 +10,7 @@ const AdminAuthGaurd=({component})=>{
     },[component]);
 
     const checkToken=()=>{
-        let Token = localStorage.getItem("Token");
+        let Token = sessionStorage.getItem("Token");
         let admin="";
         if(Token&&Token.length){
             Token=JSON.parse(Token);
@@ -23,12 +23,12 @@ const AdminAuthGaurd=({component})=>{
         if(!Token){
             setStatus(false);
             navigate(`/`)
-            localStorage.removeItem("Token");
+            sessionStorage.removeItem("Token");
         return
         }else if(Token&&!admin){
             setStatus(false)
             navigate(`/`)
-            localStorage.removeItem("Token");
+            sessionStorage.removeItem("Token");
             return
         }
         else{

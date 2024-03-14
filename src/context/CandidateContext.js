@@ -13,7 +13,7 @@ export const ApiDataProvider = ({ children }) => {
   };
   const fetchCandidateData = async () => {
     try {
-      let accessToken = localStorage.getItem("Token");
+      let accessToken = sessionStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       // setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateById(

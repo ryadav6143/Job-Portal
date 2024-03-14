@@ -65,7 +65,7 @@ function GetRole() {
 
   const handleDelete = async (roleID) => {
     try {
-      let accessToken = localStorage.getItem("Token");
+      let accessToken = sessionStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       const response = await adminApiService.deleteAdminRoleById(
      
@@ -227,7 +227,7 @@ function GetRole() {
             <tbody>
               {currentItems.map((data, index) => (
                 <tr key={index}>
-                  <td>{ index +1}</td>
+              <td>{indexOfFirstItem + index + 1}</td> 
                   <td>{data.role_type_name}</td>
                   <td>
                     <button id="table-btns" onClick={() => openModal(data)}>

@@ -214,8 +214,9 @@ function AdminList() {
       <div className="admin-list ">
         
         <p className="SCA-heading">List Of Admins</p>
+        <div className="table-responsive fixe-table">
         <table className="table table-responsive">
-          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
             <tr>
               <th scope="col">Sr. No.</th>
               <th scope="col">NAME</th>
@@ -251,7 +252,7 @@ function AdminList() {
             ))}
           </tbody>
         </table>
-
+        </div>
         <Pagination>
           <Pagination.Prev onClick={prevPage} />
           {Array.from({

@@ -7,7 +7,7 @@ function Adminpanel() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     const checkLoginStatus = () => {
-      const token = localStorage.getItem("Token");
+      const token = sessionStorage.getItem("Token");
       const loggedIn = token ? true : false;
       setIsLoggedIn(loggedIn);
     };
@@ -20,7 +20,7 @@ function Adminpanel() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem("Token");
+    sessionStorage.removeItem("Token");
   };
   return (
     <div className="admin-container1">

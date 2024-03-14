@@ -58,7 +58,7 @@ function EditPersonalDetails({ token }) {
     apiService
       .getCountries()
       .then((response) => {
-        // setCountries(response.data.data);
+        setCountries(response.data.data);
       })
       .catch((error) => {
         console.error("Error fetching countries:", error);
@@ -745,20 +745,7 @@ function EditPersonalDetails({ token }) {
                           {countryData.country}
                         </option>
                       ))}
-                    </select>
-                    {/* <select
-                    name="country"
-                    className="UD-set-dropdown"
-                    value={formValues.country}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((country, index) => (
-              <option key={index} value={country}>
-                {country}
-              </option>
-            ))}
-                  </select> */}
+                    </select>                  
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                   <span className="error-message">{errors.country}</span>
@@ -766,23 +753,7 @@ function EditPersonalDetails({ token }) {
               </div>
 
               <div className="row">
-                {/* <div className="col-md-4">
-                  
-                  <div className="UD-form-section">
-                    <label className="UD-SetLabel-Name">
-                      <span>*</span>State
-                    </label>
-                    <select name="state_province" className="UD-set-dropdown">
-                      <option value="">Select State</option>
-                      <option value=""> State</option>
-                      <option value=""> State</option>
-                      <option value=""> State</option>
-                    </select>
-                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                  </div>
-                  <span className="error-message">{errors.state_province}</span>
-                </div> */}
-
+               
                 <div className="col-md-4">
                   {/* *Current Job City */}
                   <div className="UD-form-section">

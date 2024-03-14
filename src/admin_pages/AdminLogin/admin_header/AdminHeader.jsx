@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 function AdminHeader() {
     const navigate = useNavigate()
     const handleLogout=()=>{
-        localStorage.removeItem('Token')
-        localStorage.removeItem("isLoggedIn");
+        sessionStorage.removeItem('Token')
+        sessionStorage.removeItem("isLoggedIn");
         navigate('/admin-login')
     }
 

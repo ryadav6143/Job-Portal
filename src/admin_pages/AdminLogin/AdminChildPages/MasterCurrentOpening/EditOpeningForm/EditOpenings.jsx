@@ -235,7 +235,7 @@ function EditOpenings({ profileId }) {
       };
       // console.log(updateField);
       // await adminApiService.updateJobProfile(updatedData);
-      let accessToken = localStorage.getItem("Token");
+      let accessToken = sessionStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       await adminApiService.updateJobProfile(accessToken.token, updatedData);
       setUpdateField({});
