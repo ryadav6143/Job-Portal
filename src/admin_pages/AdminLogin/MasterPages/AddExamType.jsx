@@ -39,7 +39,7 @@ function AddExamType() {
   //     alert("Please enter a valid exam type.");
   //     return;
   //   }
-  //   let accessToken = localStorage.getItem("Token");
+  //   let accessToken = sessionStorage.getItem("Token");
   //   accessToken = JSON.parse(accessToken);
   //   axios
   //     .post(`${ADMIN_BASE_URL}/examTypeMaster`, {
@@ -75,7 +75,7 @@ function AddExamType() {
 
   // --------------------DELETE DATA FROM API--------------------------------
   const handleDeleteExamType = (examId) => {
-    let accessToken = localStorage.getItem("Token");
+    let accessToken = sessionStorage.getItem("Token");
     accessToken = JSON.parse(accessToken);
     axios
       .delete(`${ADMIN_BASE_URL}/examTypeMaster/${examId}`, {
@@ -92,7 +92,7 @@ function AddExamType() {
   };
   // const handleUpdateExamType = () => {
   //   if (!selectedExam) return;
-  //   let accessToken = localStorage.getItem("Token");
+  //   let accessToken = sessionStorage.getItem("Token");
   //   accessToken = JSON.parse(accessToken);
   //   axios
   //     .put(`${ADMIN_BASE_URL}/examTypeMaster`, {

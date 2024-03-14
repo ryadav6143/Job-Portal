@@ -205,7 +205,6 @@ function MasterInterviewSchedule() {
                     {formatDateForInput(data.schedule_interview_date_3)}
                   </td>
                   <td>
-
                     <label className="switch">
                       <input
                         type="checkbox"

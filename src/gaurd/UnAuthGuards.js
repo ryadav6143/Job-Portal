@@ -9,10 +9,10 @@ const UnAuthGuards=({component})=>{
         console.log("unAuthGaurd")
     const checkToken = async()=>{
         try{
-            const Token = localStorage.getItem("Token")
+            const Token = sessionStorage.getItem("Token")
          
             if(!Token){
-                localStorage.removeItem("Token")
+                sessionStorage.removeItem("Token")
                 // navigate(`/`)
             }
             // else{

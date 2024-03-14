@@ -566,12 +566,31 @@ const adminApiService = {
       console.error("Error fetching data:", error);
       throw error;
     }
+  },
+  changeJobProfileIsActive: async (jobProfileId, isActive) => {
+    try {
+      const response = await axios.put(`${ADMIN_BASE_URL}/jobProfileMaster/changeJobProfileIsActive`,
+        {
+          jobprofile_id: jobProfileId,
+          is_active: isActive
+        }, 
+        {
+        headers: {
+          'access-token': getAccessToken(),
+        },
+      });
+      console.log('Response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error:', error.response.data);
+      throw error;
+    }
   }
 
 };
 
 function getAccessToken() {
-  const accessToken = localStorage.getItem("Token");
+  const accessToken = sessionStorage.getItem("Token");
   return accessToken ? JSON.parse(accessToken).token : null;
 }
 export default adminApiService;

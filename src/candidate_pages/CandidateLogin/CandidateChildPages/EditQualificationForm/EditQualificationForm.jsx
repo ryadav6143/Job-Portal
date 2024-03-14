@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./EditQualificationForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import candidatesApiService from "../../../candidateService";
 import Notification from "../../../../Notification/Notification";
@@ -1965,38 +1965,11 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
             </div>
 
             <div className="row" style={{ marginTop: "-20px" }}>
-              <div className="col-md-4">
-                {/* Gate*/}
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Gate
-                  </label>
-                  <select
-                    className="UD-set-dropdown"
-                    id="gateDropdown"
-                    name="exam_name"
-                    value={
-                      gateData ? (gateData.year_end !== "" ? "Yes" : "No") : ""
-                    }
-                    onChange={(e) =>
-                      handleFieldChange(
-                        "year_end",
-                        e.target.value === "Yes" ? "" : "",
-                        "gateData"
-                      )
-                    }
-                  >
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="col-md-4">
+            <div className="col-md-4">
                 {/* Year*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Year
+                    <span></span>Gate Year
                   </label>
                   <input
                     className="UD-set-input"
@@ -2009,12 +1982,39 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                   ></input>
                 </div>
               </div>
-
-              <div className="col-md-4">
-                {/* NET*/}
-                <div className="UD-form-section">
+              {/* <div className="col-md-4"> */}
+                {/* Gate*/}
+                <div className="UD-form-section"style={{ display: 'none' }}>
                   <label className="UD-SetLabel-Name">
-                    <span></span>NET
+                    <span></span>Gate
+                  </label>
+                  <select
+                    className="UD-set-dropdown"
+                    id="gateDropdown"
+                    name="exam_name"
+                    value={
+                      gateData ? (gateData.year_end !== "" ? "Yes" : "No") : ""
+                    }
+                    
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "year_end",
+                        e.target.value === "Yes" ? "" : "",
+                        "gateData"
+                      )
+                    }
+                  >
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              {/* </div>             */}
+
+              {/* <div className="col-md-4"> */}
+                {/* NET*/}
+                <div className="UD-form-section" style={{ display: 'none' }}>
+                  <label className="UD-SetLabel-Name">
+                    <span></span>NET 
                   </label>
 
                   <select
@@ -2036,15 +2036,15 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     <option value="No">No</option>
                   </select>
                 </div>
-              </div>
-            </div>
+              {/* </div> */}
+          
 
-            <div className="row">
+            {/* <div className="row"> */}
               <div className="col-md-4">
                 {/* Year*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
-                    <span></span>Year
+                    <span></span> NET Year
                   </label>
                   <input
                     className="UD-set-input"
@@ -2059,6 +2059,10 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
               </div>
             </div>
 
+
+
+
+            </div>
             <div>
               <button
                 className="savebtn"
@@ -2069,7 +2073,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
               </button>
             </div>
           </div>
-        </div>
+        {/* </div> */}
       </form>
       <Notification
         open={notificationOpen}

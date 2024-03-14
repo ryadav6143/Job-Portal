@@ -29,7 +29,7 @@ function EditReference() {
   const [updateField, setUpdateField] = useState({})
   const fetchData = async () => {
     try {
-      let accessToken = localStorage.getItem('Token');
+      let accessToken = sessionStorage.getItem('Token');
       accessToken = JSON.parse(accessToken);
       // console.log("accessToken", accessToken.token);
       const fetchedData = await candidatesApiService.getCandidateById(accessToken.token);

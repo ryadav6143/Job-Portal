@@ -16,7 +16,7 @@ function CandidateLogin({ handleLogin }) {
     open: false,
   });
   const removeToken = (() => {
-    localStorage.removeItem("Token");
+    sessionStorage.removeItem("Token");
   })();
   const navigate = useNavigate();
   const handleFormSubmit = async (e) => {
@@ -34,7 +34,7 @@ function CandidateLogin({ handleLogin }) {
       if (response && response.data && response.data.token) {
         // handleLogin();
         navigate(`/candidate-dashboard/personal-details`);
-        localStorage.setItem("Token", JSON.stringify(response.data));
+        sessionStorage.setItem("Token", JSON.stringify(response.data));
 
         setErrorNotification({
           open: true,
