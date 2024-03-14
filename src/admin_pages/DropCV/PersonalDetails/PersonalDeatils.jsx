@@ -306,7 +306,8 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     <span>*</span>Date of Birth:
                   </label>
                   <input
-                    className="date-input"
+                    // className="date-input"
+                    className="set-input"
                     type="date"
                     placeholder="MM/DD/YYYY"
                     name="dob"
@@ -314,7 +315,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     onChange={handleInputChange}
                     value={formData.dob}
                     required
-                  ></input>
+                  >
+                  </input>
+              {/* <FontAwesomeIcon  icon={faCalendar} /> */}
                 </div>
                 <span className="error-message">{errors.dob}</span>
               </div>

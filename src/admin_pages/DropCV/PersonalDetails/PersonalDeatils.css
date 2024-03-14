@@ -73,7 +73,7 @@
   color: rgba(160, 163, 189, 1);
 }
 
-.date-input{
+/* .date-input{
   width: 99.5% !important;
   height: 55px;
   border-radius: 45px;
@@ -84,12 +84,21 @@
   color: #6f6c90;
   font-size: 15px;
   padding: 14px;
+} */
+
+
+
+input[type="date"]
+{
+    display:block;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    min-height: 1.2em;
+    width: 100%;
+    text-align: left;
 }
 
-.date-input[type="date"] {
-  width: 100% !important;
- 
-}
+
 
 @media only screen and (max-width: 767px) {
   .set-input {
