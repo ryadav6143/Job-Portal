@@ -216,8 +216,7 @@ function AddOpenings() {
   const [showForm, setShowForm] = useState(true); // State to toggle form visibility
 
   const handleFormCloseAndShowTable = () => {
-    setShowForm(false); // Close the form
-    window.location.reload();
+    navigate('/admin-dashboard/current-openings');
   };
 
   return (

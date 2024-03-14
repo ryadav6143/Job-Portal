@@ -134,7 +134,7 @@ function MasterCurrentOpening() {
         <div className="new-opening-btn">
           <button>
             {/* <a onClick={() => showComponent("Component1")}>Add New Openings</a> */}
-            <Link to="/admin-dashboard/current-openings/add-openings">
+            <Link className="new-opening-btn-link" to="/admin-dashboard/current-openings/add-openings">
               {" "}
               Add New Openings
             </Link>

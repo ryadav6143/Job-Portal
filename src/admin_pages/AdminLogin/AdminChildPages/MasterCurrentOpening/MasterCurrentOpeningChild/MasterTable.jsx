@@ -268,8 +268,8 @@ function MasterTable() {
                         id="table-btns"
                         onClick={() => handleEditForm(data.id)}
                       >
-                        <img className="up-del-btn" src={updatebtn} alt="" />
-                        <Link to="/admin-dashboard/current-openings/edit-openings">{" "}Add New Openings</Link>
+                        
+                        <Link to="/admin-dashboard/current-openings/edit-openings">{" "}<img className="up-del-btn" src={updatebtn} alt="" /></Link>
                       </button>
                     </td>
                     <td>
