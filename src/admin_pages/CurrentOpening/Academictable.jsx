@@ -94,6 +94,13 @@ function Academictable() {
   };
   return (
     <>
+      <Notification
+        open={showNotification}
+        handleClose={() => setShowNotification(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
+
       <div className="academic-table">
         <p className="table-heading">ACADEMICS</p>
         <div className="table-responsive">
@@ -130,12 +137,6 @@ function Academictable() {
                         APPLY NOW
                       </button>
                     )}
-                    <Notification
-                      open={showNotification}
-                      handleClose={() => setShowNotification(false)}
-                      alertMessage={notificationMessage}
-                      alertSeverity={notificationSeverity}
-                    />
                   </td>
 
                   <td>{formatDateForInput(data.lastDate)}</td>

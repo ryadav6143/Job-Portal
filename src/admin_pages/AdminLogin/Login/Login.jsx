@@ -69,6 +69,12 @@ function Login(handleLogin) {
   };
   return (
     <>
+        <Notification
+              open={errorNotification.open}
+              handleClose={handleCloseNotification}
+              alertMessage={errorNotification.message}
+              alertSeverity="error"
+            />
       <div className="login-container">
         <div className="logo-section">
           <img className="logo-img" src={logo} alt="Logo" />
@@ -112,12 +118,7 @@ function Login(handleLogin) {
             <button type="submit" className="login-button">
               Login
             </button>
-            <Notification
-              open={errorNotification.open}
-              handleClose={handleCloseNotification}
-              alertMessage={errorNotification.message}
-              alertSeverity="error"
-            />
+        
           </div>
         </form>
         {error && <p>{error}</p>}

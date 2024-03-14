@@ -222,11 +222,7 @@ function Reports() {
     try {
       setLoadingPopup(true);
 
-
-      const response = await adminApiService.getCandidatesById(
-
-        candidateId
-      );
+      const response = await adminApiService.getCandidatesById(candidateId);
 
       console.log("getCandidatesById>>", response.data);
       setSelectedCandidate(response.data);
@@ -275,6 +271,12 @@ function Reports() {
 
   return (
     <>
+      <Notification
+        open={showNotification}
+        handleClose={() => setShowNotification(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div style={{ marginTop: "50px" }}>
         <div className="center-container">
           <div className="admin-list">
@@ -285,7 +287,9 @@ function Reports() {
                 </div>
               )}
               <div className="col-md-2 flex-container">
-                <label className="labelCount">Total Applications Received:</label>
+                <label className="labelCount">
+                  Total Applications Received:
+                </label>
                 <input
                   className="form-control totalCount"
                   disabled
@@ -355,7 +359,7 @@ function Reports() {
               </div>
               {/* </div> */}
 
-              <div >
+              <div>
                 <table className="table ">
                   <thead className="thead">
                     <tr>
@@ -379,7 +383,9 @@ function Reports() {
                         <td>{candidate.candidate.first_name || "-"}</td>
                         <td>{candidate.candidate.email || "-"}</td>
                         <td>{candidate.candidate.contact_1 || "-"}</td>
-                        <td>{candidate.applied_post_master?.post_name || "-"}</td>
+                        <td>
+                          {candidate.applied_post_master?.post_name || "-"}
+                        </td>
                         <td>
                           {candidate.job_category_master?.category_name || "-"}
                         </td>
@@ -396,18 +402,13 @@ function Reports() {
 
                         <td
                           variant="primary"
-                          onClick={() => handleResumeClick(candidate.candidate_id)}
+                          onClick={() =>
+                            handleResumeClick(candidate.candidate_id)
+                          }
                           style={{ cursor: "pointer" }}
                         >
                           <img src={viewbtn} className="up-del-btn" alt="" />
                         </td>
-
-                        <Notification
-                          open={showNotification}
-                          handleClose={() => setShowNotification(false)}
-                          alertMessage={notificationMessage}
-                          alertSeverity={notificationSeverity}
-                        />
                       </tr>
                     ))}
                   </tbody>
@@ -420,7 +421,9 @@ function Reports() {
                       id="specific-input"
                       type="number"
                       value={itemsPerPage}
-                      onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                      onChange={(e) =>
+                        setItemsPerPage(parseInt(e.target.value))
+                      }
                     />
                   </div>
                   <div className="col-md-4"></div>
@@ -433,8 +436,6 @@ function Reports() {
                   </div>
                 </div>
               </div>
-
-
 
               {/* <Dialog open={selectedCandidate !== null} onClose={() => setSelectedCandidate(null)}> */}
               <Dialog open={!!selectedCandidate}>

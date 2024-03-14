@@ -16,7 +16,7 @@ function SideBar() {
       <div>
         <div className="container-fluid">
           <div className="row flex-nowrap">
-            <div className="col-auto px-3 sidebar-set">
+            <div className="col-auto  sidebar-set">
               <div
                 id="sidebar"
                 className="collapse collapse-horizontal show border-end edit-collapse"
