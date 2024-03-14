@@ -4,7 +4,6 @@ import "./EditOpenings.css";
 import adminApiService from "../../../../adminApiService";
 import { useParams } from "react-router-dom";
 import Notification from "../../../../../Notification/Notification";
-
 import close from "../../../../../assets/logos/close.png";
 function EditOpenings({ profileId }) {
   const navigate = useNavigate();
