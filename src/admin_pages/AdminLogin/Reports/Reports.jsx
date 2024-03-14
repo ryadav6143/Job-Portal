@@ -355,8 +355,8 @@ function Reports() {
               </div>
               {/* </div> */}
 
-              <div className="table-responsive ">
-                <table className="table">
+              <div >
+                <table className="table ">
                   <thead className="thead">
                     <tr>
                       <th>S.No.</th>

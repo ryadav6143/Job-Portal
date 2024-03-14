@@ -306,7 +306,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     <span>*</span>Date of Birth:
                   </label>
                   <input
-                    className="set-input"
+                    className="date-input"
                     type="date"
                     placeholder="MM/DD/YYYY"
                     name="dob"

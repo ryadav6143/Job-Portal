@@ -302,70 +302,70 @@ const handleRemoveResearches = (index) => {
     // Implement your logic to check whether the field is defined and has changes
     return field && Object.keys(field).length > 0;
   };
-  const handleSaveChanges = async () => {
-    try {
-      let changesMade = false;
-      console.log(researchField);
-      if (researchField && hasChanges(researchField)) {
-        await candidatesApiService.updateCandidateResearches(
-      
-          { researches: [researchField] }
-        );
-        showNotification("Research field updated successfully", "success");
-        changesMade = true;
-      }
+    const handleSaveChanges = async () => {
+      try {
+        let changesMade = false;
+        console.log(researchField);
+        if (researchField && hasChanges(researchField)) {
+          await candidatesApiService.updateCandidateResearches(
+        
+            { researches: [researchField] }
+          );
+          showNotification("Research field updated successfully", "success");
+          changesMade = true;
+        }
 
-      if (journalPublicationField && hasChanges(journalPublicationField)) {
-        await candidatesApiService.updateCandidateJournalPublications(
-      
-          { journals_publications: [journalPublicationField] }
-        );
-        showNotification("Journal publication field updated successfully", "success");
-        changesMade = true;
-      }
+        if (journalPublicationField && hasChanges(journalPublicationField)) {
+          await candidatesApiService.updateCandidateJournalPublications(
+        
+            { journals_publications: [journalPublicationField] }
+          );
+          showNotification("Journal publication field updated successfully", "success");
+          changesMade = true;
+        }
 
-      if (
-        conferancePublicationField &&
-        hasChanges(conferancePublicationField)
-      ) {
-        await candidatesApiService.updateCandidateConferancePublications(
-       
-          { conference_publications: [conferancePublicationField] }
-        );
-        showNotification("Conference publication field updated successfully", "success");
-        changesMade = true;
-      }
+        if (
+          conferancePublicationField &&
+          hasChanges(conferancePublicationField)
+        ) {
+          await candidatesApiService.updateCandidateConferancePublications(
+        
+            { conference_publications: [conferancePublicationField] }
+          );
+          showNotification("Conference publication field updated successfully", "success");
+          changesMade = true;
+        }
 
-      if (patentField && hasChanges(patentField)) {
-        await candidatesApiService.updateCandidatePatent( {
-          patents: [patentField],
-        });
-        showNotification("Patent field updated successfully", "success");
-        changesMade = true;
-      }
+        if (patentField && hasChanges(patentField)) {
+          await candidatesApiService.updateCandidatePatent( {
+            patents: [patentField],
+          });
+          showNotification("Patent field updated successfully", "success");
+          changesMade = true;
+        }
 
-      if (copyrightField && hasChanges(copyrightField)) {
-        await candidatesApiService.updateCandidateCopyright({
-          copyrights: [copyrightField],
-        });
-        showNotification("Copyright field updated successfully", "success");
-        changesMade = true;
+        if (copyrightField && hasChanges(copyrightField)) {
+          await candidatesApiService.updateCandidateCopyright({
+            copyrights: [copyrightField],
+          });
+          showNotification("Copyright field updated successfully", "success");
+          changesMade = true;
+        }
+        if (changesMade) {
+          setResearchField({});
+          setJournalPublicationField({});
+          setConferancePublicationField({});
+          setPatentField({});
+          setCopyrightField({});
+          fetchData();
+        } else {
+          showNotification("No changes were made", "warning");
+        }
+      }  catch (error) {
+        console.error("Error saving changes:", error.message);
+        showNotification("Error saving changes: " + error.message, "error");
       }
-      if (changesMade) {
-        setResearchField({});
-        setJournalPublicationField({});
-        setConferancePublicationField({});
-        setPatentField({});
-        setCopyrightField({});
-        fetchData();
-      } else {
-        showNotification("No changes were made", "warning");
-      }
-    }  catch (error) {
-      console.error("Error saving changes:", error.message);
-      showNotification("Error saving changes: " + error.message, "error");
-    }
-  };
+    };
 
   const handleNotificationClose = () => {
     setNotificationOpen(false);

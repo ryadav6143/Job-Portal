@@ -187,7 +187,9 @@ function EditExperience() {
     try {
       await candidatesApiService.updateCandidateExperience({
         experiences: [updateField],
+
       });
+      
       await candidatesApiService.updateCandidatePersonalInfo(updateNewField);
       setUpdateField({});
       setUpdateNewField({});
@@ -201,6 +203,9 @@ function EditExperience() {
       setNotificationOpen(true);
     }
   };
+
+
+  
 
   const formatDateFrom = (dateString) => {
     // console.log("dateString",dateString);

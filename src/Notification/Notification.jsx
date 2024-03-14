@@ -12,7 +12,15 @@ function Notification({ open, handleClose, alertMessage, alertSeverity }) {
       autoHideDuration={2000}
       onClose={handleClose}
       anchorOrigin={{ vertical: "top", horizontal: "right" }} // Positioning at top right
-      sx={{ width: "25%" }}
+      // sx={{ width: "25%" }}
+      sx={{
+        width: "25%",
+        marginTop: "115px",
+        "@media (max-width: 600px)": { // Media query for phones (max-width: 600px)
+          width: "95%", // Set width to 100% for phones
+          maxWidth: "95%" // Set maximum width to 100% for phones
+        }
+      }}
       variant="filled"
       TransitionComponent={Slide}
     >
