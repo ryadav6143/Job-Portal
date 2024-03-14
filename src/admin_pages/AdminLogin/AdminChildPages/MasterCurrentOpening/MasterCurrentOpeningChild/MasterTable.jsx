@@ -14,11 +14,12 @@ function MasterTable() {
   const navigate = useNavigate();
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
   const [jobProfiles, setJobProfiles] = useState([]);
+  const [counts, setCounts] = useState("");
   const [loading, setLoading] = useState(true);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const [selectedProfileId, setSelectedProfileId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(2);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
 
 
@@ -28,6 +29,7 @@ function MasterTable() {
         const response = await adminApiService.getAllInterview(currentPage, itemsPerPage);
         console.log(response, "<<<<<<<check data")
         setJobProfiles(response.jobprofileData);
+        setCounts(response);
 
         setLoading(false);
       } catch (error) {
@@ -175,6 +177,29 @@ function MasterTable() {
 
 
 
+  const toggleIsActive = async (jobProfileId, isActive) => {
+   
+    try {
+          await adminApiService.changeJobProfileIsActive(jobProfileId, isActive);
+      // Refresh jobProfiles after updating isActive status
+      const updatedJobProfiles = jobProfiles.map(profile => {
+        if (profile.id === jobProfileId) {
+          return {
+            ...profile,
+            is_active: isActive
+          };
+        }
+        return profile;
+      });
+      setJobProfiles(updatedJobProfiles);
+    } catch (error) {
+      console.error("Error toggling isActive status:", error);
+    }
+  };
+  const handleCheckboxChange = async (jobProfileId, isActive) => {
+    await toggleIsActive(jobProfileId, isActive);
+  };
+
   return (
     <>
       {loading && (
@@ -185,29 +210,35 @@ function MasterTable() {
 
       {!isEditFormOpen && (
         <div className="master-table ">
-          <p className="SCA-heading">Current Openings</p>
-  
-  <div className="row sizeofrow" style={{marginBottom:"-3%"}} >
-          <div className="col-md-3 countbox">
-          <label className="labelbox">Non-Active:</label>
-                <input
-                  className="form-control showcountbox"
-                  disabled
-                  // value={counts?.TotalJobTypesCount || ""}
-                />
+          <p className="SCA-heading"  style={{ marginBottom: '15px' }}>Current Openings</p>
+          <div className="row sizeofrow" >
+          <div className="col-md countbox">
+            <label className="labelbox">Total JobTypes Count:</label>
+            <input
+              className="form-control showcountbox"
+              disabled
+              value={counts?.TotalJobTypesCount || ""}
+            />
           </div>
-               <div className="col-md-3 countbox">
-               <label className="labelbox">Total Interview Schedule:</label>
-                <input
-                  className="form-control showcountbox"
-                  disabled
-                  // value={counts?.TotalVacancy || ""}
-                />
-                </div> 
-               
-               
-              </div>
-            <div className="table-responsive fixe-table" style={{ marginTop: '30px' }}>
+          <div className="col-md countbox">
+            <label className="labelbox">Total Vacancy:</label>
+            <input
+              className="form-control showcountbox"
+              disabled
+              value={counts?.TotalVacancy || ""}
+            />
+          </div>
+          <div className="col-md countbox">
+            <label className="labelbox">Total Active Vacancy:</label>
+            <input
+              className="form-control showcountbox"
+              disabled
+              value={counts?.TotalActiveVacancy || ""}
+            />
+          </div>
+
+        </div>    
+            <div className="table-responsive fixe-table">
               <table className="table ">
                 <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                   <tr>
@@ -219,6 +250,7 @@ function MasterTable() {
                     <th scope="col">List to Interview Schedule</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
+                    <th scope="col">Is Active</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -248,6 +280,19 @@ function MasterTable() {
                         <img className="up-del-btn" src={deletebtn} alt="" />
                       </button>
                     </td>
+                    <td>
+                    <label className="switch">
+                    <input
+                      type="checkbox"
+                      id={`checkbox${index}`}
+                      checked={data.is_active} // Set the checkbox state based on isActive status
+                      onChange={() =>
+                        handleCheckboxChange(data.id, !data.is_active)
+                      }
+                    />
+                      <span className="slider round"></span>
+                    </label>
+                  </td>
                   </tr>
                 ))}
               </tbody>
