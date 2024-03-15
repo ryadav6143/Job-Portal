@@ -65,7 +65,7 @@ function AdminDashboard() {
       >
         <div
           style={{
-            maxWidth: "22%",
+            maxWidth: "30%",
             flexShrink: 0,
             textAlign: "left",
             overflowY: "auto",

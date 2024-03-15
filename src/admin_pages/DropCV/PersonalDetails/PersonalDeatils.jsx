@@ -26,6 +26,8 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
+  
+  const [maxCharacters] = useState(40);
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
   //  const [formErrors, setFormErrors] = useState({
   //   title_first_name: "",
@@ -52,6 +54,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   // -------------------------------------dob----------------------
 
   // -------------------------------------dob----------------------
+
 
   useEffect(() => {
     // if (!hasMounted.current) {
@@ -224,6 +227,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if (value.length <= maxCharacters) {
     setFormData((prevData) => ({
       ...prevData,
       personalDetails: {
@@ -235,6 +239,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       ...prevErrors,
       [name]: value ? "" : "This field is required",
     }));
+  }
   };
 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
@@ -279,7 +284,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 {/* Name */}
                 <div className="form-section">
                   <label className="SetLabel-Name">
-                    <span>*</span>Name
+                    <span>*</span>First Name
                   </label>
 
                   <input
@@ -287,19 +292,43 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     className="set-input"
                     type="text"
                     name="first_name"
-                    placeholder="Enter Name"
+                    placeholder="First Name"
                     id=""
+                    
                     onChange={handleInputChange}
                     value={formData.first_name}
                     required
                   ></input>
-                  <FontAwesomeIcon className="set-icon" icon={faUser} />
+            
+                <FontAwesomeIcon className="set-icon" icon={faUser} />
+          
                 </div>
                 <span className="error-message">{errors.first_name}</span>
               </div>
             </div>
 
             <div className="row">
+              <div className="col-md-6">
+                {/* *Last Name  */}
+                <div className="form-section">
+                  <label className="SetLabel-Name">
+                    <span>*</span>Last Name
+                  </label>
+
+                  <input
+                    className="set-input"
+                    type="text"
+                    name="last_name"
+                    placeholder="Enter last Name"
+                    id=""
+                    value={formData.last_name}
+                    onChange={handleInputChange}
+                    
+                  ></input>
+                </div>
+             
+                <span className="error-message">{errors.last_name}</span>
+              </div>
               <div className="col-md-6">
                 <div className="form-section">
                   <label className="SetLabel-Name">
@@ -315,12 +344,14 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     onChange={handleInputChange}
                     value={formData.dob}
                     required
-                  >
-                  </input>
-              {/* <FontAwesomeIcon  icon={faCalendar} /> */}
+                  ></input>
+                  {/* <FontAwesomeIcon  icon={faCalendar} /> */}
                 </div>
                 <span className="error-message">{errors.dob}</span>
               </div>
+            </div>
+
+            <div className="row">
               <div className="col-md-6">
                 {/* Gender */}
                 <div className="form-section">
@@ -343,9 +374,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 </div>
                 <span className="error-message">{errors.gender}</span>
               </div>
-            </div>
-
-            <div className="row">
               <div className="col-md-6">
                 {/* Email */}
                 <div className="form-section">
@@ -369,7 +397,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 {/* <span className="error-message">{emailExistenceError}</span> */}
                 {/* ----------- */}
               </div>
+            </div>
 
+            <div className="row">
               <div className="col-md-6">
                 {/* Phone No. */}
                 <div className="form-section">
@@ -391,9 +421,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 </div>
                 <span className="error-message">{errors.contact_1}</span>
               </div>
-            </div>
-
-            <div className="row">
               <div className="col-md-6">
                 {/* Country */}
                 <div className="form-section">
@@ -423,7 +450,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 </div>
                 <span className="error-message">{errors.country}</span>
               </div>
+            </div>
 
+            <div className="row">
               <div className="col-md-6">
                 {/* City */}
                 <div className="form-section">
@@ -455,9 +484,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 </div>
                 <span className="error-message">{errors.city}</span>
               </div>
-            </div>
-
-            <div className="row">
               <div className="col-md-6">
                 <div className="form-section">
                   <label className="SetLabel-Name">
@@ -484,7 +510,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   {errors.job_category_master_id}
                 </span>
               </div>
+            </div>
 
+            <div className="row">
               <div className="col-md-6">
                 <div className="form-section">
                   <label className="SetLabel-Name">
@@ -509,9 +537,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   {errors.applied_post_masters_id}
                 </span>
               </div>
-            </div>
-
-            <div className="row">
               <div className="col-md-6">
                 <div className="form-section">
                   <label className="SetLabel-Name">
@@ -536,7 +561,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
+            </div>
 
+            <div className="row">
               <div className="col-md-6">
                 <div className="form-section">
                   <label className="SetLabel-Name">

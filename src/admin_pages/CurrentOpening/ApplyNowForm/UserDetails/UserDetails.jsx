@@ -17,6 +17,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  
+  const [maxCharacters] = useState(40);
   // const [countries, setCountries] = useState([]);
   // const [accessToken] = useState('Bearer sL-eX7S-pFFAg1dGBc-26ZSRCkNicfdu50p3ZLtaS4kTtjijpJIpqgs9hg6lWvXsHgg');
 
@@ -209,6 +211,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       specialization: "",
     });
     const { name, value } = e.target;
+    if (value.length <= maxCharacters) {
     setFormValues((prevValues) => ({
       ...prevValues,
       UserDetails: {
@@ -220,6 +223,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       ...prevErrors,
       [name]: value ? "" : " ! This field is required",
     }));
+  }
   };
 
   return (

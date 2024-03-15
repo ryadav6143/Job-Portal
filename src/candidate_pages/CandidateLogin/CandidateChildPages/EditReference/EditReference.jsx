@@ -474,7 +474,7 @@ function EditReference() {
                 &nbsp; I confirm that the information provided here are true to my knowledge
               </span>
             </div>
-            <div>
+            <div className="edit-save-btn">
               <button className="savebtn" type="button" onClick={handleSaveChanges}>Save Changes</button>
             </div>
           </div>

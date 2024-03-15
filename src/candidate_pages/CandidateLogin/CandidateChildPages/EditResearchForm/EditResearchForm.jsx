@@ -1338,7 +1338,7 @@ const handleRemoveResearches = (index) => {
               </div>
             ))}
 
-            <div>
+            <div className="edit-save-btn">
               <button
                 className="savebtn"
                 type="button"

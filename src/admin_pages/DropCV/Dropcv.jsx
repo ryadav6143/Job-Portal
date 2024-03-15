@@ -267,9 +267,14 @@ function Dropcv() {
         }
 
         if (!first_name) {
-          errors.first_name = "! Name is required.";
+          errors.first_name = "! First name is required.";
         } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(first_name)) {
           errors.first_name = "! Please enter a valid name.";
+        }
+        if (!last_name) {
+          errors.last_name = "! Last name is required.";
+        } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(last_name)) {
+          errors.last_name = "! Please enter a valid name.";
         }
         if (
           !dob ||
