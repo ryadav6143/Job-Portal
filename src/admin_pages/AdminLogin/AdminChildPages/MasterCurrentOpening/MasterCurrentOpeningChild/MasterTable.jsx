@@ -326,11 +326,11 @@ function MasterTable() {
         
         </div>
       )}
-      {isEditFormOpen && (
+      {/* {isEditFormOpen && (
         <div className="edit-form-container">
           <EditOpenings profileId={selectedProfileId} />
         </div>
-      )}
+      )} */}
     </>
   );
 }

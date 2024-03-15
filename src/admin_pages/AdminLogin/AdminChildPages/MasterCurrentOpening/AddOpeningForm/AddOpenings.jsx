@@ -197,7 +197,8 @@ function AddOpenings() {
       setNotificationMessage("Job profile submitted successfully!");
       setNotificationSeverity("success");
       setShowNotification(true);
-      navigate("/adminpanel");
+      navigate("/admin-dashboard/current-openings");
+
     } catch (error) {
       console.error("Error submitting job profile:", error);
       setNotificationMessage(

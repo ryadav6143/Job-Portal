@@ -109,11 +109,11 @@ function Login(handleLogin) {
               <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
             </span>
           </div>
-          <div>
+          {/* <div>
             <a href="/admin_register" className="admin-reg-link">
               Register Admin?
             </a>
-          </div>
+          </div> */}
           <div className="btn-login">
             <button type="submit" className="login-button">
               Login

@@ -249,7 +249,7 @@ function EditOpenings() {
       setNotificationOpen(true);
       setNotificationSeverity("success");
       setNotificationMessage("Form submitted successfully!");
-      // navigate("/admin-dashboard");
+      navigate("/admin-dashboard/current-openings");
     } catch (error) {
       console.error("Error updating job profile:", error);
       setNotificationOpen(true);
