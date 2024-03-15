@@ -12,6 +12,7 @@ import candidatesApiService from '../../../candidateService';
 import Notification from '../../../../Notification/Notification';
 function EditReference() {
   const [notification, setNotification] = useState({ open: false, message: '', severity: 'default' });
+  const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     // reference_person_1:'',
     //   reference_person_2:'',
@@ -138,11 +139,43 @@ function EditReference() {
 
 
 
+  // const handleChange = (fieldName, value) => {
+  //   console.log("handlefild", fieldName, value, updateField)
+  //   setUpdateField(prev => ({ ...prev, [fieldName]: value.toString() }))
+  //   setData(prev => ({ ...prev, [fieldName]: value.toString() }))
+  // };
+
+
   const handleChange = (fieldName, value) => {
-    console.log("handlefild", fieldName, value, updateField)
-    setUpdateField(prev => ({ ...prev, [fieldName]: value.toString() }))
-    setData(prev => ({ ...prev, [fieldName]: value.toString() }))
+    let truncatedValue = value;
+    let maxCharacters = 40;
+  
+    // Check if the field is "Statement of Purpose"
+    if (fieldName === "application_purpose") {
+      maxCharacters = 100; // Change the character limit to 100 for "Statement of Purpose"
+    }
+  
+    // Check if value length is more than the specified character limit
+    if (value.length > maxCharacters) {
+      // Truncate the value to the specified character limit
+      truncatedValue = value.slice(0, maxCharacters);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [fieldName]: `Maximum ${maxCharacters} characters allowed.`,
+      }));
+    } else {
+      // Clear error if within character limit
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [fieldName]: "",
+      }));
+    }
+  
+    setUpdateField((prev) => ({ ...prev, [fieldName]: truncatedValue.toString() }));
+    setData((prev) => ({ ...prev, [fieldName]: truncatedValue.toString() }));
   };
+  
+  
 
 
 
@@ -178,6 +211,7 @@ function EditReference() {
                 onChange={(e) => handleChange('hearing_source_about_us', e.target.value)}
                 required
               ></input>
+                <span className="error-message">{errors.hearing_source_about_us}</span>
             </div>
 
             {/* First Reference*/}
@@ -204,6 +238,7 @@ function EditReference() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">{errors.reference_person_1}</span>
               </div>
 
               <div className="col-md-4">
@@ -222,6 +257,7 @@ function EditReference() {
                     onChange={(e) => handleChange('ref_org_1', e.target.value)}
                   ></input>
                 </div>
+                <span className="error-message">{errors.ref_org_1}</span>
               </div>
 
               <div className="col-md-4">
@@ -241,6 +277,7 @@ function EditReference() {
                     onChange={(e) => handleChange('ref_person_position_1', e.target.value)}
                   ></input>
                 </div>
+                <span className="error-message">{errors.ref_person_position_1}</span>
               </div>
             </div>
 
@@ -263,6 +300,7 @@ function EditReference() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
+                <span className="error-message">{errors.ref_person_1_email}</span>
               </div>
 
               <div className="col-md-4">
@@ -283,6 +321,7 @@ function EditReference() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">{errors.ref_person_1_contact}</span>
               </div>
 
 
@@ -314,6 +353,7 @@ function EditReference() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">{errors.reference_person_2}</span>
               </div>
 
               <div className="col-md-4">
@@ -332,6 +372,7 @@ function EditReference() {
                     onChange={(e) => handleChange('ref_org_2', e.target.value)}
                   ></input>
                 </div>
+                <span className="error-message">{errors.ref_org_2}</span>
               </div>
 
               <div className="col-md-4">
@@ -351,6 +392,7 @@ function EditReference() {
                     onChange={(e) => handleChange('ref_person_position_2', e.target.value)}
                   ></input>
                 </div>
+                <span className="error-message">{errors.ref_person_position_2}</span>
               </div>
             </div>
 
@@ -374,6 +416,7 @@ function EditReference() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
+                <span className="error-message">{errors.ref_person_2_email}</span>
               </div>
 
               <div className="col-md-4">
@@ -394,6 +437,7 @@ function EditReference() {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">{errors.ref_person_2_contact}</span>
               </div>
 
 
@@ -417,7 +461,7 @@ function EditReference() {
                     value={data.application_purpose}
                     onChange={(e) => handleChange('application_purpose', e.target.value)}
                   ></input>
-
+  <span className="error-message">{errors.application_purpose}</span>
                 </div>
               </div>
             </div>

@@ -26,8 +26,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
-  
-  const [maxCharacters] = useState(40);
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
   //  const [formErrors, setFormErrors] = useState({
   //   title_first_name: "",
@@ -51,10 +49,8 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   // -------------for jobcategory, post applies , sub post  ---------------
 
-  // -------------------------------------dob----------------------
 
-  // -------------------------------------dob----------------------
-
+  const [maxCharacters] = useState(40);
 
   useEffect(() => {
     // if (!hasMounted.current) {
@@ -228,18 +224,23 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (value.length <= maxCharacters) {
-    setFormData((prevData) => ({
-      ...prevData,
-      personalDetails: {
-        ...prevData.personalDetails,
-        [name]: value,
-      },
-    }));
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: value ? "" : "This field is required",
-    }));
-  }
+      setFormData((prevData) => ({
+        ...prevData,
+        personalDetails: {
+          ...prevData.personalDetails,
+          [name]: value,
+        },
+      }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: "",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: `Maximum ${maxCharacters} characters allowed`,
+      }));
+    }
   };
 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
@@ -590,6 +591,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 </span>
               </div>
             </div>
+            <p className="error-message">{errors.maxCharacters}</p>
           </form>
         </div>
       </div>

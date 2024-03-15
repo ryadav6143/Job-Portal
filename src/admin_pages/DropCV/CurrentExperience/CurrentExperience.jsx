@@ -36,6 +36,12 @@ function CurrentExperience({
       [name]: value ? "" : "",
     }));
   }
+  else {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: `Maximum ${maxCharacters} characters allowed`,
+    }));
+  }
   };
   const handleFileChange = (e) => {
     const file = e.target.files[0];

@@ -250,6 +250,7 @@ function ApplyNow() {
       ref_person_1_contact: "",
       ref_person_2_contact: "",
       candidate_cv: "",
+      
     },
   });
   const [selectedComponent, setSelectedComponent] = useState();
