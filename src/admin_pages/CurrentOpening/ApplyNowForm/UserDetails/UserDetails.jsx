@@ -17,7 +17,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  
+
   const [maxCharacters] = useState(40);
   // const [countries, setCountries] = useState([]);
   // const [accessToken] = useState('Bearer sL-eX7S-pFFAg1dGBc-26ZSRCkNicfdu50p3ZLtaS4kTtjijpJIpqgs9hg6lWvXsHgg');
@@ -101,8 +101,6 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       country: "",
     });
   };
-
-
 
   const handleCityChange = (event) => {
     const cityValue = event.target.value;
@@ -211,19 +209,24 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       specialization: "",
     });
     const { name, value } = e.target;
-    if (value.length <= maxCharacters) {
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      UserDetails: {
-        ...prevValues.UserDetails,
-        [name]: value,
-      },
-    }));
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: value ? "" : " ! This field is required",
-    }));
-  }
+    if (value.length <= maxCharacters || name === "address_1") {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        UserDetails: {
+          ...prevValues.UserDetails,
+          [name]: value,
+        },
+      }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: value ? "" : " ! This field is required",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: `Maximum ${maxCharacters} characters allowed`,
+      }));
+    }
   };
 
   return (
@@ -438,6 +441,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">{errors.middle_name}</span>
               </div>
             </div>
 

@@ -31,8 +31,9 @@ function EditPersonalDetails({ token }) {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("");
-  const [maxCharacters] = useState(40);
+  const maxCharacters = 40;
   
+
   // const [loading, setLoading] = useState(true);
 
   const fetchCandidateData = async () => {
@@ -202,36 +203,68 @@ function EditPersonalDetails({ token }) {
     });
   };
 
+
   const handleFieldChange = (fieldName, value) => {
-    // console.log("handlefild", fieldName, value, updateField);
-    setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
-    setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
-    setErrors({
-      ...errors,
-      email: "",
-      contact_1: "",
-      specialization: "",
-      title_first_name: "",
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      dob: "",
-      gender: "",
-      religion: "",
-      cast_category_name: "",
-      marital_status: "",
-      address_1: "",
-      contact_2: "",
-      country: "",
-      state_province: "",
-      city: "",
-      pin_code: "",
-    });
+    let truncatedValue = value;
+
+    // Check if value length is more than 40 characters and field is not address_1
+    if (value.length > maxCharacters && fieldName !== "address_1") {
+        // Truncate the value to 40 characters
+        truncatedValue = value.slice(0, maxCharacters);
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: `Maximum character limit (${maxCharacters}) reached.`,
+        }));
+    } else {
+        // Clear error if within character limit or if field is address_1
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: "",
+        }));
+    }
+
+    setUpdateField((prev) => ({ ...prev, [fieldName]: truncatedValue.toString() }));
+    setData((prev) => ({ ...prev, [fieldName]: truncatedValue.toString() }));
     setFormValues({
-      ...formValues,
-      [fieldName]: value,
+        ...formValues,
+        [fieldName]: truncatedValue,
     });
-  };
+};
+
+  
+
+
+  // const handleFieldChange = (fieldName, value) => {
+    
+  //   // console.log("handlefild", fieldName, value, updateField);
+  //   setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
+  //   setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
+  //   setErrors({
+  //     ...errors,
+  //     email: "",
+  //     contact_1: "",
+  //     specialization: "",
+  //     title_first_name: "",
+  //     first_name: "",
+  //     middle_name: "",
+  //     last_name: "",
+  //     dob: "",
+  //     gender: "",
+  //     religion: "",
+  //     cast_category_name: "",
+  //     marital_status: "",
+  //     address_1: "",
+  //     contact_2: "",
+  //     country: "",
+  //     state_province: "",
+  //     city: "",
+  //     pin_code: "",
+  //   });
+  //   setFormValues({
+  //     ...formValues,
+  //     [fieldName]: value,
+  //   });
+  // };
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
@@ -528,6 +561,7 @@ function EditPersonalDetails({ token }) {
                     ></input>
                     <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                   </div>
+                  <span className="error-message">{errors.middle_name}</span>
                 </div>
               </div>
 
