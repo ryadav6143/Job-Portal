@@ -7,7 +7,7 @@ import Notification from "../../../../../Notification/Notification";
 import close from "../../../../../assets/logos/close.png";
 function EditOpenings({ profileId }) {
   const navigate = useNavigate();
-  // console.log("Profile ID:", profileId);
+  console.log("Profile ID:", profileId);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [departmant, setDepartmant] = useState([]);

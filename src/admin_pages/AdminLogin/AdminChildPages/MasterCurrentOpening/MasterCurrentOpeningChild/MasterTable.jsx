@@ -19,7 +19,7 @@ function MasterTable() {
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const [selectedProfileId, setSelectedProfileId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage, setItemsPerPage] = useState(7);
 
 
 
@@ -266,7 +266,7 @@ function MasterTable() {
                       <button
                         type="button"
                         id="table-btns"
-                        onClick={() => handleEditForm(data.id)}
+                        // onClick={() => handleEditForm(data.id)}
                       >
                         
                         <Link to="/admin-dashboard/current-openings/edit-openings">{" "}<img className="up-del-btn" src={updatebtn} alt="" /></Link>
@@ -281,7 +281,7 @@ function MasterTable() {
                         <img className="up-del-btn" src={deletebtn} alt="" />
                       </button>
                     </td>
-                    <td>
+                    <td style={{paddingTop:"18px"}}>
                     <label className="switch">
                     <input
                       type="checkbox"
