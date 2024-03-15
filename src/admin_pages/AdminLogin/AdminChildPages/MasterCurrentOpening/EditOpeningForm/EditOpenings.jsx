@@ -5,7 +5,7 @@ import adminApiService from "../../../../adminApiService";
 import { useParams } from "react-router-dom";
 import Notification from "../../../../../Notification/Notification";
 import close from "../../../../../assets/logos/close.png";
-function EditOpenings({ profileId }) {
+function EditOpenings() {
   const navigate = useNavigate();
   // console.log("Profile ID:", profileId);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -31,10 +31,11 @@ function EditOpenings({ profileId }) {
   const [updateField, setUpdateField] = useState({});
   const [post, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { id } = useParams();
+  const { profileId } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("profileId",profileId)
       try {
         const response = await adminApiService.getJobProfileById(profileId);
         const data = response.data;
@@ -59,7 +60,7 @@ function EditOpenings({ profileId }) {
     };
 
     fetchData();
-  }, [id]);
+  }, [profileId]);
 
   useEffect(() => {
     const fetchJobCategories = async () => {

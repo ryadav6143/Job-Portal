@@ -33,7 +33,7 @@ const AdminAuthRoutes = [
       element={<AdminAuthGaurd component={<MasterCurrentOpening />} />}>
              <Route path="" element={<AdminAuthGaurd component={<MasterTable />} />}/>
             <Route path="add-openings" element={<AdminAuthGaurd component={<AddOpenings />} />}/>
-            <Route path="edit-openings" element={<AdminAuthGaurd component={<EditOpenings />} />}/>
+            <Route path="edit-openings/:profileId" element={<AdminAuthGaurd component={<EditOpenings />} />}/>
     </Route>
     <Route
       path="job-profile"
