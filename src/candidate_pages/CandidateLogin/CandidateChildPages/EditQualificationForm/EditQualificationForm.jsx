@@ -2063,7 +2063,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
 
 
             </div>
-            <div>
+            <div className="edit-save-btn">
               <button
                 className="savebtn"
                 type="button"

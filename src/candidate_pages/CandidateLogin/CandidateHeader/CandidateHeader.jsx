@@ -1,6 +1,7 @@
 import React from 'react'
 import "./CandidateHeader.css"
 import medilogo from "../../../assets/logos/medi-logo.png";
+import logout from "../../../assets/logos/Logout.png"
 
 import { useNavigate } from "react-router-dom";
 function CandidateHeader() {
@@ -20,7 +21,7 @@ function CandidateHeader() {
       <button
        onClick={() => handleLogout()}
       >
-        LOGOUT
+        <img src={logout}/>
       </button>
     </div>
   </div>

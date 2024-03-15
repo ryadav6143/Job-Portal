@@ -31,7 +31,8 @@ function EditPersonalDetails({ token }) {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("");
-
+  const [maxCharacters] = useState(40);
+  
   // const [loading, setLoading] = useState(true);
 
   const fetchCandidateData = async () => {
@@ -808,7 +809,7 @@ function EditPersonalDetails({ token }) {
                 </div>
               </div>
 
-              <div>
+              <div className="edit-save-btn">
                 <button
                   className="savebtn"
                   type="button"

@@ -13,6 +13,7 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
   const [selectedDegree, setSelectedDegree] = useState("");
   const [data, setData] = useState([]);
   const hasMounted = useRef(false);
+
   useEffect(() => {
     // if (!hasMounted.current) {
     //   hasMounted.current = true;

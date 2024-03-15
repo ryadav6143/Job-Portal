@@ -28,6 +28,7 @@ import Submitsuccess from "../admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 import OTPVerification from "../admin_pages/DropCV/OTPVerifivation/OTPVerification";
 import TestPages from "../admin_pages/TestPages/TestPages";
 import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
+import Sidenav from "../admin_pages/TestPages/Sidenav";
 
 console.log("inside UnAuthRoutes");
 const UnAuthRoutes = [
@@ -130,7 +131,6 @@ const UnAuthRoutes = [
     path="test"
     element={<UnAuthGuards component={<TestPages />} />}
   ></Route>,
-
 
   <Route
     path="*"
