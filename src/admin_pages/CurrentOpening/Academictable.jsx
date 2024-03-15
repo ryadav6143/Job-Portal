@@ -105,7 +105,7 @@ function Academictable() {
         <p className="table-heading">ACADEMICS</p>
         <div className="table-responsive">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)"}} className="thead">
               <tr>
                 <th scope="col">Category</th>
                 <th scope="col">Post</th>
@@ -144,7 +144,7 @@ function Academictable() {
               ))}
             </tbody>
           </table>
-          <div className="pagination">
+          {/* <div className="pagination">
             <Stack spacing={2}>
               <Pagination
                 count={Math.ceil(AcademicTable.length / rowsPerPage)}
@@ -153,7 +153,7 @@ function Academictable() {
                 shape="rounded"
               />
             </Stack>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

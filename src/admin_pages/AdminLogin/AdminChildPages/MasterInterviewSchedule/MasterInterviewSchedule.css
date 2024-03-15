@@ -54,7 +54,7 @@ td[style*="color: red"] {
 }
 
 .table-responsive {
-  max-height: 350px;
+  max-height:386px;
   overflow-y: scroll !important;
 }
 

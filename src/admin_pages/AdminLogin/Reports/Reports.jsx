@@ -515,15 +515,22 @@ function Reports() {
                     </div>
                   )}
                 </DialogContent>
+             
                 <DialogActions>
+                
                   <Button
                     onClick={() => setSelectedCandidate(null)}
                     style={{ position: "sticky" }}
                     color="primary"
+                    id="set-btn"
+                    className="closebutton"
                   >
                     Close
                   </Button>
+                
+                
                 </DialogActions>
+           
               </Dialog>
 
               <Dialog

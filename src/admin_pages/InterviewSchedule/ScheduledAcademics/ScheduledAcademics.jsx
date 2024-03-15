@@ -73,7 +73,7 @@ function ScheduledAcademics() {
 
         <div className="table-responsive">
           <table className="table is-table">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} >
               <tr>
                 {/* &#x2193; */}
 

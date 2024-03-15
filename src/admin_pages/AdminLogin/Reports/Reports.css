@@ -153,7 +153,11 @@
   animation: animloader 2s linear infinite;
   position: absolute;
 }
-
+.closebutton{
+max-width: fit-content;
+margin: auto;
+color: black;
+}
 @keyframes animloader {
   0% {
     box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 -2px;

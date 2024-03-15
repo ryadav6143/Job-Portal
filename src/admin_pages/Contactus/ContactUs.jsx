@@ -14,6 +14,7 @@ function ContactUs() {
     <>
       <Header></Header>
       <div className="contact-container ">
+      {/* <div style={{display:"flex", justifyContent:"space-evenly"}}> */}
         <div className="contact-detail ">
           <div>
             <p className="cd-heading">OFFICE</p>
