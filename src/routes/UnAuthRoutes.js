@@ -128,8 +128,8 @@ const UnAuthRoutes = [
     element={<UnAuthGuards component={<EditOpenings />} />}
   ></Route>,
   <Route
-    path="test"
-    element={<UnAuthGuards component={<TestPages />} />}
+    path="sidenav"
+    element={<UnAuthGuards component={<Sidenav />} />}
   ></Route>,
 
   <Route
