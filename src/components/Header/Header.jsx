@@ -8,6 +8,7 @@ function Header() {
   let rbndata = '"Admission Open 2024-2025"';
   return (
     <>
+    
       <div className="ribbon-top">
         <marquee className="marquee" behavior="scroll" direction="left">
           {rbndata}
