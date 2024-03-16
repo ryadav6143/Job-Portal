@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "./Sidenav.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Sidenav = () => {
   const [isToggled, setIsToggled] = useState(false);
@@ -18,7 +20,8 @@ const Sidenav = () => {
           </div>
           <ul className="sidebar-nav">
             <li className="active">
-              <a href="#"><i className="fa fa-home"></i>Home</a>
+              <a href="#"><i className="fa fa-home">
+ <FontAwesomeIcon icon={faUser} /></i>Home</a>
             </li>
             <li>
               <a href="#"><i className="fa fa-plug"></i>Plugins</a>
