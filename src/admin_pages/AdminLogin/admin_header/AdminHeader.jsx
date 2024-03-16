@@ -3,11 +3,12 @@ import "./adminHeader.css";
 import medilogo from "../../../assets/logos/medi-logo.png";
 import AdminDashboard from "../AdminDashboard/AdminDashboard";
 import { useNavigate } from "react-router-dom";
+import logout from "../../../assets/logos/Logout.png"
 function AdminHeader() {
     const navigate = useNavigate()
     const handleLogout=()=>{
-        localStorage.removeItem('Token')
-        localStorage.removeItem("isLoggedIn");
+        sessionStorage.removeItem('Token')
+        sessionStorage.removeItem("isLoggedIn");
         navigate('/admin-login')
     }
 
@@ -21,7 +22,7 @@ function AdminHeader() {
           <button
             onClick={() => handleLogout()}
           >
-            LOGOUT
+          <img src={logout}/>
           </button>
         </div>
       </div>

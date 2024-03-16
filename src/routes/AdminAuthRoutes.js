@@ -18,6 +18,10 @@ import AddSubjects from "../admin_pages/AdminLogin/MasterPages/AddSubjects.jsx";
 import AdminList from "../admin_pages/AdminLogin/SuperAdmin/AdminList.jsx";
 import GetRights from "../admin_pages/AdminLogin/SuperAdmin/GetRights.jsx";
 import GetRole from "../admin_pages/AdminLogin/SuperAdmin/GetRole.jsx";
+import EditOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings.jsx";
+import MasterTable from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/MasterCurrentOpeningChild/MasterTable.jsx";
+// import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin.jsx";
+import AdminRegister from "../admin_pages/AdminLogin/AdminChildPages/RegisterAdmin/AdminRegister.jsx";
 console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
   // <Route path="adminpanel" element= {<AdminAuthGaurd component ={<Adminpanel />} />}></Route>,
@@ -28,8 +32,11 @@ const AdminAuthRoutes = [
     {/* <Route path="" element={<AdminDashboard />}/> */}
     <Route
       path="current-openings"
-      element={<AdminAuthGaurd component={<MasterCurrentOpening />} />}
-    />
+      element={<AdminAuthGaurd component={<MasterCurrentOpening />} />}>
+             <Route path="" element={<AdminAuthGaurd component={<MasterTable />} />}/>
+            <Route path="add-openings" element={<AdminAuthGaurd component={<AddOpenings />} />}/>
+            <Route path="edit-openings/:profileId" element={<AdminAuthGaurd component={<EditOpenings />} />}/>
+    </Route>
     <Route
       path="job-profile"
       element={<AdminAuthGaurd component={<MasterJobProfile />} />}
@@ -83,6 +90,8 @@ const AdminAuthRoutes = [
       element={<AdminAuthGaurd component={<GetRole />} />}
     />
     <Route path="add-openings" element={<AddOpenings />} />,
+    <Route path="admin_register" element={<AdminAuthGaurd component={<AdminRegister />} />}
+  ></Route>,
   </Route>,
 ];
 

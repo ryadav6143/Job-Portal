@@ -43,6 +43,51 @@ function OTPVerification({ transferAllData, otpData }) {
         setNotificationMessage(`OTP Verified! ${response.data}`);
         setNotificationSeverity("success");
         setNotificationOpen(true);
+        if (transferAllData.UserDetails) {
+          if (isOtpVerified) {
+            try {
+              const response = await apiService.submitApplyNowData(
+                transferAllData.UserDetails
+              );
+    
+              if (response) {
+                console.log("Form data and file successfully posted to the API");
+              } else {
+                console.error("Failed to post form data and file to the API");
+              }
+              navigate("/submit");
+            } catch (error) {
+              console.error("Failed to post form data and file to the API", error);
+            }
+          } else {
+            // alert("Please verify OTP first!");
+            setNotificationMessage("Please verify OTP first!");
+            setNotificationSeverity("warning");
+            setNotificationOpen(true);
+          }
+        } else {
+          if (isOtpVerified) {
+            try {
+              const response = await apiService.submitCandidateData(
+                transferAllData
+              );
+    
+              if (response) {
+                console.log("Form data and file successfully posted to the API");
+              } else {
+                console.error("Failed to post form data and file to the API");
+              }
+              navigate("/submit");
+            } catch (error) {
+              console.error("Failed to post form data and file to the API", error);
+            }
+          } else {
+            // alert("Please verify OTP first!");
+            setNotificationMessage("Please verify OTP first!");
+            setNotificationSeverity("warning");
+            setNotificationOpen(true);
+          }
+        }
       }
       // else {
       //   setVerificationError("Invalid OTP. Please try again.");
@@ -91,55 +136,55 @@ function OTPVerification({ transferAllData, otpData }) {
   };
 
 
-  const submitsuccess = async () => {
-    console.log("at-submit", isOtpVerified);
+  // const submitsuccess = async () => {
+  //   console.log("at-submit", isOtpVerified);
 
-    if (transferAllData.UserDetails) {
-      if (isOtpVerified) {
-        try {
-          const response = await apiService.submitApplyNowData(
-            transferAllData.UserDetails
-          );
+  //   if (transferAllData.UserDetails) {
+  //     if (isOtpVerified) {
+  //       try {
+  //         const response = await apiService.submitApplyNowData(
+  //           transferAllData.UserDetails
+  //         );
 
-          if (response) {
-            console.log("Form data and file successfully posted to the API");
-          } else {
-            console.error("Failed to post form data and file to the API");
-          }
-          navigate("/submit");
-        } catch (error) {
-          console.error("Failed to post form data and file to the API", error);
-        }
-      } else {
-        // alert("Please verify OTP first!");
-        setNotificationMessage("Please verify OTP first!");
-        setNotificationSeverity("warning");
-        setNotificationOpen(true);
-      }
-    } else {
-      if (isOtpVerified) {
-        try {
-          const response = await apiService.submitCandidateData(
-            transferAllData
-          );
+  //         if (response) {
+  //           console.log("Form data and file successfully posted to the API");
+  //         } else {
+  //           console.error("Failed to post form data and file to the API");
+  //         }
+  //         navigate("/submit");
+  //       } catch (error) {
+  //         console.error("Failed to post form data and file to the API", error);
+  //       }
+  //     } else {
+  //       // alert("Please verify OTP first!");
+  //       setNotificationMessage("Please verify OTP first!");
+  //       setNotificationSeverity("warning");
+  //       setNotificationOpen(true);
+  //     }
+  //   } else {
+  //     if (isOtpVerified) {
+  //       try {
+  //         const response = await apiService.submitCandidateData(
+  //           transferAllData
+  //         );
 
-          if (response) {
-            console.log("Form data and file successfully posted to the API");
-          } else {
-            console.error("Failed to post form data and file to the API");
-          }
-          navigate("/submit");
-        } catch (error) {
-          console.error("Failed to post form data and file to the API", error);
-        }
-      } else {
-        // alert("Please verify OTP first!");
-        setNotificationMessage("Please verify OTP first!");
-        setNotificationSeverity("warning");
-        setNotificationOpen(true);
-      }
-    }
-  };
+  //         if (response) {
+  //           console.log("Form data and file successfully posted to the API");
+  //         } else {
+  //           console.error("Failed to post form data and file to the API");
+  //         }
+  //         navigate("/submit");
+  //       } catch (error) {
+  //         console.error("Failed to post form data and file to the API", error);
+  //       }
+  //     } else {
+  //       // alert("Please verify OTP first!");
+  //       setNotificationMessage("Please verify OTP first!");
+  //       setNotificationSeverity("warning");
+  //       setNotificationOpen(true);
+  //     }
+  //   }
+  // };
 
   const handleCloseNotification = () => {
     setNotificationOpen(false);
@@ -175,9 +220,9 @@ function OTPVerification({ transferAllData, otpData }) {
             </button>
           </div>
         </div>
-        <button onClick={submitsuccess} type="submit" id="otp-submit-btn">
+        {/* <button onClick={submitsuccess} type="submit" id="otp-submit-btn">
           Submit
-        </button>
+        </button> */}
       </div>
       <Notification
         open={notificationOpen}

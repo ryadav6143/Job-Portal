@@ -10,7 +10,7 @@ function MasterInterviewSchedule() {
   const [counts, setCounts] = useState([]);
   const [interviewSchedule, setInterviewSchedule] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(2);
+  const [itemsPerPage, setItemsPerPage] = useState(7);
 
 
   useEffect(() => {
@@ -205,7 +205,6 @@ function MasterInterviewSchedule() {
                     {formatDateForInput(data.schedule_interview_date_3)}
                   </td>
                   <td>
-
                     <label className="switch">
                       <input
                         type="checkbox"

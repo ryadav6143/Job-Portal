@@ -11,11 +11,11 @@ function Academictable() {
 
   const [jobProfiles, setJobProfiles] = useState([]);
 
-  let tokenFromLocalStorage = localStorage.getItem("Token");
-  tokenFromLocalStorage = JSON.parse(tokenFromLocalStorage);
-  const accessToken = tokenFromLocalStorage?.token || "";
+  let tokenFromsessionStorage = sessionStorage.getItem("Token");
+  tokenFromsessionStorage = JSON.parse(tokenFromsessionStorage);
+  const accessToken = tokenFromsessionStorage?.token || "";
 
-  const [token, setToken] = useState(tokenFromLocalStorage || "");
+  const [token, setToken] = useState(tokenFromsessionStorage || "");
 
   useEffect(() => {
     const fetchJobProfiles = async () => {
@@ -94,11 +94,18 @@ function Academictable() {
   };
   return (
     <>
+      <Notification
+        open={showNotification}
+        handleClose={() => setShowNotification(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
+
       <div className="academic-table">
         <p className="table-heading">ACADEMICS</p>
         <div className="table-responsive">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)"}} className="thead">
               <tr>
                 <th scope="col">Category</th>
                 <th scope="col">Post</th>
@@ -114,14 +121,14 @@ function Academictable() {
                   <td>{data.post}</td>
                   <td>{data.department}</td>
                   <td>
-                    {!tokenFromLocalStorage && (
+                    {!tokenFromsessionStorage && (
                       <button className="apn-btn">
                         {" "}
                         <a href={data.applyLink}>APPLY NOW</a>
                       </button>
                     )}
 
-                    {tokenFromLocalStorage && (
+                    {tokenFromsessionStorage && (
                       <button
                         type="button"
                         className="apn-btn"
@@ -130,12 +137,6 @@ function Academictable() {
                         APPLY NOW
                       </button>
                     )}
-                    <Notification
-                      open={showNotification}
-                      handleClose={() => setShowNotification(false)}
-                      alertMessage={notificationMessage}
-                      alertSeverity={notificationSeverity}
-                    />
                   </td>
 
                   <td>{formatDateForInput(data.lastDate)}</td>
@@ -143,7 +144,7 @@ function Academictable() {
               ))}
             </tbody>
           </table>
-          <div className="pagination">
+          {/* <div className="pagination">
             <Stack spacing={2}>
               <Pagination
                 count={Math.ceil(AcademicTable.length / rowsPerPage)}
@@ -152,7 +153,7 @@ function Academictable() {
                 shape="rounded"
               />
             </Stack>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

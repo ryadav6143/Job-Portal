@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import "./PersonalDeatils.css";
 import apiService from "../../../Services/ApiServices";
@@ -26,7 +26,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("");
-   // --------------------------------------------------FORM VALIDATION-------------------------------------------
+  // --------------------------------------------------FORM VALIDATION-------------------------------------------
   //  const [formErrors, setFormErrors] = useState({
   //   title_first_name: "",
   //   first_name: "",
@@ -49,10 +49,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   // -------------for jobcategory, post applies , sub post  ---------------
 
-  // -------------------------------------dob----------------------
 
-  // -------------------------------------dob----------------------
-  
+  const [maxCharacters] = useState(40);
+
   useEffect(() => {
     // if (!hasMounted.current) {
     //   hasMounted.current = true;
@@ -65,26 +64,26 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         const categoriesResponse = await apiService.getJobCategories(signal);
         setCategories(categoriesResponse.data);
 
-        const subjectRes = await apiService.getSubjectMaster(signal)
+        const subjectRes = await apiService.getSubjectMaster(signal);
         setSubjects(subjectRes.data);
 
-        const countriesRes = await apiService.getCountries(signal)
+        const countriesRes = await apiService.getCountries(signal);
         setCountries(countriesRes.data.data);
       } catch (error) {
-        if (error.name === 'AbortError') {
+        if (error.name === "AbortError") {
           // Request was aborted, you can handle it if needed
-          console.error('Error fetching job categories:', error);
+          console.error("Error fetching job categories:", error);
         } else {
-          console.error('Error fetching job categories:', error);
+          console.error("Error fetching job categories:", error);
         }
       }
     };
 
     fetchData();
-      return () => {
-        // Cleanup function to abort the request when the component unmounts
-        controller.abort();
-      };
+    return () => {
+      // Cleanup function to abort the request when the component unmounts
+      controller.abort();
+    };
   }, []);
 
   useEffect(() => {
@@ -100,8 +99,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       setSubposts([]);
     }
   }, [selectedPost, posts]);
- 
- 
 
   const handleCategoryChange = (event) => {
     setErrors({
@@ -128,7 +125,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
     setSelectedPost("");
     setSubposts([]);
   };
-  
+
   const handlePostChange = (event) => {
     setErrors({
       ...errors,
@@ -226,20 +223,26 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      personalDetails: {
-        ...prevData.personalDetails,
-        [name]: value,
-      },
-    }));
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: value ? "" : "This field is required",
-    }));
+    if (value.length <= maxCharacters) {
+      setFormData((prevData) => ({
+        ...prevData,
+        personalDetails: {
+          ...prevData.personalDetails,
+          [name]: value,
+        },
+      }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: "",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: `Maximum ${maxCharacters} characters allowed`,
+      }));
+    }
   };
 
- 
   // --------------------------------------------------FORM VALIDATION-------------------------------------------
 
   return (
@@ -282,21 +285,24 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 {/* Name */}
                 <div className="form-section">
                   <label className="SetLabel-Name">
-                    <span>*</span>Name
+                    <span>*</span>First Name
                   </label>
 
                   <input
-                  autoFocus
+                    autoFocus
                     className="set-input"
                     type="text"
                     name="first_name"
-                    placeholder="Enter Name"
+                    placeholder="First Name"
                     id=""
+                    
                     onChange={handleInputChange}
                     value={formData.first_name}
                     required
                   ></input>
-                  <FontAwesomeIcon className="set-icon" icon={faUser} />
+            
+                <FontAwesomeIcon className="set-icon" icon={faUser} />
+          
                 </div>
                 <span className="error-message">{errors.first_name}</span>
               </div>
@@ -304,11 +310,33 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
             <div className="row">
               <div className="col-md-6">
+                {/* *Last Name  */}
+                <div className="form-section">
+                  <label className="SetLabel-Name">
+                    <span>*</span>Last Name
+                  </label>
+
+                  <input
+                    className="set-input"
+                    type="text"
+                    name="last_name"
+                    placeholder="Enter last Name"
+                    id=""
+                    value={formData.last_name}
+                    onChange={handleInputChange}
+                    
+                  ></input>
+                </div>
+             
+                <span className="error-message">{errors.last_name}</span>
+              </div>
+              <div className="col-md-6">
                 <div className="form-section">
                   <label className="SetLabel-Name">
                     <span>*</span>Date of Birth:
                   </label>
                   <input
+                    // className="date-input"
                     className="set-input"
                     type="date"
                     placeholder="MM/DD/YYYY"
@@ -317,12 +345,14 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     onChange={handleInputChange}
                     value={formData.dob}
                     required
-                    style={{ width: "100%" }} 
                   ></input>
-                  {/* <FontAwesomeIcon className="set-icon" icon={faCalendar} /> */}
+                  {/* <FontAwesomeIcon  icon={faCalendar} /> */}
                 </div>
                 <span className="error-message">{errors.dob}</span>
               </div>
+            </div>
+
+            <div className="row">
               <div className="col-md-6">
                 {/* Gender */}
                 <div className="form-section">
@@ -345,9 +375,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 </div>
                 <span className="error-message">{errors.gender}</span>
               </div>
-            </div>
-
-            <div className="row">
               <div className="col-md-6">
                 {/* Email */}
                 <div className="form-section">
@@ -371,7 +398,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 {/* <span className="error-message">{emailExistenceError}</span> */}
                 {/* ----------- */}
               </div>
+            </div>
 
+            <div className="row">
               <div className="col-md-6">
                 {/* Phone No. */}
                 <div className="form-section">
@@ -393,9 +422,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 </div>
                 <span className="error-message">{errors.contact_1}</span>
               </div>
-            </div>
-
-            <div className="row">
               <div className="col-md-6">
                 {/* Country */}
                 <div className="form-section">
@@ -425,7 +451,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 </div>
                 <span className="error-message">{errors.country}</span>
               </div>
+            </div>
 
+            <div className="row">
               <div className="col-md-6">
                 {/* City */}
                 <div className="form-section">
@@ -457,9 +485,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 </div>
                 <span className="error-message">{errors.city}</span>
               </div>
-            </div>
-
-            <div className="row">
               <div className="col-md-6">
                 <div className="form-section">
                   <label className="SetLabel-Name">
@@ -486,7 +511,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   {errors.job_category_master_id}
                 </span>
               </div>
+            </div>
 
+            <div className="row">
               <div className="col-md-6">
                 <div className="form-section">
                   <label className="SetLabel-Name">
@@ -511,9 +538,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   {errors.applied_post_masters_id}
                 </span>
               </div>
-            </div>
-
-            <div className="row">
               <div className="col-md-6">
                 <div className="form-section">
                   <label className="SetLabel-Name">
@@ -538,7 +562,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
               </div>
+            </div>
 
+            <div className="row">
               <div className="col-md-6">
                 <div className="form-section">
                   <label className="SetLabel-Name">
@@ -565,6 +591,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                 </span>
               </div>
             </div>
+            <p className="error-message">{errors.maxCharacters}</p>
           </form>
         </div>
       </div>

@@ -73,6 +73,33 @@
   color: rgba(160, 163, 189, 1);
 }
 
+/* .date-input{
+  width: 99.5% !important;
+  height: 55px;
+  border-radius: 45px;
+  border: 1px solid;
+  border-color: #eff0f6;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: #6f6c90;
+  font-size: 15px;
+  padding: 14px;
+} */
+
+
+
+input[type="date"]
+{
+    display:block;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    min-height: 1.2em;
+    width: 100%;
+    text-align: left;
+}
+
+
+
 @media only screen and (max-width: 767px) {
   .set-input {
     width: 100% !important;

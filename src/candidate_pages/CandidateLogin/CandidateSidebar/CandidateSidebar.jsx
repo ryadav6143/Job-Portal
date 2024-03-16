@@ -55,6 +55,8 @@ function CandidateSidebar() {
     }
   };
 
+  
+
   // const renderComponent = () => {
   //   switch (screen) {
   //     // case 0:

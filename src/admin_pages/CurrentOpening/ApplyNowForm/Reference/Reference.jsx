@@ -11,33 +11,89 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
   const [checkboxError, setCheckboxError] = useState("");
   // const [formValues, setFormValues] = useState({
 
-  //   reference_person_1:'',
-  //   reference_person_2:'',
-  //   ref_org_1:'',
-  //   ref_org_2:'',
-  //   ref_person_position_1:'',
-  //   ref_person_position_2:'',
-  //   hearing_source_about_us:'',
-  //   application_purpose:'',
-  //   ref_person_1_email:'',
-  //   ref_person_2_email:'',
-  //   ref_person_1_contact:'',
-  //   ref_person_2_contact:'',
+    // reference_person_1:'',
+    // reference_person_2:'',
+    // ref_org_1:'',
+    // ref_org_2:'',
+    // ref_person_position_1:'',
+    // ref_person_position_2:'',
+    // hearing_source_about_us:'',
+    // application_purpose:'',
+    // ref_person_1_email:'',
+    // ref_person_2_email:'',
+    // ref_person_1_contact:'',
+    // ref_person_2_contact:'',
 
   // });
+
+
+
+  // const handleChange = (e) => {
+  //   setErrors({
+  //     ...errors,
+  //     hearing_source_about_us: "",
+  //   });
+  //   const { name, value } = e.target;
+  //   setFormValues((prevData) => ({
+  //     UserDetails: {
+  //       ...prevData.UserDetails,
+  //       [name]: value,
+  //     },
+  //   }));
+  // };
+
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+   
+    
+  //   if (value.length > 40) {
+  //     setErrors((prevErrors) => ({
+  //       ...prevErrors,
+  //       [name]: `Maximum 40 characters allowed`,
+  //     }));
+  //   } else {
+  //     setErrors((prevErrors) => ({
+  //       ...prevErrors,
+  //       [name]: "",
+  //     }));
+  //     setFormValues((prevData) => ({
+  //       UserDetails: {
+  //         ...prevData.UserDetails,
+  //         [name]: value,
+  //       },
+  //     }));
+  //   }
+  
+  // };
+  
+
   const handleChange = (e) => {
-    setErrors({
-      ...errors,
-      hearing_source_about_us: "",
-    });
     const { name, value } = e.target;
-    setFormValues((prevData) => ({
-      UserDetails: {
-        ...prevData.UserDetails,
-        [name]: value,
-      },
-    }));
+    const maxCharacters = name === "application_purpose" ? 100 : 40;
+  
+    if (value.length > maxCharacters) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: `Maximum ${maxCharacters} characters allowed`,
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: "",
+      }));
+      setFormValues((prevData) => ({
+        UserDetails: {
+          ...prevData.UserDetails,
+          [name]: value,
+        },
+      }));
+    }
   };
+  
+
+
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const allowedExtensions = ["pdf", "doc", "docx"];
@@ -136,6 +192,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">
+                {errors.reference_person_1}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -154,6 +213,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                     value={formValues.ref_org_1}
                   ></input>
                 </div>
+                <span className="error-message">
+                {errors.ref_org_1}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -172,6 +234,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                     value={formValues.ref_person_position_1}
                   ></input>
                 </div>
+                <span className="error-message">
+                {errors.ref_person_position_1}
+              </span>
               </div>
             </div>
 
@@ -193,6 +258,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
+                <span className="error-message">
+                {errors.ref_person_1_email}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -212,6 +280,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">
+                {errors.ref_person_1_contact}
+              </span>
               </div>
             </div>
 
@@ -239,6 +310,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
+                <span className="error-message">
+                {errors.reference_person_2}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -257,6 +331,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                     value={formValues.ref_org_2}
                   ></input>
                 </div>
+                <span className="error-message">
+                {errors.ref_org_2}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -275,6 +352,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                     value={formValues.ref_person_position_2}
                   ></input>
                 </div>
+                <span className="error-message">
+                {errors.ref_person_position_2}
+              </span>
               </div>
             </div>
 
@@ -296,6 +376,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
+                <span className="error-message">
+                {errors.ref_person_2_email}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -315,6 +398,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
+                <span className="error-message">
+                {errors.ref_person_2_contact}
+              </span>
               </div>
             </div>
 
@@ -336,6 +422,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                     value={formValues.application_purpose}
                   ></input>
                 </div>
+                <span className="error-message">
+                {errors.application_purpose}
+              </span>
               </div>
             </div>
 

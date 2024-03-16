@@ -375,7 +375,7 @@ function EditQualificationForm() {
     e.preventDefault();
 
     try {
-      let accessToken = localStorage.getItem("Token");
+      let accessToken = sessionStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
       console.log(updateField);
       await candidatesApiService.updateCandidateEducation(accessToken.token,

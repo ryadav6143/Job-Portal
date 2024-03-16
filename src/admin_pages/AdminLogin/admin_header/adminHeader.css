@@ -22,13 +22,14 @@
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 1px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   transition: background-color 0.8s ease;
+  border: none;
 }
-#logout-btn button:hover {
+/* #logout-btn button:hover {
   background-color: black;
   color: white;
-}
+} */
 @media only screen and (max-width: 767px) {
   #logout-btn {
     margin-top: 4%;

@@ -31,6 +31,8 @@ function EditPersonalDetails({ token }) {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("");
+  const maxCharacters = 40;
+  
 
   // const [loading, setLoading] = useState(true);
 
@@ -58,12 +60,18 @@ function EditPersonalDetails({ token }) {
     apiService
       .getCountries()
       .then((response) => {
-        // setCountries(response.data.data);
+        setCountries(response.data.data);
       })
       .catch((error) => {
         console.error("Error fetching countries:", error);
       });
   }, []);
+
+  const showNotification = (message, severity) => {
+    setNotificationMessage(message);
+    setNotificationSeverity(severity);
+    setNotificationOpen(true);
+  };
 
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
@@ -75,8 +83,10 @@ function EditPersonalDetails({ token }) {
         console.log("Image upload successful:", responseData);
 
         setSelectedImage(URL.createObjectURL(file));
+        showNotification("Profile photo changed successfully.", "success");
       } catch (error) {
         console.error("Error uploading image:", error.message);
+        showNotification("Error changing profile photo.", "error");
         // Handle other errors that may occur during the request
       }
     }
@@ -91,15 +101,14 @@ function EditPersonalDetails({ token }) {
       setUpdateField({});
       fetchCandidateData();
       // window.location.reload();
-      setNotificationMessage("Changes saved successfully.");
-      setNotificationSeverity("success");
-      setNotificationOpen(true);
+      showNotification("Changes saved successfully.", "success");
     } catch (error) {
       console.error("Error saving changes:", error.message);
-      setNotificationMessage("Error saving changes.");
-      setNotificationSeverity("error");
-      setNotificationOpen(true);
+      showNotification("Error saving changes.", "error");
     }
+
+
+   
 
     // let errors = {};
     // if (!formValues.first_name) {
@@ -201,36 +210,68 @@ function EditPersonalDetails({ token }) {
     });
   };
 
+
   const handleFieldChange = (fieldName, value) => {
-    // console.log("handlefild", fieldName, value, updateField);
-    setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
-    setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
-    setErrors({
-      ...errors,
-      email: "",
-      contact_1: "",
-      specialization: "",
-      title_first_name: "",
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      dob: "",
-      gender: "",
-      religion: "",
-      cast_category_name: "",
-      marital_status: "",
-      address_1: "",
-      contact_2: "",
-      country: "",
-      state_province: "",
-      city: "",
-      pin_code: "",
-    });
+    let truncatedValue = value;
+
+    // Check if value length is more than 40 characters and field is not address_1
+    if (value.length > maxCharacters && fieldName !== "address_1") {
+        // Truncate the value to 40 characters
+        truncatedValue = value.slice(0, maxCharacters);
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: `Maximum character limit (${maxCharacters}) reached.`,
+        }));
+    } else {
+        // Clear error if within character limit or if field is address_1
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: "",
+        }));
+    }
+
+    setUpdateField((prev) => ({ ...prev, [fieldName]: truncatedValue.toString() }));
+    setData((prev) => ({ ...prev, [fieldName]: truncatedValue.toString() }));
     setFormValues({
-      ...formValues,
-      [fieldName]: value,
+        ...formValues,
+        [fieldName]: truncatedValue,
     });
-  };
+};
+
+  
+
+
+  // const handleFieldChange = (fieldName, value) => {
+    
+  //   // console.log("handlefild", fieldName, value, updateField);
+  //   setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
+  //   setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
+  //   setErrors({
+  //     ...errors,
+  //     email: "",
+  //     contact_1: "",
+  //     specialization: "",
+  //     title_first_name: "",
+  //     first_name: "",
+  //     middle_name: "",
+  //     last_name: "",
+  //     dob: "",
+  //     gender: "",
+  //     religion: "",
+  //     cast_category_name: "",
+  //     marital_status: "",
+  //     address_1: "",
+  //     contact_2: "",
+  //     country: "",
+  //     state_province: "",
+  //     city: "",
+  //     pin_code: "",
+  //   });
+  //   setFormValues({
+  //     ...formValues,
+  //     [fieldName]: value,
+  //   });
+  // };
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
@@ -527,6 +568,7 @@ function EditPersonalDetails({ token }) {
                     ></input>
                     <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                   </div>
+                  <span className="error-message">{errors.middle_name}</span>
                 </div>
               </div>
 
@@ -745,20 +787,7 @@ function EditPersonalDetails({ token }) {
                           {countryData.country}
                         </option>
                       ))}
-                    </select>
-                    {/* <select
-                    name="country"
-                    className="UD-set-dropdown"
-                    value={formValues.country}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((country, index) => (
-              <option key={index} value={country}>
-                {country}
-              </option>
-            ))}
-                  </select> */}
+                    </select>                  
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                   </div>
                   <span className="error-message">{errors.country}</span>
@@ -766,23 +795,7 @@ function EditPersonalDetails({ token }) {
               </div>
 
               <div className="row">
-                {/* <div className="col-md-4">
-                  
-                  <div className="UD-form-section">
-                    <label className="UD-SetLabel-Name">
-                      <span>*</span>State
-                    </label>
-                    <select name="state_province" className="UD-set-dropdown">
-                      <option value="">Select State</option>
-                      <option value=""> State</option>
-                      <option value=""> State</option>
-                      <option value=""> State</option>
-                    </select>
-                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                  </div>
-                  <span className="error-message">{errors.state_province}</span>
-                </div> */}
-
+               
                 <div className="col-md-4">
                   {/* *Current Job City */}
                   <div className="UD-form-section">
@@ -837,7 +850,7 @@ function EditPersonalDetails({ token }) {
                 </div>
               </div>
 
-              <div>
+              <div className="edit-save-btn">
                 <button
                   className="savebtn"
                   type="button"

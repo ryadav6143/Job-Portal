@@ -16,7 +16,7 @@ function SideBar() {
       <div>
         <div className="container-fluid">
           <div className="row flex-nowrap">
-            <div className="col-auto px-3 sidebar-set">
+            <div className="col-auto  sidebar-set">
               <div
                 id="sidebar"
                 className="collapse collapse-horizontal show border-end edit-collapse"
@@ -26,6 +26,7 @@ function SideBar() {
                     id="sidebar-nav"
                     className="list-group border-0 rounded-0 text-sm-start min-vh-100"
                   >
+                  
                     <Link
                       to="/admin-dashboard/current-openings"
                       className="list-group-item border-end-0 d-inline-block text-truncate set-a"
@@ -158,6 +159,19 @@ function SideBar() {
                         </Link>
                       </div>
                     </div>
+
+                    <Link
+                      to="/admin-dashboard/admin_register"
+                      className="list-group-item border-end-0 d-inline-block text-truncate set-a"
+                    >
+                      <img
+                        src={opening}
+                        className="bi bi-bootstrap sidenav-icon"
+                        alt="Opening Icon"
+                      />
+                      <span>Register Admin</span>
+                    </Link>
+
                     <div className="dropdown show">
                       <a
                         className="btn dropdown-toggle set-a"

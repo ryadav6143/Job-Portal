@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./EditOpenings.css";
 import adminApiService from "../../../../adminApiService";
 import { useParams } from "react-router-dom";
-
+import Notification from "../../../../../Notification/Notification";
 import close from "../../../../../assets/logos/close.png";
-function EditOpenings({ profileId }) {
+function EditOpenings() {
   const navigate = useNavigate();
   // console.log("Profile ID:", profileId);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -21,14 +21,21 @@ function EditOpenings({ profileId }) {
   const [interviewSchedule, setInterviewSchedule] = useState(false);
   const [publishToJobProfile, setPublishToJobProfile] = useState(false);
 
+
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("info");
+  
+
   const [formValues, setFormValues] = useState({});
   const [updateField, setUpdateField] = useState({});
   const [post, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { id } = useParams();
+  const { profileId } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("profileId",profileId)
       try {
         const response = await adminApiService.getJobProfileById(profileId);
         const data = response.data;
@@ -53,7 +60,7 @@ function EditOpenings({ profileId }) {
     };
 
     fetchData();
-  }, [id]);
+  }, [profileId]);
 
   useEffect(() => {
     const fetchJobCategories = async () => {
@@ -235,14 +242,19 @@ function EditOpenings({ profileId }) {
       };
       // console.log(updateField);
       // await adminApiService.updateJobProfile(updatedData);
-      let accessToken = localStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      await adminApiService.updateJobProfile(accessToken.token, updatedData);
+
+      await adminApiService.updateJobProfile(updatedData);
       setUpdateField({});
-      window.location.reload();
-      // navigate("/admin-dashboard");
+      // window.location.reload();
+      setNotificationOpen(true);
+      setNotificationSeverity("success");
+      setNotificationMessage("Form submitted successfully!");
+      navigate("/admin-dashboard/current-openings");
     } catch (error) {
       console.error("Error updating job profile:", error);
+      setNotificationOpen(true);
+    setNotificationSeverity("error");
+    setNotificationMessage("Error submitting form. Please try again later.");
     }
   };
 
@@ -257,12 +269,17 @@ function EditOpenings({ profileId }) {
   const [showForm, setShowForm] = useState(true); // State to toggle form visibility
 
   const handleFormCloseAndShowTable = () => {
-    setShowForm(false); // Close the form
-    window.location.reload(); // Refresh the window
+    navigate('/admin-dashboard/current-openings');
   };
 
   return (
     <>
+      <Notification
+  open={notificationOpen}
+  handleClose={() => setNotificationOpen(false)}
+  alertMessage={notificationMessage}
+  alertSeverity={notificationSeverity}
+/>
       <div className="new-openings">
         <img
           onClick={handleFormCloseAndShowTable}
@@ -278,6 +295,7 @@ function EditOpenings({ profileId }) {
         )}
         <p className="master-heading">Edit-Openings Data</p>
         <div className="new-openings-form">
+      
           <form onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-6">
@@ -551,6 +569,7 @@ function EditOpenings({ profileId }) {
                 SUBMIT
               </button>
             </div>
+ 
           </form>
         </div>
       </div>

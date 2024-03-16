@@ -64,7 +64,7 @@ function AddDegree() {
 
 
   // const handleAddDegree = () => {
-  //   let accessToken = localStorage.getItem("Token");
+  //   let accessToken = sessionStorage.getItem("Token");
   //   accessToken = JSON.parse(accessToken);
   //   axios
   //     .post(
@@ -101,7 +101,7 @@ function AddDegree() {
 
 
   // const handleUpdateDegree = () => {
-  //   let accessToken = localStorage.getItem("Token");
+  //   let accessToken = sessionStorage.getItem("Token");
   //   accessToken = JSON.parse(accessToken);
   //   const payload = {
   //     exam_types_master_id: selectedExamId,
@@ -139,7 +139,7 @@ function AddDegree() {
   // ------------------------when allow to delete----------------
 
   // const handleDelete = (id) => {
-  //   let accessToken = localStorage.getItem("Token");
+  //   let accessToken = sessionStorage.getItem("Token");
   //   accessToken = JSON.parse(accessToken);
   //   axios
   //     .delete(`${ADMIN_BASE_URL}/degreeTypeMaster/${id}`, {

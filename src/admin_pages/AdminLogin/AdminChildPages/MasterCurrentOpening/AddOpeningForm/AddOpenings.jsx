@@ -22,8 +22,6 @@ function AddOpenings() {
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("success");
 
-
-
   const [formValues, setFormValues] = useState({
     job_category_master_id: 0,
     department_master_id: 0,
@@ -188,293 +186,331 @@ function AddOpenings() {
     });
   };
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   // console.log('Sending request with formValues:', formValues);
+
+  //   try {
+  //     const response = await adminApiService.postJobProfile(formValues);
+  //     console.log("Job profile submitted successfully!", response.data);
+  //     // alert("submit form Successfully");
+  //     setNotificationMessage("Job profile submitted successfully!");
+  //     setNotificationSeverity("success");
+  //     setShowNotification(true);
+  //     navigate("/admin-dashboard/current-openings");
+
+  //   } catch (error) {
+  //     console.error("Error submitting job profile:", error);
+  //     setNotificationMessage(
+  //       "Error submitting job profile. Please try again later."
+  //     );
+  //     setNotificationSeverity("error");
+  //     setShowNotification(true);
+  //   }
+  // };
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // console.log('Sending request with formValues:', formValues);
-
+  
     try {
-
-
-      const response = await adminApiService.postJobProfile(
-
-        formValues
-      );
+      const response = await adminApiService.postJobProfile(formValues);
       console.log("Job profile submitted successfully!", response.data);
-      // alert("submit form Successfully");
       setNotificationMessage("Job profile submitted successfully!");
       setNotificationSeverity("success");
       setShowNotification(true);
-      navigate("/adminpanel");
+      navigate("/admin-dashboard/current-openings");
     } catch (error) {
       console.error("Error submitting job profile:", error);
-      setNotificationMessage("Error submitting job profile. Please try again later.");
-      setNotificationSeverity("error");
+  
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log("Error response data:", error.response.data);
+        const errorMessage = error.response.data.message || "Error submitting job profile.";
+        setNotificationMessage(errorMessage);
+        setNotificationSeverity("error");
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log("No response received from server");
+        setNotificationMessage("No response received from server. Please try again later.");
+        setNotificationSeverity("error");
+      } else {
+        // Something else happened in making the request that triggered an error
+        console.log("Error:", error.message);
+        setNotificationMessage("Error submitting job profile. Please try again later.");
+        setNotificationSeverity("error");
+      }
+  
       setShowNotification(true);
     }
   };
+  
 
   const [showForm, setShowForm] = useState(true); // State to toggle form visibility
 
   const handleFormCloseAndShowTable = () => {
-    setShowForm(false); // Close the form
-    window.location.reload();
+    navigate("/admin-dashboard/current-openings");
   };
 
   return (
-    <div>
-      {showForm ? (
-        <div className="new-openings">
-          <img
-            onClick={handleFormCloseAndShowTable}
-            className="cls-btn"
-            src={close}
-            alt="Close Button"
-          />
+    <>
+      <Notification
+        open={showNotification}
+        handleClose={() => setShowNotification(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
 
-          <p className="master-heading">Add New Opening</p>
-          <div className="new-openings-form">
-            <form onSubmit={handleSubmit}>
-              <div className="row">
-                <div className="col-6">
-                  <label htmlFor="">No. Of Openings</label>
-                  <input
-                    type="number"
-                    placeholder="Add No. Of Openings"
-                    name="number_of_vacancy"
-                    value={formValues.number_of_vacancy}
-                    onChange={handleInputChange}
-                  />
-                </div>
+      <div>
+        {showForm ? (
+          <div className="new-openings">
+            <img
+              onClick={handleFormCloseAndShowTable}
+              className="cls-btn"
+              src={close}
+              alt="Close Button"
+            />
 
-                <div className="col-6">
-                  <label htmlFor="dropdown2">Category</label>
-                  <select
-                    name="category_name"
-                    id="categoryDropdown"
-                    value={selectedCategory}
-                    onChange={handleCategory}
-                    required
-                  >
-                    <option value="">Select a category</option>
-                    {jobCategories.map((category) => (
-                      <option
-                        key={category.category_name}
-                        value={category.category_name}
-                      >
-                        {category.category_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-6">
-                  <label htmlFor="dropdown2">Department</label>
-                  <select
-                    id="departmentDropdown"
-                    value={selectedDepartment}
-                    onChange={handleDepartmant}
-                  >
-                    <option value="">Select Department</option>
-                    {departmant.map((department) => (
-                      <option
-                        key={department.id} // assuming 'id' is unique for each department
-                        value={department.dept_name}
-                      >
-                        {department.dept_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-6">
-                  <label htmlFor="">Post</label>
-                  <select
-                    id="dropdown"
-                    onChange={handlePost}
-                    value={selectedPost}
-                    required
-                  >
-                    <option value="">Select a post</option>
-                    {post.map((post) => (
-                      <option key={post.post_name} value={post.post_name}>
-                        {post.post_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-6">
-                  <label htmlFor="dropdown2">SubPost</label>
-                  <select
-                    id="dropdown2"
-                    value={selectedSubPost}
-                    onChange={handleSubPost}
-                  >
-                    <option value="">-- Select SubPost --</option>
-                    {Array.isArray(subPost) &&
-                      subPost.map((subpost) => (
+            <p className="master-heading">Add New Opening</p>
+            <div className="new-openings-form">
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  <div className="col-6">
+                    <label htmlFor="">No. Of Openings</label>
+                    <input
+                      type="number"
+                      placeholder="Add No. Of Openings"
+                      name="number_of_vacancy"
+                      value={formValues.number_of_vacancy}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div className="col-6">
+                    <label htmlFor="dropdown2">Category</label>
+                    <select
+                      name="category_name"
+                      id="categoryDropdown"
+                      value={selectedCategory}
+                      onChange={handleCategory}
+                      required
+                    >
+                      <option value="">Select a category</option>
+                      {jobCategories.map((category) => (
                         <option
-                          key={subpost.subpost_name}
-                          value={subpost.subpost_name}
+                          key={category.category_name}
+                          value={category.category_name}
                         >
-                          {subpost.subpost_name}
+                          {category.category_name}
                         </option>
                       ))}
-                  </select>
+                    </select>
+                  </div>
                 </div>
-                <div className="col-6">
-                  <label htmlFor=""> Qualification & Experience</label>
-                  <input
-                    type="text"
-                    placeholder=" Add Qualification And Experience"
-                    name="education_require"
-                    value={formValues.education_require}
-                    onChange={handleInputChange}
-                  />
+                <div className="row">
+                  <div className="col-6">
+                    <label htmlFor="dropdown2">Department</label>
+                    <select
+                      id="departmentDropdown"
+                      value={selectedDepartment}
+                      onChange={handleDepartmant}
+                    >
+                      <option value="">Select Department</option>
+                      {departmant.map((department) => (
+                        <option
+                          key={department.id} // assuming 'id' is unique for each department
+                          value={department.dept_name}
+                        >
+                          {department.dept_name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="col-6">
+                    <label htmlFor="">Post</label>
+                    <select
+                      id="dropdown"
+                      onChange={handlePost}
+                      value={selectedPost}
+                      required
+                    >
+                      <option value="">Select a post</option>
+                      {post.map((post) => (
+                        <option key={post.post_name} value={post.post_name}>
+                          {post.post_name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
-              </div>
+                <div className="row">
+                  <div className="col-6">
+                    <label htmlFor="dropdown2">SubPost</label>
+                    <select
+                      id="dropdown2"
+                      value={selectedSubPost}
+                      onChange={handleSubPost}
+                    >
+                      <option value="">-- Select SubPost --</option>
+                      {Array.isArray(subPost) &&
+                        subPost.map((subpost) => (
+                          <option
+                            key={subpost.subpost_name}
+                            value={subpost.subpost_name}
+                          >
+                            {subpost.subpost_name}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                  <div className="col-6">
+                    <label htmlFor=""> Qualification & Experience</label>
+                    <input
+                      type="text"
+                      placeholder=" Add Qualification And Experience"
+                      name="education_require"
+                      value={formValues.education_require}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
 
-              <div className="row">
-                <div className="col-6">
-                  <label htmlFor=""> Highly Desirable</label>
-                  <input
-                    type="text"
-                    placeholder="Add Highly Desirable"
-                    name="qualification_require"
-                    value={formValues.qualification_require}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="col-6">
-                  <label htmlFor="">Last Date</label>
-                  <input
-                    type="date"
-                    name="last_date_to_apply"
-                    value={formValues.last_date_to_apply}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-              <div>
-                <p id="master-sub-headings">
-                  Required Fields For Interview Schedule
-                </p>
-              </div>
-              <div className="row">
-                <div className="col-6">
-                  <label htmlFor="">Eligibility criteria</label>
-                  <input
-                    type="text"
-                    placeholder="Add Eligibility Criteria"
-                    name="eligibility_criteria"
-                    value={formValues.eligibility_criteria}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="col-6">
-                  <label htmlFor="">Add Responsible Person's Contact </label>
-                  <input
-                    type="text"
-                    placeholder="Add Contact"
-                    name="responsible_contact"
-                    value={formValues.responsible_contact}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-4">
-                  <label htmlFor="">Day-1</label>
-                  <input
-                    type="date"
-                    name="schedule_interview_date_1"
-                    value={formValues.schedule_interview_date_1}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="col-4">
-                  <label htmlFor="">Day-2</label>
-                  <input
-                    type="date"
-                    name="schedule_interview_date_2"
-                    value={formValues.schedule_interview_date_2}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="col-4">
-                  <label htmlFor="">Day-3</label>
-                  <input
-                    type="date"
-                    name="schedule_interview_date_3"
-                    value={formValues.schedule_interview_date_3}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-              <div className="row toggle-btns">
-                <div className="col-4">
-                  <p>Add To Current Opening</p>
-                  <label className="switch">
+                <div className="row">
+                  <div className="col-6">
+                    <label htmlFor=""> Highly Desirable</label>
                     <input
-                      type="checkbox"
-                      id="checkbox"
-                      checked={addToCurrentOpening}
-                      onChange={() =>
-                        handleCheckboxChange("addToCurrentOpening")
-                      }
+                      type="text"
+                      placeholder="Add Highly Desirable"
+                      name="qualification_require"
+                      value={formValues.qualification_require}
+                      onChange={handleInputChange}
                     />
-                    <div className="slider round"></div>
-                  </label>
-                </div>
-                <div className="col-4">
-                  <p>Add To Interview Schedule</p>
-                  <label className="switch">
+                  </div>
+                  <div className="col-6">
+                    <label htmlFor="">Last Date</label>
                     <input
-                      type="checkbox"
-                      id="checkbox"
-                      checked={addToInterviewSchedule}
-                      onChange={() =>
-                        handleCheckboxChange("addToInterviewSchedule")
-                      }
+                      type="date"
+                      name="last_date_to_apply"
+                      value={formValues.last_date_to_apply}
+                      onChange={handleInputChange}
                     />
-                    <div className="slider round"></div>
-                  </label>
+                  </div>
                 </div>
-                <div className="col-4">
-                  <p>Publish To Job Profile</p>
-                  <label className="switch">
+                <div>
+                  <p id="master-sub-headings">
+                    Required Fields For Interview Schedule
+                  </p>
+                </div>
+                <div className="row">
+                  <div className="col-6">
+                    <label htmlFor="">Eligibility criteria</label>
                     <input
-                      type="checkbox"
-                      name="publish_to_job_profile"
-                      id="checkbox"
-                      checked={publishToJobProfile}
-                      onChange={() =>
-                        handleCheckboxChange("publishToJobProfile")
-                      }
+                      type="text"
+                      placeholder="Add Eligibility Criteria"
+                      name="eligibility_criteria"
+                      value={formValues.eligibility_criteria}
+                      onChange={handleInputChange}
                     />
-                    <div className="slider round"></div>
-                  </label>
+                  </div>
+                  <div className="col-6">
+                    <label htmlFor="">Add Responsible Person's Contact </label>
+                    <input
+                      type="text"
+                      placeholder="Add Contact"
+                      name="responsible_contact"
+                      value={formValues.responsible_contact}
+                      onChange={handleInputChange}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div>
-                <button type="submit" id="add-job" onClick={handleSubmit}>
-                  SUBMIT
-                </button>
-                <Notification
-                  open={showNotification}
-                  handleClose={() => setShowNotification(false)}
-                  alertMessage={notificationMessage}
-                  alertSeverity={notificationSeverity}
-                />
-              </div>
-            </form>
+                <div className="row">
+                  <div className="col-4">
+                    <label htmlFor="">Day-1</label>
+                    <input
+                      type="date"
+                      name="schedule_interview_date_1"
+                      value={formValues.schedule_interview_date_1}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="col-4">
+                    <label htmlFor="">Day-2</label>
+                    <input
+                      type="date"
+                      name="schedule_interview_date_2"
+                      value={formValues.schedule_interview_date_2}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="col-4">
+                    <label htmlFor="">Day-3</label>
+                    <input
+                      type="date"
+                      name="schedule_interview_date_3"
+                      value={formValues.schedule_interview_date_3}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+                <div className="row toggle-btns">
+                  <div className="col-4">
+                    <p>Add To Current Opening</p>
+                    <label className="switch">
+                      <input
+                        type="checkbox"
+                        id="checkbox"
+                        checked={addToCurrentOpening}
+                        onChange={() =>
+                          handleCheckboxChange("addToCurrentOpening")
+                        }
+                      />
+                      <div className="slider round"></div>
+                    </label>
+                  </div>
+                  <div className="col-4">
+                    <p>Add To Interview Schedule</p>
+                    <label className="switch">
+                      <input
+                        type="checkbox"
+                        id="checkbox"
+                        checked={addToInterviewSchedule}
+                        onChange={() =>
+                          handleCheckboxChange("addToInterviewSchedule")
+                        }
+                      />
+                      <div className="slider round"></div>
+                    </label>
+                  </div>
+                  <div className="col-4">
+                    <p>Publish To Job Profile</p>
+                    <label className="switch">
+                      <input
+                        type="checkbox"
+                        name="publish_to_job_profile"
+                        id="checkbox"
+                        checked={publishToJobProfile}
+                        onChange={() =>
+                          handleCheckboxChange("publishToJobProfile")
+                        }
+                      />
+                      <div className="slider round"></div>
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <button type="submit" id="add-job" onClick={handleSubmit}>
+                    SUBMIT
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      ) : (
-        <MasterTable />
-      )}
-    </div>
+        ) : (
+          <MasterTable />
+        )}
+      </div>
+    </>
   );
 }
 

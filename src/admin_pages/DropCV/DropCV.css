@@ -31,6 +31,7 @@
 }
 .next-btn {
   color: black !important;
+  border: 1px solid rgba(211, 211, 211, 0.558) !important;
   border-radius: 50px !important;
   padding-left: 15px !important;
   padding-right: 15px !important;

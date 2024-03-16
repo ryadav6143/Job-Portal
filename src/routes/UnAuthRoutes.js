@@ -21,13 +21,14 @@ import Research from "../admin_pages/JobProfile/Research/Research";
 import Technical from "../admin_pages/JobProfile/Technical/Technical";
 import ApplyNow from "../admin_pages/CurrentOpening/ApplyNowForm/ApplyNow";
 import EditOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/EditOpeningForm/EditOpenings";
-import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin";
+// import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin";
 import PageNotFound from "../admin_pages/PageNotFound/PageNotFound";
 import ContactUs from "../admin_pages/Contactus/ContactUs";
 import Submitsuccess from "../admin_pages/DropCV/OTPVerifivation/Submitsuccess";
 import OTPVerification from "../admin_pages/DropCV/OTPVerifivation/OTPVerification";
 import TestPages from "../admin_pages/TestPages/TestPages";
 import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
+import Sidenav from "../admin_pages/TestPages/Sidenav";
 
 console.log("inside UnAuthRoutes");
 const UnAuthRoutes = [
@@ -127,12 +128,8 @@ const UnAuthRoutes = [
     element={<UnAuthGuards component={<EditOpenings />} />}
   ></Route>,
   <Route
-    path="test"
-    element={<UnAuthGuards component={<TestPages />} />}
-  ></Route>,
-  <Route
-    path="admin_register"
-    element={<UnAuthGuards component={<RegisterAdmin />} />}
+    path="sidenav"
+    element={<UnAuthGuards component={<Sidenav />} />}
   ></Route>,
 
   <Route

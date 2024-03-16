@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./RegisterAdmin.css";
-import medilogo from "../../assets/logos/medi-logo.png";
-import axios from "axios";
-// import { BASE_URL } from "../../config/config";
-import { ADMIN_BASE_URL } from "../../config/config";
+import "./AdminRegister.css";
 
-function RegisterAdmin() {
+import medilogo from "../../../../assets/logos/medi-logo.png"
+import axios from "axios";
+
+import { ADMIN_BASE_URL } from "../../../../config/config";
+function AdminRegister() {
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [formData, setFormData] = useState({
@@ -109,9 +109,9 @@ function RegisterAdmin() {
     <>
       <div className="reg-container-main">
         <div className="form-heading">
-          <div className="">
+          {/* <div className="">
             <img className="reg-ad-logo" src={medilogo} alt="Logo" />
-          </div>
+          </div> */}
           <p>Register New Admin</p>
         </div>
         <form onSubmit={handleSubmit}>
@@ -134,7 +134,6 @@ function RegisterAdmin() {
               <div className="col-6">
                 <label htmlFor="">First Name</label>
                 <input
-                
                   name="first_name"
                   type="text"
                   placeholder="Enter Your Name"
@@ -240,7 +239,7 @@ function RegisterAdmin() {
   );
 }
 
-export default RegisterAdmin;
+export default AdminRegister;
 /*
 if id=1 role= super_admin
 Edit admin-side bar

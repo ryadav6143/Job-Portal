@@ -4,7 +4,7 @@
   border: none;
   font-weight: 500;
   background-color: rgba(226, 226, 226, 1);
-  margin-left: 87%;
+ 
   margin-top: 50px;
   margin-bottom: 100px;
   box-shadow: rgb(100 100 111 / 17%) 0px 7px 29px 0px;
@@ -28,6 +28,10 @@
 
 .editdetails-form-container {
   margin-top: 5%;
+}
+
+.edit-save-btn{
+  text-align: center;
 }
 
 /* Media query for screens smaller than 600px (adjust the breakpoint as needed) */

@@ -7,7 +7,7 @@ import { CANDIDATE_BASE_URL } from "../config/config";
 
 const candidatesApiService = (() => {
   // const [accessToken,setAccessToken]=useState("");
-  let accessToken = localStorage.getItem('Token') ? JSON.parse(localStorage.getItem('Token')) : null;
+  let accessToken = sessionStorage.getItem('Token') ? JSON.parse(sessionStorage.getItem('Token')) : null;
   console.log("candidatesApiService-accessToken", accessToken)
   return {
 
@@ -17,7 +17,7 @@ const candidatesApiService = (() => {
     },
 
     getAccessToken: () => {
-      accessToken = localStorage.getItem('Token')
+      accessToken = sessionStorage.getItem('Token')
       return accessToken;
     },
 

@@ -3,9 +3,9 @@ import "./EditExperience.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import plusicon from "../../../../assets/logos/plus.png";
-import minusicon from "../../../../assets/logos/minus.png"
+import minusicon from "../../../../assets/logos/minus.png";
 import candidatesApiService from "../../../candidateService";
-import {useApiData} from "../../../../context/CandidateContext";
+import { useApiData } from "../../../../context/CandidateContext";
 import Notification from "../../../../Notification/Notification";
 function EditExperience() {
   // const [educations, setEducations] = useState({
@@ -19,7 +19,7 @@ function EditExperience() {
   //   benefits_mediclaim: "",
   // });
 
-  const {apiData,fetchCandidateData }=useApiData()
+  const { apiData, fetchCandidateData } = useApiData();
   const [updateField, setUpdateField] = useState({});
   const [loading, setLoading] = useState(true);
   const [updateNewField, setUpdateNewField] = useState({});
@@ -29,37 +29,29 @@ function EditExperience() {
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("success");
 
-
   const fetchPersonalData = async () => {
     try {
-     // setLoading(true);
+      // setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateById();
-      setData(fetchedData)
-      console.log("fetchedData", fetchedData); 
+      setData(fetchedData);
+      console.log("fetchedData", fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
   };
-
-
 
   const fetchData = async () => {
     try {
-
       setLoading(true);
-      const fetchedData = await candidatesApiService.getExperienceById(
-    
-      );
+      const fetchedData = await candidatesApiService.getExperienceById();
       // console.log("check response",fetchedData)
       setEducations(fetchedData);
       setLoading(false);
-      
     } catch (error) {
       console.error("Error fetching data:", error.message);
       setLoading(false);
     }
   };
-
 
   useEffect(() => {
     fetchPersonalData();
@@ -67,28 +59,30 @@ function EditExperience() {
   }, []);
 
   useEffect(() => {
-    
-    setData(apiData)
+    setData(apiData);
   }, [apiData]);
   // console.log("educatons",educations);
   // console.log("education222222s", educations);
 
-  
   const handleAddEducation = (e) => {
     e.preventDefault();
-    setEducations(prevEducations => [
+    setEducations((prevEducations) => [
       ...prevEducations,
-      { company_experience_name: '', designation: '', gross_pay: '', exp_work_from: '', exp_work_to: '' }
+      {
+        company_experience_name: "",
+        designation: "",
+        gross_pay: "",
+        exp_work_from: "",
+        exp_work_to: "",
+      },
     ]);
   };
-  
 
   const handleRemoveEducation = (index) => {
     setEducations((prevEducations) =>
       prevEducations.filter((_, i) => i !== index)
     );
   };
-  
 
   // const handleExperienceArrayChange = (index, field, value) => {
   //   const updatedExperiences = [...educations.candidate_experiences];
@@ -109,35 +103,33 @@ function EditExperience() {
   // };
 
   const handleExperienceArrayChange = (index, field, value) => {
-    
     const updatedEducations = educations.map((experience, idx) => {
       if (idx === index) {
         return {
           ...experience,
-          [field]: value
+          [field]: value,
         };
       }
       return experience;
-    });  
-    const experienceId = updatedEducations[index].id;  
-    console.log("Updated State:", updatedEducations);  
+    });
+    const experienceId = updatedEducations[index].id;
+    console.log("Updated State:", updatedEducations);
     setUpdateField((prev) => ({
       ...prev,
       [field]: value.toString(),
-      id: experienceId
-    }));  
+      id: experienceId,
+    }));
     setEducations((prev) => {
       const updatedEducation = [...prev];
       updatedEducation[index] = {
         ...updatedEducation[index],
-        [field]: value.toString()
+        [field]: value.toString(),
       };
       return updatedEducation;
     });
-  };  
+  };
   // console.log("updateField>>>>>>>>", updateField);
-  
-  
+
   //   const handleExperienceChange = (index, field, value) => {
   //     const updatedExperiences = [...educations.total_academic_exp];
   //     // const experienceId = updatedExperiences[index].id;
@@ -160,7 +152,7 @@ function EditExperience() {
 
   // const handleSaveChanges = async () => {
   //   try {
- 
+
   //     console.log(updateField);
 
   //     await candidatesApiService.updateCandidateExperience( {
@@ -169,7 +161,7 @@ function EditExperience() {
   //     await candidatesApiService.updateCandidatePersonalInfo(
 
   //       updateNewField
-        
+
   //     );
   //     setUpdateField({});
   //     setUpdateNewField({});
@@ -182,18 +174,19 @@ function EditExperience() {
   //   }
   // };
 
-
   const handleSaveChanges = async () => {
     try {
       await candidatesApiService.updateCandidateExperience({
         experiences: [updateField],
       });
+
       await candidatesApiService.updateCandidatePersonalInfo(updateNewField);
       setUpdateField({});
       setUpdateNewField({});
       setNotificationMessage("Changes saved successfully.");
       setNotificationSeverity("success");
       setNotificationOpen(true);
+      console.log("Changes saved successfully."); 
     } catch (error) {
       console.error("Error saving changes:", error.message);
       setNotificationMessage("Error saving changes.");
@@ -201,6 +194,9 @@ function EditExperience() {
       setNotificationOpen(true);
     }
   };
+
+
+
 
   const formatDateFrom = (dateString) => {
     // console.log("dateString",dateString);
@@ -213,7 +209,7 @@ function EditExperience() {
     const day = dateObject.getDate().toString().padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
-// console.log("final check experirenxes",educations)
+  // console.log("final check experirenxes",educations)
   return (
     <>
       {loading && (
@@ -226,7 +222,7 @@ function EditExperience() {
           className="container"
           style={{
             marginTop: "90px",
-            
+
             paddingRight: "50px",
           }}
         >
@@ -235,7 +231,6 @@ function EditExperience() {
               <h5 className="UD-heading">
                 Experience &nbsp;{" "}
                 <FontAwesomeIcon className="edit-pen-icon" icon={faPen} />
-              
               </h5>
               <p className="UD-subheading">
                 Please fill your information so we can get in touch with you.
@@ -245,143 +240,156 @@ function EditExperience() {
             {/* Experience */}
 
             {educations.map((experience, index) => (
-  <div key={index}>
-    {index > 0 && <hr style={{ margin: "24px 0" }} />}
-    <div className="row">
-       <div>
-       {educations.length > 1 && (
+              <div key={index}>
+                {index > 0 && <hr style={{ margin: "24px 0" }} />}
+                <div className="row">
+                  <div>
+                    {educations.length > 1 && (
                       <button
                         type="button"
                         onClick={() => handleRemoveEducation(index)}
                         className="minus-buttons"
                       >
-                        <img src={minusicon} alt="Remove candidate_experiences" />
+                        <img
+                          src={minusicon}
+                          alt="Remove candidate_experiences"
+                        />
                       </button>
                     )}
-       {index === educations.length - 1 && (
-          <button
-            type="button"
-            onClick={handleAddEducation}
-            className="plus-buttons"
-          >
-            <img src={plusicon} alt="Add candidate_experiences" />
-          </button>
-        )}
-       </div>
-       
-     
-      <div className="col-md-4">
-        {/* Name of Institute / Company */}
-        <div className="UD-form-section">
-          <label className="UD-SetLabel-Name">
-            <span>*</span>Name of Institute / Company
-          </label>
-          <input
-            className="UD-set-input"
-            type="text"
-            placeholder=" "
-            name="company_experience_name"
-            id=""
-            value={experience.company_experience_name}
-            onChange={(e) =>
-              handleExperienceArrayChange(
-                index,
-                "company_experience_name",
-                e.target.value
-              )
-            }
-          />
-        </div>
-      </div>
+                    {index === educations.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={handleAddEducation}
+                        className="plus-buttons"
+                      >
+                        <img src={plusicon} alt="Add candidate_experiences" />
+                      </button>
+                    )}
+                  </div>
 
-      <div className="col-md-4">
-        {/* Designation */}
-        <div className="UD-form-section">
-          <label className="UD-SetLabel-Name">
-            <span>*</span>Designation
-          </label>
-          <input
-            className="UD-set-input"
-            type="text"
-            placeholder=" "
-            name="designation"
-            id=""
-            value={experience.designation}
-            onChange={(e) =>
-              handleExperienceArrayChange(index, "designation", e.target.value)
-            }
-          />
-        </div>
-      </div>
+                  <div className="col-md-4">
+                    {/* Name of Institute / Company */}
+                    <div className="UD-form-section">
+                      <label className="UD-SetLabel-Name">
+                        <span>*</span>Name of Institute / Company
+                      </label>
+                      <input
+                        className="UD-set-input"
+                        type="text"
+                        placeholder=" "
+                        name="company_experience_name"
+                        id=""
+                        value={experience.company_experience_name}
+                        onChange={(e) =>
+                          handleExperienceArrayChange(
+                            index,
+                            "company_experience_name",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
 
-      <div className="col-md-4">
-        {/* Current Gross Pay (Per Month)*/}
-        <div className="UD-form-section">
-          <label className="UD-SetLabel-Name">
-            <span>*</span>Current Gross Pay (Per Month){" "}
-          </label>
-          <input
-            className="UD-set-input"
-            type="text"
-            placeholder=" "
-            name="gross_pay"
-            id=""
-            value={experience.gross_pay}
-            onChange={(e) =>
-              handleExperienceArrayChange(index, "gross_pay", e.target.value)
-            }
-          />
-        </div>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col-md-4">
-        {/* Date From*/}
-        <div className="UD-form-section">
-          <label className="UD-SetLabel-Name">
-            <span>*</span>Date From
-          </label>
-          <input
-            className="UD-set-input"
-            type="date"
-            placeholder="dd/mm/yyyy"
-            name="exp_work_from"
-            id=""
-            value={formatDateFrom(experience.exp_work_from)}
-            onChange={(e) =>
-              handleExperienceArrayChange(
-                index,
-                "exp_work_from",
-                e.target.value
-              )
-            }
-          />
-        </div>
-      </div>
+                  <div className="col-md-4">
+                    {/* Designation */}
+                    <div className="UD-form-section">
+                      <label className="UD-SetLabel-Name">
+                        <span>*</span>Designation
+                      </label>
+                      <input
+                        className="UD-set-input"
+                        type="text"
+                        placeholder=" "
+                        name="designation"
+                        id=""
+                        value={experience.designation}
+                        onChange={(e) =>
+                          handleExperienceArrayChange(
+                            index,
+                            "designation",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
 
-      <div className="col-md-4">
-        {/* Date To */}
-        <div className="UD-form-section">
-          <label className="UD-SetLabel-Name">
-            <span>*</span>Date To
-          </label>
-          <input
-            className="UD-set-input"
-            type="date"
-            placeholder="dd/mm/yyyy"
-            name="exp_work_to"
-            id=""
-            value={formatDateFrom(experience.exp_work_to)}
-            onChange={(e) =>
-              handleExperienceArrayChange(index, "exp_work_to", e.target.value)
-            }
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-))}
+                  <div className="col-md-4">
+                    {/* Current Gross Pay (Per Month)*/}
+                    <div className="UD-form-section">
+                      <label className="UD-SetLabel-Name">
+                        <span>*</span>Current Gross Pay (Per Month){" "}
+                      </label>
+                      <input
+                        className="UD-set-input"
+                        type="text"
+                        placeholder=" "
+                        name="gross_pay"
+                        id=""
+                        value={experience.gross_pay}
+                        onChange={(e) =>
+                          handleExperienceArrayChange(
+                            index,
+                            "gross_pay",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-4">
+                    {/* Date From*/}
+                    <div className="UD-form-section">
+                      <label className="UD-SetLabel-Name">
+                        <span>*</span>Date From
+                      </label>
+                      <input
+                        className="UD-set-input"
+                        type="date"
+                        placeholder="dd/mm/yyyy"
+                        name="exp_work_from"
+                        id=""
+                        value={formatDateFrom(experience.exp_work_from)}
+                        onChange={(e) =>
+                          handleExperienceArrayChange(
+                            index,
+                            "exp_work_from",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
 
+                  <div className="col-md-4">
+                    {/* Date To */}
+                    <div className="UD-form-section">
+                      <label className="UD-SetLabel-Name">
+                        <span>*</span>Date To
+                      </label>
+                      <input
+                        className="UD-set-input"
+                        type="date"
+                        placeholder="dd/mm/yyyy"
+                        name="exp_work_to"
+                        id=""
+                        value={formatDateFrom(experience.exp_work_to)}
+                        onChange={(e) =>
+                          handleExperienceArrayChange(
+                            index,
+                            "exp_work_to",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
 
             {/* Total Experience */}
 
@@ -402,7 +410,7 @@ function EditExperience() {
                     placeholder="In Years"
                     name="total_academic_exp"
                     id=""
-                    value={data?.total_academic_exp|| ""}
+                    value={data?.total_academic_exp || ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "total_academic_exp",
@@ -425,7 +433,7 @@ function EditExperience() {
                     placeholder="In Years"
                     name="total_industrial_exp"
                     id=""
-                    value={data?.total_industrial_exp|| ""}
+                    value={data?.total_industrial_exp || ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "total_industrial_exp",
@@ -456,7 +464,7 @@ function EditExperience() {
                     placeholder=""
                     name="benefits_accommodation"
                     id=""
-                    value={data?.benefits_accommodation|| ""}
+                    value={data?.benefits_accommodation || ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "benefits_accommodation",
@@ -479,7 +487,7 @@ function EditExperience() {
                     placeholder=""
                     name="benefits_transportation"
                     id=""
-                    value={data?.benefits_transportation|| ""}
+                    value={data?.benefits_transportation || ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "benefits_transportation",
@@ -502,7 +510,7 @@ function EditExperience() {
                     placeholder=""
                     name="benefits_food"
                     id=""
-                    value={data?.benefits_food|| ""}
+                    value={data?.benefits_food || ""}
                     onChange={(e) =>
                       handleExperienceChange("benefits_food", e.target.value)
                     }
@@ -524,7 +532,7 @@ function EditExperience() {
                     placeholder=""
                     name="benefits_mediclaim"
                     id=""
-                    value={data?.benefits_mediclaim|| ""}
+                    value={data?.benefits_mediclaim || ""}
                     onChange={(e) =>
                       handleExperienceChange(
                         "benefits_mediclaim",
@@ -549,17 +557,14 @@ function EditExperience() {
                     id=""
                     value={data?.benefits_others || ""}
                     onChange={(e) =>
-                      handleExperienceChange(
-                        "exp_benefits_others",
-                        e.target.value
-                      )
+                      handleExperienceChange("benefits_others", e.target.value)
                     }
                   ></input>
                 </div>
               </div>
             </div>
 
-            <div>
+            <div className="edit-save-btn">
               <button
                 className="savebtn"
                 type="button"

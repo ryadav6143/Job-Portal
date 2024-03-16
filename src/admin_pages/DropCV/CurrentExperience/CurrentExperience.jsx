@@ -15,6 +15,7 @@ function CurrentExperience({
 }) {
   [isFresher, setIsFresher] = useState(false);
   // const [formData, setFormData] = useState(null);
+  const [maxCharacters] = useState(40);
   const handleCheckboxChange = () => {
     setIsFresher(!isFresher);
     onCheckboxChange(!isFresher);
@@ -22,6 +23,7 @@ function CurrentExperience({
   const handleInputChange = (e) => {
     
     const { name, value } = e.target;
+    if (value.length <= maxCharacters) {
     setFormData((prevFormData) => ({
       ...prevFormData,
       personalDetails: {
@@ -33,6 +35,13 @@ function CurrentExperience({
       ...prevErrors,
       [name]: value ? "" : "",
     }));
+  }
+  else {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: `Maximum ${maxCharacters} characters allowed`,
+    }));
+  }
   };
   const handleFileChange = (e) => {
     const file = e.target.files[0];
