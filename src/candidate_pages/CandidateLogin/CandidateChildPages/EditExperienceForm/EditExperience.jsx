@@ -186,6 +186,7 @@ function EditExperience() {
       setNotificationMessage("Changes saved successfully.");
       setNotificationSeverity("success");
       setNotificationOpen(true);
+      console.log("Changes saved successfully."); 
     } catch (error) {
       console.error("Error saving changes:", error.message);
       setNotificationMessage("Error saving changes.");
@@ -193,6 +194,9 @@ function EditExperience() {
       setNotificationOpen(true);
     }
   };
+
+
+
 
   const formatDateFrom = (dateString) => {
     // console.log("dateString",dateString);

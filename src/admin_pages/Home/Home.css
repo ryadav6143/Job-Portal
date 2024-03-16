@@ -73,6 +73,8 @@
 }
 
 .cards {
+  max-width: 1500px;
+  margin: auto;
   margin-top: 25px;
   margin-bottom: 50px;
   display: -webkit-box;
@@ -222,10 +224,15 @@
 }
 
 .purpose {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  /* max-width: 1500px; */
+  /* margin: auto; */
+  margin-block: 50px;
+  
 }
-
+.hr-corner-sub-container {
+  max-width: 1500px;
+  margin: auto;
+}
 .purpose-headings {
   text-align: center;
   margin-bottom: 25px;
@@ -499,7 +506,9 @@
 .active-card p {
   margin-top: 115% !important;
 }
-
+.staff-design{
+  margin-block: 100px;
+}
 @media only screen and (max-width: 767px) {
   .subs {
     margin-top: 50px;
