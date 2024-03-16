@@ -71,7 +71,7 @@ function EditResearchForm() {
  
         setLoading(true);
         const fetchedData = await candidatesApiService.getCandidateResearchWork();
-        // console.log("response", fetchedData);
+        console.log("response", fetchedData);
         setData(fetchedData);
         setLoading(false);
       } catch (error) {
