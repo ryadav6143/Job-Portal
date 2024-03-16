@@ -31,14 +31,10 @@ function EditProgramsForm() {
 
   const fetchCandidateData = async () => {
     try {
-
-      const fetchedData1 = await candidatesApiService.getCandidateById();
-      const fetchedData2 = await candidatesApiService.getCandidateSeminarPage();
-      
-      setData((prev)=>{
-        return({...prev,...fetchedData1,...fetchedData2})})
-      console.log("fetchedData", fetchedData1 ,fetchedData2, data); 
-      setLoading(false)
+     // setLoading(true);
+      const fetchedData = await candidatesApiService.getCandidateById();
+      setData(fetchedData)
+      console.log("fetchedData", fetchedData); 
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
@@ -49,21 +45,28 @@ function EditProgramsForm() {
 
   const fetchData = async () => {
     try {   
-   
+      setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateSeminarPage();
       // console.log("response", fetchedData);
       setData(fetchedData);
-
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error.message);
-
+      setLoading(false);
     }
   };
   useEffect(() => {
-    // fetchData();
+    fetchData();
     fetchCandidateData();
   }, []);
-
+  useEffect(() => {
+    const body = document.body;
+    if (loading) {
+      body.style.overflow = "hidden";
+    } else {
+      body.style.overflow = "auto";
+    }
+  }, [loading]);
 
   const handleAddOrganised = () => {
     setData((prevData) => ({
@@ -273,15 +276,13 @@ function EditProgramsForm() {
   };
 
   return (
-    <>    {loading && (
-      <div className="loader-container">
-        <div className="loader"></div>
-      </div>
-    )}
-
-
-
-      {!loading&&data&&data.candidate_seminar_organiseds&&<form id="myForm" onSubmit={handleSaveChanges}>
+    <>
+      {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
+      <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"
           style={{
@@ -303,12 +304,25 @@ function EditProgramsForm() {
 
             {/* Organized*/}
 
+            {/* <div>
+              <p className="HS-heading">
+                Organized{" "}
+                <button
+                  onClick={handleAddOrganised}
+                  type="button"
+                  className="plus-buttons"
+                >
+                  <img src={plusicon} />
+                </button>
+              </p>
+            </div> */}
             <div>
               <p className="HS-heading">Organized</p>
             </div>
-              <div>
-            {data&&data.candidate_seminar_organiseds&&data.candidate_seminar_organiseds.map((seminar_organised, index)=>{
-              return (<div key={index}>
+
+            {data?.candidate_seminar_organiseds?.map(
+              (seminar_organised, index) => (
+                <div key={index}>
                   {index > 0 && <hr style={{ margin: "24px 0" }} />}
                   <div className="row">
                     <div>
@@ -509,9 +523,9 @@ function EditProgramsForm() {
                     </div>
                   </div>
                 </div>
-              )}
+              )
             )}
-              </div>
+
             {/* Attended*/}
 
             <div>
@@ -926,7 +940,7 @@ function EditProgramsForm() {
           </div>
         </div>
         {/* <Footers></Footers> */}
-      </form>}
+      </form>
       <Notification
         open={notificationOpen}
         handleClose={() => setNotificationOpen(false)}
