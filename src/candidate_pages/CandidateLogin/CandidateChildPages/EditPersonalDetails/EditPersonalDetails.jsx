@@ -67,6 +67,12 @@ function EditPersonalDetails({ token }) {
       });
   }, []);
 
+  const showNotification = (message, severity) => {
+    setNotificationMessage(message);
+    setNotificationSeverity(severity);
+    setNotificationOpen(true);
+  };
+
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -77,8 +83,10 @@ function EditPersonalDetails({ token }) {
         console.log("Image upload successful:", responseData);
 
         setSelectedImage(URL.createObjectURL(file));
+        showNotification("Profile photo changed successfully.", "success");
       } catch (error) {
         console.error("Error uploading image:", error.message);
+        showNotification("Error changing profile photo.", "error");
         // Handle other errors that may occur during the request
       }
     }
@@ -93,15 +101,14 @@ function EditPersonalDetails({ token }) {
       setUpdateField({});
       fetchCandidateData();
       // window.location.reload();
-      setNotificationMessage("Changes saved successfully.");
-      setNotificationSeverity("success");
-      setNotificationOpen(true);
+      showNotification("Changes saved successfully.", "success");
     } catch (error) {
       console.error("Error saving changes:", error.message);
-      setNotificationMessage("Error saving changes.");
-      setNotificationSeverity("error");
-      setNotificationOpen(true);
+      showNotification("Error saving changes.", "error");
     }
+
+
+   
 
     // let errors = {};
     // if (!formValues.first_name) {

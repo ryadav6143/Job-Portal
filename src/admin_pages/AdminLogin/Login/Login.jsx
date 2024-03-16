@@ -21,13 +21,10 @@ function Login(handleLogin) {
   });
 
   const navigate = useNavigate()
-  useEffect(() => {
-    // Check for token in local storage upon component mount
-    const token = sessionStorage.getItem("Token");
-    if (token) {
-      // handleLogin();
-    }
-  }, []); // Empty dependency array ensures this effect runs only once on component mount
+
+  const removeToken=(()=>{
+    localStorage.removeItem("Token");
+  })()
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -38,8 +35,8 @@ function Login(handleLogin) {
         password: password,
       }));
       console.log(response)
-      if (response.data.token) {
-        sessionStorage.setItem("Token", JSON.stringify(response.data));
+      if (response&&response.data.token) {
+        localStorage.setItem("Token", JSON.stringify(response.data));
         // handleLogin();
         navigate(`/admin-dashboard`)
         setErrorNotification({
@@ -48,7 +45,6 @@ function Login(handleLogin) {
         });
       } else {
         setError("Invalid credentials");
-
       }
     } catch (error) {
       console.error("Error during login:", error);

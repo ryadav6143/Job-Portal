@@ -148,47 +148,52 @@ function Home() {
         </div>
       </div>
       <div className="hr-corner">
-        <div className="hr-conrer-heading">
-          <p>HUMAN RESOURCE</p>
-          <p>
-            INSIGHT INTO HUMAN <br /> RESOURCES
-          </p>
-        </div>
-        <div className="buttons">
-          <div>
-            <button data-actin="next" onClick={next}>
-              &#8592;
-            </button>
+        <div className="hr-corner-sub-container">
+          <div className="hr-conrer-heading">
+            <p>HUMAN RESOURCE</p>
+            <p>
+              INSIGHT INTO HUMAN <br /> RESOURCES
+            </p>
           </div>
-          <div>
-            <button data-actin="previous" onClick={previous}>
-              &#8594;
-            </button>
-          </div>
-        </div>
-        <div className="slider-imgs">
-          {isMobileView ? (
-            <div className={`card${activeCard + 1} active-card`}>
-              <p>{cardHeadline}</p>
+          <div className="buttons">
+            <div>
+              <button data-actin="next" onClick={next}>
+                &#8592;
+              </button>
             </div>
-          ) : (
-            <>
-              <div className={`card${(activeCard % 4) + 1}`}>
+            <div>
+              <button data-actin="previous" onClick={previous}>
+                &#8594;
+              </button>
+            </div>
+          </div>
+          <div className="slider-imgs">
+            {isMobileView ? (
+              <div className={`card${activeCard + 1} active-card`}>
                 <p>{cardHeadline}</p>
               </div>
-              <div className={`card${((activeCard + 1) % 4) + 1} active-card`}>
-                <p>{cardHeadline}</p>
-              </div>
-              <div className={`card${((activeCard + 2) % 4) + 1}`}>
-                <p>{cardHeadline}</p>
-              </div>
-              <div className={`card${((activeCard + 3) % 4) + 1}`}>
-                <p>{cardHeadline}</p>
-              </div>
-            </>
-          )}
+            ) : (
+              <>
+                <div className={`card${(activeCard % 4) + 1}`}>
+                  <p>{cardHeadline}</p>
+                </div>
+                <div
+                  className={`card${((activeCard + 1) % 4) + 1} active-card`}
+                >
+                  <p>{cardHeadline}</p>
+                </div>
+                <div className={`card${((activeCard + 2) % 4) + 1}`}>
+                  <p>{cardHeadline}</p>
+                </div>
+                <div className={`card${((activeCard + 3) % 4) + 1}`}>
+                  <p>{cardHeadline}</p>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
+
       <div className="purpose">
         <div className="purpose-headings">
           <p>OUR PEOPLE WITH PURPOSE</p>
@@ -248,6 +253,9 @@ function Home() {
           </div>
         </div>
       </div>
+
+
+      
       <Footers></Footers>
     </>
   );
