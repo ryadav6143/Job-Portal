@@ -355,6 +355,64 @@ const candidatesApiService = (() => {
         throw error;
       }
     },
+
+    getCandidateOrganised: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidateSeminarOrganised/getCandidateSeminarOrganised`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    getCandidateAttend: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidateSeminarAttend/getCandidateSeminarAttend`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    getCandidateMembershipInfo: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidateMembershipInfo/getCandidateMembershipInfo`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    updateOrganisedForm: async (updateField) => {
+      try {
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidateSeminarOrganised/updateCandidateSeminarOrganised`,
+          updateField,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+          }
+        );
+
+        console.log('Save Changes Response:', response);
+        return response.data; // Assuming your API returns some data upon successful update
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+
+
   };
 })();
 

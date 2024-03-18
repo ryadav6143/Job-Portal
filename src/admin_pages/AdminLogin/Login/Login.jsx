@@ -23,6 +23,7 @@ function Login(handleLogin) {
   const navigate = useNavigate()
 
   const removeToken=(()=>{
+    sessionStorage.removeItem("Token");
     localStorage.removeItem("Token");
   })()
 
@@ -36,7 +37,7 @@ function Login(handleLogin) {
       }));
       console.log(response)
       if (response&&response.data.token) {
-        localStorage.setItem("Token", JSON.stringify(response.data));
+        sessionStorage.setItem("Token", JSON.stringify(response.data));
         // handleLogin();
         navigate(`/admin-dashboard`)
         setErrorNotification({

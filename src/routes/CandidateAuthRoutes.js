@@ -14,6 +14,10 @@ import EditResearchForm from "../candidate_pages/CandidateLogin/CandidateChildPa
 import EditReference from "../candidate_pages/CandidateLogin/CandidateChildPages/EditReference/EditReference.jsx";
 import CurrentOpening from "../admin_pages/CurrentOpening/CurrentOpening.jsx";
 import CandidateCurrentopening from "../candidate_pages/CandidateLogin/CandidateChildPages/CandidateCurrentOpening/CandidateCurrentopening.jsx";
+import CandidateOrganisedForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/SeminarOrganised/CandidateOrganisedForm.jsx";
+import CandidateAttendForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/CandidateAttendForm.jsx";
+import CandidateOtherInfoForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/CandidateOtherInfoForm.jsx";
+import OtherActivites from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/OtherActivites.jsx";
 console.log("inside Candidate-Auth Routes");
 
 const CandidateAuthRoutes = [
@@ -52,6 +56,22 @@ const CandidateAuthRoutes = [
     <Route
       path="current-opening"
       element={<CandidateAuthGaurd component={<CandidateCurrentopening />} />}
+    />
+    <Route
+      path="candidate-organised"
+      element={<CandidateAuthGaurd component={<CandidateOrganisedForm />} />}
+    />
+    <Route
+      path="candidate-attend"
+      element={<CandidateAuthGaurd component={<CandidateAttendForm />} />}
+    />
+    <Route
+      path="candidate-otherInfo"
+      element={<CandidateAuthGaurd component={<CandidateOtherInfoForm />} />}
+    />
+    <Route
+      path="candidate-otheractivites"
+      element={<CandidateAuthGaurd component={<OtherActivites />} />}
     />
   </Route>,
 ];
