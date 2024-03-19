@@ -1,104 +1,105 @@
 import React, { useEffect, useState } from 'react';
 import candidatesApiService from '../../../../candidateService';
 import updatebtn from "../../../../../assets/logos/update.png";
-import deletebtn from "../../../../../assets/logos/delete.png";
-import EditOrganisedForm from './EditOrganisedForm';
-import AddOrganisedForm from './AddOrganisedForm';
+import deletebtn from "../../../../../assets/logos/delete.png"
+import AddOtherInfoForm from './AddOtherInfoForm';
+import EditOtherInfoForm from './EditOtherInfoForm';
 
-const CandidateOrganisedForm = () => {
-  const [organisedItem, setOrganisedItem] = useState([]);
+const CandidateOtherInfoForm = () => {
+
+
+  const [otherInfoItem, setOtherInfoItem] = useState([])
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [filteredItem, setFilteredItem] = useState(null);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const fetchData = async () => {
     try {
-      const fetchedData = await candidatesApiService.getCandidateOrganised();
-      setOrganisedItem(fetchedData);
+
+      const fetchedData = await candidatesApiService.getCandidateMembershipInfo();
+      console.log("response?????????????????", fetchedData);
+      setOtherInfoItem(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
+
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
+
     return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
   };
 
   const handleEditClick = (itemId) => {
-    console.log("id??",itemId);
-    const filteredItem = organisedItem.find(item => item.id === itemId);
+    console.log("id??", itemId);
+    const filteredItem = otherInfoItem.find(item => item.id === itemId);
     console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleClose = () => {    
-    setEditMode(false);
-    
+  const handleCloseOtherInfoClick = () => {
+    setIsPopupOpen(true);
   };
-  const handleOpenOrganizedClick = () => {
+  const handleOpenOtherInfoClick = () => {
     setIsPopupOpen(true); // Open popup
   };
-  const handleCloseOrganizedClick = () => {
-    setIsPopupOpen(true); 
-  };
+
   const handleDeleteClick = async (itemId) => {
     const isConfirmed = window.confirm("Are you sure you want to delete this item?");
     if (isConfirmed) {
       try {
-        await candidatesApiService.DeleteOrganisedForm(itemId);
-        // Update state after successful deletion
-        setOrganisedItem(prevItems => prevItems.filter(item => item.id !== itemId));
-        console.log("Item deleted successfully");
+        await candidatesApiService.DeleteOtherInfoForm(itemId);
+        fetchData();
+
+        otherInfoItem(prevItems => prevItems.filter(item => item.id !== itemId));
+
+
       } catch (error) {
         console.error("Error deleting item:", error.message);
       }
     }
   };
-  
+
   return (
     <>
       <div className="new-opening-btn">
-        <button onClick={handleOpenOrganizedClick}>Add Organized</button>
+        <button onClick={handleOpenOtherInfoClick}>Add OtherInfo</button>
       </div>
 
       <div className="master-table">
-        <p className="SCA-heading">Organized</p>
+        <p className="SCA-heading">Other Information</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">Sr. No.</th>
+                <th scope="col">Membership of University/Institute/Industry Bodies/Professional Bodies</th>
                 <th scope="col">Date From</th>
                 <th scope="col">Date To</th>
-                <th scope="col">Name of the Course</th>
-                <th scope="col">Sponsored By</th>
-                <th scope="col">No. of Participants</th>
-                <th scope="col">From Institutes</th>
-                <th scope="col">From Industry</th>
+                <th scope="col">Position Held</th>
+                <th scope="col">Contribution</th>
                 <th scope="col">Edit</th>
                 <th scope="col">DELETE</th>
+                {/* <th scope="col">DELETE</th> */}
               </tr>
             </thead>
             <tbody>
-              {organisedItem && organisedItem.map((item, index) => (
+              {otherInfoItem && otherInfoItem.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{formatDate(item.organise_date_from)}</td>
-                  <td>{formatDate(item.organise_date_to)}</td>
-                  <td>{item.name_of_course}</td>
-                  <td>{item.sponsered_by}</td>
-                  <td>{item.participants_number}</td>
-                  <td>{item.name_of_institute}</td>
-                  <td>{item.name_of_industry}</td>
+                  <td>{item.member_of_institute_name}</td>
+                  <td>{formatDate(item.membership_date_from)}</td>
+                  <td>{formatDate(item.membership_date_to)}</td>
+                  <td>{item.position_held}</td>
+                  <td>{item.contribution}</td>
                   <td>
                     <button
                       type="button"
@@ -123,10 +124,10 @@ const CandidateOrganisedForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditOrganisedForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
-      {isPopupOpen && <AddOrganisedForm  handleCloseOrganizedClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
+      {editMode && <EditOtherInfoForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData} />}
+      {isPopupOpen && <AddOtherInfoForm handleCloseOtherInfoClick={() => setIsPopupOpen(false)} fetchData={fetchData} />}
     </>
   );
 };
 
-export default CandidateOrganisedForm;
+export default CandidateOtherInfoForm;

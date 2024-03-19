@@ -3,28 +3,25 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, input } from
 // import close from "../../../assets/logos/close.png";
 import close from "../../../../../assets/logos/close.png"
 import candidatesApiService from "../../../../candidateService";
-function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
+function EditOtherInfoForm({ filteredItem, handleClose,fetchData }) {
     const [formData, setFormData] = useState({
-        name_of_course: "",
-        name_of_industry: "",
-        name_of_institute: "",
-        organise_date_from: "",
-        organise_date_to: "",
-        participants_number: "",
-        sponsered_by: ""
+         member_of_institute_name: "",
+    membership_date_from: "",
+    membership_date_to: "",
+    position_held: "",
+    contribution: "",
     });
     const [updateField, setUpdateField] = useState({});
 
     useEffect(() => {
         if (filteredItem) {
             setFormData({
-                name_of_course: filteredItem.name_of_course || "",
-                name_of_industry: filteredItem.name_of_industry || "",
-                name_of_institute: filteredItem.name_of_institute || "",
-                organise_date_from: filteredItem.organise_date_from || "",
-                organise_date_to: filteredItem.organise_date_to || "",
-                participants_number: filteredItem.participants_number || "",
-                sponsered_by: filteredItem.sponsered_by || ""
+                member_of_institute_name: filteredItem.member_of_institute_name || "",
+                membership_date_from: filteredItem.membership_date_from || "",
+                membership_date_to: filteredItem.membership_date_to || "",
+                position_held: filteredItem.position_held || "",
+                contribution: filteredItem.contribution || "",
+              
             });
         }
     }, [filteredItem]);
@@ -44,23 +41,21 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
         setUpdateField((prevUpdateField) => ({
             ...prevUpdateField,
             [fieldName]: value.toString()
-        }));
-
-        // Console mein changes dikhaane ke liye
+        }));       
+        
         console.log(`Field '${fieldName}' updated to:`, value);
     };
-
-
+    
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
 
             const updatedFormData = {
                 ...updateField,
-                organised_id: filteredItem.id
+                member_id: filteredItem.id
             };
 
-            await candidatesApiService.updateOrganisedForm(updatedFormData);
+            await candidatesApiService.updateOtherInfoForm(updatedFormData);
             fetchData();
             handleClose();
         } catch (error) {
@@ -68,7 +63,6 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
 
         }
     };
-
 
 
 
@@ -89,72 +83,56 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
     };
     return (
         <Dialog open={true} >
-            <DialogTitle>Edit Organised Form</DialogTitle>
+            <DialogTitle>Edit Other Information Form</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleUpdate}>
                     <input
-                        label="Name of Course"
+                        label="Member Of Institute Name"
                         type="text"
-                        name="name_of_course"
-                        value={formData.name_of_course}
+                        name="member_of_institute_name"
+                        value={formData.member_of_institute_name}                        
                         onChange={(e) =>
-                            handleChange("name_of_course", e.target.value)}
+                            handleChange("member_of_institute_name",e.target.value)}
                         fullWidth
                     />
                     <input
-                        label="Name of Industry"
-                        type="text"
-                        name="name_of_industry"
-                        value={formData.name_of_industry}
-                        onChange={(e) =>
-                            handleChange("name_of_industry", e.target.value)}
-                        fullWidth
-                    />
-                    <input
-                        label="Name of Institute"
-                        type="text"
-                        name="name_of_institute"
-                        value={formData.name_of_institute}
-                        onChange={(e) =>
-                            handleChange("name_of_institute", e.target.value)}
-                        fullWidth
-                    />
-                    <input
-                        label="Organise Date From"
+                        label="Membership Date From"
                         type="date"
-                        name="organise_date_from"
-                        value={formatDateForInput(formData.organise_date_from)}
+                        name="membership_date_from"
+                        value={formatDateForInput(formData.membership_date_from)}
                         onChange={(e) =>
-                            handleChange("organise_date_from", e.target.value)}
+                            handleChange("membership_date_from",e.target.value)}
                         fullWidth
                     />
                     <input
-                        label="Organise Date To"
+                        label="Membership Date To"
                         type="date"
-                        name="organise_date_to"
-                        value={formatDateForInput(formData.organise_date_to)}
-                        onChange={(e) =>
-                            handleChange("organise_date_to", e.target.value)}
+                        name="membership_date_to"
+                        value={formatDateForInput(formData.membership_date_to)}
+                           onChange={(e) =>
+                            handleChange("membership_date_to",e.target.value)}
+                        fullWidth
+                    />
+                   <input
+                        label="Position Held"
+                        type="text"
+                        name="position_held"
+                        value={formData.position_held}
+                           onChange={(e) =>
+                            handleChange("position_held",e.target.value)}
                         fullWidth
                     />
                     <input
-                        label="Participants Number"
+                        label="contribution"
                         type="text"
-                        name="participants_number"
-                        value={formData.participants_number}
-                        onChange={(e) =>
-                            handleChange("participants_number", e.target.value)}
+                        name="contribution"
+                        value={formData.contribution}
+                           onChange={(e) =>
+                            handleChange("contribution",e.target.value)}
                         fullWidth
                     />
-                    <input
-                        label="Sponsored By"
-                        type="text"
-                        name="sponsered_by"
-                        value={formData.sponsered_by}
-                        onChange={(e) =>
-                            handleChange("sponsered_by", e.target.value)}
-                        fullWidth
-                    />
+                    
+                 
                     <DialogActions>
                         <Button variant="contained" color="primary" type="submit">
                             Update
@@ -169,4 +147,4 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
     );
 }
 
-export default EditOrganisedForm;
+export default EditOtherInfoForm;

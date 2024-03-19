@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material"; // Importing required components from Material-UI
 
-function AddOrganisedForm({ handleCloseOrganizedClick }) {
+import candidatesApiService from "../../../../candidateService";
+
+function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
   const [formData, setFormData] = useState({
     name_of_course: "",
     name_of_industry: "",
@@ -17,9 +19,19 @@ function AddOrganisedForm({ handleCloseOrganizedClick }) {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
+  try {
+      const response = await candidatesApiService.addCandidateOrganised(formData);
+      console.log(response.data); 
+
+      handleCloseOrganizedClick();
+      fetchData();
+
+    } catch (error) {
+      console.error(`Error submitting data: ${error.message}`);
+    
+    }
   };
 
   return (
@@ -91,7 +103,7 @@ function AddOrganisedForm({ handleCloseOrganizedClick }) {
             fullWidth
           />
           <DialogActions>
-            <Button variant="contained" color="primary" type="submit">
+            <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
               Submit
             </Button>
             <Button onClick={handleCloseOrganizedClick}>Close</Button>

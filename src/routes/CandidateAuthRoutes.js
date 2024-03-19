@@ -15,9 +15,12 @@ import EditReference from "../candidate_pages/CandidateLogin/CandidateChildPages
 import CurrentOpening from "../admin_pages/CurrentOpening/CurrentOpening.jsx";
 import CandidateCurrentopening from "../candidate_pages/CandidateLogin/CandidateChildPages/CandidateCurrentOpening/CandidateCurrentopening.jsx";
 import CandidateOrganisedForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/SeminarOrganised/CandidateOrganisedForm.jsx";
-import CandidateAttendForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/CandidateAttendForm.jsx";
-import CandidateOtherInfoForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/CandidateOtherInfoForm.jsx";
+// import CandidateAttendForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/CandidateAttendForm.jsx";
+// import CandidateOtherInfoForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/CandidateOtherInfoForm.jsx";
+// import OtherActivites from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/OtherActivites.jsx";
 import OtherActivites from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/OtherActivites.jsx";
+import CandidateOtherInfoForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/SeminarOtherInfo/CandidateOtherInfoForm.jsx"
+import CandidateAttendForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/SeminarAttend/CandidateAttendForm.jsx";
 console.log("inside Candidate-Auth Routes");
 
 const CandidateAuthRoutes = [
