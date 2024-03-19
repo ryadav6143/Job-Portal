@@ -11,7 +11,7 @@ import {
   faUsers,
   faFile,
 } from "@fortawesome/free-solid-svg-icons";
-import CandidateOrganisedForm from "../CandidateChildPages/EditProgramsForm/SeminarOrganised/CandidateOrganisedForm"
+import CandidateOrganisedForm from "../CandidateChildPages/EditProgramsForm/SeminarOrganised/CandidateOrganisedForm";
 
 import { ApiDataProvider } from "..//..//../context/CandidateContext";
 function CandidateSidebar() {
@@ -55,8 +55,6 @@ function CandidateSidebar() {
       setIsOpen(true);
     }
   };
-
-
 
   // const renderComponent = () => {
   //   switch (screen) {
@@ -107,10 +105,6 @@ function CandidateSidebar() {
             <div>
               <nav>
                 <ul className="set-menu" style={{ listStyle: "none" }}>
-                  
-       
-                  
-                  
                   <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
@@ -158,7 +152,6 @@ function CandidateSidebar() {
                     </Link>
                   </li> */}
 
-
                   <div className="dropdown show">
                     <a
                       className="btn dropdown-toggle set-a"
@@ -173,7 +166,10 @@ function CandidateSidebar() {
                         // src={reports}
                         className="bi bi-heart sidenav-icon"
                       ></img>{" "}
-                       <FontAwesomeIcon className="set-menu-icon" icon={faUsers} />
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faUsers}
+                      />
                       <span>Seminars</span>
                     </a>
 
@@ -205,15 +201,8 @@ function CandidateSidebar() {
                       >
                         <span>Seminar Other Activites</span>
                       </Link>
-
                     </div>
-
-                   
                   </div>
-
-
-
-
 
                   <li>
                     <FontAwesomeIcon className="set-menu-icon" icon={faFile} />
@@ -229,13 +218,6 @@ function CandidateSidebar() {
                       Current Openings
                     </Link>
                   </li>
-
-
-
-               
-
-
-
                 </ul>
               </nav>
             </div>

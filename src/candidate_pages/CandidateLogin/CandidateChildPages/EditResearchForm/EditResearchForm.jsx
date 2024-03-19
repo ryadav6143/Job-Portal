@@ -389,7 +389,7 @@ function EditResearchForm() {
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"
-          style={{ marginTop: "90px", paddingRight: "50px" }}
+          style={{ marginTop: "90px", }}
         >
           <div>
             <div>

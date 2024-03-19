@@ -30,6 +30,7 @@ import TestPages from "../admin_pages/TestPages/TestPages";
 import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 import Sidenav from "../admin_pages/TestPages/Sidenav";
 
+
 console.log("inside UnAuthRoutes");
 const UnAuthRoutes = [
   <Route
@@ -131,6 +132,7 @@ const UnAuthRoutes = [
     path="sidenav"
     element={<UnAuthGuards component={<Sidenav />} />}
   ></Route>,
+
 
   <Route
     path="*"

@@ -4,6 +4,7 @@ import updatebtn from "../../../../../assets/logos/update.png";
 import deletebtn from "../../../../../assets/logos/delete.png";
 import EditOrganisedForm from './EditOrganisedForm';
 import AddOrganisedForm from './AddOrganisedForm';
+import "./CandidateOrganisedForm.css"
 
 const CandidateOrganisedForm = () => {
   const [organisedItem, setOrganisedItem] = useState([]);
@@ -108,8 +109,8 @@ const CandidateOrganisedForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditOrganisedForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} />}
-      {isPopupOpen && <AddOrganisedForm  handleCloseOrganizedClick={() => setIsPopupOpen(false)} />}
+      {editMode && <EditOrganisedForm  filteredItem={filteredItem} handleClose={() => setEditMode(false)} />}
+      {isPopupOpen && <AddOrganisedForm   handleCloseOrganizedClick={() => setIsPopupOpen(false)} />}
     </>
   );
 };
