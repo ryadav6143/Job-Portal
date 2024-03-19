@@ -70,13 +70,15 @@ const CandidateOtherInfoForm = () => {
 
   return (
     <>
-      <div className="new-opening-btn">
-        <button onClick={handleOpenOtherInfoClick}>Add OtherInfo</button>
-      </div>
+  
 
       <div className="master-table">
-        <p className="SCA-heading">Other Information</p>
-        <div className="table-responsive fixe-table">
+        <div className="flex-btns">
+        <p className="candidate-table-heading">Other Information</p>
+        <button className="add-btn" onClick={handleOpenOtherInfoClick}>Add OtherInfo</button>
+        </div>
+       
+        <div className="table-responsive set-programs-tabel">
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>

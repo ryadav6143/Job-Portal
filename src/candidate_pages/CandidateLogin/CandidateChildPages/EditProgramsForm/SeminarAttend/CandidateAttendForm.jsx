@@ -70,13 +70,15 @@ const CandidateAttendForm = () => {
   
   return (
     <>
-      <div className="new-opening-btn">
-        <button onClick={handleOpenAttendClick}>Add Attend</button>
-      </div>
+     
       <div className="master-table">
-        <p className="SCA-heading">Attend</p>
+        <div className="flex-btns">
+        <p className="candidate-table-heading">Attend</p>
+        <button className="add-btn" onClick={handleOpenAttendClick}>Add Attend</button>
+        </div>
 
-        <div className="table-responsive fixe-table">
+
+        <div className="table-responsive set-programs-tabel">
 
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">

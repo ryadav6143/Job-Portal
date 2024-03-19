@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import candidatesApiService from '../../../../candidateService';
+import React, { useEffect, useState } from "react";
+import candidatesApiService from "../../../../candidateService";
 import updatebtn from "../../../../../assets/logos/update.png";
 import deletebtn from "../../../../../assets/logos/delete.png";
-import EditOrganisedForm from './EditOrganisedForm';
-import AddOrganisedForm from './AddOrganisedForm';
-import "./CandidateOrganisedForm.css"
+import EditOrganisedForm from "./EditOrganisedForm";
+import AddOrganisedForm from "./AddOrganisedForm";
+import "./CandidateOrganisedForm.css";
 
 const CandidateOrganisedForm = () => {
   const [organisedItem, setOrganisedItem] = useState([]);
@@ -30,52 +30,66 @@ const CandidateOrganisedForm = () => {
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
+    return `${day < 10 ? "0" + day : day}/${
+      month < 10 ? "0" + month : month
+    }/${year}`;
   };
 
   const handleEditClick = (itemId) => {
-    console.log("id??",itemId);
-    const filteredItem = organisedItem.find(item => item.id === itemId);
+    console.log("id??", itemId);
+    const filteredItem = organisedItem.find((item) => item.id === itemId);
     console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleClose = () => {    
+  const handleClose = () => {
     setEditMode(false);
-    
   };
   const handleOpenOrganizedClick = () => {
     setIsPopupOpen(true); // Open popup
   };
   const handleCloseOrganizedClick = () => {
-    setIsPopupOpen(true); 
+    setIsPopupOpen(true);
   };
   const handleDeleteClick = async (itemId) => {
-    const isConfirmed = window.confirm("Are you sure you want to delete this item?");
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
     if (isConfirmed) {
       try {
         await candidatesApiService.DeleteOrganisedForm(itemId);
         // Update state after successful deletion
-        setOrganisedItem(prevItems => prevItems.filter(item => item.id !== itemId));
+        setOrganisedItem((prevItems) =>
+          prevItems.filter((item) => item.id !== itemId)
+        );
         console.log("Item deleted successfully");
       } catch (error) {
         console.error("Error deleting item:", error.message);
       }
     }
   };
-  
+
   return (
     <>
-      <div className="new-opening-btn">
+      {/* <div className="new-opening-btn">
         <button onClick={handleOpenOrganizedClick}>Add Organized</button>
-      </div>
+      </div> */}
 
       <div className="master-table">
-        <p className="SCA-heading">Organized</p>
-        <div className="table-responsive fixe-table">
+        <div className="flex-btns">
+          <p className="candidate-table-heading">Organized</p>
+          <button className="add-btn" onClick={handleOpenOrganizedClick}>
+            Add Organized
+          </button>
+        </div>
+
+        <div className="table-responsive set-programs-tabel">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+            <thead
+              style={{ color: "rgba(0, 0, 0, 0.63)", textAlign: "center" }}
+              className="thead"
+            >
               <tr>
                 <th scope="col">Sr. No.</th>
                 <th scope="col">Date From</th>
@@ -90,42 +104,54 @@ const CandidateOrganisedForm = () => {
               </tr>
             </thead>
             <tbody>
-              {organisedItem && organisedItem.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{formatDate(item.organise_date_from)}</td>
-                  <td>{formatDate(item.organise_date_to)}</td>
-                  <td>{item.name_of_course}</td>
-                  <td>{item.sponsered_by}</td>
-                  <td>{item.participants_number}</td>
-                  <td>{item.name_of_institute}</td>
-                  <td>{item.name_of_industry}</td>
-                  <td>
-                    <button
-                      type="button"
-                      id="table-btns"
-                      onClick={() => handleEditClick(item.id)}
-                    >
-                      <img className="up-del-btn" src={updatebtn} alt="" />
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      id="table-btns"
-                      onClick={() => handleDeleteClick(item.id)}
-                    >
-                      <img className="up-del-btn" src={deletebtn} alt="" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {organisedItem &&
+                organisedItem.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{formatDate(item.organise_date_from)}</td>
+                    <td>{formatDate(item.organise_date_to)}</td>
+                    <td>{item.name_of_course}</td>
+                    <td>{item.sponsered_by}</td>
+                    <td>{item.participants_number}</td>
+                    <td>{item.name_of_institute}</td>
+                    <td>{item.name_of_industry}</td>
+                    <td>
+                      <button
+                        type="button"
+                        id="table-btns"
+                        onClick={() => handleEditClick(item.id)}
+                      >
+                        <img className="up-del-btn" src={updatebtn} alt="" />
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        id="table-btns"
+                        onClick={() => handleDeleteClick(item.id)}
+                      >
+                        <img className="up-del-btn" src={deletebtn} alt="" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
       </div>
-      {editMode && <EditOrganisedForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
-      {isPopupOpen && <AddOrganisedForm  handleCloseOrganizedClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
+      {editMode && (
+        <EditOrganisedForm
+          filteredItem={filteredItem}
+          handleClose={() => setEditMode(false)}
+          fetchData={fetchData}
+        />
+      )}
+      {isPopupOpen && (
+        <AddOrganisedForm
+          handleCloseOrganizedClick={() => setIsPopupOpen(false)}
+          fetchData={fetchData}
+        />
+      )}
     </>
   );
 };
