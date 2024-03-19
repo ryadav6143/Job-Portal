@@ -76,11 +76,14 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
         return `${year}-${month}-${day}`;
     };
     return (
-        <Dialog open={true} >
-            <DialogTitle>Edit Attendd Form</DialogTitle>
+        <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
+            <DialogTitle className="HS-heading">Edit Attendd Form</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleUpdate}>
-                <input
+                    <div className="row">
+                        <div className="col-md-6">
+                        <label className="SetLabel-Name">Attend Date From</label>
+                        <input className="set-input"
                         label="Attend Date From"
                         type="date"
                         name="attend_date_from"
@@ -89,7 +92,10 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
                             handleChange("attend_date_from",e.target.value)}
                         fullWidth
                     />
-                      <input
+                        </div>
+                        <div className="col-md-6">
+                        <label className="SetLabel-Name">Attend Date To</label>
+                        <input className="set-input"
                         label="Attend Date To"
                         type="date"
                         name="attend_date_to"
@@ -98,7 +104,13 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
                             handleChange("attend_date_to",e.target.value)}
                         fullWidth
                     />
-                    <input
+                        </div>
+
+                    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                        <label className="SetLabel-Name">Name of Course</label>
+                        <input className="set-input"
                         label="Name of Course"
                         type="text"
                         name="name_of_course"
@@ -106,9 +118,11 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
                         onChange={(e) =>
                             handleChange("name_of_course",e.target.value)}
                         fullWidth
-                    />                
-                
-                    <input
+                    />   
+                        </div>
+                        <div className="col-md-6">
+                        <label className="SetLabel-Name">Sponsored By</label>
+                        <input className="set-input"
                         label="Sponsored By"
                         type="text"
                         name="sponsered_by"
@@ -117,6 +131,12 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
                             handleChange("sponsered_by",e.target.value)}
                         fullWidth
                     />
+                        </div>
+
+                    </div>
+                   
+               
+                 
                     <DialogActions>
                         <Button variant="contained" color="primary" type="submit">
                             Update

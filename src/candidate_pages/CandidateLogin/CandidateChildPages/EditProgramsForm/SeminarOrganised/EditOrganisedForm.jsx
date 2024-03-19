@@ -89,11 +89,14 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
 
   return (
     <>
-      <Dialog open={true}>
-        <DialogTitle>Edit Organised Form</DialogTitle>
+      <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
+        <DialogTitle className="HS-heading">Edit Organised Form</DialogTitle>
         <DialogContent>
           <form onSubmit={handleUpdate}>
-            <input
+            <div className="row">
+              <div className="col-md-6">
+              <label className="SetLabel-Name">Name of Course</label>
+              <input  className="set-input"
               label="Name of Course"
               type="text"
               name="name_of_course"
@@ -101,7 +104,11 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
               onChange={(e) => handleChange("name_of_course", e.target.value)}
               fullWidth
             />
-            <input
+              </div>
+              <div className="col-md-6">
+              <label className="SetLabel-Name">Name of Industry</label>
+              <input
+               className="set-input"
               label="Name of Industry"
               type="text"
               name="name_of_industry"
@@ -109,7 +116,14 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
               onChange={(e) => handleChange("name_of_industry", e.target.value)}
               fullWidth
             />
-            <input
+              </div>
+
+            </div>
+            
+            <div className="row">
+              <div className="col-md-6">
+              <label className="SetLabel-Name">Name of Institute</label>
+              <input className="set-input"
               label="Name of Institute"
               type="text"
               name="name_of_institute"
@@ -119,7 +133,11 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
               }
               fullWidth
             />
-            <input
+              </div>
+
+              <div className="col-md-6">
+              <label className="SetLabel-Name">Organise Date From</label>
+              <input className="set-input"
               label="Organise Date From"
               type="date"
               name="organise_date_from"
@@ -129,7 +147,14 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
               }
               fullWidth
             />
-            <input
+              </div>
+
+            </div>
+          
+           <div className="row">
+            <div className="col-md-6">
+            <label className="SetLabel-Name">Organise Date To</label>
+            <input className="set-input"
               label="Organise Date To"
               type="date"
               name="organise_date_to"
@@ -137,7 +162,11 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
               onChange={(e) => handleChange("organise_date_to", e.target.value)}
               fullWidth
             />
-            <input
+            </div>
+
+            <div className="col-md-6">
+            <label className="SetLabel-Name">Participants Number</label>
+            <input className="set-input"
               label="Participants Number"
               type="text"
               name="participants_number"
@@ -147,7 +176,15 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
               }
               fullWidth
             />
-            <input
+            </div>
+
+           </div>
+       
+            <div className="row">
+              <div className="col-md-6">
+              <label className="SetLabel-Name">Sponsored By</label>
+              <input
+              className="set-input"
               label="Sponsored By"
               type="text"
               name="sponsered_by"
@@ -155,6 +192,10 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
               onChange={(e) => handleChange("sponsered_by", e.target.value)}
               fullWidth
             />
+              </div>
+            </div>
+        
+           
             <DialogActions>
               <Button variant="contained" color="primary" type="submit">
                 Update
