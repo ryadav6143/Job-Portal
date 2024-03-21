@@ -124,6 +124,6 @@ function AddCandidateCopyrights({ handleClosecopyrightsClick }) {
             </DialogContent>
         </Dialog>
     );
-}
+}   
 
 export default AddCandidateCopyrights;
