@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import candidatesApiService from '../../../../candidateService';
 import updatebtn  from "../../../../../assets/logos/update.png"
-import deletebtn from "../../../../../assets/logos/delete.png"
-import AddCandidateResearchForm from './AddCandidateResearchForm';
-import EditCandidateResearchForm from './EditCandidateResearchForm';
+import deletebtn from "../../../../../assets/logos/delete.png";
+import AddCandidatePatentsForm from './AddCandidatePatentsForm';
+import EditCandidatePatentsForm from './EditCandidatePatentsForm';
 
-const ResearchForm = () => {
 
-  const [researchItem, setResearchItem] = useState([])
+const PatentsForm = () => {
+
+  const [patentItem, setPatentItem] = useState([])
   const [filteredItem, setFilteredItem] = useState(null);
   const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  
   const fetchData = async () => {
-    try {
-      
+    try {      
       const fetchedData = await candidatesApiService.getCandidateResearchWork();
-      console.log("research", fetchedData.candidate_research_works);
-      setResearchItem(fetchedData.candidate_research_works);
+      console.log("patent", fetchedData.candidate_patents);
+      setPatentItem(fetchedData.candidate_patents);
       
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -29,17 +30,17 @@ const ResearchForm = () => {
     fetchData();
   }, []);
 
-  const handleCloseResearchClick = () => {
+  const handleClosePatentClick = () => {
     setIsPopupOpen(true); 
   };
-  const handleOpenResearchClick = () => {
+  const handleOpenpatentClick = () => {
     setIsPopupOpen(true);
   };
 
 
   const handleEditClick = (itemId) => {
     console.log("id??",itemId);
-    const filteredItem = researchItem.find(item => item.id === itemId);
+    const filteredItem = patentItem.find(item => item.id === itemId);
     console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     setEditItemId(itemId);
@@ -53,10 +54,10 @@ const ResearchForm = () => {
   return (
     <>
       <div className="new-opening-btn">
-        <button onClick={handleOpenResearchClick}>Add Research</button>
+        <button onClick={handleOpenpatentClick}>Add Patents</button>
       </div>
       <div className="master-table">
-        <p className="SCA-heading">Research Work</p>
+        <p className="SCA-heading">Patents</p>
 
         <div className="table-responsive fixe-table">
 
@@ -64,21 +65,25 @@ const ResearchForm = () => {
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">Sr. No.</th>
-                <th scope="col">ORCID Id</th>
-                <th scope="col">Scopus Id</th>
-                <th scope="col">Research Id</th> 
+                <th scope="col">Application ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Year</th> 
+                <th scope="col">Published/Granted</th> 
+                <th scope="col">Country</th>                
                 <th scope="col">Edit</th> 
                 <th scope="col">Delete</th> 
                                                
               </tr>
             </thead>
             <tbody>
-              {researchItem && researchItem.map((item, index) => (
+              {patentItem && patentItem.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{item.orcid}</td>
-                  <td>{item.scopusid}</td>
-                  <td>{item.researchid}</td>
+                  <td>{item.patent_applicationid || "-"}</td>
+                  <td>{item.patent_application_title || "-"}</td>
+                  <td>{item.patent_application_year || "-"}</td>                
+                  <td>{item.patent_granted_by || "-"}</td>
+                  <td>{item.patent_incountry || "-"}</td>            
                  
                   <td>
                     <button
@@ -104,10 +109,10 @@ const ResearchForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditCandidateResearchForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} />}
-      {isPopupOpen && <AddCandidateResearchForm  handleCloseResearchClick={() => setIsPopupOpen(false)} />}
+      {editMode && <EditCandidatePatentsForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} />}
+      {isPopupOpen && <AddCandidatePatentsForm  handleClosePatentClick={() => setIsPopupOpen(false)} />}
       </>
   );
 };
 
-export default ResearchForm;
+export default PatentsForm;

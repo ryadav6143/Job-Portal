@@ -21,6 +21,11 @@ import CandidateOrganisedForm from "../candidate_pages/CandidateLogin/CandidateC
 import OtherActivites from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/OtherActivites.jsx";
 import CandidateOtherInfoForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/SeminarOtherInfo/CandidateOtherInfoForm.jsx"
 import CandidateAttendForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/SeminarAttend/CandidateAttendForm.jsx";
+import ResearchForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditResearchForm/CandiateResearchForm/ResearchForm.jsx";
+import JournalPublicationForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditResearchForm/CandidateJournalForm/JournalPublicationForm.jsx";
+import ConfrencePublicationForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditResearchForm/CandidateConfrenceForm/ConfrencePublicationForm.jsx";
+import PatentsForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditResearchForm/CandidatePatentForm/PatentsForm.jsx";
+import CopyRightsForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditResearchForm/CopyrightsForm/CopyRightsForm.jsx";
 console.log("inside Candidate-Auth Routes");
 
 const CandidateAuthRoutes = [
@@ -75,6 +80,26 @@ const CandidateAuthRoutes = [
     <Route
       path="candidate-otheractivites"
       element={<CandidateAuthGaurd component={<OtherActivites />} />}
+    />
+     <Route
+      path="candidate-research"
+      element={<CandidateAuthGaurd component={<ResearchForm />} />}
+    />
+     <Route
+      path="candidate-journalPublication"
+      element={<CandidateAuthGaurd component={<JournalPublicationForm />} />}
+    />
+     <Route
+      path="candidate-confrencePublication"
+      element={<CandidateAuthGaurd component={<ConfrencePublicationForm />} />}
+    />
+     <Route
+      path="candidate-patents"
+      element={<CandidateAuthGaurd component={<PatentsForm />} />}
+    />
+     <Route
+      path="candidate-copyrights"
+      element={<CandidateAuthGaurd component={<CopyRightsForm />} />}
     />
   </Route>,
 ];
