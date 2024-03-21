@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import "./Sidenav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CandidateHeader from "../../candidate_pages/CandidateLogin/CandidateHeader/CandidateHeader";
-
-import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
+import Footers from "../../components/Footer/Footers"
+import {   faIdCardClip,
+  faBuildingColumns,
+  faBriefcase,
+  faSearch,
+  faUsers,
+  faFile, } from "@fortawesome/free-solid-svg-icons";
 import { Link, Outlet } from "react-router-dom";
 const Sidenav = () => {
   const [isToggled, setIsToggled] = useState(false);
@@ -19,28 +24,37 @@ const Sidenav = () => {
         <aside id="sidebar-wrapper">
           <ul className="sidebar-nav">
             <li className="active">
-              <Link to="/current-opening">
+              <Link to="/candidate-dashboard/personal-details">
                 <i className="fa fa-home side-icon">
-                  <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faIdCardClip}
+                    />
                 </i>
-                Home
+                Personal Details
               </Link>
             </li>
             <li>
-              <a href="#">
+              <Link to="/candidate-dashboard/personal-qualification" >
                 <i className="fa fa-plug side-icon">
-                  <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faBuildingColumns}
+                    />
                 </i>
-                Plugins
-              </a>
+                Academic Professional Qualifications
+              </Link>
             </li>
             <li>
-              <a href="#">
+              <Link to="/candidate-dashboard/personal-experience">
                 <i className="fa fa-user side-icon">
-                  <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faBriefcase}
+                    />
                 </i>
-                Users
-              </a>
+                UsExperienceers
+              </Link>
             </li>
           </ul>
         </aside>
@@ -64,9 +78,10 @@ const Sidenav = () => {
 
         <section id="content-wrapper">
         <Outlet />
+       
         </section>
       </div>
-   
+   {/* <Footers></Footers> */}
     </>
   );
 };

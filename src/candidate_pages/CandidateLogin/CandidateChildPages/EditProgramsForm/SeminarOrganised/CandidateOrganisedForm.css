@@ -27,3 +27,7 @@
 .set-programs-tabel{
   margin-top: 25px;
 }
+
+.error{
+  color: red;
+}

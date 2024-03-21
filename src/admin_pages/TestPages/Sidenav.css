@@ -21,7 +21,9 @@ a:focus {
   margin-left: -250px;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #222;
+  background: white;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   transition: all 0.5s ease;
 }
 
@@ -62,12 +64,12 @@ a:focus {
   font-weight: 600;
   font-size: 18px;
 }
-.sidebar-nav > li > a:hover,
+/* .sidebar-nav > li > a:hover,
 .sidebar-nav > li.active > a {
   text-decoration: none;
   color: #fff;
-  background: #f8be12;
-}
+  background: #901626;
+} */
 .sidebar-nav > li > a i.fa {
   font-size: 24px;
   width: 60px;

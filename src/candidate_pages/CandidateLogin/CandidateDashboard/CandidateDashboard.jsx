@@ -4,7 +4,6 @@ import CandidateSidebar from "../CandidateSidebar/CandidateSidebar";
 import "./CandidateDashboard.css";
 import CandidateHeader from "../CandidateHeader/CandidateHeader";
 import Footers from "../../../components/Footer/Footers";
-import Sidenav from "../../../admin_pages/TestPages/Sidenav";
 function CandidateDashboard() {
   return (
     <>
@@ -43,7 +42,6 @@ function CandidateDashboard() {
         >
           <div className="sidebar">
             <CandidateSidebar />
-         
           </div>
 
           <div

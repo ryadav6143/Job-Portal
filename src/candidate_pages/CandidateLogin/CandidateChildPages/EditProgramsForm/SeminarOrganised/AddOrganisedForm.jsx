@@ -20,13 +20,41 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
     sponsered_by: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "participants_number" && !/^\d+$/.test(value)) {
+      setErrors({ ...errors, [name]: "Please enter a valid number" });
+      return;
+    }
+
     setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationErrors = {};
+    Object.keys(formData).forEach((key) => {
+      if (!formData[key]) {
+        validationErrors[key] = "Field is required";
+      }
+    });
+
+    if (
+      formData.organise_date_from &&
+      formData.organise_date_to &&
+      new Date(formData.organise_date_to) < new Date(formData.organise_date_from)
+    ) {
+      validationErrors.organise_date_to = "End date must be after start date";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
   try {
       const response = await candidatesApiService.addCandidateOrganised(formData);
       console.log(response.data); 
@@ -57,6 +85,7 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+                  {errors.name_of_course && <span className="error">{errors.name_of_course}</span>}
             </div>
 
             <div className="col-md-6">
@@ -70,6 +99,7 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+                  {errors.name_of_industry && <span className="error">{errors.name_of_industry}</span>}
             </div>
           </div>
 
@@ -85,6 +115,7 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+                  {errors.name_of_institute && <span className="error">{errors.name_of_institute}</span>}
             </div>
             <div className="col-md-6">
               <label className="SetLabel-Name">Organise Date From</label>
@@ -97,6 +128,9 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+              {errors.organise_date_from && (
+                <span className="error">{errors.organise_date_from}</span>
+              )}
             </div>
           </div>
 
@@ -112,6 +146,9 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+               {errors.organise_date_to && (
+                <span className="error">{errors.organise_date_to}</span>
+              )}
             </div>
             <div className="col-md-6">
               <label className="SetLabel-Name">Participants Number</label>
@@ -124,6 +161,7 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+               {errors.participants_number && <span className="error">{errors.participants_number}</span>}
             </div>
           </div>
 
@@ -139,6 +177,7 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+               {errors.sponsered_by && <span className="error">{errors.sponsered_by}</span>}
             </div>
           </div>
 

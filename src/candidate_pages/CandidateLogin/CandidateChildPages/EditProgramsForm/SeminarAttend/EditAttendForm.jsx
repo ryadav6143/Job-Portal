@@ -10,6 +10,7 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
         sponsered_by: ""
     });
     const [updateField, setUpdateField] = useState({});
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (filteredItem) {
@@ -34,14 +35,49 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
             ...prevUpdateField,
             [fieldName]: value.toString()
         }));
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: ""
+        }));
+        
         
         // Console mein changes dikhaane ke liye
         console.log(`Field '${fieldName}' updated to:`, value);
     };
     
+    const isValidDate = (dateString) => {
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        return dateRegex.test(dateString);
+    };
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+
+        const validationErrors = {};
+        Object.keys(formData).forEach((key) => {
+            const value = formData[key];
+            if (!value.trim()) {
+                validationErrors[key] = "This field is required";
+            } else if (
+                (key === "attend_date_from" || key === "attend_date_to") &&
+                !isValidDate(value)
+            ) {
+                validationErrors[key] = "Please enter a valid date (YYYY-MM-DD)";
+            } else if (
+                key === "attend_date_to" &&
+                formData.attend_date_from &&
+                new Date(value) < new Date(formData.attend_date_from)
+            ) {
+                validationErrors[key] = "End date must be after start date";
+            }
+        });
+
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length > 0) {
+            return; // Don't proceed with update if there are validation errors
+        }
+
         try {
 
             const updatedFormData = {
@@ -92,6 +128,9 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
                             handleChange("attend_date_from",e.target.value)}
                         fullWidth
                     />
+                     {errors.attend_date_from && (
+                                <span className="error">{errors.attend_date_from}</span>
+                            )}
                         </div>
                         <div className="col-md-6">
                         <label className="SetLabel-Name">Attend Date To</label>
@@ -104,6 +143,9 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
                             handleChange("attend_date_to",e.target.value)}
                         fullWidth
                     />
+                    {errors.attend_date_to && (
+                                <span className="error">{errors.attend_date_to}</span>
+                            )}
                         </div>
 
                     </div>
@@ -119,6 +161,9 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
                             handleChange("name_of_course",e.target.value)}
                         fullWidth
                     />   
+                     {errors.name_of_course && (
+                                <span className="error">{errors.name_of_course}</span>
+                            )}
                         </div>
                         <div className="col-md-6">
                         <label className="SetLabel-Name">Sponsored By</label>
@@ -131,6 +176,9 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
                             handleChange("sponsered_by",e.target.value)}
                         fullWidth
                     />
+                     {errors.sponsered_by && (
+                                <span className="error">{errors.sponsered_by}</span>
+                            )}
                         </div>
 
                     </div>

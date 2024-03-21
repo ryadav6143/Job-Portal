@@ -21,6 +21,7 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
     sponsered_by: "",
   });
   const [updateField, setUpdateField] = useState({});
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (filteredItem) {
@@ -42,22 +43,82 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
   //     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
   // };
 
+  // const handleChange = (fieldName, value, index) => {
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [fieldName]: value,
+  //   }));
+  //   setUpdateField((prevUpdateField) => ({
+  //     ...prevUpdateField,
+  //     [fieldName]: value.toString(),
+  //   }));
+  //   setErrors((prevErrors) => ({
+  //     ...prevErrors,
+  //     [fieldName]: "", // Clear the error message when the field value changes
+  //   }));
+
+  //   // Console mein changes dikhaane ke liye
+  //   console.log(`Field '${fieldName}' updated to:`, value);
+  // };
+
+
+
   const handleChange = (fieldName, value, index) => {
+    let newValue = value;
+  
+    if (fieldName === "participants_number" && !/^\d*$/.test(value)) {
+      // If the entered value is not a number, set the field value to an empty string
+      newValue = "";
+      setErrors({ ...errors, [fieldName]: "Please enter a valid number" });
+    } else {
+      setErrors({ ...errors, [fieldName]: "" });
+    }
+  
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [fieldName]: value,
+      [fieldName]: newValue,
     }));
+  
     setUpdateField((prevUpdateField) => ({
       ...prevUpdateField,
-      [fieldName]: value.toString(),
+      [fieldName]: newValue.toString(),
     }));
-
+  
     // Console mein changes dikhaane ke liye
-    console.log(`Field '${fieldName}' updated to:`, value);
+    console.log(`Field '${fieldName}' updated to:`, newValue);
   };
+  
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+
+    const validationErrors = {};
+    Object.keys(formData).forEach((key) => {
+      if (!formData[key]) {
+        validationErrors[key] = "Field is required";
+      }
+    });
+
+    if (
+      formData.organise_date_from &&
+      formData.organise_date_to &&
+      new Date(formData.organise_date_to) <
+        new Date(formData.organise_date_from)
+    ) {
+      validationErrors.organise_date_to = "End date must be after start date";
+    }
+
+    // Validation to allow only numbers in participants_number field
+    const participantsNumberRegex = /^[0-9]+$/;
+    if (!participantsNumberRegex.test(formData.participants_number)) {
+      validationErrors.participants_number = "Only numbers are allowed";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     try {
       const updatedFormData = {
         ...updateField,
@@ -95,112 +156,140 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
           <form onSubmit={handleUpdate}>
             <div className="row">
               <div className="col-md-6">
-              <label className="SetLabel-Name">Name of Course</label>
-              <input  className="set-input"
-              label="Name of Course"
-              type="text"
-              name="name_of_course"
-              value={formData.name_of_course}
-              onChange={(e) => handleChange("name_of_course", e.target.value)}
-              fullWidth
-            />
+                <label className="SetLabel-Name">Name of Course</label>
+                <input
+                  className="set-input"
+                  label="Name of Course"
+                  type="text"
+                  name="name_of_course"
+                  value={formData.name_of_course}
+                  onChange={(e) =>
+                    handleChange("name_of_course", e.target.value)
+                  }
+                  fullWidth
+                />
+                {errors.name_of_course && (
+                  <span className="error">{errors.name_of_course}</span>
+                )}
               </div>
               <div className="col-md-6">
-              <label className="SetLabel-Name">Name of Industry</label>
-              <input
-               className="set-input"
-              label="Name of Industry"
-              type="text"
-              name="name_of_industry"
-              value={formData.name_of_industry}
-              onChange={(e) => handleChange("name_of_industry", e.target.value)}
-              fullWidth
-            />
+                <label className="SetLabel-Name">Name of Industry</label>
+                <input
+                  className="set-input"
+                  label="Name of Industry"
+                  type="text"
+                  name="name_of_industry"
+                  value={formData.name_of_industry}
+                  onChange={(e) =>
+                    handleChange("name_of_industry", e.target.value)
+                  }
+                  fullWidth
+                />
+                {errors.name_of_industry && (
+                  <span className="error">{errors.name_of_industry}</span>
+                )}
               </div>
-
             </div>
-            
+
             <div className="row">
               <div className="col-md-6">
-              <label className="SetLabel-Name">Name of Institute</label>
-              <input className="set-input"
-              label="Name of Institute"
-              type="text"
-              name="name_of_institute"
-              value={formData.name_of_institute}
-              onChange={(e) =>
-                handleChange("name_of_institute", e.target.value)
-              }
-              fullWidth
-            />
+                <label className="SetLabel-Name">Name of Institute</label>
+                <input
+                  className="set-input"
+                  label="Name of Institute"
+                  type="text"
+                  name="name_of_institute"
+                  value={formData.name_of_institute}
+                  onChange={(e) =>
+                    handleChange("name_of_institute", e.target.value)
+                  }
+                  fullWidth
+                />
+                {errors.name_of_institute && (
+                  <span className="error">{errors.name_of_institute}</span>
+                )}
               </div>
 
               <div className="col-md-6">
-              <label className="SetLabel-Name">Organise Date From</label>
-              <input className="set-input"
-              label="Organise Date From"
-              type="date"
-              name="organise_date_from"
-              value={formatDateForInput(formData.organise_date_from)}
-              onChange={(e) =>
-                handleChange("organise_date_from", e.target.value)
-              }
-              fullWidth
-            />
+                <label className="SetLabel-Name">Organise Date From</label>
+                <input
+                  className="set-input"
+                  label="Organise Date From"
+                  type="date"
+                  name="organise_date_from"
+                  value={formatDateForInput(formData.organise_date_from)}
+                  onChange={(e) =>
+                    handleChange("organise_date_from", e.target.value)
+                  }
+                  fullWidth
+                />
+                {errors.organise_date_from && (
+                  <span className="error">{errors.organise_date_from}</span>
+                )}
               </div>
-
-            </div>
-          
-           <div className="row">
-            <div className="col-md-6">
-            <label className="SetLabel-Name">Organise Date To</label>
-            <input className="set-input"
-              label="Organise Date To"
-              type="date"
-              name="organise_date_to"
-              value={formatDateForInput(formData.organise_date_to)}
-              onChange={(e) => handleChange("organise_date_to", e.target.value)}
-              fullWidth
-            />
             </div>
 
-            <div className="col-md-6">
-            <label className="SetLabel-Name">Participants Number</label>
-            <input className="set-input"
-              label="Participants Number"
-              type="text"
-              name="participants_number"
-              value={formData.participants_number}
-              onChange={(e) =>
-                handleChange("participants_number", e.target.value)
-              }
-              fullWidth
-            />
-            </div>
-
-           </div>
-       
             <div className="row">
               <div className="col-md-6">
-              <label className="SetLabel-Name">Sponsored By</label>
-              <input
-              className="set-input"
-              label="Sponsored By"
-              type="text"
-              name="sponsered_by"
-              value={formData.sponsered_by}
-              onChange={(e) => handleChange("sponsered_by", e.target.value)}
-              fullWidth
-            />
+                <label className="SetLabel-Name">Organise Date To</label>
+                <input
+                  className="set-input"
+                  label="Organise Date To"
+                  type="date"
+                  name="organise_date_to"
+                  value={formatDateForInput(formData.organise_date_to)}
+                  onChange={(e) =>
+                    handleChange("organise_date_to", e.target.value)
+                  }
+                  fullWidth
+                />
+                {errors.organise_date_to && (
+                  <span className="error">{errors.organise_date_to}</span>
+                )}
+              </div>
+
+              <div className="col-md-6">
+                <label className="SetLabel-Name">Participants Number</label>
+                <input
+                  className="set-input"
+                  label="Participants Number"
+                  type="text"
+                  name="participants_number"
+                  value={formData.participants_number}
+                  onChange={(e) =>
+                    handleChange("participants_number", e.target.value)
+                  }
+                  fullWidth
+                />
+                {errors.participants_number && (
+                  <span className="error">{errors.participants_number}</span>
+                )}
               </div>
             </div>
-        
-           
+
+            <div className="row">
+              <div className="col-md-6">
+                <label className="SetLabel-Name">Sponsored By</label>
+                <input
+                  className="set-input"
+                  label="Sponsored By"
+                  type="text"
+                  name="sponsered_by"
+                  value={formData.sponsered_by}
+                  onChange={(e) => handleChange("sponsered_by", e.target.value)}
+                  fullWidth
+                />
+                {errors.sponsered_by && (
+                  <span className="error">{errors.sponsered_by}</span>
+                )}
+              </div>
+            </div>
+
             <DialogActions>
               <Button variant="contained" color="primary" type="submit">
                 Update
               </Button>
-              <Button onClick={handleClose}>Close</Button>
+              <Button onClick={handleClose}>Cancle</Button>
             </DialogActions>
           </form>
         </DialogContent>

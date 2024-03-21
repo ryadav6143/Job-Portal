@@ -8,7 +8,7 @@ import {
   input,
 } from "@mui/material";
 // import close from "../../../assets/logos/close.png";
-import close from "../../../../../assets/logos/close.png";
+
 import candidatesApiService from "../../../../candidateService";
 function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
   const [formData, setFormData] = useState({
@@ -19,6 +19,7 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
     contribution: "",
   });
   const [updateField, setUpdateField] = useState({});
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (filteredItem) {
@@ -47,12 +48,36 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
       ...prevUpdateField,
       [fieldName]: value.toString(),
     }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [fieldName]: value.trim() ? "" : "This field is required",
+    }));
 
     console.log(`Field '${fieldName}' updated to:`, value);
   };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+
+    const validationErrors = {};
+    Object.entries(formData).forEach(([key, value]) => {
+      if (!value.trim()) {
+        validationErrors[key] = "This field is required";
+      } else if (
+        (key === "membership_date_from" || key === "membership_date_to") &&
+        !isValidDate(value)
+      ) {
+        validationErrors[key] = "Please enter a valid date (YYYY-MM-DD)";
+      }
+    });
+
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
+      return; // Don't proceed with submission if there are validation errors
+    }
+
+
     try {
       const updatedFormData = {
         ...updateField,
@@ -81,6 +106,13 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
 
     return `${year}-${month}-${day}`;
   };
+
+
+  const isValidDate = (dateString) => {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    return dateRegex.test(dateString);
+  };
+
   return (
     <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
       <DialogTitle className="HS-heading">
@@ -102,6 +134,9 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
                 }
                 fullWidth
               />
+               {errors.member_of_institute_name && (
+                <span className="error">{errors.member_of_institute_name}</span>
+              )}
             </div>
             <div className="col-md-6">
               <label className="SetLabel-Name">Membership Date From</label>
@@ -116,6 +151,9 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
                 }
                 fullWidth
               />
+               {errors.membership_date_from && (
+                <span className="error">{errors.membership_date_from}</span>
+              )}
             </div>
           </div>
           <div className="row">
@@ -132,6 +170,9 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
                 }
                 fullWidth
               />
+                   {errors.membership_date_to && (
+                <span className="error">{errors.membership_date_to}</span>
+              )}
             </div>
             <div className="col-md-6">
               <label className="SetLabel-Name">Position Held</label>
@@ -144,6 +185,9 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
                 onChange={(e) => handleChange("position_held", e.target.value)}
                 fullWidth
               />
+                {errors.position_held && (
+                <span className="error">{errors.position_held}</span>
+              )}
             </div>
           </div>
           <div className="row">
@@ -158,6 +202,9 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
                 onChange={(e) => handleChange("contribution", e.target.value)}
                 fullWidth
               />
+                {errors.contribution && (
+                <span className="error">{errors.contribution}</span>
+              )}
             </div>
           </div>
 

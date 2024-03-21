@@ -15,13 +15,65 @@ function AddAttendForm({ handleCloseAttendClick, fetchData }) {
     sponsered_by: "",
   });
 
+  const [errors, setErrors] = useState({});
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({ ...formData, [name]: value });
+  // };
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let errorMessage = "";
+
+    if (!value.trim()) {
+      errorMessage = "This field is required";
+    }
+
+    if (name === "attend_date_from" || name === "attend_date_to") {
+      if (!isValidDate(value)) {
+        errorMessage = "Please enter a valid date";
+      }
+    }
+
     setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: errorMessage });
   };
+
+  const isValidDate = (dateString) => {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    return dateString.match(dateRegex) !== null;
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationErrors = {};
+    Object.keys(formData).forEach((key) => {
+      const value = formData[key];
+      if (!value.trim()) {
+        validationErrors[key] = "This field is required";
+      } else if (
+        (key === "attend_date_from" || key === "attend_date_to") &&
+        !isValidDate(value)
+      ) {
+        validationErrors[key] = "Please enter a valid date";
+      } else if (
+        key === "attend_date_to" &&
+        formData.attend_date_from &&
+        new Date(value) < new Date(formData.attend_date_from)
+      ) {
+        validationErrors[key] = "End date must be after start date";
+      }
+    });
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     try {
       const response = await candidatesApiService.addCandidateAttend(formData);
       console.log(response.data);
@@ -50,6 +102,9 @@ function AddAttendForm({ handleCloseAttendClick, fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+                {errors.attend_date_from && (
+                <span className="error">{errors.attend_date_from}</span>
+              )}
             </div>
             <div className="col-md-6">
               <label className="SetLabel-Name">Attend Date To</label>
@@ -62,6 +117,9 @@ function AddAttendForm({ handleCloseAttendClick, fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+              {errors.attend_date_to && (
+                <span className="error">{errors.attend_date_to}</span>
+              )}
             </div>
           </div>
 
@@ -77,6 +135,9 @@ function AddAttendForm({ handleCloseAttendClick, fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+               {errors.name_of_course && (
+                <span className="error">{errors.name_of_course}</span>
+              )}
             </div>
             <div className="col-md-6">
               <label className="SetLabel-Name">Sponsored By</label>
@@ -89,6 +150,9 @@ function AddAttendForm({ handleCloseAttendClick, fetchData }) {
                 onChange={handleChange}
                 fullWidth
               />
+               {errors.sponsered_by && (
+                <span className="error">{errors.sponsered_by}</span>
+              )}
             </div>
           </div>
 
