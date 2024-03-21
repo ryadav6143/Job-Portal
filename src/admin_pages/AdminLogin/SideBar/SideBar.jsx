@@ -46,7 +46,7 @@ function SideBar() {
                         src={jobprofile}
                         className="bi bi-bootstrap sidenav-icon"
                         alt="Opening Icon"
-                      />{" "}
+                      />
                       <span> Master Job Profile</span>
                     </Link>
                     <Link
