@@ -49,7 +49,7 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick }) {
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">conference_publication_year</label>
+                            <label className="SetLabel-Name">Year</label>
                             <input
                                 className="set-input"
                                 label="conference_publication_year"
@@ -61,7 +61,7 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick }) {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">conference_publication_title</label>
+                            <label className="SetLabel-Name">Title</label>
                             <input
                                 className="set-input"
                                 label="conference_publication_title"
@@ -77,7 +77,7 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick }) {
 
                     <div className="row">
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">conference_publication_author</label>
+                            <label className="SetLabel-Name">Author Role/ Inventor</label>
                             <input
                                 className="set-input"
                                 label="conference_publication_author"
@@ -89,7 +89,7 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick }) {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">conference_publication_index</label>
+                            <label className="SetLabel-Name">Indexing</label>
                             <input
                                 className="set-input"
                                 label="conference_publication_index"
@@ -103,7 +103,7 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick }) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">conference_publication_name</label>
+                            <label className="SetLabel-Name">Journal Name</label>
                             <input
                                 className="set-input"
                                 label="conference_publication_name"
@@ -115,7 +115,7 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick }) {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">conference_publication_issn</label>
+                            <label className="SetLabel-Name">ISSN</label>
                             <input
                                 className="set-input"
                                 label="conference_publication_issn"
@@ -129,7 +129,7 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick }) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">conference_publication_volume</label>
+                            <label className="SetLabel-Name">Volume</label>
                             <input
                                 className="set-input"
                                 label="conference_publication_volume"
@@ -141,7 +141,7 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick }) {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">conference_publication_issue</label>
+                            <label className="SetLabel-Name">Issue</label>
                             <input
                                 className="set-input"
                                 label="conference_publication_issue"

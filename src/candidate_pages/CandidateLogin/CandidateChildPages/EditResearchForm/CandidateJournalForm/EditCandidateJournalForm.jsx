@@ -75,7 +75,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose }) {
               
                     <div className="row">
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">journal_publication_year</label>
+                        <label className="SetLabel-Name">Year</label>
                         <input className="set-input"
                         label="journal_publication_year"
                         type="text"
@@ -87,7 +87,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose }) {
                     />   
                         </div>
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">journal_publication_title</label>
+                        <label className="SetLabel-Name">Title</label>
                         <input className="set-input"
                         label="journal_publication_title"
                         type="text"
@@ -101,7 +101,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose }) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">journal_publication_author</label>
+                        <label className="SetLabel-Name">Author Role/ Inventor</label>
                         <input className="set-input"
                         label="journal_publication_author"
                         type="text"
@@ -113,7 +113,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose }) {
                     />   
                         </div>
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">journal_publication_index</label>
+                        <label className="SetLabel-Name">Indexing</label>
                         <input className="set-input"
                         label="journal_publication_index"
                         type="text"
@@ -127,7 +127,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose }) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">journal_publication_name</label>
+                        <label className="SetLabel-Name">Journal Name</label>
                         <input className="set-input"
                         label="journal_publication_name"
                         type="text"
@@ -139,7 +139,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose }) {
                     />   
                         </div>
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">journal_publication_issn</label>
+                        <label className="SetLabel-Name">ISSN</label>
                         <input className="set-input"
                         label="journal_publication_issn"
                         type="text"
@@ -153,7 +153,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose }) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">journal_publication_volume</label>
+                        <label className="SetLabel-Name">Volume</label>
                         <input className="set-input"
                         label="journal_publication_volume"
                         type="text"
@@ -165,7 +165,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose }) {
                     />   
                         </div>
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">journal_publication_issue</label>
+                        <label className="SetLabel-Name">Issue</label>
                         <input className="set-input"
                         label="journal_publication_issue"
                         type="text"
@@ -183,7 +183,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose }) {
                             Update
                         </Button>
                         <Button onClick={handleClose}>
-                            Close
+                            Cancle
                         </Button>
                     </DialogActions>
                 </form>

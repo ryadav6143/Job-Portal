@@ -46,7 +46,7 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">patent_applicationid</label>
+                            <label className="SetLabel-Name">Application ID</label>
                             <input
                                 className="set-input"
                                 label="patent_applicationid"
@@ -58,7 +58,7 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">patent_application_title</label>
+                            <label className="SetLabel-Name">Title</label>
                             <input
                                 className="set-input"
                                 label="patent_application_title"
@@ -74,7 +74,7 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
 
                     <div className="row">
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">patent_application_year</label>
+                            <label className="SetLabel-Name">Year</label>
                             <input
                                 className="set-input"
                                 label="patent_application_year"
@@ -86,7 +86,7 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">patent_granted_by</label>
+                            <label className="SetLabel-Name">Published/Granted</label>
                             <input
                                 className="set-input"
                                 label="patent_granted_by"
@@ -100,7 +100,7 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <label className="SetLabel-Name">patent_incountry</label>
+                            <label className="SetLabel-Name">Country</label>
                             <input
                                 className="set-input"
                                 label="patent_incountry"

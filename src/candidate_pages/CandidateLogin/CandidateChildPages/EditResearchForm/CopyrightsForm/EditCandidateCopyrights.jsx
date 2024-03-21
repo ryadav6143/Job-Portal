@@ -70,7 +70,7 @@ function EditCandidatePatentsForm({ filteredItem, handleClose }) {
               
                     <div className="row">
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">copyright_applicationid</label>
+                        <label className="SetLabel-Name">Application ID</label>
                         <input className="set-input"
                         label="copyright_applicationid"
                         type="text"
@@ -82,7 +82,7 @@ function EditCandidatePatentsForm({ filteredItem, handleClose }) {
                     />   
                         </div>
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">copyright_title</label>
+                        <label className="SetLabel-Name">Title</label>
                         <input className="set-input"
                         label="copyright_title"
                         type="text"
@@ -96,7 +96,7 @@ function EditCandidatePatentsForm({ filteredItem, handleClose }) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">copyright_year</label>
+                        <label className="SetLabel-Name">Year</label>
                         <input className="set-input"
                         label="copyright_year"
                         type="text"
@@ -108,7 +108,7 @@ function EditCandidatePatentsForm({ filteredItem, handleClose }) {
                     />   
                         </div>
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">copyright_granted_by</label>
+                        <label className="SetLabel-Name">Published/Granted</label>
                         <input className="set-input"
                         label="copyright_granted_by"
                         type="text"
@@ -122,7 +122,7 @@ function EditCandidatePatentsForm({ filteredItem, handleClose }) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">copyright_incountry</label>
+                        <label className="SetLabel-Name">Country</label>
                         <input className="set-input"
                         label="copyright_incountry"
                         type="text"
@@ -142,7 +142,7 @@ function EditCandidatePatentsForm({ filteredItem, handleClose }) {
                             Update
                         </Button>
                         <Button onClick={handleClose}>
-                            Close
+                        Cancle
                         </Button>
                     </DialogActions>
                 </form>

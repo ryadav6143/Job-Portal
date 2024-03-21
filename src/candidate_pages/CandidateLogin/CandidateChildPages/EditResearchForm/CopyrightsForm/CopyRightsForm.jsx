@@ -53,13 +53,18 @@ const CopyRightsForm = () => {
 
   return (
     <>
-      <div className="new-opening-btn">
+      {/* <div className="new-opening-btn">
         <button onClick={handleOpencopyrightsClick}>Add Copyrights</button>
-      </div>
-      <div className="master-table">
-        <p className="SCA-heading">Copyrights</p>
+      </div> */}
 
-        <div className="table-responsive fixe-table">
+      <div className="master-table">
+        <div className="flex-btns">
+        <p className="candidate-table-heading">Copyrights</p>
+        <button className="add-btn" onClick={handleOpencopyrightsClick}>Add Copyrights</button>
+        </div>
+        
+
+        <div className="table-responsive set-programs-tabel">
 
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
