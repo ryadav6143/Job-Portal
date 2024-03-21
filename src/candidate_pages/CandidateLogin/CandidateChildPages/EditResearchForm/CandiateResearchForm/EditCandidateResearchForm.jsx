@@ -59,13 +59,13 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
 
     return (
         <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-            <DialogTitle className="HS-heading">Edit Attendd Form</DialogTitle>
+            <DialogTitle className="HS-heading">Edit Research Form</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleUpdate}>
               
                     <div className="row">
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">orcid</label>
+                        <label className="SetLabel-Name">Orcid Id</label>
                         <input className="set-input"
                         label="orcid"
                         type="text"
@@ -77,7 +77,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
                     />   
                         </div>
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">scopusid</label>
+                        <label className="SetLabel-Name">Scopus Id</label>
                         <input className="set-input"
                         label="scopusid"
                         type="text"
@@ -91,7 +91,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                        <label className="SetLabel-Name">researchid</label>
+                        <label className="SetLabel-Name">Research Id</label>
                         <input className="set-input"
                         label="researchid"
                         type="text"
@@ -111,7 +111,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
                             Update
                         </Button>
                         <Button onClick={handleClose}>
-                            Close
+                            Cancle
                         </Button>
                     </DialogActions>
                 </form>
