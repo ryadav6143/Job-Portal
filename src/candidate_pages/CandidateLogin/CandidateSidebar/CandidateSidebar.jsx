@@ -133,7 +133,7 @@ function CandidateSidebar() {
                       <span> &nbsp; Experience</span>
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faSearch}
@@ -141,7 +141,7 @@ function CandidateSidebar() {
                     <Link to="/candidate-dashboard/personal-research">
                       <span>&nbsp; Research Work</span>
                     </Link>
-                  </li>
+                  </li> */}
 
 
                   <div className="dropdown show">
