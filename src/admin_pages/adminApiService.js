@@ -530,14 +530,15 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  getCandidatesById: (listID) => {
+  getCandidatesById: (listID,signal) => {
+    // const controller = new AbortController();
+    //   controller.signal = signal;
     return axios.get(`${ADMIN_BASE_URL}/admin/getCandidatesById/${listID}`, {
       headers: {
         'access-token': getAccessToken(),
-      },
-    }
-
-    );
+      },signal
+      
+    });
   },
   fetchData: async (currentPage, itemsPerPage, selectedCategory, selectedPost) => {
     try {

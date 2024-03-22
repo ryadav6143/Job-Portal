@@ -218,11 +218,11 @@ function Reports() {
     setSubPost(selectedSubPostData || []);
   };
 
-  const fetchCandidateDetails = async (candidateId) => {
+  const fetchCandidateDetails = async (candidateId,signal) => {
     try {
       setLoadingPopup(true);
 
-      const response = await adminApiService.getCandidatesById(candidateId);
+      const response = await adminApiService.getCandidatesById(candidateId,signal);
 
       console.log("getCandidatesById>>", response.data);
       setSelectedCandidate(response.data);
@@ -255,14 +255,20 @@ function Reports() {
       setCurrentPage(currentPage - 1);
     }
   };
-  useEffect(() => {
-    console.log("Selected Candidate:", selectedCandidate);
-  }, [selectedCandidate]);
+  // useEffect(() => {
+  //   console.log("Selected Candidate:", selectedCandidate);
+  // }, [selectedCandidate]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     if (selectedCandidate) {
-      fetchCandidateDetails(selectedCandidate.candidate_id);
+      fetchCandidateDetails(selectedCandidate.candidate_id, signal);
     }
+    return () => {
+      // Cleanup function to abort the request when the component unmounts
+     return controller.abort();
+    };
   }, [selectedCandidate]);
 
   const openCandidateDetails = (candidateId) => {
