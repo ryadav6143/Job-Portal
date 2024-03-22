@@ -152,7 +152,7 @@ const CandidateOrganisedForm = () => {
           fetchData={fetchData}
         />
       )}
-    </>
+      </>
   );
 };
 

@@ -133,7 +133,7 @@ function CandidateSidebar() {
                       <span> &nbsp; Experience</span>
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faSearch}
@@ -141,7 +141,69 @@ function CandidateSidebar() {
                     <Link to="/candidate-dashboard/personal-research">
                       <span>&nbsp; Research Work</span>
                     </Link>
-                  </li>
+                  </li> */}
+
+
+                  <div className="dropdown show">
+                    <a
+                      className="btn dropdown-toggle set-a"
+                      href="#"
+                      role="button"
+                      id="dropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <img
+                        // src={reports}
+                        className="bi bi-heart sidenav-icon"
+                      ></img>{" "}
+                    <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faSearch}
+                    />  
+                      <span>&nbsp; Research Work</span>
+                    </a>
+
+                    <div
+                      className="dropdown-menu master-dd"
+                      aria-labelledby="dropdownMenuLink"
+                    >
+                      <Link
+                        to="/candidate-dashboard/candidate-research"
+                        className="dropdown-item "
+                      >
+                        <span>Research</span>
+                      </Link>                   
+                      <Link
+                        to="/candidate-dashboard/candidate-journalPublication"
+                        className="dropdown-item "
+                      >
+                        <span>Journal Publication</span>
+                      </Link>                   
+                      <Link
+                        to="/candidate-dashboard/candidate-confrencePublication"
+                        className="dropdown-item "
+                      >
+                        <span>Confrence Publication</span>
+                      </Link>                   
+                      <Link
+                        to="/candidate-dashboard/candidate-patents"
+                        className="dropdown-item "
+                      >
+                        <span>Patents</span>
+                      </Link>                   
+                      <Link
+                        to="/candidate-dashboard/candidate-copyrights"
+                        className="dropdown-item "
+                      >
+                        <span>Copyrights</span>
+                      </Link>                     
+                    </div>
+                  </div>
+
+
+
                   {/* <li>
                     <FontAwesomeIcon className="set-menu-icon" icon={faUsers} />
                     <Link to="/candidate-dashboard/personal-programs ">
