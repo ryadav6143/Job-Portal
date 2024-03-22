@@ -179,7 +179,7 @@ function AddCandidateExperienceForm({ handleCloseExperienceClick, fetchData }) {
             <Button variant="contained" color="primary" type="submit">
               Submit
             </Button>
-            <Button onClick={handleCloseExperienceClick}>Close</Button>
+            <Button onClick={handleCloseExperienceClick}>Cancle</Button>
           </DialogActions>
         </form>
       </DialogContent>

@@ -190,7 +190,7 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
                             Update
                         </Button>
                         <Button onClick={handleClose}>
-                            Close
+                            Cancle
                         </Button>
                     </DialogActions>
                 </form>
