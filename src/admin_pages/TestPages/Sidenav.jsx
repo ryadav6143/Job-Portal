@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "./Sidenav.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CandidateHeader from "../../candidate_pages/CandidateLogin/CandidateHeader/CandidateHeader";
+import Footers from "../../components/Footer/Footers"
+import {   faIdCardClip,
+  faBuildingColumns,
+  faBriefcase,
+  faSearch,
+  faUsers,
+  faFile, } from "@fortawesome/free-solid-svg-icons";
+import { Link, Outlet } from "react-router-dom";
 const Sidenav = () => {
   const [isToggled, setIsToggled] = useState(false);
 
@@ -12,22 +19,42 @@ const Sidenav = () => {
 
   return (
     <>
-      <div id="wrapper" className={isToggled ? 'toggled' : ''}>
-
+      <CandidateHeader></CandidateHeader>
+      <div id="wrapper" className={isToggled ? "toggled" : ""}>
         <aside id="sidebar-wrapper">
-          <div className="sidebar-brand">
-            <h2>Logo</h2>
-          </div>
           <ul className="sidebar-nav">
             <li className="active">
-              <a href="#"><i className="fa fa-home">
- <FontAwesomeIcon icon={faUser} /></i>Home</a>
+              <Link to="/candidate-dashboard/personal-details">
+                <i className="fa fa-home side-icon">
+                <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faIdCardClip}
+                    />
+                </i>
+                Personal Details
+              </Link>
             </li>
             <li>
-              <a href="#"><i className="fa fa-plug"></i>Plugins</a>
+              <Link to="/candidate-dashboard/personal-qualification" >
+                <i className="fa fa-plug side-icon">
+                <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faBuildingColumns}
+                    />
+                </i>
+                Academic Professional Qualifications
+              </Link>
             </li>
             <li>
-              <a href="#"><i className="fa fa-user"></i>Users</a>
+              <Link to="/candidate-dashboard/personal-experience">
+                <i className="fa fa-user side-icon">
+                <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faBriefcase}
+                    />
+                </i>
+                UsExperienceers
+              </Link>
             </li>
           </ul>
         </aside>
@@ -36,22 +63,25 @@ const Sidenav = () => {
           <nav className="navbar navbar-inverse">
             <div className="container-fluid">
               <div className="navbar-header">
-                <a href="#" className="navbar-brand" id="sidebar-toggle" onClick={handleToggle}><i className="fa fa-bars">=</i></a>
+                <a
+                  href="#"
+                  className="navbar-brand"
+                  id="sidebar-toggle"
+                  onClick={handleToggle}
+                >
+                  <i className="fa fa-bars">=</i>
+                </a>
               </div>
             </div>
           </nav>
         </div>
 
         <section id="content-wrapper">
-          <div className="row">
-            <div className="col-lg-12">
-              <h2 className="content-title">Test</h2>
-              <p>Lorem ipsum...</p>
-            </div>
-          </div>
+        <Outlet />
+       
         </section>
-
       </div>
+   {/* <Footers></Footers> */}
     </>
   );
 };

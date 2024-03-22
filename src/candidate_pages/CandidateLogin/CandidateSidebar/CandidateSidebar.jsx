@@ -11,6 +11,7 @@ import {
   faUsers,
   faFile,
 } from "@fortawesome/free-solid-svg-icons";
+import CandidateOrganisedForm from "../CandidateChildPages/EditProgramsForm/SeminarOrganised/CandidateOrganisedForm";
 
 import { ApiDataProvider } from "..//..//../context/CandidateContext";
 function CandidateSidebar() {
@@ -54,8 +55,6 @@ function CandidateSidebar() {
       setIsOpen(true);
     }
   };
-
-  
 
   // const renderComponent = () => {
   //   switch (screen) {
@@ -143,7 +142,7 @@ function CandidateSidebar() {
                       <span>&nbsp; Research Work</span>
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <FontAwesomeIcon className="set-menu-icon" icon={faUsers} />
                     <Link to="/candidate-dashboard/personal-programs ">
                       <span>
@@ -151,7 +150,60 @@ function CandidateSidebar() {
                         Schools
                       </span>
                     </Link>
-                  </li>
+                  </li> */}
+
+                  <div className="dropdown show">
+                    <a
+                      className="btn dropdown-toggle set-a"
+                      href="#"
+                      role="button"
+                      id="dropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <img
+                        // src={reports}
+                        className="bi bi-heart sidenav-icon"
+                      ></img>{" "}
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faUsers}
+                      />
+                      <span>Seminars</span>
+                    </a>
+
+                    <div
+                      className="dropdown-menu master-dd"
+                      aria-labelledby="dropdownMenuLink"
+                    >
+                      <Link
+                        to="/candidate-dashboard/candidate-organised"
+                        className="dropdown-item "
+                      >
+                        <span>Seminar Organised</span>
+                      </Link>
+                      <Link
+                        to="/candidate-dashboard/candidate-attend"
+                        className="dropdown-item "
+                      >
+                        <span>Seminar Attends</span>
+                      </Link>
+                      <Link
+                        to="/candidate-dashboard/candidate-otherInfo"
+                        className="dropdown-item "
+                      >
+                        <span>Seminar Other Information</span>
+                      </Link>
+                      <Link
+                        to="/candidate-dashboard/candidate-otheractivites"
+                        className="dropdown-item "
+                      >
+                        <span>Seminar Other Activites</span>
+                      </Link>
+                    </div>
+                  </div>
+
                   <li>
                     <FontAwesomeIcon className="set-menu-icon" icon={faFile} />
                     <Link to="/candidate-dashboard/personal-reference">

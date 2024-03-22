@@ -366,7 +366,7 @@ function EditPersonalDetails({ token }) {
             style={{
               marginTop: "30px",
             
-              paddingRight: "50px",
+              // paddingRight: "50px",
             }}
           >
             <div>

@@ -439,7 +439,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"
-          style={{ marginTop: "90px",   paddingRight: "50px", }}
+          style={{ marginTop: "90px",  }}
         >
           <div>
             <div>

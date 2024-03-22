@@ -355,6 +355,201 @@ const candidatesApiService = (() => {
         throw error;
       }
     },
+
+    addCandidateOrganised: async (formData) => {
+      try {
+        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidateSeminarOrganised/addCandidateSeminarOrganised`, formData, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    addCandidateAttend: async (formData) => {
+      try {
+        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidateSeminarAttend/addCandidateSeminarAttend`, formData, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    addCandidateOtherinfo: async (formData) => {
+      try {
+        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidateMembershipInfo/addCandidateMembershipInfo`, formData, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    getCandidateOrganised: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidateSeminarOrganised/getCandidateSeminarOrganised`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    getCandidateAttend: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidateSeminarAttend/getCandidateSeminarAttend`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    getCandidateMembershipInfo: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidateMembershipInfo/getCandidateMembershipInfo`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    updateOrganisedForm: async (updateField) => {
+      try {
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidateSeminarOrganised/updateSeminarOrganized`,
+          updateField,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+          }
+        );
+
+        console.log('Save Changes Response:', response);
+        return response.data; // Assuming your API returns some data upon successful update
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    updateAttendForm: async (updateField) => {
+      try {
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidateSeminarAttend/updateSeminarAttend`,
+          updateField,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+          }
+        );
+
+        console.log('Save Changes Response:', response);
+        return response.data; // Assuming your API returns some data upon successful update
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    updateOtherInfoForm: async (updateField) => {
+      try {
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidateMembershipInfo/updateOtherMembershipInfo`,
+          updateField,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+          }
+        );
+
+        console.log('Save Changes Response:', response);
+        return response.data; // Assuming your API returns some data upon successful update
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+
+    DeleteOrganisedForm: async (organisedId) => {
+      try {
+        const response = await axios.delete(
+          `${CANDIDATE_BASE_URL}/candidateSeminarOrganised/removeCandidateSeminarOrganised`,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+            data: {
+              organised_id: organisedId
+            }
+          }
+        );
+    
+        console.log('Save Changes Response:', response);
+        return response.data; 
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    DeleteAttendForm: async (attendId) => {
+      try {
+        const response = await axios.delete(
+          `${CANDIDATE_BASE_URL}/candidateSeminarAttend/removeCandidateSeminarAttend`,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+            data: {
+              attend_id: attendId
+            }
+          }
+        );
+    
+        console.log('Save Changes Response:', response);
+        return response.data; 
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    DeleteOtherInfoForm: async (OtherInfoId) => {
+      try {
+        const response = await axios.delete(
+          `${CANDIDATE_BASE_URL}/candidateMembershipInfo/removeCandidateMembershipInfo`,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+            data: {
+              member_id: OtherInfoId
+            }
+          }
+        );
+    
+        console.log('Save Changes Response:', response);
+        return response.data; 
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    
   };
 })();
 

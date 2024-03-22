@@ -16,7 +16,7 @@ function EditResearchForm() {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("");
-  
+
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
     candidate_research_works: [],
@@ -66,34 +66,33 @@ function EditResearchForm() {
     }
   }, [loading]);
 
-    const fetchData = async () => {
-      try {
- 
-        setLoading(true);
-        const fetchedData = await candidatesApiService.getCandidateResearchWork();
-        // console.log("response", fetchedData);
-        setData(fetchedData);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error.message);
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const fetchedData = await candidatesApiService.getCandidateResearchWork();
+      // console.log("response", fetchedData);
+      setData(fetchedData);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+      setLoading(false);
+    }
+  };
 
-    useEffect(() => {
-      // console.log("use-state")
-      fetchData();
-    }, []);
+  useEffect(() => {
+    // console.log("use-state")
+    fetchData();
+  }, []);
 
-    useEffect(() => {
-      const body = document.body;
-      if (loading) {
-        body.style.overflow = 'hidden';
-      } else {
-        body.style.overflow = 'auto';
-      }
-    }, [loading]);
-   
+  useEffect(() => {
+    const body = document.body;
+    if (loading) {
+      body.style.overflow = "hidden";
+    } else {
+      body.style.overflow = "auto";
+    }
+  }, [loading]);
+
   const handleAddResearches = () => {
     setData((prevData) => ({
       ...prevData,
@@ -108,14 +107,14 @@ function EditResearchForm() {
     }));
   };
 
-const handleRemoveResearches = (index) => {
-  setData((prevData) => ({
-    ...prevData,
-    candidate_research_works: prevData.candidate_research_works.filter(
-      (_, i) => i !== index
-    ),
-  }));
-};
+  const handleRemoveResearches = (index) => {
+    setData((prevData) => ({
+      ...prevData,
+      candidate_research_works: prevData.candidate_research_works.filter(
+        (_, i) => i !== index
+      ),
+    }));
+  };
 
   const handleAddPublication = () => {
     setData((prevData) => ({
@@ -139,9 +138,8 @@ const handleRemoveResearches = (index) => {
   const handleRemoveJournalPublication = (index) => {
     setData((prevData) => ({
       ...prevData,
-      candidate_journal_publications: prevData.candidate_journal_publications.filter(
-        (_, i) => i !== index
-      ),
+      candidate_journal_publications:
+        prevData.candidate_journal_publications.filter((_, i) => i !== index),
     }));
   };
 
@@ -167,9 +165,10 @@ const handleRemoveResearches = (index) => {
   const handleRemoveConferencePublication = (index) => {
     setData((prevData) => ({
       ...prevData,
-      candidate_conference_publications: prevData.candidate_conference_publications.filter(
-        (_, i) => i !== index
-      ),
+      candidate_conference_publications:
+        prevData.candidate_conference_publications.filter(
+          (_, i) => i !== index
+        ),
     }));
   };
   const handleAddPatents = () => {
@@ -302,70 +301,73 @@ const handleRemoveResearches = (index) => {
     // Implement your logic to check whether the field is defined and has changes
     return field && Object.keys(field).length > 0;
   };
-    const handleSaveChanges = async () => {
-      try {
-        let changesMade = false;
-        console.log(researchField);
-        if (researchField && hasChanges(researchField)) {
-          await candidatesApiService.updateCandidateResearches(
-        
-            { researches: [researchField] }
-          );
-          showNotification("Research field updated successfully", "success");
-          changesMade = true;
-        }
-
-        if (journalPublicationField && hasChanges(journalPublicationField)) {
-          await candidatesApiService.updateCandidateJournalPublications(
-        
-            { journals_publications: [journalPublicationField] }
-          );
-          showNotification("Journal publication field updated successfully", "success");
-          changesMade = true;
-        }
-
-        if (
-          conferancePublicationField &&
-          hasChanges(conferancePublicationField)
-        ) {
-          await candidatesApiService.updateCandidateConferancePublications(
-        
-            { conference_publications: [conferancePublicationField] }
-          );
-          showNotification("Conference publication field updated successfully", "success");
-          changesMade = true;
-        }
-
-        if (patentField && hasChanges(patentField)) {
-          await candidatesApiService.updateCandidatePatent( {
-            patents: [patentField],
-          });
-          showNotification("Patent field updated successfully", "success");
-          changesMade = true;
-        }
-
-        if (copyrightField && hasChanges(copyrightField)) {
-          await candidatesApiService.updateCandidateCopyright({
-            copyrights: [copyrightField],
-          });
-          showNotification("Copyright field updated successfully", "success");
-          changesMade = true;
-        }
-        if (changesMade) {
-          setResearchField({});
-          setJournalPublicationField({});
-          setConferancePublicationField({});
-          setPatentField({});
-          setCopyrightField({});
-          fetchData();
-        } else {
-          showNotification("No changes were made", "warning");
-        }
-      }  catch (error) {
-        console.error("Error saving changes:", error.message);
-        showNotification("Error saving changes: " + error.message, "error");
+  const handleSaveChanges = async () => {
+    try {
+      let changesMade = false;
+      console.log(researchField);
+      if (researchField && hasChanges(researchField)) {
+        await candidatesApiService.updateCandidateResearches({
+          researches: [researchField],
+        });
+        showNotification("Research field updated successfully", "success");
+        changesMade = true;
       }
-    };
+
+      if (journalPublicationField && hasChanges(journalPublicationField)) {
+        await candidatesApiService.updateCandidateJournalPublications({
+          journals_publications: [journalPublicationField],
+        });
+        showNotification(
+          "Journal publication field updated successfully",
+          "success"
+        );
+        changesMade = true;
+      }
+
+      if (
+        conferancePublicationField &&
+        hasChanges(conferancePublicationField)
+      ) {
+        await candidatesApiService.updateCandidateConferancePublications({
+          conference_publications: [conferancePublicationField],
+        });
+        showNotification(
+          "Conference publication field updated successfully",
+          "success"
+        );
+        changesMade = true;
+      }
+
+      if (patentField && hasChanges(patentField)) {
+        await candidatesApiService.updateCandidatePatent({
+          patents: [patentField],
+        });
+        showNotification("Patent field updated successfully", "success");
+        changesMade = true;
+      }
+
+      if (copyrightField && hasChanges(copyrightField)) {
+        await candidatesApiService.updateCandidateCopyright({
+          copyrights: [copyrightField],
+        });
+        showNotification("Copyright field updated successfully", "success");
+        changesMade = true;
+      }
+      if (changesMade) {
+        setResearchField({});
+        setJournalPublicationField({});
+        setConferancePublicationField({});
+        setPatentField({});
+        setCopyrightField({});
+        fetchData();
+      } else {
+        showNotification("No changes were made", "warning");
+      }
+    } catch (error) {
+      console.error("Error saving changes:", error.message);
+      showNotification("Error saving changes: " + error.message, "error");
+    }
+  };
 
   const handleNotificationClose = () => {
     setNotificationOpen(false);
@@ -377,7 +379,6 @@ const handleRemoveResearches = (index) => {
     setNotificationOpen(true);
   };
 
-
   return (
     <>
       {loading && (
@@ -388,7 +389,7 @@ const handleRemoveResearches = (index) => {
       <form id="myForm" onSubmit={handleSaveChanges}>
         <div
           className="container"
-          style={{ marginTop: "90px", paddingRight: "50px" }}
+          style={{ marginTop: "90px", }}
         >
           <div>
             <div>
@@ -396,7 +397,7 @@ const handleRemoveResearches = (index) => {
                 Research Work &nbsp;{" "}
                 <FontAwesomeIcon className="edit-pen-icon" icon={faPen} />
               </h5>
-            
+
               <p className="UD-subheading">
                 Please fill your information so we can get in touch with you.
               </p>
@@ -406,16 +407,19 @@ const handleRemoveResearches = (index) => {
               data.candidate_research_works &&
               data.candidate_research_works.map((researches, index) => (
                 <div key={index}>
-                    {index > 0 && <hr style={{ margin: "24px 0" }} />}
+                  {index > 0 && <hr style={{ margin: "24px 0" }} />}
                   <div className="row">
-                  <div>
+                    <div>
                       {data.candidate_research_works.length > 1 && (
                         <button
                           type="button"
                           onClick={() => handleRemoveResearches(index)}
                           className="minus-buttons"
                         >
-                          <img src={minusicon} alt="Remove candidate_research_works" />
+                          <img
+                            src={minusicon}
+                            alt="Remove candidate_research_works"
+                          />
                         </button>
                       )}
                       {index === data.candidate_research_works.length - 1 && (
@@ -424,7 +428,10 @@ const handleRemoveResearches = (index) => {
                           onClick={handleAddResearches}
                           className="plus-buttons"
                         >
-                          <img src={plusicon} alt="Add candidate_research_works" />
+                          <img
+                            src={plusicon}
+                            alt="Add candidate_research_works"
+                          />
                         </button>
                       )}
                     </div>
@@ -502,37 +509,38 @@ const handleRemoveResearches = (index) => {
             {/* Journal Publication */}
 
             <div>
-              <p className="HS-heading">
-                Journal Publication{" "}
-               
-              </p>
+              <p className="HS-heading">Journal Publication </p>
             </div>
 
             {data?.candidate_journal_publications?.map(
               (journal_publications, index) => (
                 <div key={index}>
-                    {index > 0 && <hr style={{ margin: "24px 0" }} />}
+                  {index > 0 && <hr style={{ margin: "24px 0" }} />}
                   <div className="row">
-                  <div>
-      {data?.candidate_journal_publications.length > 1 && (
-        <button
-          type="button"
-          onClick={() => handleRemoveJournalPublication(index)}
-          className="minus-buttons"
-        >
-          <img src={minusicon} alt="Remove Journal Publication" />
-        </button>
-      )}
-      {index === data?.candidate_journal_publications.length - 1 && (
-        <button
-          type="button"
-          onClick={handleAddPublication}
-          className="plus-buttons"
-        >
-          <img src={plusicon} alt="Add Journal Publication" />
-        </button>
-      )}
-    </div>
+                    <div>
+                      {data?.candidate_journal_publications.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveJournalPublication(index)}
+                          className="minus-buttons"
+                        >
+                          <img
+                            src={minusicon}
+                            alt="Remove Journal Publication"
+                          />
+                        </button>
+                      )}
+                      {index ===
+                        data?.candidate_journal_publications.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={handleAddPublication}
+                          className="plus-buttons"
+                        >
+                          <img src={plusicon} alt="Add Journal Publication" />
+                        </button>
+                      )}
+                    </div>
 
                     <div className="col-md-4">
                       {/* Year*/}
@@ -758,7 +766,6 @@ const handleRemoveResearches = (index) => {
             <div>
               <p className="HS-heading">
                 Conference Publication{" "}
-            
                 {/* <button
                         type="button"
                         onClick={handleAddConferences}
@@ -772,28 +779,37 @@ const handleRemoveResearches = (index) => {
             {data?.candidate_conference_publications?.map(
               (conference_publications, index) => (
                 <div key={index}>
-                        {index > 0 && <hr style={{ margin: "24px 0" }} />}
+                  {index > 0 && <hr style={{ margin: "24px 0" }} />}
                   <div className="row">
-                  <div>
-        {data?.candidate_conference_publications.length > 1 && (
-          <button
-            type="button"
-            onClick={() => handleRemoveConferencePublication(index)}
-            className="minus-buttons"
-          >
-            <img src={minusicon} alt="Remove Conference Publication" />
-          </button>
-        )}
-        {index === data?.candidate_conference_publications.length - 1 && (
-          <button
-            type="button"
-            onClick={handleAddConferences}
-            className="plus-buttons"
-          >
-            <img src={plusicon} alt="Add Conference Publication" />
-          </button>
-        )}
-      </div>
+                    <div>
+                      {data?.candidate_conference_publications.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleRemoveConferencePublication(index)
+                          }
+                          className="minus-buttons"
+                        >
+                          <img
+                            src={minusicon}
+                            alt="Remove Conference Publication"
+                          />
+                        </button>
+                      )}
+                      {index ===
+                        data?.candidate_conference_publications.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={handleAddConferences}
+                          className="plus-buttons"
+                        >
+                          <img
+                            src={plusicon}
+                            alt="Add Conference Publication"
+                          />
+                        </button>
+                      )}
+                    </div>
                     <div className="col-md-4">
                       {/* Year*/}
                       <div className="UD-form-section">
@@ -1022,37 +1038,33 @@ const handleRemoveResearches = (index) => {
             {/* Patent*/}
 
             <div>
-              <p className="HS-heading">
-                Patent{" "}
-              
-              </p>
+              <p className="HS-heading">Patent </p>
             </div>
 
             {data?.candidate_patents?.map((patents, index) => (
               <div key={index}>
-                
                 {index > 0 && <hr style={{ margin: "24px 0" }} />}
                 <div className="row">
-                <div>
-      {data?.candidate_patents.length > 1 && (
-        <button
-          type="button"
-          onClick={() => handleRemovePatent(index)}
-          className="minus-buttons"
-        >
-          <img src={minusicon} alt="Remove Patent" />
-        </button>
-      )}
-      {index === data?.candidate_patents.length - 1 && (
-        <button
-          type="button"
-          onClick={handleAddPatents}
-          className="plus-buttons"
-        >
-          <img src={plusicon} alt="Add Patent" />
-        </button>
-      )}
-    </div>
+                  <div>
+                    {data?.candidate_patents.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemovePatent(index)}
+                        className="minus-buttons"
+                      >
+                        <img src={minusicon} alt="Remove Patent" />
+                      </button>
+                    )}
+                    {index === data?.candidate_patents.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={handleAddPatents}
+                        className="plus-buttons"
+                      >
+                        <img src={plusicon} alt="Add Patent" />
+                      </button>
+                    )}
+                  </div>
                   <div className="col-md-4">
                     {/* Application ID*/}
                     <div className="UD-form-section">
@@ -1182,36 +1194,33 @@ const handleRemoveResearches = (index) => {
             {/* Copyright*/}
 
             <div>
-              <p className="HS-heading">
-                Copyright{" "}
-               
-              </p>  
+              <p className="HS-heading">Copyright </p>
             </div>
 
             {data?.candidate_copyrights?.map((copyrights, index) => (
               <div key={index}>
-                 {index > 0 && <hr style={{ margin: "24px 0" }} />}
+                {index > 0 && <hr style={{ margin: "24px 0" }} />}
                 <div className="row">
-                <div>
-      {data?.candidate_copyrights.length > 1 && (
-        <button
-          type="button"
-          onClick={() => handleRemoveCopyright(index)}
-          className="minus-buttons"
-        >
-          <img src={minusicon} alt="Remove Copyright" />
-        </button>
-      )}
-      {index === data?.candidate_copyrights.length - 1 && (
-        <button
-          type="button"
-          onClick={handleAddCopyrights}
-          className="plus-buttons"
-        >
-          <img src={plusicon} alt="Add Copyright" />
-        </button>
-      )}
-    </div>
+                  <div>
+                    {data?.candidate_copyrights.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveCopyright(index)}
+                        className="minus-buttons"
+                      >
+                        <img src={minusicon} alt="Remove Copyright" />
+                      </button>
+                    )}
+                    {index === data?.candidate_copyrights.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={handleAddCopyrights}
+                        className="plus-buttons"
+                      >
+                        <img src={plusicon} alt="Add Copyright" />
+                      </button>
+                    )}
+                  </div>
                   <div className="col-md-4">
                     {/* Application ID*/}
                     <div className="UD-form-section">

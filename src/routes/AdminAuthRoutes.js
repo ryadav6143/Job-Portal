@@ -22,6 +22,9 @@ import EditOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurren
 import MasterTable from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/MasterCurrentOpeningChild/MasterTable.jsx";
 // import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin.jsx";
 import AdminRegister from "../admin_pages/AdminLogin/AdminChildPages/RegisterAdmin/AdminRegister.jsx";
+
+
+
 console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
   // <Route path="adminpanel" element= {<AdminAuthGaurd component ={<Adminpanel />} />}></Route>,

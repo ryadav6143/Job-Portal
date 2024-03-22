@@ -20,6 +20,10 @@
     box-sizing: border-box;
     animation: animloader 2s linear infinite;
   }
+
+  .set-dialog{
+    width: 100%;
+  }
   
   @keyframes animloader {
     0% {

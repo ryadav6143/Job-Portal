@@ -45,7 +45,7 @@ function CandidateDashboard() {
           </div>
 
           <div
-            style={{ flexGrow: 1, overflowY: "auto" }}
+            style={{ flexGrow: 1, overflowY: "auto",paddingRight:"50px" }}
             className="edit-form-outlet"
           >
             <Outlet />

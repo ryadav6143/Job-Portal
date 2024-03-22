@@ -3,7 +3,9 @@
   font-family: "Open Sans", sans-serif;
 }
 .master-table {
-  margin-inline: 10px;
+  margin-inline: 0px;
+  /* padding-right: 50px; */
+  /* padding-left: 50px; */
 }
 #upd-btn {
   background-color: #0b6623e5;
