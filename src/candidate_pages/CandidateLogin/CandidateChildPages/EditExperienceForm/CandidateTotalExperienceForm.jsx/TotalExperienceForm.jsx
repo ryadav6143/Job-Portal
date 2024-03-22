@@ -97,7 +97,7 @@ function TotalExperienceForm() {
           <div>
             <div>
               <h5 className="UD-heading">
-                Experience &nbsp;{" "}
+              Total Experience &nbsp;{" "}
                 <FontAwesomeIcon className="edit-pen-icon" icon={faPen} />
               </h5>
               <p className="UD-subheading">
