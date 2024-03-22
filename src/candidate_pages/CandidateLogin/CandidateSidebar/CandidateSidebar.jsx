@@ -124,7 +124,7 @@ function CandidateSidebar() {
                       <span> &nbsp; Academic Professional Qualifications</span>
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faBriefcase}
@@ -132,7 +132,48 @@ function CandidateSidebar() {
                     <Link to="/candidate-dashboard/personal-experience">
                       <span> &nbsp; Experience</span>
                     </Link>
-                  </li>
+                  </li> */}
+
+                  <div className="dropdown show">
+                    <a
+                      className="btn dropdown-toggle set-a"
+                      href="#"
+                      role="button"
+                      id="dropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <img
+                        // src={reports}
+                        className="bi bi-heart sidenav-icon"
+                      ></img>{" "}
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faUsers}
+                      />
+                      <span>Experience</span>
+                    </a>
+
+                    <div
+                      className="dropdown-menu master-dd"
+                      aria-labelledby="dropdownMenuLink"
+                    >
+                      <Link
+                        to="/candidate-dashboard/candidate-experience"
+                        className="dropdown-item "
+                      >
+                        <span>Experience Data</span>
+                      </Link>
+                      <Link
+                        to="/candidate-dashboard/candidate-totalexperience"
+                        className="dropdown-item "
+                      >
+                        <span>Total Experience</span>
+                      </Link>
+                 
+                    </div>
+                  </div>
                   {/* <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
