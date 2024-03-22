@@ -148,10 +148,10 @@ function CandidateSidebar() {
                         // src={reports}
                         className="bi bi-heart sidenav-icon"
                       ></img>{" "}
-                      <FontAwesomeIcon
-                        className="set-menu-icon"
-                        icon={faUsers}
-                      />
+                 <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faBriefcase}
+                    />
                       <span>Experience</span>
                     </a>
 
