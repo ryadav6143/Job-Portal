@@ -160,7 +160,7 @@ function AddAttendForm({ handleCloseAttendClick, fetchData }) {
             <Button variant="contained" color="primary" type="submit">
               Submit
             </Button>
-            <Button onClick={handleCloseAttendClick}>Close</Button>
+            <Button onClick={handleCloseAttendClick}>Cancle</Button>
           </DialogActions>
         </form>
       </DialogContent>
