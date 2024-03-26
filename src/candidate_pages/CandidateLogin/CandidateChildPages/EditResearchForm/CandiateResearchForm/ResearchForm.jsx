@@ -13,11 +13,10 @@ const ResearchForm = () => {
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const fetchData = async () => {
-    try {
-      
-      const fetchedData = await candidatesApiService.getCandidateResearchWork();
-      console.log("research", fetchedData.candidate_research_works);
-      setResearchItem(fetchedData.candidate_research_works);
+    try {      
+      const fetchedData = await candidatesApiService.getCandidateResearch();
+      console.log("research", fetchedData);
+      setResearchItem(fetchedData);
       
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -49,7 +48,23 @@ const ResearchForm = () => {
     setEditMode(false);
     
   };
-
+  const handleDeleteClick = async (itemId) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (isConfirmed) {
+      try {
+        await candidatesApiService.DeleteResearchForm(itemId);
+        // Update state after successful deletion
+        setResearchItem((prevItems) =>
+          prevItems.filter((item) => item.id !== itemId)
+        );
+        console.log("Item deleted successfully");
+      } catch (error) {
+        console.error("Error deleting item:", error.message);
+      }
+    }
+  };
   return (
     <>
       {/* <div className="new-opening-btn">
@@ -99,7 +114,7 @@ const ResearchForm = () => {
                     <button
                       type="button"
                       id="table-btns"
-                      
+                      onClick={() => handleDeleteClick(item.id)}
                     >
                       <img className="up-del-btn" src={deletebtn} alt="" />
                     </button>

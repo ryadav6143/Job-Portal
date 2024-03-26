@@ -16,9 +16,9 @@ const PatentsForm = () => {
   
   const fetchData = async () => {
     try {      
-      const fetchedData = await candidatesApiService.getCandidateResearchWork();
-      console.log("patent", fetchedData.candidate_patents);
-      setPatentItem(fetchedData.candidate_patents);
+      const fetchedData = await candidatesApiService.getCandidatePatent();
+      console.log("patent", fetchedData);
+      setPatentItem(fetchedData);
       
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -50,7 +50,23 @@ const PatentsForm = () => {
     setEditMode(false);
     
   };
-
+  const handleDeleteClick = async (itemId) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (isConfirmed) {
+      try {
+        await candidatesApiService.removeCandidatePatent(itemId);
+        // Update state after successful deletion
+        setPatentItem((prevItems) =>
+          prevItems.filter((item) => item.id !== itemId)
+        );
+        console.log("Item deleted successfully");
+      } catch (error) {
+        console.error("Error deleting item:", error.message);
+      }
+    }
+  };
   return (
     <>
       {/* <div className="new-opening-btn">
@@ -103,7 +119,7 @@ const PatentsForm = () => {
                     <button
                       type="button"
                       id="table-btns"
-                      
+                      onClick={() => handleDeleteClick(item.id)}
                     >
                       <img className="up-del-btn" src={deletebtn} alt="" />
                     </button>

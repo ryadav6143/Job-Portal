@@ -47,7 +47,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
         //         attend_id: filteredItem.id
         //     };
 
-        //     await candidatesApiService.updateAttendForm(updatedFormData);
+        //     await candidatesApiService.updateCandidateResearch(updatedFormData);
         //     fetchData();
         //     handleClose();
         // } catch (error) {

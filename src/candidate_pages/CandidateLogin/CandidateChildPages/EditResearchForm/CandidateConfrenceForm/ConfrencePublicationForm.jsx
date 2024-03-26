@@ -15,10 +15,9 @@ const ConfrencePublicationForm = () => {
   
   const fetchData = async () => {
     try {      
-      const fetchedData = await candidatesApiService.getCandidateResearchWork();
-      console.log("Confrence", fetchedData.candidate_conference_publications);
-      setConfrenceItem(fetchedData.candidate_conference_publications);
-      
+      const fetchedData = await candidatesApiService.getCandidateConferancePublications();
+      console.log("Confrence", fetchedData);
+      setConfrenceItem(fetchedData);      
     } catch (error) {
       console.error("Error fetching data:", error.message);
       
@@ -49,7 +48,23 @@ const ConfrencePublicationForm = () => {
     setEditMode(false);
     
   };
-
+  const handleDeleteClick = async (itemId) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (isConfirmed) {
+      try {
+        await candidatesApiService.removeCandidateConferancePublications(itemId);
+        // Update state after successful deletion
+        setConfrenceItem((prevItems) =>
+          prevItems.filter((item) => item.id !== itemId)
+        );
+        console.log("Item deleted successfully");
+      } catch (error) {
+        console.error("Error deleting item:", error.message);
+      }
+    }
+  };
   return (
     <>
       {/* <div className="new-opening-btn">
@@ -108,7 +123,7 @@ const ConfrencePublicationForm = () => {
                     <button
                       type="button"
                       id="table-btns"
-                      
+                      onClick={() => handleDeleteClick(item.id)}
                     >
                       <img className="up-del-btn" src={deletebtn} alt="" />
                     </button>

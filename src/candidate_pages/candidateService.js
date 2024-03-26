@@ -355,7 +355,6 @@ const candidatesApiService = (() => {
         throw error;
       }
     },
-
     addCandidateOrganised: async (formData) => {
       try {
         const response = await axios.post(`${CANDIDATE_BASE_URL}/candidateSeminarOrganised/addCandidateSeminarOrganised`, formData, {
@@ -485,7 +484,6 @@ const candidatesApiService = (() => {
         throw error;
       }
     },
-
     DeleteOrganisedForm: async (organisedId) => {
       try {
         const response = await axios.delete(
@@ -549,7 +547,275 @@ const candidatesApiService = (() => {
         throw error;
       }
     },
+
+    getCandidateResearch: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatResearch/getCandidateResearchWork`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    updateCandidateResearch: async (updateField) => {
+      try {
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidatResearch/updateCandidateResearchWork`,
+          updateField,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+          }
+        );
+
+        console.log('Save Changes Response:', response);
+        return response.data; // Assuming your API returns some data upon successful update
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    DeleteResearchForm: async (researchId) => {
+      try {
+        const response = await axios.delete(
+          `${CANDIDATE_BASE_URL}/candidatResearch/removeCandidateResearchWork`,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+            data: {
+              research_id: researchId
+            }
+          }
+        );
     
+        console.log('Save Changes Response:', response);
+        return response.data; 
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    
+
+    getCandidateCopyright: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatCopyright/getCandidateCopyright`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    updateCandidateCopyright: async (updateField) => {
+      try {
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidatCopyright/updateCandidateCopyright`,
+          updateField,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+          }
+        );
+
+        console.log('Save Changes Response:', response);
+        return response.data; // Assuming your API returns some data upon successful update
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    removeCandidateCopyright: async (copyrightsId) => {
+      try {
+        const response = await axios.delete(
+          `${CANDIDATE_BASE_URL}/candidatCopyright/removeCandidateCopyright`,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+            data: {
+              copyright_id: copyrightsId
+            }
+          }
+        );
+    
+        console.log('Save Changes Response:', response);
+        return response.data; 
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+
+    getCandidateJournalPublications: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatJournalPublication/getCandidateJournalPublications`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    updateCandidateJournalPublications: async (updateField) => {
+      try {
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidatJournalPublication/updateCandidateJournalPublications`,
+          updateField,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+          }
+        );
+
+        console.log('Save Changes Response:', response);
+        return response.data; // Assuming your API returns some data upon successful update
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    removeCandidateJournalPublications: async (journalPublicationId) => {
+      try {
+        const response = await axios.delete(
+          `${CANDIDATE_BASE_URL}/candidatJournalPublication/removeCandidateJournalPublications`,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+            data: {
+              journal_publication_id: journalPublicationId
+            }
+          }
+        );
+    
+        console.log('Save Changes Response:', response);
+        return response.data; 
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+
+
+    getCandidateConferancePublications: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatConferancePublication/getCandidateConferancePublications`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    updateCandidateConferancePublications: async (updateField) => {
+      try {
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidatConferancePublication/updateCandidateConferancePublications`,
+          updateField,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+          }
+        );
+
+        console.log('Save Changes Response:', response);
+        return response.data; // Assuming your API returns some data upon successful update
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    removeCandidateConferancePublications: async (conferancePublicationId) => {
+      try {
+        const response = await axios.delete(
+          `${CANDIDATE_BASE_URL}/candidatConferancePublication/removeCandidateConferancePublications`,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+            data: {
+              copyright_id: conferancePublicationId
+            }
+          }
+        );
+    
+        console.log('Save Changes Response:', response);
+        return response.data; 
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+
+    getCandidatePatent: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatPatent/getCandidatePatent`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    updateCandidatePatent: async (updateField) => {
+      try {
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidatPatent/updateCandidatePatent`,
+          updateField,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+          }
+        );
+
+        console.log('Save Changes Response:', response);
+        return response.data; // Assuming your API returns some data upon successful update
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    removeCandidatePatent: async (PatentsId) => {
+      try {
+        const response = await axios.delete(
+          `${CANDIDATE_BASE_URL}/candidatPatent/removeCandidatePatent`,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+            data: {
+              copyright_id: PatentsId
+            }
+          }
+        );
+    
+        console.log('Save Changes Response:', response);
+        return response.data; 
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+
+
   };
 })();
 
