@@ -16,9 +16,16 @@ function AddCandidateResearchForm({ handleCloseResearchClick }) {
     researchid: "",
   });
 
+  const [formErrors, setFormErrors] = useState({
+    orcid: "",
+    scopusid: "",
+    researchid: "",
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setFormErrors({ ...formErrors, [name]: "" });
   };
 
 
@@ -35,6 +42,41 @@ function AddCandidateResearchForm({ handleCloseResearchClick }) {
 //       console.error(`Error submitting data: ${error.message}`);
     
 //     }
+
+
+let hasErrors = false;
+    const newFormErrors = { ...formErrors };
+
+    // Basic validation - check for empty fields
+    if (formData.orcid.trim() === "") {
+      newFormErrors.orcid = "Please enter Orcid Id";
+      hasErrors = true;
+    }
+    if (formData.scopusid.trim() === "") {
+      newFormErrors.scopusid = "Please enter Scopus Id";
+      hasErrors = true;
+    }
+    if (formData.researchid.trim() === "") {
+      newFormErrors.researchid = "Please enter Research Id";
+      hasErrors = true;
+    }
+
+    // Set the updated errors state
+    setFormErrors(newFormErrors);
+
+    if (!hasErrors) {
+      try {
+        // Call your API or perform other actions here
+        // const response = await candidatesApiService.addCandidateOrganised(formData);
+        // console.log(response.data);
+
+        // handleCloseOrganizedClick();
+        // fetchData();
+      } catch (error) {
+        console.error(`Error submitting data: ${error.message}`);
+      }
+    }
+
   };
 
   return (
@@ -54,6 +96,9 @@ function AddCandidateResearchForm({ handleCloseResearchClick }) {
                 onChange={handleChange}
                 fullWidth
               />
+                   {formErrors.orcid && (
+                <span className="error-message">{formErrors.orcid}</span>
+              )}
             </div>
 
             <div className="col-md-6">
@@ -67,6 +112,9 @@ function AddCandidateResearchForm({ handleCloseResearchClick }) {
                 onChange={handleChange}
                 fullWidth
               />
+                  {formErrors.scopusid && (
+                <span className="error-message">{formErrors.scopusid}</span>
+              )}
             </div>
           </div>
 
@@ -82,6 +130,9 @@ function AddCandidateResearchForm({ handleCloseResearchClick }) {
                 onChange={handleChange}
                 fullWidth
               />
+                  {formErrors.researchid && (
+                <span className="error-message">{formErrors.researchid}</span>
+              )}
             </div>
          
           </div>

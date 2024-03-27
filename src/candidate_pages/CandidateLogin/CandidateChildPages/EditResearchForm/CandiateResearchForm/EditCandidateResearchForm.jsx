@@ -8,6 +8,12 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
         scopusid: "",
         researchid: "",
     });
+
+    const [formErrors, setFormErrors] = useState({
+        orcid: "",
+        scopusid: "",
+        researchid: "",
+      });
     const [updateField, setUpdateField] = useState({});
 
     useEffect(() => {
@@ -33,6 +39,10 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
             [fieldName]: value.toString()
         }));
         
+        setFormErrors((prevFormErrors) => ({
+            ...prevFormErrors,
+            [fieldName]: value.trim() === "" ? `Please enter ${fieldName}` : "",
+          }));
         // Console mein changes dikhaane ke liye
         console.log(`Field '${fieldName}' updated to:`, value);
     };
@@ -54,6 +64,31 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
         //     console.error("Error updating data:", error);
 
         // }
+
+        const newFormErrors = {
+            orcid: formData.orcid.trim() === "" ? "Please enter Orcid Id" : "",
+            scopusid: formData.scopusid.trim() === "" ? "Please enter Scopus Id" : "",
+            researchid: formData.researchid.trim() === "" ? "Please enter Research Id" : "",
+          };
+      
+          setFormErrors(newFormErrors);
+      
+          const hasErrors = Object.values(newFormErrors).some((error) => error !== "");
+      
+          if (!hasErrors) {
+            try {
+              // const updatedFormData = {
+              //   ...formData,
+              //   attend_id: filteredItem.id
+              // };
+      
+              // await candidatesApiService.updateAttendForm(updatedFormData);
+              // fetchData();
+              handleClose();
+            } catch (error) {
+              console.error("Error updating data:", error);
+            }
+          }
     };
 
 
@@ -75,6 +110,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
                             handleChange("orcid",e.target.value)}
                         fullWidth
                     />   
+                      {formErrors.orcid && <span className="error-message">{formErrors.orcid}</span>}
                         </div>
                         <div className="col-md-6">
                         <label className="SetLabel-Name">Scopus Id</label>
@@ -87,6 +123,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
                             handleChange("scopusid",e.target.value)}
                         fullWidth
                     />
+                                  {formErrors.scopusid && <span className="error-message">{formErrors.scopusid}</span>}
                         </div>
                     </div>
                     <div className="row">
@@ -101,6 +138,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
                             handleChange("researchid",e.target.value)}
                         fullWidth
                     />   
+                    {formErrors.researchid && <span className="error-message">{formErrors.researchid}</span>}
                         </div>
                     </div>
                    

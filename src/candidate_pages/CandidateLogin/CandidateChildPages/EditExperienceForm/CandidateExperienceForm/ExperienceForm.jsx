@@ -76,8 +76,8 @@ const ExperienceForm = () => {
      
       <div className="master-table">
         <div className="flex-btns">
-        <p className="candidate-table-heading">experience</p>
-        <button className="add-btn" onClick={handleOpenExperienceClick}>Add experience</button>
+        <p className="candidate-table-heading">Experience</p>
+        <button className="add-btn" onClick={handleOpenExperienceClick}>Add Experience</button>
         </div>
 
 
