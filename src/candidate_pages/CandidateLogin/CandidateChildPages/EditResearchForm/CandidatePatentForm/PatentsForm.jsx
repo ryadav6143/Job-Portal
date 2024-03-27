@@ -130,8 +130,8 @@ const PatentsForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditCandidatePatentsForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} />}
-      {isPopupOpen && <AddCandidatePatentsForm  handleClosePatentClick={() => setIsPopupOpen(false)} />}
+      {editMode && <EditCandidatePatentsForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
+      {isPopupOpen && <AddCandidatePatentsForm  handleClosePatentClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
       </>
   );
 };

@@ -132,11 +132,13 @@ const JournalPublicationForm = () => {
         <EditCandidateJournalForm
           filteredItem={filteredItem}
           handleClose={() => setEditMode(false)}
+          fetchData={fetchData}
         />
       )}
       {isPopupOpen && (
         <AddCandidateJournalForm
           handleCloseJournalClick={() => setIsPopupOpen(false)}
+          fetchData={fetchData}
         />
       )}
     </>

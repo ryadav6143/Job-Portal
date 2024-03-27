@@ -41,8 +41,8 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
         }));
         
         
-        // Console mein changes dikhaane ke liye
-        console.log(`Field '${fieldName}' updated to:`, value);
+ 
+        // console.log(`Field '${fieldName}' updated to:`, value);
     };
     
     const isValidDate = (dateString) => {

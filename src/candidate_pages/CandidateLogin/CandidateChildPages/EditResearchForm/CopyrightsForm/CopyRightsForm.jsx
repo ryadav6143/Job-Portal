@@ -130,8 +130,8 @@ const CopyRightsForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditCandidateCopyrights filteredItem={filteredItem} handleClose={() => setEditMode(false)} />}
-      {isPopupOpen && <AddCandidateCopyrights  handleClosecopyrightsClick={() => setIsPopupOpen(false)} />}
+      {editMode && <EditCandidateCopyrights filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
+      {isPopupOpen && <AddCandidateCopyrights  handleClosecopyrightsClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
       </>
   );
 };

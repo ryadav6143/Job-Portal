@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
 
-function EditCandidateResearchForm({ filteredItem, handleClose }) {
+function EditCandidateResearchForm({ filteredItem, handleClose,fetchData }) {
     const [formData, setFormData] = useState({
         orcid: "",
         scopusid: "",
@@ -40,20 +40,20 @@ function EditCandidateResearchForm({ filteredItem, handleClose }) {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        // try {
+        try {
 
-        //     const updatedFormData = {
-        //         ...updateField,
-        //         attend_id: filteredItem.id
-        //     };
+            const updatedFormData = {
+                ...updateField,
+                research_id: filteredItem.id
+            };
 
-        //     await candidatesApiService.updateCandidateResearch(updatedFormData);
-        //     fetchData();
-        //     handleClose();
-        // } catch (error) {
-        //     console.error("Error updating data:", error);
+            await candidatesApiService.updateCandidateResearch(updatedFormData);
+            fetchData();
+            handleClose();
+        } catch (error) {
+            console.error("Error updating data:", error);
 
-        // }
+        }
     };
 
 

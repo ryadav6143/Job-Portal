@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
 
-function EditCandidateJournalForm({ filteredItem, handleClose }) {
+function EditCandidateJournalForm({ filteredItem, handleClose,fetchData }) {
     const [formData, setFormData] = useState({
         journal_publication_year: "",
         journal_publication_title: "",
@@ -50,20 +50,20 @@ function EditCandidateJournalForm({ filteredItem, handleClose }) {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        // try {
+        try {
 
-        //     const updatedFormData = {
-        //         ...updateField,
-        //         attend_id: filteredItem.id
-        //     };
+            const updatedFormData = {
+                ...updateField,
+                journal_publication_id: filteredItem.id
+            };
 
-        //     await candidatesApiService.updateAttendForm(updatedFormData);
-        //     fetchData();
-        //     handleClose();
-        // } catch (error) {
-        //     console.error("Error updating data:", error);
+            await candidatesApiService.updateCandidateJournalPublications(updatedFormData);
+            fetchData();
+            handleClose();
+        } catch (error) {
+            console.error("Error updating data:", error);
 
-        // }
+        }
     };
 
 

@@ -76,7 +76,7 @@ function AddAttendForm({ handleCloseAttendClick, fetchData }) {
 
     try {
       const response = await candidatesApiService.addCandidateAttend(formData);
-      console.log(response.data);
+      // console.log(response.data);
 
       handleCloseAttendClick();
       fetchData();

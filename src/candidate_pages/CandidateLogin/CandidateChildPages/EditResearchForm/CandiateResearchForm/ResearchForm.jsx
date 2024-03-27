@@ -125,8 +125,8 @@ const ResearchForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditCandidateResearchForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} />}
-      {isPopupOpen && <AddCandidateResearchForm  handleCloseResearchClick={() => setIsPopupOpen(false)} />}
+      {editMode && <EditCandidateResearchForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
+      {isPopupOpen && <AddCandidateResearchForm  handleCloseResearchClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
       </>
   );
 };

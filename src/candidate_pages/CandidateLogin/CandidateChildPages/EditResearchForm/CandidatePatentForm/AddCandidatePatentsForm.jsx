@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidatePatentsForm({ handleClosePatentClick }) {
+function AddCandidatePatentsForm({ handleClosePatentClick,fetchData }) {
     const [formData, setFormData] = useState({
         patent_applicationid: "",
         patent_application_title: "",
@@ -26,17 +26,17 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //   try {
-        //       const response = await candidatesApiService.addCandidateOrganised(formData);
-        //       console.log(response.data); 
+          try {
+              const response = await candidatesApiService.addCandidatePatent(formData);
+              console.log(response.data); 
 
-        //       handleCloseOrganizedClick();
-        //       fetchData();
+              handleClosePatentClick();
+              fetchData();
 
-        //     } catch (error) {
-        //       console.error(`Error submitting data: ${error.message}`);
+            } catch (error) {
+              console.error(`Error submitting data: ${error.message}`);
 
-        //     }
+            }
     };
 
     return (

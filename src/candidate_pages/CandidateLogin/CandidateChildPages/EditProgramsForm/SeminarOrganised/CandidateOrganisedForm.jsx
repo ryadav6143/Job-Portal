@@ -36,9 +36,9 @@ const CandidateOrganisedForm = () => {
   };
 
   const handleEditClick = (itemId) => {
-    console.log("id??", itemId);
+    // console.log("id??", itemId);
     const filteredItem = organisedItem.find((item) => item.id === itemId);
-    console.log("Filtered item:", filteredItem);
+    // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     setEditItemId(itemId);
     setEditMode(true);
@@ -63,7 +63,7 @@ const CandidateOrganisedForm = () => {
         setOrganisedItem((prevItems) =>
           prevItems.filter((item) => item.id !== itemId)
         );
-        console.log("Item deleted successfully");
+        // console.log("Item deleted successfully");
       } catch (error) {
         console.error("Error deleting item:", error.message);
       }

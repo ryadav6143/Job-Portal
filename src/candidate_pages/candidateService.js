@@ -33,14 +33,12 @@ const candidatesApiService = (() => {
         throw error;
       }
     },
-
     loginCandidate: (data) => {
       return axios.post(`${CANDIDATE_BASE_URL}/login/candidate_login`, data);
     },
     ForgetCandidatePassword: (data) => {
       return axios.put(`${CANDIDATE_BASE_URL}/candidates/candidate_forgot_password`, data);
     },
-
     getCandidateById: async () => {
       try {
         // console.log("getCandidateById-accessToken",accessToken)
@@ -211,96 +209,96 @@ const candidatesApiService = (() => {
         throw error;
       }
     },
-    updateCandidateResearches: async (researchField) => {
-      try {
-        const response = await axios.put(
-          `${CANDIDATE_BASE_URL}/candidatResearch/updateCandidateResearchWork`,
-          researchField,
-          {
-            headers: {
-              'access-token': accessToken.token,
-            },
-          }
-        );
-        console.log('Save Changes Response:', response);
-        return response.data; // Assuming your API returns some data upon successful update
-      } catch (error) {
-        console.error('Error saving changes:', error.message);
-        throw error;
-      }
-    },
-    updateCandidateJournalPublications: async (journalPublicationField) => {
-      try {
-        const response = await axios.put(
-          `${CANDIDATE_BASE_URL}/candidatJournalPublication/updateCandidateJournalPublications`,
-          journalPublicationField,
-          {
-            headers: {
-              'access-token': accessToken.token,
-            },
-          }
-        );
-        console.log('Save Changes Response:', response);
-        return response.data; // Assuming your API returns some data upon successful update
-      } catch (error) {
-        console.error('Error saving changes:', error.message);
-        throw error;
-      }
-    },
-    updateCandidateConferancePublications: async (ConferancePublicationField) => {
-      try {
-        const response = await axios.put(
-          `${CANDIDATE_BASE_URL}/candidatConferancePublication/updateCandidateConferancePublications`,
-          ConferancePublicationField,
-          {
-            headers: {
-              'access-token': accessToken.token,
-            },
-          }
-        );
-        console.log('Save Changes Response:', response);
-        return response.data; // Assuming your API returns some data upon successful update
-      } catch (error) {
-        console.error('Error saving changes:', error.message);
-        throw error;
-      }
-    },
-    updateCandidatePatent: async (patentField) => {
-      try {
-        const response = await axios.put(
-          `${CANDIDATE_BASE_URL}/candidatPatent/updateCandidatePatent`,
-          patentField,
-          {
-            headers: {
-              'access-token': accessToken.token,
-            },
-          }
-        );
-        console.log('Save Changes Response:', response);
-        return response.data; // Assuming your API returns some data upon successful update
-      } catch (error) {
-        console.error('Error saving changes:', error.message);
-        throw error;
-      }
-    },
-    updateCandidateCopyright: async (copyrightField) => {
-      try {
-        const response = await axios.put(
-          `${CANDIDATE_BASE_URL}/candidatCopyright/updateCandidateCopyright`,
-          copyrightField,
-          {
-            headers: {
-              'access-token': accessToken.token,
-            },
-          }
-        );
-        console.log('Save Changes Response:', response);
-        return response.data; // Assuming your API returns some data upon successful update
-      } catch (error) {
-        console.error('Error saving changes:', error.message);
-        throw error;
-      }
-    },
+    // updateCandidateResearches: async (researchField) => {
+    //   try {
+    //     const response = await axios.put(
+    //       `${CANDIDATE_BASE_URL}/candidatResearch/updateCandidateResearchWork`,
+    //       researchField,
+    //       {
+    //         headers: {
+    //           'access-token': accessToken.token,
+    //         },
+    //       }
+    //     );
+    //     console.log('Save Changes Response:', response);
+    //     return response.data; // Assuming your API returns some data upon successful update
+    //   } catch (error) {
+    //     console.error('Error saving changes:', error.message);
+    //     throw error;
+    //   }
+    // },
+    // updateCandidateJournalPublications: async (journalPublicationField) => {
+    //   try {
+    //     const response = await axios.put(
+    //       `${CANDIDATE_BASE_URL}/candidatJournalPublication/updateCandidateJournalPublications`,
+    //       journalPublicationField,
+    //       {
+    //         headers: {
+    //           'access-token': accessToken.token,
+    //         },
+    //       }
+    //     );
+    //     console.log('Save Changes Response:', response);
+    //     return response.data; // Assuming your API returns some data upon successful update
+    //   } catch (error) {
+    //     console.error('Error saving changes:', error.message);
+    //     throw error;
+    //   }
+    // },
+    // updateCandidateConferancePublications: async (ConferancePublicationField) => {
+    //   try {
+    //     const response = await axios.put(
+    //       `${CANDIDATE_BASE_URL}/candidatConferancePublication/updateCandidateConferancePublications`,
+    //       ConferancePublicationField,
+    //       {
+    //         headers: {
+    //           'access-token': accessToken.token,
+    //         },
+    //       }
+    //     );
+    //     console.log('Save Changes Response:', response);
+    //     return response.data; // Assuming your API returns some data upon successful update
+    //   } catch (error) {
+    //     console.error('Error saving changes:', error.message);
+    //     throw error;
+    //   }
+    // },
+    // updateCandidatePatent: async (patentField) => {
+    //   try {
+    //     const response = await axios.put(
+    //       `${CANDIDATE_BASE_URL}/candidatPatent/updateCandidatePatent`,
+    //       patentField,
+    //       {
+    //         headers: {
+    //           'access-token': accessToken.token,
+    //         },
+    //       }
+    //     );
+    //     console.log('Save Changes Response:', response);
+    //     return response.data; // Assuming your API returns some data upon successful update
+    //   } catch (error) {
+    //     console.error('Error saving changes:', error.message);
+    //     throw error;
+    //   }
+    // },
+    // updateCandidateCopyright: async (copyrightField) => {
+    //   try {
+    //     const response = await axios.put(
+    //       `${CANDIDATE_BASE_URL}/candidatCopyright/updateCandidateCopyright`,
+    //       copyrightField,
+    //       {
+    //         headers: {
+    //           'access-token': accessToken.token,
+    //         },
+    //       }
+    //     );
+    //     console.log('Save Changes Response:', response);
+    //     return response.data; // Assuming your API returns some data upon successful update
+    //   } catch (error) {
+    //     console.error('Error saving changes:', error.message);
+    //     throw error;
+    //   }
+    // },
     updateCandidateMembershipInfo: async (membershipInfoField) => {
       try {
         const response = await axios.put(
@@ -560,10 +558,22 @@ const candidatesApiService = (() => {
         throw new Error(`Error fetching data: ${error.message}`);
       }
     },
+    addCandidateResearch: async (formData) => {
+      try {
+        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatResearch/addCandidateResearchWork`, formData, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
     updateCandidateResearch: async (updateField) => {
       try {
         const response = await axios.put(
-          `${CANDIDATE_BASE_URL}/candidatResearch/updateCandidateResearchWork`,
+          `${CANDIDATE_BASE_URL}/candidatResearch/updateCandidateResearch`,
           updateField,
           {
             headers: {
@@ -605,6 +615,18 @@ const candidatesApiService = (() => {
     getCandidateCopyright: async () => {
       try {
         const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatCopyright/getCandidateCopyright`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    addCandidateCopyright: async (formData) => {
+      try {
+        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatCopyright/addCandidateCopyright`, formData, {
           headers: {
             'access-token': accessToken.token,
           },
@@ -667,10 +689,22 @@ const candidatesApiService = (() => {
         throw new Error(`Error fetching data: ${error.message}`);
       }
     },
+    addCandidateJournalPublications: async (formData) => {
+      try {
+        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatJournalPublication/addCandidateJournalPublications`, formData, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
     updateCandidateJournalPublications: async (updateField) => {
       try {
         const response = await axios.put(
-          `${CANDIDATE_BASE_URL}/candidatJournalPublication/updateCandidateJournalPublications`,
+          `${CANDIDATE_BASE_URL}/candidatJournalPublication/updateJournalPublication`,
           updateField,
           {
             headers: {
@@ -721,10 +755,22 @@ const candidatesApiService = (() => {
         throw new Error(`Error fetching data: ${error.message}`);
       }
     },
+    addCandidateConferancePublications: async (formData) => {
+      try {
+        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatConferancePublication/addCandidateConferancePublications`, formData, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
     updateCandidateConferancePublications: async (updateField) => {
       try {
         const response = await axios.put(
-          `${CANDIDATE_BASE_URL}/candidatConferancePublication/updateCandidateConferancePublications`,
+          `${CANDIDATE_BASE_URL}/candidatConferancePublication/updateConferancePublications`,
           updateField,
           {
             headers: {
@@ -749,7 +795,7 @@ const candidatesApiService = (() => {
               'access-token': accessToken.token,
             },
             data: {
-              copyright_id: conferancePublicationId
+              conferance_publication_id: conferancePublicationId
             }
           }
         );
@@ -765,6 +811,18 @@ const candidatesApiService = (() => {
     getCandidatePatent: async () => {
       try {
         const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatPatent/getCandidatePatent`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    addCandidatePatent: async (formData) => {
+      try {
+        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatPatent/addCandidatePatent`, formData, {
           headers: {
             'access-token': accessToken.token,
           },
@@ -802,7 +860,7 @@ const candidatesApiService = (() => {
               'access-token': accessToken.token,
             },
             data: {
-              copyright_id: PatentsId
+              patent_id: PatentsId
             }
           }
         );

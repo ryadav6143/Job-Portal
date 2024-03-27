@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidateJournalForm({ handleCloseJournalClick }) {
+function AddCandidateJournalForm({ handleCloseJournalClick,fetchData }) {
     const [formData, setFormData] = useState({
         journal_publication_year: "",
         journal_publication_title: "",
@@ -29,17 +29,17 @@ function AddCandidateJournalForm({ handleCloseJournalClick }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //   try {
-        //       const response = await candidatesApiService.addCandidateOrganised(formData);
-        //       console.log(response.data); 
+          try {
+              const response = await candidatesApiService.addCandidateJournalPublications(formData);
+              console.log(response.data); 
 
-        //       handleCloseOrganizedClick();
-        //       fetchData();
+              handleCloseJournalClick();
+              fetchData();
 
-        //     } catch (error) {
-        //       console.error(`Error submitting data: ${error.message}`);
+            } catch (error) {
+              console.error(`Error submitting data: ${error.message}`);
 
-        //     }
+            }
     };
 
     return (

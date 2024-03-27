@@ -37,30 +37,6 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
     }
   }, [filteredItem]);
 
-  // const handleChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setFormData({ ...formData, [name]: value });
-  //     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
-  // };
-
-  // const handleChange = (fieldName, value, index) => {
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [fieldName]: value,
-  //   }));
-  //   setUpdateField((prevUpdateField) => ({
-  //     ...prevUpdateField,
-  //     [fieldName]: value.toString(),
-  //   }));
-  //   setErrors((prevErrors) => ({
-  //     ...prevErrors,
-  //     [fieldName]: "", // Clear the error message when the field value changes
-  //   }));
-
-  //   // Console mein changes dikhaane ke liye
-  //   console.log(`Field '${fieldName}' updated to:`, value);
-  // };
-
 
 
   const handleChange = (fieldName, value, index) => {
@@ -85,7 +61,7 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
     }));
   
     // Console mein changes dikhaane ke liye
-    console.log(`Field '${fieldName}' updated to:`, newValue);
+    // console.log(`Field '${fieldName}' updated to:`, newValue);
   };
   
 

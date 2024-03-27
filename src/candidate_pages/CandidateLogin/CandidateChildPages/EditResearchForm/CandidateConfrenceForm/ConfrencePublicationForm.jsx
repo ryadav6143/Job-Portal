@@ -134,8 +134,8 @@ const ConfrencePublicationForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditConfrencePublicationForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} />}
-      {isPopupOpen && <AddCandidateConfrenceForm  handleCloseConfrenceClick={() => setIsPopupOpen(false)} />}
+      {editMode && <EditConfrencePublicationForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
+      {isPopupOpen && <AddCandidateConfrenceForm  handleCloseConfrenceClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
       </>
   );
 };

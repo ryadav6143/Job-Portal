@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidateResearchForm({ handleCloseResearchClick }) {
+function AddCandidateResearchForm({ handleCloseResearchClick,fetchData }) {
   const [formData, setFormData] = useState({
     orcid: "",
     scopusid: "",
@@ -24,17 +24,14 @@ function AddCandidateResearchForm({ handleCloseResearchClick }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-//   try {
-//       const response = await candidatesApiService.addCandidateOrganised(formData);
-//       console.log(response.data); 
-
-//       handleCloseOrganizedClick();
-//       fetchData();
-
-//     } catch (error) {
-//       console.error(`Error submitting data: ${error.message}`);
-    
-//     }
+  try {
+      const response = await candidatesApiService.addCandidateResearch(formData);
+      console.log(response.data); 
+      handleCloseResearchClick();
+      fetchData();
+    } catch (error) {
+      console.error(`Error submitting data: ${error.message}`);    
+    }
   };
 
   return (

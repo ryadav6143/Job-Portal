@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
 
-function EditCandidatePatentsForm({ filteredItem, handleClose }) {
+function EditCandidatePatentsForm({ filteredItem, handleClose,fetchData }) {
     const [formData, setFormData] = useState({
         copyright_applicationid: "",
         copyright_title: "",
@@ -45,20 +45,18 @@ function EditCandidatePatentsForm({ filteredItem, handleClose }) {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        // try {
+        try {
+            const updatedFormData = {
+                ...updateField,
+                copyright_id: filteredItem.id
+            };
+            await candidatesApiService.updateCandidateCopyright(updatedFormData);
+            fetchData();
+            handleClose();
+        } catch (error) {
+            console.error("Error updating data:", error);
 
-        //     const updatedFormData = {
-        //         ...updateField,
-        //         attend_id: filteredItem.id
-        //     };
-
-        //     await candidatesApiService.updateAttendForm(updatedFormData);
-        //     fetchData();
-        //     handleClose();
-        // } catch (error) {
-        //     console.error("Error updating data:", error);
-
-        // }
+        }
     };
 
 
