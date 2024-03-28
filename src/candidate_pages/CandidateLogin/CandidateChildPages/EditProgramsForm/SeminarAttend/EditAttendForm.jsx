@@ -96,6 +96,29 @@ function EditAttendForm({ filteredItem, handleClose, fetchData }) {
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
+    const handleChange = (fieldName, value, index) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [fieldName]: value
+        }));
+        setUpdateField((prevUpdateField) => ({
+            ...prevUpdateField,
+            [fieldName]: value.toString()
+        }));
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: ""
+        }));
+        
+        
+ 
+        // console.log(`Field '${fieldName}' updated to:`, value);
+    };
+    
+    const isValidDate = (dateString) => {
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        return dateRegex.test(dateString);
+    };
 
     // Check if dateString is empty or dateObject is invalid
     if (!dateString || isNaN(dateObject.getTime())) {

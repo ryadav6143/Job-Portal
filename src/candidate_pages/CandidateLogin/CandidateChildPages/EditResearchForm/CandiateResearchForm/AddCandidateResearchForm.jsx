@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidateResearchForm({ handleCloseResearchClick }) {
+function AddCandidateResearchForm({ handleCloseResearchClick,fetchData }) {
   const [formData, setFormData] = useState({
     orcid: "",
     scopusid: "",
@@ -66,14 +66,12 @@ let hasErrors = false;
 
     if (!hasErrors) {
       try {
-        // Call your API or perform other actions here
-        // const response = await candidatesApiService.addCandidateOrganised(formData);
-        // console.log(response.data);
-
-        // handleCloseOrganizedClick();
-        // fetchData();
+        const response = await candidatesApiService.addCandidateResearch(formData);
+        console.log(response.data); 
+        handleCloseResearchClick();
+        fetchData();
       } catch (error) {
-        console.error(`Error submitting data: ${error.message}`);
+        console.error(`Error submitting data: ${error.message}`);    
       }
     }
 

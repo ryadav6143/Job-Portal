@@ -14,9 +14,9 @@ const JournalPublicationForm = () => {
 
   const fetchData = async () => {
     try {
-      const fetchedData = await candidatesApiService.getCandidateResearchWork();
-      console.log("Journal", fetchedData.candidate_journal_publications);
-      setJournalItem(fetchedData.candidate_journal_publications);
+      const fetchedData = await candidatesApiService.getCandidateJournalPublications();
+      console.log("Journal", fetchedData);
+      setJournalItem(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
@@ -44,7 +44,23 @@ const JournalPublicationForm = () => {
   const handleClose = () => {
     setEditMode(false);
   };
-
+  const handleDeleteClick = async (itemId) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (isConfirmed) {
+      try {
+        await candidatesApiService.removeCandidateJournalPublications(itemId);
+        // Update state after successful deletion
+        setJournalItem((prevItems) =>
+          prevItems.filter((item) => item.id !== itemId)
+        );
+        console.log("Item deleted successfully");
+      } catch (error) {
+        console.error("Error deleting item:", error.message);
+      }
+    }
+  };
   return (
     <>
       {/* <div className="new-opening-btn">
@@ -100,7 +116,9 @@ const JournalPublicationForm = () => {
                       </button>
                     </td>
                     <td>
-                      <button type="button" id="table-btns">
+                      <button type="button" id="table-btns"
+                          onClick={() => handleDeleteClick(item.id)}
+                      >
                         <img className="up-del-btn" src={deletebtn} alt="" />
                       </button>
                     </td>
@@ -114,11 +132,13 @@ const JournalPublicationForm = () => {
         <EditCandidateJournalForm
           filteredItem={filteredItem}
           handleClose={() => setEditMode(false)}
+          fetchData={fetchData}
         />
       )}
       {isPopupOpen && (
         <AddCandidateJournalForm
           handleCloseJournalClick={() => setIsPopupOpen(false)}
+          fetchData={fetchData}
         />
       )}
     </>

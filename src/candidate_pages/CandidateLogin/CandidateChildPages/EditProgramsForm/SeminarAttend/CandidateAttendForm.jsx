@@ -15,7 +15,7 @@ const CandidateAttendForm = () => {
   const fetchData = async () => {
     try {
       const fetchedData = await candidatesApiService.getCandidateAttend();
-      console.log("Attend///", fetchedData);
+      // console.log("Attend///", fetchedData);
       setAttendItem(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -34,9 +34,9 @@ const CandidateAttendForm = () => {
     setIsPopupOpen(true); 
   };
   const handleEditClick = (itemId) => {
-    console.log("id??",itemId);
+    // console.log("id??",itemId);
     const filteredItem = attendItem.find(item => item.id === itemId);
-    console.log("Filtered item:", filteredItem);
+    // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     setEditItemId(itemId);
     setEditMode(true);
@@ -61,7 +61,7 @@ const CandidateAttendForm = () => {
         await candidatesApiService.DeleteAttendForm(itemId);
         // Update state after successful deletion
         setAttendItem(prevItems => prevItems.filter(item => item.id !== itemId));
-        console.log("Item deleted successfully");
+        // console.log("Item deleted successfully");
       } catch (error) {
         console.error("Error deleting item:", error.message);
       }

@@ -16,9 +16,9 @@ const CopyRightsForm = () => {
   
   const fetchData = async () => {
     try {      
-      const fetchedData = await candidatesApiService.getCandidateResearchWork();
-      console.log("copyrights", fetchedData.candidate_copyrights);
-      setcopyrightsItem(fetchedData.candidate_copyrights);
+      const fetchedData = await candidatesApiService.getCandidateCopyright();
+      console.log("copyrights", fetchedData);
+      setcopyrightsItem(fetchedData);
       
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -50,7 +50,23 @@ const CopyRightsForm = () => {
     setEditMode(false);
     
   };
-
+  const handleDeleteClick = async (itemId) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (isConfirmed) {
+      try {
+        await candidatesApiService.removeCandidateCopyright(itemId);
+        // Update state after successful deletion
+        setcopyrightsItem((prevItems) =>
+          prevItems.filter((item) => item.id !== itemId)
+        );
+        console.log("Item deleted successfully");
+      } catch (error) {
+        console.error("Error deleting item:", error.message);
+      }
+    }
+  };
   return (
     <>
       {/* <div className="new-opening-btn">
@@ -103,7 +119,7 @@ const CopyRightsForm = () => {
                     <button
                       type="button"
                       id="table-btns"
-                      
+                      onClick={() => handleDeleteClick(item.id)}
                     >
                       <img className="up-del-btn" src={deletebtn} alt="" />
                     </button>
@@ -114,8 +130,8 @@ const CopyRightsForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditCandidateCopyrights filteredItem={filteredItem} handleClose={() => setEditMode(false)} />}
-      {isPopupOpen && <AddCandidateCopyrights  handleClosecopyrightsClick={() => setIsPopupOpen(false)} />}
+      {editMode && <EditCandidateCopyrights filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
+      {isPopupOpen && <AddCandidateCopyrights  handleClosecopyrightsClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
       </>
   );
 };

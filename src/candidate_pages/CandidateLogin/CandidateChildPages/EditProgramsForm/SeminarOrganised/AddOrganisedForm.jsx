@@ -57,7 +57,7 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
     }
   try {
       const response = await candidatesApiService.addCandidateOrganised(formData);
-      console.log(response.data); 
+      // console.log(response.data); 
 
       handleCloseOrganizedClick();
       fetchData();

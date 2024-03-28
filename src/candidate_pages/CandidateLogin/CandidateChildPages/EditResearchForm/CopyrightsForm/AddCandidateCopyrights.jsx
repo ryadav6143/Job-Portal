@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidateCopyrights({ handleClosecopyrightsClick }) {
+function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData }) {
     const [formData, setFormData] = useState({
         copyright_applicationid: "",
         copyright_title: "",
@@ -26,17 +26,17 @@ function AddCandidateCopyrights({ handleClosecopyrightsClick }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //   try {
-        //       const response = await candidatesApiService.addCandidateOrganised(formData);
-        //       console.log(response.data); 
+          try {
+              const response = await candidatesApiService.addCandidateCopyright(formData);
+              console.log(response.data); 
 
-        //       handleCloseOrganizedClick();
-        //       fetchData();
+              handleClosecopyrightsClick();
+              fetchData();
 
-        //     } catch (error) {
-        //       console.error(`Error submitting data: ${error.message}`);
+            } catch (error) {
+              console.error(`Error submitting data: ${error.message}`);
 
-        //     }
+            }
     };
 
     return (
