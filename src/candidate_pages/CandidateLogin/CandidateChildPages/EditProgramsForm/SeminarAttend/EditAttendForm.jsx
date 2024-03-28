@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
 
-function EditAttendForm({ filteredItem, handleClose,fetchData }) {
+function EditAttendForm({ filteredItem, handleClose,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         attend_date_from:"",
         attend_date_to:"",
@@ -86,6 +86,9 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
             };
 
             await candidatesApiService.updateAttendForm(updatedFormData);
+            setNotificationMessage(`updtaed successfully`);
+            setNotificationSeverity("success");
+            setNotificationOpen(true);
             fetchData();
             handleClose();
         } catch (error) {
