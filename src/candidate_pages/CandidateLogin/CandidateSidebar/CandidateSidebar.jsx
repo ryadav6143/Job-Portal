@@ -121,7 +121,9 @@ function CandidateSidebar() {
                       icon={faBuildingColumns}
                     />
                     <Link to="/candidate-dashboard/personal-qualification">
-                      <span> &nbsp; Academic Professional Qualifications</span>
+                      {/* <span> &nbsp; Academic Professional Qualifications</span> */}
+                      <span> &nbsp;Academic Qualifications</span>
+                      
                     </Link>
                   </li>
                   {/* <li>
@@ -143,16 +145,13 @@ function CandidateSidebar() {
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
+                      style={{paddingLeft:"0"}}
                     >
-                      <img
-                        // src={reports}
-                        className="bi bi-heart sidenav-icon"
-                      ></img>{" "}
                  <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faBriefcase}
                     />
-                      <span>Experience</span>
+                      <span>&nbsp;&nbsp; &nbsp;Experience</span>
                     </a>
 
                     <div
@@ -194,16 +193,13 @@ function CandidateSidebar() {
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
-                    >
-                      <img
-                        // src={reports}
-                        className="bi bi-heart sidenav-icon"
-                      ></img>{" "}
+                      style={{paddingLeft:"0"}}
+                    >                     
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faSearch}
                     />  
-                      <span>&nbsp; Research Work</span>
+                      <span>&nbsp;&nbsp; &nbsp;Research Work</span>
                     </a>
 
                     <div
@@ -264,16 +260,13 @@ function CandidateSidebar() {
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
-                    >
-                      <img
-                        // src={reports}
-                        className="bi bi-heart sidenav-icon"
-                      ></img>{" "}
+                      style={{paddingLeft:"0",paddingBottom:"1em"}}
+                    >                  
                       <FontAwesomeIcon
                         className="set-menu-icon"
                         icon={faUsers}
                       />
-                      <span>Seminars</span>
+                      <span>&nbsp;&nbsp;&nbsp;Seminars</span>
                     </a>
 
                     <div
