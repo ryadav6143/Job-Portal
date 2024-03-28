@@ -159,7 +159,8 @@ function AddDepartment() {
         </form> */}
       </div>
 
-      <div className="master-table ">
+<div className="admin-list">
+<div className="master-table ">
         <p className="SCA-heading">CURRENT DEPARTMENT AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
@@ -241,6 +242,8 @@ function AddDepartment() {
           </table>
         </div>
       </div>
+</div>
+     
     </>
   );
 }

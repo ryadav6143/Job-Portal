@@ -205,6 +205,8 @@ function AddCategories() {
         </Modal>
       </div>
       {/* -------------------------update form ---------------------------------------- */}
+
+      <div className="admin-list">
       <div className="master-table ">
         <p className="SCA-heading">CURRENT CATEGORIES AVAILABLE</p>
         <div className="table-responsive fixe-table">
@@ -296,6 +298,8 @@ function AddCategories() {
           </table>
         </div>
       </div>
+      </div>
+   
     </>
   );
 }

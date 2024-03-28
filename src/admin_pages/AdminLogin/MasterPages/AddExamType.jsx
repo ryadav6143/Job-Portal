@@ -220,7 +220,9 @@ function AddExamType() {
         </Modal>
       </div>
 
-      <div className="master-table ">
+
+<div className="admin-list">
+<div className="master-table ">
         <p className="SCA-heading">CURRENT EXAM TYPE AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
@@ -317,6 +319,8 @@ function AddExamType() {
           </table>
         </div>
       </div>
+</div>
+      
     </>
   );
 }

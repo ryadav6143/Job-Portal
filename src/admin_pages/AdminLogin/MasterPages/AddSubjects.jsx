@@ -214,7 +214,9 @@ const handleDelete = (id) => {
         </Modal>
       </div>
 
-      <div className="master-table ">
+
+<div className="admin-list">
+<div className="master-table ">
         <p className="SCA-heading">CURRENT SUBJECTS AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
@@ -324,6 +326,8 @@ const handleDelete = (id) => {
           </table>
         </div>
       </div>
+</div>
+     
     </>
   );
 }

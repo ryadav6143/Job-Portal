@@ -231,8 +231,8 @@ function AddPostApplied() {
           </Box>
         </Modal>}
       </div>
-
-      <div className="master-table ">
+<div className="admin-list">
+<div className="master-table ">
         <p className=" SCA-heading">CURRENT APPLIED POST AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
@@ -341,6 +341,8 @@ function AddPostApplied() {
           </table>
         </div>
       </div>
+</div>
+   
     </>
   );
 }
