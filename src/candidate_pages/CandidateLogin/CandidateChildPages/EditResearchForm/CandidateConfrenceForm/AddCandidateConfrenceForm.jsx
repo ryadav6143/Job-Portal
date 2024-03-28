@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData }) {
+function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         conference_publication_year: "",
         conference_publication_title: "",
@@ -33,8 +33,14 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData }) {
               const response = await candidatesApiService.addCandidateConferancePublications(formData);
               console.log(response.data); 
 
-              handleCloseConfrenceClick();
-              fetchData();
+              if (response) {
+                setNotificationMessage(`added successfully`);
+                setNotificationSeverity("success");
+                setNotificationOpen(true);
+                handleCloseConfrenceClick();
+                fetchData();
+              }
+             
 
             } catch (error) {
               console.error(`Error submitting data: ${error.message}`);

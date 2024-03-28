@@ -8,7 +8,7 @@ import {
 } from "@mui/material"; // Importing required components from Material-UI
 import candidatesApiService from "../../../../candidateService";
 
-function AddOtherInfoForm({ handleCloseOtherInfoClick, fetchData }) {
+function AddOtherInfoForm({ handleCloseOtherInfoClick, fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     member_of_institute_name: "",
     membership_date_from: "",
@@ -52,9 +52,15 @@ function AddOtherInfoForm({ handleCloseOtherInfoClick, fetchData }) {
         formData
       );
       console.log(response.data);
+      if (response) {
+        setNotificationMessage(`added successfully`);
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
+        handleCloseOtherInfoClick();
+        fetchData();
+      }
 
-      handleCloseOtherInfoClick();
-      fetchData();
+
     } catch (error) {
       console.error(`Error submitting data: ${error.message}`);
     }

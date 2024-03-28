@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import candidatesApiService from '../../../candidateService';
+import Notification from '../../../../Notification/Notification';
 const OtherActivites = () => {
     const [data, setData] = useState({})
     const [updateField, setUpdateField] = useState({});
+    const [notificationOpen, setNotificationOpen] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState("");
+    const [notificationSeverity, setNotificationSeverity] = useState("info");
     const fetchCandidateData = async () => {
         try {
             // setLoading(true);
@@ -29,17 +33,31 @@ const OtherActivites = () => {
     };
     const handleSaveChanges = async () => {
         try {
-            await candidatesApiService.updateCandidatePersonalInfo(updateField);
+            const response =     await candidatesApiService.updateCandidatePersonalInfo(updateField);
             console.log("Data updated successfully");
+            if (response) {
+                setNotificationMessage(`added successfully`);
+                setNotificationSeverity("success");
+                setNotificationOpen(true);
+              
+              }
             
         fetchCandidateData();
         } catch (error) {
             console.error("Error updating data:", error.message);
         }
     };
-
+    const handleCloseNotification = () => {
+        setNotificationOpen(false);
+      };
     return (
         <>
+        <Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity} />
+
             <p className="SCA-heading">Other Activites</p>
             <form onSubmit={handleSaveChanges}>
                 <div className="row" style={{ marginTop: "-30px" }}>

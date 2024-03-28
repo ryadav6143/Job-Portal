@@ -10,7 +10,7 @@ import {
 // import close from "../../../assets/logos/close.png";
 
 import candidatesApiService from "../../../../candidateService";
-function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
+function EditOtherInfoForm({ filteredItem, handleClose, fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     member_of_institute_name: "",
     membership_date_from: "",
@@ -85,6 +85,9 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData }) {
       };
 
       await candidatesApiService.updateOtherInfoForm(updatedFormData);
+      setNotificationMessage(`updtaed successfully`);
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       fetchData();
       handleClose();
     } catch (error) {

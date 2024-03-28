@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidateResearchForm({ handleCloseResearchClick,fetchData }) {
+function AddCandidateResearchForm({ handleCloseResearchClick,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     orcid: "",
     scopusid: "",
@@ -27,8 +27,14 @@ function AddCandidateResearchForm({ handleCloseResearchClick,fetchData }) {
   try {
       const response = await candidatesApiService.addCandidateResearch(formData);
       console.log(response.data); 
-      handleCloseResearchClick();
-      fetchData();
+  
+      if (response) {
+        setNotificationMessage(`added successfully`);
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
+        handleCloseResearchClick();
+        fetchData();
+      }
     } catch (error) {
       console.error(`Error submitting data: ${error.message}`);    
     }

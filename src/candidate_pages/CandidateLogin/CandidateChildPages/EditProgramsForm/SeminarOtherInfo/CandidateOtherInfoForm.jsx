@@ -4,6 +4,8 @@ import updatebtn from "../../../../../assets/logos/update.png";
 import deletebtn from "../../../../../assets/logos/delete.png"
 import AddOtherInfoForm from './AddOtherInfoForm';
 import EditOtherInfoForm from './EditOtherInfoForm';
+import Notification from '../../../../../Notification/Notification';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
 const CandidateOtherInfoForm = () => {
 
@@ -13,6 +15,10 @@ const CandidateOtherInfoForm = () => {
   const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [filteredItem, setFilteredItem] = useState(null);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("info");
+  const [deleteItemId, setDeleteItemId] = useState(null);
   const fetchData = async () => {
     try {
 
@@ -52,32 +58,41 @@ const CandidateOtherInfoForm = () => {
     setIsPopupOpen(true); // Open popup
   };
 
-  const handleDeleteClick = async (itemId) => {
-    const isConfirmed = window.confirm("Are you sure you want to delete this item?");
-    if (isConfirmed) {
-      try {
-        await candidatesApiService.DeleteOtherInfoForm(itemId);
-        fetchData();
-
-        otherInfoItem(prevItems => prevItems.filter(item => item.id !== itemId));
-
-
-      } catch (error) {
-        console.error("Error deleting item:", error.message);
-      }
-    }
+  const handleDeleteClick = (itemId) => {
+    setDeleteItemId(itemId);
   };
 
+  const handleConfirmDelete = async () => {
+    try {
+      await candidatesApiService.DeleteOtherInfoForm(deleteItemId);
+      fetchData();
+      setOtherInfoItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
+      setNotificationMessage(`deleted successfully`);
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+    } catch (error) {
+      console.error("Error deleting item:", error.message);
+    } finally {
+      setDeleteItemId(null); // Close the delete confirmation dialog
+    }
+  };
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
+  };
   return (
     <>
-  
+      <Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity} />
 
       <div className="master-table">
         <div className="flex-btns">
-        <p className="candidate-table-heading">Other Information</p>
-        <button className="add-btn" onClick={handleOpenOtherInfoClick}>Add OtherInfo</button>
+          <p className="candidate-table-heading">Other Information</p>
+          <button className="add-btn" onClick={handleOpenOtherInfoClick}>Add OtherInfo</button>
         </div>
-       
+
         <div className="table-responsive set-programs-tabel">
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
@@ -126,8 +141,26 @@ const CandidateOtherInfoForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditOtherInfoForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData} />}
-      {isPopupOpen && <AddOtherInfoForm handleCloseOtherInfoClick={() => setIsPopupOpen(false)} fetchData={fetchData} />}
+      {editMode && <EditOtherInfoForm filteredItem={filteredItem} 
+      handleClose={() => setEditMode(false)} fetchData={fetchData}
+      setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} 
+      setNotificationSeverity={setNotificationSeverity}  />}
+
+<Dialog open={deleteItemId !== null} onClose={() => setDeleteItemId(null)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this item?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
+          <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
+        </DialogActions>
+      </Dialog>
+
+      {isPopupOpen && <AddOtherInfoForm handleCloseOtherInfoClick={() => setIsPopupOpen(false)}
+       fetchData={fetchData}
+       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} 
+       setNotificationSeverity={setNotificationSeverity}  />}
     </>
   );
 };

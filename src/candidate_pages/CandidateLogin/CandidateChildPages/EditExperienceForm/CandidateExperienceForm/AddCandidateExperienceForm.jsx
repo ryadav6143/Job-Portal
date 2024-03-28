@@ -7,7 +7,7 @@ import {
   Button,
 } from "@mui/material"; // Importing required components from Material-UI
 import candidatesApiService from "../../../../candidateService";
-function AddCandidateExperienceForm({ handleCloseExperienceClick, fetchData }) {
+function AddCandidateExperienceForm({ handleCloseExperienceClick, fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     company_experience_name: "",
     designation: "",
@@ -75,15 +75,20 @@ function AddCandidateExperienceForm({ handleCloseExperienceClick, fetchData }) {
     //   return;
     // }
 
-    // try {
-    //   const response = await candidatesApiService.addCandidateExperience(formData);
-    //   console.log(response.data);
-
-    //   handleCloseExperienceClick();
-    //   fetchData();
-    // } catch (error) {
-    //   console.error(`Error submitting data: ${error.message}`);
-    // }
+    try {
+      const response = await candidatesApiService.addCandidateExperience(formData);
+      console.log(response.data);
+      if (response) {
+        setNotificationMessage(`added successfully`);
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
+        handleCloseExperienceClick();
+        fetchData();
+      }
+ 
+    } catch (error) {
+      console.error(`Error submitting data: ${error.message}`);
+    }
   };
 
   return (

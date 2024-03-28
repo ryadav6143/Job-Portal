@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
+function AddOrganisedForm({ handleCloseOrganizedClick,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     name_of_course: "",
     name_of_industry: "",
@@ -58,9 +58,13 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData }) {
   try {
       const response = await candidatesApiService.addCandidateOrganised(formData);
       // console.log(response.data); 
-
-      handleCloseOrganizedClick();
-      fetchData();
+      if (response) {
+        setNotificationMessage(`added successfully`);
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
+        handleCloseOrganizedClick();
+        fetchData();
+      }
 
     } catch (error) {
       console.error(`Error submitting data: ${error.message}`);

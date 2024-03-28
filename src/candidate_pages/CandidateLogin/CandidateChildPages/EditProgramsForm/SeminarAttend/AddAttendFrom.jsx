@@ -7,7 +7,7 @@ import {
   Button,
 } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
-import Notification from "../../../../../Notification/Notification";
+
 function AddAttendForm({ handleCloseAttendClick, fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     attend_date_from: "",

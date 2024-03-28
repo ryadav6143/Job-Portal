@@ -5,13 +5,18 @@ import deletebtn from "../../../../../assets/logos/delete.png";
 import EditOrganisedForm from "./EditOrganisedForm";
 import AddOrganisedForm from "./AddOrganisedForm";
 import "./CandidateOrganisedForm.css";
-
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import Notification from "../../../../../Notification/Notification";
 const CandidateOrganisedForm = () => {
   const [organisedItem, setOrganisedItem] = useState([]);
   const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [filteredItem, setFilteredItem] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("info");
+  const [deleteItemId, setDeleteItemId] = useState(null);
   const fetchData = async () => {
     try {
       const fetchedData = await candidatesApiService.getCandidateOrganised();
@@ -52,30 +57,55 @@ const CandidateOrganisedForm = () => {
   const handleCloseOrganizedClick = () => {
     setIsPopupOpen(true);
   };
+  // const handleDeleteClick = async (itemId) => {
+  //   const isConfirmed = window.confirm(
+  //     "Are you sure you want to delete this item?"
+  //   );
+  //   if (isConfirmed) {
+  //     try {
+  //       await candidatesApiService.DeleteOrganisedForm(itemId);
+  //       // Update state after successful deletion
+  //       setOrganisedItem((prevItems) =>
+  //         prevItems.filter((item) => item.id !== itemId)
+  //       );
+  //       // console.log("Item deleted successfully");
+  //     } catch (error) {
+  //       console.error("Error deleting item:", error.message);
+  //     }
+  //   }
+  // };
+
   const handleDeleteClick = async (itemId) => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this item?"
-    );
-    if (isConfirmed) {
-      try {
-        await candidatesApiService.DeleteOrganisedForm(itemId);
-        // Update state after successful deletion
-        setOrganisedItem((prevItems) =>
-          prevItems.filter((item) => item.id !== itemId)
-        );
-        // console.log("Item deleted successfully");
-      } catch (error) {
-        console.error("Error deleting item:", error.message);
-      }
-    }
+    setDeleteItemId(itemId);
   };
 
+  const handleConfirmDelete = async () => {
+    try {
+      await candidatesApiService.DeleteOrganisedForm(deleteItemId);
+      setOrganisedItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
+      // console.log("Item deleted successfully");
+      setNotificationMessage(`deleted successfully`);
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+    } catch (error) {
+      console.error("Error deleting item:", error.message);
+    } finally {
+      setDeleteItemId(null); // Close the delete confirmation dialog
+    }
+  };
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
+  };
   return (
     <>
       {/* <div className="new-opening-btn">
         <button onClick={handleOpenOrganizedClick}>Add Organized</button>
       </div> */}
-
+ <Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity} />
       <div className="master-table">
         <div className="flex-btns">
           <p className="candidate-table-heading">Organized</p>
@@ -144,12 +174,26 @@ const CandidateOrganisedForm = () => {
           filteredItem={filteredItem}
           handleClose={() => setEditMode(false)}
           fetchData={fetchData}
+          setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}
         />
       )}
+
+<Dialog open={deleteItemId !== null} onClose={() => setDeleteItemId(null)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this item?
+        </DialogContent>
+        <DialogActions>
+        <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
+          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>      
+        </DialogActions>
+      </Dialog>
+
       {isPopupOpen && (
         <AddOrganisedForm
           handleCloseOrganizedClick={() => setIsPopupOpen(false)}
           fetchData={fetchData}
+          setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}
         />
       )}
       </>

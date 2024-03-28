@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
 
-function EditConfrencePublicationForm({ filteredItem, handleClose,fetchData }) {
+function EditConfrencePublicationForm({ filteredItem, handleClose,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         conference_publication_year: "",
         conference_publication_title: "",
@@ -58,6 +58,9 @@ function EditConfrencePublicationForm({ filteredItem, handleClose,fetchData }) {
             };
 
             await candidatesApiService.updateCandidateConferancePublications(updatedFormData);
+            setNotificationMessage(`added successfully`);
+            setNotificationSeverity("success");
+            setNotificationOpen(true);
             fetchData();
             handleClose();
         } catch (error) {

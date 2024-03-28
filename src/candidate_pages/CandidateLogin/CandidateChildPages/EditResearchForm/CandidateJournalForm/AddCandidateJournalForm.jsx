@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidateJournalForm({ handleCloseJournalClick,fetchData }) {
+function AddCandidateJournalForm({ handleCloseJournalClick,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         journal_publication_year: "",
         journal_publication_title: "",
@@ -33,8 +33,14 @@ function AddCandidateJournalForm({ handleCloseJournalClick,fetchData }) {
               const response = await candidatesApiService.addCandidateJournalPublications(formData);
               console.log(response.data); 
 
-              handleCloseJournalClick();
-              fetchData();
+              if (response) {
+                setNotificationMessage(`added successfully`);
+                setNotificationSeverity("success");
+                setNotificationOpen(true);
+                handleCloseJournalClick();
+                fetchData();
+              }
+         
 
             } catch (error) {
               console.error(`Error submitting data: ${error.message}`);

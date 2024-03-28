@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
 
-function EditCandidateResearchForm({ filteredItem, handleClose,fetchData }) {
+function EditCandidateResearchForm({ filteredItem, handleClose,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         orcid: "",
         scopusid: "",
@@ -48,6 +48,13 @@ function EditCandidateResearchForm({ filteredItem, handleClose,fetchData }) {
             };
 
             await candidatesApiService.updateCandidateResearch(updatedFormData);
+      
+                setNotificationMessage(`updated successfully`);
+                setNotificationSeverity("success");
+                setNotificationOpen(true);
+     
+        
+       
             fetchData();
             handleClose();
         } catch (error) {
