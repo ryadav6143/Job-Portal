@@ -100,8 +100,8 @@
 }
 
 .set-menu li {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 10px;
   text-align: left;
 }
 
@@ -151,6 +151,7 @@
     width: 98vw;
     background-color: white;
   }
+
 }
 
 @media only screen and (max-width: 767px) {
@@ -166,5 +167,8 @@
     width: 20px;
     height: 20px;
     margin: 15px;
+  }
+  .dropdown-menu{
+    width: auto;
   }
 }

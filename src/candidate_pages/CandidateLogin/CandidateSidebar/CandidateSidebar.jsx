@@ -303,14 +303,14 @@ function CandidateSidebar() {
                         className="dropdown-item"
                         onClick={handleLinkClick}
                       >
-                        <span>Seminar Other Information</span>
+                        <span>Seminar Other <br/>Information</span>
                       </Link>
                       <Link
                         to="/candidate-dashboard/candidate-otheractivites"
                         className="dropdown-item"
                         onClick={handleLinkClick}
                       >
-                        <span>Seminar Other Activites</span>
+                        <span>Seminar Other <br/> Activites</span>
                       </Link>
                     </div>
                   </div>
