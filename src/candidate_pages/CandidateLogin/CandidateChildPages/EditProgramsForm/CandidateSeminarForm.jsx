@@ -1,3 +1,4 @@
+import React from "react";
 const CandidateSeminarForm=({index,data,handleRemoveOrganised,minusicon,handleAddOrganised,plusicon, formatDateForInput,
     seminar_organised,handleOrganisedChange})=>{
     return (<>
