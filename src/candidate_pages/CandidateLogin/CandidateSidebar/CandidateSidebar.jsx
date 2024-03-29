@@ -87,7 +87,11 @@ function CandidateSidebar() {
   //     //   break;
   //   }
   // };
-
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setIsOpen(true); // Close sidebar if it's open on mobile
+    }
+  };
   return (
     <>
       <div className="toggle-div">
@@ -110,7 +114,7 @@ function CandidateSidebar() {
                       className="set-menu-icon"
                       icon={faIdCardClip}
                     />
-                    <Link to="/candidate-dashboard/personal-details">
+                    <Link to="/candidate-dashboard/personal-details" onClick={handleLinkClick}>
                       <span> &nbsp;Personal Details</span>
                     </Link>
                   </li>
@@ -120,7 +124,7 @@ function CandidateSidebar() {
                       className="set-menu-icon"
                       icon={faBuildingColumns}
                     />
-                    <Link to="/candidate-dashboard/personal-qualification">
+                    <Link to="/candidate-dashboard/personal-qualification" onClick={handleLinkClick}>
                       {/* <span> &nbsp; Academic Professional Qualifications</span> */}
                       <span> &nbsp;Academic Qualifications</span>
                       
@@ -160,13 +164,15 @@ function CandidateSidebar() {
                     >
                       <Link
                         to="/candidate-dashboard/candidate-experience"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Experience Data</span>
                       </Link>
                       <Link
                         to="/candidate-dashboard/candidate-totalexperience"
                         className="dropdown-item "
+                        onClick={handleLinkClick}
                       >
                         <span>Total Experience</span>
                       </Link>
@@ -208,31 +214,36 @@ function CandidateSidebar() {
                     >
                       <Link
                         to="/candidate-dashboard/candidate-research"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Research</span>
                       </Link>                   
                       <Link
                         to="/candidate-dashboard/candidate-journalPublication"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Journal Publication</span>
                       </Link>                   
                       <Link
                         to="/candidate-dashboard/candidate-confrencePublication"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Confrence Publication</span>
                       </Link>                   
                       <Link
                         to="/candidate-dashboard/candidate-patents"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Patents</span>
                       </Link>                   
                       <Link
                         to="/candidate-dashboard/candidate-copyrights"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Copyrights</span>
                       </Link>                     
@@ -271,29 +282,33 @@ function CandidateSidebar() {
 
                     <div
                       className="dropdown-menu master-dd"
-                      aria-labelledby="dropdownMenuLink"
+                      aria-labelledby="dropdownMenuLink"                      
                     >
                       <Link
                         to="/candidate-dashboard/candidate-organised"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Seminar Organised</span>
                       </Link>
                       <Link
                         to="/candidate-dashboard/candidate-attend"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Seminar Attends</span>
                       </Link>
                       <Link
                         to="/candidate-dashboard/candidate-otherInfo"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Seminar Other Information</span>
                       </Link>
                       <Link
                         to="/candidate-dashboard/candidate-otheractivites"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Seminar Other Activites</span>
                       </Link>
@@ -302,7 +317,7 @@ function CandidateSidebar() {
 
                   <li>
                     <FontAwesomeIcon className="set-menu-icon" icon={faFile} />
-                    <Link to="/candidate-dashboard/personal-reference">
+                    <Link to="/candidate-dashboard/personal-reference" onClick={handleLinkClick}>
                       <span> &nbsp; Reference/ Resume</span>
                     </Link>
                   </li>
@@ -310,6 +325,7 @@ function CandidateSidebar() {
                     <Link
                       to="/candidate-dashboard/current-opening"
                       style={{ textDecoration: "underline" }}
+                      onClick={handleLinkClick}
                     >
                       Current Openings
                     </Link>
