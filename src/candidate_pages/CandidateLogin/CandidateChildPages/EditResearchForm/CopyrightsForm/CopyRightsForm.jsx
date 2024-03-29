@@ -4,8 +4,8 @@ import updatebtn  from "../../../../../assets/logos/update.png"
 import deletebtn from "../../../../../assets/logos/delete.png";
 import AddCandidateCopyrights from './AddCandidateCopyrights';
 import EditCandidateCopyrights from './EditCandidateCopyrights';
-
-
+import Notification from '../../../../../Notification/Notification';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 const CopyRightsForm = () => {
 
   const [copyrightsItem, setcopyrightsItem] = useState([])
@@ -13,7 +13,10 @@ const CopyRightsForm = () => {
   const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("info");
+  const [deleteItemId, setDeleteItemId] = useState(null);
   const fetchData = async () => {
     try {      
       const fetchedData = await candidatesApiService.getCandidateCopyright();
@@ -51,28 +54,36 @@ const CopyRightsForm = () => {
     
   };
   const handleDeleteClick = async (itemId) => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this item?"
-    );
-    if (isConfirmed) {
-      try {
-        await candidatesApiService.removeCandidateCopyright(itemId);
-        // Update state after successful deletion
-        setcopyrightsItem((prevItems) =>
-          prevItems.filter((item) => item.id !== itemId)
-        );
-        console.log("Item deleted successfully");
-      } catch (error) {
-        console.error("Error deleting item:", error.message);
-      }
+    setDeleteItemId(itemId);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await candidatesApiService.removeCandidateCopyright(deleteItemId);
+      setcopyrightsItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
+      console.log("Item deleted successfully");
+      setNotificationMessage(`deleted successfully`);
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+    } catch (error) {
+      console.error("Error deleting item:", error.message);
+    } finally {
+      setDeleteItemId(null); // Close the delete confirmation dialog
     }
+  };
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
   };
   return (
     <>
       {/* <div className="new-opening-btn">
         <button onClick={handleOpencopyrightsClick}>Add Copyrights</button>
       </div> */}
-
+<Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity} />
       <div className="master-table">
         <div className="flex-btns">
         <p className="candidate-table-heading">Copyrights</p>
@@ -130,8 +141,22 @@ const CopyRightsForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditCandidateCopyrights filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
-      {isPopupOpen && <AddCandidateCopyrights  handleClosecopyrightsClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
+      {editMode && <EditCandidateCopyrights filteredItem={filteredItem}
+       handleClose={() => setEditMode(false)} fetchData={fetchData}
+       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}/>}
+   
+   <Dialog open={deleteItemId !== null} onClose={() => setDeleteItemId(null)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this item?
+        </DialogContent>
+        <DialogActions>
+        <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
+          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+      {isPopupOpen && <AddCandidateCopyrights  handleClosecopyrightsClick={() => setIsPopupOpen(false)} fetchData={fetchData}
+       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}/>}
       </>
   );
 };

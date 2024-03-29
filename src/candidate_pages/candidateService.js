@@ -873,7 +873,70 @@ const candidatesApiService = (() => {
       }
     },
 
+    getCandidateExperience: async () => {
+      try {
+        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatExperience/getCandidateExperience`, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    addCandidateExperience: async (formData) => {
+      try {
+        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatExperience/addCandidateExperience`, formData, {
+          headers: {
+            'access-token': accessToken.token,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    },
+    updateCandidateExperience: async (updateField) => {
+      try {
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidatExperience/updateCandidateExperience`,
+          updateField,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+          }
+        );
 
+        console.log('Save Changes Response:', response);
+        return response.data; // Assuming your API returns some data upon successful update
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
+    removeCandidateExperience: async (ExperienceId) => {
+      try {
+        const response = await axios.delete(
+          `${CANDIDATE_BASE_URL}/candidatExperience/removeCandidateExperience`,
+          {
+            headers: {
+              'access-token': accessToken.token,
+            },
+            data: {
+              experience_id: ExperienceId
+            }
+          }
+        );
+    
+        console.log('Save Changes Response:', response);
+        return response.data; 
+      } catch (error) {
+        console.error('Error saving changes:', error.message);
+        throw error;
+      }
+    },
   };
 })();
 

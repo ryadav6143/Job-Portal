@@ -168,8 +168,9 @@ const CandidateAttendForm = () => {
           Are you sure you want to delete this item?
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
           <Button variant="contained" color="primary" onClick={handleConfirmDelete}>Delete</Button>
+          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
+
         </DialogActions>
       </Dialog>
 

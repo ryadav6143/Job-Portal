@@ -4,8 +4,8 @@ import updatebtn  from "../../../../../assets/logos/update.png"
 import deletebtn from "../../../../../assets/logos/delete.png";
 import AddCandidatePatentsForm from './AddCandidatePatentsForm';
 import EditCandidatePatentsForm from './EditCandidatePatentsForm';
-
-
+import Notification from '../../../../../Notification/Notification';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 const PatentsForm = () => {
 
   const [patentItem, setPatentItem] = useState([])
@@ -13,7 +13,10 @@ const PatentsForm = () => {
   const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("info");
+  const [deleteItemId, setDeleteItemId] = useState(null);
   const fetchData = async () => {
     try {      
       const fetchedData = await candidatesApiService.getCandidatePatent();
@@ -51,21 +54,27 @@ const PatentsForm = () => {
     
   };
   const handleDeleteClick = async (itemId) => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this item?"
-    );
-    if (isConfirmed) {
-      try {
-        await candidatesApiService.removeCandidatePatent(itemId);
-        // Update state after successful deletion
-        setPatentItem((prevItems) =>
-          prevItems.filter((item) => item.id !== itemId)
-        );
-        console.log("Item deleted successfully");
-      } catch (error) {
-        console.error("Error deleting item:", error.message);
-      }
+    setDeleteItemId(itemId);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await candidatesApiService.removeCandidatePatent(deleteItemId);
+      setPatentItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
+      console.log("Item deleted successfully");
+      setNotificationMessage(`deleted successfully`);
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+    } catch (error) {
+      console.error("Error deleting item:", error.message);
+    } finally {
+      setDeleteItemId(null); // Close the delete confirmation dialog
     }
+  };
+
+
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
   };
   return (
     <>
@@ -73,6 +82,11 @@ const PatentsForm = () => {
         <button onClick={handleOpenpatentClick}>Add Patents</button>
       </div> */}
 
+<Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity} />
       <div className="master-table">
         <div className="flex-btns">
         <p className="candidate-table-heading">Patents</p>
@@ -130,8 +144,23 @@ const PatentsForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditCandidatePatentsForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
-      {isPopupOpen && <AddCandidatePatentsForm  handleClosePatentClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
+      {editMode && <EditCandidatePatentsForm filteredItem={filteredItem}
+       handleClose={() => setEditMode(false)} fetchData={fetchData}
+       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}/>}
+      <Dialog open={deleteItemId !== null} onClose={() => setDeleteItemId(null)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this item?
+        </DialogContent>
+        <DialogActions>
+        <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
+          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+     
+      {isPopupOpen && <AddCandidatePatentsForm  handleClosePatentClick={() => setIsPopupOpen(false)} fetchData={fetchData}
+       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}
+      />}
       </>
   );
 };

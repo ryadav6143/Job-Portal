@@ -10,7 +10,7 @@ import {
 // import close from "../../../assets/logos/close.png";
 import close from "../../../../../assets/logos/close.png";
 import candidatesApiService from "../../../../candidateService";
-function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
+function EditOrganisedForm({ filteredItem, handleClose, fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     name_of_course: "",
     name_of_industry: "",
@@ -102,6 +102,9 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
       };
 
       await candidatesApiService.updateOrganisedForm(updatedFormData);
+      setNotificationMessage(`updtaed successfully`);
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       fetchData();
       handleClose();
     } catch (error) {

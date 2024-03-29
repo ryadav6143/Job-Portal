@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
 
-function EditCandidatePatentsForm({ filteredItem, handleClose,fetchData }) {
+function EditCandidatePatentsForm({ filteredItem, handleClose,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         copyright_applicationid: "",
         copyright_title: "",
@@ -51,6 +51,9 @@ function EditCandidatePatentsForm({ filteredItem, handleClose,fetchData }) {
                 copyright_id: filteredItem.id
             };
             await candidatesApiService.updateCandidateCopyright(updatedFormData);
+            setNotificationMessage(`updated successfully`);
+            setNotificationSeverity("success");
+            setNotificationOpen(true);
             fetchData();
             handleClose();
         } catch (error) {

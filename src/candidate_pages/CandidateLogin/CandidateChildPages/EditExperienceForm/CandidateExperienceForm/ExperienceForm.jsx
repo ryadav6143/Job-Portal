@@ -4,7 +4,8 @@ import updatebtn  from "../../../../../assets/logos/update.png"
 import deletebtn from "../../../../../assets/logos/delete.png"
 import AddCandidateExperienceForm from './AddCandidateExperienceForm';
 import EditCandidateExperienceForm from './EditCandidateExperienceForm';
-
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import Notification from '../../../../../Notification/Notification';
 
 const ExperienceForm = () => {
 
@@ -13,11 +14,15 @@ const ExperienceForm = () => {
   const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("info");
+  const [deleteItemId, setDeleteItemId] = useState(null);
  
   const fetchData = async () => {
     try {
      
-      const fetchedData = await candidatesApiService.getExperienceById();
+      const fetchedData = await candidatesApiService.getCandidateExperience();
       console.log("check response",fetchedData)
       setexperienceItem(fetchedData);
 
@@ -57,23 +62,34 @@ const ExperienceForm = () => {
     return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
   };
 
-//   const handleDeleteClick = async (itemId) => {
-//     const isConfirmed = window.confirm("Are you sure you want to delete this item?");
-//     if (isConfirmed) {
-//       try {
-//         await candidatesApiService.DeleteexperienceForm(itemId);
-//         // Update state after successful deletion
-//         setexperienceItem(prevItems => prevItems.filter(item => item.id !== itemId));
-//         console.log("Item deleted successfully");
-//       } catch (error) {
-//         console.error("Error deleting item:", error.message);
-//       }
-//     }
-//   };
-  
+  const handleDeleteClick = async (itemId) => {
+    setDeleteItemId(itemId);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await candidatesApiService.removeCandidateExperience(deleteItemId);
+      setexperienceItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
+      console.log("Item deleted successfully");
+      setNotificationMessage(`deleted successfully`);
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+    } catch (error) {
+      console.error("Error deleting item:", error.message);
+    } finally {
+      setDeleteItemId(null); // Close the delete confirmation dialog
+    }
+  };
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
+  };
   return (
     <>
-     
+     <Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity} />
       <div className="master-table">
         <div className="flex-btns">
         <p className="candidate-table-heading">Experience</p>
@@ -119,7 +135,7 @@ const ExperienceForm = () => {
                     <button
                       type="button"
                       id="table-btns"
-                    //   onClick={() => handleDeleteClick(item.id)}
+                      onClick={() => handleDeleteClick(item.id)}
                     >
                       <img className="up-del-btn" src={deletebtn} alt="" />
                     </button>
@@ -130,8 +146,25 @@ const ExperienceForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditCandidateExperienceForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
-      {isPopupOpen && <AddCandidateExperienceForm  handleCloseExperienceClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
+      {editMode && <EditCandidateExperienceForm filteredItem={filteredItem}
+       handleClose={() => setEditMode(false)} fetchData={fetchData}
+       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}
+       />}
+
+<Dialog open={deleteItemId !== null} onClose={() => setDeleteItemId(null)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this item?
+        </DialogContent>
+        <DialogActions>
+        <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
+          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+
+      {isPopupOpen && <AddCandidateExperienceForm  handleCloseExperienceClick={() => setIsPopupOpen(false)} fetchData={fetchData}
+       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}
+       />}
       </>
   );
 };

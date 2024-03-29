@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
 
-function EditCandidateExperienceForm({ filteredItem, handleClose,fetchData }) {
+function EditCandidateExperienceForm({ filteredItem, handleClose,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         company_experience_name: "",
         designation: "",
@@ -85,10 +85,13 @@ function EditCandidateExperienceForm({ filteredItem, handleClose,fetchData }) {
 
             const updatedFormData = {
                 ...updateField,
-                attend_id: filteredItem.id
+                experience_id: filteredItem.id
             };
 
-            await candidatesApiService.updateAttendForm(updatedFormData);
+            await candidatesApiService.updateCandidateExperience(updatedFormData);
+            setNotificationMessage(`updated successfully`);
+            setNotificationSeverity("success");
+             setNotificationOpen(true);
             fetchData();
             handleClose();
         } catch (error) {

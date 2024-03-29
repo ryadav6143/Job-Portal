@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData }) {
+function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         copyright_applicationid: "",
         copyright_title: "",
@@ -29,9 +29,14 @@ function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData }) {
           try {
               const response = await candidatesApiService.addCandidateCopyright(formData);
               console.log(response.data); 
-
-              handleClosecopyrightsClick();
-              fetchData();
+              if (response) {
+                setNotificationMessage(`added successfully`);
+                setNotificationSeverity("success");
+                setNotificationOpen(true);
+                handleClosecopyrightsClick();
+                fetchData();
+              }
+         
 
             } catch (error) {
               console.error(`Error submitting data: ${error.message}`);

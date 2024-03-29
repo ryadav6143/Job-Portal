@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
 
-function EditCandidatePatentsForm({ filteredItem, handleClose,fetchData }) {
+function EditCandidatePatentsForm({ filteredItem, handleClose,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         patent_applicationid: "",
         patent_application_title: "",
@@ -53,6 +53,9 @@ function EditCandidatePatentsForm({ filteredItem, handleClose,fetchData }) {
             };
 
             await candidatesApiService.updateCandidatePatent(updatedFormData);
+            setNotificationMessage(`updated successfully`);
+            setNotificationSeverity("success");
+            setNotificationOpen(true);
             fetchData();
             handleClose();
         } catch (error) {

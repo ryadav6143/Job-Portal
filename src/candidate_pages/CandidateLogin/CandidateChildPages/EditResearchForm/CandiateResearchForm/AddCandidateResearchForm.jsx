@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidateResearchForm({ handleCloseResearchClick,fetchData }) {
+function AddCandidateResearchForm({ handleCloseResearchClick,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     orcid: "",
     scopusid: "",
@@ -31,26 +31,26 @@ function AddCandidateResearchForm({ handleCloseResearchClick,fetchData }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-//   try {
-//       const response = await candidatesApiService.addCandidateOrganised(formData);
-//       console.log(response.data); 
-
-//       handleCloseOrganizedClick();
-//       fetchData();
-
-//     } catch (error) {
-//       console.error(`Error submitting data: ${error.message}`);
-    
-//     }
-
-
-let hasErrors = false;
+    let hasErrors = false;
     const newFormErrors = { ...formErrors };
 
     // Basic validation - check for empty fields
     if (formData.orcid.trim() === "") {
       newFormErrors.orcid = "Please enter Orcid Id";
-      hasErrors = true;
+      hasErrors = true;}
+  try {
+      const response = await candidatesApiService.addCandidateResearch(formData);
+      console.log(response.data); 
+  
+      if (response) {
+        setNotificationMessage(`added successfully`);
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
+        handleCloseResearchClick();
+        fetchData();
+      }
+    } catch (error) {
+      console.error(`Error submitting data: ${error.message}`);    
     }
     if (formData.scopusid.trim() === "") {
       newFormErrors.scopusid = "Please enter Scopus Id";
