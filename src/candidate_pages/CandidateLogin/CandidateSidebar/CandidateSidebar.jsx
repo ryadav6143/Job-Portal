@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect,useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CandidateSidebar.css";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faEnvelope,
+  faMobile,
+  faUserTie,
+  faAngleDown,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faIdCardClip,
   faBuildingColumns,
@@ -12,13 +19,14 @@ import {
   faFile,
 } from "@fortawesome/free-solid-svg-icons";
 import CandidateOrganisedForm from "../CandidateChildPages/EditProgramsForm/SeminarOrganised/CandidateOrganisedForm";
-
+import candidatesApiService from "../../candidateService";
 import { ApiDataProvider } from "..//..//../context/CandidateContext";
 function CandidateSidebar() {
   const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-
+  const [selectedImage, setSelectedImage] = useState(null);
+  const fileInputRef = useRef(null);
   const [uploadedImage, setUploadedImage] = useState(null);
   const handleImageUpload = (event) => {
     // Handle image upload logic here
@@ -27,6 +35,25 @@ function CandidateSidebar() {
     setUploadedImage(URL.createObjectURL(uploadedFile));
   };
 
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const imageUrl = await candidatesApiService.fetchCandidateImage();
+
+        if (imageUrl) {
+          setSelectedImage(imageUrl);
+        } else {
+          // If there is no image, set selectedImage to null or use a default image URL
+          setSelectedImage(null);
+        }
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+
+    fetchImage();
+  }, []);
   useEffect(() => {
     // Update isOpen state only if the window width is less than 768
     const checkIsMobile = () => {
@@ -107,6 +134,47 @@ function CandidateSidebar() {
         <div className={`col-md-2 set-col-2 ${isOpen ? "isClose" : ""}`}>
           <div className="set-sidebar">
             <div>
+            <div style={{ paddingLeft: "50px" }}>
+            {selectedImage ? (
+              <img
+                src={selectedImage}
+                alt="Selected Profile"
+                style={{
+                  width: "5rem",
+                  height: "5rem",
+                  borderRadius: "50%",
+                }}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faUserTie}
+                style={{
+                  fontSize: "5rem",
+                  borderRadius: "50%",
+                  backgroundColor: "#ddd",
+                  padding: "20px",
+                }}
+              />
+            )}
+            <div>
+              {/* Hidden file input */}
+              {/* <input
+                type="file"
+                ref={fileInputRef}
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+                id="fileInput"
+              />
+              <label htmlFor="fileInput" className="choose-img">
+                Change Profile Picture
+              </label> */}
+              {/* Button to trigger file input */}
+              {/* <button className="choose-img" onClick={handleChoosePictureClick}>
+                Change Profile Picture
+              </button> */}
+            </div>
+          </div>
               <nav>
                 <ul className="set-menu" style={{ listStyle: "none" }}>
                   <li>

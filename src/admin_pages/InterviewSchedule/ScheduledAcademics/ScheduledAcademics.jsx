@@ -86,7 +86,7 @@ function ScheduledAcademics() {
                 <th scope="col">Day 3 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody >
               {/* {ScheduledAcademicData.map((data, index) => (
                 <tr key={index}>
                   <td>
@@ -100,7 +100,7 @@ function ScheduledAcademics() {
                 </tr>
               ))} */}
               {ScheduledAcademicData.map((data, index) => (
-                <tr key={index}>
+                <tr key={index} style={{whiteSpace:"nowrap"}}>
                   <td>
                     <b>{index + 1}</b>
                   </td>

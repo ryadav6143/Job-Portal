@@ -6,9 +6,9 @@ import {
   faMobile,
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
-import "./UserDetails.css";
+import "./CandidateUserDetails.css";
 import apiService from "../../../../Services/ApiServices";
-function UserDetails({ formValues, setFormValues, errors, setErrors }) {
+function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
   const [departments, setDepartments] = useState([]);
@@ -124,7 +124,11 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       .getAppliedPosts()
       .then((response) => {
         // Update the state with the fetched data
-        setPosts(response.data);
+     
+        const nonAcademicPosts = response.data.filter(post => post.job_category_master.category_name === "NonAcademic");
+        // console.log("post by category",nonAcademicPosts)
+        // setPosts(response.data);
+        setPosts(nonAcademicPosts);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
@@ -133,6 +137,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     const fetchDepartments = async () => {
       try {
         const response = await apiService.getDepartments();
+        
         setDepartments(response.data);
       } catch (error) {
         console.error("Error fetching departments:", error);
@@ -176,7 +181,6 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     );
 
     if (selectedPostObject) {
-      console.log("category idf",selectedPostObject);
       setSelectedPost(selectedPostObject.id);
       const jobCategoryId = selectedPostObject.job_category_master.id;
       setFormValues((prevValues) => ({
@@ -351,7 +355,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                   <input
                     className="UD-set-input"
                     type="text"
-                    placeholder=" "
+                    placeholder="Enter Specialization"
                     name="specialization"
                     id=""
                     onChange={handleInputChange}
@@ -751,4 +755,4 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   );
 }
 
-export default UserDetails;
+export default CandidateUserDetails;

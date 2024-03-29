@@ -29,7 +29,7 @@ import OTPVerification from "../admin_pages/DropCV/OTPVerifivation/OTPVerificati
 import TestPages from "../admin_pages/TestPages/TestPages";
 import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 import Sidenav from "../admin_pages/TestPages/Sidenav";
-
+import NonAcademicForm from "../admin_pages/CurrentOpening/NonAcademicForm/NonAcademicForm"
 
 console.log("inside UnAuthRoutes");
 const UnAuthRoutes = [
@@ -103,7 +103,10 @@ const UnAuthRoutes = [
     path="apply-now"
     element={<UnAuthGuards component={<ApplyNow />} />}
   ></Route>,
-
+  <Route
+  path="non-academic-form"
+  element={<UnAuthGuards component={<NonAcademicForm />} />}
+></Route>,
   <Route
     path="contact-us"
     element={<UnAuthGuards component={<ContactUs />} />}
@@ -138,6 +141,7 @@ const UnAuthRoutes = [
     path="*"
     element={<UnAuthGuards component={<PageNotFound />} />}
   ></Route>,
+
 ];
 
 export default UnAuthRoutes;
