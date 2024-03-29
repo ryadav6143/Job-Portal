@@ -22,8 +22,7 @@ function AddCategories() {
     try {
       const response = await adminApiService.getJobCategories();
       setData(response.data);
-    }
-    catch {
+    } catch {
       console.error("Error fetching data:");
     }
   };
@@ -31,12 +30,9 @@ function AddCategories() {
   const handleAddCategory = async (e) => {
     e.preventDefault();
     try {
-
-      const response = await adminApiService.AddCategory(
-        {
-          category_name: newCategory,
-        },
-      );
+      const response = await adminApiService.AddCategory({
+        category_name: newCategory,
+      });
       setData([...data, response.data]);
       setNewCategory("");
       setOpen(false);
@@ -55,14 +51,17 @@ function AddCategories() {
     }
   };
 
-
-
   const handleDeleteCategory = (categoryId) => {
-    if (window.confirm("Are you sure you want to delete this category? This action cannot be undone.")) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this category? This action cannot be undone."
+      )
+    ) {
       adminApiService.DeleteCategory(categoryId);
-      setData((prevData) => prevData.filter((category) => category.id !== categoryId));
+      setData((prevData) =>
+        prevData.filter((category) => category.id !== categoryId)
+      );
     } else {
-
       console.log("Category deletion canceled.");
     }
   };
@@ -207,99 +206,99 @@ function AddCategories() {
       {/* -------------------------update form ---------------------------------------- */}
 
       <div className="admin-list">
-      <div className="master-table ">
-        <p className="SCA-heading">CURRENT CATEGORIES AVAILABLE</p>
-        <div className="table-responsive fixe-table">
-          <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
-              <tr>
-                <th scope="col">S No.</th>
-                <th scope="col">NAME</th>
-                <th scope="col">UPDATE</th>
-                <th scope="col">DELETE</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((category, index) => (
-                <tr key={category?.id}>
-                  <td>{index + 1}</td>
-                  <td>{category?.category_name}</td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleSelectCategoryForUpdate(category?.id)}
-                    >
-                      <img src={updatebtn} className="up-del-btn" alt="" />
-                    </button>
-                    
-                  </td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDeleteCategory(category.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td>
+        <div className="master-table ">
+          <p className="SCA-heading">CURRENT CATEGORIES AVAILABLE</p>
+          <div className="table-responsive fixe-table">
+            <table className="table table-responsive">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                <tr>
+                  <th scope="col">S No.</th>
+                  <th scope="col">NAME</th>
+                  <th scope="col">UPDATE</th>
+                  <th scope="col">DELETE</th>
                 </tr>
-              ))}
-              <Modal
-                      open={updateModalOpen}
-                      onClose={handleCloseUpdateModal}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <FormControl>
-                          <div>
-                            <form>
-                              <img
-                                onClick={handleXButtonClick}
-                                className="update-close-btn"
-                                src={close}
-                              />
-                              <label
-                                className="AC-SetLabel-Name"
-                                htmlFor="categoryInput"
-                              >
-                                Update Job Category
-                              </label>
+              </thead>
+              <tbody>
+                {data.map((category, index) => (
+                  <tr key={category?.id}>
+                    <td>{index + 1}</td>
+                    <td>{category?.category_name}</td>
+                    <td>
+                      <button
+                        id="table-btns"
+                        onClick={() =>
+                          handleSelectCategoryForUpdate(category?.id)
+                        }
+                      >
+                        <img src={updatebtn} className="up-del-btn" alt="" />
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        id="table-btns"
+                        onClick={() => handleDeleteCategory(category.id)}
+                      >
+                        <img src={deletebtn} className="up-del-btn" alt="" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                <Modal
+                  open={updateModalOpen}
+                  onClose={handleCloseUpdateModal}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <FormControl>
+                      <div>
+                        <form>
+                          <img
+                            onClick={handleXButtonClick}
+                            className="update-close-btn"
+                            src={close}
+                          />
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="categoryInput"
+                          >
+                            Update Job Category
+                          </label>
 
-                              <input
-                                className="Ac-set-input"
-                                type="text"
-                                id="categoryInput"
-                                placeholder="Update Category"
-                                value={
-                                  selectedCategory
-                                    ? selectedCategory?.category_name
-                                    : ""
-                                }
-                                onChange={(e) =>
-                                  setSelectedCategory({
-                                    ...selectedCategory,
-                                    category_name: e.target.value,
-                                  })
-                                }
-                              />
-                              <button
-                                id="set-btn"
-                                type="button"
-                                onClick={handleUpdateCategory}
-                              >
-                                UPDATE NOW
-                              </button>
-                            </form>
-                          </div>
-                        </FormControl>
-                      </Box>
-                    </Modal>
-            </tbody>
-          </table>
+                          <input
+                            className="Ac-set-input"
+                            type="text"
+                            id="categoryInput"
+                            placeholder="Update Category"
+                            value={
+                              selectedCategory
+                                ? selectedCategory?.category_name
+                                : ""
+                            }
+                            onChange={(e) =>
+                              setSelectedCategory({
+                                ...selectedCategory,
+                                category_name: e.target.value,
+                              })
+                            }
+                          />
+                          <button
+                            id="set-btn"
+                            type="button"
+                            onClick={handleUpdateCategory}
+                          >
+                            UPDATE NOW
+                          </button>
+                        </form>
+                      </div>
+                    </FormControl>
+                  </Box>
+                </Modal>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-      </div>
-   
     </>
   );
 }
