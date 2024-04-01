@@ -18,14 +18,60 @@ function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData,setNotifi
         copyright_incountry: "",
     });
 
+    
+    const [formErrors, setFormErrors] = useState({
+        copyright_applicationid: "",
+        copyright_title: "",
+        copyright_year: "",
+        copyright_granted_by: "",
+        copyright_incountry: "",
+      });
+
+
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFormData({ ...formData, [name]: value });
+    // };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    
+        if (name === "copyright_year") {
+            // Check if the input is a number and has 4 digits
+            if (/^\d*$/.test(value) && value.length <= 4) {
+                setFormData({ ...formData, [name]: value });
+                // Clear the error message if input is valid
+                setFormErrors({ ...formErrors, [name]: '' });
+            } else {
+                // Set an error message for invalid input
+                setFormErrors({ ...formErrors, [name]: 'Please enter a valid 4-digit number' });
+            }
+        } else {
+            setFormData({ ...formData, [name]: value });
+            setFormErrors({ ...formErrors, [name]: '' });
+        }
     };
-
+    
+    const validateForm = () => {
+        let valid = true;
+        const newFormErrors = { ...formErrors };
+    
+        for (const key in formData) {
+          if (formData[key].trim() === "") {
+            newFormErrors[key] = "This field is required.";
+            valid = false;
+          }
+        }
+    
+        setFormErrors(newFormErrors);
+        return valid;
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validateForm()) {
+            return;
+          }
           try {
               const response = await candidatesApiService.addCandidateCopyright(formData);
               console.log(response.data); 
@@ -61,6 +107,9 @@ function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData,setNotifi
                                 onChange={handleChange}
                                 fullWidth
                             />
+                            {formErrors.copyright_applicationid && (
+                <span className="error">{formErrors.copyright_applicationid}</span>
+              )}
                         </div>
                         <div className="col-md-6">
                             <label className="SetLabel-Name">Title</label>
@@ -73,6 +122,9 @@ function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData,setNotifi
                                 onChange={handleChange}
                                 fullWidth
                             />
+                            {formErrors.copyright_title && (
+                <span className="error">{formErrors.copyright_title}</span>
+              )}
                         </div>
 
                     </div>
@@ -89,6 +141,9 @@ function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData,setNotifi
                                 onChange={handleChange}
                                 fullWidth
                             />
+                            {formErrors.copyright_year && (
+                <span className="error">{formErrors.copyright_year}</span>
+              )}
                         </div>
                         <div className="col-md-6">
                             <label className="SetLabel-Name">Published/Granted</label>
@@ -101,6 +156,9 @@ function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData,setNotifi
                                 onChange={handleChange}
                                 fullWidth
                             />
+                            {formErrors.copyright_granted_by && (
+                <span className="error">{formErrors.copyright_granted_by}</span>
+              )}
                         </div>
                     </div>
                     <div className="row">
@@ -115,6 +173,9 @@ function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData,setNotifi
                                 onChange={handleChange}
                                 fullWidth
                             />
+                            {formErrors.copyright_incountry && (
+                <span className="error">{formErrors.copyright_incountry}</span>
+              )}
                         </div>                      
                     </div>
                   

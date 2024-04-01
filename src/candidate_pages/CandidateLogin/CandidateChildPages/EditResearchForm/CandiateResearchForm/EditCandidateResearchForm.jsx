@@ -9,6 +9,12 @@ function EditCandidateResearchForm({ filteredItem, handleClose,fetchData,setNoti
         researchid: "",
     });
     const [updateField, setUpdateField] = useState({});
+    const [errors, setErrors] = useState({
+        orcid: "",
+        scopusid: "",
+        researchid: "",
+    });
+
 
     useEffect(() => {
         if (filteredItem) {
@@ -32,15 +38,29 @@ function EditCandidateResearchForm({ filteredItem, handleClose,fetchData,setNoti
             ...prevUpdateField,
             [fieldName]: value.toString()
         }));
-        
+        validateField(fieldName, value);
         // Console mein changes dikhaane ke liye
         console.log(`Field '${fieldName}' updated to:`, value);
     };
     
 
+    const validateField = (fieldName, value) => {
+        let errorMessage = "";
+        if (value.trim() === "") {
+            errorMessage = `${fieldName} is required.`;
+        }
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: errorMessage
+        }));
+    };
+
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
+            if (Object.values(errors).some((error) => error !== "")) {
+                return;
+            }
 
             const updatedFormData = {
                 ...updateField,
@@ -82,6 +102,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose,fetchData,setNoti
                             handleChange("orcid",e.target.value)}
                         fullWidth
                     />   
+                     {errors.orcid && <span className="error">{errors.orcid}</span>}
                         </div>
                         <div className="col-md-6">
                         <label className="SetLabel-Name">Scopus Id</label>
@@ -94,6 +115,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose,fetchData,setNoti
                             handleChange("scopusid",e.target.value)}
                         fullWidth
                     />
+                    {errors.scopusid && <span className="error">{errors.scopusid}</span>}
                         </div>
                     </div>
                     <div className="row">
@@ -108,6 +130,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose,fetchData,setNoti
                             handleChange("researchid",e.target.value)}
                         fullWidth
                     />   
+                      {errors.researchid && <span className="error">{errors.researchid}</span>}
                         </div>
                     </div>
                    
