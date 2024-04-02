@@ -134,7 +134,7 @@ function CandidateSidebar() {
         <div className={`col-md-2 set-col-2 ${isOpen ? "isClose" : ""}`}>
           <div className="set-sidebar">
             <div>
-            <div style={{ paddingLeft: "50px" }}>
+            {/* <div style={{ paddingLeft: "50px" }}>
             {selectedImage ? (
               <img
                 src={selectedImage}
@@ -155,33 +155,36 @@ function CandidateSidebar() {
                   padding: "20px",
                 }}
               />
-            )}
-            <div>
-              {/* Hidden file input */}
-              {/* <input
-                type="file"
-                ref={fileInputRef}
-                accept="image/*"
-                onChange={handleImageChange}
-                style={{ display: "none" }}
-                id="fileInput"
-              />
-              <label htmlFor="fileInput" className="choose-img">
-                Change Profile Picture
-              </label> */}
-              {/* Button to trigger file input */}
-              {/* <button className="choose-img" onClick={handleChoosePictureClick}>
-                Change Profile Picture
-              </button> */}
-            </div>
-          </div>
+            )}          
+          </div> */}
               <nav>
                 <ul className="set-menu" style={{ listStyle: "none" }}>
                   <li>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faIdCardClip}
-                    />
+                    /> */}
+                 {selectedImage ? (
+              <img
+                src={selectedImage}
+                alt="Selected Profile"
+                style={{
+                  width: "2rem",
+                  height: "2rem",
+                  borderRadius: "50%",
+                }}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faUserTie}
+                style={{
+                  fontSize: "5rem",
+                  borderRadius: "50%",
+                  backgroundColor: "#ddd",
+                  padding: "20px",
+                }}
+              />
+            )}         
                     <Link to="/candidate-dashboard/personal-details" onClick={handleLinkClick}>
                       <span> &nbsp;Personal Details</span>
                     </Link>
