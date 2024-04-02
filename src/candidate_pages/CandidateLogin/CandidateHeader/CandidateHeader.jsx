@@ -2,7 +2,7 @@ import React from "react";
 import "./CandidateHeader.css";
 import medilogo from "../../../assets/logos/medi-logo.png";
 import logout from "../../../assets/logos/Logout.png";
-import Reset from "../../../assets/logos/Reset.png";
+// import Reset from "../../../assets/logos/Reset.png";
 
 import { useNavigate } from "react-router-dom";
 function CandidateHeader() {
@@ -20,9 +20,7 @@ function CandidateHeader() {
           <img className="admin-logo" src={medilogo} alt="" />
         </div>
         <div id="logout-btn">
-          <button>
-            <img src={Reset} />
-          </button>
+        
           <button onClick={() => handleLogout()}>
             <img src={logout} />
           </button>

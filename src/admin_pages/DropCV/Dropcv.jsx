@@ -153,6 +153,7 @@ function Dropcv() {
   // };
 
   const handleNext = async () => {
+    console.log(">>>>>>",formData.personalDetails)
     const isCurrentStepValid = validateCurrentStep();
 
     if (isCurrentStepValid) {

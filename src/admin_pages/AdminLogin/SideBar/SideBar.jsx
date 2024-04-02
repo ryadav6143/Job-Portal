@@ -5,10 +5,12 @@ import "./SideBar.css";
 import opening from "../../../assets/logos/book.png";
 import interview from "../../../assets/logos/interview.png";
 import reports from "../../../assets/logos/report.png";
-import superadmin from "../../../assets/logos/setting.png";
+
 import list from "../../../assets/logos/list.png";
 import jobprofile from "../../../assets/logos/jobprofile.png";
-import Hamburgermenu from "../../../assets/logos/hamburger (1).png"
+import Hamburgermenu from "../../../assets/logos/hamburger (1).png";
+import admin from "../../../assets/logos/admin.png";
+import superadmin from "../../../assets/logos/superadmin.png";
 
 function SideBar() {
   return (
@@ -26,7 +28,6 @@ function SideBar() {
                     id="sidebar-nav"
                     className="list-group border-0 rounded-0 text-sm-start min-vh-100"
                   >
-                  
                     <Link
                       to="/admin-dashboard/current-openings"
                       className="list-group-item border-end-0 d-inline-block text-truncate set-a"
@@ -165,7 +166,7 @@ function SideBar() {
                       className="list-group-item border-end-0 d-inline-block text-truncate set-a"
                     >
                       <img
-                        src={opening}
+                        src={admin}
                         className="bi bi-bootstrap sidenav-icon"
                         alt="Opening Icon"
                       />
@@ -231,7 +232,9 @@ function SideBar() {
                   style={{ color: "black" }}
                   className="bi bi-list bi-lg py-2 p-1"
                 ></i>
-                <span>< img className="hamburger" src={Hamburgermenu}/></span>
+                <span>
+                  <img className="hamburger" src={Hamburgermenu} />
+                </span>
               </button>
             </main>
           </div>

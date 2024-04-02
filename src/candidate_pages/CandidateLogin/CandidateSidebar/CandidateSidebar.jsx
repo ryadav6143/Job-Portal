@@ -119,6 +119,7 @@ function CandidateSidebar() {
       setIsOpen(true); // Close sidebar if it's open on mobile
     }
   };
+  
   return (
     <>
       <div className="toggle-div">
@@ -166,7 +167,7 @@ function CandidateSidebar() {
                     /> */}
                  {selectedImage ? (
               <img
-              className="set-menu-icon"
+           
                 src={selectedImage}
                 alt="Selected Profile"
                 style={{
@@ -187,7 +188,7 @@ function CandidateSidebar() {
                 }}
               />
             )}         
-                    <Link to="/candidate-dashboard/personal-details" onClick={handleLinkClick}>
+                    <Link   to="/candidate-dashboard/personal-details" onClick={handleLinkClick}>
                       <span> &nbsp;Personal Details</span>
                     </Link>
                   </li>
@@ -199,7 +200,7 @@ function CandidateSidebar() {
                     />
                     <Link to="/candidate-dashboard/personal-qualification" onClick={handleLinkClick}>
                       {/* <span> &nbsp; Academic Professional Qualifications</span> */}
-                      <span> &nbsp;Academic <br/> Qualifications</span>
+                      <span> &nbsp;Academic Qualifications</span>
                       
                     </Link>
                   </li>
@@ -350,7 +351,7 @@ function CandidateSidebar() {
                         className="set-menu-icon"
                         icon={faUsers}
                       />
-                      <span>&nbsp;&nbsp;&nbsp;Seminars</span>
+                      <span style={{paddingLeft:"5px"}}>&nbsp;&nbsp;&nbsp;Seminars</span>
                     </a>
 
                     <div
