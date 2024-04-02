@@ -429,7 +429,7 @@ function ApplyNow() {
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);  
   };
   const inputValidations = () => {
     const {
