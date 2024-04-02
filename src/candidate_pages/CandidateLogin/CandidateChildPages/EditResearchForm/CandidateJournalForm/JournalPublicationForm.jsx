@@ -35,7 +35,6 @@ const JournalPublicationForm = () => {
     setIsPopupOpen(true);
   };
   const handleOpenJournalClick = () => {
-    console.log("vuyfufgyuyyih")
     setIsPopupOpen(true);
   };
 

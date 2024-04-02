@@ -36,7 +36,7 @@ function AddAttendForm({ handleCloseAttendClick, fetchData,setNotificationOpen,s
 
     if (name === "attend_date_from" || name === "attend_date_to") {
       if (!isValidDate(value)) {
-        errorMessage = "Please enter a valid date";
+        errorMessage = "Please enter a valid date (YYYY-MM-DD)";
       }
     }
 
@@ -62,7 +62,7 @@ function AddAttendForm({ handleCloseAttendClick, fetchData,setNotificationOpen,s
         (key === "attend_date_from" || key === "attend_date_to") &&
         !isValidDate(value)
       ) {
-        validationErrors[key] = "Please enter a valid date";
+        validationErrors[key] = "Please enter a valid date (YYYY-MM-DD)";
       } else if (
         key === "attend_date_to" &&
         formData.attend_date_from &&

@@ -21,14 +21,67 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
         conference_publication_issue: "",
     });
 
+    const [formErrors, setFormErrors] = useState({
+        conference_publication_year: "",
+        conference_publication_title: "",
+        conference_publication_author: "",
+        conference_publication_index: "",
+        conference_publication_name: "",
+        conference_publication_issn: "",
+        conference_publication_volume: "",
+        conference_publication_issue: "",
+      });
+
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFormData({ ...formData, [name]: value });
+    //     setFormErrors({ ...formErrors, [name]: "" });
+    // };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    
+        if (name === "conference_publication_year") {
+            // Check if the input is a number and has 4 digits
+            if (/^\d*$/.test(value) && value.length <= 4) {
+                setFormData({ ...formData, [name]: value });
+                // Clear the error message if input is valid
+                setFormErrors({ ...formErrors, [name]: '' });
+            } else {
+                // Set an error message for invalid input
+                setFormErrors({ ...formErrors, [name]: 'Please enter a valid 4-digit number' });
+            }
+        } else {
+            setFormData({ ...formData, [name]: value });
+            setFormErrors({ ...formErrors, [name]: '' });
+        }
     };
+    
+    
 
+
+    const validateForm = () => {
+        let valid = true;
+        const newFormErrors = { ...formErrors };
+    
+        for (const key in formData) {
+          if (formData[key].trim() === "") {
+            newFormErrors[key] = "This field is required.";
+            valid = false;
+          }
+        }
+    
+        setFormErrors(newFormErrors);
+        return valid;
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+          }
+
           try {
               const response = await candidatesApiService.addCandidateConferancePublications(formData);
               console.log(response.data); 
@@ -65,6 +118,9 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
                                 onChange={handleChange}
                                 fullWidth
                             />
+                               {formErrors.conference_publication_year && (
+                <span className="error">{formErrors.conference_publication_year}</span>
+              )}
                         </div>
                         <div className="col-md-6">
                             <label className="SetLabel-Name">Title</label>
@@ -77,6 +133,9 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
                                 onChange={handleChange}
                                 fullWidth
                             />
+                               {formErrors.conference_publication_title && (
+                <span className="error">{formErrors.conference_publication_title}</span>
+              )}
                         </div>
 
                     </div>
@@ -93,6 +152,9 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
                                 onChange={handleChange}
                                 fullWidth
                             />
+                               {formErrors.conference_publication_author && (
+                <span className="error">{formErrors.conference_publication_author}</span>
+              )}
                         </div>
                         <div className="col-md-6">
                             <label className="SetLabel-Name">Indexing</label>
@@ -105,6 +167,9 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
                                 onChange={handleChange}
                                 fullWidth
                             />
+                               {formErrors.conference_publication_index && (
+                <span className="error">{formErrors.conference_publication_index}</span>
+              )}
                         </div>
                     </div>
                     <div className="row">
@@ -119,6 +184,9 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
                                 onChange={handleChange}
                                 fullWidth
                             />
+                               {formErrors.conference_publication_name && (
+                <span className="error">{formErrors.conference_publication_name}</span>
+              )}
                         </div>
                         <div className="col-md-6">
                             <label className="SetLabel-Name">ISSN</label>
@@ -131,6 +199,9 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
                                 onChange={handleChange}
                                 fullWidth
                             />
+                               {formErrors.conference_publication_issn && (
+                <span className="error">{formErrors.conference_publication_issn}</span>
+              )}
                         </div>
                     </div>
                     <div className="row">
@@ -145,6 +216,9 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
                                 onChange={handleChange}
                                 fullWidth
                             />
+                               {formErrors.conference_publication_volume && (
+                <span className="error">{formErrors.conference_publication_volume}</span>
+              )}
                         </div>
                         <div className="col-md-6">
                             <label className="SetLabel-Name">Issue</label>
@@ -157,6 +231,9 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
                                 onChange={handleChange}
                                 fullWidth
                             />
+                               {formErrors.conference_publication_issue && (
+                <span className="error">{formErrors.conference_publication_issue}</span>
+              )}
                         </div>
                     </div>
 

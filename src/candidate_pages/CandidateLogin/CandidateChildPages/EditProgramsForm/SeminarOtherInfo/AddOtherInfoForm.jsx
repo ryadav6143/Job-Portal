@@ -37,6 +37,8 @@ function AddOtherInfoForm({ handleCloseOtherInfoClick, fetchData,setNotification
         validationErrors[key] = "Please enter a valid date (YYYY-MM-DD)";
       } else if (key === "membership_date_to" && !isValidDate(value)) {
         validationErrors[key] = "Please enter a valid date (YYYY-MM-DD)";
+      } else if (key === "membership_date_to" && formData.membership_date_from && compareDates(formData.membership_date_from, value) > 0) {
+        validationErrors[key] = "End date must be after start date";
       }
     });
 
@@ -44,7 +46,7 @@ function AddOtherInfoForm({ handleCloseOtherInfoClick, fetchData,setNotification
 
     // Check if there are any validation errors
     if (Object.keys(validationErrors).length > 0) {
-      return; // Don't proceed with submission if there are validation errors
+      return;
     }
 
     try {
@@ -53,7 +55,7 @@ function AddOtherInfoForm({ handleCloseOtherInfoClick, fetchData,setNotification
       );
       console.log(response.data);
       if (response) {
-        setNotificationMessage(`added successfully`);
+        setNotificationMessage(`Added successfully`);
         setNotificationSeverity("success");
         setNotificationOpen(true);
         handleCloseOtherInfoClick();
@@ -70,6 +72,13 @@ function AddOtherInfoForm({ handleCloseOtherInfoClick, fetchData,setNotification
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     return dateRegex.test(dateString);
   };
+
+  const compareDates = (dateString1, dateString2) => {
+    const date1 = new Date(dateString1);
+    const date2 = new Date(dateString2);
+    return date2.getTime() - date1.getTime();
+  };
+
   return (
     <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
       <DialogTitle className="HS-heading">

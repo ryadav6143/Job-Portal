@@ -51,29 +51,29 @@ function AddCandidateExperienceForm({ handleCloseExperienceClick, fetchData,setN
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const validationErrors = {};
-    // Object.keys(formData).forEach((key) => {
-    //   const value = formData[key];
-    //   if (!value.trim()) {
-    //     validationErrors[key] = "This field is required";
-    //   } else if (
-    //     (key === "exp_work_from" || key === "exp_work_to") &&
-    //     !isValidDate(value)
-    //   ) {
-    //     validationErrors[key] = "Please enter a valid date";
-    //   } else if (
-    //     key === "exp_work_to" &&
-    //     formData.exp_work_from &&
-    //     new Date(value) < new Date(formData.exp_work_from)
-    //   ) {
-    //     validationErrors[key] = "End date must be after start date";
-    //   }
-    // });
+    const validationErrors = {};
+    Object.keys(formData).forEach((key) => {
+      const value = formData[key];
+      if (!value.trim()) {
+        validationErrors[key] = "This field is required";
+      } else if (
+        (key === "exp_work_from" || key === "exp_work_to") &&
+        !isValidDate(value)
+      ) {
+        validationErrors[key] = "Please enter a valid date";
+      } else if (
+        key === "exp_work_to" &&
+        formData.exp_work_from &&
+        new Date(value) < new Date(formData.exp_work_from)
+      ) {
+        validationErrors[key] = "End date must be after start date";
+      }
+    });
 
-    // if (Object.keys(validationErrors).length > 0) {
-    //   setErrors(validationErrors);
-    //   return;
-    // }
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     try {
       const response = await candidatesApiService.addCandidateExperience(formData);

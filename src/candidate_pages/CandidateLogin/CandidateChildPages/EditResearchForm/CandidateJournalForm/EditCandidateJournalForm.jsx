@@ -14,6 +14,16 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
         journal_publication_issue: "",
     });
     const [updateField, setUpdateField] = useState({});
+    const [errors, setErrors] = useState({
+        journal_publication_year: "",
+        journal_publication_title: "",
+        journal_publication_author: "",
+        journal_publication_index: "",
+        journal_publication_name: "",
+        journal_publication_issn: "",
+        journal_publication_volume: "",
+        journal_publication_issue: "",
+    });
 
     useEffect(() => {
         if (filteredItem) {
@@ -45,12 +55,30 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
         
         // Console mein changes dikhaane ke liye
         console.log(`Field '${fieldName}' updated to:`, value);
+        validateField(fieldName, value);
+    };
+
+    const validateField = (fieldName, value) => {
+        let errorMessage = "";
+        if (value.trim() === "") {
+            errorMessage = `This feild is required.`;
+        }
+        if (fieldName === 'journal_publication_year' && !/^\d{4}$/.test(value)) {
+            errorMessage = 'Please enter a 4-digit number for the Year field.';
+        }
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [fieldName]: errorMessage
+        }));
     };
     
 
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
+            if (Object.values(errors).some((error) => error !== "")) {
+                return;
+            }
 
             const updatedFormData = {
                 ...updateField,
@@ -88,6 +116,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
                             handleChange("journal_publication_year",e.target.value)}
                         fullWidth
                     />   
+                     {errors.journal_publication_year && <span className="error">{errors.journal_publication_year}</span>}
                         </div>
                         <div className="col-md-6">
                         <label className="SetLabel-Name">Title</label>
@@ -100,6 +129,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
                             handleChange("journal_publication_title",e.target.value)}
                         fullWidth
                     />
+                     {errors.journal_publication_title && <span className="error">{errors.journal_publication_title}</span>}
                         </div>
                     </div>
                     <div className="row">
@@ -114,6 +144,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
                             handleChange("journal_publication_author",e.target.value)}
                         fullWidth
                     />   
+                     {errors.journal_publication_author && <span className="error">{errors.journal_publication_author}</span>}
                         </div>
                         <div className="col-md-6">
                         <label className="SetLabel-Name">Indexing</label>
@@ -126,6 +157,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
                             handleChange("journal_publication_index",e.target.value)}
                         fullWidth
                     />   
+                     {errors.journal_publication_index && <span className="error">{errors.journal_publication_index}</span>}
                         </div>
                     </div>
                     <div className="row">
@@ -140,6 +172,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
                             handleChange("journal_publication_name",e.target.value)}
                         fullWidth
                     />   
+                     {errors.journal_publication_name && <span className="error">{errors.journal_publication_name}</span>}
                         </div>
                         <div className="col-md-6">
                         <label className="SetLabel-Name">ISSN</label>
@@ -152,6 +185,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
                             handleChange("journal_publication_issn",e.target.value)}
                         fullWidth
                     />   
+                     {errors.journal_publication_issn && <span className="error">{errors.journal_publication_issn}</span>}
                         </div>
                     </div>
                     <div className="row">
@@ -166,6 +200,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
                             handleChange("journal_publication_volume",e.target.value)}
                         fullWidth
                     />   
+                     {errors.journal_publication_volume && <span className="error">{errors.journal_publication_volume}</span>}
                         </div>
                         <div className="col-md-6">
                         <label className="SetLabel-Name">Issue</label>
@@ -178,6 +213,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
                             handleChange("journal_publication_issue",e.target.value)}
                         fullWidth
                     />   
+                     {errors.journal_publication_issue && <span className="error">{errors.journal_publication_issue}</span>}
                         </div>
                     </div>                               
                  

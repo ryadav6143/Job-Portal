@@ -166,6 +166,7 @@ function CandidateSidebar() {
                     /> */}
                  {selectedImage ? (
               <img
+              className="set-menu-icon"
                 src={selectedImage}
                 alt="Selected Profile"
                 style={{
@@ -176,6 +177,7 @@ function CandidateSidebar() {
               />
             ) : (
               <FontAwesomeIcon
+
                 icon={faUserTie}
                 style={{
                   fontSize: "5rem",
@@ -197,7 +199,7 @@ function CandidateSidebar() {
                     />
                     <Link to="/candidate-dashboard/personal-qualification" onClick={handleLinkClick}>
                       {/* <span> &nbsp; Academic Professional Qualifications</span> */}
-                      <span> &nbsp;Academic Qualifications</span>
+                      <span> &nbsp;Academic <br/> Qualifications</span>
                       
                     </Link>
                   </li>
@@ -374,14 +376,14 @@ function CandidateSidebar() {
                         className="dropdown-item"
                         onClick={handleLinkClick}
                       >
-                        <span>Seminar Other Information</span>
+                        <span>Seminar Other <br/>Information</span>
                       </Link>
                       <Link
                         to="/candidate-dashboard/candidate-otheractivites"
                         className="dropdown-item"
                         onClick={handleLinkClick}
                       >
-                        <span>Seminar Other Activites</span>
+                        <span>Seminar Other <br/> Activites</span>
                       </Link>
                     </div>
                   </div>
