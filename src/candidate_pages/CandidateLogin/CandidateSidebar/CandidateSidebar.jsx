@@ -28,6 +28,7 @@ function CandidateSidebar() {
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   const [uploadedImage, setUploadedImage] = useState(null);
+  
   const handleImageUpload = (event) => {
     // Handle image upload logic here
     const uploadedFile = event.target.files[0];

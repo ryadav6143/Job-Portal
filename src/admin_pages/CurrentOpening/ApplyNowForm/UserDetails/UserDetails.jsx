@@ -312,7 +312,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     className="UD-set-dropdown"
                   >
                     
-                    <option value="">{selectedPost&&selectedPost?selectedPost: "SELECT Post"}</option>
+                    <option value="">{selectedPost&&selectedPost?selectedPost: "Select Post"}</option>
                   
                     {posts.map((post) => {
                       
