@@ -261,7 +261,8 @@ function AddDegree() {
         </Modal>
       </div>
 
-      <div className="master-table ">
+<div className="admin-list">
+<div className="master-table ">
         <p className="SCA-heading">CURRENT DEGREES AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
@@ -366,6 +367,8 @@ function AddDegree() {
           </table>
         </div>
       </div>
+</div>
+      
     </>
   );
 }

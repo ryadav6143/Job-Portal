@@ -100,11 +100,13 @@
 }
 
 .set-menu li {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 10px;
   text-align: left;
 }
-
+.menu-list span {
+  text-align: justify;
+}
 .set-menu-icon {
   color: rgb(112 112 112 / 78%);
   font-size: 18px;
@@ -166,5 +168,8 @@
     width: 20px;
     height: 20px;
     margin: 15px;
+  }
+  .dropdown-menu {
+    width: auto;
   }
 }

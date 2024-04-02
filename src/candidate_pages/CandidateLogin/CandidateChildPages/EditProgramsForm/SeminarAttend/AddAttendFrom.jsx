@@ -5,16 +5,19 @@ import {
   DialogContent,
   DialogActions,
   Button,
-} from "@mui/material"; // Importing required components from Material-UI
+} from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
-function AddAttendForm({ handleCloseAttendClick, fetchData }) {
+
+function AddAttendForm({ handleCloseAttendClick, fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     attend_date_from: "",
     attend_date_to: "",
     name_of_course: "",
     sponsered_by: "",
   });
-
+  // const [notificationOpen, setNotificationOpen] = useState(false);
+  // const [notificationMessage, setNotificationMessage] = useState("");
+  // const [notificationSeverity, setNotificationSeverity] = useState("info");
   const [errors, setErrors] = useState({});
 
   // const handleChange = (e) => {
@@ -76,95 +79,102 @@ function AddAttendForm({ handleCloseAttendClick, fetchData }) {
 
     try {
       const response = await candidatesApiService.addCandidateAttend(formData);
-      console.log(response.data);
+      console.log("check for notification", response);
+      if (response) {
+        setNotificationMessage(`added successfully`);
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
+        handleCloseAttendClick();
+        fetchData();
+      }
 
-      handleCloseAttendClick();
-      fetchData();
+
     } catch (error) {
       console.error(`Error submitting data: ${error.message}`);
     }
+
   };
 
   return (
-    <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-      <DialogTitle className="HS-heading">Add Attendd Form</DialogTitle>
-      <DialogContent>
-        <form onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="col-md-6">
-              <label className="SetLabel-Name">Attend Date From</label>
-              <input
-                className="set-input"
-                label="Attend Date From"
-                type="date"
-                name="attend_date_from"
-                value={formData.attend_date_from}
-                onChange={handleChange}
-                fullWidth
-              />
+    <>
+
+      <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
+        <DialogTitle className="HS-heading">Add Attendd Form</DialogTitle>
+        <DialogContent>
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="col-md-6">
+                <label className="SetLabel-Name">Attend Date From</label>
+                <input
+                  className="set-input"
+                  label="Attend Date From"
+                  type="date"
+                  name="attend_date_from"
+                  value={formData.attend_date_from}
+                  onChange={handleChange}
+                  fullWidth />
                 {errors.attend_date_from && (
-                <span className="error">{errors.attend_date_from}</span>
-              )}
+                  <span className="error">{errors.attend_date_from}</span>
+                )}
+              </div>
+              <div className="col-md-6">
+                <label className="SetLabel-Name">Attend Date To</label>
+                <input
+                  className="set-input"
+                  label="Attend Date To"
+                  type="date"
+                  name="attend_date_to"
+                  value={formData.attend_date_to}
+                  onChange={handleChange}
+                  fullWidth />
+                {errors.attend_date_to && (
+                  <span className="error">{errors.attend_date_to}</span>
+                )}
+              </div>
             </div>
-            <div className="col-md-6">
-              <label className="SetLabel-Name">Attend Date To</label>
-              <input
-                className="set-input"
-                label="Attend Date To"
-                type="date"
-                name="attend_date_to"
-                value={formData.attend_date_to}
-                onChange={handleChange}
-                fullWidth
-              />
-              {errors.attend_date_to && (
-                <span className="error">{errors.attend_date_to}</span>
-              )}
-            </div>
-          </div>
 
-          <div className="row">
-            <div className="col-md-6">
-              <label className="SetLabel-Name">Name of Course</label>
-              <input
-                className="set-input"
-                label="Name of Course"
-                type="text"
-                name="name_of_course"
-                value={formData.name_of_course}
-                onChange={handleChange}
-                fullWidth
-              />
-               {errors.name_of_course && (
-                <span className="error">{errors.name_of_course}</span>
-              )}
+            <div className="row">
+              <div className="col-md-6">
+                <label className="SetLabel-Name">Name of Course</label>
+                <input
+                  className="set-input"
+                  label="Name of Course"
+                  type="text"
+                  name="name_of_course"
+                  value={formData.name_of_course}
+                  onChange={handleChange}
+                  fullWidth />
+                {errors.name_of_course && (
+                  <span className="error">{errors.name_of_course}</span>
+                )}
+              </div>
+              <div className="col-md-6">
+                <label className="SetLabel-Name">Sponsored By</label>
+                <input
+                  className="set-input"
+                  label="Sponsored By"
+                  type="text"
+                  name="sponsered_by"
+                  value={formData.sponsered_by}
+                  onChange={handleChange}
+                  fullWidth />
+                {errors.sponsered_by && (
+                  <span className="error">{errors.sponsered_by}</span>
+                )}
+              </div>
             </div>
-            <div className="col-md-6">
-              <label className="SetLabel-Name">Sponsored By</label>
-              <input
-                className="set-input"
-                label="Sponsored By"
-                type="text"
-                name="sponsered_by"
-                value={formData.sponsered_by}
-                onChange={handleChange}
-                fullWidth
-              />
-               {errors.sponsered_by && (
-                <span className="error">{errors.sponsered_by}</span>
-              )}
-            </div>
-          </div>
 
-          <DialogActions>
-            <Button variant="contained" color="primary" type="submit">
-              Submit
-            </Button>
-            <Button onClick={handleCloseAttendClick}>Close</Button>
-          </DialogActions>
-        </form>
-      </DialogContent>
-    </Dialog>
+            <DialogActions>
+              <Button variant="contained" color="primary" type="submit">
+                Submit
+              </Button>
+              <Button onClick={handleCloseAttendClick}>Cancle</Button>
+            </DialogActions>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+    </>
   );
 }
 

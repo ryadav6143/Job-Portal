@@ -26,6 +26,8 @@ import JournalPublicationForm from "../candidate_pages/CandidateLogin/CandidateC
 import ConfrencePublicationForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditResearchForm/CandidateConfrenceForm/ConfrencePublicationForm.jsx";
 import PatentsForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditResearchForm/CandidatePatentForm/PatentsForm.jsx";
 import CopyRightsForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditResearchForm/CopyrightsForm/CopyRightsForm.jsx";
+import ExperienceForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditExperienceForm/CandidateExperienceForm/ExperienceForm.jsx";
+import TotalExperienceForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditExperienceForm/CandidateTotalExperienceForm.jsx/TotalExperienceForm.jsx";
 console.log("inside Candidate-Auth Routes");
 
 const CandidateAuthRoutes = [
@@ -100,6 +102,14 @@ const CandidateAuthRoutes = [
      <Route
       path="candidate-copyrights"
       element={<CandidateAuthGaurd component={<CopyRightsForm />} />}
+    />
+     <Route
+      path="candidate-experience"
+      element={<CandidateAuthGaurd component={<ExperienceForm />} />}
+    />
+     <Route
+      path="candidate-totalexperience"
+      element={<CandidateAuthGaurd component={<TotalExperienceForm />} />}
     />
   </Route>,
 ];

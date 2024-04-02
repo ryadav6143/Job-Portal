@@ -19,6 +19,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [selectedCity, setSelectedCity] = useState("");
 
   const [maxCharacters] = useState(40);
+
   // const [countries, setCountries] = useState([]);
   // const [accessToken] = useState('Bearer sL-eX7S-pFFAg1dGBc-26ZSRCkNicfdu50p3ZLtaS4kTtjijpJIpqgs9hg6lWvXsHgg');
 
@@ -228,6 +229,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       }));
     }
   };
+  
 
   return (
     <>
@@ -288,8 +290,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                   <label className="UD-SetLabel-Name">
                     <span>*</span>Post Applied For
                     {/* <span className="set-others">
-                      &nbsp;(If Others, Please Specify)
-                    </span> */}
+                        &nbsp;(If Others, Please Specify)
+                      </span> */}
                   </label>
                   <select
                     id="postDropdown"
@@ -647,18 +649,18 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     ))}
                   </select>
                   {/* <select
-                    name="country"
-                    className="UD-set-dropdown"
-                    value={formValues.country}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((country, index) => (
-              <option key={index} value={country}>
-                {country}
-              </option>
-            ))}
-                  </select> */}
+                      name="country"
+                      className="UD-set-dropdown"
+                      value={formValues.country}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select country</option>
+                      {countries.map((country, index) => (
+                <option key={index} value={country}>
+                  {country}
+                </option>
+              ))}
+                    </select> */}
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.country}</span>
@@ -667,26 +669,26 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
 
             <div className="row">
               {/* <div className="col-md-4">
-       
-                <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
-                    <span>*</span>State
-                  </label>
-                  <select
-                    onChange={handleInputChange}
-                    name="state_province"
-                    className="UD-set-dropdown"
-                    value={formValues.state_province}
-                  >
-                    <option value="State">Select State</option>
-                    <option value="State 1"> State 1</option>
-                    <option value="State 2"> State 2</option>
-                    <option value="State 3"> State 3</option>
-                  </select>
-                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                </div>
-                <span className="error-message">{errors.state_province}</span>
-              </div> */}
+        
+                  <div className="UD-form-section">
+                    <label className="UD-SetLabel-Name">
+                      <span>*</span>State
+                    </label>
+                    <select
+                      onChange={handleInputChange}
+                      name="state_province"
+                      className="UD-set-dropdown"
+                      value={formValues.state_province}
+                    >
+                      <option value="State">Select State</option>
+                      <option value="State 1"> State 1</option>
+                      <option value="State 2"> State 2</option>
+                      <option value="State 3"> State 3</option>
+                    </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                  </div>
+                  <span className="error-message">{errors.state_province}</span>
+                </div> */}
 
               <div className="col-md-4">
                 {/* *Current Job City */}
@@ -741,8 +743,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
           </div>
         </div>
         {/* <button type="submit">
-          Submit
-        </button> */}
+            Submit
+          </button> */}
       </form>
     </>
   );

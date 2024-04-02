@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import candidatesApiService from '../../../../candidateService';
-import updatebtn  from "../../../../../assets/logos/update.png"
+import updatebtn from "../../../../../assets/logos/update.png"
 import deletebtn from "../../../../../assets/logos/delete.png"
 import EditAttendForm from './EditAttendForm';
 import AddAttendForm from './AddAttendFrom';
+import Notification from '../../../../../Notification/Notification';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
 const CandidateAttendForm = () => {
 
@@ -12,10 +14,14 @@ const CandidateAttendForm = () => {
   const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("info");
+  const [deleteItemId, setDeleteItemId] = useState(null);
   const fetchData = async () => {
     try {
       const fetchedData = await candidatesApiService.getCandidateAttend();
-      console.log("Attend///", fetchedData);
+      // console.log("Attend///", fetchedData);
       setAttendItem(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -31,19 +37,19 @@ const CandidateAttendForm = () => {
     setIsPopupOpen(true); // Open popup
   };
   const handleCloseAttendClick = () => {
-    setIsPopupOpen(true); 
+    setIsPopupOpen(true);
   };
   const handleEditClick = (itemId) => {
-    console.log("id??",itemId);
+    // console.log("id??",itemId);
     const filteredItem = attendItem.find(item => item.id === itemId);
-    console.log("Filtered item:", filteredItem);
+    // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleClose = () => {    
+  const handleClose = () => {
     setEditMode(false);
-    
+
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -54,27 +60,54 @@ const CandidateAttendForm = () => {
     return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
   };
 
-  const handleDeleteClick = async (itemId) => {
-    const isConfirmed = window.confirm("Are you sure you want to delete this item?");
-    if (isConfirmed) {
-      try {
-        await candidatesApiService.DeleteAttendForm(itemId);
-        // Update state after successful deletion
-        setAttendItem(prevItems => prevItems.filter(item => item.id !== itemId));
-        console.log("Item deleted successfully");
-      } catch (error) {
-        console.error("Error deleting item:", error.message);
-      }
+  // const handleDeleteClick = async (itemId) => {
+  //   const isConfirmed = window.confirm("Are you sure you want to delete this item?");
+  //   if (isConfirmed) {
+  //     try {
+  //       await candidatesApiService.DeleteAttendForm(itemId);
+
+  //       setAttendItem(prevItems => prevItems.filter(item => item.id !== itemId));
+
+  //     } catch (error) {
+  //       console.error("Error deleting item:", error.message);
+  //     }
+  //   }
+  // };
+  const handleDeleteClick = (itemId) => {
+    setDeleteItemId(itemId);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await candidatesApiService.DeleteAttendForm(deleteItemId);
+      setAttendItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
+      setNotificationOpen(true);
+      setNotificationMessage("Item deleted successfully");
+      setNotificationSeverity("success");
+    } catch (error) {
+      console.error("Error deleting item:", error.message);
+      setNotificationOpen(true);
+      setNotificationMessage("Error deleting item");
+      setNotificationSeverity("error");
+    } finally {
+      setDeleteItemId(null); // Close the delete confirmation popup
     }
   };
-  
+
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
+  };
   return (
     <>
-     
+      <Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity} />
       <div className="master-table">
         <div className="flex-btns">
-        <p className="candidate-table-heading">Attend</p>
-        <button className="add-btn" onClick={handleOpenAttendClick}>Add Attend</button>
+          <p className="candidate-table-heading">Seminar Attend</p>
+          <button className="add-btn" onClick={handleOpenAttendClick}>Add Attend</button>
         </div>
 
 
@@ -90,7 +123,7 @@ const CandidateAttendForm = () => {
                 <th scope="col">Sponsored By</th>
                 <th scope="col">Edit</th>
                 <th scope="col">DELETE</th>
-                
+
               </tr>
             </thead>
             <tbody>
@@ -125,9 +158,26 @@ const CandidateAttendForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditAttendForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}/>}
-      {isPopupOpen && <AddAttendForm  handleCloseAttendClick={() => setIsPopupOpen(false)} fetchData={fetchData}/>}
-      </>
+      {editMode && <EditAttendForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} fetchData={fetchData}
+        setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}
+      />}
+
+      <Dialog open={deleteItemId !== null} onClose={() => setDeleteItemId(null)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this item?
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" color="primary" onClick={handleConfirmDelete}>Delete</Button>
+          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
+
+        </DialogActions>
+      </Dialog>
+
+
+
+      {isPopupOpen && <AddAttendForm handleCloseAttendClick={() => setIsPopupOpen(false)} fetchData={fetchData} setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity} />}
+    </>
   );
 };
 

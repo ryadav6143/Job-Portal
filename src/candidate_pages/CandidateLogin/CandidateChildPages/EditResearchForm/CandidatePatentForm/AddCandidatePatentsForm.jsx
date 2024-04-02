@@ -9,7 +9,7 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidatePatentsForm({ handleClosePatentClick }) {
+function AddCandidatePatentsForm({ handleClosePatentClick,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         patent_applicationid: "",
         patent_application_title: "",
@@ -18,25 +18,75 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
         patent_incountry: "",
     });
 
+    const [formErrors, setFormErrors] = useState({
+        patent_applicationid: "",
+        patent_application_title: "",
+        patent_application_year: "",
+        patent_granted_by: "",
+        patent_incountry: "",
+      });
+
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFormData({ ...formData, [name]: value });
+    // };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    
+        if (name === "patent_application_year") {
+            // Check if the input is a number and has 4 digits
+            if (/^\d*$/.test(value) && value.length <= 4) {
+                setFormData({ ...formData, [name]: value });
+                // Clear the error message if input is valid
+                setFormErrors({ ...formErrors, [name]: '' });
+            } else {
+                // Set an error message for invalid input
+                setFormErrors({ ...formErrors, [name]: 'Please enter a valid 4-digit number' });
+            }
+        } else {
+            setFormData({ ...formData, [name]: value });
+            setFormErrors({ ...formErrors, [name]: '' });
+        }
     };
-
+    
+    const validateForm = () => {
+        let valid = true;
+        const newFormErrors = { ...formErrors };
+    
+        for (const key in formData) {
+          if (formData[key].trim() === "") {
+            newFormErrors[key] = "This field is required.";
+            valid = false;
+          }
+        }
+    
+        setFormErrors(newFormErrors);
+        return valid;
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //   try {
-        //       const response = await candidatesApiService.addCandidateOrganised(formData);
-        //       console.log(response.data); 
+        if (!validateForm()) {
+            return;
+          }
+          try {
+              const response = await candidatesApiService.addCandidatePatent(formData);
+              console.log(response.data); 
 
-        //       handleCloseOrganizedClick();
-        //       fetchData();
+              if (response) {
+                setNotificationMessage(`added successfully`);
+                setNotificationSeverity("success");
+                setNotificationOpen(true);
+                handleClosePatentClick();
+                fetchData();
+              }
+      
 
-        //     } catch (error) {
-        //       console.error(`Error submitting data: ${error.message}`);
+            } catch (error) {
+              console.error(`Error submitting data: ${error.message}`);
 
-        //     }
+            }
     };
 
     return (
@@ -56,6 +106,9 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
                                 onChange={handleChange}
                                 fullWidth
                             />
+                            {formErrors.patent_applicationid && (
+                <span className="error">{formErrors.patent_applicationid}</span>
+              )}
                         </div>
                         <div className="col-md-6">
                             <label className="SetLabel-Name">Title</label>
@@ -68,6 +121,9 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
                                 onChange={handleChange}
                                 fullWidth
                             />
+                                           {formErrors.patent_application_title && (
+                <span className="error">{formErrors.patent_application_title}</span>
+              )}
                         </div>
 
                     </div>
@@ -83,7 +139,11 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
                                 value={formData.patent_application_year}
                                 onChange={handleChange}
                                 fullWidth
+                                
                             />
+                            {formErrors.patent_application_year && (
+                <span className="error">{formErrors.patent_application_year}</span>
+              )}
                         </div>
                         <div className="col-md-6">
                             <label className="SetLabel-Name">Published/Granted</label>
@@ -96,6 +156,9 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
                                 onChange={handleChange}
                                 fullWidth
                             />
+                                           {formErrors.patent_granted_by && (
+                <span className="error">{formErrors.patent_granted_by}</span>
+              )}
                         </div>
                     </div>
                     <div className="row">
@@ -110,6 +173,9 @@ function AddCandidatePatentsForm({ handleClosePatentClick }) {
                                 onChange={handleChange}
                                 fullWidth
                             />
+                                           {formErrors.patent_incountry && (
+                <span className="error">{formErrors.patent_incountry}</span>
+              )}
                         </div>                      
                     </div>
                   

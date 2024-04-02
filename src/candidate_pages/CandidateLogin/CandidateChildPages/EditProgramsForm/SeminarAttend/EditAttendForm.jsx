@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import candidatesApiService from "../../../../candidateService";
 
-function EditAttendForm({ filteredItem, handleClose,fetchData }) {
+function EditAttendForm({ filteredItem, handleClose,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
     const [formData, setFormData] = useState({
         attend_date_from:"",
         attend_date_to:"",
@@ -41,8 +41,8 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
         }));
         
         
-        // Console mein changes dikhaane ke liye
-        console.log(`Field '${fieldName}' updated to:`, value);
+ 
+        // console.log(`Field '${fieldName}' updated to:`, value);
     };
     
     const isValidDate = (dateString) => {
@@ -86,6 +86,9 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
             };
 
             await candidatesApiService.updateAttendForm(updatedFormData);
+            setNotificationMessage(`updtaed successfully`);
+            setNotificationSeverity("success");
+            setNotificationOpen(true);
             fetchData();
             handleClose();
         } catch (error) {
@@ -190,7 +193,7 @@ function EditAttendForm({ filteredItem, handleClose,fetchData }) {
                             Update
                         </Button>
                         <Button onClick={handleClose}>
-                            Close
+                            Cancle
                         </Button>
                     </DialogActions>
                 </form>

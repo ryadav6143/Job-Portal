@@ -32,7 +32,10 @@ function MasterCurrentOpening() {
         </div>
       )}
       <div className="center-container">
-      <Outlet />  
+        <div className="admin-list">
+        <Outlet /> 
+        </div>
+      
 
       </div>
     </>

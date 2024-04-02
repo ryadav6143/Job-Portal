@@ -87,7 +87,11 @@ function CandidateSidebar() {
   //     //   break;
   //   }
   // };
-
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setIsOpen(true); // Close sidebar if it's open on mobile
+    }
+  };
   return (
     <>
       <div className="toggle-div">
@@ -105,26 +109,28 @@ function CandidateSidebar() {
             <div>
               <nav>
                 <ul className="set-menu" style={{ listStyle: "none" }}>
-                  <li>
+                  <li className="menu-list">
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faIdCardClip}
                     />
-                    <Link to="/candidate-dashboard/personal-details">
+                    <Link to="/candidate-dashboard/personal-details" onClick={handleLinkClick}>
                       <span> &nbsp;Personal Details</span>
                     </Link>
                   </li>
 
-                  <li>
+                  <li className="menu-list">
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faBuildingColumns}
                     />
-                    <Link to="/candidate-dashboard/personal-qualification">
-                      <span> &nbsp; Academic Professional Qualifications</span>
+                    <Link to="/candidate-dashboard/personal-qualification" onClick={handleLinkClick}>
+                      {/* <span> &nbsp; Academic Professional Qualifications</span> */}
+                      <span> &nbsp;Academic Qualifications</span>
+                      
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faBriefcase}
@@ -132,7 +138,47 @@ function CandidateSidebar() {
                     <Link to="/candidate-dashboard/personal-experience">
                       <span> &nbsp; Experience</span>
                     </Link>
-                  </li>
+                  </li> */}
+
+                  <div className="dropdown show">
+                    <a
+                      className="btn dropdown-toggle set-a"
+                      href="#"
+                      role="button"
+                      id="dropdownMenuLink"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      style={{paddingLeft:"0"}}
+                    >
+                 <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faBriefcase}
+                    />
+                      <span>&nbsp;&nbsp; &nbsp;Experience</span>
+                    </a>
+
+                    <div
+                      className="dropdown-menu master-dd"
+                      aria-labelledby="dropdownMenuLink"
+                    >
+                      <Link
+                        to="/candidate-dashboard/candidate-experience"
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
+                      >
+                        <span>Experience Data</span>
+                      </Link>
+                      <Link
+                        to="/candidate-dashboard/candidate-totalexperience"
+                        className="dropdown-item "
+                        onClick={handleLinkClick}
+                      >
+                        <span>Total Experience</span>
+                      </Link>
+                 
+                    </div>
+                  </div>
                   {/* <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
@@ -153,16 +199,13 @@ function CandidateSidebar() {
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
-                    >
-                      <img
-                        // src={reports}
-                        className="bi bi-heart sidenav-icon"
-                      ></img>{" "}
+                      style={{paddingLeft:"0"}}
+                    >                     
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faSearch}
                     />  
-                      <span>&nbsp; Research Work</span>
+                      <span>&nbsp;&nbsp; &nbsp;Research Work</span>
                     </a>
 
                     <div
@@ -171,31 +214,36 @@ function CandidateSidebar() {
                     >
                       <Link
                         to="/candidate-dashboard/candidate-research"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Research</span>
                       </Link>                   
                       <Link
                         to="/candidate-dashboard/candidate-journalPublication"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Journal Publication</span>
                       </Link>                   
                       <Link
                         to="/candidate-dashboard/candidate-confrencePublication"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Confrence Publication</span>
                       </Link>                   
                       <Link
                         to="/candidate-dashboard/candidate-patents"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Patents</span>
                       </Link>                   
                       <Link
                         to="/candidate-dashboard/candidate-copyrights"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Copyrights</span>
                       </Link>                     
@@ -223,52 +271,53 @@ function CandidateSidebar() {
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
-                    >
-                      <img
-                        // src={reports}
-                        className="bi bi-heart sidenav-icon"
-                      ></img>{" "}
+                      style={{paddingLeft:"0",paddingBottom:"1em"}}
+                    >                  
                       <FontAwesomeIcon
                         className="set-menu-icon"
                         icon={faUsers}
                       />
-                      <span>Seminars</span>
+                      <span>&nbsp;&nbsp;&nbsp;Seminars</span>
                     </a>
 
                     <div
                       className="dropdown-menu master-dd"
-                      aria-labelledby="dropdownMenuLink"
+                      aria-labelledby="dropdownMenuLink"                      
                     >
                       <Link
                         to="/candidate-dashboard/candidate-organised"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Seminar Organised</span>
                       </Link>
                       <Link
                         to="/candidate-dashboard/candidate-attend"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
                         <span>Seminar Attends</span>
                       </Link>
                       <Link
                         to="/candidate-dashboard/candidate-otherInfo"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
-                        <span>Seminar Other Information</span>
+                        <span>Seminar Other <br/>Information</span>
                       </Link>
                       <Link
                         to="/candidate-dashboard/candidate-otheractivites"
-                        className="dropdown-item "
+                        className="dropdown-item"
+                        onClick={handleLinkClick}
                       >
-                        <span>Seminar Other Activites</span>
+                        <span>Seminar Other <br/> Activites</span>
                       </Link>
                     </div>
                   </div>
 
                   <li>
                     <FontAwesomeIcon className="set-menu-icon" icon={faFile} />
-                    <Link to="/candidate-dashboard/personal-reference">
+                    <Link to="/candidate-dashboard/personal-reference" onClick={handleLinkClick}>
                       <span> &nbsp; Reference/ Resume</span>
                     </Link>
                   </li>
@@ -276,6 +325,7 @@ function CandidateSidebar() {
                     <Link
                       to="/candidate-dashboard/current-opening"
                       style={{ textDecoration: "underline" }}
+                      onClick={handleLinkClick}
                     >
                       Current Openings
                     </Link>

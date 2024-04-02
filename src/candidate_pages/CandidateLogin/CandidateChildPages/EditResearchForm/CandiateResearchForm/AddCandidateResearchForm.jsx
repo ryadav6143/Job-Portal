@@ -9,8 +9,14 @@ import {
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddCandidateResearchForm({ handleCloseResearchClick }) {
+function AddCandidateResearchForm({ handleCloseResearchClick,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
+    orcid: "",
+    scopusid: "",
+    researchid: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({
     orcid: "",
     scopusid: "",
     researchid: "",
@@ -19,22 +25,56 @@ function AddCandidateResearchForm({ handleCloseResearchClick }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setFormErrors({ ...formErrors, [name]: "" });
   };
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-//   try {
-//       const response = await candidatesApiService.addCandidateOrganised(formData);
-//       console.log(response.data); 
+    let hasErrors = false;
+    const newFormErrors = { ...formErrors };
 
-//       handleCloseOrganizedClick();
-//       fetchData();
+    // Basic validation - check for empty fields
+    if (formData.orcid.trim() === "") {
+      newFormErrors.orcid = "Please enter Orcid Id";
+      hasErrors = true;}
+  try {
+      const response = await candidatesApiService.addCandidateResearch(formData);
+      console.log(response.data); 
+  
+      if (response) {
+        setNotificationMessage(`added successfully`);
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
+        handleCloseResearchClick();
+        fetchData();
+      }
+    } catch (error) {
+      console.error(`Error submitting data: ${error.message}`);    
+    }
+    if (formData.scopusid.trim() === "") {
+      newFormErrors.scopusid = "Please enter Scopus Id";
+      hasErrors = true;
+    }
+    if (formData.researchid.trim() === "") {
+      newFormErrors.researchid = "Please enter Research Id";
+      hasErrors = true;
+    }
 
-//     } catch (error) {
-//       console.error(`Error submitting data: ${error.message}`);
-    
-//     }
+    // Set the updated errors state
+    setFormErrors(newFormErrors);
+
+    if (!hasErrors) {
+      try {
+        const response = await candidatesApiService.addCandidateResearch(formData);
+        console.log(response.data); 
+        handleCloseResearchClick();
+        fetchData();
+      } catch (error) {
+        console.error(`Error submitting data: ${error.message}`);    
+      }
+    }
+
   };
 
   return (
@@ -54,6 +94,9 @@ function AddCandidateResearchForm({ handleCloseResearchClick }) {
                 onChange={handleChange}
                 fullWidth
               />
+                   {formErrors.orcid && (
+                <span className="error-message">{formErrors.orcid}</span>
+              )}
             </div>
 
             <div className="col-md-6">
@@ -67,6 +110,9 @@ function AddCandidateResearchForm({ handleCloseResearchClick }) {
                 onChange={handleChange}
                 fullWidth
               />
+                  {formErrors.scopusid && (
+                <span className="error-message">{formErrors.scopusid}</span>
+              )}
             </div>
           </div>
 
@@ -82,6 +128,9 @@ function AddCandidateResearchForm({ handleCloseResearchClick }) {
                 onChange={handleChange}
                 fullWidth
               />
+                  {formErrors.researchid && (
+                <span className="error-message">{formErrors.researchid}</span>
+              )}
             </div>
          
           </div>

@@ -5,11 +5,11 @@ import {
   DialogContent,
   DialogActions,
   Button,
-} from "@mui/material"; // Importing required components from Material-UI
+} from "@mui/material";
 
 import candidatesApiService from "../../../../candidateService";
 
-function AddOrganisedForm({ handleCloseOrganizedClick, fetchData }) {
+function AddOrganisedForm({ handleCloseOrganizedClick,fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     name_of_course: "",
     name_of_industry: "",
@@ -56,14 +56,16 @@ function AddOrganisedForm({ handleCloseOrganizedClick, fetchData }) {
       setErrors(validationErrors);
       return;
     }
-    try {
-      const response = await candidatesApiService.addCandidateOrganised(
-        formData
-      );
-      console.log(response.data);
+  try {
+      const response = await candidatesApiService.addCandidateOrganised(formData);
+      if (response) {
+        setNotificationMessage(`added successfully`);
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
+        handleCloseOrganizedClick();
+        fetchData();
+      }
 
-      handleCloseOrganizedClick();
-      fetchData();
     } catch (error) {
       console.error(`Error submitting data: ${error.message}`);
     }

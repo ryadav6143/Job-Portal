@@ -10,7 +10,7 @@ import {
 // import close from "../../../assets/logos/close.png";
 import close from "../../../../../assets/logos/close.png";
 import candidatesApiService from "../../../../candidateService";
-function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
+function EditOrganisedForm({ filteredItem, handleClose, fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({
     name_of_course: "",
     name_of_industry: "",
@@ -37,30 +37,6 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
     }
   }, [filteredItem]);
 
-  // const handleChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setFormData({ ...formData, [name]: value });
-  //     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
-  // };
-
-  // const handleChange = (fieldName, value, index) => {
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [fieldName]: value,
-  //   }));
-  //   setUpdateField((prevUpdateField) => ({
-  //     ...prevUpdateField,
-  //     [fieldName]: value.toString(),
-  //   }));
-  //   setErrors((prevErrors) => ({
-  //     ...prevErrors,
-  //     [fieldName]: "", // Clear the error message when the field value changes
-  //   }));
-
-  //   // Console mein changes dikhaane ke liye
-  //   console.log(`Field '${fieldName}' updated to:`, value);
-  // };
-
 
 
   const handleChange = (fieldName, value, index) => {
@@ -85,7 +61,7 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
     }));
   
     // Console mein changes dikhaane ke liye
-    console.log(`Field '${fieldName}' updated to:`, newValue);
+    // console.log(`Field '${fieldName}' updated to:`, newValue);
   };
   
 
@@ -126,6 +102,9 @@ function EditOrganisedForm({ filteredItem, handleClose, fetchData }) {
       };
 
       await candidatesApiService.updateOrganisedForm(updatedFormData);
+      setNotificationMessage(`updtaed successfully`);
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       fetchData();
       handleClose();
     } catch (error) {

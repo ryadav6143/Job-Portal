@@ -4,7 +4,8 @@ import updatebtn  from "../../../../../assets/logos/update.png"
 import deletebtn from "../../../../../assets/logos/delete.png"
 import AddCandidateResearchForm from './AddCandidateResearchForm';
 import EditCandidateResearchForm from './EditCandidateResearchForm';
-
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import Notification from '../../../../../Notification/Notification';
 const ResearchForm = () => {
 
   const [researchItem, setResearchItem] = useState([])
@@ -12,12 +13,15 @@ const ResearchForm = () => {
   const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("info");
+  const [deleteItemId, setDeleteItemId] = useState(null);
   const fetchData = async () => {
-    try {
-      
-      const fetchedData = await candidatesApiService.getCandidateResearchWork();
-      console.log("research", fetchedData.candidate_research_works);
-      setResearchItem(fetchedData.candidate_research_works);
+    try {      
+      const fetchedData = await candidatesApiService.getCandidateResearch();
+      console.log("research", fetchedData);
+      setResearchItem(fetchedData);
       
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -49,14 +53,38 @@ const ResearchForm = () => {
     setEditMode(false);
     
   };
+  const handleDeleteClick = async (itemId) => {
+    setDeleteItemId(itemId);
+  };
 
+  const handleConfirmDelete = async () => {
+    try {
+      await candidatesApiService.DeleteResearchForm(deleteItemId);
+      setResearchItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
+      console.log("Item deleted successfully");
+      setNotificationMessage(`deleted successfully`);
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+    } catch (error) {
+      console.error("Error deleting item:", error.message);
+    } finally {
+      setDeleteItemId(null); // Close the delete confirmation dialog
+    }
+  };
+  const handleCloseNotification = () => {
+    setNotificationOpen(false);
+  };
   return (
     <>
       {/* <div className="new-opening-btn">
         <button onClick={handleOpenResearchClick}>Add Research</button>
       </div> */}
 
-    
+<Notification
+        open={notificationOpen}
+        handleClose={handleCloseNotification}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity} />
       <div className="master-table">
         <div className="flex-btns">
         <p className="candidate-table-heading">Research Work</p>
@@ -99,7 +127,7 @@ const ResearchForm = () => {
                     <button
                       type="button"
                       id="table-btns"
-                      
+                      onClick={() => handleDeleteClick(item.id)}
                     >
                       <img className="up-del-btn" src={deletebtn} alt="" />
                     </button>
@@ -110,8 +138,26 @@ const ResearchForm = () => {
           </table>
         </div>
       </div>
-      {editMode && <EditCandidateResearchForm filteredItem={filteredItem} handleClose={() => setEditMode(false)} />}
-      {isPopupOpen && <AddCandidateResearchForm  handleCloseResearchClick={() => setIsPopupOpen(false)} />}
+      {editMode && <EditCandidateResearchForm filteredItem={filteredItem}
+       handleClose={() => setEditMode(false)} fetchData={fetchData}
+       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}
+       />}
+
+<Dialog open={deleteItemId !== null} onClose={() => setDeleteItemId(null)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this item?
+        </DialogContent>
+        <DialogActions>
+        <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
+          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+
+      {isPopupOpen && <AddCandidateResearchForm  handleCloseResearchClick={() => setIsPopupOpen(false)}
+       fetchData={fetchData}
+       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} 
+       setNotificationSeverity={setNotificationSeverity}/>}
       </>
   );
 };
