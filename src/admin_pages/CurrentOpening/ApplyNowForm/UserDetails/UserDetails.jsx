@@ -176,7 +176,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     );
 
     if (selectedPostObject) {
-      console.log("category idf",selectedPostObject);
+      console.log("category idf", selectedPostObject);
       setSelectedPost(selectedPostObject.id);
       const jobCategoryId = selectedPostObject.job_category_master.id;
       setFormValues((prevValues) => ({
@@ -293,7 +293,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     {/* <span className="set-others">
                       &nbsp;(If Others, Please Specify)
                     </span> */}
-                  </label>
+                  </label>            
                   <select
                     id="postDropdown"
                     value={selectedPost.post_name}
@@ -302,9 +302,11 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                   >
                     <option value="">Select a post</option>
                     {posts.map((post) => (
-                      <option key={post.id} value={post.post_name}>
-                        {post.post_name}
-                      </option>
+                      post.job_category_master.category_name !== "NonAcademic" && (
+                        <option key={post.id} value={post.post_name}>
+                          {post.post_name}
+                        </option>
+                      )
                     ))}
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
