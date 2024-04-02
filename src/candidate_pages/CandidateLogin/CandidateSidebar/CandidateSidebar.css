@@ -38,7 +38,7 @@
 }
 
 .set-sidebar {
-  margin-top: -18px;
+  margin-top: -40px;
   height: 100%;
   padding-top: 70px;
   position: relative;
@@ -108,6 +108,7 @@
 .set-menu-icon {
   color: rgb(112 112 112 / 78%);
   font-size: 18px;
+  width: 2rem;
 }
 
 .set-menu a:focus {
@@ -149,7 +150,8 @@
     position: absolute;
     z-index: 100;
     width: 98vw;
-    background-color: white;
+    margin-top:0.1em;
+    background-color: rgb(255, 255, 255);
   }
 
 }
