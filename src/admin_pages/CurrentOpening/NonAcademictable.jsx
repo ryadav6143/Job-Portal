@@ -62,7 +62,7 @@ function NonAcademictable() {
   const AcademicTable = jobProfiles
   
     .filter((profile) => {
-      console.log(profile,"<<<<<<")
+      // console.log(profile,"<<<<<<")
       return profile.publish_to_vacancy && profile.job_category_master.category_name === "NonAcademic"})
     .map((profile) => ({
       job_profile_master_id: profile.id,

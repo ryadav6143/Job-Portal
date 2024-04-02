@@ -28,7 +28,7 @@ import PatentsForm from "../candidate_pages/CandidateLogin/CandidateChildPages/E
 import CopyRightsForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditResearchForm/CopyrightsForm/CopyRightsForm.jsx";
 import ExperienceForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditExperienceForm/CandidateExperienceForm/ExperienceForm.jsx";
 import TotalExperienceForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditExperienceForm/CandidateTotalExperienceForm.jsx/TotalExperienceForm.jsx";
-console.log("inside Candidate-Auth Routes");
+// console.log("inside Candidate-Auth Routes");
 
 const CandidateAuthRoutes = [
   <Route

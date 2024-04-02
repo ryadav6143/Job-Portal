@@ -73,8 +73,9 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   //   pin_code: '',
 
   // });
-
+  console.log("formvalue",formValues)
   useEffect(() => {
+   
     apiService
       .getCountries()
       .then((response) => {
@@ -125,7 +126,17 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       .then((response) => {
         // Update the state with the fetched data
         setPosts(response.data);
-      })
+        console.log(formValues.applied_post_masters_id,"<<<")
+      if (formValues.applied_post_masters_id) {
+     
+        const selectedPostObject = response.data.find((post) => post.id == formValues.applied_post_masters_id
+        );
+              console.log("final post check???",selectedPostObject)
+        if (selectedPostObject) {
+          setSelectedPost(selectedPostObject.post_name);
+        }
+      }
+    })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
@@ -170,19 +181,18 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       ...errors,
       applied_post_masters_id: "",
     });
-    const selectedPostName = event.target.value;
-    const selectedPostObject = posts.find(
-      (post) => post.post_name === selectedPostName
-    );
-
+    const selectedPostId = event.target.value;
+    console.log("selectedPostId",selectedPostId,posts)
+    const selectedPostObject = posts.find((post) => post.id == selectedPostId);
+    console.log("category idf",selectedPostObject);
     if (selectedPostObject) {
       console.log("category idf",selectedPostObject);
-      setSelectedPost(selectedPostObject.id);
+      setSelectedPost(selectedPostObject.post_name);
       const jobCategoryId = selectedPostObject.job_category_master.id;
       setFormValues((prevValues) => ({
         UserDetails: {
           ...prevValues.UserDetails,
-          applied_post_masters_id: selectedPostObject.id,
+          applied_post_masters_id:  selectedPostId,
           job_category_master_id: jobCategoryId
         },
       }));
@@ -294,18 +304,24 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                       &nbsp;(If Others, Please Specify)
                     </span> */}
                   </label>
+          
                   <select
                     id="postDropdown"
-                    value={selectedPost.post_name}
+                    value={selectedPost}
                     onChange={handlePostChange}
                     className="UD-set-dropdown"
                   >
-                    <option value="">Select a post</option>
-                    {posts.map((post) => (
-                      <option key={post.id} value={post.post_name}>
+                    
+                    <option value="">{selectedPost&&selectedPost?selectedPost: "SELECT Post"}</option>
+                  
+                    {posts.map((post) => {
+                      
+                      // console.log("post",post)
+                    return  <option key={post.id} value={post.id}>
                         {post.post_name}
                       </option>
-                    ))}
+                    
+                    })}
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>

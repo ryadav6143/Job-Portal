@@ -11,7 +11,7 @@ useEffect(()=>{
 
 const checkToken = ()=>{
 let Token = sessionStorage.getItem("Token")
-console.log("token",Token)
+// console.log("token",Token)
 let candidate="";
 if(Token && Token.length){
     Token=JSON.parse(Token)

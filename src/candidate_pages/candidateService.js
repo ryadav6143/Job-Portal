@@ -8,7 +8,7 @@ import { CANDIDATE_BASE_URL } from "../config/config";
 const candidatesApiService = (() => {
   // const [accessToken,setAccessToken]=useState("");
   let accessToken = sessionStorage.getItem('Token') ? JSON.parse(sessionStorage.getItem('Token')) : null;
-  console.log("candidatesApiService-accessToken", accessToken)
+  // console.log("candidatesApiService-accessToken", accessToken)
   return {
 
     setAccessToken: (token) => {
