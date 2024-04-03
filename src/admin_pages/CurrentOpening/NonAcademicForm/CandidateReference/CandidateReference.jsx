@@ -7,24 +7,26 @@ import {
   faMobile,
 } from "@fortawesome/free-solid-svg-icons";
 
-function Reference({ formValues, setFormValues, errors, setErrors }) {
+function CandidateReference({ formValues, setFormValues, errors, setErrors }) {
   const [checkboxError, setCheckboxError] = useState("");
   // const [formValues, setFormValues] = useState({
 
-  // reference_person_1:'',
-  // reference_person_2:'',
-  // ref_org_1:'',
-  // ref_org_2:'',
-  // ref_person_position_1:'',
-  // ref_person_position_2:'',
-  // hearing_source_about_us:'',
-  // application_purpose:'',
-  // ref_person_1_email:'',
-  // ref_person_2_email:'',
-  // ref_person_1_contact:'',
-  // ref_person_2_contact:'',
+    // reference_person_1:'',
+    // reference_person_2:'',
+    // ref_org_1:'',
+    // ref_org_2:'',
+    // ref_person_position_1:'',
+    // ref_person_position_2:'',
+    // hearing_source_about_us:'',
+    // application_purpose:'',
+    // ref_person_1_email:'',
+    // ref_person_2_email:'',
+    // ref_person_1_contact:'',
+    // ref_person_2_contact:'',
 
   // });
+
+
 
   // const handleChange = (e) => {
   //   setErrors({
@@ -40,9 +42,11 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
   //   }));
   // };
 
+
   // const handleChange = (e) => {
   //   const { name, value } = e.target;
-
+   
+    
   //   if (value.length > 40) {
   //     setErrors((prevErrors) => ({
   //       ...prevErrors,
@@ -60,13 +64,14 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
   //       },
   //     }));
   //   }
-
+  
   // };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     const maxCharacters = name === "application_purpose" ? 100 : 40;
-
+  
     if (value.length > maxCharacters) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -85,12 +90,15 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
       }));
     }
   };
+  
+
+
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const allowedExtensions = ["pdf", "doc", "docx"];
     const maxFileSizeInMB = 2;
-    console.log("csdvsdv", file);
+
     if (!file) {
       setErrors({
         candidate_cv: "! Resume file is Required",
@@ -185,8 +193,8 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
                 <span className="error-message">
-                  {errors.reference_person_1}
-                </span>
+                {errors.reference_person_1}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -205,7 +213,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                     value={formValues.ref_org_1}
                   ></input>
                 </div>
-                <span className="error-message">{errors.ref_org_1}</span>
+                <span className="error-message">
+                {errors.ref_org_1}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -225,8 +235,8 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                 </div>
                 <span className="error-message">
-                  {errors.ref_person_position_1}
-                </span>
+                {errors.ref_person_position_1}
+              </span>
               </div>
             </div>
 
@@ -249,8 +259,8 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
                 <span className="error-message">
-                  {errors.ref_person_1_email}
-                </span>
+                {errors.ref_person_1_email}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -271,8 +281,8 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
                 <span className="error-message">
-                  {errors.ref_person_1_contact}
-                </span>
+                {errors.ref_person_1_contact}
+              </span>
               </div>
             </div>
 
@@ -301,8 +311,8 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   <FontAwesomeIcon className="UD-set-icon" icon={faUser} />
                 </div>
                 <span className="error-message">
-                  {errors.reference_person_2}
-                </span>
+                {errors.reference_person_2}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -321,7 +331,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                     value={formValues.ref_org_2}
                   ></input>
                 </div>
-                <span className="error-message">{errors.ref_org_2}</span>
+                <span className="error-message">
+                {errors.ref_org_2}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -341,8 +353,8 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                 </div>
                 <span className="error-message">
-                  {errors.ref_person_position_2}
-                </span>
+                {errors.ref_person_position_2}
+              </span>
               </div>
             </div>
 
@@ -365,8 +377,8 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   <FontAwesomeIcon className="UD-set-icon" icon={faEnvelope} />
                 </div>
                 <span className="error-message">
-                  {errors.ref_person_2_email}
-                </span>
+                {errors.ref_person_2_email}
+              </span>
               </div>
 
               <div className="col-md-4">
@@ -387,8 +399,8 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   <FontAwesomeIcon className="UD-set-icon" icon={faMobile} />
                 </div>
                 <span className="error-message">
-                  {errors.ref_person_2_contact}
-                </span>
+                {errors.ref_person_2_contact}
+              </span>
               </div>
             </div>
 
@@ -411,8 +423,8 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
                   ></input>
                 </div>
                 <span className="error-message">
-                  {errors.application_purpose}
-                </span>
+                {errors.application_purpose}
+              </span>
               </div>
             </div>
 
@@ -460,4 +472,4 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
   );
 }
 
-export default Reference;
+export default CandidateReference;

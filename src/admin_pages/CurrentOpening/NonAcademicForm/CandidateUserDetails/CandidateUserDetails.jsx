@@ -6,9 +6,9 @@ import {
   faMobile,
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
-import "./UserDetails.css";
+import "./CandidateUserDetails.css";
 import apiService from "../../../../Services/ApiServices";
-function UserDetails({ formValues, setFormValues, errors, setErrors }) {
+function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
   const [departments, setDepartments] = useState([]);
@@ -19,7 +19,6 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [selectedCity, setSelectedCity] = useState("");
 
   const [maxCharacters] = useState(40);
-
   // const [countries, setCountries] = useState([]);
   // const [accessToken] = useState('Bearer sL-eX7S-pFFAg1dGBc-26ZSRCkNicfdu50p3ZLtaS4kTtjijpJIpqgs9hg6lWvXsHgg');
 
@@ -125,7 +124,11 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       .getAppliedPosts()
       .then((response) => {
         // Update the state with the fetched data
-        setPosts(response.data);
+     
+        const nonAcademicPosts = response.data.filter(post => post.job_category_master.category_name === "NonAcademic");
+        // console.log("post by category",nonAcademicPosts)
+        // setPosts(response.data);
+        setPosts(nonAcademicPosts);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
@@ -134,6 +137,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     const fetchDepartments = async () => {
       try {
         const response = await apiService.getDepartments();
+        
         setDepartments(response.data);
       } catch (error) {
         console.error("Error fetching departments:", error);
@@ -177,14 +181,13 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     );
 
     if (selectedPostObject) {
-      console.log("category idf", selectedPostObject);
       setSelectedPost(selectedPostObject.id);
       const jobCategoryId = selectedPostObject.job_category_master.id;
       setFormValues((prevValues) => ({
         UserDetails: {
           ...prevValues.UserDetails,
           applied_post_masters_id: selectedPostObject.id,
-          job_category_master_id: jobCategoryId,
+          job_category_master_id: jobCategoryId
         },
       }));
     } else {
@@ -292,8 +295,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                   <label className="UD-SetLabel-Name">
                     <span>*</span>Post Applied For
                     {/* <span className="set-others">
-                        &nbsp;(If Others, Please Specify)
-                      </span> */}
+                      &nbsp;(If Others, Please Specify)
+                    </span> */}
                   </label>
                   <select
                     id="postDropdown"
@@ -352,7 +355,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                   <input
                     className="UD-set-input"
                     type="text"
-                    placeholder=" "
+                    placeholder="Enter Specialization"
                     name="specialization"
                     id=""
                     onChange={handleInputChange}
@@ -651,18 +654,18 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     ))}
                   </select>
                   {/* <select
-                      name="country"
-                      className="UD-set-dropdown"
-                      value={formValues.country}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select country</option>
-                      {countries.map((country, index) => (
-                <option key={index} value={country}>
-                  {country}
-                </option>
-              ))}
-                    </select> */}
+                    name="country"
+                    className="UD-set-dropdown"
+                    value={formValues.country}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">Select country</option>
+                    {countries.map((country, index) => (
+              <option key={index} value={country}>
+                {country}
+              </option>
+            ))}
+                  </select> */}
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.country}</span>
@@ -671,26 +674,26 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
 
             <div className="row">
               {/* <div className="col-md-4">
-        
-                  <div className="UD-form-section">
-                    <label className="UD-SetLabel-Name">
-                      <span>*</span>State
-                    </label>
-                    <select
-                      onChange={handleInputChange}
-                      name="state_province"
-                      className="UD-set-dropdown"
-                      value={formValues.state_province}
-                    >
-                      <option value="State">Select State</option>
-                      <option value="State 1"> State 1</option>
-                      <option value="State 2"> State 2</option>
-                      <option value="State 3"> State 3</option>
-                    </select>
-                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                  </div>
-                  <span className="error-message">{errors.state_province}</span>
-                </div> */}
+       
+                <div className="UD-form-section">
+                  <label className="UD-SetLabel-Name">
+                    <span>*</span>State
+                  </label>
+                  <select
+                    onChange={handleInputChange}
+                    name="state_province"
+                    className="UD-set-dropdown"
+                    value={formValues.state_province}
+                  >
+                    <option value="State">Select State</option>
+                    <option value="State 1"> State 1</option>
+                    <option value="State 2"> State 2</option>
+                    <option value="State 3"> State 3</option>
+                  </select>
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                </div>
+                <span className="error-message">{errors.state_province}</span>
+              </div> */}
 
               <div className="col-md-4">
                 {/* *Current Job City */}
@@ -745,11 +748,11 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
           </div>
         </div>
         {/* <button type="submit">
-            Submit
-          </button> */}
+          Submit
+        </button> */}
       </form>
     </>
   );
 }
 
-export default UserDetails;
+export default CandidateUserDetails;

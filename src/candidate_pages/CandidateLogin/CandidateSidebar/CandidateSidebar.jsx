@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./CandidateSidebar.css";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faEnvelope,
+  faMobile,
+  faUserTie,
+  faAngleDown,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faIdCardClip,
   faBuildingColumns,
@@ -12,14 +19,17 @@ import {
   faFile,
 } from "@fortawesome/free-solid-svg-icons";
 import CandidateOrganisedForm from "../CandidateChildPages/EditProgramsForm/SeminarOrganised/CandidateOrganisedForm";
-
+import candidatesApiService from "../../candidateService";
 import { ApiDataProvider } from "..//..//../context/CandidateContext";
 function CandidateSidebar() {
   const [screen, setScreen] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-
+  const [selectedImage, setSelectedImage] = useState(null);
+  const fileInputRef = useRef(null);
   const [uploadedImage, setUploadedImage] = useState(null);
+  const [activeButton, setActiveButton] = useState("");
+
   const handleImageUpload = (event) => {
     // Handle image upload logic here
     const uploadedFile = event.target.files[0];
@@ -28,10 +38,43 @@ function CandidateSidebar() {
   };
 
   useEffect(() => {
-    // Update isOpen state only if the window width is less than 768
+    const fetchImage = async () => {
+      try {
+        const imageUrl = await candidatesApiService.fetchCandidateImage();
+
+        if (imageUrl) {
+          setSelectedImage(imageUrl);
+        } else {
+          // If there is no image, set selectedImage to null or use a default image URL
+          setSelectedImage(null);
+        }
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+
+    fetchImage();
+  }, []);
+  // useEffect(() => {
+  //   const checkIsMobile = () => {
+  //     if (window.innerWidth < 821) {
+  //       setIsOpen(false);
+  //       setIsMobile(true);
+  //     } else {
+  //       setIsMobile(false);
+  //     }
+  //   };
+  //   checkIsMobile();
+  //   window.addEventListener("resize", checkIsMobile);
+  //   return () => {
+  //     window.removeEventListener("resize", checkIsMobile);
+  //   };
+  // }, []);
+
+  useEffect(() => {
     const checkIsMobile = () => {
-      if (window.innerWidth < 768) {
-        setIsOpen(false); // Close sidebar by default on mobile
+      if (window.innerWidth < 821) {
+        setIsOpen(false);
         setIsMobile(true);
       } else {
         setIsMobile(false);
@@ -39,12 +82,10 @@ function CandidateSidebar() {
     };
 
     checkIsMobile();
-
-    // Event listener to check window width and update isOpen state
     window.addEventListener("resize", checkIsMobile);
 
     return () => {
-      window.removeEventListener("resize", checkIsMobile); // Clean up the event listener
+      window.removeEventListener("resize", checkIsMobile);
     };
   }, []);
 
@@ -55,42 +96,12 @@ function CandidateSidebar() {
       setIsOpen(true);
     }
   };
-
-  // const renderComponent = () => {
-  //   switch (screen) {
-  //     // case 0:
-  //     //   return (<ApiDataProvider>
-  //     //     <EditPersonalDetails />;
-  //     //   </ApiDataProvider>)
-  //     //   break;
-  //     case 1:
-  //       return (<ApiDataProvider>
-  //       <EditQualificationForm />
-  //       </ApiDataProvider>);
-  //       break;
-  //     case 2:
-  //       return (<ApiDataProvider>
-  //         <EditExperience />
-  //         </ApiDataProvider>);
-  //       break;
-  //     case 3:
-  //       return <EditResearchForm />;
-  //       break;
-  //     case 4:
-  //       return <EditProgramsForm />;
-  //       break;
-  //     case 5:
-  //       return <EditReference />;
-  //       break;
-  //     // default:
-  //     //   return <EditPersonalDetails />;
-  //     //   break;
-  //   }
-  // };
+  const location = useLocation();
   const handleLinkClick = () => {
     if (isMobile) {
-      setIsOpen(true); // Close sidebar if it's open on mobile
+      setIsOpen(true);
     }
+    setActiveButton(location.pathname);
   };
   return (
     <>
@@ -102,19 +113,45 @@ function CandidateSidebar() {
         )}
       </div>
 
-      {/* ------------sidebar start----------------- */}
       <div className="row1">
         <div className={`col-md-2 set-col-2 ${isOpen ? "isClose" : ""}`}>
           <div className="set-sidebar">
             <div>
               <nav>
                 <ul className="set-menu" style={{ listStyle: "none" }}>
-                  <li className="menu-list">
-                    <FontAwesomeIcon
-                      className="set-menu-icon"
-                      icon={faIdCardClip}
-                    />
-                    <Link to="/candidate-dashboard/personal-details" onClick={handleLinkClick}>
+                  <li
+                    className={
+                      activeButton === "/candidate-dashboard/personal-details"
+                        ? "active-link"
+                        : ""
+                    }
+                  >
+                    {selectedImage ? (
+                      <img
+                        className="set-menu-icon"
+                        src={selectedImage}
+                        alt="Selected Profile"
+                        style={{
+                          width: "2rem",
+                          height: "2rem",
+                          borderRadius: "50%",
+                        }}
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faUserTie}
+                        style={{
+                          fontSize: "5rem",
+                          borderRadius: "50%",
+                          backgroundColor: "#ddd",
+                          padding: "20px",
+                        }}
+                      />
+                    )}
+                    <Link
+                      to="/candidate-dashboard/personal-details"
+                      onClick={handleLinkClick}
+                    >
                       <span> &nbsp;Personal Details</span>
                     </Link>
                   </li>
@@ -124,21 +161,13 @@ function CandidateSidebar() {
                       className="set-menu-icon"
                       icon={faBuildingColumns}
                     />
-                    <Link to="/candidate-dashboard/personal-qualification" onClick={handleLinkClick}>
-                      {/* <span> &nbsp; Academic Professional Qualifications</span> */}
-                      <span> &nbsp;Academic Qualifications</span>
-                      
+                    <Link
+                      to="/candidate-dashboard/personal-qualification"
+                      onClick={handleLinkClick}
+                    >
+                      <span>&nbsp;Academic Qualifications</span>
                     </Link>
                   </li>
-                  {/* <li>
-                    <FontAwesomeIcon
-                      className="set-menu-icon"
-                      icon={faBriefcase}
-                    />
-                    <Link to="/candidate-dashboard/personal-experience">
-                      <span> &nbsp; Experience</span>
-                    </Link>
-                  </li> */}
 
                   <div className="dropdown show">
                     <a
@@ -149,12 +178,12 @@ function CandidateSidebar() {
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
-                      style={{paddingLeft:"0"}}
+                      style={{ paddingLeft: "0" }}
                     >
-                 <FontAwesomeIcon
-                      className="set-menu-icon"
-                      icon={faBriefcase}
-                    />
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faBriefcase}
+                      />
                       <span>&nbsp;&nbsp; &nbsp;Experience</span>
                     </a>
 
@@ -176,19 +205,8 @@ function CandidateSidebar() {
                       >
                         <span>Total Experience</span>
                       </Link>
-                 
                     </div>
                   </div>
-                  {/* <li>
-                    <FontAwesomeIcon
-                      className="set-menu-icon"
-                      icon={faSearch}
-                    />
-                    <Link to="/candidate-dashboard/personal-research">
-                      <span>&nbsp; Research Work</span>
-                    </Link>
-                  </li> */}
-
 
                   <div className="dropdown show">
                     <a
@@ -199,12 +217,12 @@ function CandidateSidebar() {
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
-                      style={{paddingLeft:"0"}}
-                    >                     
-                    <FontAwesomeIcon
-                      className="set-menu-icon"
-                      icon={faSearch}
-                    />  
+                      style={{ paddingLeft: "0" }}
+                    >
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faSearch}
+                      />
                       <span>&nbsp;&nbsp; &nbsp;Research Work</span>
                     </a>
 
@@ -218,49 +236,37 @@ function CandidateSidebar() {
                         onClick={handleLinkClick}
                       >
                         <span>Research</span>
-                      </Link>                   
+                      </Link>
                       <Link
                         to="/candidate-dashboard/candidate-journalPublication"
                         className="dropdown-item"
                         onClick={handleLinkClick}
                       >
                         <span>Journal Publication</span>
-                      </Link>                   
+                      </Link>
                       <Link
                         to="/candidate-dashboard/candidate-confrencePublication"
                         className="dropdown-item"
                         onClick={handleLinkClick}
                       >
                         <span>Confrence Publication</span>
-                      </Link>                   
+                      </Link>
                       <Link
                         to="/candidate-dashboard/candidate-patents"
                         className="dropdown-item"
                         onClick={handleLinkClick}
                       >
                         <span>Patents</span>
-                      </Link>                   
+                      </Link>
                       <Link
                         to="/candidate-dashboard/candidate-copyrights"
                         className="dropdown-item"
                         onClick={handleLinkClick}
                       >
                         <span>Copyrights</span>
-                      </Link>                     
+                      </Link>
                     </div>
                   </div>
-
-
-
-                  {/* <li>
-                    <FontAwesomeIcon className="set-menu-icon" icon={faUsers} />
-                    <Link to="/candidate-dashboard/personal-programs ">
-                      <span>
-                        Seminars/Short Term Courses/Summer Schools/Winter
-                        Schools
-                      </span>
-                    </Link>
-                  </li> */}
 
                   <div className="dropdown show">
                     <a
@@ -271,8 +277,8 @@ function CandidateSidebar() {
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
-                      style={{paddingLeft:"0",paddingBottom:"1em"}}
-                    >                  
+                      style={{ paddingLeft: "0", paddingBottom: "1em" }}
+                    >
                       <FontAwesomeIcon
                         className="set-menu-icon"
                         icon={faUsers}
@@ -282,7 +288,7 @@ function CandidateSidebar() {
 
                     <div
                       className="dropdown-menu master-dd"
-                      aria-labelledby="dropdownMenuLink"                      
+                      aria-labelledby="dropdownMenuLink"
                     >
                       <Link
                         to="/candidate-dashboard/candidate-organised"
@@ -303,21 +309,29 @@ function CandidateSidebar() {
                         className="dropdown-item"
                         onClick={handleLinkClick}
                       >
-                        <span>Seminar Other <br/>Information</span>
+                        <span>
+                          Seminar Other <br />
+                          Information
+                        </span>
                       </Link>
                       <Link
                         to="/candidate-dashboard/candidate-otheractivites"
                         className="dropdown-item"
                         onClick={handleLinkClick}
                       >
-                        <span>Seminar Other <br/> Activites</span>
+                        <span>
+                          Seminar Other <br /> Activites
+                        </span>
                       </Link>
                     </div>
                   </div>
 
                   <li>
                     <FontAwesomeIcon className="set-menu-icon" icon={faFile} />
-                    <Link to="/candidate-dashboard/personal-reference" onClick={handleLinkClick}>
+                    <Link
+                      to="/candidate-dashboard/personal-reference"
+                      onClick={handleLinkClick}
+                    >
                       <span> &nbsp; Reference/ Resume</span>
                     </Link>
                   </li>
@@ -335,10 +349,7 @@ function CandidateSidebar() {
             </div>
           </div>
         </div>
-        {/* <div className="col-md-10">{renderComponent()}</div> */}
       </div>
-      {/* --------------------sidebar end------------------------------ */}
-      {/* <Footers></Footers> */}
     </>
   );
 }

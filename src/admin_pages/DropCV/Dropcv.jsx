@@ -31,7 +31,6 @@ function Dropcv() {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("success");
-  
 
   // console.log("IS fresher data......................./", isFresher);
   const initialEducation = {
@@ -72,7 +71,7 @@ function Dropcv() {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -155,7 +154,7 @@ function Dropcv() {
   const handleNext = async () => {
     const isCurrentStepValid = validateCurrentStep();
 
-    if (isCurrentStepValid) {
+    if (isCurrentStepValid ) {
       const emailToCheck = formData.personalDetails.email.trim();
       const contactToCheck = formData.personalDetails.contact_1.trim();
 
@@ -198,22 +197,16 @@ function Dropcv() {
         console.log("fetch-data contact", data_contact);
 
         if (data) {
-         
           // alert("This email is already registered.");
 
           setAlertMessage("This email is already registered.");
           setAlertSeverity("error");
           setOpen(true);
-          
-         
         } else if (data_contact) {
-      
           // alert("This contact is already registered.");
           setAlertMessage("This contact is already registered.");
           setAlertSeverity("error");
           setOpen(true);
-         
-       
         } else {
           console.log("contact does not exist in database");
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -257,8 +250,6 @@ function Dropcv() {
     let errors = {};
 
     switch (activeStep) {
-      case 0:
-
       case 0:
         const currentYear = new Date().getFullYear();
         const dobYear = dob ? new Date(dob).getFullYear() : null;
@@ -542,10 +533,15 @@ function Dropcv() {
                   </Button>
                 )}
                 <Box sx={{ flex: "1 1 auto" }} />
-              
-                <Button onClick={handleNext } className="next-btn">
+
+                <Button onClick={handleNext} className="next-btn">
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                  <Notification open={open} handleClose={handleClose} alertMessage={alertMessage} alertSeverity={alertSeverity} />
+                  <Notification
+                    open={open}
+                    handleClose={handleClose}
+                    alertMessage={alertMessage}
+                    alertSeverity={alertSeverity}
+                  />
                 </Button>
               </Box>
             </React.Fragment>

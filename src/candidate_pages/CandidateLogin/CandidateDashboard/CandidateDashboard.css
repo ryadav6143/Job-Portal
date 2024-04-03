@@ -1,5 +1,4 @@
 .sidebar {
-  max-width: 20%;
   flex-shrink: 0;
   text-align: left;
   overflow-y: auto;

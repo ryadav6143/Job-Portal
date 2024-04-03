@@ -38,13 +38,13 @@
 }
 
 .set-sidebar {
-  margin-top: -18px;
   height: 100%;
-  padding-top: 70px;
+  padding-top: 10%;
   position: relative;
   z-index: 10;
   background-color: white;
   padding-right: 10px;
+  width: 300px;
 }
 
 .row1 {
@@ -67,7 +67,9 @@
   width: 200px;
   height: 60px;
 }
-
+.active-link {
+  color: maroon; /* Change color as needed */
+}
 .logo-coloured {
   margin-left: 3%;
 }
@@ -86,7 +88,7 @@
 
 .set-menu a {
   text-decoration: none;
-  font-size: 16px;
+  /* font-size: 10px; */
   font-weight: 700;
   color: rgb(112 112 112 / 78%) !important;
   padding-left: 10px;
@@ -110,6 +112,8 @@
 .set-menu-icon {
   color: rgb(112 112 112 / 78%);
   font-size: 18px;
+  width: 2rem;
+  margin-right: -10px;
 }
 
 .set-menu a:focus {
@@ -120,8 +124,8 @@
   font-size: 30px !important;
   color: rgb(112 112 112 / 78%) !important;
   position: relative;
-  z-index: 10;
   left: 0 !important;
+  z-index: 9999 !important;
 }
 
 .toggle-div {
@@ -151,23 +155,8 @@
     position: absolute;
     z-index: 100;
     width: 98vw;
-    background-color: white;
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  .logo-coloured {
-    margin-left: 1%;
-  }
-
-  .logs {
-    margin-right: 0.1%;
-  }
-
-  .log-res {
-    width: 20px;
-    height: 20px;
-    margin: 15px;
+    margin-top: 0.1em;
+    background-color: rgb(255, 255, 255);
   }
   .dropdown-menu {
     width: auto;

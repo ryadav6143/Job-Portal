@@ -58,15 +58,18 @@ function Academictable() {
 
   const [page, setPage] = useState(1);
 
-  const rowsPerPage = 10;
+  const rowsPerPage = 100;
 
   const AcademicTable = jobProfiles
-    .filter((profile) => profile.publish_to_vacancy)
+  
+    .filter((profile) => {
+      console.log(profile,"<<<<<<")
+      return profile.publish_to_vacancy && profile.job_category_master.category_name != "NonAcademic"})
     .map((profile) => ({
       job_profile_master_id: profile.id,
       applied_post_masters_id: profile.applied_post_masters_id,
       job_category_master_id: profile.job_category_master_id,
-      department_master_id: profile.department_master_id,
+      department_master_id: profile.department_master_id || "N/A",
       category: profile.job_category_master?.category_name || "N/A",
       post: profile.applied_post_master?.post_name || "N/A",
       department: profile.department_master?.dept_name || "N/A",
@@ -116,7 +119,7 @@ function Academictable() {
             </thead>
             <tbody>
               {AcademicData.map((data, index) => (
-                <tr key={index}>
+                <tr key={index} style={{whiteSpace:"nowrap"}}>
                   <td>{data.category}</td>
                   <td>{data.post}</td>
                   <td>{data.department}</td>
