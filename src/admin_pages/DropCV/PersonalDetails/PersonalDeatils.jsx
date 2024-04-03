@@ -63,12 +63,82 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       try {
         const categoriesResponse = await apiService.getJobCategories(signal);
         setCategories(categoriesResponse.data);
-
+        console.log("categoriesResponse.data>>>>>>",categoriesResponse.data)
+        console.log("formData.applied_post_masters_id>>>>>",formData.applied_post_masters_id)
+        if (formData.job_category_master_id) {
+       
+          const selectedCategoryObject = categoriesResponse.data.find((category) => category.id == formData.job_category_master_id
+          );
+          console.log("selectedCategoryObject>>>>>",selectedCategoryObject)
+          if (selectedCategoryObject) {
+            setSelectedCategory(selectedCategoryObject.category_name);
+          }
+        }
+        // if (formData.applied_post_masters_id) {       
+        //   const selectedPostObject = categoriesResponse.data.find((post) => post.applied_post_masters.id == formData.applied_post_masters_id
+        //   );
+        //   console.log("selectedPostObject>>>>>",selectedPostObject)
+        //   if (selectedPostObject) {
+        //     setSelectedPost(selectedPostObject.post_name);
+        //   }
+        // }
+        if (formData.applied_post_masters_id) {       
+          let selectedPostObject;
+          categoriesResponse.data.forEach(category => {
+            category.applied_post_masters.forEach(post => {
+              if (post.id == formData.applied_post_masters_id) {
+                selectedPostObject = post;
+                return; // Break loop if post found
+              }
+            });
+          });
+        
+          console.log("selectedPostObject>>>>>", selectedPostObject);
+        
+          if (selectedPostObject) {
+            setSelectedPost(selectedPostObject.post_name);
+          }
+        }
+        if (formData.applied_subpost_master_id) {       
+          let selectedSubPostObject;
+          categoriesResponse.data.forEach(category => {
+            category.applied_post_masters.forEach(post => {
+              post.applied_subpost_masters.forEach(subpost => {
+              if (subpost.id == formData.applied_subpost_master_id) {
+                selectedSubPostObject = subpost;
+                return; 
+              }
+            });
+          })});
+        
+          console.log("selectedSubPostObject>>>>>", selectedSubPostObject);
+        
+          if (selectedSubPostObject) {
+            setSelectedSubpost(selectedSubPostObject.subpost_name);
+          }
+        }
+        
         const subjectRes = await apiService.getSubjectMaster(signal);
         setSubjects(subjectRes.data);
+        if (formData.subjects_master_id) {
+       
+          const selectedSubjectObject = subjectRes.data.find((subject) => subject.id == formData.subjects_master_id
+          );
+          console.log("selectedSubjectObject>>>>>",selectedSubjectObject)
+          if (selectedSubjectObject) {
+            setSelectedSubject(selectedSubjectObject.subject_name);
+          }
+        }
+     
 
         const countriesRes = await apiService.getCountries(signal);
         setCountries(countriesRes.data.data);
+        if (formData.country) {                   
+          setSelectedCountry(formData.country);
+                }
+                if(formData.city){
+                  setSelectedCity(formData.city)
+                }
       } catch (error) {
         if (error.name === "AbortError") {
           // Request was aborted, you can handle it if needed
@@ -521,11 +591,13 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   </label>
                   <select
                     id="postDropdown"
+                    value={selectedPost}
                     onChange={handlePostChange}
                     className="set-dropdown"
                     required
                   >
-                    <option value="">Select a post</option>
+                    {/* <option value="">Select a post</option> */}
+                    <option value="">{selectedPost&&selectedPost?selectedPost: "Select a post"}</option>
                     {posts.map((post) => (
                       <option key={post.post_name} value={post.post_name}>
                         {post.post_name}
@@ -549,7 +621,8 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     value={selectedSubpost}
                     onChange={handleSubpostChange}
                   >
-                    <option value="">Select a subpost</option>
+                  <option value="">{selectedSubpost&&selectedSubpost?selectedSubpost: "Select a subpost"}</option>
+                 
                     {subposts.map((subpost) => (
                       <option
                         key={subpost.subpost_name}
@@ -573,11 +646,12 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   <select
                     id="subjectDropdown"
                     className="set-dropdown"
-                    value={selectedSubject.subject_name}
+                    value={selectedSubject}
                     onChange={handleSubjectChange}
                     required
                   >
-                    <option value="">Select a subject</option>
+                    {/* <option value="">Select a subject</option> */}
+                    <option value="">{selectedSubject&&selectedSubject?selectedSubject: "Select a subject"}</option>
                     {subjects.map((subject) => (
                       <option key={subject.id} value={subject.subject_name}>
                         {subject.subject_name}
