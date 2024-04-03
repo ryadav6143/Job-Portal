@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Main>
-        <Routes>
+        <Routes >
           {UnAuthRoutes}
           {CandidateAuthRoutes}
           {AdminAuthRoutes}

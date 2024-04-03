@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import apiService from "../../../Services/ApiServices";
 import Notification from "../../../Notification/Notification";
 
-function OTPVerification({ transferAllData, otpData }) {
+function OTPVerification({ transferAllData,transferDropCvData, otpData }) {
   console.log("AllData", transferAllData);
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
@@ -36,11 +36,11 @@ function OTPVerification({ transferAllData, otpData }) {
         setNotificationMessage(`OTP Verified! ${response.data}`);
         setNotificationSeverity("success");
         setNotificationOpen(true);
-        if (transferAllData.UserDetails) {
+        if (transferAllData) {
 
           try {
             const response = await apiService.submitApplyNowData(
-              transferAllData.UserDetails
+              transferAllData
             );
 
             if (!response) {
@@ -62,7 +62,7 @@ function OTPVerification({ transferAllData, otpData }) {
 
           try {
             const response = await apiService.submitCandidateData(
-              transferAllData
+              transferDropCvData
             );
 
             if (!response) {

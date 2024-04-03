@@ -89,16 +89,16 @@ function Dropcv() {
 
   const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
-  const transferAllData = async () => {
+  const transferDropCvData = async () => {
     try {
-      // Create FormData object
+
       const formDataToSend = new FormData();
 
       Object.entries(formData.personalDetails).forEach(([key, value]) => {
         if (key === "educations" && Array.isArray(value)) {
           formDataToSend.append(key, JSON.stringify(value));
         } else {
-          // If not an array, append as usual
+
           formDataToSend.append(key, value);
         }
       });
@@ -453,7 +453,7 @@ function Dropcv() {
   switch (selectedComponent) {
     case "OTPVerification":
       componentToShow = (
-        <OTPVerification otpData={otpData} transferAllData={formDataToSend} />
+        <OTPVerification otpData={otpData} transferDropCvData={formDataToSend} />
       );
       break;
     default:
@@ -494,7 +494,7 @@ function Dropcv() {
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={transferAllData}>Get OTP</Button>
+                <Button onClick={transferDropCvData}>Get OTP</Button>
               </Box>
             </React.Fragment>
           ) : (

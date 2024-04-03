@@ -259,16 +259,23 @@ function ApplyNow() {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("success");
+  const [formDataToSend, setformDataToSend] = useState();
 
-  // const transferAllData =async ()=>{
+  // const transferAllData = async () => {
   //   try {
-  //     const formValuesToSend = new formValues();
-  //       Object.entries(formValues.UserDetails).forEach(([key, value]) => {
-  //               formValuesToSend.append(key, JSON.stringify(value));
-  //              });
-  //     console.log("formValuesToSend", formValuesToSend);
+  //     const formValuesToSend = { UserDetails: { ...formValues.UserDetails } };
   //     setformValuesToSend(formValuesToSend);
-
+  //     const otpData = {
+  //       email: formValues.UserDetails.email,
+  //       contact_1: formValues.UserDetails.contact_1,
+  //       first_name: formValues.UserDetails.first_name,
+  //     };
+  //     setOtpData(otpData);
+  //     const response = await apiService.generateOTP(otpData);
+  //     console.log("API Response:", response);
+  //     setSelectedComponent("OTPVerification");
+  //     setOtpButtonclicked(true);
+  //     setShowHeaderFooter(false);
   //   } catch (error) {
   //     setOtpButtonclicked(true);
   //     console.error(
@@ -277,42 +284,48 @@ function ApplyNow() {
   //     );
   //     console.log(error.response);
   //   }
-  //   const otpData={
-  //     email: formValues.UserDetails.email,
-  //     contact_1: formValues.UserDetails.contact_1,
-  //   }
-  //   setOtpData(otpData)
+  // };
 
-  //   const response = await apiService.generateOTP(otpData);
-  //   console.log("API Response:", response);
-  //   setSelectedComponent("OTPVerification");
 
-  // }
+
   const transferAllData = async () => {
     try {
-      const formValuesToSend = { UserDetails: { ...formValues.UserDetails } };
-      setformValuesToSend(formValuesToSend);
+      const formDataToSend = new FormData();
+  
+      Object.entries(formValues.UserDetails).forEach(([key, value]) => {
+        if (key === "educations" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } else {
+          formDataToSend.append(key, value);
+        }
+      });
+  
+      setformDataToSend(formDataToSend);
+      // setOtpButtonClicked(true);
+      setShowHeaderFooter(false);
+  
+      console.log("formDataToSend", formDataToSend);
+      setformDataToSend(formDataToSend);
+  
       const otpData = {
         email: formValues.UserDetails.email,
         contact_1: formValues.UserDetails.contact_1,
         first_name: formValues.UserDetails.first_name,
       };
       setOtpData(otpData);
+  
       const response = await apiService.generateOTP(otpData);
       console.log("API Response:", response);
       setSelectedComponent("OTPVerification");
-      setOtpButtonclicked(true);
-      setShowHeaderFooter(false);
     } catch (error) {
-      setOtpButtonclicked(true);
       console.error(
         "Error while posting form data and file:",
         error.response || error
       );
-      console.log(error.response);
+      console.log(error.response.data);
     }
   };
-
+  
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -663,7 +676,7 @@ function ApplyNow() {
           }
         }
 
-        // // -------------------------------------------------------------------------------------------
+        
 
         if (
           !formValues.UserDetails.educations[0].institute_name ||
@@ -881,7 +894,7 @@ function ApplyNow() {
   switch (selectedComponent) {
     case "OTPVerification":
       componentToShow = (
-        <OTPVerification otpData={otpData} transferAllData={formValuesToSend} />
+        <OTPVerification otpData={otpData} transferAllData={formDataToSend} />
       );
       break;
     default:

@@ -47,7 +47,7 @@ function CurrentExperience({
     const file = e.target.files[0];
     const allowedExtensions = ["pdf", "doc", "docx"];
     const maxFileSizeInMB = 2;
-
+console.log("<<<<",file)
     if (!file) {
       setErrors({
         candidate_cv: "! CV file is Required",
