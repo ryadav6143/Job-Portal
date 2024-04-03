@@ -115,12 +115,22 @@ function CandidateSidebar() {
   //     //   break;
   //   }
   // };
-  const handleLinkClick = () => {
+  const handleLinkClick = (event) => {
+    const allSpans = document.querySelectorAll(".set-menu span");
+    allSpans.forEach((span) => {
+      span.style.color = "inherit"; // Reset color for all spans
+    });
+
+    
+    event.target.style.color = "maroon"; // Change color for clicked span
     if (isMobile) {
       setIsOpen(true); // Close sidebar if it's open on mobile
     }
   };
-  
+  useEffect(() => {
+    const defaultActiveSpan = document.querySelector(".set-menu span");
+    defaultActiveSpan.style.color = "maroon"; // Set color for default active span
+  }, []);
   return (
     <>
       <div className="toggle-div">
