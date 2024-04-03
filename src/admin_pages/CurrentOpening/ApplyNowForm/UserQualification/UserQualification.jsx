@@ -105,6 +105,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
       .getCountries()
       .then((response) => {
         setCountries(response.data.data);
+        
       })
       .catch((error) => {
         console.error("Error fetching countries:", error);
