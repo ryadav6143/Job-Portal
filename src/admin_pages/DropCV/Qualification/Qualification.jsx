@@ -10,46 +10,64 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
   const [examTypes, setExamTypes] = useState([]);
   const [selectedExam, setSelectedExam] = useState("");
   const [degrees, setDegrees] = useState([]);
+  
   const [selectedDegree, setSelectedDegree] = useState("");
   const [data, setData] = useState([]);
   const hasMounted = useRef(false);
 
   useEffect(() => {
-    // if (!hasMounted.current) {
-    //   hasMounted.current = true;
-    //   return;
-    // }
     const controller = new AbortController();
     const signal = controller.signal;
+  
     apiService.getExamTypes(signal)
       .then((response) => {
         setData(response.data);
+      //  console.log("check dataaaa",response.data)
         const uniqueExams = Array.from(
           new Set(response.data.map((item) => item.exam_name))
         );
         setExamTypes(uniqueExams);
-        setSelectedExam(uniqueExams[0]);
+  
         const degreesForSelectedExam = response.data
-          .filter((item) => item.exam_name === uniqueExams[0])
-          .map((item) =>
-            item.degree_types_master
-              ? item.degree_types_master.degree_name
-              : null
-          );
+          .filter((item) => item.exam_name === selectedExam)
+          .map((item) => item.degree_types_master ? item.degree_types_master.degree_name : null);
+  
         setDegrees(degreesForSelectedExam.filter(Boolean));
-        setSelectedDegree(degreesForSelectedExam[0]);
-        setSelectedExam("");
-        setSelectedDegree("");
+  
+        // Check if formData already has selected exam and degree
+        if (formData.educations && formData.educations.length > 0) {
+          const selectedEducation = formData.educations[0];  
+          const selectedExamObject = response.data.find((exam) => exam.degree_types_master.exam_types_master_id === selectedEducation.exam_types_master_id);          
+        //  console.log("selectedExamObject???",selectedExamObject.exam_name)
+         
+          if (selectedExamObject) {
+            setSelectedExam(selectedExamObject.exam_name);           
+          }
+          
+        }
+   
+        if (formData.educations && formData.educations.length > 0) {
+          const selectedEducation = formData.educations[0];  
+          const selectedDegreeObject = response.data.find((exam) => exam.degree_types_master.id === selectedEducation.degree_types_master_id);          
+          // console.log("selectedDegreeObject???",selectedDegreeObject.degree_types_master.degree_name)
+          if (selectedDegreeObject) {
+            setSelectedDegree(selectedDegreeObject.degree_types_master.degree_name);           
+          }
+        }
+
+
+        
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-
-      return () => {
-        // Cleanup function to abort the request when the component unmounts
-        controller.abort();
-      };
-  }, []);
+  
+    return () => {
+      // Cleanup function to abort the request when the component unmounts
+      controller.abort();
+    };
+  }, [formData]); // Dependency array to trigger useEffect whenever formData changes
+  
 
   const handleExamChange = (event) => {
     setErrors({
@@ -98,14 +116,14 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
     });
     const selectedDegreeName = event.target.value;
 
-    // Find the corresponding object from data based on the selected degree name
+    
     const selectedDegreeObject = data.find(
       (item) =>
         item.degree_types_master &&
         item.degree_types_master.degree_name === selectedDegreeName
     );
 
-    // Now, use the selectedDegreeObject to get the id property
+    
     const selectedDegreeId = selectedDegreeObject
       ? selectedDegreeObject.degree_types_master.id
       : "";
@@ -117,13 +135,13 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
         ...prevFormData.personalDetails,
         educations: [
           {
-            ...prevFormData.personalDetails.educations[0], // Update the first education object
+            ...prevFormData.personalDetails.educations[0], 
             degree_types_master_id: selectedDegreeId,
           },
-          // ... you can add more education objects if needed
+          
         ],
 
-        // Add additional fields related to category if needed
+        
       },
     }));
   };
@@ -178,7 +196,8 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
                     onChange={handleExamChange}
                     className="set-dropdown"
                   >
-                    <option value="">Select Type</option>
+                    {/* <option value="">Select Type</option> */}
+                    <option value="">{selectedExam&&selectedExam?selectedExam: "Select Exam Type"}</option>
                     {examTypes.map((exam, index) => (
                       <option key={`exam-${index}`} value={exam}>
                         {exam}
@@ -200,8 +219,8 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
                     value={selectedDegree}
                     onChange={handleDegreeChange}
                     className="set-dropdown"
-                  >
-                    <option value="">Select Degree</option>
+                  >               
+                    <option value="">{selectedDegree&&selectedDegree?selectedDegree: "Select Degree"}</option>
                     {degrees.map((degree, index) => (
                       <option key={`degree-${index}`} value={degree}>
                         {degree}
@@ -226,7 +245,7 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
                     name="degree_status"
                     className="set-dropdown"
                     onChange={handleDropdownChange}
-                    value={selectedOption}
+                    value={formData.educations[0].degree_status}
                   >
                     <option value="">Select status</option>
                     <option value="Completed">Completed</option>
