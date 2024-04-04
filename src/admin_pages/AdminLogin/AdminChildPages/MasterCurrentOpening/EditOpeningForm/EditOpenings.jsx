@@ -35,7 +35,7 @@ function EditOpenings() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("profileId",profileId)
+      // console.log("profileId",profileId)
       try {
         const response = await adminApiService.getJobProfileById(profileId);
         const data = response.data;

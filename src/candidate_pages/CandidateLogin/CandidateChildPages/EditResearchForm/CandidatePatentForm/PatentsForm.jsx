@@ -20,7 +20,7 @@ const PatentsForm = () => {
   const fetchData = async () => {
     try {      
       const fetchedData = await candidatesApiService.getCandidatePatent();
-      console.log("patent", fetchedData);
+      // console.log("patent", fetchedData);
       setPatentItem(fetchedData);
       
     } catch (error) {
@@ -50,7 +50,7 @@ const PatentsForm = () => {
     try {
       await candidatesApiService.removeCandidatePatent(deleteItemId);
       setPatentItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
-      console.log("Item deleted successfully");
+      // console.log("Item deleted successfully");
       setNotificationMessage(`deleted successfully`);
       setNotificationSeverity("success");
       setNotificationOpen(true);

@@ -120,7 +120,7 @@ function MasterInterviewSchedule() {
     endIndex
   );
   const isNextPageAvailable = jobProfiles.length === itemsPerPage;
-  console.log("jobprofiles>>", isNextPageAvailable)
+  // console.log("jobprofiles>>", isNextPageAvailable)
 
 
   const nextPage = () => {

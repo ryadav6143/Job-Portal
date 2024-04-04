@@ -37,7 +37,7 @@ function Login(handleLogin) {
           password: password,
         }
       );
-      console.log(response);
+      // console.log(response);
       if (response && response.data.token) {
         sessionStorage.setItem("Token", JSON.stringify(response.data));
         // handleLogin();

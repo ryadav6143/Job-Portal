@@ -103,14 +103,14 @@ function Dropcv() {
       setOtpButtonClicked(true);
       setShowHeaderFooter(false);
 
-      console.log("formDataToSend", formDataToSend);
+      // console.log("formDataToSend", formDataToSend);
       setformDataToSend(formDataToSend);
     } catch (error) {
       console.error(
         "Error while posting form data and file:",
         error.response || error
       );
-      console.log(error.response.data);
+      // console.log(error.response.data);
     }
     const otpData = {
       email: formData.personalDetails.email,
@@ -120,7 +120,7 @@ function Dropcv() {
     setOtpData(otpData);
 
     const response = await apiService.generateOTP(otpData);
-    console.log("API Response:", response);
+    // console.log("API Response:", response);
     setSelectedComponent("OTPVerification");
   };
   const navigate = useNavigate();
@@ -149,7 +149,7 @@ function Dropcv() {
   // };
 
   const handleNext = async () => {
-    console.log(">>>>>>", formData.personalDetails);
+    // console.log(">>>>>>", formData.personalDetails);
     const isCurrentStepValid = validateCurrentStep();
 
     if (isCurrentStepValid) {
@@ -157,7 +157,7 @@ function Dropcv() {
       const contactToCheck = formData.personalDetails.contact_1.trim();
 
       try {
-        console.log("emailToCheck", emailToCheck);
+        // console.log("emailToCheck", emailToCheck);
         const response_email = await fetch(
           `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${emailToCheck}`,
           {
@@ -179,8 +179,8 @@ function Dropcv() {
           }
         );
 
-        console.log(response_email.ok, "response");
-        console.log(response_contact.ok, "response");
+        // console.log(response_email.ok, "response");
+        // console.log(response_contact.ok, "response");
 
         if (!response_email.ok) {
           throw new Error(`HTTP error! Status: ${response_email.status}`);
@@ -190,9 +190,9 @@ function Dropcv() {
         }
 
         const data = await response_email.json();
-        console.log("fetch-data for email", data);
+        // console.log("fetch-data for email", data);
         const data_contact = await response_contact.json();
-        console.log("fetch-data contact", data_contact);
+        // console.log("fetch-data contact", data_contact);
 
         if (data) {
           // alert("This email is already registered.");
@@ -206,7 +206,7 @@ function Dropcv() {
           setAlertSeverity("error");
           setOpen(true);
         } else {
-          console.log("contact does not exist in database");
+          // console.log("contact does not exist in database");
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         }
       } catch (error) {
@@ -214,7 +214,7 @@ function Dropcv() {
       }
     }
 
-    console.log(formData);
+    // console.log(formData);
   };
 
   // --------------------------------------------------------------------------------

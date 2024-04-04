@@ -39,7 +39,7 @@ function GetRights() {
     try {
    
       const response = await adminApiService.getRightsList();
-      console.log("check rights data>>>>>", response);
+      // console.log("check rights data>>>>>", response);
       setRights(response);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -52,7 +52,7 @@ function GetRights() {
   const fetchRoleList = async () => {
     try {
             const response = await adminApiService.getRoleList();
-      console.log("role data>>>>>>", response);
+      // console.log("role data>>>>>>", response);
       setRole(response);
     } catch (error) {
       console.error("Error fetching admin list:", error.message);
@@ -63,7 +63,7 @@ function GetRights() {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = (adminData) => {
-    console.log("adminData", adminData);
+    // console.log("adminData", adminData);
     setIsOpen(true);
     setModalData(adminData);
   };
@@ -119,7 +119,7 @@ function GetRights() {
     
         formData
       );
-      console.log("Response after adding rights:", response);    
+      // console.log("Response after adding rights:", response);    
       handleClose();    
     fetchRights();
        fetchRoleList();
@@ -160,7 +160,7 @@ function GetRights() {
    
         updateData
       );
-      console.log("updatedAdminList", updatedAdminList);
+      // console.log("updatedAdminList", updatedAdminList);
       setModalData(updatedAdminList);
       closeModal(); // Close the modal after successful update
     } catch (error) {
@@ -177,7 +177,7 @@ function GetRights() {
 
     setModalData((prev) => ({ ...prev, [fieldName]: value.toString() }));
 
-    console.log("Updated selectedAdmin:", updateField);
+    // console.log("Updated selectedAdmin:", updateField);
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;

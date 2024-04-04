@@ -215,7 +215,7 @@ function AddOpenings() {
   
     try {
       const response = await adminApiService.postJobProfile(formValues);
-      console.log("Job profile submitted successfully!", response.data);
+      // console.log("Job profile submitted successfully!", response.data);
       setNotificationMessage("Job profile submitted successfully!");
       setNotificationSeverity("success");
       setShowNotification(true);

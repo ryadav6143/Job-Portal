@@ -20,7 +20,7 @@ const ConfrencePublicationForm = () => {
   const fetchData = async () => {
     try {      
       const fetchedData = await candidatesApiService.getCandidateConferancePublications();
-      console.log("Confrence", fetchedData);
+      // console.log("Confrence", fetchedData);
       setConfrenceItem(fetchedData);      
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -41,9 +41,9 @@ const ConfrencePublicationForm = () => {
 
 
   const handleEditClick = (itemId) => {
-    console.log("id??",itemId);
+    // console.log("id??",itemId);
     const filteredItem = confrenceItem.find(item => item.id === itemId);
-    console.log("Filtered item:", filteredItem);
+    // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     // setEditItemId(itemId);
     setEditMode(true);
@@ -60,7 +60,7 @@ const ConfrencePublicationForm = () => {
     try {
       await candidatesApiService.removeCandidateConferancePublications(deleteItemId);
       setConfrenceItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
-      console.log("Item deleted successfully");
+      // console.log("Item deleted successfully");
       setNotificationMessage(`deleted successfully`);
       setNotificationSeverity("success");
       setNotificationOpen(true);

@@ -84,7 +84,7 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
 
           try {
               const response = await candidatesApiService.addCandidateConferancePublications(formData);
-              console.log(response.data); 
+            //   console.log(response.data); 
 
               if (response) {
                 setNotificationMessage(`added successfully`);

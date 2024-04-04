@@ -12,11 +12,11 @@ function EditQualificationForm() {
 
   const [data, setData] = useState(apiData);
   useEffect(() => {
-    console.log("use-state");
+    // console.log("use-state");
     setData(apiData)
   }, [apiData]);
 
-  console.log("qualification apiData", apiData);
+  // console.log("qualification apiData", apiData);
 
  
   useEffect(() => {
@@ -33,7 +33,7 @@ function EditQualificationForm() {
 
 
   const handleFieldChange = (fieldName, value, educationType, e) => {
-    console.log("handleField", fieldName, value);
+    // console.log("handleField", fieldName, value);
     // ----------------------------------------------------------------------------
     // [fieldName, value] = e.target;
     setFormData({
@@ -69,7 +69,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        console.log("Additional Info:", additionalInfo);
+        // console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -101,7 +101,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        console.log("Additional Info:", additionalInfo);
+        // console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -133,7 +133,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        console.log("Additional Info:", additionalInfo);
+        // console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -165,7 +165,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        console.log("Additional Info:", additionalInfo);
+        // console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -197,7 +197,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        console.log("Additional Info:", additionalInfo);
+        // console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -229,7 +229,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        console.log("Additional Info:", additionalInfo);
+        // console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -261,7 +261,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        console.log("Additional Info:", additionalInfo);
+        // console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -295,7 +295,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        console.log("Additional Info:", additionalInfo);
+        // console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -327,7 +327,7 @@ function EditQualificationForm() {
           [fieldName]: value.toString(),
         };
 
-        console.log("Additional Info:", additionalInfo);
+        // console.log("Additional Info:", additionalInfo);
 
         setUpdateField((prev) => ({
           ...prev,
@@ -377,7 +377,7 @@ function EditQualificationForm() {
     try {
       let accessToken = sessionStorage.getItem("Token");
       accessToken = JSON.parse(accessToken);
-      console.log(updateField);
+      // console.log(updateField);
       await candidatesApiService.updateCandidateEducation(accessToken.token,
         { educations: [updateField] }
       );
@@ -435,10 +435,10 @@ function EditQualificationForm() {
     setErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      console.log("Form Submitted Successfully");
+      // console.log("Form Submitted Successfully");
       return false;
     } else {
-      console.log("Form has errors");
+      // console.log("Form has errors");
       return true;
     }
   };
@@ -452,7 +452,7 @@ function EditQualificationForm() {
   });
 
 
-  console.log("loading",loading)
+  // console.log("loading",loading)
   return (
     <>
       {/* {loading && (

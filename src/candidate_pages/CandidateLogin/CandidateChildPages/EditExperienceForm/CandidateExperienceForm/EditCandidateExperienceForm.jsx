@@ -45,7 +45,7 @@ function EditCandidateExperienceForm({ filteredItem, handleClose,fetchData,setNo
         
         
         // Console mein changes dikhaane ke liye
-        console.log(`Field '${fieldName}' updated to:`, value);
+        // console.log(`Field '${fieldName}' updated to:`, value);
     };
     
     const isValidDate = (dateString) => {

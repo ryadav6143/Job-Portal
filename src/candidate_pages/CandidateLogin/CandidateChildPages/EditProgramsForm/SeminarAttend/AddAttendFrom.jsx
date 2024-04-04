@@ -79,7 +79,7 @@ function AddAttendForm({ handleCloseAttendClick, fetchData,setNotificationOpen,s
 
     try {
       const response = await candidatesApiService.addCandidateAttend(formData);
-      console.log("check for notification", response);
+      // console.log("check for notification", response);
       if (response) {
         setNotificationMessage(`added successfully`);
         setNotificationSeverity("success");

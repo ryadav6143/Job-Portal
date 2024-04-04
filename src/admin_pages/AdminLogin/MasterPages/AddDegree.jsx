@@ -49,7 +49,7 @@ function AddDegree() {
   const fetchUpdateData =async (id) => {
     try {
       const response = await adminApiService.getDegreeById(id);
-      console.log("check pput api response",response)
+      // console.log("check pput api response",response)
       setUpdateData(response);
       setSelectedExamType(response.exam_types_master.exam_name);
     } catch (error) {

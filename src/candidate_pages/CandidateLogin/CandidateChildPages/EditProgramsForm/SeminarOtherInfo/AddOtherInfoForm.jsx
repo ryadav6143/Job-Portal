@@ -53,7 +53,7 @@ function AddOtherInfoForm({ handleCloseOtherInfoClick, fetchData,setNotification
       const response = await candidatesApiService.addCandidateOtherinfo(
         formData
       );
-      console.log(response.data);
+      // console.log(response.data);
       if (response) {
         setNotificationMessage(`Added successfully`);
         setNotificationSeverity("success");

@@ -40,7 +40,7 @@ function AddCandidateResearchForm({ handleCloseResearchClick,fetchData,setNotifi
       hasErrors = true;}
   try {
       const response = await candidatesApiService.addCandidateResearch(formData);
-      console.log(response.data); 
+      // console.log(response.data); 
   
       if (response) {
         setNotificationMessage(`added successfully`);
@@ -67,7 +67,7 @@ function AddCandidateResearchForm({ handleCloseResearchClick,fetchData,setNotifi
     if (!hasErrors) {
       try {
         const response = await candidatesApiService.addCandidateResearch(formData);
-        console.log(response.data); 
+        // console.log(response.data); 
         handleCloseResearchClick();
         fetchData();
       } catch (error) {

@@ -74,7 +74,7 @@ function AddCandidateCopyrights({ handleClosecopyrightsClick,fetchData,setNotifi
           }
           try {
               const response = await candidatesApiService.addCandidateCopyright(formData);
-              console.log(response.data); 
+            //   console.log(response.data); 
               if (response) {
                 setNotificationMessage(`added successfully`);
                 setNotificationSeverity("success");

@@ -54,7 +54,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
         }));
         
         // Console mein changes dikhaane ke liye
-        console.log(`Field '${fieldName}' updated to:`, value);
+        // console.log(`Field '${fieldName}' updated to:`, value);
         validateField(fieldName, value);
     };
 

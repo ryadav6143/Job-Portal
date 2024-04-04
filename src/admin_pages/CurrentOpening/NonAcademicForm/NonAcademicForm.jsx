@@ -302,7 +302,7 @@ function NonAcademicForm() {
       setOtpButtonclicked(true);
       setShowHeaderFooter(false);
   
-      console.log("formDataToSend", formDataToSend);
+      // console.log("formDataToSend", formDataToSend);
       setformDataToSend(formDataToSend);
   
       const otpData = {
@@ -313,14 +313,14 @@ function NonAcademicForm() {
       setOtpData(otpData);
   
       const response = await apiService.generateOTP(otpData);
-      console.log("API Response:", response);
+      // console.log("API Response:", response);
       setSelectedComponent("OTPVerification");
     } catch (error) {
       console.error(
         "Error while posting form data and file:",
         error.response || error
       );
-      console.log(error.response.data);
+      // console.log(error.response.data);
     }
   };
   const isStepOptional = (step) => {
@@ -363,7 +363,7 @@ function NonAcademicForm() {
 
   //final
   const handleNext = async () => {
-    console.log("Form formValues:", formValues);
+    // console.log("Form formValues:", formValues);
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
@@ -374,7 +374,7 @@ function NonAcademicForm() {
     setSkipped(newSkipped);
 
     const isCurrentStepValid = inputValidations();
-    console.log("isCurrentStepValid", isCurrentStepValid);
+    // console.log("isCurrentStepValid", isCurrentStepValid);
     if (isCurrentStepValid) {
       // setActiveStep((prevActiveStep) => prevActiveStep + 1);
       const emailToCheck = formValues.UserDetails.email.trim();
@@ -400,20 +400,20 @@ function NonAcademicForm() {
             },
           }
         );
-        console.log("response", responseEmail.ok, responseContact.ok);
+        // console.log("response", responseEmail.ok, responseContact.ok);
         if (!responseEmail.ok) {
-          console.log("response", responseEmail.ok, responseContact.ok);
+          // console.log("response", responseEmail.ok, responseContact.ok);
           throw new Error(`HTTP error! Status: ${responseEmail.status}`);
         }
 
         if (!responseContact.ok) {
-          console.log("response", responseEmail.ok, responseContact.ok);
+          // console.log("response", responseEmail.ok, responseContact.ok);
           throw new Error(`HTTP error! Status: ${responseContact.status}`);
         }
 
         const dataEmail = await responseEmail.json();
         const dataContact = await responseContact.json();
-        console.log("dataEmail", dataEmail, dataContact);
+        // console.log("dataEmail", dataEmail, dataContact);
         if (dataEmail) {
           // alert("This email is already registered.");
 
@@ -426,7 +426,7 @@ function NonAcademicForm() {
           setAlertSeverity("error");
           setOpen(true);
         } else {
-          console.log("Email and contact do not exist in the database");
+          // console.log("Email and contact do not exist in the database");
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         }
       } catch (error) {
@@ -435,7 +435,7 @@ function NonAcademicForm() {
       // setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
 
-    console.log(formValues);
+    // console.log(formValues);
   };
 
   const handleBack = () => {

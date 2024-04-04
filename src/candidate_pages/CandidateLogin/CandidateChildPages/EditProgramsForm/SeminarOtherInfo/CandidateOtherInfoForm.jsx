@@ -23,7 +23,7 @@ const CandidateOtherInfoForm = () => {
     try {
 
       const fetchedData = await candidatesApiService.getCandidateMembershipInfo();
-      console.log("response?????????????????", fetchedData);
+      // console.log("response?????????????????", fetchedData);
       setOtherInfoItem(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -44,9 +44,9 @@ const CandidateOtherInfoForm = () => {
   };
 
   const handleEditClick = (itemId) => {
-    console.log("id??", itemId);
+    // console.log("id??", itemId);
     const filteredItem = otherInfoItem.find(item => item.id === itemId);
-    console.log("Filtered item:", filteredItem);
+    // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     // setEditItemId(itemId);
     setEditMode(true);

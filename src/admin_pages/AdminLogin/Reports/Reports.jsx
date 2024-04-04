@@ -58,7 +58,7 @@ function Reports() {
         selectedPost
       );
   
-      console.log("check count ", response);
+      // console.log("check count ", response);
       setData(response.candidateappliedpostData);
       setCount(response);
   
@@ -88,7 +88,7 @@ function Reports() {
       try {
         const response = await adminApiService.getJobCategories();
         setJobCategories(response.data);
-        console.log("response.data", response.data);
+        // console.log("response.data", response.data);
       } catch (error) {
         console.error("Error fetching job categories:", error);
       }
@@ -144,7 +144,7 @@ function Reports() {
   };
 
   const handleCandidateInfoClick = (candidate) => {
-    console.log("Selected Candidate Data:", candidate);
+    // console.log("Selected Candidate Data:", candidate);
     setSelectedCandidate(candidate.id);
   };
 
@@ -211,7 +211,7 @@ function Reports() {
         signal
       );
 
-      console.log("getCandidatesById>>", response.data);
+      // console.log("getCandidatesById>>", response.data);
       setSelectedCandidate(response.data);
       setLoadingPopup(false);
     } catch (error) {

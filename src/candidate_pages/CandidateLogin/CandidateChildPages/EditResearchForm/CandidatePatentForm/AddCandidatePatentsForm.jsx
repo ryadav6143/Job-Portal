@@ -72,7 +72,7 @@ function AddCandidatePatentsForm({ handleClosePatentClick,fetchData,setNotificat
           }
           try {
               const response = await candidatesApiService.addCandidatePatent(formData);
-              console.log(response.data); 
+            //   console.log(response.data); 
 
               if (response) {
                 setNotificationMessage(`added successfully`);

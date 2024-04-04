@@ -698,7 +698,7 @@ const adminApiService = {
           },
         }
       );
-      console.log("Response:", response.data);
+      // console.log("Response:", response.data);
       return response.data;
     } catch (error) {
       console.error("Error:", error.response.data);

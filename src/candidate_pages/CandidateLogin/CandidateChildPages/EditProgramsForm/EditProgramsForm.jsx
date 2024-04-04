@@ -35,7 +35,7 @@ function EditProgramsForm() {
      // setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateById();
       setData(fetchedData)
-      console.log("fetchedData", fetchedData); 
+      // console.log("fetchedData", fetchedData); 
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
@@ -151,7 +151,7 @@ function EditProgramsForm() {
       ...prevData,
       candidate_seminar_organiseds: updatedOrganised,
     }));
-    console.log("handleField", field, value, seminarOrganisedField);
+    // console.log("handleField", field, value, seminarOrganisedField);
     setSeminarOrganisedField((prev) => ({
       ...prev,
       [field]: value.toString(),
@@ -167,7 +167,7 @@ function EditProgramsForm() {
       ...prevData,
       candidate_seminar_attends: updatedAttend,
     }));
-    console.log("handleField", field, value, seminarAttendField);
+    // console.log("handleField", field, value, seminarAttendField);
     setSeminarAttendField((prev) => ({
       ...prev,
       [field]: value.toString(),
@@ -182,7 +182,7 @@ function EditProgramsForm() {
       ...prevData,
       candidate_other_membership_infos: updatedOtherInfo,
     }));
-    console.log("handleField", field, value, membershipInfoField);
+    // console.log("handleField", field, value, membershipInfoField);
     setMembershipInfoField((prev) => ({
       ...prev,
       [field]: value.toString(),
@@ -190,7 +190,7 @@ function EditProgramsForm() {
     }));
   };
   const handleChange = (fieldName, value) => {
-    console.log("handlefild", fieldName, value, updateField);
+    // console.log("handlefild", fieldName, value, updateField);
     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
   };

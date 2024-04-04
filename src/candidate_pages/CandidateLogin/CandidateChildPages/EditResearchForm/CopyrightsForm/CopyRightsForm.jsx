@@ -20,7 +20,7 @@ const CopyRightsForm = () => {
   const fetchData = async () => {
     try {      
       const fetchedData = await candidatesApiService.getCandidateCopyright();
-      console.log("copyrights", fetchedData);
+      // console.log("copyrights", fetchedData);
       setcopyrightsItem(fetchedData);
       
     } catch (error) {
@@ -42,9 +42,9 @@ const CopyRightsForm = () => {
 
 
   const handleEditClick = (itemId) => {
-    console.log("id??",itemId);
+    // console.log("id??",itemId);
     const filteredItem = copyrightsItem.find(item => item.id === itemId);
-    console.log("Filtered item:", filteredItem);
+    // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     // setEditItemId(itemId);
     setEditMode(true);
@@ -61,7 +61,7 @@ const CopyRightsForm = () => {
     try {
       await candidatesApiService.removeCandidateCopyright(deleteItemId);
       setcopyrightsItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
-      console.log("Item deleted successfully");
+      // console.log("Item deleted successfully");
       setNotificationMessage(`deleted successfully`);
       setNotificationSeverity("success");
       setNotificationOpen(true);

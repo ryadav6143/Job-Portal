@@ -5,7 +5,7 @@ import apiService from "../../../Services/ApiServices";
 import Notification from "../../../Notification/Notification";
 
 function OTPVerification({ transferAllData,transferDropCvData, otpData }) {
-  console.log("AllData", transferAllData);
+  // console.log("AllData", transferAllData);
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [verificationError, setVerificationError] = useState(null);
@@ -17,7 +17,7 @@ function OTPVerification({ transferAllData,transferDropCvData, otpData }) {
   let digit = contact_1 ? contact_1.slice(-2) : "";
   const verifyOtp = async () => {
     try {
-      console.log("Contact 1:", otp, otpData);
+      // console.log("Contact 1:", otp, otpData);
 
       const response = await apiService.verifyEmailOTP({
         ...otpData,
@@ -46,7 +46,7 @@ function OTPVerification({ transferAllData,transferDropCvData, otpData }) {
               setNotificationOpen(true);
             }
             navigate("/submit");
-            console.log("Form data and file successfully posted to the API");
+            // console.log("Form data and file successfully posted to the API");
           } catch (error) {
             console.error(
               "Failed to post form data and file to the API",
@@ -65,7 +65,7 @@ function OTPVerification({ transferAllData,transferDropCvData, otpData }) {
               setNotificationSeverity("warning");
               setNotificationOpen(true);
             }
-            console.log("Form data and file successfully posted to the API");
+            // console.log("Form data and file successfully posted to the API");
             navigate("/submit");
           } catch (error) {
             console.error(
@@ -100,7 +100,7 @@ function OTPVerification({ transferAllData,transferDropCvData, otpData }) {
         ...otpData,
       });
 
-      console.log("API Response:", response);
+      // console.log("API Response:", response);
       // alert("OTP Resent Successfully!");
       setNotificationMessage("OTP Resent Successfully!");
       setNotificationSeverity("success");

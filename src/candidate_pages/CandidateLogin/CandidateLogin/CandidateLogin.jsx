@@ -25,7 +25,7 @@ function CandidateLogin({ handleLogin }) {
         login_field: username,
         password: password,
       });
-      console.log("response", response);
+      // console.log("response", response);
       if (response && response.data && response.data.token) {
         navigate(`/candidate-dashboard/personal-details`);
         sessionStorage.setItem("Token", JSON.stringify(response.data));
