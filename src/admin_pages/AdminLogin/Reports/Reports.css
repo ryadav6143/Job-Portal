@@ -16,17 +16,19 @@
   padding-left: 0;
 }
 
-.lower-box {
-  display: flex;
-  justify-content: center;
-}
-
 .education-section {
   flex: 1;
   padding-right: 10px;
   overflow-y: auto;
   max-height: 200px;
 }
+
+.lower-box {
+  display: flex;
+  justify-content: center;
+}
+
+
 
 .experience-section {
   flex: 1;
