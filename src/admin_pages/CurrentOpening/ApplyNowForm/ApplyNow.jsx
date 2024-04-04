@@ -27,7 +27,7 @@ function ApplyNow() {
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  const [showHeaderFooter, setShowHeaderFooter] = useState(true); 
+  const [showHeaderFooter, setShowHeaderFooter] = useState(true);
 
   const [formValues, setFormValues] = useState({
     UserDetails: {
@@ -285,12 +285,10 @@ function ApplyNow() {
   //   }
   // };
 
-
-
   const transferAllData = async () => {
     try {
       const formDataToSend = new FormData();
-  
+
       Object.entries(formValues.UserDetails).forEach(([key, value]) => {
         if (key === "educations" && Array.isArray(value)) {
           formDataToSend.append(key, JSON.stringify(value));
@@ -298,21 +296,21 @@ function ApplyNow() {
           formDataToSend.append(key, value);
         }
       });
-  
+
       setformDataToSend(formDataToSend);
       setOtpButtonclicked(true);
       setShowHeaderFooter(false);
-  
+
       console.log("formDataToSend", formDataToSend);
       setformDataToSend(formDataToSend);
-  
+
       const otpData = {
         email: formValues.UserDetails.email,
         contact_1: formValues.UserDetails.contact_1,
         first_name: formValues.UserDetails.first_name,
       };
       setOtpData(otpData);
-  
+
       const response = await apiService.generateOTP(otpData);
       console.log("API Response:", response);
       setSelectedComponent("OTPVerification");
@@ -324,7 +322,7 @@ function ApplyNow() {
       console.log(error.response.data);
     }
   };
-  
+
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -803,7 +801,7 @@ function ApplyNow() {
     const dobYear = dob ? new Date(dob).getFullYear() : null;
     switch (activeStep) {
       case 0:
-        // caseZerovalidation();
+        caseZerovalidation();
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;
@@ -813,116 +811,7 @@ function ApplyNow() {
         }
 
       case 1:
-        if (
-          !formValues.UserDetails.educations[0].country ||
-          !formValues.UserDetails.educations[1].country
-        ) {
-          errors.country = "! Country is Required";
-        }
-        // Validation for first education entry
-        if (!formValues.UserDetails.educations[0].year_start) {
-          errors.year_start = "! Year of Joining is Required";
-        } else {
-          const enteredStartYear = parseInt(
-            formValues.UserDetails.educations[0].year_start,
-            10
-          );
-
-          if (
-            isNaN(enteredStartYear) ||
-            enteredStartYear > currentYear ||
-            enteredStartYear < currentYear - 100
-          ) {
-            errors.year_start =
-              "! Please enter a valid year within the last 100 years.";
-          }
-        }
-
-        if (!formValues.UserDetails.educations[0].year_end) {
-          errors.year_end = "! Passing Year is Required";
-        } else {
-          const enteredEndYear = parseInt(
-            formValues.UserDetails.educations[0].year_end,
-            10
-          );
-
-          if (
-            isNaN(enteredEndYear) ||
-            enteredEndYear > currentYear ||
-            enteredEndYear < currentYear - 100
-          ) {
-            errors.year_end =
-              "! Please enter a valid passing year within the last 100 years.";
-          }
-        }
-
-        if (!formValues.UserDetails.educations[1].year_start) {
-          errors.year_start_2 = "! Year of Joining is Required";
-        } else {
-          const enteredStartYear_2 = parseInt(
-            formValues.UserDetails.educations[1].year_start,
-            10
-          );
-
-          if (
-            isNaN(enteredStartYear_2) ||
-            enteredStartYear_2 > currentYear ||
-            enteredStartYear_2 < currentYear - 100
-          ) {
-            errors.year_start_2 =
-              "! Please enter a valid year within the last hundred years.";
-          }
-        }
-
-        if (!formValues.UserDetails.educations[1].year_end) {
-          errors.year_end_2 = "! Passing Year is Required";
-        } else {
-          const enteredEndYear_2 = parseInt(
-            formValues.UserDetails.educations[1].year_end,
-            10
-          );
-
-          if (
-            isNaN(enteredEndYear_2) ||
-            enteredEndYear_2 > currentYear ||
-            enteredEndYear_2 < currentYear - 100
-          ) {
-            errors.year_end_2 =
-              "! Please enter a valid passing year within the last 100 years.";
-          }
-        }
-
-        
-
-        if (
-          !formValues.UserDetails.educations[0].institute_name ||
-          !formValues.UserDetails.educations[1].institute_name
-        ) {
-          errors.institute_name = "! School Name is Required";
-        }
-        if (
-          !formValues.UserDetails.educations[0].board_university_name ||
-          !formValues.UserDetails.educations[0].board_university_name
-        ) {
-          errors.board_university_name = "! Board is Required";
-        }
-
-        if (
-          !formValues.UserDetails.educations[0].grade_division ||
-          !formValues.UserDetails.educations[0].grade_division
-        ) {
-          errors.grade_division = "! Division is Required";
-        }
-        if (
-          !formValues.UserDetails.educations[0].grade_percent ||
-          !formValues.UserDetails.educations[1].grade_percent
-        ) {
-          errors.grade_percent = "! Percentage is Required";
-        }
-        if (!formValues.UserDetails.educations[1].stream) {
-          errors.stream = "! Stream is Required";
-        }
-
+        caseOnevalidation();
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;
@@ -931,7 +820,7 @@ function ApplyNow() {
           return true;
         }
       case 2:
-        // caseTwovalidation();
+        caseTwovalidation();
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;
@@ -956,7 +845,7 @@ function ApplyNow() {
           return true;
         }
       case 5:
-        // caseFivevalidation();
+        caseFivevalidation();
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;

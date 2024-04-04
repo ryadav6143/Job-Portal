@@ -63,88 +63,97 @@ function InterviewSchedule() {
         <div className="is-header pc">
           <div className="row header-item">
             <div className="col-md-3">
-              <a className="a1 a11" onClick={() => showComponent("Component1")}>
+              <button
+                className="a1 a11"
+                onClick={() => showComponent("Component1")}
+              >
                 <img
                   className="is-header-logo"
                   src={logo1}
                   alt="Academics Logo"
                 />
                 ACADEMICS
-              </a>
+              </button>
             </div>
             <div className="col-md-3">
-              <a className="a1" onClick={() => showComponent("Component2")}>
+              <button
+                className="a1"
+                onClick={() => showComponent("Component2")}
+              >
                 <img
                   className="is-header-logo"
                   src={logo3}
                   alt="Research Logo"
                 />
                 RESEARCH
-              </a>
+              </button>
             </div>
             <div className="col-md-3">
-              <a onClick={() => showComponent("Component3")}>
+              <button onClick={() => showComponent("Component3")}>
                 <img
                   className="is-header-logo"
                   src={logo2}
                   alt="Administration Logo"
                 />
                 ADMINISTRATION
-              </a>
+              </button>
             </div>
             <div className="col-md-3">
-              <a className="a1" onClick={() => showComponent("Component4")}>
+              <button
+                className="a1"
+                onClick={() => showComponent("Component4")}
+              >
                 <img
                   className="is-header-logo"
                   src={logo4}
                   alt="Technical Logo"
                 />
                 TECHNICAL
-              </a>
+              </button>
             </div>
           </div>
         </div>
         <div className="for-mobile">
           <ul>
             <li>
-              <a onClick={() => showComponent("Component1")}>
+              <button onClick={() => showComponent("Component1")}>
                 <img
                   className="is-header-logo"
                   src={logo1}
                   alt="Academics Logo"
                 />
                 ACADEMICS
-              </a>
+              </button>
             </li>
             <li>
-              <a onClick={() => showComponent("Component2")}>
+              <button onClick={() => showComponent("Component2")}>
                 <img
                   className="is-header-logo"
                   src={logo3}
                   alt="Research Logo"
                 />
                 RESEARCH
-              </a>
+              </button>
             </li>
             <li>
-              <a onClick={() => showComponent("Component3")}>
+              <button onClick={() => showComponent("Component3")}>
                 <img
                   className="is-header-logo"
                   src={logo2}
                   alt="Administration Logo"
                 />
                 ADMINISTRATION
-              </a>
+              </button>
             </li>
             <li>
-              <a onClick={() => showComponent("Component4")}>
+              <button onClick={() => showComponent("Component4")}>
                 <img
                   className="is-header-logo"
                   src={logo4}
                   alt="Technical Logo"
                 />
                 TECHNICAL
-              </a>
+              </button>
             </li>
           </ul>
         </div>

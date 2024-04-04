@@ -2,17 +2,19 @@ import axios from "axios";
 import Notification from "../Notification/Notification";
 import { ADMIN_BASE_URL } from "../config/config";
 
-
 const adminApiService = {
-
-  getJobCategories: () => {
-    return axios.get(`${ADMIN_BASE_URL}/jobCategory`, {});
+  getJobCategories: async () => {
+    try {
+      return axios.get(`${ADMIN_BASE_URL}/jobCategory`, {});
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
   },
   AddCategory: async (data) => {
     try {
       const response = await axios.post(`${ADMIN_BASE_URL}/jobCategory`, data, {
         headers: {
-          'access-token': getAccessToken(),
+          "access-token": getAccessToken(),
         },
       });
       return response.data;
@@ -20,39 +22,61 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  DeleteCategory: (categoryId) => {
-    axios
-      .delete(`${ADMIN_BASE_URL}/jobCategory/${categoryId}`, {
-        headers: {
-          "access-token": getAccessToken(),
-        },
-      })
+  DeleteCategory: async (categoryId) => {
+    try {
+      const response = axios.delete(
+        `${ADMIN_BASE_URL}/jobCategory/${categoryId}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
+      return response;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
   },
   updateCategory: async (updateID, data) => {
     try {
-      const response = await axios.put(`${ADMIN_BASE_URL}/jobCategory/${updateID}`, data, {
-        headers: {
-          'access-token': getAccessToken(),
-        },
-      });
+      const response = await axios.put(
+        `${ADMIN_BASE_URL}/jobCategory/${updateID}`,
+        data,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  getExam: () => {
-    return axios.get(`${ADMIN_BASE_URL}/examTypeMaster`);
+  getExam: async () => {
+    try {
+      return axios.get(`${ADMIN_BASE_URL}/examTypeMaster`);
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
   },
-  getDegreeTypeMaster: () => {
-    return axios.get(`${ADMIN_BASE_URL}/degreeTypeMaster`);
+  getDegreeTypeMaster: async () => {
+    try {
+      return axios.get(`${ADMIN_BASE_URL}/degreeTypeMaster`);
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
   },
   getDegreeById: async (id) => {
     try {
-      const response = await axios.get(`${ADMIN_BASE_URL}/degreeTypeMaster/${id}`, {
-        headers: {
-          "access-token": getAccessToken(),
-        },
-      });
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/degreeTypeMaster/${id}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       throw error;
@@ -60,7 +84,6 @@ const adminApiService = {
   },
   addDegreeType: async (selectedExamId, newDegree) => {
     try {
-
       const response = await axios.post(
         `${ADMIN_BASE_URL}/degreeTypeMaster`,
         {
@@ -96,11 +119,15 @@ const adminApiService = {
   },
   addDepartment: async (newDepartmentName) => {
     try {
-      const response = await axios.post(`${ADMIN_BASE_URL}/departmentMaster`, { dept_name: newDepartmentName }, {
-        headers: {
-          'access-token': getAccessToken()
+      const response = await axios.post(
+        `${ADMIN_BASE_URL}/departmentMaster`,
+        { dept_name: newDepartmentName },
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
         }
-      });
+      );
       return response.data;
     } catch (error) {
       throw new Error("Error adding department:", error);
@@ -110,8 +137,8 @@ const adminApiService = {
     try {
       await axios.delete(`${ADMIN_BASE_URL}/departmentMaster/${id}`, {
         headers: {
-          'access-token': getAccessToken()
-        }
+          "access-token": getAccessToken(),
+        },
       });
     } catch (error) {
       throw new Error("Error deleting department:", error);
@@ -119,32 +146,44 @@ const adminApiService = {
   },
   updateDepartment: async (newDepartmentName, editingDepartmentId) => {
     try {
-      const response = await axios.put(`${ADMIN_BASE_URL}/departmentMaster`, {
-        dept_name: newDepartmentName,
-        department_id: editingDepartmentId
-      }, {
-        headers: {
-          'access-token': getAccessToken()
+      const response = await axios.put(
+        `${ADMIN_BASE_URL}/departmentMaster`,
+        {
+          dept_name: newDepartmentName,
+          department_id: editingDepartmentId,
+        },
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
         }
-      });
+      );
 
       return response.data;
     } catch (error) {
       throw new Error("Error updating department:", error);
     }
   },
-  getDepartments: () => {
-    return axios.get(`${ADMIN_BASE_URL}/departmentMaster`);
+  getDepartments: async () => {
+    try {
+      return axios.get(`${ADMIN_BASE_URL}/departmentMaster`);
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
   },
   addExamType: async (newExamType) => {
     try {
-      const response = await axios.post(`${ADMIN_BASE_URL}/examTypeMaster`, {
-        exam_name: newExamType,
-      }, {
-        headers: {
-          'access-token': getAccessToken()
+      const response = await axios.post(
+        `${ADMIN_BASE_URL}/examTypeMaster`,
+        {
+          exam_name: newExamType,
+        },
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
         }
-      });
+      );
       return response.data;
     } catch (error) {
       throw new Error("Error adding exam type:", error);
@@ -152,14 +191,18 @@ const adminApiService = {
   },
   updateExamType: async (selectedExam) => {
     try {
-      const response = await axios.put(`${ADMIN_BASE_URL}/examTypeMaster`, {
-        examtypes_id: selectedExam.id,
-        exam_name: selectedExam.exam_name,
-      }, {
-        headers: {
-          'access-token': getAccessToken()
+      const response = await axios.put(
+        `${ADMIN_BASE_URL}/examTypeMaster`,
+        {
+          examtypes_id: selectedExam.id,
+          exam_name: selectedExam.exam_name,
+        },
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
         }
-      });
+      );
       return response.data;
     } catch (error) {
       throw new Error("Error updating exam type:", error);
@@ -201,11 +244,14 @@ const adminApiService = {
   },
   deletePost: async (categoryId) => {
     try {
-      const response = await axios.delete(`${ADMIN_BASE_URL}/appliedPost/${categoryId}`, {
-        headers: {
-          "access-token": getAccessToken(),
-        },
-      });
+      const response = await axios.delete(
+        `${ADMIN_BASE_URL}/appliedPost/${categoryId}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response; // Change to return the whole response
     } catch (error) {
       throw new Error("Error deleting post:", error); // Remove the comma after "post"
@@ -224,7 +270,7 @@ const adminApiService = {
       const updatedData = {
         appliedpost_id: selectedPost.id,
         job_category_master_id: selectedPost.job_category_master.id,
-        post_name: selectedPost.post_name
+        post_name: selectedPost.post_name,
       };
 
       await axios.put(`${ADMIN_BASE_URL}/appliedPost`, updatedData, {
@@ -247,7 +293,7 @@ const adminApiService = {
         },
         {
           headers: {
-            "access-token": getAccessToken()
+            "access-token": getAccessToken(),
           },
         }
       );
@@ -256,7 +302,12 @@ const adminApiService = {
       throw new Error("Error adding subject:", error);
     }
   },
-  updateSubject: async (newSubject, editingSubject, newSubjectType, newSubjectDescription) => {
+  updateSubject: async (
+    newSubject,
+    editingSubject,
+    newSubjectType,
+    newSubjectDescription
+  ) => {
     try {
       const response = await axios.put(
         `${ADMIN_BASE_URL}/subjectMaster`,
@@ -268,7 +319,7 @@ const adminApiService = {
         },
         {
           headers: {
-            "access-token": getAccessToken()
+            "access-token": getAccessToken(),
           },
         }
       );
@@ -281,7 +332,7 @@ const adminApiService = {
     try {
       await axios.delete(`${ADMIN_BASE_URL}/subjectMaster/${id}`, {
         headers: {
-          "access-token": getAccessToken()
+          "access-token": getAccessToken(),
         },
       });
     } catch (error) {
@@ -296,40 +347,58 @@ const adminApiService = {
       throw new Error("Error fetching applied sub posts:", error);
     }
   },
-  getJobProfile: () => {
-    return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster`);
+  getJobProfile: async () => {
+    // return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster`);
+    try {
+      return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster`);
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
   },
   postJobProfile: async (formValues) => {
     try {
-      const response = await axios.post(`${ADMIN_BASE_URL}/jobProfileMaster`, formValues, {
-        headers: {
-          'access-token': getAccessToken(),
-        },
-      });
+      const response = await axios.post(
+        `${ADMIN_BASE_URL}/jobProfileMaster`,
+        formValues,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       Notification({
         open: true,
-        handleClose: () => { }, // Define handleClose function if needed
+        handleClose: () => {}, // Define handleClose function if needed
         alertMessage: `Error posting job profile: ${error.message}`,
         alertSeverity: "error",
       });
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  getJobProfileById: (profileId) => {
-    return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/${profileId}`);
+  getJobProfileById: async (profileId) => {
+    // return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/${profileId}`);
+    try {
+      return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/${profileId}`);
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
   },
   deleteJobProfileById: (profileID) => {
     return axios.delete(`${ADMIN_BASE_URL}/jobProfileMaster/${profileID}`);
   },
   updateJobProfile: async (profileID) => {
     try {
-      const response = await axios.put(`${ADMIN_BASE_URL}/jobProfileMaster`, profileID, {
-        headers: {
-          'access-token': getAccessToken(),
-        },
-      });
+      const response = await axios.put(
+        `${ADMIN_BASE_URL}/jobProfileMaster`,
+        profileID,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
@@ -342,8 +411,8 @@ const adminApiService = {
         requestData,
         {
           headers: {
-            'access-token': getAccessToken(),
-          }
+            "access-token": getAccessToken(),
+          },
         }
       );
       return response.data;
@@ -361,7 +430,7 @@ const adminApiService = {
         },
         {
           headers: {
-            "access-token": getAccessToken()
+            "access-token": getAccessToken(),
           },
         }
       );
@@ -388,11 +457,11 @@ const adminApiService = {
         {
           appliedSubPost_id: selectedPost.id,
           applied_post_masters_id: selectedPost.applied_post_master.id,
-          subpost_name: updatePost
+          subpost_name: updatePost,
         },
         {
           headers: {
-            "access-token": getAccessToken()
+            "access-token": getAccessToken(),
           },
         }
       );
@@ -402,9 +471,12 @@ const adminApiService = {
   },
   renderCandidateResume: async (candidateId) => {
     try {
-      const response = await axios.get(`${ADMIN_BASE_URL}/candidates/renderCandidateResume?candidate_id=${candidateId}`, {
-        responseType: 'blob'
-      });
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/candidates/renderCandidateResume?candidate_id=${candidateId}`,
+        {
+          responseType: "blob",
+        }
+      );
       return response.data;
     } catch (error) {
       throw error;
@@ -414,7 +486,7 @@ const adminApiService = {
     try {
       const response = await axios.get(`${ADMIN_BASE_URL}/admin/getAdmin`, {
         headers: {
-          'access-token': getAccessToken(),
+          "access-token": getAccessToken(),
         },
       });
       return response.data;
@@ -426,7 +498,7 @@ const adminApiService = {
     try {
       const response = await axios.get(`${ADMIN_BASE_URL}/adminRole/getRole`, {
         headers: {
-          'access-token': getAccessToken(),
+          "access-token": getAccessToken(),
         },
       });
       return response.data;
@@ -436,11 +508,14 @@ const adminApiService = {
   },
   getRightsList: async () => {
     try {
-      const response = await axios.get(`${ADMIN_BASE_URL}/adminRights/getRights`, {
-        headers: {
-          'access-token': getAccessToken(),
-        },
-      });
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/adminRights/getRights`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
@@ -448,11 +523,15 @@ const adminApiService = {
   },
   createRole: async (data) => {
     try {
-      const response = await axios.post(`${ADMIN_BASE_URL}/adminRole/createRole`, data, {
-        headers: {
-          'access-token': getAccessToken(),
-        },
-      });
+      const response = await axios.post(
+        `${ADMIN_BASE_URL}/adminRole/createRole`,
+        data,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
@@ -460,11 +539,15 @@ const adminApiService = {
   },
   createRights: async (data) => {
     try {
-      const response = await axios.post(`${ADMIN_BASE_URL}/adminRights/createRights`, data, {
-        headers: {
-          'access-token': getAccessToken(),
-        },
-      });
+      const response = await axios.post(
+        `${ADMIN_BASE_URL}/adminRights/createRights`,
+        data,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
@@ -472,82 +555,113 @@ const adminApiService = {
   },
   updateRights: async (data) => {
     try {
-      const response = await axios.put(`${ADMIN_BASE_URL}/adminRights/updateRights`, data, {
-        headers: {
-          'access-token': getAccessToken(),
-        },
-      });
+      const response = await axios.put(
+        `${ADMIN_BASE_URL}/adminRights/updateRights`,
+        data,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  deleteAdminRoleById: (roleID) => {
-    return axios.delete(`${ADMIN_BASE_URL}/adminRole/removeRoleById/${roleID}`, {
-      headers: {
-        'access-token': getAccessToken(),
-      },
+  deleteAdminRoleById: async (roleID) => {
+    try {
+      return axios.delete(
+        `${ADMIN_BASE_URL}/adminRole/removeRoleById/${roleID}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
     }
-
-    );
   },
-  deleteRightsById: (rightsID) => {
-    return axios.delete(`${ADMIN_BASE_URL}/adminRights/removeRights/${rightsID}`, {
-      headers: {
-        'access-token': getAccessToken(),
-      },
+  deleteRightsById: async (rightsID) => {
+    try {
+      return axios.delete(
+        `${ADMIN_BASE_URL}/adminRights/removeRights/${rightsID}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
     }
-
-    );
   },
-  deleteAdminById: (adminID) => {
-    return axios.delete(`${ADMIN_BASE_URL}/admin/removeAdmin/${adminID}`, {
-      headers: {
-        'access-token': getAccessToken(),
-      },
+  deleteAdminById: async (adminID) => {
+    try {
+      try {
+        return axios.get(`${ADMIN_BASE_URL}/degreeTypeMaster`);
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
     }
-
-    );
   },
-  updateRoleById: (data) => {
-    return axios.put(`${ADMIN_BASE_URL}/adminRole/updateRoleById`, data, {
-      headers: {
-        'access-token': getAccessToken(),
-      },
+  updateRoleById: async (data) => {
+    try {
+      return axios.put(`${ADMIN_BASE_URL}/adminRole/updateRoleById`, data, {
+        headers: {
+          "access-token": getAccessToken(),
+        },
+      });
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
     }
-
-    );
   },
   updateAdminBySuperAdmin: async (updateData) => {
     try {
-      const response = await axios.put(`${ADMIN_BASE_URL}/admin/updateAdminBySuperAdmin`, updateData, {
-        headers: {
-          'access-token': getAccessToken(),
-        },
-      });
+      const response = await axios.put(
+        `${ADMIN_BASE_URL}/admin/updateAdminBySuperAdmin`,
+        updateData,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  getCandidatesById: (listID,signal) => {
-    // const controller = new AbortController();
-    //   controller.signal = signal;
-    return axios.get(`${ADMIN_BASE_URL}/admin/getCandidatesById/${listID}`, {
-      headers: {
-        'access-token': getAccessToken(),
-      },signal
-      
-    });
-  },
-  fetchData: async (currentPage, itemsPerPage, selectedCategory, selectedPost) => {
+  getCandidatesById: async (listID, signal) => {
     try {
-
-      const response = await axios.get(`${ADMIN_BASE_URL}/candidateAppliedPost/getCandidatesAppliedPostSorted?page=${currentPage}&limit=${itemsPerPage}&category=${selectedCategory}&appliedPost=${selectedPost}`, {
+      return axios.get(`${ADMIN_BASE_URL}/admin/getCandidatesById/${listID}`, {
         headers: {
-          'access-token': getAccessToken(),
+          "access-token": getAccessToken(),
         },
+        signal,
       });
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
+  fetchData: async (
+    currentPage,
+    itemsPerPage,
+    selectedCategory,
+    selectedPost
+  ) => {
+    try {
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/candidateAppliedPost/getCandidatesAppliedPostSorted?page=${currentPage}&limit=${itemsPerPage}&category=${selectedCategory}&appliedPost=${selectedPost}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -556,12 +670,14 @@ const adminApiService = {
   },
   getAllInterview: async (currentPage, itemsPerPage) => {
     try {
-
-      const response = await axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}`, {
-        headers: {
-          'access-token': getAccessToken(),
-        },
-      });
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -570,24 +686,25 @@ const adminApiService = {
   },
   changeJobProfileIsActive: async (jobProfileId, isActive) => {
     try {
-      const response = await axios.put(`${ADMIN_BASE_URL}/jobProfileMaster/changeJobProfileIsActive`,
+      const response = await axios.put(
+        `${ADMIN_BASE_URL}/jobProfileMaster/changeJobProfileIsActive`,
         {
           jobprofile_id: jobProfileId,
-          is_active: isActive
-        }, 
-        {
-        headers: {
-          'access-token': getAccessToken(),
+          is_active: isActive,
         },
-      });
-      console.log('Response:', response.data);
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
+      console.log("Response:", response.data);
       return response.data;
     } catch (error) {
-      console.error('Error:', error.response.data);
+      console.error("Error:", error.response.data);
       throw error;
     }
-  }
-
+  },
 };
 
 function getAccessToken() {

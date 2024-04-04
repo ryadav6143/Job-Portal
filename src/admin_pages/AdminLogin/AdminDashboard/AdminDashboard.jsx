@@ -6,7 +6,6 @@ import AdminAuthRoutes from "../../../routes/AdminAuthRoutes";
 import Sidenav from "../../TestPages/Sidenav";
 import AdminHeader from "../admin_header/AdminHeader";
 
-
 import { Container, Row, Col, Card } from "react-bootstrap";
 
 function AdminDashboard() {
@@ -23,61 +22,55 @@ function AdminDashboard() {
     role: "Admin",
   };
 
-
-
   return (
     <>
-
-
-
-
-      <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        margin: 0,
-        padding: 0,
-      }}
-    >
       <div
         style={{
           display: "flex",
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-          height: "5em",
-          width: "100%",
+          flexDirection: "column",
           margin: 0,
           padding: 0,
         }}
       >
-        <AdminHeader />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexGrow: 1,
-          position: "relative",
-          margin: 0,
-          height: "85vh",
-          width: "100%",
-        }}
-      >
         <div
           style={{
-            maxWidth: "30%",
-            flexShrink: 0,
-            textAlign: "left",
-            overflowY: "auto",
-            overflowX: "hidden",
+            display: "flex",
+            position: "sticky",
+            top: 0,
+            zIndex: 50,
+            height: "5em",
+            width: "100%",
+            margin: 0,
+            padding: 0,
           }}
         >
-          <SideBar />
+          <AdminHeader />
         </div>
+        <div
+          style={{
+            display: "flex",
+            flexGrow: 1,
+            position: "relative",
+            margin: 0,
+            height: "85vh",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              maxWidth: "30%",
+              flexShrink: 0,
+              textAlign: "left",
+              overflowY: "auto",
+              overflowX: "hidden",
+            }}
+          >
+            <SideBar />
+          </div>
 
-        {/* <h1>rahul</h1> */}
- 
-        {/* <Container className="mt-4">
+          {/* <h1>rahul</h1> */}
+
+          {/* <Container className="mt-4">
       <Row>
         <Col md={3} >
           <Card style={{ background: "#40189D" }}>
@@ -133,42 +126,40 @@ function AdminDashboard() {
       </Row>
     </Container> */}
 
-        <div>
-          <main>
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                {pathnames.map((name, index) => {
-                  const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
-                  const isLast = index === pathnames.length - 1;
-                  return (
-                    <li class="breadcrumb-item" style={{marginLeft:"15px"}} key={routeTo}>
-                      {isLast ? (
-                        <span>{name}</span>
-                      ) : (
-                        <Link to={routeTo}>{name}</Link>
-                      )}
-                    </li>
-                  );
-                })}
-              </ol>
-            </nav>
-          </main>
+          <div>
+            <main>
+              <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                  {pathnames.map((name, index) => {
+                    const routeTo = `/${pathnames
+                      .slice(0, index + 1)
+                      .join("/")}`;
+                    const isLast = index === pathnames.length - 1;
+                    return (
+                      <li
+                        className="breadcrumb-item"
+                        style={{ marginLeft: "15px" }}
+                        key={routeTo}
+                      >
+                        {isLast ? (
+                          <span>{name}</span>
+                        ) : (
+                          <Link to={routeTo}>{name}</Link>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ol>
+              </nav>
+            </main>
+          </div>
+
+          <div style={{ flexGrow: 1, overflowY: "auto" }}>
+            <Outlet />
+          </div>
         </div>
-
-     
-
-        
-        <div style={{ flexGrow: 1, overflowY: "auto" }}>
-          <Outlet />   
-        </div>    
       </div>
-
-    </div>
- 
-
-
     </>
-  
   );
 }
 export default AdminDashboard;

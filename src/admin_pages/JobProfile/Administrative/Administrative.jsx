@@ -26,7 +26,7 @@ function Administrative() {
         </p>
       </div>
       <div className="my-table table-responsive">
-        <table class="table">
+        <table className="table">
           <thead>
             <tr>
               <th scope="col">Designation</th>
@@ -86,7 +86,7 @@ function Administrative() {
             Computer Science & Engineering / IT
           </summary>
           <div className="drp-table table-responsive">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Designation</th>
@@ -148,7 +148,7 @@ function Administrative() {
             Computer Science & Engineering / IT
           </summary>
           <div className="drp-table table-responsive">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Designation</th>
@@ -210,7 +210,7 @@ function Administrative() {
             Computer Science & Engineering / IT
           </summary>
           <div className="drp-table table-responsive">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Designation</th>
@@ -272,7 +272,7 @@ function Administrative() {
             Computer Science & Engineering / IT
           </summary>
           <div className="drp-table table-responsive">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Designation</th>
@@ -334,7 +334,7 @@ function Administrative() {
             Computer Science & Engineering / IT
           </summary>
           <div className="drp-table table-responsive">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Designation</th>
@@ -396,7 +396,7 @@ function Administrative() {
             Computer Science & Engineering / IT
           </summary>
           <div className="drp-table table-responsive">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Designation</th>
@@ -458,7 +458,7 @@ function Administrative() {
             Computer Science & Engineering / IT
           </summary>
           <div className="drp-table table-responsive">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Designation</th>
@@ -520,7 +520,7 @@ function Administrative() {
             Computer Science & Engineering / IT
           </summary>
           <div className="drp-table table-responsive">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Designation</th>

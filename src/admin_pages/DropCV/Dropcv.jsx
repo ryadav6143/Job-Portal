@@ -82,7 +82,7 @@ function Dropcv() {
     setIsFresher(newIsFresher);
     // Do anything else you need to do with the updated value in the parent component
   };
-  
+
   const [errors, setErrors] = useState({});
 
   const [formDataToSend, setformDataToSend] = useState();
@@ -95,7 +95,6 @@ function Dropcv() {
         if (key === "educations" && Array.isArray(value)) {
           formDataToSend.append(key, JSON.stringify(value));
         } else {
-
           formDataToSend.append(key, value);
         }
       });
@@ -150,10 +149,10 @@ function Dropcv() {
   // };
 
   const handleNext = async () => {
-    console.log(">>>>>>",formData.personalDetails)
+    console.log(">>>>>>", formData.personalDetails);
     const isCurrentStepValid = validateCurrentStep();
 
-    if (isCurrentStepValid ) {
+    if (isCurrentStepValid) {
       const emailToCheck = formData.personalDetails.email.trim();
       const contactToCheck = formData.personalDetails.contact_1.trim();
 
@@ -342,21 +341,6 @@ function Dropcv() {
         }
 
       case 2:
-        // if (!formData.personalDetails.current_organization) {
-        //   setErrors({
-        //     currentExperience: "Current Organization is required.",
-        //   });
-        //   return false;
-        // } else if (!formData.personalDetails.current_designation) {
-        //   setErrors({
-        //     currentExperience: "Current Designation is required.",
-        //   });
-        //   return false;
-        // } else {
-        //   setErrors({});
-        //   return true;
-        // }
-
         if (!isFresher) {
           if (!formData.personalDetails.total_experience) {
             setErrors({
@@ -443,7 +427,10 @@ function Dropcv() {
   switch (selectedComponent) {
     case "OTPVerification":
       componentToShow = (
-        <OTPVerification otpData={otpData} transferDropCvData={formDataToSend} />
+        <OTPVerification
+          otpData={otpData}
+          transferDropCvData={formDataToSend}
+        />
       );
       break;
     default:

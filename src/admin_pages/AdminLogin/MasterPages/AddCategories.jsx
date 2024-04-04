@@ -191,9 +191,9 @@ function AddCategories() {
 
                     <div className="category-publish-btn">
                       <p>Publish To Job Profile</p>
-                      <label class="switch">
+                      <label className="switch">
                         <input type="checkbox" id="checkbox" />
-                        <div class="slider round"></div>
+                        <div className="slider round"></div>
                       </label>
                     </div>
                   </div>

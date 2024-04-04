@@ -83,7 +83,7 @@ function Academics() {
       </div>
       <div className="table-dropdown">
         <details>
-          <summary id="my-dropdown"zzz>
+          <summary id="my-dropdown">
             Computer Science & Engineering / IT
           </summary>
           <div className="drp-table table-responsive">

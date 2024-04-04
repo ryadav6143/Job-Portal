@@ -102,13 +102,14 @@ function SideBar() {
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        <img src={list} class="bi bi-heart sidenav-icon"></img>{" "}
+                        <img src={list} className="bi bi-heart sidenav-icon"></img>{" "}
                         <span>Master List</span>
                       </a>
 
                       <div
                         className="dropdown-menu master-dd"
                         aria-labelledby="dropdownMenuLink"
+                        
                       >
                         <Link
                           to="/admin-dashboard/add-post-applied"
@@ -221,7 +222,7 @@ function SideBar() {
               </div>
             </div>
 
-            <main class="sidebar-icon">
+            <main className="sidebar-icon">
               <button
                 href="#"
                 data-bs-target="#sidebar"

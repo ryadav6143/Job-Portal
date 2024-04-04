@@ -49,48 +49,31 @@ function Reports() {
     itemsPerPage,
   ]);
 
-  // const fetchData = async () => {
-  //   try {
-  //     let accessToken = sessionStorage.getItem("Token");
-  //     accessToken = JSON.parse(accessToken);
-  //     const response = await axios.get(`http://192.168.1.8:8090/v1/api/candidateAppliedPost/getCandidatesAppliedPostSorted?page=${currentPage}&limit=${itemsPerPage}&category=${selectedCategory}&appliedPost=${selectedPost}`,
-  //       {
-  //         headers: {
-  //           'access-token': accessToken.token,
-  //         },
-  //       }
-
-  //     );
-  //     setData(response.data);
-  //     const uniqueCategories = [...new Set(response.data.map(candidate => candidate.job_category_master?.category_name))];
-  //     setCategories(uniqueCategories);
-  //     setPosts(response.data.map(candidate => candidate.applied_post_master?.post_name));
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //     setLoading(false);
-  //   }
-  // };
   const fetchDataFromService = async () => {
     try {
-      const data = await adminApiService.fetchData(
+      const response = await adminApiService.fetchData(
         currentPage,
         itemsPerPage,
         selectedCategory,
         selectedPost
       );
-      console.log("check count ", data);
-      setData(data.candidateappliedpostData);
-      setCount(data);
-
+  
+      console.log("check count ", response);
+      setData(response.candidateappliedpostData);
+      setCount(response);
+  
       const uniqueCategories = [
         ...new Set(
-          data.map((candidate) => candidate.job_category_master?.category_name)
+          response.candidateappliedpostData.map(
+            (candidate) => candidate.job_category_master?.category_name
+          )
         ),
       ];
       setCategories(uniqueCategories);
       setPosts(
-        data.map((candidate) => candidate.applied_post_master?.post_name)
+        response.candidateappliedpostData.map(
+          (candidate) => candidate.applied_post_master?.post_name
+        )
       );
       setLoading(false);
     } catch (error) {
@@ -98,6 +81,7 @@ function Reports() {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     const fetchJobCategories = async () => {
@@ -218,11 +202,14 @@ function Reports() {
     setSubPost(selectedSubPostData || []);
   };
 
-  const fetchCandidateDetails = async (candidateId,signal) => {
+  const fetchCandidateDetails = async (candidateId, signal) => {
     try {
       setLoadingPopup(true);
 
-      const response = await adminApiService.getCandidatesById(candidateId,signal);
+      const response = await adminApiService.getCandidatesById(
+        candidateId,
+        signal
+      );
 
       console.log("getCandidatesById>>", response.data);
       setSelectedCandidate(response.data);
@@ -267,7 +254,7 @@ function Reports() {
     }
     return () => {
       // Cleanup function to abort the request when the component unmounts
-     return controller.abort();
+      return controller.abort();
     };
   }, [selectedCandidate]);
 
@@ -521,9 +508,8 @@ function Reports() {
                     </div>
                   )}
                 </DialogContent>
-             
+
                 <DialogActions>
-                
                   <Button
                     onClick={() => setSelectedCandidate(null)}
                     style={{ position: "sticky" }}
@@ -533,10 +519,7 @@ function Reports() {
                   >
                     Close
                   </Button>
-                
-                
                 </DialogActions>
-           
               </Dialog>
 
               <Dialog

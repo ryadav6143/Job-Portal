@@ -1241,7 +1241,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
               <div className="col-md-4">
                 {/* *Year of Joining */}
                 <div className="UD-form-section">
-                  <label className="UD-SetLabel-Name">
+                  <label Name="UD-SetLabel-Name">
                     <span></span>Year of Joining
                   </label>
                   <input

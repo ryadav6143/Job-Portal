@@ -75,6 +75,27 @@
   font-size: 15px;
   cursor: pointer;
 }
+.is-header button {
+  text-decoration: none;
+  color: black;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  display: contents;
+}
+.for-mobile button {
+  text-decoration: none;
+  color: black;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
 
 .for-mobile {
   display: none;
@@ -157,9 +178,6 @@
     text-align: start !important;
   }
 
-
-  
-
   .header-item a {
     margin-top: 10px;
     font-size: 10px !important;
@@ -175,7 +193,6 @@
     margin-bottom: 10px;
     margin-top: 10px;
     margin-left: 15%;
-
   }
 
   .a1 {
@@ -196,22 +213,22 @@
   }
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   .is-header {
-    margin-left: 10% !important;
-    margin-right: 10% !important;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
   }
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   /* Your tablet styles for portrait orientation here */
   .is-header {
     margin-left: 5% !important;
     margin-right: 5% !important;
   }
 
-  .is-header a {
-    font-size: 10px !important;
+  .is-header button {
+    font-size: 13px !important;
   }
 }
 
@@ -221,7 +238,7 @@
     margin-right: 5% !important;
   }
 
-  .is-header a {
+  .is-header button {
     font-size: 10px !important;
   }
 }
@@ -232,7 +249,7 @@
     margin-right: 5% !important;
   }
 
-  .is-header a {
+  .is-header button {
     font-size: 10px !important;
   }
 }
