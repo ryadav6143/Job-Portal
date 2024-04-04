@@ -6,17 +6,17 @@ import AddCandidatePatentsForm from './AddCandidatePatentsForm';
 import EditCandidatePatentsForm from './EditCandidatePatentsForm';
 import Notification from '../../../../../Notification/Notification';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-const PatentsForm = () => {
 
-  const [patentItem, setPatentItem] = useState([])
+const PatentsForm = () => {
+  const [patentItem, setPatentItem] = useState([]);
   const [filteredItem, setFilteredItem] = useState(null);
-  const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("info");
   const [deleteItemId, setDeleteItemId] = useState(null);
+
   const fetchData = async () => {
     try {      
       const fetchedData = await candidatesApiService.getCandidatePatent();
@@ -25,7 +25,6 @@ const PatentsForm = () => {
       
     } catch (error) {
       console.error("Error fetching data:", error.message);
-      
     }
   };
 
@@ -33,26 +32,16 @@ const PatentsForm = () => {
     fetchData();
   }, []);
 
-  const handleClosePatentClick = () => {
-    setIsPopupOpen(true); 
-  };
   const handleOpenpatentClick = () => {
     setIsPopupOpen(true);
   };
 
-
   const handleEditClick = (itemId) => {
-    console.log("id??",itemId);
     const filteredItem = patentItem.find(item => item.id === itemId);
-    console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
-    setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleClose = () => {    
-    setEditMode(false);
-    
-  };
+
   const handleDeleteClick = async (itemId) => {
     setDeleteItemId(itemId);
   };
@@ -72,30 +61,23 @@ const PatentsForm = () => {
     }
   };
 
-
   const handleCloseNotification = () => {
     setNotificationOpen(false);
   };
+
   return (
     <>
-      {/* <div className="new-opening-btn">
-        <button onClick={handleOpenpatentClick}>Add Patents</button>
-      </div> */}
-
-<Notification
+      <Notification
         open={notificationOpen}
         handleClose={handleCloseNotification}
         alertMessage={notificationMessage}
         alertSeverity={notificationSeverity} />
       <div className="master-table">
         <div className="flex-btns">
-        <p className="candidate-table-heading">Patents</p>
-        <button className="add-btn" onClick={handleOpenpatentClick}>Add Patents</button>
+          <p className="candidate-table-heading">Patents</p>
+          <button className="add-btn" onClick={handleOpenpatentClick}>Add Patents</button>
         </div>
-    
-
         <div className="table-responsive set-programs-tabel">
-
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
@@ -107,7 +89,6 @@ const PatentsForm = () => {
                 <th scope="col">Country</th>                
                 <th scope="col">Edit</th> 
                 <th scope="col">Delete</th> 
-                                               
               </tr>
             </thead>
             <tbody>
@@ -153,15 +134,14 @@ const PatentsForm = () => {
           Are you sure you want to delete this item?
         </DialogContent>
         <DialogActions>
-        <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
+          <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
           <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
         </DialogActions>
       </Dialog>
-     
       {isPopupOpen && <AddCandidatePatentsForm  handleClosePatentClick={() => setIsPopupOpen(false)} fetchData={fetchData}
        setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}
       />}
-      </>
+    </>
   );
 };
 

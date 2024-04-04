@@ -7,8 +7,8 @@ import {
   faUser,
   faEnvelope,
   faMobile,
-  faAngleDown,
-  faCalendar,
+  faAngleDown
+
 } from "@fortawesome/free-solid-svg-icons";
 // import { checkEmailExistence } from "../../../Services/ApiServices";
 
@@ -45,7 +45,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   //   job_category_master_id: "",
   // });
 
-  const hasMounted = useRef(false);
+  // const hasMounted = useRef(false);
 
   // -------------for jobcategory, post applies , sub post  ---------------
 

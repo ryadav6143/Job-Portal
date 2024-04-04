@@ -12,9 +12,9 @@ function NonAcademictable() {
 
   let tokenFromsessionStorage = sessionStorage.getItem("Token");
   tokenFromsessionStorage = JSON.parse(tokenFromsessionStorage);
-  const accessToken = tokenFromsessionStorage?.token || "";
+  // const accessToken = tokenFromsessionStorage?.token || "";
 
-  const [token, setToken] = useState(tokenFromsessionStorage || "");
+  // const [token, setToken] = useState(tokenFromsessionStorage || "");
 
   useEffect(() => {
     const fetchJobProfiles = async () => {
@@ -40,7 +40,7 @@ function NonAcademictable() {
     };
 
     try {
-      const response = await adminApiService.addApplied(requestData); // Use adminApiService
+      await adminApiService.addApplied(requestData); // Use adminApiService
       // console.log("Response:", response);
       // alert("Post Applied Successfully");
       setNotificationMessage("Post Applied Successfully");
@@ -165,5 +165,4 @@ function NonAcademictable() {
     </>
   );
 }
-
 export default NonAcademictable;

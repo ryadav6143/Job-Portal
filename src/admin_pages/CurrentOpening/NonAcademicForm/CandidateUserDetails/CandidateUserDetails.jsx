@@ -13,7 +13,7 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
   const [selectedPost, setSelectedPost] = useState("");
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [maritalStatus, setMaritalStatus] = useState("");
+  // const [maritalStatus, setMaritalStatus] = useState("");
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -230,7 +230,7 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
       marital_status: "",
     });
     const selectedMaritalStatus = event.target.value;
-    setMaritalStatus(selectedMaritalStatus);
+    // setMaritalStatus(selectedMaritalStatus);
     setFormValues((prevValues) => ({
       UserDetails: {
         ...prevValues.UserDetails,

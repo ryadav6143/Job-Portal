@@ -7,8 +7,8 @@ import {
   Button,
   input,
 } from "@mui/material";
-// import close from "../../../assets/logos/close.png";
-import close from "../../../../../assets/logos/close.png";
+
+
 import candidatesApiService from "../../../../candidateService";
 function EditOrganisedForm({ filteredItem, handleClose, fetchData,setNotificationOpen,setNotificationMessage,setNotificationSeverity }) {
   const [formData, setFormData] = useState({

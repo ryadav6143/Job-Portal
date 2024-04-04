@@ -12,7 +12,7 @@ const CandidateOtherInfoForm = () => {
 
   const [otherInfoItem, setOtherInfoItem] = useState([])
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [editItemId, setEditItemId] = useState("");
+  // const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [filteredItem, setFilteredItem] = useState(null);
   const [notificationOpen, setNotificationOpen] = useState(false);
@@ -48,12 +48,12 @@ const CandidateOtherInfoForm = () => {
     const filteredItem = otherInfoItem.find(item => item.id === itemId);
     console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
-    setEditItemId(itemId);
+    // setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleCloseOtherInfoClick = () => {
-    setIsPopupOpen(true);
-  };
+  // const handleCloseOtherInfoClick = () => {
+  //   setIsPopupOpen(true);
+  // };
   const handleOpenOtherInfoClick = () => {
     setIsPopupOpen(true); // Open popup
   };

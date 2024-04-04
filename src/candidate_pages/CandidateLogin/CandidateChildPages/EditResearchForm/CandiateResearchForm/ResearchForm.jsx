@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import candidatesApiService from '../../../../candidateService';
-import updatebtn  from "../../../../../assets/logos/update.png"
-import deletebtn from "../../../../../assets/logos/delete.png"
+import updatebtn from '../../../../../assets/logos/update.png';
+import deletebtn from '../../../../../assets/logos/delete.png';
 import AddCandidateResearchForm from './AddCandidateResearchForm';
 import EditCandidateResearchForm from './EditCandidateResearchForm';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import Notification from '../../../../../Notification/Notification';
-const ResearchForm = () => {
 
-  const [researchItem, setResearchItem] = useState([])
+const ResearchForm = () => {
+  const [researchItem, setResearchItem] = useState([]);
   const [filteredItem, setFilteredItem] = useState(null);
-  const [editItemId, setEditItemId] = useState("");
+  // const [editItemId, setEditItemId] = useState(null); 
   const [editMode, setEditMode] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // Used in handleOpenResearchClick
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("info");
-  const [deleteItemId, setDeleteItemId] = useState(null);
+  const [deleteItemId, setDeleteItemId] = useState(null); // Used in handleDeleteClick
+
   const fetchData = async () => {
     try {      
       const fetchedData = await candidatesApiService.getCandidateResearch();
       console.log("research", fetchedData);
-      setResearchItem(fetchedData);
-      
+      setResearchItem(fetchedData);  
     } catch (error) {
-      console.error("Error fetching data:", error.message);
-      
+      console.error("Error fetching data:", error.message); 
     }
   };
 
@@ -33,26 +32,19 @@ const ResearchForm = () => {
     fetchData();
   }, []);
 
-  const handleCloseResearchClick = () => {
-    setIsPopupOpen(true); 
-  };
   const handleOpenResearchClick = () => {
     setIsPopupOpen(true);
   };
 
-
   const handleEditClick = (itemId) => {
-    console.log("id??",itemId);
+    console.log("id??", itemId);
     const filteredItem = researchItem.find(item => item.id === itemId);
     console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
-    setEditItemId(itemId);
+    // setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleClose = () => {    
-    setEditMode(false);
-    
-  };
+
   const handleDeleteClick = async (itemId) => {
     setDeleteItemId(itemId);
   };
@@ -71,29 +63,25 @@ const ResearchForm = () => {
       setDeleteItemId(null); // Close the delete confirmation dialog
     }
   };
+
   const handleCloseNotification = () => {
     setNotificationOpen(false);
   };
+
   return (
     <>
-      {/* <div className="new-opening-btn">
-        <button onClick={handleOpenResearchClick}>Add Research</button>
-      </div> */}
-
-<Notification
+      <Notification
         open={notificationOpen}
         handleClose={handleCloseNotification}
         alertMessage={notificationMessage}
-        alertSeverity={notificationSeverity} />
+        alertSeverity={notificationSeverity}
+      />
       <div className="master-table">
         <div className="flex-btns">
-        <p className="candidate-table-heading">Research Work</p>
-        <button className="add-btn" onClick={handleOpenResearchClick}>Add Research</button>
+          <p className="candidate-table-heading">Research Work</p>
+          <button className="add-btn" onClick={handleOpenResearchClick}>Add Research</button>
         </div>
-        
-
         <div className="table-responsive set-programs-tabel">
-
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
@@ -103,7 +91,6 @@ const ResearchForm = () => {
                 <th scope="col">Research Id</th> 
                 <th scope="col">Edit</th> 
                 <th scope="col">Delete</th> 
-                                               
               </tr>
             </thead>
             <tbody>
@@ -113,7 +100,6 @@ const ResearchForm = () => {
                   <td>{item.orcid}</td>
                   <td>{item.scopusid}</td>
                   <td>{item.researchid}</td>
-                 
                   <td>
                     <button
                       type="button"
@@ -139,26 +125,29 @@ const ResearchForm = () => {
         </div>
       </div>
       {editMode && <EditCandidateResearchForm filteredItem={filteredItem}
-       handleClose={() => setEditMode(false)} fetchData={fetchData}
-       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} setNotificationSeverity={setNotificationSeverity}
-       />}
-
-<Dialog open={deleteItemId !== null} onClose={() => setDeleteItemId(null)}>
+        handleClose={() => setEditMode(false)}
+        fetchData={fetchData}
+        setNotificationOpen={setNotificationOpen}
+        setNotificationMessage={setNotificationMessage}
+        setNotificationSeverity={setNotificationSeverity}
+      />}
+      <Dialog open={deleteItemId !== null} onClose={() => setDeleteItemId(null)}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
           Are you sure you want to delete this item?
         </DialogContent>
         <DialogActions>
-        <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
+          <Button variant="contained" color="primary" onClick={handleConfirmDelete}>Delete</Button>
           <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
         </DialogActions>
       </Dialog>
-
-      {isPopupOpen && <AddCandidateResearchForm  handleCloseResearchClick={() => setIsPopupOpen(false)}
-       fetchData={fetchData}
-       setNotificationOpen={setNotificationOpen} setNotificationMessage={setNotificationMessage} 
-       setNotificationSeverity={setNotificationSeverity}/>}
-      </>
+      {isPopupOpen && <AddCandidateResearchForm handleCloseResearchClick={() => setIsPopupOpen(false)}
+        fetchData={fetchData}
+        setNotificationOpen={setNotificationOpen}
+        setNotificationMessage={setNotificationMessage}
+        setNotificationSeverity={setNotificationSeverity}
+      />}
+    </>
   );
 };
 

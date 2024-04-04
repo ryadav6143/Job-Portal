@@ -8,7 +8,65 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Reference({ formValues, setFormValues, errors, setErrors }) {
-  const [checkboxError, setCheckboxError] = useState("");
+  // const [checkboxError, setCheckboxError] = useState("");
+  // const [formValues, setFormValues] = useState({
+
+    // reference_person_1:'',
+    // reference_person_2:'',
+    // ref_org_1:'',
+    // ref_org_2:'',
+    // ref_person_position_1:'',
+    // ref_person_position_2:'',
+    // hearing_source_about_us:'',
+    // application_purpose:'',
+    // ref_person_1_email:'',
+    // ref_person_2_email:'',
+    // ref_person_1_contact:'',
+    // ref_person_2_contact:'',
+
+  // });
+
+
+
+  // const handleChange = (e) => {
+  //   setErrors({
+  //     ...errors,
+  //     hearing_source_about_us: "",
+  //   });
+  //   const { name, value } = e.target;
+  //   setFormValues((prevData) => ({
+  //     UserDetails: {
+  //       ...prevData.UserDetails,
+  //       [name]: value,
+  //     },
+  //   }));
+  // };
+
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+   
+    
+  //   if (value.length > 40) {
+  //     setErrors((prevErrors) => ({
+  //       ...prevErrors,
+  //       [name]: `Maximum 40 characters allowed`,
+  //     }));
+  //   } else {
+  //     setErrors((prevErrors) => ({
+  //       ...prevErrors,
+  //       [name]: "",
+  //     }));
+  //     setFormValues((prevData) => ({
+  //       UserDetails: {
+  //         ...prevData.UserDetails,
+  //         [name]: value,
+  //       },
+  //     }));
+  //   }
+  
+  // };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -399,7 +457,7 @@ console.log("check file",file)
                 &nbsp; I confirm that the information provided here are true to
                 my knowledge
               </span>
-              <span className="error-message">{checkboxError}</span>
+              {/* <span className="error-message">{checkboxError}</span> */}
             </div>
           </div>
         </div>

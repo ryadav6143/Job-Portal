@@ -9,7 +9,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/
 import Notification from "../../../../../Notification/Notification";
 const CandidateOrganisedForm = () => {
   const [organisedItem, setOrganisedItem] = useState([]);
-  const [editItemId, setEditItemId] = useState("");
+  // const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [filteredItem, setFilteredItem] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -45,18 +45,18 @@ const CandidateOrganisedForm = () => {
     const filteredItem = organisedItem.find((item) => item.id === itemId);
     // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
-    setEditItemId(itemId);
+    // setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleClose = () => {
-    setEditMode(false);
-  };
+  // const handleClose = () => {
+  //   setEditMode(false);
+  // };
   const handleOpenOrganizedClick = () => {
     setIsPopupOpen(true); // Open popup
   };
-  const handleCloseOrganizedClick = () => {
-    setIsPopupOpen(true);
-  };
+  // const handleCloseOrganizedClick = () => {
+  //   setIsPopupOpen(true);
+  // };
   // const handleDeleteClick = async (itemId) => {
   //   const isConfirmed = window.confirm(
   //     "Are you sure you want to delete this item?"
