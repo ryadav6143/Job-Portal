@@ -27,7 +27,7 @@ function ApplyNow() {
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  const [showHeaderFooter, setShowHeaderFooter] = useState(true); // New state
+  const [showHeaderFooter, setShowHeaderFooter] = useState(true); 
 
   const [formValues, setFormValues] = useState({
     UserDetails: {
@@ -254,7 +254,7 @@ function ApplyNow() {
     },
   });
   const [selectedComponent, setSelectedComponent] = useState();
-  const [formValuesToSend, setformValuesToSend] = useState();
+  // const [formValuesToSend, setformValuesToSend] = useState();
 
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -301,7 +301,7 @@ function ApplyNow() {
       });
   
       setformDataToSend(formDataToSend);
-      // setOtpButtonClicked(true);
+      setOtpButtonclicked(true);
       setShowHeaderFooter(false);
   
       console.log("formDataToSend", formDataToSend);
