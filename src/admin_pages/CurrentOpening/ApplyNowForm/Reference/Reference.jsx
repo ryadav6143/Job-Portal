@@ -37,6 +37,7 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
     const file = e.target.files[0];
     const allowedExtensions = ["pdf", "doc", "docx"];
     const maxFileSizeInMB = 2;
+console.log("check file",file)
     if (!file) {
       setErrors({
         candidate_cv: "! Resume file is Required",
@@ -59,18 +60,20 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
       return false;
     }
 
-    setFormValues((prevData) => ({
-      UserDetails: {
+    setFormValues((prevData) =>  {
+      console.log("prevData", file)
+      return { ...prevData, UserDetails: {
         ...prevData.UserDetails,
-        candidate_cv: file,
-      },
-    }));
+        candidate_cv: file
+      }}
+    },
+    );
 
     setErrors({});
 
     return true;
   };
-
+  console.log("check data ",formValues.candidate_cv)
   return (
     <>
       <form>

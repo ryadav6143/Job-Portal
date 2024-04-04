@@ -74,12 +74,69 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
 
   // });
 
+ 
+
+  useEffect(() => {
+    // Fetch data from the API using Axios
+    apiService
+      .getAppliedPosts()
+      .then((response) => {
+        // Update the state with the fetched data
+     
+        const nonAcademicPosts = response.data.filter(post => post.job_category_master.category_name === "NonAcademic");
+        // console.log("post by category",nonAcademicPosts)
+        // setPosts(response.data);
+        setPosts(nonAcademicPosts);
+        if (formValues.applied_post_masters_id) {
+     
+          const selectedPostObject = response.data.find((post) => post.id == formValues.applied_post_masters_id
+          );
+                // console.log("final post check???",selectedPostObject)
+          if (selectedPostObject) {
+            setSelectedPost(selectedPostObject.post_name);
+          }
+        }
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await apiService.getDepartments();        
+        setDepartments(response.data);
+        if (formValues.department_master_id) {
+       
+          const selectedDepartmentObject = response.data.find((department) => department.id == formValues.department_master_id
+          );
+                // console.log("final department check???",selectedDepartmentObject)
+          if (selectedDepartmentObject) {
+            setSelectedDepartment(selectedDepartmentObject.dept_name);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching departments:", error);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
+
   useEffect(() => {
     apiService
       .getCountries()
       .then((response) => {
         setCountries(response.data.data);
+        if (formValues.country) {                   
+          setSelectedCountry(formValues.country);
+                }
+                if(formValues.city){
+                  setSelectedCity(formValues.city)
+                }
       })
+
+
+      
       .catch((error) => {
         console.error("Error fetching countries:", error);
       });
@@ -89,7 +146,7 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
     setSelectedCity("");
-    console.log("Selected Country:", countryValue);
+    // console.log("Selected Country:", countryValue);
     setFormValues((prevValues) => ({
       UserDetails: {
         ...prevValues.UserDetails,
@@ -105,7 +162,7 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
   const handleCityChange = (event) => {
     const cityValue = event.target.value;
     setSelectedCity(cityValue);
-    console.log("Selected city:", cityValue);
+    // console.log("Selected city:", cityValue);
     setFormValues((prevValues) => ({
       UserDetails: {
         ...prevValues.UserDetails,
@@ -118,51 +175,23 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
     });
   };
 
-  useEffect(() => {
-    // Fetch data from the API using Axios
-    apiService
-      .getAppliedPosts()
-      .then((response) => {
-        // Update the state with the fetched data
-     
-        const nonAcademicPosts = response.data.filter(post => post.job_category_master.category_name === "NonAcademic");
-        // console.log("post by category",nonAcademicPosts)
-        // setPosts(response.data);
-        setPosts(nonAcademicPosts);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
-
-  useEffect(() => {
-    const fetchDepartments = async () => {
-      try {
-        const response = await apiService.getDepartments();
-        
-        setDepartments(response.data);
-      } catch (error) {
-        console.error("Error fetching departments:", error);
-      }
-    };
-
-    fetchDepartments();
-  }, []);
-
   const handleDepartmentChange = (event) => {
     setErrors({
       ...errors,
       department_master_id: "",
     });
-    const selectedDeptName = event.target.value;
-    const selectedDepartmentObject = departments.find(
-      (department) => department.dept_name === selectedDeptName
+    const selectedDeptID = event.target.value;
+    // console.log("selectedDeptID",selectedDeptID,departments)
+    const selectedDepartmentObject = departments.find((department) => department.id == selectedDeptID
     );
+    // console.log("selectedDepartmentObject idf",selectedDepartmentObject);
 
     if (selectedDepartmentObject) {
-      setSelectedDepartment(selectedDepartmentObject.id);
+      setSelectedDepartment(selectedDepartmentObject.dept_name_name);
       setFormValues((prevValues) => ({
         UserDetails: {
           ...prevValues.UserDetails,
-          department_master_id: selectedDepartmentObject.id,
+          department_master_id:parseInt(selectedDeptID),
         },
       }));
     } else {
@@ -175,18 +204,18 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
       ...errors,
       applied_post_masters_id: "",
     });
-    const selectedPostName = event.target.value;
-    const selectedPostObject = posts.find(
-      (post) => post.post_name === selectedPostName
-    );
-
+    const selectedPostId = event.target.value;
+    // console.log("selectedPostId",selectedPostId,posts)
+    const selectedPostObject = posts.find((post) => post.id == selectedPostId);
+    // console.log("category idf",selectedPostObject);
     if (selectedPostObject) {
-      setSelectedPost(selectedPostObject.id);
+      // console.log("category idf",selectedPostObject);
+      setSelectedPost(selectedPostObject.post_name);
       const jobCategoryId = selectedPostObject.job_category_master.id;
       setFormValues((prevValues) => ({
         UserDetails: {
           ...prevValues.UserDetails,
-          applied_post_masters_id: selectedPostObject.id,
+          applied_post_masters_id:  parseInt(selectedPostId),
           job_category_master_id: jobCategoryId
         },
       }));
@@ -300,13 +329,13 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                   </label>
                   <select
                     id="postDropdown"
-                    value={selectedPost.post_name}
+                    value={selectedPost}
                     onChange={handlePostChange}
                     className="UD-set-dropdown"
                   >
-                    <option value="">Select a post</option>
+                    <option value="">{selectedPost&&selectedPost?selectedPost: "Select a post"}</option>
                     {posts.map((post) => (
-                      <option key={post.id} value={post.post_name}>
+                      <option key={post.id} value={post.id}>
                         {post.post_name}
                       </option>
                     ))}
@@ -328,13 +357,13 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                   </label>
                   <select
                     id="departmentDropdown"
-                    value={selectedDepartment.dept_name}
+                    value={selectedDepartment}
                     onChange={handleDepartmentChange}
                     className="UD-set-dropdown"
                   >
-                    <option value="">Select a department</option>
+                     <option value="">{selectedDepartment&&selectedDepartment?selectedDepartment: "Select a department"}</option>
                     {departments.map((department) => (
-                      <option key={department.id} value={department.dept_name}>
+                      <option key={department.id} value={department.id}>
                         {department.dept_name}
                       </option>
                     ))}
@@ -568,7 +597,7 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                   </label>
                   <select
                     id="maritalStatusDropdown"
-                    value={maritalStatus.marital_status}
+                    value={formValues.marital_status}
                     onChange={handleMaritalStatusChange}
                     className="UD-set-dropdown"
                   >
@@ -641,9 +670,7 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                     value={selectedCountry}
                     onChange={handleCountryChange}
                   >
-                    <option key="" value="">
-                      Select a country
-                    </option>
+                     <option value="">{selectedCountry&&selectedCountry?selectedCountry: "Select a country"}</option>
                     {countries.map((countryData) => (
                       <option
                         key={countryData.iso2}
@@ -707,9 +734,7 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                     value={selectedCity}
                     onChange={handleCityChange}
                   >
-                    <option key="" value="">
-                      Select a city
-                    </option>
+                    <option value="">{selectedCity&&selectedCity?selectedCity: "Select a city"}</option>
                     {(
                       countries.find(
                         (country) => country.country === selectedCountry
