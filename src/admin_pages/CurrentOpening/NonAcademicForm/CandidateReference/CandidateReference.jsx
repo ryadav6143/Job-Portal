@@ -44,8 +44,7 @@ function CandidateReference({ formValues, setFormValues, errors, setErrors }) {
 
 
   // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-   
+  //   const { name, value } = e.target;  
     
   //   if (value.length > 40) {
   //     setErrors((prevErrors) => ({
@@ -63,8 +62,7 @@ function CandidateReference({ formValues, setFormValues, errors, setErrors }) {
   //         [name]: value,
   //       },
   //     }));
-  //   }
-  
+  //   }  
   // };
   
 
