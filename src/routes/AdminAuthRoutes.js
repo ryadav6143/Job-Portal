@@ -25,7 +25,7 @@ import AdminRegister from "../admin_pages/AdminLogin/AdminChildPages/RegisterAdm
 
 
 
-console.log("inside Candidate-Auth Routes");
+// console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
   // <Route path="adminpanel" element= {<AdminAuthGaurd component ={<Adminpanel />} />}></Route>,
   <Route

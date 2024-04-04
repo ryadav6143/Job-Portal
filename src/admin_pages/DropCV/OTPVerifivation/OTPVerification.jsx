@@ -9,11 +9,9 @@ function OTPVerification({ transferAllData, otpData }) {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [verificationError, setVerificationError] = useState(null);
-  // const [isOtpVerified, setIsOtpVerified] = useState(false);
-  const [notificationOpen, setNotificationOpen] = useState(false); 
-  const [notificationMessage, setNotificationMessage] = useState(""); 
-  const [notificationSeverity, setNotificationSeverity] = useState("info"); 
-
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("info");
 
   const { contact_1 } = otpData;
   let digit = contact_1 ? contact_1.slice(-2) : "";
@@ -24,12 +22,10 @@ function OTPVerification({ transferAllData, otpData }) {
       const response = await apiService.verifyEmailOTP({
         ...otpData,
         // inputOTP: parseInt(otp),
-
         inputOTP: otp,
       });
 
       if (response && response.data) {
-
         // setIsOtpVerified(response.data);
         // console.log("otp", response.data, isOtpVerified);
 
@@ -37,7 +33,6 @@ function OTPVerification({ transferAllData, otpData }) {
         setNotificationSeverity("success");
         setNotificationOpen(true);
         if (transferAllData.UserDetails) {
-
           try {
             const response = await apiService.submitApplyNowData(
               transferAllData.UserDetails
@@ -52,14 +47,12 @@ function OTPVerification({ transferAllData, otpData }) {
             navigate("/submit");
             console.log("Form data and file successfully posted to the API");
           } catch (error) {
-            console.error("Failed to post form data and file to the API", error);
+            console.error(
+              "Failed to post form data and file to the API",
+              error
+            );
           }
-
-
-
-
         } else {
-
           try {
             const response = await apiService.submitCandidateData(
               transferAllData
@@ -74,13 +67,13 @@ function OTPVerification({ transferAllData, otpData }) {
             console.log("Form data and file successfully posted to the API");
             navigate("/submit");
           } catch (error) {
-            console.error("Failed to post form data and file to the API", error);
+            console.error(
+              "Failed to post form data and file to the API",
+              error
+            );
           }
-
         }
-      }
-
-      else {
+      } else {
         setVerificationError("Invalid OTP. Please try again.");
         // setIsOtpVerified(false);
 
@@ -92,10 +85,11 @@ function OTPVerification({ transferAllData, otpData }) {
       console.error("Error during OTP verification", error);
       setVerificationError("An error occurred during OTP verification.");
 
-      setNotificationMessage("An error occurred during OTP verification. Please try again.");
+      setNotificationMessage(
+        "An error occurred during OTP verification. Please try again."
+      );
       setNotificationSeverity("error");
       setNotificationOpen(true);
-
     }
   };
 
@@ -118,9 +112,6 @@ function OTPVerification({ transferAllData, otpData }) {
       setNotificationOpen(true);
     }
   };
-
-
-
 
   const handleCloseNotification = () => {
     setNotificationOpen(false);

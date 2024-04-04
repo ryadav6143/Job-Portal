@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./CandidateSidebar.css";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,12 +23,11 @@ import candidatesApiService from "../../candidateService";
 import { ApiDataProvider } from "..//..//../context/CandidateContext";
 function CandidateSidebar() {
   const [screen, setScreen] = useState(0);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [activeButton, setActiveButton] = useState("");
 
   const handleImageUpload = (event) => {
     // Handle image upload logic here
@@ -55,26 +54,11 @@ function CandidateSidebar() {
 
     fetchImage();
   }, []);
-  // useEffect(() => {
-  //   const checkIsMobile = () => {
-  //     if (window.innerWidth < 821) {
-  //       setIsOpen(false);
-  //       setIsMobile(true);
-  //     } else {
-  //       setIsMobile(false);
-  //     }
-  //   };
-  //   checkIsMobile();
-  //   window.addEventListener("resize", checkIsMobile);
-  //   return () => {
-  //     window.removeEventListener("resize", checkIsMobile);
-  //   };
-  // }, []);
-
   useEffect(() => {
+    // Update isOpen state only if the window width is less than 768
     const checkIsMobile = () => {
       if (window.innerWidth < 821) {
-        setIsOpen(false);
+        setIsOpen(false); // Close sidebar by default on mobile
         setIsMobile(true);
       } else {
         setIsMobile(false);
@@ -82,10 +66,12 @@ function CandidateSidebar() {
     };
 
     checkIsMobile();
+
+    // Event listener to check window width and update isOpen state
     window.addEventListener("resize", checkIsMobile);
 
     return () => {
-      window.removeEventListener("resize", checkIsMobile);
+      window.removeEventListener("resize", checkIsMobile); // Clean up the event listener
     };
   }, []);
 
@@ -96,13 +82,53 @@ function CandidateSidebar() {
       setIsOpen(true);
     }
   };
-  const location = useLocation();
-  const handleLinkClick = () => {
+
+  // const renderComponent = () => {
+  //   switch (screen) {
+  //     // case 0:
+  //     //   return (<ApiDataProvider>
+  //     //     <EditPersonalDetails />;
+  //     //   </ApiDataProvider>)
+  //     //   break;
+  //     case 1:
+  //       return (<ApiDataProvider>
+  //       <EditQualificationForm />
+  //       </ApiDataProvider>);
+  //       break;
+  //     case 2:
+  //       return (<ApiDataProvider>
+  //         <EditExperience />
+  //         </ApiDataProvider>);
+  //       break;
+  //     case 3:
+  //       return <EditResearchForm />;
+  //       break;
+  //     case 4:
+  //       return <EditProgramsForm />;
+  //       break;
+  //     case 5:
+  //       return <EditReference />;
+  //       break;
+  //     // default:
+  //     //   return <EditPersonalDetails />;
+  //     //   break;
+  //   }
+  // };
+  const handleLinkClick = (event) => {
+    const allSpans = document.querySelectorAll(".set-menu span");
+    allSpans.forEach((span) => {
+      span.style.color = "inherit"; // Reset color for all spans
+    });
+
+    event.target.style.color = "maroon"; // Change color for clicked span
     if (isMobile) {
-      setIsOpen(true);
+      setIsOpen(true); // Close sidebar if it's open on mobile
     }
-    setActiveButton(location.pathname);
   };
+  useEffect(() => {
+    const defaultActiveSpan = document.querySelector(".set-menu span");
+    defaultActiveSpan.style.color = "maroon"; // Set color for default active span
+  }, []);
   return (
     <>
       <div className="toggle-div">
@@ -113,22 +139,43 @@ function CandidateSidebar() {
         )}
       </div>
 
+      {/* ------------sidebar start----------------- */}
       <div className="row1">
         <div className={`col-md-2 set-col-2 ${isOpen ? "isClose" : ""}`}>
           <div className="set-sidebar">
             <div>
+              {/* <div style={{ paddingLeft: "50px" }}>
+            {selectedImage ? (
+              <img
+                src={selectedImage}
+                alt="Selected Profile"
+                style={{
+                  width: "5rem",
+                  height: "5rem",
+                  borderRadius: "50%",
+                }}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faUserTie}
+                style={{
+                  fontSize: "5rem",
+                  borderRadius: "50%",
+                  backgroundColor: "#ddd",
+                  padding: "20px",
+                }}
+              />
+            )}          
+          </div> */}
               <nav>
                 <ul className="set-menu" style={{ listStyle: "none" }}>
-                  <li
-                    className={
-                      activeButton === "/candidate-dashboard/personal-details"
-                        ? "active-link"
-                        : ""
-                    }
-                  >
+                  <li>
+                    {/* <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faIdCardClip}
+                    /> */}
                     {selectedImage ? (
                       <img
-                        className="set-menu-icon"
                         src={selectedImage}
                         alt="Selected Profile"
                         style={{
@@ -156,7 +203,7 @@ function CandidateSidebar() {
                     </Link>
                   </li>
 
-                  <li className="menu-list">
+                  <li>
                     <FontAwesomeIcon
                       className="set-menu-icon"
                       icon={faBuildingColumns}
@@ -165,9 +212,19 @@ function CandidateSidebar() {
                       to="/candidate-dashboard/personal-qualification"
                       onClick={handleLinkClick}
                     >
-                      <span>&nbsp;Academic Qualifications</span>
+                      {/* <span> &nbsp; Academic Professional Qualifications</span> */}
+                      <span> &nbsp;Academic Qualifications</span>
                     </Link>
                   </li>
+                  {/* <li>
+                    <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faBriefcase}
+                    />
+                    <Link to="/candidate-dashboard/personal-experience">
+                      <span> &nbsp; Experience</span>
+                    </Link>
+                  </li> */}
 
                   <div className="dropdown show">
                     <a
@@ -207,6 +264,15 @@ function CandidateSidebar() {
                       </Link>
                     </div>
                   </div>
+                  {/* <li>
+                    <FontAwesomeIcon
+                      className="set-menu-icon"
+                      icon={faSearch}
+                    />
+                    <Link to="/candidate-dashboard/personal-research">
+                      <span>&nbsp; Research Work</span>
+                    </Link>
+                  </li> */}
 
                   <div className="dropdown show">
                     <a
@@ -268,6 +334,16 @@ function CandidateSidebar() {
                     </div>
                   </div>
 
+                  {/* <li>
+                    <FontAwesomeIcon className="set-menu-icon" icon={faUsers} />
+                    <Link to="/candidate-dashboard/personal-programs ">
+                      <span>
+                        Seminars/Short Term Courses/Summer Schools/Winter
+                        Schools
+                      </span>
+                    </Link>
+                  </li> */}
+
                   <div className="dropdown show">
                     <a
                       className="btn dropdown-toggle set-a"
@@ -283,7 +359,9 @@ function CandidateSidebar() {
                         className="set-menu-icon"
                         icon={faUsers}
                       />
-                      <span>&nbsp;&nbsp;&nbsp;Seminars</span>
+                      <span style={{ paddingLeft: "5px" }}>
+                        &nbsp;&nbsp;&nbsp;Seminars
+                      </span>
                     </a>
 
                     <div

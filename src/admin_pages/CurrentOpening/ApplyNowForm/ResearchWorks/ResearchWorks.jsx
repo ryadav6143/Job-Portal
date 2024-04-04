@@ -67,7 +67,31 @@ function ResearchWorks({ formValues, setFormValues, errors, setErrors }) {
       },
     }));
   };
+  const handleAddResearches = (e) => {
+    e.preventDefault();
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        researches: [
+          ...prevData.UserDetails.researches,
+          {
+            orcid: '', scopusid: '', researchid: ''
+          },
+        ],
+      },
+    }));
+  };
 
+  const handleRemoveResearches = (index) => {
+    setFormValues((prevData) => ({
+      UserDetails: {
+        ...prevData.UserDetails,
+        researches: prevData.UserDetails.researches.filter(
+          (_, i) => i !== index
+        ),
+      },
+    }));
+  };
   const handleRemovePublication = (index) => {
     setFormValues((prevData) => ({
       UserDetails: {
@@ -205,6 +229,15 @@ function ResearchWorks({ formValues, setFormValues, errors, setErrors }) {
     }));
   };
 
+
+  const handleInputResearchChange = (e, index, field) => {
+    const newResearches = [...formValues.researches];
+    newResearches[index][field] = e.target.value;
+    setFormValues((prevData) => ({
+      ...prevData,
+      researches: newResearches,
+    }));
+  };
   return (
     <form>
       <div className="container">
@@ -217,8 +250,41 @@ function ResearchWorks({ formValues, setFormValues, errors, setErrors }) {
             </p>
           </div>
 
-          <div>
-            <div className="row">
+       
+
+
+
+
+          {formValues.researches.map(
+            (research, index) => (
+              <div key={index}>
+                  {index > 0 && <hr style={{ margin: '24px 0' }} />}
+                <div className="row" style={{ marginTop: "24px" }}>
+                  <div>
+                    <div>
+                      {formValues.researches.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveResearches(index)}
+                          className="minus-buttons"
+                        >
+                          <img src={minusicon} alt="Remove Researches" />
+                        </button>
+                      )}
+                      {index === formValues.researches.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={handleAddResearches}
+                          className="plus-buttons"
+                        >
+                          <img src={plusicon} alt="Add Researches" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+
+                  <div className="row">
               <div className="col-md-4">
                 {/* ORCID Id*/}
                 <div className="UD-form-section">
@@ -229,10 +295,11 @@ function ResearchWorks({ formValues, setFormValues, errors, setErrors }) {
                   <input
                     className="UD-set-input"
                     type="text"
-                    placeholder=" "
-                    select
+                    placeholder=""               
                     name="orcid"
                     id=""
+                    value={research.orcid}
+                    onChange={(e) =>handleInputResearchChange(e,index,"orcid")}
                   ></input>
                 </div>
               </div>
@@ -249,6 +316,8 @@ function ResearchWorks({ formValues, setFormValues, errors, setErrors }) {
                     placeholder=" "
                     name="scopusid"
                     id=""
+                    value={research.scopusid}
+                    onChange={(e) =>handleInputResearchChange(e,index,"scopusid")}
                   ></input>
                 </div>
                 <span className="error-message">{errors.scopusid}</span>
@@ -266,11 +335,27 @@ function ResearchWorks({ formValues, setFormValues, errors, setErrors }) {
                     placeholder=" "
                     name="researchid"
                     id=""
+                    value={research.researchid}
+                    onChange={(e) =>handleInputResearchChange(e,index,"researchid")}
                   ></input>
                 </div>
               </div>
             </div>
-          </div>
+
+              
+                </div>
+
+              
+
+               
+              </div>
+            )
+          )}
+
+
+
+
+
 
           {/* Journal Publication */}
 

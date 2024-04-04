@@ -227,8 +227,8 @@ function AddSubPostApplied() {
       </div>
 
 
-<div className="admin-list">
-<div className="master-table ">
+
+<div  className="master-table ">
         <p className="SCA-heading">CURRENT APPLIED SUB POST AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
@@ -353,7 +353,7 @@ function AddSubPostApplied() {
           </table>
         </div>
       </div>
-</div>
+
   
     </>
   );

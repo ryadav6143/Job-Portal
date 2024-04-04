@@ -64,7 +64,7 @@
 .sidebar-set span {
   font-size: 16px;
   font-weight: 700;
-  color: #574c4c;
+  color: rgb(112 112 112 / 78%);
   padding-left: 10px;
   letter-spacing: 0.5px;
   cursor: pointer;
@@ -74,6 +74,7 @@
   border: none;
   padding-top: 25px;
   border-right: none !important;
+  
 }
 
 #sidebar {

@@ -93,6 +93,7 @@
   color: rgb(112 112 112 / 78%) !important;
   padding-left: 10px;
   letter-spacing: 0.5px;
+
   cursor: pointer;
 }
 
@@ -157,6 +158,22 @@
     width: 98vw;
     margin-top: 0.1em;
     background-color: rgb(255, 255, 255);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .logo-coloured {
+    margin-left: 1%;
+  }
+
+  .logs {
+    margin-right: 0.1%;
+  }
+
+  .log-res {
+    width: 20px;
+    height: 20px;
+    margin: 15px;
   }
   .dropdown-menu {
     width: auto;

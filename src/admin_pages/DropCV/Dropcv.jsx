@@ -82,15 +82,14 @@ function Dropcv() {
     setIsFresher(newIsFresher);
     // Do anything else you need to do with the updated value in the parent component
   };
-
-  // new state for errors in all steps
+  
   const [errors, setErrors] = useState({});
 
   const [formDataToSend, setformDataToSend] = useState();
   const [selectedComponent, setSelectedComponent] = useState();
   const transferAllData = async () => {
     try {
-      // Create FormData object
+  
       const formDataToSend = new FormData();
 
       Object.entries(formData.personalDetails).forEach(([key, value]) => {
@@ -152,6 +151,7 @@ function Dropcv() {
   // };
 
   const handleNext = async () => {
+    console.log(">>>>>>",formData.personalDetails)
     const isCurrentStepValid = validateCurrentStep();
 
     if (isCurrentStepValid ) {

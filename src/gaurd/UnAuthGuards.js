@@ -6,7 +6,7 @@ const UnAuthGuards=({component})=>{
     useEffect(()=>{
         checkToken()
     },[component]);
-        console.log("unAuthGaurd")
+        // console.log("unAuthGaurd")
     const checkToken = async()=>{
         try{
             const Token = sessionStorage.getItem("Token")

@@ -756,18 +756,13 @@ function ApplyNow() {
         }
       }
     };
-    // const allValidations = () => {
-    //   caseZerovalidation();
-    //   caseOnevalidation();
-    //   caseTwovalidation();
-    //   caseFivevalidation();
-    // };
+
     let errors = {};
     const currentYear = new Date().getFullYear();
     const dobYear = dob ? new Date(dob).getFullYear() : null;
     switch (activeStep) {
       case 0:
-        caseZerovalidation();
+        // caseZerovalidation();
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;
@@ -777,7 +772,7 @@ function ApplyNow() {
         }
 
       case 1:
-        caseOnevalidation();
+        // caseOnevalidation();
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;
@@ -786,7 +781,7 @@ function ApplyNow() {
           return true;
         }
       case 2:
-        caseTwovalidation();
+        // caseTwovalidation();
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;
@@ -811,7 +806,7 @@ function ApplyNow() {
           return true;
         }
       case 5:
-        caseFivevalidation();
+        // caseFivevalidation();
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;

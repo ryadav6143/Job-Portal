@@ -14,32 +14,34 @@ function Login(handleLogin) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
   const [errorNotification, setErrorNotification] = useState({
     open: false,
-
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const removeToken=(()=>{
+  const removeToken = (() => {
     sessionStorage.removeItem("Token");
     localStorage.removeItem("Token");
-  })()
+  })();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${ADMIN_BASE_URL}/adminLogin/login_admin`, ({
-        login_field: username,
-        password: password,
-      }));
-      console.log(response)
-      if (response&&response.data.token) {
+      const response = await axios.post(
+        `${ADMIN_BASE_URL}/adminLogin/login_admin`,
+        {
+          login_field: username,
+          password: password,
+        }
+      );
+      console.log(response);
+      if (response && response.data.token) {
         sessionStorage.setItem("Token", JSON.stringify(response.data));
         // handleLogin();
-        navigate(`/admin-dashboard`)
+        navigate(`/admin-dashboard`);
         setErrorNotification({
           open: true,
           message: "Login Successful",
@@ -55,7 +57,6 @@ function Login(handleLogin) {
       });
       setErrorMessage("invalid username and password");
     }
-
   };
 
   const handleTogglePassword = () => {
@@ -66,12 +67,12 @@ function Login(handleLogin) {
   };
   return (
     <>
-        <Notification
-              open={errorNotification.open}
-              handleClose={handleCloseNotification}
-              alertMessage={errorNotification.message}
-              alertSeverity="error"
-            />
+      <Notification
+        open={errorNotification.open}
+        handleClose={handleCloseNotification}
+        alertMessage={errorNotification.message}
+        alertSeverity="error"
+      />
       <div className="login-container">
         <div className="logo-section">
           <img className="logo-img" src={logo} alt="Logo" />
@@ -80,7 +81,11 @@ function Login(handleLogin) {
           <p className="login-content"> ADMIN PANEL</p>
         </div>
 
-        <form onSubmit={handleFormSubmit} className="login-form">
+        <form
+          onSubmit={handleFormSubmit}
+          className="login-form"
+          autoComplete="on"
+        >
           <label htmlFor="username">Username:</label>
           <input
             type="text"
@@ -115,7 +120,6 @@ function Login(handleLogin) {
             <button type="submit" className="login-button">
               Login
             </button>
-        
           </div>
         </form>
         {error && <p>{error}</p>}

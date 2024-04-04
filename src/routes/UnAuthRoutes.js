@@ -31,7 +31,7 @@ import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrent
 import Sidenav from "../admin_pages/TestPages/Sidenav";
 import NonAcademicForm from "../admin_pages/CurrentOpening/NonAcademicForm/NonAcademicForm"
 
-console.log("inside UnAuthRoutes");
+// console.log("inside UnAuthRoutes");
 const UnAuthRoutes = [
   <Route
     exact
