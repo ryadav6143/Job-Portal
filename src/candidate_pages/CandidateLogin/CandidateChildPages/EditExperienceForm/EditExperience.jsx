@@ -19,7 +19,7 @@ function EditExperience() {
   //   benefits_mediclaim: "",
   // });
 
-  const { apiData, fetchCandidateData } = useApiData();
+  const { apiData } = useApiData();
   const [updateField, setUpdateField] = useState({});
   const [loading, setLoading] = useState(true);
   const [updateNewField, setUpdateNewField] = useState({});

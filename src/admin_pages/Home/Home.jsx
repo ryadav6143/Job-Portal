@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footers from "../../components/Footer/Footers";
 import "./Home.css";
@@ -19,7 +19,7 @@ function Home() {
   const [activeCard, setActiveCard] = useState(0); // Initialize with card2 as active
   const [isMobileView, setIsMobileView] = useState(false);
   // ..............................................
-  const elementRef = useRef(null);
+  // const elementRef = useRef(null);
   // const [isVisible, setIsVisible] = useState(false);
   // ..............................................
 
@@ -76,28 +76,28 @@ function Home() {
 
       <div className="cards">
         <div className="card">
-          <img src={logo1} />
+          <img src={logo1} alt=""/>
           <p>ACADEMICS</p>
           <a href="/current-opening">View Vacancies</a>
         </div>
         <div className="card">
-          <img src={logo2} />
+          <img src={logo2} alt=""/>
           <p>UAS</p>
           {/* <p>(UNIVERSITY ADMINISTRATIVE SERVICES)</p> */}
           <a href="/current-opening">View Vacancies</a>
         </div>
         <div className="card">
-          <img src={logo2} />
+          <img src={logo2} alt=""/>
           <p>RESEARCH</p>
           <a href="/current-opening">View Vacancies</a>
         </div>
         <div className="card">
-          <img src={logo3} />
+          <img src={logo3} alt=""/>
           <p>ADMINISTRATION</p>
           <a href="/current-opening">View Vacancies</a>
         </div>
         <div className="card">
-          <img src={logo3} />
+          <img src={logo3} alt=""/>
           <p>TECHNICAL</p>
           <a href="/current-opening">View Vacancies</a>
         </div>
@@ -114,22 +114,22 @@ function Home() {
         <div className="perks-list">
           <ul>
             <li>
-              <img src={disktype} id="disktype" />
+              <img src={disktype} id="disktype" alt=""/>
               when an unknown printer took a galley of type and scrambled it to
               make a type specimen book.
             </li>
             <li className="side-left ">
-              <img src={disktype} id="disktype" />
+              <img src={disktype} id="disktype" alt="" />
               when an unknown printer took a galley of type and scrambled it to
               make a type specimen book.
             </li>
             <li>
-              <img src={disktype} id="disktype" />
+              <img src={disktype} id="disktype" alt=""/>
               when an unknown printer took a galley of type and scrambled it to
               make a type specimen book.
             </li>
             <li className="side-left">
-              <img src={disktype} id="disktype" />
+              <img src={disktype} id="disktype" alt=""/>
               when an unknown printer took a galley of type and scrambled it to
               make a type specimen book.
             </li>
@@ -204,52 +204,52 @@ function Home() {
         </div>
         <div className="purpose-data">
           <div className="circular-logo">
-            <img src={medicircular} />
+            <img src={medicircular} alt=""/>
           </div>
           <div className="big-img remove-bg">
-            <img src={men} />
+            <img src={men} alt=""/>
           </div>
           <div className="mask3 remove-bg">
-            <img src={mask3} />
+            <img src={mask3} alt=""/>
           </div>
           <div className="purpose-quotes">
             <p>"Self-belief and hard work will always earn you success."</p>
           </div>
           <div className="women remove-bg">
-            <img src={women} />
+            <img src={women} alt=""/>
           </div>
           <div className="purpose-quotes">
             <p>"Self-belief and hard work will always earn you success."</p>
           </div>
           <div className="big-img remove-bg">
-            <img src={mask} />
+            <img src={mask} alt=""/>
           </div>
           <div className="women remove-bg">
-            <img src={women} />
+            <img src={women} alt=""/>
           </div>
           <div className="mask3 remove-bg">
-            <img src={mask3} />
+            <img src={mask3} alt=""/>
           </div>
           <div className="purpose-quotes quote-small">
             <p>“Where can I get some”</p>
           </div>
           <div className="women remove-bg">
-            <img src={women} />
+            <img src={women} alt=""/>
           </div>
           <div className="big-img remove-bg">
-            <img src={mask2} />
+            <img src={mask2} alt=""/>
           </div>
           <div className="circular-logo">
-            <img src={medicircular} />
+            <img src={medicircular} alt=""/>
           </div>
           <div className="big-img remove-bg">
-            <img src={men} />
+            <img src={men} alt=""/>
           </div>
           <div className="purpose-quotes quote-small">
             <p>“Where can I get some”</p>
           </div>
           <div className="women remove-bg">
-            <img src={women} />
+            <img src={women} alt=""/>
           </div>
         </div>
       </div>

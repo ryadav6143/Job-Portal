@@ -22,11 +22,9 @@ function NonAcademicForm() {
   const [otpButtonclicked, setOtpButtonclicked] = useState(false);
   const [errors, setErrors] = useState({});
   const [otpData, setOtpData] = useState({});
-
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  const [showHeaderFooter, setShowHeaderFooter] = useState(true); // New state
-
+  const [showHeaderFooter, setShowHeaderFooter] = useState(true);
   const [formValues, setFormValues] = useState({
     UserDetails: {
       password: "123456",
@@ -252,8 +250,6 @@ function NonAcademicForm() {
     },
   });
   const [selectedComponent, setSelectedComponent] = useState();
-  const [formValuesToSend, setformValuesToSend] = useState();
-
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("success");
@@ -331,11 +327,11 @@ function NonAcademicForm() {
     return skipped.has(step);
   };
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = (event, reason) => {
+  const handleClose = ( reason) => {
     if (reason === "clickaway") {
       return;
     }

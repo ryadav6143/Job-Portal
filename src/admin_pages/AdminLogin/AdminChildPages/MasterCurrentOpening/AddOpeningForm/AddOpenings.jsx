@@ -247,7 +247,7 @@ function AddOpenings() {
   };
   
 
-  const [showForm, setShowForm] = useState(true); // State to toggle form visibility
+  const showForm = (true); // State to toggle form visibility
 
   const handleFormCloseAndShowTable = () => {
     navigate("/admin-dashboard/current-openings");

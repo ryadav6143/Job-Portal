@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Link, useLocation } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as  Link } from "react-router-dom";
 
 import "./SideBar.css";
 import opening from "../../../assets/logos/book.png";

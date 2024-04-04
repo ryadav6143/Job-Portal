@@ -19,22 +19,22 @@ function ContactUs() {
           <div>
             <p className="cd-heading">OFFICE</p>
             <p>
-              <img className="contact-logo" src={phonelogo} /> {phoneNumber}
+              <img className="contact-logo" src={phonelogo} alt=""/> {phoneNumber}
             </p>
             <p>
-              <img className="contact-logo" src={emaillogo} /> {email}
+              <img className="contact-logo" src={emaillogo} alt=""/> {email}
             </p>
             <p>
-              <img className="contact-logo" src={locationlogo} /> {location}
+              <img className="contact-logo" src={locationlogo} alt=""/> {location}
             </p>
           </div>
           <div className="AQ-container">
             <p className="cd-heading">APPLICATION QUERIES</p>
             <p>
-              <img className="contact-logo" src={phonelogo} /> {phoneNumber}
+              <img className="contact-logo" src={phonelogo} alt=""/> {phoneNumber}
             </p>
             <p>
-              <img className="contact-logo" src={emaillogo} /> {email}
+              <img className="contact-logo" src={emaillogo} alt=""/> {email}
             </p>
           </div>
         </div>

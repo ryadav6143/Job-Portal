@@ -19,11 +19,11 @@ function TotalExperienceForm() {
   //   benefits_mediclaim: "",
   // });
 
-  const { apiData, fetchCandidateData } = useApiData();
-  const [updateField, setUpdateField] = useState({});
-  const [loading, setLoading] = useState(true);
+  const { apiData } = useApiData();
+  // const [updateField, setUpdateField] = useState({});
+  // const [loading, setLoading] = useState(true);
   const [updateNewField, setUpdateNewField] = useState({});
-  const [educations, setEducations] = useState([]);
+  // const [educations, setEducations] = useState([]);
   const [data, setData] = useState(apiData);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -65,7 +65,7 @@ function TotalExperienceForm() {
     //   });
 
       await candidatesApiService.updateCandidatePersonalInfo(updateNewField);
-      setUpdateField({});
+      // setUpdateField({});
       setUpdateNewField({});
       setNotificationMessage("Changes saved successfully.");
       setNotificationSeverity("success");

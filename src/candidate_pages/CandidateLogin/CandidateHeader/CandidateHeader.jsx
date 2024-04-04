@@ -22,7 +22,7 @@ function CandidateHeader() {
         <div id="logout-btn">
         
           <button onClick={() => handleLogout()}>
-            <img src={logout} />
+            <img src={logout} alt=""/>
           </button>
         </div>
       </div>

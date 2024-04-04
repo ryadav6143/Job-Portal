@@ -266,7 +266,7 @@ function EditOpenings() {
     return `${year}-${month}-${day}`;
   };
 
-  const [showForm, setShowForm] = useState(true); // State to toggle form visibility
+  
 
   const handleFormCloseAndShowTable = () => {
     navigate('/admin-dashboard/current-openings');
