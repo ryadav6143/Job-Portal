@@ -258,32 +258,73 @@ function ApplyNow() {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("success");
+  const [formDataToSend, setformDataToSend] = useState();
+
+  // const transferAllData = async () => {
+  //   try {
+  //     const formValuesToSend = { UserDetails: { ...formValues.UserDetails } };
+  //     setformValuesToSend(formValuesToSend);
+  //     const otpData = {
+  //       email: formValues.UserDetails.email,
+  //       contact_1: formValues.UserDetails.contact_1,
+  //       first_name: formValues.UserDetails.first_name,
+  //     };
+  //     setOtpData(otpData);
+  //     const response = await apiService.generateOTP(otpData);
+  //     console.log("API Response:", response);
+  //     setSelectedComponent("OTPVerification");
+  //     setOtpButtonclicked(true);
+  //     setShowHeaderFooter(false);
+  //   } catch (error) {
+  //     setOtpButtonclicked(true);
+  //     console.error(
+  //       "Error while posting form data and file:",
+  //       error.response || error
+  //     );
+  //     console.log(error.response);
+  //   }
+  // };
+
+
 
   const transferAllData = async () => {
     try {
-      const formValuesToSend = { UserDetails: { ...formValues.UserDetails } };
-      setformValuesToSend(formValuesToSend);
+      const formDataToSend = new FormData();
+  
+      Object.entries(formValues.UserDetails).forEach(([key, value]) => {
+        if (key === "educations" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } else {
+          formDataToSend.append(key, value);
+        }
+      });
+  
+      setformDataToSend(formDataToSend);
+      // setOtpButtonClicked(true);
+      setShowHeaderFooter(false);
+  
+      console.log("formDataToSend", formDataToSend);
+      setformDataToSend(formDataToSend);
+  
       const otpData = {
         email: formValues.UserDetails.email,
         contact_1: formValues.UserDetails.contact_1,
         first_name: formValues.UserDetails.first_name,
       };
       setOtpData(otpData);
+  
       const response = await apiService.generateOTP(otpData);
       console.log("API Response:", response);
       setSelectedComponent("OTPVerification");
-      setOtpButtonclicked(true);
-      setShowHeaderFooter(false);
     } catch (error) {
-      setOtpButtonclicked(true);
       console.error(
         "Error while posting form data and file:",
         error.response || error
       );
-      console.log(error.response);
+      console.log(error.response.data);
     }
   };
-
+  
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -771,7 +812,116 @@ function ApplyNow() {
         }
 
       case 1:
-        // caseOnevalidation();
+        if (
+          !formValues.UserDetails.educations[0].country ||
+          !formValues.UserDetails.educations[1].country
+        ) {
+          errors.country = "! Country is Required";
+        }
+        // Validation for first education entry
+        if (!formValues.UserDetails.educations[0].year_start) {
+          errors.year_start = "! Year of Joining is Required";
+        } else {
+          const enteredStartYear = parseInt(
+            formValues.UserDetails.educations[0].year_start,
+            10
+          );
+
+          if (
+            isNaN(enteredStartYear) ||
+            enteredStartYear > currentYear ||
+            enteredStartYear < currentYear - 100
+          ) {
+            errors.year_start =
+              "! Please enter a valid year within the last 100 years.";
+          }
+        }
+
+        if (!formValues.UserDetails.educations[0].year_end) {
+          errors.year_end = "! Passing Year is Required";
+        } else {
+          const enteredEndYear = parseInt(
+            formValues.UserDetails.educations[0].year_end,
+            10
+          );
+
+          if (
+            isNaN(enteredEndYear) ||
+            enteredEndYear > currentYear ||
+            enteredEndYear < currentYear - 100
+          ) {
+            errors.year_end =
+              "! Please enter a valid passing year within the last 100 years.";
+          }
+        }
+
+        if (!formValues.UserDetails.educations[1].year_start) {
+          errors.year_start_2 = "! Year of Joining is Required";
+        } else {
+          const enteredStartYear_2 = parseInt(
+            formValues.UserDetails.educations[1].year_start,
+            10
+          );
+
+          if (
+            isNaN(enteredStartYear_2) ||
+            enteredStartYear_2 > currentYear ||
+            enteredStartYear_2 < currentYear - 100
+          ) {
+            errors.year_start_2 =
+              "! Please enter a valid year within the last hundred years.";
+          }
+        }
+
+        if (!formValues.UserDetails.educations[1].year_end) {
+          errors.year_end_2 = "! Passing Year is Required";
+        } else {
+          const enteredEndYear_2 = parseInt(
+            formValues.UserDetails.educations[1].year_end,
+            10
+          );
+
+          if (
+            isNaN(enteredEndYear_2) ||
+            enteredEndYear_2 > currentYear ||
+            enteredEndYear_2 < currentYear - 100
+          ) {
+            errors.year_end_2 =
+              "! Please enter a valid passing year within the last 100 years.";
+          }
+        }
+
+        
+
+        if (
+          !formValues.UserDetails.educations[0].institute_name ||
+          !formValues.UserDetails.educations[1].institute_name
+        ) {
+          errors.institute_name = "! School Name is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].board_university_name ||
+          !formValues.UserDetails.educations[0].board_university_name
+        ) {
+          errors.board_university_name = "! Board is Required";
+        }
+
+        if (
+          !formValues.UserDetails.educations[0].grade_division ||
+          !formValues.UserDetails.educations[0].grade_division
+        ) {
+          errors.grade_division = "! Division is Required";
+        }
+        if (
+          !formValues.UserDetails.educations[0].grade_percent ||
+          !formValues.UserDetails.educations[1].grade_percent
+        ) {
+          errors.grade_percent = "! Percentage is Required";
+        }
+        if (!formValues.UserDetails.educations[1].stream) {
+          errors.stream = "! Stream is Required";
+        }
+
         if (Object.keys(errors).length > 0) {
           setErrors(errors);
           return false;
@@ -819,7 +969,7 @@ function ApplyNow() {
   switch (selectedComponent) {
     case "OTPVerification":
       componentToShow = (
-        <OTPVerification otpData={otpData} transferAllData={formValuesToSend} />
+        <OTPVerification otpData={otpData} transferAllData={formDataToSend} />
       );
       break;
     default:
