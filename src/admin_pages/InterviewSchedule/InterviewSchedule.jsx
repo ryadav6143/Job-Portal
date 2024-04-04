@@ -63,23 +63,18 @@ function InterviewSchedule() {
         <div className="is-header pc">
           <div className="row header-item">
             <div className="col-md-3">
-              <button
-                className="a1 a11"
-                onClick={() => showComponent("Component1")}
-              >
+              <button className="a1 a11" onClick={() => showComponent("Component1")}>
                 <img
                   className="is-header-logo"
                   src={logo1}
                   alt="Academics Logo"
                 />
+                
                 ACADEMICS
               </button>
             </div>
             <div className="col-md-3">
-              <button
-                className="a1"
-                onClick={() => showComponent("Component2")}
-              >
+              <button className="a1" onClick={() => showComponent("Component2")}>
                 <img
                   className="is-header-logo"
                   src={logo3}
@@ -99,10 +94,7 @@ function InterviewSchedule() {
               </button>
             </div>
             <div className="col-md-3">
-              <button
-                className="a1"
-                onClick={() => showComponent("Component4")}
-              >
+              <button className="a1" onClick={() => showComponent("Component4")}>
                 <img
                   className="is-header-logo"
                   src={logo4}
@@ -132,6 +124,7 @@ function InterviewSchedule() {
                   src={logo3}
                   alt="Research Logo"
                 />
+                
                 RESEARCH
               </button>
             </li>

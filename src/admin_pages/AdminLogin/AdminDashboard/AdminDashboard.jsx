@@ -105,7 +105,7 @@ function AdminDashboard() {
           </Card>
         </Col>
       </Row>
-      <Row className="mt-4">
+      <Row classNameName="mt-4">
         <Col md={6}>
           <Card>
             <Card.Header>
@@ -119,7 +119,7 @@ function AdminDashboard() {
           </Card>
         </Col>
       </Row>
-      <Row className="mt-4">
+      <Row classNameName="mt-4">
         <Col>
     
         </Col>
