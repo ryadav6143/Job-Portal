@@ -15,8 +15,8 @@ function CurrentOpening() {
             <span>CURRENT OPENING</span>
           </p>
         </div>
-        <Academictable></Academictable>
-        <NonAcademictable></NonAcademictable>
+        < Academictable />
+        < NonAcademictable />
       </div>
       <Footers></Footers>
     </>

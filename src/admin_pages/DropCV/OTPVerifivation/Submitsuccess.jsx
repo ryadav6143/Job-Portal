@@ -13,7 +13,7 @@ function Submitsuccess() {
           <div className="success-sub-container">
             <p className="success-subheading">Submit Successfully</p>
             <div className="success-logo">
-              <img src={logo} />
+              <img src={logo} alt="Qualification" />
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Reference({ formValues, setFormValues, errors, setErrors }) {
-  const [checkboxError, setCheckboxError] = useState("");
+  // const [checkboxError, setCheckboxError] = useState("");
   // const [formValues, setFormValues] = useState({
 
     // reference_person_1:'',
@@ -466,7 +466,7 @@ console.log("check file",file)
                 &nbsp; I confirm that the information provided here are true to
                 my knowledge
               </span>
-              <span className="error-message">{checkboxError}</span>
+              {/* <span className="error-message">{checkboxError}</span> */}
             </div>
           </div>
         </div>

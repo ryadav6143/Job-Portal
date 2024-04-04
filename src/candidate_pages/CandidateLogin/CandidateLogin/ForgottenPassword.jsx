@@ -114,6 +114,7 @@ function ForgottenPassword() {
                       onClick={handleXButtonClick}
                       className="close-btn"
                       src={close}
+                      alt=""
                     />
                     <label className="UD-SetLabel-Name">Enter OTP</label>
 

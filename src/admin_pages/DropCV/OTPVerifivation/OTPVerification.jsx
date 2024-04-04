@@ -147,6 +147,9 @@ function OTPVerification({ transferAllData,transferDropCvData, otpData }) {
                 />
               </form>
             </div>
+            {verificationError && (
+              <p style={{ color: "red" }}>{verificationError}</p>
+            )}
             <button onClick={verifyOtp} type="button" id="verify-otp-btn">
               Verify OTP
             </button>

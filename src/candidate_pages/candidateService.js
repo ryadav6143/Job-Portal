@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 import axios from "axios";
 // import {CANDIDATE_BASE_URL} from "../config/config"
 import { CANDIDATE_BASE_URL } from "../config/config";

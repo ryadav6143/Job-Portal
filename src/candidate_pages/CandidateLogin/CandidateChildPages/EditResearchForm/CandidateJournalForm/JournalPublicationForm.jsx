@@ -9,7 +9,7 @@ import Notification from "../../../../../Notification/Notification";
 const JournalPublicationForm = () => {
   const [journalItem, setJournalItem] = useState([]);
   const [filteredItem, setFilteredItem] = useState(null);
-  const [editItemId, setEditItemId] = useState("");
+  // const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
@@ -31,9 +31,9 @@ const JournalPublicationForm = () => {
     fetchData();
   }, []);
 
-  const handleCloseJournalClick = () => {
-    setIsPopupOpen(true);
-  };
+  // const handleCloseJournalClick = () => {
+  //   setIsPopupOpen(true);
+  // };
   const handleOpenJournalClick = () => {
     setIsPopupOpen(true);
   };
@@ -43,12 +43,12 @@ const JournalPublicationForm = () => {
     const filteredItem = journalItem.find((item) => item.id === itemId);
     console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
-    setEditItemId(itemId);
+    // setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleClose = () => {
-    setEditMode(false);
-  };
+  // const handleClose = () => {
+  //   setEditMode(false);
+  // };
   const handleDeleteClick = async (itemId) => {
     setDeleteItemId(itemId);
   };

@@ -11,7 +11,7 @@ const CandidateAttendForm = () => {
 
   const [attendItem, setAttendItem] = useState([])
   const [filteredItem, setFilteredItem] = useState(null);
-  const [editItemId, setEditItemId] = useState("");
+  // const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
@@ -36,21 +36,21 @@ const CandidateAttendForm = () => {
   const handleOpenAttendClick = () => {
     setIsPopupOpen(true); // Open popup
   };
-  const handleCloseAttendClick = () => {
-    setIsPopupOpen(true);
-  };
+  // const handleCloseAttendClick = () => {
+  //   setIsPopupOpen(true);
+  // };
   const handleEditClick = (itemId) => {
     // console.log("id??",itemId);
     const filteredItem = attendItem.find(item => item.id === itemId);
     // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
-    setEditItemId(itemId);
+    // setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleClose = () => {
-    setEditMode(false);
+  // const handleClose = () => {
+  //   setEditMode(false);
 
-  };
+  // };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate();

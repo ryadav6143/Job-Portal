@@ -11,7 +11,7 @@ const ExperienceForm = () => {
 
   const [experienceItem, setexperienceItem] = useState([])
   const [filteredItem, setFilteredItem] = useState(null);
-  const [editItemId, setEditItemId] = useState("");
+  // const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
@@ -38,21 +38,21 @@ const ExperienceForm = () => {
   const handleOpenExperienceClick = () => {
     setIsPopupOpen(true); // Open popup
   };
-  const handleCloseexperienceClick = () => {
-    setIsPopupOpen(true); 
-  };
+  // const handleCloseexperienceClick = () => {
+  //   setIsPopupOpen(true); 
+  // };
   const handleEditClick = (itemId) => {
     console.log("id??",itemId);
     const filteredItem = experienceItem.find(item => item.id === itemId);
     console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
-    setEditItemId(itemId);
+    // setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleClose = () => {    
-    setEditMode(false);
+  // const handleClose = () => {    
+  //   setEditMode(false);
     
-  };
+  // };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate();

@@ -12,9 +12,9 @@ function NonAcademictable() {
 
   let tokenFromsessionStorage = sessionStorage.getItem("Token");
   tokenFromsessionStorage = JSON.parse(tokenFromsessionStorage);
-  const accessToken = tokenFromsessionStorage?.token || "";
+  // const accessToken = tokenFromsessionStorage?.token || "";
 
-  const [token, setToken] = useState(tokenFromsessionStorage || "");
+  // const [token, setToken] = useState(tokenFromsessionStorage || "");
 
   useEffect(() => {
     const fetchJobProfiles = async () => {
@@ -40,7 +40,7 @@ function NonAcademictable() {
     };
 
     try {
-      const response = await adminApiService.addApplied(requestData); // Use adminApiService
+      await adminApiService.addApplied(requestData); // Use adminApiService
       // console.log("Response:", response);
       // alert("Post Applied Successfully");
       setNotificationMessage("Post Applied Successfully");
@@ -60,20 +60,24 @@ function NonAcademictable() {
   const rowsPerPage = 100;
 
   const AcademicTable = jobProfiles
-  
+
     .filter((profile) => {
       // console.log(profile,"<<<<<<")
-      return profile.publish_to_vacancy && profile.job_category_master.category_name === "NonAcademic"})
+      return (
+        profile.publish_to_vacancy &&
+        profile.job_category_master?.category_name === "NonAcademic"
+      );
+    })
     .map((profile) => ({
       job_profile_master_id: profile.id,
       applied_post_masters_id: profile.applied_post_masters_id,
       job_category_master_id: profile.job_category_master_id,
-      department_master_id: profile.department_master_id || "N/A",
-      category: profile.job_category_master?.category_name || "N/A",
-      post: profile.applied_post_master?.post_name || "N/A",
-      department: profile.department_master?.dept_name || "N/A",
+      department_master_id: profile.department_master_id ?? "N/A",
+      category: profile.job_category_master?.category_name ?? "N/A",
+      post: profile.applied_post_master?.post_name ?? "N/A",
+      department: profile.department_master?.dept_name ?? "N/A",
       applyLink: "/non-academic-form",
-      lastDate: profile.last_date_to_apply || "N/A",
+      lastDate: profile.last_date_to_apply ?? "N/A",
     }));
   // console.log("AcademicTable:", AcademicTable);
 
@@ -107,7 +111,7 @@ function NonAcademictable() {
         <p className="table-heading">ACADEMICS</p>
         <div className="table-responsive">
           <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)"}} className="thead">
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
                 <th scope="col">Category</th>
                 <th scope="col">Post</th>
@@ -118,7 +122,7 @@ function NonAcademictable() {
             </thead>
             <tbody>
               {AcademicData.map((data, index) => (
-                <tr key={index} style={{whiteSpace:"nowrap"}}>
+                <tr key={index} style={{ whiteSpace: "nowrap" }}>
                   <td>{data.category}</td>
                   <td>{data.post}</td>
                   <td>{data.department}</td>
@@ -161,5 +165,4 @@ function NonAcademictable() {
     </>
   );
 }
-
 export default NonAcademictable;

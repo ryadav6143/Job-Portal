@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./Qualification.css";
 import apiService from "../../../Services/ApiServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +13,7 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
   
   const [selectedDegree, setSelectedDegree] = useState("");
   const [data, setData] = useState([]);
-  const hasMounted = useRef(false);
+  // const hasMounted = useRef(false);
 
   useEffect(() => {
     const controller = new AbortController();

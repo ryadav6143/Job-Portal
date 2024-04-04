@@ -102,16 +102,16 @@ function FAQ() {
       </div>
       <div className="water-marks">
         <div className="marks-left">
-          <img src={mark} style={{ rotate: "35deg" }} />
-          <img src={mark} style={{ rotate: "-35deg" }} />
-          <img src={mark} style={{ rotate: "180deg" }} />
-          <img src={mark} style={{ rotate: "128deg" }} />
+          <img alt="" src={mark} style={{ rotate: "35deg" }} />
+          <img alt=""  src={mark} style={{ rotate: "-35deg" }} />
+          <img alt="" src={mark} style={{ rotate: "180deg" }} />
+          <img alt="" src={mark} style={{ rotate: "128deg" }} />
         </div>
         <div className="marks-right">
-          <img src={mark} style={{ rotate: "-35deg" }} />
-          <img src={mark} style={{ rotate: "35deg" }} />
-          <img src={mark} style={{ rotate: "180deg" }} />
-          <img src={mark} style={{ rotate: "-48deg" }} />
+          <img alt="" src={mark} style={{ rotate: "-35deg" }} />
+          <img alt=""  src={mark} style={{ rotate: "35deg" }} />
+          <img alt="" src={mark} style={{ rotate: "180deg" }} />
+          <img alt="" src={mark} style={{ rotate: "-48deg" }} />
         </div>
         {/* <div className="mark-bottom">
           <img src={mark} style={{ rotate: "-35deg" }} />

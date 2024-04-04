@@ -10,7 +10,7 @@ const CopyRightsForm = () => {
 
   const [copyrightsItem, setcopyrightsItem] = useState([])
   const [filteredItem, setFilteredItem] = useState(null);
-  const [editItemId, setEditItemId] = useState("");
+  // const [editItemId, setEditItemId] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
@@ -46,7 +46,7 @@ const CopyRightsForm = () => {
     const filteredItem = copyrightsItem.find(item => item.id === itemId);
     console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
-    setEditItemId(itemId);
+    // setEditItemId(itemId);
     setEditMode(true);
   };
   const handleClose = () => {    

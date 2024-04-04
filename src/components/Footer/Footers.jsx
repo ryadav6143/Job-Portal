@@ -12,7 +12,7 @@ function Footers() {
     <>
       <div className="footer">
         <div className="f-white-logo">
-          <img src={whitelogo} />
+          <img src={whitelogo} alt=""/>
         </div>
         <div className="f-contact-us">
           <p className="c-heading">Contact</p>
@@ -28,28 +28,28 @@ function Footers() {
           <div className="social-logos">
             <div>
               <a href="">
-                <img src={facebook} />
+                <img src={facebook} alt=""/>
               </a>
             </div>
             <div>
               <a href="">
-                <img src={instagram} />
+                <img src={instagram} alt=""/>
               </a>
             </div>
             <div>
               <a href="">
-                <img src={linkedin} />
+                <img src={linkedin} alt=""/>
               </a>
             </div>
 
             <div>
               <a href="">
-                <img src={youtube} style={{width:"35px",height:"35px"}} />
+                <img src={youtube} style={{width:"35px",height:"35px"}} alt=""/>
               </a>
             </div>
             <div>
               <a href="">
-                <img src={twitter} style={{width:"20px",height:"20px"}} />
+                <img src={twitter} style={{width:"20px",height:"20px"}} alt=""/>
               </a>
             </div>
           </div>
