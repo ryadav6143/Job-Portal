@@ -17,7 +17,7 @@ function MasterInterviewSchedule() {
     const fetchData = async () => {
       try {
         const response = await adminApiService.getAllInterview(currentPage, itemsPerPage);
-        console.log(response, "<<<<<<<check data")
+        // console.log(response, "<<<<<<<check data")
         setJobProfiles(response.jobprofileData);
         setCounts(response);
       } catch (error) {
@@ -120,7 +120,7 @@ function MasterInterviewSchedule() {
     endIndex
   );
   const isNextPageAvailable = jobProfiles.length === itemsPerPage;
-  console.log("jobprofiles>>", isNextPageAvailable)
+  // console.log("jobprofiles>>", isNextPageAvailable)
 
 
   const nextPage = () => {

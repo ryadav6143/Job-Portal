@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet, Link, } from "react-router-dom";
 import "./MasterCurrentOpening.css";
 
 
+// import AddOpenings from "./AddOpeningForm/AddOpenings";
+// import MasterTable from "./MasterCurrentOpeningChild/MasterTable";
+
 function MasterCurrentOpening() {
  
-  // const [selectedComponent, setSelectedComponent] = useState();
-  const isButtonVisible = (true);
+  const [selectedComponent, setSelectedComponent] = useState();
+  const [isButtonVisible, setIsButtonVisible] = useState(true);
   
 
   return (

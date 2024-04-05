@@ -20,7 +20,7 @@ const JournalPublicationForm = () => {
   const fetchData = async () => {
     try {
       const fetchedData = await candidatesApiService.getCandidateJournalPublications();
-      console.log("Journal", fetchedData);
+      // console.log("Journal", fetchedData);
       setJournalItem(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -39,9 +39,9 @@ const JournalPublicationForm = () => {
   };
 
   const handleEditClick = (itemId) => {
-    console.log("id??", itemId);
+    // console.log("id??", itemId);
     const filteredItem = journalItem.find((item) => item.id === itemId);
-    console.log("Filtered item:", filteredItem);
+    // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     // setEditItemId(itemId);
     setEditMode(true);
@@ -57,7 +57,7 @@ const JournalPublicationForm = () => {
     try {
       await candidatesApiService.removeCandidateJournalPublications(deleteItemId);
       setJournalItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
-      console.log("Item deleted successfully");
+      // console.log("Item deleted successfully");
       setNotificationMessage(`deleted successfully`);
       setNotificationSeverity("success");
       setNotificationOpen(true);

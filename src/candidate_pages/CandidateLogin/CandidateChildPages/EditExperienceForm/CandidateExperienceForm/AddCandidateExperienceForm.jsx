@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -77,7 +77,7 @@ function AddCandidateExperienceForm({ handleCloseExperienceClick, fetchData,setN
 
     try {
       const response = await candidatesApiService.addCandidateExperience(formData);
-      console.log(response.data);
+      // console.log(response.data);
       if (response) {
         setNotificationMessage(`added successfully`);
         setNotificationSeverity("success");

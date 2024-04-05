@@ -1,52 +1,68 @@
-
 import axios from "axios";
-// import {CANDIDATE_BASE_URL} from "../config/config"
 import { CANDIDATE_BASE_URL } from "../config/config";
-// const CANDIDATE_BASE_URL = "http://192.168.1.8:8090/v1/api";
-
 
 const candidatesApiService = (() => {
-  // const [accessToken,setAccessToken]=useState("");
-  let accessToken = sessionStorage.getItem('Token') ? JSON.parse(sessionStorage.getItem('Token')) : null;
-  // console.log("candidatesApiService-accessToken", accessToken)
+  let accessToken = sessionStorage.getItem("Token")
+    ? JSON.parse(sessionStorage.getItem("Token"))
+    : null;
   return {
-
     setAccessToken: (token) => {
-      console.log("setAccessToken", token)
-      accessToken = token
+      console.log("setAccessToken", token);
+      accessToken = token;
     },
 
-    getAccessToken: () => {
-      accessToken = sessionStorage.getItem('Token')
-      return accessToken;
+    getAccessToken: async () => {
+      try {
+        accessToken = sessionStorage.getItem("Token");
+        return accessToken;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
     },
 
     uploadCV: async (formData) => {
       try {
-        const response = await axios.put(`${CANDIDATE_BASE_URL}/candidates/upload_cv`, formData, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.put(
+          `${CANDIDATE_BASE_URL}/candidates/upload_cv`,
+          formData,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response;
       } catch (error) {
         throw error;
       }
     },
-    loginCandidate: (data) => {
-      return axios.post(`${CANDIDATE_BASE_URL}/login/candidate_login`, data);
+    loginCandidate: async (data) => {
+      try {
+        return axios.post(`${CANDIDATE_BASE_URL}/login/candidate_login`, data);
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
     },
-    ForgetCandidatePassword: (data) => {
-      return axios.put(`${CANDIDATE_BASE_URL}/candidates/candidate_forgot_password`, data);
+    ForgetCandidatePassword: async (data) => {
+      try {
+        return axios.put(
+          `${CANDIDATE_BASE_URL}/candidates/candidate_forgot_password`,
+          data
+        );
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
     },
     getCandidateById: async () => {
       try {
-        // console.log("getCandidateById-accessToken",accessToken)
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidates/getCandidatePersonal`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidates/getCandidatePersonal`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
 
         return response.data;
       } catch (error) {
@@ -55,11 +71,14 @@ const candidatesApiService = (() => {
     },
     getEducationById: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatEducation/getCandidateEducation`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidatEducation/getCandidateEducation`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
 
         return response.data;
       } catch (error) {
@@ -68,11 +87,14 @@ const candidatesApiService = (() => {
     },
     getExperienceById: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatExperience/getCandidateExperience`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidatExperience/getCandidateExperience`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
 
         return response.data;
       } catch (error) {
@@ -81,11 +103,14 @@ const candidatesApiService = (() => {
     },
     getCandidateResearchWork: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidates/getCandidateResearchPageById`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidates/getCandidateResearchPageById`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -93,11 +118,14 @@ const candidatesApiService = (() => {
     },
     getCandidateSeminarPage: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidates/getCandidateSeminarPageById`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidates/getCandidateSeminarPageById`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -106,38 +134,51 @@ const candidatesApiService = (() => {
     uploadProfileImage: async (file) => {
       try {
         let formData = new FormData();
-        formData.append('profile_image', file);
-        // formData.append('candidate_id', candidatesId);
+        formData.append("profile_image", file);
 
-        const response = await fetch(`${CANDIDATE_BASE_URL}/candidates/profile_image`, {
-          method: 'PUT',
-          body: formData,
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await fetch(
+          `${CANDIDATE_BASE_URL}/candidates/profile_image`,
+          {
+            method: "PUT",
+            body: formData,
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         if (response.ok) {
           return await response.json();
         } else {
-          console.error('Image upload failed:', response.status, response.statusText);
+          console.error(
+            "Image upload failed:",
+            response.status,
+            response.statusText
+          );
           throw new Error(`Image upload failed: ${response.statusText}`);
         }
       } catch (error) {
         throw new Error(`Error uploading image: ${error.message}`);
       }
     },
-    getCandidatesCountries: () => {
-      return axios.get("https://countriesnow.space/api/v0.1/countries");
+    getCandidatesCountries: async () => {
+      try {
+        return axios.get("https://countriesnow.space/api/v0.1/countries");
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
     },
 
     fetchCandidateImage: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidates/renderCandidatePic`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-          responseType: 'blob',
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidates/renderCandidatePic`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+            responseType: "blob",
+          }
+        );
 
         if (response.status === 200 && response.data) {
           const imageUrl = URL.createObjectURL(response.data);
@@ -147,7 +188,7 @@ const candidatesApiService = (() => {
           return null;
         }
       } catch (error) {
-        console.error('Error fetching image:', error);
+        console.error("Error fetching image:", error);
         throw error; // You might want to handle this error in the component that calls this function
       }
     },
@@ -159,15 +200,15 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -178,127 +219,38 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
 
-    updateCandidateExperience: async (updateField) => {
-      try {
-        const response = await axios.put(
-          `${CANDIDATE_BASE_URL}/candidatExperience/updateCandidateExperience`,
-          updateField,
-          {
-            headers: {
-              'access-token': accessToken.token,
-            },
-          }
-        );
-        console.log('Save Changes Response:', response);
-        return response.data; // Assuming your API returns some data upon successful update
-      } catch (error) {
-        console.error('Error saving changes:', error.message);
-        throw error;
-      }
-    },
-    // updateCandidateResearches: async (researchField) => {
+    // updateCandidateExperience: async (updateField) => {
     //   try {
     //     const response = await axios.put(
-    //       `${CANDIDATE_BASE_URL}/candidatResearch/updateCandidateResearchWork`,
-    //       researchField,
+    //       `${CANDIDATE_BASE_URL}/candidatExperience/updateCandidateExperience`,
+    //       updateField,
     //       {
     //         headers: {
-    //           'access-token': accessToken.token,
+    //           "access-token": accessToken.token,
     //         },
     //       }
     //     );
-    //     console.log('Save Changes Response:', response);
+    //     console.log("Save Changes Response:", response);
     //     return response.data; // Assuming your API returns some data upon successful update
     //   } catch (error) {
-    //     console.error('Error saving changes:', error.message);
+    //     console.error("Error saving changes:", error.message);
     //     throw error;
     //   }
     // },
-    // updateCandidateJournalPublications: async (journalPublicationField) => {
-    //   try {
-    //     const response = await axios.put(
-    //       `${CANDIDATE_BASE_URL}/candidatJournalPublication/updateCandidateJournalPublications`,
-    //       journalPublicationField,
-    //       {
-    //         headers: {
-    //           'access-token': accessToken.token,
-    //         },
-    //       }
-    //     );
-    //     console.log('Save Changes Response:', response);
-    //     return response.data; // Assuming your API returns some data upon successful update
-    //   } catch (error) {
-    //     console.error('Error saving changes:', error.message);
-    //     throw error;
-    //   }
-    // },
-    // updateCandidateConferancePublications: async (ConferancePublicationField) => {
-    //   try {
-    //     const response = await axios.put(
-    //       `${CANDIDATE_BASE_URL}/candidatConferancePublication/updateCandidateConferancePublications`,
-    //       ConferancePublicationField,
-    //       {
-    //         headers: {
-    //           'access-token': accessToken.token,
-    //         },
-    //       }
-    //     );
-    //     console.log('Save Changes Response:', response);
-    //     return response.data; // Assuming your API returns some data upon successful update
-    //   } catch (error) {
-    //     console.error('Error saving changes:', error.message);
-    //     throw error;
-    //   }
-    // },
-    // updateCandidatePatent: async (patentField) => {
-    //   try {
-    //     const response = await axios.put(
-    //       `${CANDIDATE_BASE_URL}/candidatPatent/updateCandidatePatent`,
-    //       patentField,
-    //       {
-    //         headers: {
-    //           'access-token': accessToken.token,
-    //         },
-    //       }
-    //     );
-    //     console.log('Save Changes Response:', response);
-    //     return response.data; // Assuming your API returns some data upon successful update
-    //   } catch (error) {
-    //     console.error('Error saving changes:', error.message);
-    //     throw error;
-    //   }
-    // },
-    // updateCandidateCopyright: async (copyrightField) => {
-    //   try {
-    //     const response = await axios.put(
-    //       `${CANDIDATE_BASE_URL}/candidatCopyright/updateCandidateCopyright`,
-    //       copyrightField,
-    //       {
-    //         headers: {
-    //           'access-token': accessToken.token,
-    //         },
-    //       }
-    //     );
-    //     console.log('Save Changes Response:', response);
-    //     return response.data; // Assuming your API returns some data upon successful update
-    //   } catch (error) {
-    //     console.error('Error saving changes:', error.message);
-    //     throw error;
-    //   }
-    // },
+
     updateCandidateMembershipInfo: async (membershipInfoField) => {
       try {
         const response = await axios.put(
@@ -306,14 +258,14 @@ const candidatesApiService = (() => {
           membershipInfoField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
-        console.log('Save Changes Response:', response);
-        return response.data; // Assuming your API returns some data upon successful update
+        console.log("Save Changes Response:", response);
+        return response.data; 
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -324,14 +276,14 @@ const candidatesApiService = (() => {
           seminarOrganisedField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -342,24 +294,28 @@ const candidatesApiService = (() => {
           seminarAttendField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
     addCandidateOrganised: async (formData) => {
       try {
-        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidateSeminarOrganised/addCandidateSeminarOrganised`, formData, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.post(
+          `${CANDIDATE_BASE_URL}/candidateSeminarOrganised/addCandidateSeminarOrganised`,
+          formData,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -367,11 +323,15 @@ const candidatesApiService = (() => {
     },
     addCandidateAttend: async (formData) => {
       try {
-        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidateSeminarAttend/addCandidateSeminarAttend`, formData, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.post(
+          `${CANDIDATE_BASE_URL}/candidateSeminarAttend/addCandidateSeminarAttend`,
+          formData,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -379,11 +339,15 @@ const candidatesApiService = (() => {
     },
     addCandidateOtherinfo: async (formData) => {
       try {
-        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidateMembershipInfo/addCandidateMembershipInfo`, formData, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.post(
+          `${CANDIDATE_BASE_URL}/candidateMembershipInfo/addCandidateMembershipInfo`,
+          formData,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -391,11 +355,14 @@ const candidatesApiService = (() => {
     },
     getCandidateOrganised: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidateSeminarOrganised/getCandidateSeminarOrganised`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidateSeminarOrganised/getCandidateSeminarOrganised`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -403,11 +370,14 @@ const candidatesApiService = (() => {
     },
     getCandidateAttend: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidateSeminarAttend/getCandidateSeminarAttend`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidateSeminarAttend/getCandidateSeminarAttend`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -415,11 +385,14 @@ const candidatesApiService = (() => {
     },
     getCandidateMembershipInfo: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidateMembershipInfo/getCandidateMembershipInfo`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidateMembershipInfo/getCandidateMembershipInfo`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -432,15 +405,15 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -451,15 +424,15 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -470,15 +443,15 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -488,18 +461,18 @@ const candidatesApiService = (() => {
           `${CANDIDATE_BASE_URL}/candidateSeminarOrganised/removeCandidateSeminarOrganised`,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
             data: {
-              organised_id: organisedId
-            }
+              organised_id: organisedId,
+            },
           }
         );
-    
-        console.log('Save Changes Response:', response);
-        return response.data; 
+
+        console.log("Save Changes Response:", response);
+        return response.data;
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -509,18 +482,18 @@ const candidatesApiService = (() => {
           `${CANDIDATE_BASE_URL}/candidateSeminarAttend/removeCandidateSeminarAttend`,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
             data: {
-              attend_id: attendId
-            }
+              attend_id: attendId,
+            },
           }
         );
-    
-        console.log('Save Changes Response:', response);
-        return response.data; 
+
+        console.log("Save Changes Response:", response);
+        return response.data;
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -530,29 +503,32 @@ const candidatesApiService = (() => {
           `${CANDIDATE_BASE_URL}/candidateMembershipInfo/removeCandidateMembershipInfo`,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
             data: {
-              member_id: OtherInfoId
-            }
+              member_id: OtherInfoId,
+            },
           }
         );
-    
-        console.log('Save Changes Response:', response);
-        return response.data; 
+
+        console.log("Save Changes Response:", response);
+        return response.data;
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
 
     getCandidateResearch: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatResearch/getCandidateResearchWork`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidatResearch/getCandidateResearchWork`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -560,11 +536,15 @@ const candidatesApiService = (() => {
     },
     addCandidateResearch: async (formData) => {
       try {
-        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatResearch/addCandidateResearchWork`, formData, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.post(
+          `${CANDIDATE_BASE_URL}/candidatResearch/addCandidateResearchWork`,
+          formData,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -577,15 +557,15 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -595,30 +575,32 @@ const candidatesApiService = (() => {
           `${CANDIDATE_BASE_URL}/candidatResearch/removeCandidateResearchWork`,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
             data: {
-              research_id: researchId
-            }
+              research_id: researchId,
+            },
           }
         );
-    
-        console.log('Save Changes Response:', response);
-        return response.data; 
+
+        console.log("Save Changes Response:", response);
+        return response.data;
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
-    
 
     getCandidateCopyright: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatCopyright/getCandidateCopyright`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidatCopyright/getCandidateCopyright`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -626,11 +608,15 @@ const candidatesApiService = (() => {
     },
     addCandidateCopyright: async (formData) => {
       try {
-        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatCopyright/addCandidateCopyright`, formData, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.post(
+          `${CANDIDATE_BASE_URL}/candidatCopyright/addCandidateCopyright`,
+          formData,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -643,15 +629,15 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -661,29 +647,32 @@ const candidatesApiService = (() => {
           `${CANDIDATE_BASE_URL}/candidatCopyright/removeCandidateCopyright`,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
             data: {
-              copyright_id: copyrightsId
-            }
+              copyright_id: copyrightsId,
+            },
           }
         );
-    
-        console.log('Save Changes Response:', response);
-        return response.data; 
+
+        console.log("Save Changes Response:", response);
+        return response.data;
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
 
     getCandidateJournalPublications: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatJournalPublication/getCandidateJournalPublications`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidatJournalPublication/getCandidateJournalPublications`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -691,11 +680,15 @@ const candidatesApiService = (() => {
     },
     addCandidateJournalPublications: async (formData) => {
       try {
-        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatJournalPublication/addCandidateJournalPublications`, formData, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.post(
+          `${CANDIDATE_BASE_URL}/candidatJournalPublication/addCandidateJournalPublications`,
+          formData,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -708,15 +701,15 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -726,30 +719,32 @@ const candidatesApiService = (() => {
           `${CANDIDATE_BASE_URL}/candidatJournalPublication/removeCandidateJournalPublications`,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
             data: {
-              journal_publication_id: journalPublicationId
-            }
+              journal_publication_id: journalPublicationId,
+            },
           }
         );
-    
-        console.log('Save Changes Response:', response);
-        return response.data; 
+
+        console.log("Save Changes Response:", response);
+        return response.data;
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
 
-
     getCandidateConferancePublications: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatConferancePublication/getCandidateConferancePublications`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidatConferancePublication/getCandidateConferancePublications`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -757,11 +752,15 @@ const candidatesApiService = (() => {
     },
     addCandidateConferancePublications: async (formData) => {
       try {
-        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatConferancePublication/addCandidateConferancePublications`, formData, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.post(
+          `${CANDIDATE_BASE_URL}/candidatConferancePublication/addCandidateConferancePublications`,
+          formData,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -774,15 +773,15 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -792,29 +791,32 @@ const candidatesApiService = (() => {
           `${CANDIDATE_BASE_URL}/candidatConferancePublication/removeCandidateConferancePublications`,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
             data: {
-              conferance_publication_id: conferancePublicationId
-            }
+              conferance_publication_id: conferancePublicationId,
+            },
           }
         );
-    
-        console.log('Save Changes Response:', response);
-        return response.data; 
+
+        console.log("Save Changes Response:", response);
+        return response.data;
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
 
     getCandidatePatent: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatPatent/getCandidatePatent`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidatPatent/getCandidatePatent`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -822,11 +824,15 @@ const candidatesApiService = (() => {
     },
     addCandidatePatent: async (formData) => {
       try {
-        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatPatent/addCandidatePatent`, formData, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.post(
+          `${CANDIDATE_BASE_URL}/candidatPatent/addCandidatePatent`,
+          formData,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -839,15 +845,15 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
+        console.log("Save Changes Response:", response);
         return response.data; // Assuming your API returns some data upon successful update
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -857,29 +863,32 @@ const candidatesApiService = (() => {
           `${CANDIDATE_BASE_URL}/candidatPatent/removeCandidatePatent`,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
             data: {
-              patent_id: PatentsId
-            }
+              patent_id: PatentsId,
+            },
           }
         );
-    
-        console.log('Save Changes Response:', response);
-        return response.data; 
+
+        console.log("Save Changes Response:", response);
+        return response.data;
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
 
     getCandidateExperience: async () => {
       try {
-        const response = await axios.get(`${CANDIDATE_BASE_URL}/candidatExperience/getCandidateExperience`, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.get(
+          `${CANDIDATE_BASE_URL}/candidatExperience/getCandidateExperience`,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -887,11 +896,15 @@ const candidatesApiService = (() => {
     },
     addCandidateExperience: async (formData) => {
       try {
-        const response = await axios.post(`${CANDIDATE_BASE_URL}/candidatExperience/addCandidateExperience`, formData, {
-          headers: {
-            'access-token': accessToken.token,
-          },
-        });
+        const response = await axios.post(
+          `${CANDIDATE_BASE_URL}/candidatExperience/addCandidateExperience`,
+          formData,
+          {
+            headers: {
+              "access-token": accessToken.token,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
@@ -904,15 +917,15 @@ const candidatesApiService = (() => {
           updateField,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
           }
         );
 
-        console.log('Save Changes Response:', response);
-        return response.data; // Assuming your API returns some data upon successful update
+        console.log("Save Changes Response:", response);
+        return response.data;
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
@@ -922,24 +935,22 @@ const candidatesApiService = (() => {
           `${CANDIDATE_BASE_URL}/candidatExperience/removeCandidateExperience`,
           {
             headers: {
-              'access-token': accessToken.token,
+              "access-token": accessToken.token,
             },
             data: {
-              experience_id: ExperienceId
-            }
+              experience_id: ExperienceId,
+            },
           }
         );
-    
-        console.log('Save Changes Response:', response);
-        return response.data; 
+
+        console.log("Save Changes Response:", response);
+        return response.data;
       } catch (error) {
-        console.error('Error saving changes:', error.message);
+        console.error("Error saving changes:", error.message);
         throw error;
       }
     },
   };
 })();
-
-
 
 export default candidatesApiService;

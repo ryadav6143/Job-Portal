@@ -78,7 +78,6 @@ function FAQ() {
       detail:
         " Lorem ipsum dolor sit amet consectetur adipisicing elit.Explicabo eligendi voluptatum consequuntur consequatur quia?Quaerat, debitis, ducimus suscipit ipsum at illum, expedita iurepariatur harum ipsam fugit. Fugit, soluta ipsum.",
     },
-    // Add more sections as needed
   ];
 
   return (
@@ -103,26 +102,16 @@ function FAQ() {
       <div className="water-marks">
         <div className="marks-left">
           <img alt="" src={mark} style={{ rotate: "35deg" }} />
-          <img alt=""  src={mark} style={{ rotate: "-35deg" }} />
+          <img alt="" src={mark} style={{ rotate: "-35deg" }} />
           <img alt="" src={mark} style={{ rotate: "180deg" }} />
           <img alt="" src={mark} style={{ rotate: "128deg" }} />
         </div>
         <div className="marks-right">
           <img alt="" src={mark} style={{ rotate: "-35deg" }} />
-          <img alt=""  src={mark} style={{ rotate: "35deg" }} />
+          <img alt="" src={mark} style={{ rotate: "35deg" }} />
           <img alt="" src={mark} style={{ rotate: "180deg" }} />
           <img alt="" src={mark} style={{ rotate: "-48deg" }} />
         </div>
-        {/* <div className="mark-bottom">
-          <img src={mark} style={{ rotate: "-35deg" }} />
-          <img src={mark} style={{ rotate: "35deg" }} />
-          <img src={mark} style={{ rotate: "180deg" }} />
-          <img src={mark} style={{ rotate: "128deg" }} />
-          <img src={mark} style={{ rotate: "48deg" }} />
-          <img src={mark} style={{ rotate: "-48deg" }} />
-        </div> */}
-
-
       </div>
 
       <Footers></Footers>

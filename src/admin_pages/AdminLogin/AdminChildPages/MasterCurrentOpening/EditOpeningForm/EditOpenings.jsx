@@ -35,7 +35,7 @@ function EditOpenings() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("profileId",profileId)
+      // console.log("profileId",profileId)
       try {
         const response = await adminApiService.getJobProfileById(profileId);
         const data = response.data;
@@ -266,7 +266,7 @@ function EditOpenings() {
     return `${year}-${month}-${day}`;
   };
 
-  
+  const [showForm, setShowForm] = useState(true); // State to toggle form visibility
 
   const handleFormCloseAndShowTable = () => {
     navigate('/admin-dashboard/current-openings');

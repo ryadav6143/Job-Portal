@@ -67,7 +67,7 @@ function EditCandidatePatentsForm({
     }));
     validateField(fieldName, value);
     // Console mein changes dikhaane ke liye
-    console.log(`Field '${fieldName}' updated to:`, value);
+    // console.log(`Field '${fieldName}' updated to:`, value);
   };
   const validateField = (fieldName, value) => {
     let errorMessage = "";

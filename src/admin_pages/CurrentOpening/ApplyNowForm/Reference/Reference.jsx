@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,22 +11,20 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
   // const [checkboxError, setCheckboxError] = useState("");
   // const [formValues, setFormValues] = useState({
 
-    // reference_person_1:'',
-    // reference_person_2:'',
-    // ref_org_1:'',
-    // ref_org_2:'',
-    // ref_person_position_1:'',
-    // ref_person_position_2:'',
-    // hearing_source_about_us:'',
-    // application_purpose:'',
-    // ref_person_1_email:'',
-    // ref_person_2_email:'',
-    // ref_person_1_contact:'',
-    // ref_person_2_contact:'',
+  // reference_person_1:'',
+  // reference_person_2:'',
+  // ref_org_1:'',
+  // ref_org_2:'',
+  // ref_person_position_1:'',
+  // ref_person_position_2:'',
+  // hearing_source_about_us:'',
+  // application_purpose:'',
+  // ref_person_1_email:'',
+  // ref_person_2_email:'',
+  // ref_person_1_contact:'',
+  // ref_person_2_contact:'',
 
   // });
-
-
 
   // const handleChange = (e) => {
   //   setErrors({
@@ -42,11 +40,9 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
   //   }));
   // };
 
-
   // const handleChange = (e) => {
   //   const { name, value } = e.target;
-   
-    
+
   //   if (value.length > 40) {
   //     setErrors((prevErrors) => ({
   //       ...prevErrors,
@@ -64,9 +60,8 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
   //       },
   //     }));
   //   }
-  
+
   // };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -95,7 +90,7 @@ function Reference({ formValues, setFormValues, errors, setErrors }) {
     const file = e.target.files[0];
     const allowedExtensions = ["pdf", "doc", "docx"];
     const maxFileSizeInMB = 2;
-console.log("check file",file)
+    // console.log("check file", file);
     if (!file) {
       setErrors({
         candidate_cv: "! Resume file is Required",
@@ -118,20 +113,22 @@ console.log("check file",file)
       return false;
     }
 
-    setFormValues((prevData) =>  {
-      console.log("prevData", file)
-      return { ...prevData, UserDetails: {
-        ...prevData.UserDetails,
-        candidate_cv: file
-      }}
-    },
-    );
+    setFormValues((prevData) => {
+      // console.log("prevData", file);
+      return {
+        ...prevData,
+        UserDetails: {
+          ...prevData.UserDetails,
+          candidate_cv: file,
+        },
+      };
+    });
 
     setErrors({});
 
     return true;
   };
-  console.log("check data ",formValues.candidate_cv)
+  // console.log("check data ", formValues.candidate_cv);
   return (
     <>
       <form>

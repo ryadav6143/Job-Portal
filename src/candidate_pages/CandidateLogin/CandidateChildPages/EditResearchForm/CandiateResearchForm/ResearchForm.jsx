@@ -21,7 +21,7 @@ const ResearchForm = () => {
   const fetchData = async () => {
     try {      
       const fetchedData = await candidatesApiService.getCandidateResearch();
-      console.log("research", fetchedData);
+      // console.log("research", fetchedData);
       setResearchItem(fetchedData);  
     } catch (error) {
       console.error("Error fetching data:", error.message); 
@@ -37,9 +37,9 @@ const ResearchForm = () => {
   };
 
   const handleEditClick = (itemId) => {
-    console.log("id??", itemId);
+    // console.log("id??", itemId);
     const filteredItem = researchItem.find(item => item.id === itemId);
-    console.log("Filtered item:", filteredItem);
+    // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     // setEditItemId(itemId);
     setEditMode(true);
@@ -53,7 +53,7 @@ const ResearchForm = () => {
     try {
       await candidatesApiService.DeleteResearchForm(deleteItemId);
       setResearchItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
-      console.log("Item deleted successfully");
+      // console.log("Item deleted successfully");
       setNotificationMessage(`deleted successfully`);
       setNotificationSeverity("success");
       setNotificationOpen(true);

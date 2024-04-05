@@ -32,13 +32,13 @@ function EditResearchForm() {
   );
   const [patentField, setPatentField] = useState({});
   const [copyrightField, setCopyrightField] = useState({});
-  const [updateField, setUpdateField] = useState({});
+  // const [updateField, setUpdateField] = useState({});
 
   // const fetchData = async () => {
   //   try {
   //     let accessToken = sessionStorage.getItem("Token");
   //     accessToken = JSON.parse(accessToken);
-  //     // console.log("accessToken", accessToken.token);
+  //      console.log("accessToken", accessToken.token);
   //     setLoading(true);
   //     const fetchedData = await candidatesApiService.getCandidateById(
   //       accessToken.token
@@ -53,7 +53,7 @@ function EditResearchForm() {
   // };
 
   useEffect(() => {
-    console.log("use-state");
+    // console.log("use-state");
     fetchData();
   }, []);
 
@@ -227,7 +227,7 @@ function EditResearchForm() {
       ...prevData,
       candidate_research_works: updatedResearches,
     }));
-    console.log("handleField", field, value, researchField);
+    // console.log("handleField", field, value, researchField);
     setResearchField((prev) => ({
       ...prev,
       [field]: value.toString(),
@@ -243,7 +243,7 @@ function EditResearchForm() {
       ...prevData,
       candidate_journal_publications: updatedJournalPublications,
     }));
-    console.log("handleField", field, value, journalPublicationField);
+    // console.log("handleField", field, value, journalPublicationField);
     setJournalPublicationField((prev) => ({
       ...prev,
       [field]: value.toString(),
@@ -260,7 +260,7 @@ function EditResearchForm() {
       ...prevData,
       candidate_conference_publications: updatedconferencePublications,
     }));
-    console.log("handleField", field, value, conferancePublicationField);
+    // console.log("handleField", field, value, conferancePublicationField);
     setConferancePublicationField((prev) => ({
       ...prev,
       [field]: value.toString(),
@@ -275,7 +275,7 @@ function EditResearchForm() {
       ...prevData,
       candidate_patents: updatedPatents,
     }));
-    console.log("handleField", field, value, patentField);
+    // console.log("handleField", field, value, patentField);
     setPatentField((prev) => ({
       ...prev,
       [field]: value.toString(),
@@ -290,7 +290,7 @@ function EditResearchForm() {
       ...prevData,
       candidate_copyrights: updatedCopyrights,
     }));
-    console.log("handleField", field, value, copyrightField);
+    // console.log("handleField", field, value, copyrightField);
     setCopyrightField((prev) => ({
       ...prev,
       [field]: value.toString(),
@@ -304,7 +304,7 @@ function EditResearchForm() {
   const handleSaveChanges = async () => {
     try {
       let changesMade = false;
-      console.log(researchField);
+      // console.log(researchField);
       if (researchField && hasChanges(researchField)) {
         await candidatesApiService.updateCandidateResearches({
           researches: [researchField],
@@ -369,9 +369,9 @@ function EditResearchForm() {
     }
   };
 
-  const handleNotificationClose = () => {
-    setNotificationOpen(false);
-  };
+  // const handleNotificationClose = () => {
+  //   setNotificationOpen(false);
+  // };
 
   const showNotification = (message, severity) => {
     setNotificationMessage(message);

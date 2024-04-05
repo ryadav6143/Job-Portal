@@ -27,7 +27,7 @@ function MasterTable() {
     const fetchData = async () => {
       try {
         const response = await adminApiService.getAllInterview(currentPage, itemsPerPage);
-        console.log(response, "<<<<<<<check data")
+        // console.log(response, "<<<<<<<check data")
         setJobProfiles(response.jobprofileData);
         setCounts(response);
 

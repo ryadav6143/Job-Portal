@@ -19,11 +19,11 @@ function TotalExperienceForm() {
   //   benefits_mediclaim: "",
   // });
 
-  const { apiData } = useApiData();
-  // const [updateField, setUpdateField] = useState({});
-  // const [loading, setLoading] = useState(true);
+  const { apiData, fetchCandidateData } = useApiData();
+  const [updateField, setUpdateField] = useState({});
+  const [loading, setLoading] = useState(true);
   const [updateNewField, setUpdateNewField] = useState({});
-  // const [educations, setEducations] = useState([]);
+  const [educations, setEducations] = useState([]);
   const [data, setData] = useState(apiData);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -34,7 +34,7 @@ function TotalExperienceForm() {
       // setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateById();
       setData(fetchedData);
-      console.log("fetchedData", fetchedData);
+      // console.log("fetchedData", fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
@@ -52,7 +52,7 @@ function TotalExperienceForm() {
 
 
   const handleExperienceChange = (fieldName, value) => {
-    console.log("handlefild", fieldName, value, updateNewField);
+    // console.log("handlefild", fieldName, value, updateNewField);
     setUpdateNewField((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
   };
@@ -65,12 +65,12 @@ function TotalExperienceForm() {
     //   });
 
       await candidatesApiService.updateCandidatePersonalInfo(updateNewField);
-      // setUpdateField({});
+      setUpdateField({});
       setUpdateNewField({});
       setNotificationMessage("Changes saved successfully.");
       setNotificationSeverity("success");
       setNotificationOpen(true);
-      console.log("Changes saved successfully.");
+      // console.log("Changes saved successfully.");
     } catch (error) {
       console.error("Error saving changes:", error.message);
       setNotificationMessage("Error saving changes.");

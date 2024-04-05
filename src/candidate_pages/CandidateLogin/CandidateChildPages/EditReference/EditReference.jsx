@@ -104,8 +104,8 @@ function EditReference() {
           const response = await candidatesApiService.uploadCV(formData);
           if (response.status === 200) {
             setNotification({ open: true, message: 'Resume uploaded successfully', severity: 'success' });
-            const responseData = await response.json();
-            console.log('Resume upload successful:', responseData);
+            // const responseData = await response.json();
+            // console.log('Resume upload successful:', responseData);
           } else {
             console.error('Resume upload failed:', response.status, response.statusText);
             setNotification({ open: true, message: 'Error uploading resume', severity: 'error' });
@@ -123,7 +123,7 @@ function EditReference() {
   
   const handleSaveChanges = async () => {
     try {
-      console.log("resume check>>>>>>", updateField);
+      // console.log("resume check>>>>>>", updateField);
       await candidatesApiService.updateCandidatePersonalInfo(updateField);
       setUpdateField({});
       fetchData();

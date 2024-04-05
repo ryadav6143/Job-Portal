@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Dialog,
     DialogTitle,
@@ -82,7 +82,7 @@ function AddCandidateJournalForm({ handleCloseJournalClick,fetchData,setNotifica
           try {
 
               const response = await candidatesApiService.addCandidateJournalPublications(formData);
-              console.log(response.data); 
+            //   console.log(response.data); 
 
               if (response) {
                 setNotificationMessage(`added successfully`);

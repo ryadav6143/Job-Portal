@@ -32,7 +32,7 @@ function MediStaff() {
       $(this).toggleClass("active");
       $(this).find(".casse-tete-home").toggleClass("turn45");
       $(this).find(".subtitles, .values-paragraph ").toggleClass("active");
-      console.log("clicked");
+      // console.log("clicked");
     });
     //  ------------------ Adding active class on click-------------------------- F
     $(window).on("scroll", function () {

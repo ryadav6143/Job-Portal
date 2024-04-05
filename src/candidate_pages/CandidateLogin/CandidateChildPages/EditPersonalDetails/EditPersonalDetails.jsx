@@ -40,7 +40,7 @@ function EditPersonalDetails({ token }) {
       // setLoading(true);
       const fetchedData = await candidatesApiService.getCandidateById();
       setData(fetchedData);
-      console.log("fetchedData", fetchedData);
+      // console.log("fetchedData", fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
@@ -79,7 +79,7 @@ function EditPersonalDetails({ token }) {
         const responseData = await candidatesApiService.uploadProfileImage(
           file
         );
-        console.log("Image upload successful:", responseData);
+        // console.log("Image upload successful:", responseData);
 
         setSelectedImage(URL.createObjectURL(file));
         showNotification("Profile photo changed successfully.", "success");
@@ -172,7 +172,7 @@ function EditPersonalDetails({ token }) {
     const countryValue = event.target.value;
     setSelectedCountry(countryValue);
     setSelectedCity("");
-    console.log("Selected Country:", countryValue);
+    // console.log("Selected Country:", countryValue);
     setUpdateField((prev) => ({
       ...prev,
       country: countryValue,
@@ -187,7 +187,7 @@ function EditPersonalDetails({ token }) {
   const handleCityChange = (event) => {
     const cityValue = event.target.value;
     setSelectedCity(cityValue);
-    console.log("Selected city:", cityValue);
+    // console.log("Selected city:", cityValue);
     setUpdateField((prev) => ({
       ...prev,
       city: cityValue,
@@ -230,7 +230,7 @@ function EditPersonalDetails({ token }) {
 
   // const handleFieldChange = (fieldName, value) => {
 
-  //   // console.log("handlefild", fieldName, value, updateField);
+  //    console.log("handlefild", fieldName, value, updateField);
   //   setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
   //   setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
   //   setErrors({

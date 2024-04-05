@@ -21,7 +21,7 @@ function AdminList() {
   const fetchAdminList = async () => {
     try {
       const response = await adminApiService.getAdminList();
-      console.log("response>>>>", response);
+      // console.log("response>>>>", response);
       setAdmins(response);
     } catch (error) {
       console.error("Error fetching admin list:", error.message);
@@ -31,7 +31,7 @@ function AdminList() {
   const fetchRoleList = async () => {
     try {
       const response = await adminApiService.getRoleList();
-      console.log("role data>>>>>>", response);
+      // console.log("role data>>>>>>", response);
       setRole(response);
     } catch (error) {
       console.error("Error fetching admin list:", error.message);
@@ -47,8 +47,8 @@ function AdminList() {
   }, []);
 
   const handleOpenModal = (adminData) => {
-    console.log(adminData,"adimin data")
-    setSelectedAdmin(adminData); // Set selected admin data
+    // console.log(adminData,"adimin data")
+    setSelectedAdmin(adminData);
     setOpen(true);
   };
 
@@ -68,7 +68,7 @@ function AdminList() {
   
       const  updateData={ ...updateField,admin_id:selectedAdmin.id}
       const updatedAdminList = await adminApiService.updateAdminBySuperAdmin(updateData);
-      console.log("updatedAdminList",updatedAdminList);
+      // console.log("updatedAdminList",updatedAdminList);
       setAdmins(updatedAdminList);
       fetchAdminList();
       fetchRoleList();
@@ -113,7 +113,7 @@ function AdminList() {
     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setSelectedAdmin((prev) => ({ ...prev, [fieldName]: value.toString() }));
   
-    console.log("Updated selectedAdmin:",updateField);
+    // console.log("Updated selectedAdmin:",updateField);
   };
 
 

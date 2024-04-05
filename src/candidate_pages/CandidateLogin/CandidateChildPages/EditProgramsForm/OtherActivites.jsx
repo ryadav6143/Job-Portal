@@ -13,7 +13,7 @@ const OtherActivites = () => {
             // setLoading(true);
             const fetchedData = await candidatesApiService.getCandidateById();
             setData(fetchedData)
-            console.log("fetchedData", fetchedData);
+            // console.log("fetchedData", fetchedData);
         } catch (error) {
             console.error("Error fetching data:", error.message);
         }
@@ -27,14 +27,14 @@ const OtherActivites = () => {
 
 
     const handleChange = (fieldName, value) => {
-        console.log("handlefild", fieldName, value, updateField);
+        // console.log("handlefild", fieldName, value, updateField);
         setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
         setData((prev) => ({ ...prev, [fieldName]: value.toString() }));
     };
     const handleSaveChanges = async () => {
         try {
             const response =     await candidatesApiService.updateCandidatePersonalInfo(updateField);
-            console.log("Data updated successfully");
+            // console.log("Data updated successfully");
             if (response) {
                 setNotificationMessage(`added successfully`);
                 setNotificationSeverity("success");

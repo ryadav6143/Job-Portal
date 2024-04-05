@@ -23,7 +23,7 @@ const ExperienceForm = () => {
     try {
      
       const fetchedData = await candidatesApiService.getCandidateExperience();
-      console.log("check response",fetchedData)
+      // console.log("check response",fetchedData)
       setexperienceItem(fetchedData);
 
     } catch (error) {
@@ -42,9 +42,9 @@ const ExperienceForm = () => {
   //   setIsPopupOpen(true); 
   // };
   const handleEditClick = (itemId) => {
-    console.log("id??",itemId);
+    // console.log("id??",itemId);
     const filteredItem = experienceItem.find(item => item.id === itemId);
-    console.log("Filtered item:", filteredItem);
+    // console.log("Filtered item:", filteredItem);
     setFilteredItem(filteredItem);
     // setEditItemId(itemId);
     setEditMode(true);
@@ -70,7 +70,7 @@ const ExperienceForm = () => {
     try {
       await candidatesApiService.removeCandidateExperience(deleteItemId);
       setexperienceItem(prevItems => prevItems.filter(item => item.id !== deleteItemId));
-      console.log("Item deleted successfully");
+      // console.log("Item deleted successfully");
       setNotificationMessage(`deleted successfully`);
       setNotificationSeverity("success");
       setNotificationOpen(true);

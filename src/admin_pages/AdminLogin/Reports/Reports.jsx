@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
-import { Modal, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import adminApiService from "../../adminApiService";
 import "./Reports.css";
 import Notification from "../../../Notification/Notification";
@@ -23,8 +23,8 @@ function Reports() {
   const [count, setCount] = useState([]);
   const [categories, setCategories] = useState([]);
   const [posts, setPosts] = useState([]);
-  const [subposts, setSubposts] = useState([]);
-  const [showPdfModal, setShowPdfModal] = useState(false);
+  // const [subposts, setSubposts] = useState([]);
+  // const [showPdfModal, setShowPdfModal] = useState(false);
   const [showPdfDialog, setShowPdfDialog] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
   const [selectedCandidate, setSelectedCandidate] = useState(null);
@@ -57,11 +57,11 @@ function Reports() {
         selectedCategory,
         selectedPost
       );
-  
-      console.log("check count ", response);
+
+      // console.log("check count ", response);
       setData(response.candidateappliedpostData);
       setCount(response);
-  
+
       const uniqueCategories = [
         ...new Set(
           response.candidateappliedpostData.map(
@@ -81,14 +81,13 @@ function Reports() {
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     const fetchJobCategories = async () => {
       try {
         const response = await adminApiService.getJobCategories();
         setJobCategories(response.data);
-        console.log("response.data", response.data);
+        // console.log("response.data", response.data);
       } catch (error) {
         console.error("Error fetching job categories:", error);
       }
@@ -144,7 +143,7 @@ function Reports() {
   };
 
   const handleCandidateInfoClick = (candidate) => {
-    console.log("Selected Candidate Data:", candidate);
+    // console.log("Selected Candidate Data:", candidate);
     setSelectedCandidate(candidate.id);
   };
 
@@ -211,7 +210,7 @@ function Reports() {
         signal
       );
 
-      console.log("getCandidatesById>>", response.data);
+      // console.log("getCandidatesById>>", response.data);
       setSelectedCandidate(response.data);
       setLoadingPopup(false);
     } catch (error) {

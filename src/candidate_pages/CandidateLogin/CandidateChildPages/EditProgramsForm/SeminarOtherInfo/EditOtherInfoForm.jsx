@@ -53,7 +53,7 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData,setNotificatio
       [fieldName]: value.trim() ? "" : "This field is required",
     }));
 
-    console.log(`Field '${fieldName}' updated to:`, value);
+    // console.log(`Field '${fieldName}' updated to:`, value);
   };
 
   const handleUpdate = async (e) => {

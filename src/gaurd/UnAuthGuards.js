@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom"
 const UnAuthGuards=({component})=>{
     const [status,setStatus]=useState(false)
     const navigate = useNavigate();
-
-    
     useEffect(()=>{
         checkToken()
     },[component]);
@@ -13,7 +11,7 @@ const UnAuthGuards=({component})=>{
         try{
             const Token = sessionStorage.getItem("Token")
          
-            if(Token){
+            if(!Token){
                 sessionStorage.removeItem("Token")
                 // navigate(`/`)
             }

@@ -2,7 +2,6 @@ import { useState } from "react";
 import React from "react";
 import "./CurrentExperience.css";
 
-
 function CurrentExperience({
   formData,
   setFormData,
@@ -11,7 +10,7 @@ function CurrentExperience({
   setFormErrors,
   isFresher,
   setIsFresher,
-  onCheckboxChange
+  onCheckboxChange,
 }) {
   [isFresher, setIsFresher] = useState(false);
   // const [formData, setFormData] = useState(null);
@@ -21,33 +20,31 @@ function CurrentExperience({
     onCheckboxChange(!isFresher);
   };
   const handleInputChange = (e) => {
-    
     const { name, value } = e.target;
     if (value.length <= maxCharacters) {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      personalDetails: {
-        ...prevFormData.personalDetails,
-        [name]: value,
-      },
-    }));
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: value ? "" : "",
-    }));
-  }
-  else {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: `Maximum ${maxCharacters} characters allowed`,
-    }));
-  }
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        personalDetails: {
+          ...prevFormData.personalDetails,
+          [name]: value,
+        },
+      }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: value ? "" : "",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: `Maximum ${maxCharacters} characters allowed`,
+      }));
+    }
   };
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const allowedExtensions = ["pdf", "doc", "docx"];
     const maxFileSizeInMB = 2;
-console.log("<<<<",file)
+    // console.log("<<<<", file);
     if (!file) {
       setErrors({
         candidate_cv: "! CV file is Required",

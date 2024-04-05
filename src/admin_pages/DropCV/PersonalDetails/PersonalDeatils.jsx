@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import "./PersonalDeatils.css";
 import apiService from "../../../Services/ApiServices";
@@ -63,13 +63,13 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       try {
         const categoriesResponse = await apiService.getJobCategories(signal);
         setCategories(categoriesResponse.data);
-        console.log("categoriesResponse.data>>>>>>",categoriesResponse.data)
-        console.log("formData.applied_post_masters_id>>>>>",formData.applied_post_masters_id)
+        // console.log("categoriesResponse.data>>>>>>",categoriesResponse.data)
+        // console.log("formData.applied_post_masters_id>>>>>",formData.applied_post_masters_id)
         if (formData.job_category_master_id) {
        
           const selectedCategoryObject = categoriesResponse.data.find((category) => category.id == formData.job_category_master_id
           );
-          console.log("selectedCategoryObject>>>>>",selectedCategoryObject)
+          // console.log("selectedCategoryObject>>>>>",selectedCategoryObject)
           if (selectedCategoryObject) {
             setSelectedCategory(selectedCategoryObject.category_name);
           }
@@ -93,7 +93,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
             });
           });
         
-          console.log("selectedPostObject>>>>>", selectedPostObject);
+          // console.log("selectedPostObject>>>>>", selectedPostObject);
         
           if (selectedPostObject) {
             setSelectedPost(selectedPostObject.post_name);
@@ -111,7 +111,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
             });
           })});
         
-          console.log("selectedSubPostObject>>>>>", selectedSubPostObject);
+          // console.log("selectedSubPostObject>>>>>", selectedSubPostObject);
         
           if (selectedSubPostObject) {
             setSelectedSubpost(selectedSubPostObject.subpost_name);
@@ -124,7 +124,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
        
           const selectedSubjectObject = subjectRes.data.find((subject) => subject.id == formData.subjects_master_id
           );
-          console.log("selectedSubjectObject>>>>>",selectedSubjectObject)
+          // console.log("selectedSubjectObject>>>>>",selectedSubjectObject)
           if (selectedSubjectObject) {
             setSelectedSubject(selectedSubjectObject.subject_name);
           }
@@ -164,7 +164,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
       setSubposts(
         selectedPostData ? selectedPostData.applied_subpost_masters : []
       );
-      console.log(subposts);
+      // console.log(subposts);
     } else {
       setSubposts([]);
     }
