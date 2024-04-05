@@ -220,7 +220,7 @@ function AddCategories() {
               </thead>
               <tbody>
                 {data.map((category, index) => (
-                  <tr key={category?.id}>
+                  <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{category?.category_name}</td>
                     <td>

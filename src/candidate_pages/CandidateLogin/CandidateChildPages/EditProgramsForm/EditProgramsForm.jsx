@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import Notification from "../../../../Notification/Notification";
 import candidatesApiService from "../../../candidateService";
-import Footers from "../../../../components/Footer/Footers";
+// import Footers from "../../../../components/Footer/Footers";
 import CandidateSeminarForm from "./CandidateSeminarForm"
 function EditProgramsForm() {
   const [data, setData] = useState({
@@ -266,9 +266,9 @@ function EditProgramsForm() {
   };
 
 
-  const handleNotificationClose = () => {
-    setNotificationOpen(false);
-  };
+  // const handleNotificationClose = () => {
+  //   setNotificationOpen(false);
+  // };
 
   const showNotification = (message, severity) => {
     setNotificationMessage(message);

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 // import { ADMIN_BASE_URL } from "../../../config/config";
-import { ADMIN_BASE_URL } from "../../../config/config";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import Modal from "@mui/material/Modal";
@@ -28,7 +26,7 @@ function AddDepartment() {
   };
 
   const handleAdd = async () => {
-      try {
+    try {
       const response = await adminApiService.addDepartment(newDepartmentName);
       setDepartments([...departments, response]);
       setNewDepartmentName("");
@@ -39,9 +37,11 @@ function AddDepartment() {
   };
 
   const handleDelete = async (id) => {
-    const isConfirmed = window.confirm("Are you sure you want to delete this department?");
-    
-    if (isConfirmed) {  
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this department?"
+    );
+
+    if (isConfirmed) {
       try {
         await adminApiService.deleteDepartment(id);
         setDepartments(departments.filter((dept) => dept.id !== id));
@@ -51,9 +51,12 @@ function AddDepartment() {
       }
     }
   };
-  const handleSave = async () => { 
-      try {
-      const response = await adminApiService.updateDepartment(newDepartmentName, editingDepartmentId);
+  const handleSave = async () => {
+    try {
+      const response = await adminApiService.updateDepartment(
+        newDepartmentName,
+        editingDepartmentId
+      );
       setDepartments(
         departments.map((dept) =>
           dept.id === editingDepartmentId
@@ -64,7 +67,7 @@ function AddDepartment() {
       setNewDepartmentName("");
       setEditingDepartmentId(null);
       setUpdateModalOpen(false);
-      fetchData(); 
+      fetchData();
     } catch (error) {
       console.error(error);
     }
@@ -83,7 +86,7 @@ function AddDepartment() {
   };
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
 
   const style = {
@@ -120,6 +123,7 @@ function AddDepartment() {
                 onClick={handleCloseModal}
                 className="Ad-close-btn"
                 src={close}
+                alt=""
               />
               <label className="AC-SetLabel-Name" htmlFor="departmentName">
                 Add Department
@@ -159,91 +163,84 @@ function AddDepartment() {
         </form> */}
       </div>
 
-<div className="admin-list">
-<div className="master-table ">
-        <p className="SCA-heading">CURRENT DEPARTMENT AVAILABLE</p>
-        <div className="table-responsive fixe-table">
-          <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Department Name</th>
-                <th scope="col">UPDATE</th>
-                <th scope="col">DELETE</th>
-              </tr>
-            </thead>
-            <tbody>
-              {departments.map((department, index) => (
-                <tr key={department.id}>
-                  <td>{index + 1}</td>
-                  <td>{department.dept_name}</td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() =>
-                        handleUpdate(department.id, department.dept_name)
-                      }
-                    >
-                      <img src={updatebtn} className="up-del-btn" alt="" />
-                    </button>
-
-                  </td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDelete(department.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td>
+      <div className="admin-list">
+        <div className="master-table ">
+          <p className="SCA-heading">CURRENT DEPARTMENT AVAILABLE</p>
+          <div className="table-responsive fixe-table">
+            <table className="table table-responsive">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Department Name</th>
+                  <th scope="col">UPDATE</th>
+                  <th scope="col">DELETE</th>
                 </tr>
-              ))}
+              </thead>
+              <tbody>
+                {departments.map((department, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{department.dept_name}</td>
+                    <td>
+                      <button
+                        id="table-btns"
+                        onClick={() =>
+                          handleUpdate(department.id, department.dept_name)
+                        }
+                      >
+                        <img src={updatebtn} className="up-del-btn" alt="" />
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        id="table-btns"
+                        onClick={() => handleDelete(department.id)}
+                      >
+                        <img src={deletebtn} className="up-del-btn" alt="" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
 
-              <Modal
-                open={updateModalOpen}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                  <form>
-                    <img
-                      onClick={handleClose}
-                      className="Ad-close-btn"
-                      src={close}
-                    />
-                    <label
-                      className="AC-SetLabel-Name"
-                      htmlFor="departmentName"
-                    >
-                      Update Department
-                    </label>
-                    <input
-                      type="text"
-                      id="departmentName"
-                      placeholder="Add Your Departments"
-                      value={newDepartmentName}
-                      onChange={(e) =>
-                        setNewDepartmentName(e.target.value)
-                      }
-                    />
+                <Modal
+                  open={updateModalOpen}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <form>
+                      <img
+                        onClick={handleClose}
+                        className="Ad-close-btn"
+                        src={close}
+                        alt=""
+                      />
+                      <label
+                        className="AC-SetLabel-Name"
+                        htmlFor="departmentName"
+                      >
+                        Update Department
+                      </label>
+                      <input
+                        type="text"
+                        id="departmentName"
+                        placeholder="Add Your Departments"
+                        value={newDepartmentName}
+                        onChange={(e) => setNewDepartmentName(e.target.value)}
+                      />
 
-                    <button
-                      type="button"
-                      onClick={handleSave}
-                      id="set-btn"
-                    >
-                      UPDATE
-                    </button>
-                  </form>
-                </Box>
-              </Modal>
-            </tbody>
-          </table>
+                      <button type="button" onClick={handleSave} id="set-btn">
+                        UPDATE
+                      </button>
+                    </form>
+                  </Box>
+                </Modal>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-</div>
-     
     </>
   );
 }

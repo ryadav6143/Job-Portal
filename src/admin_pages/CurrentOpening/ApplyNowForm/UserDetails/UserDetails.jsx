@@ -287,10 +287,10 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                    
                     <option value="">{selectedPost&&selectedPost?selectedPost: "Select a post"}</option>
                   
-                    {posts.map((post) => {
+                    {posts.map((post,index) => {
                       
                       // console.log("post",post)
-                    return  <option key={post.id} value={post.id}>
+                    return  <option key={index} value={post.id}>
                         {post.post_name}
                       </option>
                     
@@ -318,8 +318,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     className="UD-set-dropdown"
                   >                   
                     <option value="">{selectedDepartment&&selectedDepartment?selectedDepartment: "Select a department"}</option>
-                    {departments.map((department) => (
-                      <option key={department.id} value={department.id}>
+                    {departments.map((department,index) => (
+                      <option key={index} value={department.id}>
                         {department.dept_name}
                       </option>
                     ))}
@@ -627,9 +627,9 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     onChange={handleCountryChange}
                   >   
                     <option value="">{selectedCountry&&selectedCountry?selectedCountry: "Select a country"}</option>
-                    {countries.map((countryData) => (
+                    {countries.map((countryData,index) => (
                       <option
-                        key={countryData.iso2}
+                        key={index}
                         value={countryData.country}
                       >
                         {countryData.country}
@@ -660,8 +660,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                       countries.find(
                         (country) => country.country === selectedCountry
                       )?.cities || []
-                    ).map((city) => (
-                      <option key={city} value={city}>
+                    ).map((city,index) => (
+                      <option key={index} value={city}>
                         {city}
                       </option>
                     ))}

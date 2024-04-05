@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./AdminRegister.css";
 
-import medilogo from "../../../../assets/logos/medi-logo.png"
+// import medilogo from "../../../../assets/logos/medi-logo.png"
 import axios from "axios";
 
 import { ADMIN_BASE_URL } from "../../../../config/config";
 function AdminRegister() {
   const [departments, setDepartments] = useState([]);
-  const [selectedDepartment, setSelectedDepartment] = useState("");
+  // const [selectedDepartment, setSelectedDepartment] = useState("");
   const [formData, setFormData] = useState({
     title_first_name: "",
     first_name: "",
@@ -19,7 +19,7 @@ function AdminRegister() {
     password: "",
     department_master_id: "",
   });
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     getDepartment();
   }, []);
@@ -74,7 +74,7 @@ function AdminRegister() {
     e.preventDefault();
     try {
       // Make a request to register the admin
-      const response = await axios.post(
+      await axios.post(
         `${ADMIN_BASE_URL}/admin/registerAdmin`,
         formData
       );
@@ -219,8 +219,8 @@ function AdminRegister() {
                   onChange={handleChange}
                 >
                   <option value="">Select Department</option>
-                  {departments.map((department) => (
-                    <option key={department.id} value={department.id}>
+                  {departments.map((department,index) => (
+                    <option key={index} value={department.id}>
                       {department.dept_name}
                     </option>
                   ))}

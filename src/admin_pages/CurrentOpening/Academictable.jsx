@@ -41,7 +41,7 @@ function Academictable() {
     };
 
     try {
-      const response = await adminApiService.addApplied(requestData); // Use adminApiService
+      await adminApiService.addApplied(requestData); // Use adminApiService
       // console.log("Response:", response);
       // alert("Post Applied Successfully");
       setNotificationMessage("Post Applied Successfully");
@@ -56,7 +56,7 @@ function Academictable() {
     }
   };
 
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
 
   const rowsPerPage = 100;
 
@@ -167,6 +167,5 @@ function Academictable() {
     </>
   );
 }
-
 
 export default Academictable;

@@ -1,6 +1,6 @@
 import React from "react";
 import "./CandidateLogut.css";
-import medilogo from "../../../assets/logos/medi-logo.png";
+// import medilogo from "../../../assets/logos/medi-logo.png";
 // import CandidateDashboard from "../CandidateDashboard/CandidateDashboard";
 function CandidateLogut({ handleLogout }) {
   return (

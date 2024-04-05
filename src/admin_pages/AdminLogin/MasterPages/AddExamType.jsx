@@ -3,7 +3,7 @@ import axios from "axios";
 // import { ADMIN_BASE_URL } from "../../../config/config";
 import { ADMIN_BASE_URL } from "../../../config/config";
 import updatebtn from "../../../assets/logos/update.png";
-import deletebtn from "../../../assets/logos/delete.png";
+// import deletebtn from "../../../assets/logos/delete.png";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
@@ -15,16 +15,15 @@ function AddExamType() {
   const [open, setOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [selectedExam, setSelectedExam] = useState(null);
-  const [selectedExamId, setSelectedExamId] = useState(null);
+  const [setSelectedExamId] = useState(null);
   // -----------------------------FETCHING EXAMTYPEMASTER API----------
   async function examType() {
-         try {
-        const response = await adminApiService.getExam();
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching exam types:", error);
-      }
-    
+    try {
+      const response = await adminApiService.getExam();
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching exam types:", error);
+    }
   }
   useEffect(() => {
     examType();
@@ -34,7 +33,7 @@ function AddExamType() {
   // --------------------ADD DATA TO API--------------------------------
 
   // const handleAddExamType = () => {
-   
+
   //   if (!newExamType.trim()) {
   //     alert("Please enter a valid exam type.");
   //     return;
@@ -61,8 +60,9 @@ function AddExamType() {
     if (!newExamType.trim()) {
       alert("Please enter a valid exam type.");
       return;
-    }  
-    adminApiService.addExamType(newExamType)
+    }
+    adminApiService
+      .addExamType(newExamType)
       .then((response) => {
         setData([...data, response]);
         setNewExamType("");
@@ -74,22 +74,23 @@ function AddExamType() {
   // --------------------ADD DATA TO API--------------------------------
 
   // --------------------DELETE DATA FROM API--------------------------------
-  const handleDeleteExamType = (examId) => {
-    let accessToken = sessionStorage.getItem("Token");
-    accessToken = JSON.parse(accessToken);
-    axios
-      .delete(`${ADMIN_BASE_URL}/examTypeMaster/${examId}`, {
-        headers: {
-          'access-token': accessToken.token
-        }
-      })
-      .then(() => {
-        // Remove the deleted item from the state
-        const updatedData = data.filter((exam) => exam.id !== examId);
-        setData(updatedData);
-      })
-      .catch((error) => console.error("Error deleting exam type:", error));
-  };
+  // const handleDeleteExamType = (examId) => {
+  //   let accessToken = sessionStorage.getItem("Token");
+  //   accessToken = JSON.parse(accessToken);
+  //   axios
+  //     .delete(`${ADMIN_BASE_URL}/examTypeMaster/${examId}`, {
+  //       headers: {
+  //         "access-token": accessToken.token,
+  //       },
+  //     })
+  //     .then(() => {
+  //       // Remove the deleted item from the state
+  //       const updatedData = data.filter((exam) => exam.id !== examId);
+  //       setData(updatedData);
+  //     })
+  //     .catch((error) => console.error("Error deleting exam type:", error));
+  // };
+
   // const handleUpdateExamType = () => {
   //   if (!selectedExam) return;
   //   let accessToken = sessionStorage.getItem("Token");
@@ -103,12 +104,12 @@ function AddExamType() {
   //         'access-token': accessToken.token
   //       }
   //     })
-  //     .then((response) => {       
+  //     .then((response) => {
   //       setData(
   //         data.map((exam) =>
   //           exam.id === selectedExam.id ? response.data : exam
   //         )
-  //       );       
+  //       );
   //       setSelectedExam(null);
   //       setUpdateModalOpen(false);
   //       examType();
@@ -116,25 +117,21 @@ function AddExamType() {
   //     .catch((error) => console.error("Error updating exam type:", error));
   // };
 
-
   const handleUpdateExamType = async () => {
     if (!selectedExam) return;
-     
-  await adminApiService.updateExamType(selectedExam)
-      .then((response) => {       
+
+    await adminApiService
+      .updateExamType(selectedExam)
+      .then((response) => {
         setData(
-          data.map((exam) =>
-            exam.id === selectedExam.id ? response : exam
-          )
-        );       
+          data.map((exam) => (exam.id === selectedExam.id ? response : exam))
+        );
         setSelectedExam(null);
         setUpdateModalOpen(false);
         examType();
       })
       .catch((error) => console.error(error));
   };
-
-
 
   const handleSelectExamForUpdate = (examId) => {
     const selectedExam = data.find((exam) => exam.id === examId);
@@ -159,8 +156,8 @@ function AddExamType() {
 
   // --------------------UPDATE DATA IN API--------------------------------
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
   const style = {
     position: "absolute",
@@ -194,6 +191,7 @@ function AddExamType() {
                     onClick={handleAddModalClose}
                     className="Examtype-close-btn"
                     src={close}
+                    alt=""
                   />
                   <label className="AC-SetLabel-Name" htmlFor="categoryInput">
                     Add Exam Type
@@ -220,42 +218,40 @@ function AddExamType() {
         </Modal>
       </div>
 
-
-<div className="admin-list">
-<div className="master-table ">
-        <p className="SCA-heading">CURRENT EXAM TYPE AVAILABLE</p>
-        <div className="table-responsive fixe-table">
-          <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
-              <tr>
-                <th scope="col">Sr. No.</th>
-                <th scope="col">EXAM TYPE</th>
-                <th scope="col">UPDATE</th>
-                {/* <th scope="col">DELETE</th> */}
-              </tr>
-            </thead>
-            <tbody>
-              {data
-                .filter(
-                  (value, index, self) =>
-                    self.findIndex((v) => v.exam_name === value.exam_name) ===
-                    index
-                )
-                .map((exam) => (
-                  <tr key={exam.id}>
-                    <td>{exam.id}</td>
-                    <td>{exam.exam_name}</td>
-                    <td>
-                      <button
-                        id="table-btns"
-                        onClick={() => handleSelectExamForUpdate(exam.id)}
-                      >
-                        {" "}
-                        <img src={updatebtn} className="up-del-btn" alt="" />
-                      </button>
-                     
-                    </td>
-                    {/* <td>
+      <div className="admin-list">
+        <div className="master-table ">
+          <p className="SCA-heading">CURRENT EXAM TYPE AVAILABLE</p>
+          <div className="table-responsive fixe-table">
+            <table className="table table-responsive">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                <tr>
+                  <th scope="col">Sr. No.</th>
+                  <th scope="col">EXAM TYPE</th>
+                  <th scope="col">UPDATE</th>
+                  {/* <th scope="col">DELETE</th> */}
+                </tr>
+              </thead>
+              <tbody>
+                {data
+                  .filter(
+                    (value, index, self) =>
+                      self.findIndex((v) => v.exam_name === value.exam_name) ===
+                      index
+                  )
+                  .map((exam, index) => (
+                    <tr key={index}>
+                      <td>{exam.id}</td>
+                      <td>{exam.exam_name}</td>
+                      <td>
+                        <button
+                          id="table-btns"
+                          onClick={() => handleSelectExamForUpdate(exam.id)}
+                        >
+                          {" "}
+                          <img src={updatebtn} className="up-del-btn" alt="" />
+                        </button>
+                      </td>
+                      {/* <td>
                       <button
                         id="table-btns"
                         onClick={() => handleDeleteExamType(parseInt(exam.id))}
@@ -263,64 +259,62 @@ function AddExamType() {
                         <img src={deletebtn} className="up-del-btn" alt="" />
                       </button>
                     </td> */}
-                  </tr>
-                ))}
+                    </tr>
+                  ))}
 
-<Modal
-                        open={updateModalOpen}
-                        onClose={handleUpdateModalClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                      >
-                        <Box sx={style}>
-                          <FormControl>
-                            <div>
-                              <form>
-                                <img
-                                  onClick={handleUpdateModalClose}
-                                  className="update-close-btn"
-                                  src={close}
-                                />
-                                <label
-                                  className="AC-SetLabel-Name"
-                                  htmlFor="categoryInput"
-                                >
-                                  Update Exam Type
-                                </label>
+                <Modal
+                  open={updateModalOpen}
+                  onClose={handleUpdateModalClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <FormControl>
+                      <div>
+                        <form>
+                          <img
+                            onClick={handleUpdateModalClose}
+                            className="update-close-btn"
+                            src={close}
+                            alt=""
+                          />
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="categoryInput"
+                          >
+                            Update Exam Type
+                          </label>
 
-                                <input
-                                  className="Ac-set-input"
-                                  type="text"
-                                  id="categoryInput"
-                                  placeholder="Update Exam Type"
-                                  value={
-                                    selectedExam ? selectedExam.exam_name : ""
-                                  }
-                                  onChange={(e) =>
-                                    setSelectedExam({
-                                      ...selectedExam,
-                                      exam_name: e.target.value,
-                                    })
-                                  }
-                                />
-                                <button
-                                  id="set-btn"
-                                  type="button"
-                                  onClick={handleUpdateExamType}
-                                >
-                                  UPDATE NOW
-                                </button>
-                              </form>
-                            </div>
-                          </FormControl>
-                        </Box>
-                      </Modal>
-            </tbody>
-          </table>
+                          <input
+                            className="Ac-set-input"
+                            type="text"
+                            id="categoryInput"
+                            placeholder="Update Exam Type"
+                            value={selectedExam ? selectedExam.exam_name : ""}
+                            onChange={(e) =>
+                              setSelectedExam({
+                                ...selectedExam,
+                                exam_name: e.target.value,
+                              })
+                            }
+                          />
+                          <button
+                            id="set-btn"
+                            type="button"
+                            onClick={handleUpdateExamType}
+                          >
+                            UPDATE NOW
+                          </button>
+                        </form>
+                      </div>
+                    </FormControl>
+                  </Box>
+                </Modal>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-</div>
-      
     </>
   );
 }

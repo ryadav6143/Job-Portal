@@ -7,7 +7,7 @@ function CurrentExperience({
   setFormData,
   errors,
   setErrors,
-  setFormErrors,
+
   isFresher,
   setIsFresher,
   onCheckboxChange,

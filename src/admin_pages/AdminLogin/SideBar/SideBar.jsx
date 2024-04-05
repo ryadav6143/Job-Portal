@@ -5,12 +5,12 @@ import "./SideBar.css";
 import opening from "../../../assets/logos/book.png";
 import interview from "../../../assets/logos/interview.png";
 import reports from "../../../assets/logos/report.png";
-
+import admin from "../../../assets/logos/admin.png";
+import superadmin from "../../../assets/logos/superadmin.png";
 import list from "../../../assets/logos/list.png";
 import jobprofile from "../../../assets/logos/jobprofile.png";
 import Hamburgermenu from "../../../assets/logos/hamburger (1).png";
-import admin from "../../../assets/logos/admin.png";
-import superadmin from "../../../assets/logos/superadmin.png";
+
 
 function SideBar() {
   return (
