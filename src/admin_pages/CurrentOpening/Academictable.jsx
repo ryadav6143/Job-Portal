@@ -66,7 +66,7 @@ function Academictable() {
       // console.log(profile,"<<<<<<")
       return (
         profile.publish_to_vacancy &&
-        profile.job_category_master?.category_name !== "NonAcademic"
+        profile.job_category_master?.category_name !== "non-academic"
       );
     })
     .map((profile) => ({
