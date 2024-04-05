@@ -29,7 +29,7 @@ import OTPVerification from "../admin_pages/DropCV/OTPVerifivation/OTPVerificati
 import TestPages from "../admin_pages/TestPages/TestPages";
 import AddOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/AddOpeningForm/AddOpenings";
 import Sidenav from "../admin_pages/TestPages/Sidenav";
-import NonAcademicForm from "../admin_pages/CurrentOpening/NonAcademicForm/NonAcademicForm"
+import NonAcademicForm from "../admin_pages/CurrentOpening/NonAcademicForm/NonAcademicForm";
 
 // console.log("inside UnAuthRoutes");
 const UnAuthRoutes = [
@@ -84,8 +84,12 @@ const UnAuthRoutes = [
     path="personaldetails"
     element={<UnAuthGuards component={<PersonalDetails />} />}
   ></Route>,
-  <Route key="qualification" path="qualification" element={<Qualification />}></Route>,
-  <Route 
+  <Route
+    key="qualification"
+    path="qualification"
+    element={<Qualification />}
+  ></Route>,
+  <Route
     key="currentexperience"
     path="currentexperience"
     element={<UnAuthGuards component={<CurrentExperience />} />}
@@ -106,7 +110,7 @@ const UnAuthRoutes = [
     element={<UnAuthGuards component={<Administrative />} />}
   ></Route>,
   <Route
-  key="research-jobs"
+    key="research-jobs"
     path="research-jobs"
     element={<UnAuthGuards component={<Research />} />}
   ></Route>,
@@ -121,10 +125,10 @@ const UnAuthRoutes = [
     element={<UnAuthGuards component={<ApplyNow />} />}
   ></Route>,
   <Route
-  key="non-academic-form"
-  path="non-academic-form"
-  element={<UnAuthGuards component={<NonAcademicForm />} />}
-></Route>,
+    key="non-academic-form"
+    path="non-academic-form"
+    element={<UnAuthGuards component={<NonAcademicForm />} />}
+  ></Route>,
   <Route
     key="contact-us"
     path="contact-us"
@@ -161,13 +165,11 @@ const UnAuthRoutes = [
     element={<UnAuthGuards component={<Sidenav />} />}
   ></Route>,
 
-
   <Route
     key="PageNotFound"
     path="*"
     element={<UnAuthGuards component={<PageNotFound />} />}
   ></Route>,
-
 ];
 
 export default UnAuthRoutes;

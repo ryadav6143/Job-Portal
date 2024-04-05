@@ -23,13 +23,11 @@ import MasterTable from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrent
 // import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin.jsx";
 import AdminRegister from "../admin_pages/AdminLogin/AdminChildPages/RegisterAdmin/AdminRegister.jsx";
 
-
-
 // console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
   // <Route path="adminpanel" element= {<AdminAuthGaurd component ={<Adminpanel />} />}></Route>,
   <Route
-  key="admin-dashboard"
+    key="admin-dashboard"
     path="/admin-dashboard"
     element={<AdminAuthGaurd component={<AdminDashboard />} />}
   >
@@ -37,13 +35,20 @@ const AdminAuthRoutes = [
     <Route
       key="current-openings"
       path="current-openings"
-      element={<AdminAuthGaurd component={<MasterCurrentOpening />} />}>
-             <Route path="" element={<AdminAuthGaurd component={<MasterTable />} />}/>
-            <Route path="add-openings" element={<AdminAuthGaurd component={<AddOpenings />} />}/>
-            <Route path="edit-openings/:profileId" element={<AdminAuthGaurd component={<EditOpenings />} />}/>
+      element={<AdminAuthGaurd component={<MasterCurrentOpening />} />}
+    >
+      <Route path="" element={<AdminAuthGaurd component={<MasterTable />} />} />
+      <Route
+        path="add-openings"
+        element={<AdminAuthGaurd component={<AddOpenings />} />}
+      />
+      <Route
+        path="edit-openings/:profileId"
+        element={<AdminAuthGaurd component={<EditOpenings />} />}
+      />
     </Route>
     <Route
-    key="job-profile"
+      key="job-profile"
       path="job-profile"
       element={<AdminAuthGaurd component={<MasterJobProfile />} />}
     />
@@ -108,8 +113,12 @@ const AdminAuthRoutes = [
       element={<AdminAuthGaurd component={<GetRole />} />}
     />
     <Route key="add-openings" path="add-openings" element={<AddOpenings />} />,
-    <Route key="admin_register" path="admin_register" element={<AdminAuthGaurd component={<AdminRegister />} />}
-  ></Route>,
+    <Route
+      key="admin_register"
+      path="admin_register"
+      element={<AdminAuthGaurd component={<AdminRegister />} />}
+    ></Route>
+    ,
   </Route>,
 ];
 

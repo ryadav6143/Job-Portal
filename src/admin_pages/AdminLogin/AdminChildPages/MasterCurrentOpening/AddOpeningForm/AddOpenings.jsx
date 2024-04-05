@@ -209,10 +209,9 @@ function AddOpenings() {
   //   }
   // };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
       const response = await adminApiService.postJobProfile(formValues);
       // console.log("Job profile submitted successfully!", response.data);
@@ -222,30 +221,34 @@ function AddOpenings() {
       navigate("/admin-dashboard/current-openings");
     } catch (error) {
       console.error("Error submitting job profile:", error);
-  
+
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
         console.log("Error response data:", error.response.data);
-        const errorMessage = error.response.data.message || "Error submitting job profile.";
+        const errorMessage =
+          error.response.data.message || "Error submitting job profile.";
         setNotificationMessage(errorMessage);
         setNotificationSeverity("error");
       } else if (error.request) {
         // The request was made but no response was received
         // console.log("No response received from server");
-        setNotificationMessage("No response received from server. Please try again later.");
+        setNotificationMessage(
+          "No response received from server. Please try again later."
+        );
         setNotificationSeverity("error");
       } else {
         // Something else happened in making the request that triggered an error
         console.log("Error:", error.message);
-        setNotificationMessage("Error submitting job profile. Please try again later.");
+        setNotificationMessage(
+          "Error submitting job profile. Please try again later."
+        );
         setNotificationSeverity("error");
       }
-  
+
       setShowNotification(true);
     }
   };
-  
 
   const [showForm, setShowForm] = useState(true); // State to toggle form visibility
 
