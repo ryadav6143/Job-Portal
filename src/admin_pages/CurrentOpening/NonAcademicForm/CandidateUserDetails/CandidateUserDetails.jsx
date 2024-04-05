@@ -83,8 +83,8 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
       .then((response) => {
         // Update the state with the fetched data
      
-        const nonAcademicPosts = response.data.filter(post => post.job_category_master.category_name === "NonAcademic");
-        // console.log("post by category",nonAcademicPosts)
+        const nonAcademicPosts = response.data.filter(post => post.job_category_master.category_name === "non-academic");
+        console.log("post by category",nonAcademicPosts)
         // setPosts(response.data);
         setPosts(nonAcademicPosts);
         if (formValues.applied_post_masters_id) {
@@ -334,8 +334,8 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                     className="UD-set-dropdown"
                   >
                     <option value="">{selectedPost&&selectedPost?selectedPost: "Select a post"}</option>
-                    {posts.map((post) => (
-                      <option key={post.id} value={post.id}>
+                    {posts.map((post,index) => (
+                      <option key={index} value={post.id}>
                         {post.post_name}
                       </option>
                     ))}
@@ -362,8 +362,8 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                     className="UD-set-dropdown"
                   >
                      <option value="">{selectedDepartment&&selectedDepartment?selectedDepartment: "Select a department"}</option>
-                    {departments.map((department) => (
-                      <option key={department.id} value={department.id}>
+                    {departments.map((department,index) => (
+                      <option key={index} value={department.id}>
                         {department.dept_name}
                       </option>
                     ))}
@@ -671,9 +671,9 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                     onChange={handleCountryChange}
                   >
                      <option value="">{selectedCountry&&selectedCountry?selectedCountry: "Select a country"}</option>
-                    {countries.map((countryData) => (
+                    {countries.map((countryData,index) => (
                       <option
-                        key={countryData.iso2}
+                        key={index}
                         value={countryData.country}
                       >
                         {countryData.country}
@@ -739,8 +739,8 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                       countries.find(
                         (country) => country.country === selectedCountry
                       )?.cities || []
-                    ).map((city) => (
-                      <option key={city} value={city}>
+                    ).map((city,index) => (
+                      <option key={index} value={city}>
                         {city}
                       </option>
                     ))}
