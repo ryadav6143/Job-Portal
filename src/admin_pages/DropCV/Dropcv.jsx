@@ -458,7 +458,7 @@ function Dropcv() {
                 stepProps.completed = false;
               }
               return (
-                <Step key={label} {...stepProps}>
+                <Step key={`step-${index}`}>
                   <StepLabel {...labelProps}>{label}</StepLabel>
                 </Step>
               );
