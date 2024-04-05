@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Link, useNavigate } from "react-router-dom";
+import {Link } from "react-router-dom";
 // import "./MasterCurrentOpening.css";
 // import Pagination from "@mui/material/Pagination";
 import { Pagination } from "react-bootstrap";
@@ -16,8 +16,8 @@ function MasterTable() {
   const [jobProfiles, setJobProfiles] = useState([]);
   const [counts, setCounts] = useState("");
   const [loading, setLoading] = useState(true);
-  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
-  const [selectedProfileId, setSelectedProfileId] = useState(null);
+  const [isEditFormOpen] = useState(false);
+  // const [selectedProfileId, setSelectedProfileId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(7);
 
@@ -129,7 +129,7 @@ function MasterTable() {
 
 
   // const itemsPerPage = 4;
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  // const startIndex = (currentPage - 1) * itemsPerPage;
   // const endIndex = startIndex + itemsPerPage;
 
 
