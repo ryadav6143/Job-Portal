@@ -241,8 +241,8 @@ function Dropcv() {
       // total_research_exp,
       // total_industrial_exp,
       // current_organization,
-      // current_designation,
       // current_salary,
+      // current_designation,
     } = formData.personalDetails;
 
     let errors = {};
