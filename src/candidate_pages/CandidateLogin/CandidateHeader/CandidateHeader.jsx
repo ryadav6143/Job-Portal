@@ -12,7 +12,7 @@ function CandidateHeader() {
     sessionStorage.removeItem("isLoggedIn");
     navigate("/candidate-login");
   };
-  
+
   return (
     <>
       <div className="admin-header">
@@ -20,7 +20,6 @@ function CandidateHeader() {
           <img className="admin-logo" src={medilogo} alt="" />
         </div>
         <div id="logout-btn">
-        
           <button onClick={() => handleLogout()}>
             <img src={logout} />
           </button>

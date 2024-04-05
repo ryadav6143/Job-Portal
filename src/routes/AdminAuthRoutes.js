@@ -23,78 +23,102 @@ import MasterTable from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrent
 // import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin.jsx";
 import AdminRegister from "../admin_pages/AdminLogin/AdminChildPages/RegisterAdmin/AdminRegister.jsx";
 
-
-
 // console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
   // <Route path="adminpanel" element= {<AdminAuthGaurd component ={<Adminpanel />} />}></Route>,
   <Route
+    key="admin-dashboard"
     path="/admin-dashboard"
     element={<AdminAuthGaurd component={<AdminDashboard />} />}
   >
     {/* <Route path="" element={<AdminDashboard />}/> */}
     <Route
+      key="current-openings"
       path="current-openings"
-      element={<AdminAuthGaurd component={<MasterCurrentOpening />} />}>
-             <Route path="" element={<AdminAuthGaurd component={<MasterTable />} />}/>
-            <Route path="add-openings" element={<AdminAuthGaurd component={<AddOpenings />} />}/>
-            <Route path="edit-openings/:profileId" element={<AdminAuthGaurd component={<EditOpenings />} />}/>
+      element={<AdminAuthGaurd component={<MasterCurrentOpening />} />}
+    >
+      <Route path="" element={<AdminAuthGaurd component={<MasterTable />} />} />
+      <Route
+        path="add-openings"
+        element={<AdminAuthGaurd component={<AddOpenings />} />}
+      />
+      <Route
+        path="edit-openings/:profileId"
+        element={<AdminAuthGaurd component={<EditOpenings />} />}
+      />
     </Route>
     <Route
+      key="job-profile"
       path="job-profile"
       element={<AdminAuthGaurd component={<MasterJobProfile />} />}
     />
     <Route
+      key="interview-schedule"
       path="interview-schedule"
       element={<AdminAuthGaurd component={<MasterInterviewSchedule />} />}
     />
     <Route
+      key="reports"
       path="reports"
       element={<AdminAuthGaurd component={<Reports />} />}
     />
     <Route
+      key="add-post-applied"
       path="add-post-applied"
       element={<AdminAuthGaurd component={<AddPostApplied />} />}
     />
     <Route
+      key="add-sub-post-applied"
       path="add-sub-post-applied"
       element={<AdminAuthGaurd component={<AddSubPostApplied />} />}
     />
     <Route
+      key="add-departments"
       path="add-departments"
       element={<AdminAuthGaurd component={<AddDepartment />} />}
     />
     <Route
+      key="add-exam-type"
       path="add-exam-type"
       element={<AdminAuthGaurd component={<AddExamType />} />}
     />
     <Route
+      key="add-degree"
       path="add-degree"
       element={<AdminAuthGaurd component={<AddDegree />} />}
     />
     <Route
+      key="add-categories"
       path="add-categories"
       element={<AdminAuthGaurd component={<AddCategories />} />}
     />
     <Route
+      key="add-subjects"
       path="add-subjects"
       element={<AdminAuthGaurd component={<AddSubjects />} />}
     />
     <Route
+      key="admin-list"
       path="admin-list"
       element={<AdminAuthGaurd component={<AdminList />} />}
     />
     <Route
+      key="right-list"
       path="right-list"
       element={<AdminAuthGaurd component={<GetRights />} />}
     />
     <Route
+      key="role-list"
       path="role-list"
       element={<AdminAuthGaurd component={<GetRole />} />}
     />
-    <Route path="add-openings" element={<AddOpenings />} />,
-    <Route path="admin_register" element={<AdminAuthGaurd component={<AdminRegister />} />}
-  ></Route>,
+    <Route key="add-openings" path="add-openings" element={<AddOpenings />} />,
+    <Route
+      key="admin_register"
+      path="admin_register"
+      element={<AdminAuthGaurd component={<AdminRegister />} />}
+    ></Route>
+    ,
   </Route>,
 ];
 

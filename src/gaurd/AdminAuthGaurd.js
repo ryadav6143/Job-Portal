@@ -14,7 +14,7 @@ const AdminAuthGaurd = ({ component }) => {
             const base64EncodedPayload = splitToken[1];
             const decodedPayload = atob(base64EncodedPayload);
             admin = JSON.parse(decodedPayload).admin_id ? JSON.parse(decodedPayload).admin_id : false;
-            console.log("admin", admin, decodedPayload);
+            // console.log("admin", admin, decodedPayload);
         }
         if (!Token) {
             setStatus(false);
