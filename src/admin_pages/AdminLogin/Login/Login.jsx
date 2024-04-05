@@ -75,7 +75,9 @@ function Login(handleLogin) {
       />
       <div className="login-container">
         <div className="logo-section">
-          <img className="logo-img" src={logo} alt="Logo" />
+          <a href="/">
+            <img className="logo-img" src={logo} alt="Logo" />
+          </a>
         </div>
         <div style={{ textAlign: "center" }}>
           <p className="login-content"> ADMIN PANEL</p>
