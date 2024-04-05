@@ -1,6 +1,6 @@
-import React from 'react';
-import { createContext, useContext, useState, useEffect } from 'react';
-import candidatesApiService from '../candidate_pages/candidateService';
+import React from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import candidatesApiService from "../candidate_pages/candidateService";
 
 export const ApiDataContext = createContext({});
 
@@ -19,36 +19,34 @@ export const ApiDataProvider = ({ children }) => {
       const fetchedData = await candidatesApiService.getCandidateById(
         accessToken.token
       );
-      
-      updateApiData(fetchedData);
-      // console.log("fetchedData", fetchedData); 
 
+      updateApiData(fetchedData);
+      // console.log("fetchedData", fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
-      setLoading(false); 
+      setLoading(false);
     }
   };
   useEffect(() => {
-   
     fetchCandidateData();
   }, []);
-// console.log("context api Data_>>",apiData)
+  // console.log("context api Data_>>",apiData)
   return (
-//     <ApiDataContext.Provider value={{ apiData,loading }}>
-//       {children}
-//     </ApiDataContext.Provider>
-//   );
-// };
-<ApiDataContext.Provider value={{ apiData, loading, fetchCandidateData }}>
-{loading ? (
-  <div className="loader-container">
-    <div className="loader"></div>
-  </div>
-) : (
-  children
-)}
-</ApiDataContext.Provider>
-);
+    //     <ApiDataContext.Provider value={{ apiData,loading }}>
+    //       {children}
+    //     </ApiDataContext.Provider>
+    //   );
+    // };
+    <ApiDataContext.Provider value={{ apiData, loading, fetchCandidateData }}>
+      {loading ? (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      ) : (
+        children
+      )}
+    </ApiDataContext.Provider>
+  );
 };
 
 export const useApiData = () => {

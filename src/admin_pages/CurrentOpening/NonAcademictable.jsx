@@ -65,7 +65,7 @@ function NonAcademictable() {
       // console.log(profile,"<<<<<<")
       return (
         profile.publish_to_vacancy &&
-        profile.job_category_master?.category_name === "NonAcademic"
+        profile.job_category_master?.category_name === "non-academic"
       );
     })
     .map((profile) => ({
@@ -108,7 +108,7 @@ function NonAcademictable() {
       />
 
       <div className="academic-table">
-        <p className="table-heading">ACADEMICS</p>
+        <p className="table-heading">NON-ACADEMICS</p>
         <div className="table-responsive">
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">

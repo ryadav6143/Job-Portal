@@ -11,9 +11,13 @@ const candidatesApiService = (() => {
       accessToken = token;
     },
 
-    getAccessToken: () => {
-      accessToken = sessionStorage.getItem("Token");
-      return accessToken;
+    getAccessToken: async () => {
+      try {
+        accessToken = sessionStorage.getItem("Token");
+        return accessToken;
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error.message}`);
+      }
     },
 
     uploadCV: async (formData) => {
@@ -259,7 +263,7 @@ const candidatesApiService = (() => {
           }
         );
         console.log("Save Changes Response:", response);
-        return response.data; // Assuming your API returns some data upon successful update
+        return response.data; 
       } catch (error) {
         console.error("Error saving changes:", error.message);
         throw error;
@@ -919,7 +923,7 @@ const candidatesApiService = (() => {
         );
 
         console.log("Save Changes Response:", response);
-        return response.data; 
+        return response.data;
       } catch (error) {
         console.error("Error saving changes:", error.message);
         throw error;
