@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Outlet, Link, } from "react-router-dom";
 import "./MasterCurrentOpening.css";
 
@@ -8,8 +8,8 @@ import "./MasterCurrentOpening.css";
 
 function MasterCurrentOpening() {
  
-  const [selectedComponent, setSelectedComponent] = useState();
-  const [isButtonVisible, setIsButtonVisible] = useState(true);
+  // const [selectedComponent, setSelectedComponent] = useState();
+  const isButtonVisible = (true);
   
 
   return (

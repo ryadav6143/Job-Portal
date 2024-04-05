@@ -213,7 +213,7 @@ function AddOpenings() {
     event.preventDefault();
 
     try {
-      const response = await adminApiService.postJobProfile(formValues);
+      await adminApiService.postJobProfile(formValues);
       // console.log("Job profile submitted successfully!", response.data);
       setNotificationMessage("Job profile submitted successfully!");
       setNotificationSeverity("success");
@@ -250,7 +250,7 @@ function AddOpenings() {
     }
   };
 
-  const [showForm, setShowForm] = useState(true); // State to toggle form visibility
+  const showForm = (true); 
 
   const handleFormCloseAndShowTable = () => {
     navigate("/admin-dashboard/current-openings");
@@ -300,9 +300,9 @@ function AddOpenings() {
                       required
                     >
                       <option value="">Select a category</option>
-                      {jobCategories.map((category) => (
+                      {jobCategories.map((category,index) => (
                         <option
-                          key={category.category_name}
+                          key={index}
                           value={category.category_name}
                         >
                           {category.category_name}
@@ -320,9 +320,9 @@ function AddOpenings() {
                       onChange={handleDepartmant}
                     >
                       <option value="">Select Department</option>
-                      {departmant.map((department) => (
+                      {departmant.map((department,index) => (
                         <option
-                          key={department.id} // assuming 'id' is unique for each department
+                          key={index} // assuming 'id' is unique for each department
                           value={department.dept_name}
                         >
                           {department.dept_name}
@@ -339,8 +339,8 @@ function AddOpenings() {
                       required
                     >
                       <option value="">Select a post</option>
-                      {post.map((post) => (
-                        <option key={post.post_name} value={post.post_name}>
+                      {post.map((post,index) => (
+                        <option key={index} value={post.post_name}>
                           {post.post_name}
                         </option>
                       ))}
@@ -357,9 +357,9 @@ function AddOpenings() {
                     >
                       <option value="">-- Select SubPost --</option>
                       {Array.isArray(subPost) &&
-                        subPost.map((subpost) => (
+                        subPost.map((subpost,index) => (
                           <option
-                            key={subpost.subpost_name}
+                            key={index}
                             value={subpost.subpost_name}
                           >
                             {subpost.subpost_name}

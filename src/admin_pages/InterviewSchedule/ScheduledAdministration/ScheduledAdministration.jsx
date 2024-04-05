@@ -3,12 +3,8 @@ import React, { useState, useEffect } from "react";
 // import "./ScheduledAcademics.css";
 import adminApiService from "../../adminApiService";
 
-
-function ScheduledAdministration()  {
-
+function ScheduledAdministration() {
   const [jobProfiles, setJobProfiles] = useState([]);
-
-
 
   useEffect(() => {
     const fetchJobProfiles = async () => {
@@ -16,33 +12,32 @@ function ScheduledAdministration()  {
         const response = await adminApiService.getJobProfile();
         // console.log("response get", response.data);
         setJobProfiles(response.data);
-
       } catch (error) {
-        console.error('Error fetching job profiles:', error);
+        console.error("Error fetching job profiles:", error);
       }
     };
 
     fetchJobProfiles();
   }, []);
 
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
   const rowsPerPage = 10;
 
   const ScheduledAcademicsTable = jobProfiles
-    .filter(profile => profile.publish_to_schedule_interview)
-    .map(profile => ({
+    .filter((profile) => profile.publish_to_schedule_interview)
+    .map((profile) => ({
       eligibility_criteria: profile.eligibility_criteria || "N/A",
       department: profile.department_master?.dept_name || "N/A",
-      post:profile.applied_post_master?.post_name || "N/A",
+      post: profile.applied_post_master?.post_name || "N/A",
       lastDate: profile.last_date_to_apply || "N/A",
       schedule_interview_date_1: profile.schedule_interview_date_1 || "N/A",
       schedule_interview_date_2: profile.schedule_interview_date_2 || "N/A",
       schedule_interview_date_3: profile.schedule_interview_date_3 || "N/A",
     }));
   // console.log("ScheduledAcademicsTable", ScheduledAcademicsTable)
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
   const startIndex = (page - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const ScheduledAcademicData = ScheduledAcademicsTable.slice(
@@ -59,7 +54,6 @@ function ScheduledAdministration()  {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
-
 
   const isDateBeforeToday = (dateString) => {
     const dateObject = new Date(dateString);
@@ -109,19 +103,35 @@ function ScheduledAdministration()  {
                   {/* <td>{formatDateForInput(data.schedule_interview_date_1)}</td>
                   <td>{formatDateForInput(data.schedule_interview_date_2)}</td>
                   <td>{formatDateForInput(data.schedule_interview_date_3)}</td> */}
-                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_1) ? "red" : "inherit" }}>
+                  <td
+                    style={{
+                      color: isDateBeforeToday(data.schedule_interview_date_1)
+                        ? "red"
+                        : "inherit",
+                    }}
+                  >
                     {formatDateForInput(data.schedule_interview_date_1)}
                   </td>
-                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_2) ? "red" : "inherit" }}>
+                  <td
+                    style={{
+                      color: isDateBeforeToday(data.schedule_interview_date_2)
+                        ? "red"
+                        : "inherit",
+                    }}
+                  >
                     {formatDateForInput(data.schedule_interview_date_2)}
                   </td>
-                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_3) ? "red" : "inherit" }}>
+                  <td
+                    style={{
+                      color: isDateBeforeToday(data.schedule_interview_date_3)
+                        ? "red"
+                        : "inherit",
+                    }}
+                  >
                     {formatDateForInput(data.schedule_interview_date_3)}
                   </td>
-     
                 </tr>
               ))}
-
             </tbody>
           </table>
           <div className="pagination">
@@ -139,4 +149,4 @@ function ScheduledAdministration()  {
     </>
   );
 }
-export default ScheduledAdministration
+export default ScheduledAdministration;

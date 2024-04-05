@@ -6,7 +6,7 @@ import deletebtn from "../../../assets/logos/delete.png";
 import adminApiService from "../../adminApiService";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { FormControl, Hidden } from "@mui/material";
+import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 import "./GetRights.css";
 import { Pagination } from "react-bootstrap";
@@ -14,7 +14,7 @@ function GetRights() {
   const [rights, setRights] = useState([]);
   const [role, setRole] = useState([]);
   const [open, setOpen] = useState(false);
-  const [selectedRight, setSelectedRight] = useState({});
+  // const [selectedRight, setSelectedRight] = useState({});
   const [updateField, setUpdateField] = useState({});
   const [modalData, setModalData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,8 +28,7 @@ function GetRights() {
     role_type_master_id: "",
   });
   // useEffect(() => {
-  
-  
+
   // }, []);
   useEffect(() => {
     fetchRoleList();
@@ -37,7 +36,6 @@ function GetRights() {
   }, []);
   const fetchRights = async () => {
     try {
-   
       const response = await adminApiService.getRightsList();
       // console.log("check rights data>>>>>", response);
       setRights(response);
@@ -46,19 +44,15 @@ function GetRights() {
     }
   };
 
- 
-
-
   const fetchRoleList = async () => {
     try {
-            const response = await adminApiService.getRoleList();
+      const response = await adminApiService.getRoleList();
       // console.log("role data>>>>>>", response);
       setRole(response);
     } catch (error) {
       console.error("Error fetching admin list:", error.message);
     }
   };
-
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -87,20 +81,19 @@ function GetRights() {
   const handleClose = () => setOpen(false);
   const handleAddModalClose = () => {
     setOpen(false);
-    setSelectedRight(null);
+    // setSelectedRight(null);
   };
 
-  const handleOpen = (right) => {
-    setSelectedRight(right);
-    setOpen(true);
-  };
+  // const handleOpen = (right) => {
+  //   setSelectedRight(right);
+  //   setOpen(true);
+  // };
 
   const handleDelete = async (rightsID) => {
     const confirmDelete = window.confirm("Are you sure you want to delete?");
     if (confirmDelete) {
       try {
-      
-        await adminApiService.deleteRightsById( rightsID);
+        await adminApiService.deleteRightsById(rightsID);
 
         const updatedRights = rights.filter((right) => right.id !== rightsID);
         setRights(updatedRights);
@@ -114,16 +107,11 @@ function GetRights() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-     
-      const response = await adminApiService.createRights(
-    
-        formData
-      );
-      // console.log("Response after adding rights:", response);    
-      handleClose();    
-    fetchRights();
-       fetchRoleList();
-  
+      await adminApiService.createRights(formData);
+      // console.log("Response after adding rights:", response);
+      handleClose();
+      fetchRights();
+      fetchRoleList();
     } catch (error) {
       console.error("Error adding rights:", error);
       if (
@@ -137,7 +125,6 @@ function GetRights() {
       }
     }
   };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -154,12 +141,9 @@ function GetRights() {
         console.error("No admin selected for update.");
         return;
       }
-     
+
       const updateData = { ...updateField, rights_id: modalData.id };
-      const updatedAdminList = await adminApiService.updateRights(
-   
-        updateData
-      );
+      const updatedAdminList = await adminApiService.updateRights(updateData);
       // console.log("updatedAdminList", updatedAdminList);
       setModalData(updatedAdminList);
       closeModal(); // Close the modal after successful update
@@ -228,7 +212,11 @@ function GetRights() {
                     <td>{data.api_type}</td>
                     <td>{data.path}</td>
                     <td>{data.url}</td>
-                    <td>{data.role_types_master ? data.role_types_master.role_type_name : ""}</td>
+                    <td>
+                      {data.role_types_master
+                        ? data.role_types_master.role_type_name
+                        : ""}
+                    </td>
 
                     <td>
                       <button id="table-btns" onClick={() => openModal(data)}>
@@ -269,86 +257,90 @@ function GetRights() {
             <Pagination.Next onClick={nextPage} />
           </Pagination>
 
-
           <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <FormControl>
-            <div>
-              <form onSubmit={handleSubmit}>
-                <img
-                  onClick={handleAddModalClose}
-                  className="Examtype-close-btn"
-                  src={close}
-                />
-                <label className="AC-SetLabel-Name" htmlFor="categoryInput">
-                  Add Exam Type
-                </label>
-                <input
-                  type="text"
-                  id="categoryInput"
-                  name="api_name"
-                  className="Ac-set-input"
-                  placeholder="api_name"
-                  onChange={handleChange}
-                />
-                <select
-                  id="apiTypeInput"
-                  name="api_type"
-                  className="Ac-set-input"
-                  onChange={handleChange}
-                >
-                  <option value="">Select API Type</option>
-                  <option value="GET">GET</option>
-                  <option value="PUT">PUT</option>
-                  <option value="POST">POST</option>
-                  <option value="DELETE">DELETE</option>
-                </select>
-                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                <input
-                  type="text"
-                  id="pathInput"
-                  name="path"
-                  className="Ac-set-input"
-                  placeholder="path"
-                  onChange={handleChange}
-                />
-                <input
-                  type="text"
-                  id="urlInput"
-                  name="url"
-                  className="Ac-set-input"
-                  placeholder="url"
-                  onChange={handleChange}
-                />
-                <select
-                  id="roleTypeInput"
-                  name="role_type_master_id"
-                  className="Ac-set-input"
-                  onChange={handleChange}
-                >
-                  <option value="">Select Role Type</option>
-                  {role.map((role) => (
-                    <option key={role.id} value={role.id}>
-                      {role.role_type_name}
-                    </option>
-                  ))}
-                </select>
-                <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                <button id="add-new-btn" className="submit-btn" type="submit">
-                  ADD NOW
-                </button>
-              </form>
-            </div>
-          </FormControl>
-        </Box>
-      </Modal>
+            open={open}
+            onClose={() => setOpen(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <FormControl>
+                <div>
+                  <form onSubmit={handleSubmit}>
+                    <img
+                      onClick={handleAddModalClose}
+                      className="Examtype-close-btn"
+                      src={close}
+                      alt=""
+                    />
+                    <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+                      Add Exam Type
+                    </label>
+                    <input
+                      type="text"
+                      id="categoryInput"
+                      name="api_name"
+                      className="Ac-set-input"
+                      placeholder="api_name"
+                      onChange={handleChange}
+                    />
+                    <select
+                      id="apiTypeInput"
+                      name="api_type"
+                      className="Ac-set-input"
+                      onChange={handleChange}
+                    >
+                      <option value="">Select API Type</option>
+                      <option value="GET">GET</option>
+                      <option value="PUT">PUT</option>
+                      <option value="POST">POST</option>
+                      <option value="DELETE">DELETE</option>
+                    </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                    <input
+                      type="text"
+                      id="pathInput"
+                      name="path"
+                      className="Ac-set-input"
+                      placeholder="path"
+                      onChange={handleChange}
+                    />
+                    <input
+                      type="text"
+                      id="urlInput"
+                      name="url"
+                      className="Ac-set-input"
+                      placeholder="url"
+                      onChange={handleChange}
+                    />
+                    <select
+                      id="roleTypeInput"
+                      name="role_type_master_id"
+                      className="Ac-set-input"
+                      onChange={handleChange}
+                    >
+                      <option value="">Select Role Type</option>
+                      {role.map((role, index) => (
+                        <option key={index} value={role.id}>
+                          {role.role_type_name}
+                        </option>
+                      ))}
+                    </select>
+                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                    <button
+                      id="add-new-btn"
+                      className="submit-btn"
+                      type="submit"
+                    >
+                      ADD NOW
+                    </button>
+                  </form>
+                </div>
+              </FormControl>
+            </Box>
+          </Modal>
 
-      {/* <Modal
+          {/* <Modal
         open={isOpen}
         onClose={closeModal}
         
@@ -357,107 +349,113 @@ function GetRights() {
       >
         <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
           <h2 id="modal-modal-title">Edit Details</h2> */}
-      <Modal
-        open={isOpen}
-        onClose={closeModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 500,
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
+          <Modal
+            open={isOpen}
+            onClose={closeModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
           >
-            <h2 id="modal-modal-title">Edit Details</h2>
-            <img
-              src={close}
-              className="Examtype-close-btn"
-              alt="Close"
-              onClick={closeModal}
-              style={{ cursor: "pointer" }}
-            />
-          </div>
-          <form onSubmit={handleUpdate}>
-            <input
-              type="text"
-              id="categoryInput"
-              name="api_name"
-              className="Ac-set-input"
-              placeholder="api_name"
-              value={modalData.api_name || ""}
-              onChange={(e) => handleFieldChange("api_name", e.target.value)}
-            />
-            <select
-              id="apiTypeInput"
-              name="api_type"
-              className="Ac-set-input"
-              value={modalData.api_type || ""}
-              onChange={(e) => handleFieldChange("api_type", e.target.value)}
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 500,
+                bgcolor: "background.paper",
+                boxShadow: 24,
+                p: 4,
+              }}
             >
-              <option value="">Select API Type</option>
-              <option value="GET">GET</option>
-              <option value="PUT">PUT</option>
-              <option value="POST">POST</option>
-              <option value="DELETE">DELETE</option>
-            </select>
-            <input
-              type="text"
-              id="pathInput"
-              name="path"
-              className="Ac-set-input"
-              placeholder="path"
-              value={modalData.path || ""}
-              onChange={(e) => handleFieldChange("path", e.target.value)}
-            />
-            <input
-              type="text"
-              id="urlInput"
-              name="url"
-              className="Ac-set-input"
-              placeholder="url"
-              value={modalData.url || ""}
-              onChange={(e) => handleFieldChange("url", e.target.value)}
-            />
-            <select
-              id="roleTypeInput"
-              name="role_type_master_id"
-              className="Ac-set-input"
-              value={modalData.role_type_master_id || ""}
-              onChange={(e) =>
-                handleFieldChange("role_type_master_id", e.target.value)
-              }
-            >
-              <option value="">Select Role Type</option>
-              {role.map((role) => (
-                <option key={role.id} value={role.id}>
-                  {role.role_type_name}
-                </option>
-              ))}
-            </select>
-
-          
-          </form>
-          <button style={{marginTop:"20px"}} id="set-btn" onClick={handleUpdate}>Submit</button>
-        </Box>
-      </Modal>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <h2 id="modal-modal-title">Edit Details</h2>
+                <img
+                  src={close}
+                  className="Examtype-close-btn"
+                  alt="Close"
+                  onClick={closeModal}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <form onSubmit={handleUpdate}>
+                <input
+                  type="text"
+                  id="categoryInput"
+                  name="api_name"
+                  className="Ac-set-input"
+                  placeholder="api_name"
+                  value={modalData.api_name || ""}
+                  onChange={(e) =>
+                    handleFieldChange("api_name", e.target.value)
+                  }
+                />
+                <select
+                  id="apiTypeInput"
+                  name="api_type"
+                  className="Ac-set-input"
+                  value={modalData.api_type || ""}
+                  onChange={(e) =>
+                    handleFieldChange("api_type", e.target.value)
+                  }
+                >
+                  <option value="">Select API Type</option>
+                  <option value="GET">GET</option>
+                  <option value="PUT">PUT</option>
+                  <option value="POST">POST</option>
+                  <option value="DELETE">DELETE</option>
+                </select>
+                <input
+                  type="text"
+                  id="pathInput"
+                  name="path"
+                  className="Ac-set-input"
+                  placeholder="path"
+                  value={modalData.path || ""}
+                  onChange={(e) => handleFieldChange("path", e.target.value)}
+                />
+                <input
+                  type="text"
+                  id="urlInput"
+                  name="url"
+                  className="Ac-set-input"
+                  placeholder="url"
+                  value={modalData.url || ""}
+                  onChange={(e) => handleFieldChange("url", e.target.value)}
+                />
+                <select
+                  id="roleTypeInput"
+                  name="role_type_master_id"
+                  className="Ac-set-input"
+                  value={modalData.role_type_master_id || ""}
+                  onChange={(e) =>
+                    handleFieldChange("role_type_master_id", e.target.value)
+                  }
+                >
+                  <option value="">Select Role Type</option>
+                  {role.map((role, index) => (
+                    <option key={index} value={role.id}>
+                      {role.role_type_name}
+                    </option>
+                  ))}
+                </select>
+              </form>
+              <button
+                style={{ marginTop: "20px" }}
+                id="set-btn"
+                onClick={handleUpdate}
+              >
+                Submit
+              </button>
+            </Box>
+          </Modal>
         </div>
       </div>
-
-      
     </>
   );
 }

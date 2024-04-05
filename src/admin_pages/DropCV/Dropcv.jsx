@@ -1,6 +1,6 @@
 import React from "react";
 import "./DropCV.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -25,9 +25,9 @@ function Dropcv() {
   const [otpData, setOtpData] = useState({});
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
   const [isFresher, setIsFresher] = useState(false);
-  const [formErrors, setFormErrors] = useState({});
+  // const [formErrors, setFormErrors] = useState({});
   const [showHeaderFooter, setShowHeaderFooter] = useState(true); // New state
-  const [dangerAlertVisible, setDangerAlertVisible] = useState(false);
+  // const [dangerAlertVisible, setDangerAlertVisible] = useState(false);
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("success");
@@ -66,11 +66,11 @@ function Dropcv() {
     },
   });
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = (event, reason) => {
+  const handleClose = ( reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -119,14 +119,14 @@ function Dropcv() {
     };
     setOtpData(otpData);
 
-    const response = await apiService.generateOTP(otpData);
+     await apiService.generateOTP(otpData);
     // console.log("API Response:", response);
     setSelectedComponent("OTPVerification");
   };
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
+  const [skipped] = React.useState(new Set());
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -223,26 +223,26 @@ function Dropcv() {
     const {
       title_first_name,
       first_name,
-      middle_name,
+      // middle_name,
       last_name,
       dob,
       gender,
       email,
-      password,
+      // password,
       contact_1,
       country,
       city,
       subjects_master_id,
       applied_post_masters_id,
-      applied_subpost_master_id,
+      // applied_subpost_master_id,
       job_category_master_id,
-      candidate_cv,
-      total_experience,
-      total_research_exp,
-      total_industrial_exp,
-      current_organization,
-      current_designation,
-      current_salary,
+      // candidate_cv,
+      // total_experience,
+      // total_research_exp,
+      // total_industrial_exp,
+      // current_organization,
+      // current_designation,
+      // current_salary,
     } = formData.personalDetails;
 
     let errors = {};
@@ -458,7 +458,7 @@ function Dropcv() {
                 stepProps.completed = false;
               }
               return (
-                <Step key={label} {...stepProps}>
+                <Step key={index} {...stepProps}>
                   <StepLabel {...labelProps}>{label}</StepLabel>
                 </Step>
               );
@@ -501,7 +501,7 @@ function Dropcv() {
                   errors={errors}
                   setErrors={setErrors} // Make sure you pass setErrors as a prop
                   isFresher={isFresher}
-                  setFormErrors={setFormErrors}
+                  // setFormErrors={setFormErrors}
                   onCheckboxChange={handleCheckboxChange}
                 />
               )}

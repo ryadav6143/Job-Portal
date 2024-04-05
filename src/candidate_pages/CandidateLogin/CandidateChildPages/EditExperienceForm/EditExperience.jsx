@@ -5,7 +5,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import plusicon from "../../../../assets/logos/plus.png";
 import minusicon from "../../../../assets/logos/minus.png";
 import candidatesApiService from "../../../candidateService";
-import { useApiData } from "../../../../context/CandidateContext";
+// import { useApiData } from "../../../../context/CandidateContext";
 import Notification from "../../../../Notification/Notification";
 function EditExperience() {
   // const [educations, setEducations] = useState({
@@ -19,12 +19,12 @@ function EditExperience() {
   //   benefits_mediclaim: "",
   // });
 
-  const { apiData, fetchCandidateData } = useApiData();
+  // const { apiData } = useApiData();
   const [updateField, setUpdateField] = useState({});
   const [loading, setLoading] = useState(true);
   const [updateNewField, setUpdateNewField] = useState({});
   const [educations, setEducations] = useState([]);
-  const [data, setData] = useState(apiData);
+  const [data, setData] = useState("");
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("success");
@@ -58,9 +58,9 @@ function EditExperience() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    setData(apiData);
-  }, [apiData]);
+  // useEffect(() => {
+  //   setData(apiData);
+  // }, [apiData]);
   // console.log("educatons",educations);
   // console.log("education222222s", educations);
 

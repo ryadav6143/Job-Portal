@@ -198,6 +198,7 @@ function AddDegree() {
                     onClick={() => setIsModalOpen(false)}
                     className="Ac-close-btn"
                     src={close}
+                    alt=""
                   />
                   <label className="AC-SetLabel-Name">Select Exam Type</label>
                   <select
@@ -262,7 +263,7 @@ function AddDegree() {
               </thead>
               <tbody>
                 {data.map((category, index) => (
-                  <tr key={category.id}>
+                  <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{category.exam_types_master?.exam_name}</td>
                     <td>{category.degree_name}</td>
@@ -299,6 +300,7 @@ function AddDegree() {
                               onClick={() => setUpdateModalOpen(false)}
                               className="Ac-close-btn"
                               src={close}
+                              alt=""
                             />
                             <label className="AC-SetLabel-Name">
                               Update Exam Type

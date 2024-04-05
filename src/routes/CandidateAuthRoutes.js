@@ -1,7 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import CandidateAuthGaurd from "../gaurd/CandidateAuthGaurd";
-import CandidatePanel from "../candidate_pages/CandidateLogin/CandidatePanel";
+// import CandidatePanel from "../candidate_pages/CandidateLogin/CandidatePanel";
 import CandidateDashboard from "../candidate_pages/CandidateLogin/CandidateDashboard/CandidateDashboard";
 // import  {ApiDataProvider}  from "../candidate_pages/CandidateLogin/ApiDataContext";
 // import {ApiDataProvider} from "../context/CandidateContext.js"
@@ -12,7 +12,7 @@ import EditQualificationForm from "../candidate_pages/CandidateLogin/CandidateCh
 import EditExperience from "../candidate_pages/CandidateLogin/CandidateChildPages/EditExperienceForm/EditExperience.jsx";
 import EditResearchForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditResearchForm/EditResearchForm.jsx";
 import EditReference from "../candidate_pages/CandidateLogin/CandidateChildPages/EditReference/EditReference.jsx";
-import CurrentOpening from "../admin_pages/CurrentOpening/CurrentOpening.jsx";
+// import CurrentOpening from "../admin_pages/CurrentOpening/CurrentOpening.jsx";
 import CandidateCurrentopening from "../candidate_pages/CandidateLogin/CandidateChildPages/CandidateCurrentOpening/CandidateCurrentopening.jsx";
 import CandidateOrganisedForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/SeminarOrganised/CandidateOrganisedForm.jsx";
 // import CandidateAttendForm from "../candidate_pages/CandidateLogin/CandidateChildPages/EditProgramsForm/CandidateAttendForm.jsx";

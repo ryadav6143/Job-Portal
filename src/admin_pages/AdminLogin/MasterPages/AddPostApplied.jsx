@@ -160,6 +160,7 @@ function AddPostApplied() {
                 <div>
                   <form>
                     <img
+                      alt=""
                       onClick={handleCloseModal}
                       className="update-close-btn"
                       src={close}
@@ -177,8 +178,8 @@ function AddPostApplied() {
                         <option value="">Select Category</option>
                         {categories &&
                           categories.length > 0 &&
-                          categories.map((category) => (
-                            <option key={category.id} value={category.id}>
+                          categories.map((category, index) => (
+                            <option key={index} value={category.id}>
                               {category?.category_name || ""}
                             </option>
                           ))}
@@ -242,7 +243,7 @@ function AddPostApplied() {
               <tbody>
                 {data &&
                   data.map((category, index) => (
-                    <tr key={category.id}>
+                    <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{category.post_name || ""}</td>
                       <td>
@@ -282,6 +283,7 @@ function AddPostApplied() {
                         onClick={handleCloseUpdateModal}
                         className="postapplied-close-btn"
                         src={close}
+                        alt=""
                       />
                       <div>
                         <label>Select Category</label>
@@ -300,11 +302,11 @@ function AddPostApplied() {
                             }));
                           }}
                         >
-                          {categories.map((category) => (
+                          {categories.map((category, index) => (
                             // <option key={category.id} value={category.id}>
                             //   {category && category.category_name && category.category_name || ""}
                             // </option>
-                            <option key={category.id} value={category.id}>
+                            <option key={index} value={category.id}>
                               {category && category.category_name
                                 ? category.category_name
                                 : ""}

@@ -314,8 +314,8 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -479,8 +479,8 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -675,8 +675,8 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -854,8 +854,8 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -1037,8 +1037,8 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -1220,7 +1220,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     <span></span> Country
                   </label>
                   <select
-                    name="country1"
+                    name="country"
                     className="UD-set-dropdown"
                     value={formValues.educations[4].country}
                     onChange={(e) =>
@@ -1228,8 +1228,8 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -1241,7 +1241,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
               <div className="col-md-4">
                 {/* *Year of Joining */}
                 <div className="UD-form-section">
-                  <label Name="UD-SetLabel-Name">
+                  <label className="UD-SetLabel-Name">
                     <span></span>Year of Joining
                   </label>
                   <input
@@ -1400,8 +1400,8 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     onChange={(e) => handlePhdChange("country", e.target.value)}
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}

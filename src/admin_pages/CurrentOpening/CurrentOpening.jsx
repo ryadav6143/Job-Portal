@@ -6,6 +6,11 @@ import NonAcademictable from "./NonAcademictable";
 import "./CurrentOpening.css";
 
 function CurrentOpening() {
+  // const removeToken = (() => {
+ 
+  // })();
+  sessionStorage.removeItem("Token");
+  localStorage.removeItem("Token");
   return (
     <>
       <Header></Header>

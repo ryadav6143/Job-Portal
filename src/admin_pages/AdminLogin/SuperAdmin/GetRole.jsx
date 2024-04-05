@@ -63,20 +63,20 @@ function GetRole() {
   };
 
 
-  const handleDelete = async (roleID) => {
-    try {
-      let accessToken = sessionStorage.getItem("Token");
-      accessToken = JSON.parse(accessToken);
-      const response = await adminApiService.deleteAdminRoleById(
+  // const handleDelete = async (roleID) => {
+  //   try {
+  //     let accessToken = sessionStorage.getItem("Token");
+  //     accessToken = JSON.parse(accessToken);
+  //     const response = await adminApiService.deleteAdminRoleById(
      
-        roleID
-      );
-      // console.log("Response after deleting role:", response);
-      fetchRoleList();
-    } catch (error) {
-      console.error("Error deleting role:", error);
-    }
-  };
+  //       roleID
+  //     );
+  //     // console.log("Response after deleting role:", response);
+  //     fetchRoleList();
+  //   } catch (error) {
+  //     console.error("Error deleting role:", error);
+  //   }
+  // };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -104,7 +104,7 @@ function GetRole() {
     e.preventDefault();
     try {
      
-      const response = await adminApiService.createRole(
+      await adminApiService.createRole(
      
         formData
       );
@@ -121,7 +121,7 @@ function GetRole() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = Role.slice(indexOfFirstItem, indexOfLastItem);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleFieldChange = (fieldName, value) => {
      setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
