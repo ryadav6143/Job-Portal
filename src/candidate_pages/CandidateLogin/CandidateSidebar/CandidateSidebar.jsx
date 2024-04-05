@@ -114,6 +114,7 @@ function CandidateSidebar() {
   //     //   break;
   //   }
   // };
+
   const handleLinkClick = (event) => {
     const allSpans = document.querySelectorAll(".set-menu span");
     allSpans.forEach((span) => {
@@ -125,6 +126,7 @@ function CandidateSidebar() {
       setIsOpen(true); // Close sidebar if it's open on mobile
     }
   };
+
   useEffect(() => {
     const defaultActiveSpan = document.querySelector(".set-menu span");
     defaultActiveSpan.style.color = "maroon"; // Set color for default active span
@@ -145,35 +147,35 @@ function CandidateSidebar() {
           <div className="set-sidebar">
             <div>
               {/* <div style={{ paddingLeft: "50px" }}>
-            {selectedImage ? (
-              <img
-                src={selectedImage}
-                alt="Selected Profile"
-                style={{
-                  width: "5rem",
-                  height: "5rem",
-                  borderRadius: "50%",
-                }}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faUserTie}
-                style={{
-                  fontSize: "5rem",
-                  borderRadius: "50%",
-                  backgroundColor: "#ddd",
-                  padding: "20px",
-                }}
-              />
-            )}          
-          </div> */}
+              {selectedImage ? (
+                <img
+                  src={selectedImage}
+                  alt="Selected Profile"
+                  style={{
+                    width: "5rem",
+                    height: "5rem",
+                    borderRadius: "50%",
+                  }}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faUserTie}
+                  style={{
+                    fontSize: "5rem",
+                    borderRadius: "50%",
+                    backgroundColor: "#ddd",
+                    padding: "20px",
+                  }}
+                />
+              )}          
+            </div> */}
               <nav>
                 <ul className="set-menu" style={{ listStyle: "none" }}>
                   <li>
                     {/* <FontAwesomeIcon
-                      className="set-menu-icon"
-                      icon={faIdCardClip}
-                    /> */}
+                        className="set-menu-icon"
+                        icon={faIdCardClip}
+                      /> */}
                     {selectedImage ? (
                       <img
                         src={selectedImage}
@@ -217,14 +219,14 @@ function CandidateSidebar() {
                     </Link>
                   </li>
                   {/* <li>
-                    <FontAwesomeIcon
-                      className="set-menu-icon"
-                      icon={faBriefcase}
-                    />
-                    <Link to="/candidate-dashboard/personal-experience">
-                      <span> &nbsp; Experience</span>
-                    </Link>
-                  </li> */}
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faBriefcase}
+                      />
+                      <Link to="/candidate-dashboard/personal-experience">
+                        <span> &nbsp; Experience</span>
+                      </Link>
+                    </li> */}
 
                   <div className="dropdown show">
                     <a
@@ -265,14 +267,14 @@ function CandidateSidebar() {
                     </div>
                   </div>
                   {/* <li>
-                    <FontAwesomeIcon
-                      className="set-menu-icon"
-                      icon={faSearch}
-                    />
-                    <Link to="/candidate-dashboard/personal-research">
-                      <span>&nbsp; Research Work</span>
-                    </Link>
-                  </li> */}
+                      <FontAwesomeIcon
+                        className="set-menu-icon"
+                        icon={faSearch}
+                      />
+                      <Link to="/candidate-dashboard/personal-research">
+                        <span>&nbsp; Research Work</span>
+                      </Link>
+                    </li> */}
 
                   <div className="dropdown show">
                     <a
@@ -335,14 +337,14 @@ function CandidateSidebar() {
                   </div>
 
                   {/* <li>
-                    <FontAwesomeIcon className="set-menu-icon" icon={faUsers} />
-                    <Link to="/candidate-dashboard/personal-programs ">
-                      <span>
-                        Seminars/Short Term Courses/Summer Schools/Winter
-                        Schools
-                      </span>
-                    </Link>
-                  </li> */}
+                      <FontAwesomeIcon className="set-menu-icon" icon={faUsers} />
+                      <Link to="/candidate-dashboard/personal-programs ">
+                        <span>
+                          Seminars/Short Term Courses/Summer Schools/Winter
+                          Schools
+                        </span>
+                      </Link>
+                    </li> */}
 
                   <div className="dropdown show">
                     <a
