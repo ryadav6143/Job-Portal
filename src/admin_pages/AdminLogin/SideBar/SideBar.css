@@ -7,15 +7,14 @@
   position: fixed;
 }
 
-.row1 {
-  display: flex;
-  flex-wrap: wrap;
-}
 .list-group-item span,
 .dropdown span {
   color: #8f8f8f !important;
 }
-
+.row1 {
+  display: flex;
+  flex-wrap: wrap;
+}
 .isClose {
   display: none;
 }
@@ -74,10 +73,7 @@
   border: none;
   padding-top: 25px;
   border-right: none !important;
-  
 }
-
-
 
 #sidebar {
   border: none !important;
