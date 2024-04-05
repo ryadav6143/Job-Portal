@@ -18,7 +18,7 @@ function AdminDashboard() {
   const totalOpenings = 20;
   const adminDetails = {
     name: "John Doe",
-    email: "admin@example.com",
+    email: "mailto:admin@example.com",
     role: "Admin",
   };
 
@@ -68,7 +68,7 @@ function AdminDashboard() {
             <SideBar />
           </div>
 
-          {/* <h1>rahul</h1> */}
+   
 
           {/* <Container className="mt-4">
       <Row>
