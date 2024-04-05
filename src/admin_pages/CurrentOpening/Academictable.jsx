@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
+// import Pagination from "@mui/material/Pagination";
+// import Stack from "@mui/material/Stack";
 import "./CurrentOpening.css";
 import adminApiService from "../adminApiService";
 import Notification from "../../Notification/Notification";
@@ -13,9 +13,9 @@ function Academictable() {
 
   let tokenFromsessionStorage = sessionStorage.getItem("Token");
   tokenFromsessionStorage = JSON.parse(tokenFromsessionStorage);
-  const accessToken = tokenFromsessionStorage?.token || "";
+  // const accessToken = tokenFromsessionStorage?.token || "";
 
-  const [token, setToken] = useState(tokenFromsessionStorage || "");
+  // const [token, setToken] = useState(tokenFromsessionStorage || "");
 
   useEffect(() => {
     const fetchJobProfiles = async () => {
@@ -83,9 +83,9 @@ function Academictable() {
 
   // console.log("AcademicTable:", AcademicTable);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
   const startIndex = (page - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const AcademicData = AcademicTable.slice(startIndex, endIndex);

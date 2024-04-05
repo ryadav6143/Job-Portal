@@ -104,7 +104,7 @@ function EditReference() {
           const response = await candidatesApiService.uploadCV(formData);
           if (response.status === 200) {
             setNotification({ open: true, message: 'Resume uploaded successfully', severity: 'success' });
-            const responseData = await response.json();
+            // const responseData = await response.json();
             // console.log('Resume upload successful:', responseData);
           } else {
             console.error('Resume upload failed:', response.status, response.statusText);

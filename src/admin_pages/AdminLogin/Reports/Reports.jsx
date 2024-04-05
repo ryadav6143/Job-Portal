@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
-import { Modal, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import adminApiService from "../../adminApiService";
 import "./Reports.css";
 import Notification from "../../../Notification/Notification";
@@ -23,8 +23,8 @@ function Reports() {
   const [count, setCount] = useState([]);
   const [categories, setCategories] = useState([]);
   const [posts, setPosts] = useState([]);
-  const [subposts, setSubposts] = useState([]);
-  const [showPdfModal, setShowPdfModal] = useState(false);
+  // const [subposts, setSubposts] = useState([]);
+  // const [showPdfModal, setShowPdfModal] = useState(false);
   const [showPdfDialog, setShowPdfDialog] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
   const [selectedCandidate, setSelectedCandidate] = useState(null);
@@ -57,11 +57,11 @@ function Reports() {
         selectedCategory,
         selectedPost
       );
-  
+
       // console.log("check count ", response);
       setData(response.candidateappliedpostData);
       setCount(response);
-  
+
       const uniqueCategories = [
         ...new Set(
           response.candidateappliedpostData.map(
@@ -81,7 +81,6 @@ function Reports() {
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     const fetchJobCategories = async () => {

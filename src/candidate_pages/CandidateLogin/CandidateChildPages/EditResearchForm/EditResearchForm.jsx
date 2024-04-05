@@ -32,7 +32,7 @@ function EditResearchForm() {
   );
   const [patentField, setPatentField] = useState({});
   const [copyrightField, setCopyrightField] = useState({});
-  const [updateField, setUpdateField] = useState({});
+  // const [updateField, setUpdateField] = useState({});
 
   // const fetchData = async () => {
   //   try {
@@ -369,9 +369,9 @@ function EditResearchForm() {
     }
   };
 
-  const handleNotificationClose = () => {
-    setNotificationOpen(false);
-  };
+  // const handleNotificationClose = () => {
+  //   setNotificationOpen(false);
+  // };
 
   const showNotification = (message, severity) => {
     setNotificationMessage(message);

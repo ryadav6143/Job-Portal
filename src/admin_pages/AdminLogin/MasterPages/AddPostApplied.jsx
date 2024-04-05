@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Master.css";
-import axios from "axios";
+// import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
-import { ADMIN_BASE_URL } from "../../../config/config";
+// import { ADMIN_BASE_URL } from "../../../config/config";
 import adminApiService from "../../adminApiService";
 function AddPostApplied() {
   const [data, setData] = useState([]);

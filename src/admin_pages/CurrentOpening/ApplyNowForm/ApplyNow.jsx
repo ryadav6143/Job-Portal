@@ -311,7 +311,7 @@ function ApplyNow() {
       };
       setOtpData(otpData);
 
-      const response = await apiService.generateOTP(otpData);
+      // const response = await apiService.generateOTP(otpData);
       // console.log("API Response:", response);
       setSelectedComponent("OTPVerification");
     } catch (error) {
@@ -331,9 +331,9 @@ function ApplyNow() {
     return skipped.has(step);
   };
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
