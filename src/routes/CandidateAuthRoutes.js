@@ -32,30 +32,37 @@ import TotalExperienceForm from "../candidate_pages/CandidateLogin/CandidateChil
 
 const CandidateAuthRoutes = [
   <Route
+  key="candidate-dashboard"
     path="candidate-dashboard"
     element={<CandidateAuthGaurd component={<CandidateDashboard />} />}
   >
     <Route
+      key="personal-details"
       path="personal-details"
       element={<CandidateAuthGaurd component={<EditPersonalDetails />} />}
     />
     <Route
+      key="personal-programs"
       path="personal-programs"
       element={<CandidateAuthGaurd component={<EditProgramsForm />} />}
     />
     <Route
+      key="personal-qualification"
       path="personal-qualification"
       element={<CandidateAuthGaurd component={<EditQualificationForm />} />}
     />
     <Route
+      key="personal-experience"
       path="personal-experience"
       element={<CandidateAuthGaurd component={<EditExperience />} />}
     />
     <Route
+      key="personal-research"
       path="personal-research"
       element={<CandidateAuthGaurd component={<EditResearchForm />} />}
     />
     <Route
+      key="personal-reference"
       path="personal-reference"
       element={<CandidateAuthGaurd component={<EditReference />} />}
     />
@@ -64,50 +71,62 @@ const CandidateAuthRoutes = [
       element={<CandidateAuthGaurd component={<CurrentOpening />} />}
     /> */}
     <Route
+      key="current-opening"
       path="current-opening"
       element={<CandidateAuthGaurd component={<CandidateCurrentopening />} />}
     />
     <Route
+      key="candidate-organised"
       path="candidate-organised"
       element={<CandidateAuthGaurd component={<CandidateOrganisedForm />} />}
     />
     <Route
+      key="candidate-attend"
       path="candidate-attend"
       element={<CandidateAuthGaurd component={<CandidateAttendForm />} />}
     />
     <Route
+      key="candidate-otherInfo"
       path="candidate-otherInfo"
       element={<CandidateAuthGaurd component={<CandidateOtherInfoForm />} />}
     />
     <Route
+      key="candidate-otheractivites"
       path="candidate-otheractivites"
       element={<CandidateAuthGaurd component={<OtherActivites />} />}
     />
      <Route
+      key="candidate-research"
       path="candidate-research"
       element={<CandidateAuthGaurd component={<ResearchForm />} />}
     />
      <Route
+      key="candidate-journalPublication"
       path="candidate-journalPublication"
       element={<CandidateAuthGaurd component={<JournalPublicationForm />} />}
     />
      <Route
+      key="candidate-confrencePublication"
       path="candidate-confrencePublication"
       element={<CandidateAuthGaurd component={<ConfrencePublicationForm />} />}
     />
      <Route
+      key="candidate-patents"
       path="candidate-patents"
       element={<CandidateAuthGaurd component={<PatentsForm />} />}
     />
      <Route
+      key="candidate-copyrights"
       path="candidate-copyrights"
       element={<CandidateAuthGaurd component={<CopyRightsForm />} />}
     />
      <Route
+      key="candidate-experience"
       path="candidate-experience"
       element={<CandidateAuthGaurd component={<ExperienceForm />} />}
     />
      <Route
+      key="candidate-totalexperience"
       path="candidate-totalexperience"
       element={<CandidateAuthGaurd component={<TotalExperienceForm />} />}
     />
