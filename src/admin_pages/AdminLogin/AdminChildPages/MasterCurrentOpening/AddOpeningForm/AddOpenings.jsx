@@ -232,7 +232,7 @@ function AddOpenings() {
         setNotificationSeverity("error");
       } else if (error.request) {
         // The request was made but no response was received
-        console.log("No response received from server");
+        // console.log("No response received from server");
         setNotificationMessage("No response received from server. Please try again later.");
         setNotificationSeverity("error");
       } else {
