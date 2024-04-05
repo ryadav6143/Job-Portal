@@ -3,16 +3,16 @@ import {Link, useNavigate } from "react-router-dom";
 // import "./MasterCurrentOpening.css";
 // import Pagination from "@mui/material/Pagination";
 import { Pagination } from "react-bootstrap";
-import Stack from "@mui/material/Stack";
+// import Stack from "@mui/material/Stack";
 import adminApiService from "../../../../adminApiService";
-import EditOpenings from "../EditOpeningForm/EditOpenings";
+// import EditOpenings from "../EditOpeningForm/EditOpenings";
 import updatebtn from "../../../../../assets/logos/update.png"
 import deletebtn from "../../../../../assets/logos/delete.png";
 
 
 function MasterTable() {
-  const navigate = useNavigate();
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
+  // const navigate = useNavigate();
+  // const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
   const [jobProfiles, setJobProfiles] = useState([]);
   const [counts, setCounts] = useState("");
   const [loading, setLoading] = useState(true);
@@ -67,12 +67,12 @@ function MasterTable() {
   //   }
   // };
 
-  const handleEditForm = (profileId) => {
-    // console.log("Job Profile ID:", profileId);
-    // navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
-    setIsEditFormOpen(true);
-    setSelectedProfileId(profileId);
-  };
+  // const handleEditForm = (profileId) => {
+  //   console.log("Job Profile ID:", profileId);
+  //   navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
+  //   setIsEditFormOpen(true);
+  //   setSelectedProfileId(profileId);
+  // };
 
   const handleDelete = async (profileId) => {
     try {
@@ -130,7 +130,7 @@ function MasterTable() {
 
   // const itemsPerPage = 4;
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  // const endIndex = startIndex + itemsPerPage;
 
 
 

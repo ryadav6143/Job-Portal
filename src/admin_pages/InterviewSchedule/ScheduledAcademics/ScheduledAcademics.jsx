@@ -4,10 +4,7 @@ import "./ScheduledAcademics.css";
 import adminApiService from "../../adminApiService";
 
 function ScheduledAcademics() {
-
   const [jobProfiles, setJobProfiles] = useState([]);
-
-
 
   useEffect(() => {
     const fetchJobProfiles = async () => {
@@ -15,33 +12,32 @@ function ScheduledAcademics() {
         const response = await adminApiService.getJobProfile();
         // console.log("response get", response.data);
         setJobProfiles(response.data);
-
       } catch (error) {
-        console.error('Error fetching job profiles:', error);
+        console.error("Error fetching job profiles:", error);
       }
     };
 
     fetchJobProfiles();
   }, []);
 
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
   const rowsPerPage = 10;
 
   const ScheduledAcademicsTable = jobProfiles
-    .filter(profile => profile.publish_to_schedule_interview)
-    .map(profile => ({
+    .filter((profile) => profile.publish_to_schedule_interview)
+    .map((profile) => ({
       eligibility_criteria: profile.eligibility_criteria || "N/A",
       department: profile.department_master?.dept_name || "N/A",
-      post:profile.applied_post_master?.post_name || "N/A",
+      post: profile.applied_post_master?.post_name || "N/A",
       lastDate: profile.last_date_to_apply || "N/A",
       schedule_interview_date_1: profile.schedule_interview_date_1 || "N/A",
       schedule_interview_date_2: profile.schedule_interview_date_2 || "N/A",
       schedule_interview_date_3: profile.schedule_interview_date_3 || "N/A",
     }));
   // console.log("ScheduledAcademicsTable", ScheduledAcademicsTable)
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
   const startIndex = (page - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const ScheduledAcademicData = ScheduledAcademicsTable.slice(
@@ -59,7 +55,6 @@ function ScheduledAcademics() {
     return `${day}-${month}-${year}`;
   };
 
-
   const isDateBeforeToday = (dateString) => {
     const dateObject = new Date(dateString);
     const today = new Date();
@@ -73,7 +68,7 @@ function ScheduledAcademics() {
 
         <div className="table-responsive">
           <table className="table is-table">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} >
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
                 {/* &#x2193; */}
 
@@ -86,7 +81,7 @@ function ScheduledAcademics() {
                 <th scope="col">Day 3 </th>
               </tr>
             </thead>
-            <tbody >
+            <tbody>
               {/* {ScheduledAcademicData.map((data, index) => (
                 <tr key={index}>
                   <td>
@@ -100,7 +95,7 @@ function ScheduledAcademics() {
                 </tr>
               ))} */}
               {ScheduledAcademicData.map((data, index) => (
-                <tr key={index} style={{whiteSpace:"nowrap"}}>
+                <tr key={index} style={{ whiteSpace: "nowrap" }}>
                   <td>
                     <b>{index + 1}</b>
                   </td>
@@ -110,19 +105,35 @@ function ScheduledAcademics() {
                   {/* <td>{formatDateForInput(data.schedule_interview_date_1)}</td>
                   <td>{formatDateForInput(data.schedule_interview_date_2)}</td>
                   <td>{formatDateForInput(data.schedule_interview_date_3)}</td> */}
-                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_1) ? "red" : "inherit" }}>
+                  <td
+                    style={{
+                      color: isDateBeforeToday(data.schedule_interview_date_1)
+                        ? "red"
+                        : "inherit",
+                    }}
+                  >
                     {formatDateForInput(data.schedule_interview_date_1)}
                   </td>
-                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_2) ? "red" : "inherit" }}>
+                  <td
+                    style={{
+                      color: isDateBeforeToday(data.schedule_interview_date_2)
+                        ? "red"
+                        : "inherit",
+                    }}
+                  >
                     {formatDateForInput(data.schedule_interview_date_2)}
                   </td>
-                  <td style={{ color: isDateBeforeToday(data.schedule_interview_date_3) ? "red" : "inherit" }}>
+                  <td
+                    style={{
+                      color: isDateBeforeToday(data.schedule_interview_date_3)
+                        ? "red"
+                        : "inherit",
+                    }}
+                  >
                     {formatDateForInput(data.schedule_interview_date_3)}
                   </td>
-     
                 </tr>
               ))}
-
             </tbody>
           </table>
           <div className="pagination">

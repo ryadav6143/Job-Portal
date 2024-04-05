@@ -198,6 +198,7 @@ function AddDegree() {
                     onClick={() => setIsModalOpen(false)}
                     className="Ac-close-btn"
                     src={close}
+                    alt=""
                   />
                   <label className="AC-SetLabel-Name">Select Exam Type</label>
                   <select
@@ -299,6 +300,7 @@ function AddDegree() {
                               onClick={() => setUpdateModalOpen(false)}
                               className="Ac-close-btn"
                               src={close}
+                              alt=""
                             />
                             <label className="AC-SetLabel-Name">
                               Update Exam Type

@@ -213,7 +213,7 @@ function AddOpenings() {
     event.preventDefault();
 
     try {
-      const response = await adminApiService.postJobProfile(formValues);
+      await adminApiService.postJobProfile(formValues);
       // console.log("Job profile submitted successfully!", response.data);
       setNotificationMessage("Job profile submitted successfully!");
       setNotificationSeverity("success");
@@ -250,7 +250,7 @@ function AddOpenings() {
     }
   };
 
-  const [showForm, setShowForm] = useState(true); // State to toggle form visibility
+  const showForm = (true); 
 
   const handleFormCloseAndShowTable = () => {
     navigate("/admin-dashboard/current-openings");

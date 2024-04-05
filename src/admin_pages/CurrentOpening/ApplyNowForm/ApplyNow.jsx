@@ -17,7 +17,7 @@ import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
 import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
 import { CANDIDATE_BASE_URL } from "../../../config/config";
-import apiService from "../../../Services/ApiServices";
+// import apiService from "../../../Services/ApiServices";
 import Notification from "../../../Notification/Notification";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
@@ -430,7 +430,7 @@ function ApplyNow() {
       contact_1,
       title_first_name,
       first_name,
-      middle_name,
+      // middle_name,
       last_name,
       dob,
       gender,
@@ -441,26 +441,26 @@ function ApplyNow() {
       address_1,
       contact_2,
       country,
-      state_province,
+      // state_province,
       applied_post_masters_id,
       nature_of_job,
       department_master_id,
       pin_code,
-      exam_types_master_id,
+      // exam_types_master_id,
       specialization,
 
-      year_start,
-      institute_name,
-      board_university_name,
-      year_end,
-      grade_division,
-      grade_percent,
-      stream,
-      candidate_cv,
+      // year_start,
+      // institute_name,
+      // board_university_name,
+      // year_end,
+      // grade_division,
+      // grade_percent,
+      // stream,
+      // candidate_cv,
       total_academic_exp,
       total_industrial_exp,
-      company_experience_name,
-      accept,
+      // company_experience_name,
+      // accept,
     } = formValues.UserDetails;
     const caseZerovalidation = () => {
       if (!email) {

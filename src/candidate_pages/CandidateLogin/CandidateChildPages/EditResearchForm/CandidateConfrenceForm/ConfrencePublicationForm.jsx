@@ -32,9 +32,9 @@ const ConfrencePublicationForm = () => {
     fetchData();
   }, []);
 
-  const handleCloseConfrenceClick = () => {
-    setIsPopupOpen(true); 
-  };
+  // const handleCloseConfrenceClick = () => {
+  //   setIsPopupOpen(true); 
+  // };
   const handleOpenConfrenceClick = () => {
     setIsPopupOpen(true);
   };
@@ -48,10 +48,10 @@ const ConfrencePublicationForm = () => {
     // setEditItemId(itemId);
     setEditMode(true);
   };
-  const handleClose = () => {    
-    setEditMode(false);
+  // const handleClose = () => {    
+  //   setEditMode(false);
     
-  };
+  // };
   const handleDeleteClick = async (itemId) => {
     setDeleteItemId(itemId);
   };

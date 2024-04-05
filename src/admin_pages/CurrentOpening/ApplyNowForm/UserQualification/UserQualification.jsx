@@ -306,7 +306,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     <span>*</span>Country
                   </label>
                   <select
-                    name="`country-${index}`"
+                    name="country"
                     className="UD-set-dropdown"
                     value={formValues.educations[0].country}
                     onChange={(e) =>
@@ -471,7 +471,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     <span>*</span>Country
                   </label>
                   <select
-                    name="`country-${index}`"
+                    name="country"
                     className="UD-set-dropdown"
                     value={formValues.educations[1].country}
                     onChange={(e) =>
@@ -667,7 +667,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     <span></span> Country
                   </label>
                   <select
-                    name="`country-${index}`"
+                    name="country"
                     className="UD-set-dropdown"
                     value={formValues.educations[8].country}
                     onChange={(e) =>
@@ -846,7 +846,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     <span></span> Country
                   </label>
                   <select
-                    name="`country-${index}`"
+                    name="country"
                     className="UD-set-dropdown"
                     value={formValues.educations[2].country}
                     onChange={(e) =>
@@ -1029,7 +1029,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     <span></span> Country
                   </label>
                   <select
-                    name="`country-${index}`"
+                    name="country"
                     className="UD-set-dropdown"
                     value={formValues.educations[3].country}
                     onChange={(e) =>
@@ -1220,7 +1220,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     <span></span> Country
                   </label>
                   <select
-                    name="`country-${index}`"
+                    name="country"
                     className="UD-set-dropdown"
                     value={formValues.educations[4].country}
                     onChange={(e) =>
@@ -1394,7 +1394,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     <span></span> Country
                   </label>
                   <select
-                    name="`country-${index}`"
+                    name="country"
                     className="UD-set-dropdown"
                     value={formValues.educations[5].country}
                     onChange={(e) => handlePhdChange("country", e.target.value)}

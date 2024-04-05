@@ -76,9 +76,7 @@ function EditPersonalDetails({ token }) {
     const file = event.target.files[0];
     if (file) {
       try {
-        const responseData = await candidatesApiService.uploadProfileImage(
-          file
-        );
+        await candidatesApiService.uploadProfileImage(file);
         // console.log("Image upload successful:", responseData);
 
         setSelectedImage(URL.createObjectURL(file));
@@ -801,7 +799,7 @@ function EditPersonalDetails({ token }) {
                         countries.find(
                           (country) => country.country === selectedCountry
                         )?.cities || []
-                      ).map((city,index) => (
+                      ).map((city, index) => (
                         <option key={index} value={city}>
                           {city}
                         </option>

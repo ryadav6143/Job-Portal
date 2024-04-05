@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./Master.css";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
-import axios from "axios";
+// import axios from "axios";
 // import { BASE_URL } from "../../../config/config";
-import { ADMIN_BASE_URL } from "../../../config/config";
+// import { ADMIN_BASE_URL } from "../../../config/config";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import close from "../../../assets/logos/close.png";
@@ -13,16 +13,16 @@ import adminApiService from "../../adminApiService";
 function AddSubjects() {
   const [subject, setSubject] = useState([]);
   const [newSubject, setNewSubjectName] = useState("");
-  const [editingSubjectId, setEditingSubjectId] = useState(null);
+  // const [editingSubjectId, setEditingSubjectId] = useState(null);
   const [newSubjectType, setNewSubjectType] = useState("");
   const [newSubjectDescription, setNewSubjectDescription] = useState("");
   const [editingSubject, setEditingSubject] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [newCategory, setNewCategory] = useState("");
+  // const [categories] = useState([]);
+  const [ setSelectedCategoryId] = useState("");
+  const [setSelectedCategory] = useState(null);
+  const [ setNewCategory] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -114,18 +114,18 @@ const handleDelete = (id) => {
 
 
 
-  const handleSelectPostForUpdate = (categoryId) => {
-    setSelectedCategoryId(categoryId);
-    const category = categories.find((cat) => cat.id === categoryId);
-    setSelectedCategory(category);
-    setUpdateModalOpen(true);
-  };
+  // const handleSelectPostForUpdate = (categoryId) => {
+  //   setSelectedCategoryId(categoryId);
+  //   const category = categories.find((cat) => cat.id === categoryId);
+  //   setSelectedCategory(category);
+  //   setUpdateModalOpen(true);
+  // };
 
-  const handleSelectCategory = (event) => {
-    setSelectedCategoryId(event.target.value);
-    const category = categories.find((cat) => cat.id === event.target.value);
-    setSelectedCategory(category);
-  };
+  // const handleSelectCategory = (event) => {
+  //   setSelectedCategoryId(event.target.value);
+  //   const category = categories.find((cat) => cat.id === event.target.value);
+  //   setSelectedCategory(category);
+  // };
 
   const handleCloseUpdateModal = () => {
     setUpdateModalOpen(false);
@@ -167,6 +167,7 @@ const handleDelete = (id) => {
                 onClick={handleCloseModal}
                 className="Ad-close-btn"
                 src={close}
+                alt=""
               />
               <label
                 style={{ marginTop: "20px" }}
@@ -266,6 +267,7 @@ const handleDelete = (id) => {
                       onClick={handleCloseUpdateModal}
                       className="postapplied-close-btn"
                       src={close}
+                      alt=""
                     />
                     <label
                       className="AC-SetLabel-Name"

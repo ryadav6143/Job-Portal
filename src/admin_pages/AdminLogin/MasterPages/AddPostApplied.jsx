@@ -160,6 +160,7 @@ function AddPostApplied() {
                 <div>
                   <form>
                     <img
+                      alt=""
                       onClick={handleCloseModal}
                       className="update-close-btn"
                       src={close}
@@ -177,7 +178,7 @@ function AddPostApplied() {
                         <option value="">Select Category</option>
                         {categories &&
                           categories.length > 0 &&
-                          categories.map((category,index) => (
+                          categories.map((category, index) => (
                             <option key={index} value={category.id}>
                               {category?.category_name || ""}
                             </option>
@@ -282,6 +283,7 @@ function AddPostApplied() {
                         onClick={handleCloseUpdateModal}
                         className="postapplied-close-btn"
                         src={close}
+                        alt=""
                       />
                       <div>
                         <label>Select Category</label>
@@ -300,7 +302,7 @@ function AddPostApplied() {
                             }));
                           }}
                         >
-                          {categories.map((category,index) => (
+                          {categories.map((category, index) => (
                             // <option key={category.id} value={category.id}>
                             //   {category && category.category_name && category.category_name || ""}
                             // </option>

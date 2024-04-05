@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 // import { BASE_URL } from "../../../config/config";
@@ -9,7 +8,6 @@ import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 // import { ADMIN_BASE_URL } from "../../../config/config";
-import { ADMIN_BASE_URL } from "../../../config/config";
 import adminApiService from "../../adminApiService";
 function AddSubPostApplied() {
   const [data, setData] = useState([]);
@@ -26,7 +24,8 @@ function AddSubPostApplied() {
   }, []);
 
   const fetchData = () => {
-    adminApiService.fetchAppliedSubPosts()
+    adminApiService
+      .fetchAppliedSubPosts()
       .then((data) => {
         setData(data);
       })
@@ -41,7 +40,8 @@ function AddSubPostApplied() {
   }, []);
 
   const fetchAppliedPost = () => {
-    adminApiService.getPosts()
+    adminApiService
+      .getPosts()
       .then((data) => {
         setPostData(data);
       })
@@ -56,18 +56,13 @@ function AddSubPostApplied() {
     setSelectedPost(selectedPostObj);
   };
 
- 
-
-
-
-
-
   const handleAddSubPost = () => {
     if (!selectedPostId) {
       console.error("Please select a category.");
       return;
-    }  
-   adminApiService.addSubPost(selectedPostId, newPost)
+    }
+    adminApiService
+      .addSubPost(selectedPostId, newPost)
       .then((response) => {
         setData([...data, response]);
         setNewPost("");
@@ -80,9 +75,12 @@ function AddSubPostApplied() {
   // -----------------------------Fetching data from applied_post------------------------------
 
   const handleDeleteSubPost = (subPostId) => {
-    const isConfirmed = window.confirm("Are you sure you want to delete this subpost?");
-    if (isConfirmed) { 
-    adminApiService.deleteSubPost(subPostId)
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this subpost?"
+    );
+    if (isConfirmed) {
+      adminApiService
+        .deleteSubPost(subPostId)
         .then(() => {
           fetchData();
         })
@@ -98,15 +96,13 @@ function AddSubPostApplied() {
   const [selectedPost, setSelectedPost] = useState("");
   const [updatePost, setUpdatePost] = useState("");
   const handleOpenUpdateModal = (SubPostID) => {
-    const selectedSubPost = data.find(subpost => subpost.id === SubPostID);
+    const selectedSubPost = data.find((subpost) => subpost.id === SubPostID);
     // console.log("Selected Post:", selectedSubPost.applied_post_master.post_name);
     // console.log("Selected Subpost Name:", selectedSubPost.subpost_name);
     setSelectedPost(selectedSubPost); // Set the selected subpost id
     setUpdatePost(selectedSubPost.subpost_name); // Set the update post name
     setUpdateModalOpen(true);
   };
-
-
 
   const handleCloseUpdateModal = () => {
     setUpdateModalOpen(false);
@@ -126,10 +122,9 @@ function AddSubPostApplied() {
     p: 4,
   };
 
-
-
   const handleUpdateSubPost = () => {
-   adminApiService.updateSubPost(selectedPost, updatePost)
+    adminApiService
+      .updateSubPost(selectedPost, updatePost)
       .then(() => {
         fetchData();
         setUpdatePost("");
@@ -139,10 +134,6 @@ function AddSubPostApplied() {
         console.error(error);
       });
   };
-
-
-
-
 
   return (
     <>
@@ -167,6 +158,7 @@ function AddSubPostApplied() {
                     onClick={handleCloseModal}
                     className="Examtype-close-btn"
                     src={close}
+                    alt=""
                   />
                   <label className="AC-SetLabel-Name" htmlFor="postSelect">
                     Select Post:
@@ -178,7 +170,7 @@ function AddSubPostApplied() {
                     onChange={(e) => handleSelectPost(e)} // Pass the event object directly
                   >
                     <option value="">Select Post</option>
-                    {postData.map((post,index) => (
+                    {postData.map((post, index) => (
                       <option key={index} value={post.id}>
                         {post.post_name}
                       </option>
@@ -226,9 +218,7 @@ function AddSubPostApplied() {
         </button> */}
       </div>
 
-
-
-<div  className="master-table ">
+      <div className="master-table ">
         <p className="SCA-heading">CURRENT APPLIED SUB POST AVAILABLE</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
@@ -258,8 +248,6 @@ function AddSubPostApplied() {
                         alt=""
                       />
                     </button>
-
-
                   </td>
                   <td>
                     <button
@@ -287,6 +275,7 @@ function AddSubPostApplied() {
                           onClick={handleCloseUpdateModal}
                           className="Examtype-close-btn"
                           src={close}
+                          alt=""
                         />
                         <label
                           className="AC-SetLabel-Name"
@@ -297,20 +286,26 @@ function AddSubPostApplied() {
                         <select
                           id="postSelect"
                           className="select-jc"
-                          value={selectedPost ? selectedPost.applied_post_master.id : ""}
+                          value={
+                            selectedPost
+                              ? selectedPost.applied_post_master.id
+                              : ""
+                          }
                           onChange={(e) => {
                             const selectedPostId = parseInt(e.target.value);
-                            const selectedPostData = postData.find((post) => post.id === selectedPostId);
+                            const selectedPostData = postData.find(
+                              (post) => post.id === selectedPostId
+                            );
                             // console.log("selectedPost>>>>>>",selectedPostId)
-                            setSelectedPost(prevState => ({
+                            setSelectedPost((prevState) => ({
                               ...prevState,
-                              applied_post_master: selectedPostData
+                              applied_post_master: selectedPostData,
                             }));
                             setUpdatePost("");
                           }}
                         >
                           <option value="">Select Post</option>
-                          {postData.map((post,index) => (
+                          {postData.map((post, index) => (
                             <option key={index} value={post.id}>
                               {post?.post_name}
                             </option>
@@ -353,8 +348,6 @@ function AddSubPostApplied() {
           </table>
         </div>
       </div>
-
-  
     </>
   );
 }

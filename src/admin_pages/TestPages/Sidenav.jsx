@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import "./Sidenav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CandidateHeader from "../../candidate_pages/CandidateLogin/CandidateHeader/CandidateHeader";
-import Footers from "../../components/Footer/Footers";
+// import Footers from "../../components/Footer/Footers";
 import {
   faIdCardClip,
   faBuildingColumns,
   faBriefcase,
-  faSearch,
-  faUsers,
-  faFile,
+  
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, Outlet } from "react-router-dom";
 const Sidenav = () => {

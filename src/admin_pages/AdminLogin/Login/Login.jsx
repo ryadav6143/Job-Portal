@@ -1,5 +1,5 @@
 import "./Login.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../assets/logos/logo.png";
@@ -14,17 +14,17 @@ function Login(handleLogin) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
   const [errorNotification, setErrorNotification] = useState({
     open: false,
   });
 
   const navigate = useNavigate();
 
-  const removeToken = (() => {
+  // const removeToken = (() => {
     sessionStorage.removeItem("Token");
     localStorage.removeItem("Token");
-  })();
+  // })();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +55,7 @@ function Login(handleLogin) {
         open: true,
         message: error.response.data.message || "Invalid credentials",
       });
-      setErrorMessage("invalid username and password");
+      // setErrorMessage("invalid username and password");
     }
   };
 
@@ -75,7 +75,9 @@ function Login(handleLogin) {
       />
       <div className="login-container">
         <div className="logo-section">
-          <img className="logo-img" src={logo} alt="Logo" />
+          <a href="/">
+            <img className="logo-img" src={logo} alt="Logo" />
+          </a>
         </div>
         <div style={{ textAlign: "center" }}>
           <p className="login-content"> ADMIN PANEL</p>

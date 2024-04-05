@@ -1,26 +1,26 @@
 import React from "react";
-import { Outlet, Route, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import SideBar from "../SideBar/SideBar";
 import "./AdminDashboard.css";
-import AdminAuthRoutes from "../../../routes/AdminAuthRoutes";
-import Sidenav from "../../TestPages/Sidenav";
+// import AdminAuthRoutes from "../../../routes/AdminAuthRoutes";
+// import Sidenav from "../../TestPages/Sidenav";
 import AdminHeader from "../admin_header/AdminHeader";
 
-import { Container, Row, Col, Card } from "react-bootstrap";
+// import { Container, Row, Col, Card } from "react-bootstrap";
 
 function AdminDashboard() {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
 
-  const totalInterviews = 50;
-  const totalApplies = 200;
-  const totalProfiles = 1000;
-  const totalOpenings = 20;
-  const adminDetails = {
-    name: "John Doe",
-    email: "admin@example.com",
-    role: "Admin",
-  };
+  // const totalInterviews = 50;
+  // const totalApplies = 200;
+  // const totalProfiles = 1000;
+  // const totalOpenings = 20;
+  // const adminDetails = {
+  //   name: "John Doe",
+  //   email: "admin@example.com",
+  //   role: "Admin",
+  // };
 
   return (
     <>

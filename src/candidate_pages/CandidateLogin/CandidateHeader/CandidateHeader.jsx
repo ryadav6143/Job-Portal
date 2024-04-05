@@ -12,24 +12,19 @@ function CandidateHeader() {
     sessionStorage.removeItem("isLoggedIn");
     navigate("/candidate-login");
   };
-  
+
   return (
     <>
-      <div className="admin-header">
+      <div className="admin-header fixed-top">
         <div>
           <img className="admin-logo" src={medilogo} alt="" />
         </div>
         <div id="logout-btn">
-        
           <button onClick={() => handleLogout()}>
-            <img src={logout} />
+            <img src={logout} alt="" />
           </button>
         </div>
       </div>
-
-      {/* <div className="show-dashboard">
-    <CandidateDashboard></CandidateDashboard>
-  </div> */}
     </>
   );
 }

@@ -146,7 +146,7 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
     }));
   };
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  // const [selectedOption, setSelectedOption] = useState(null);
   const handleDropdownChange = (event) => {
     setErrors({
       ...errors,

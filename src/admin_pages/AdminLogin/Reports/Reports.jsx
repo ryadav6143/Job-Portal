@@ -17,12 +17,12 @@ import {
 function Reports() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPost, setSelectedPost] = useState("");
-  const [selectedSubpost, setSelectedSubpost] = useState("");
+  const selectedSubpost = "";
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [count, setCount] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [posts, setPosts] = useState([]);
+  // const [categories, setCategories] = useState([]);
+  // const [posts, setPosts] = useState([]);
   // const [subposts, setSubposts] = useState([]);
   // const [showPdfModal, setShowPdfModal] = useState(false);
   const [showPdfDialog, setShowPdfDialog] = useState(false);
@@ -32,22 +32,14 @@ function Reports() {
   const [loadingPopup, setLoadingPopup] = useState(true);
   const [jobCategories, setJobCategories] = useState([]);
   const [post, setPost] = useState([]);
-  const [subPost, setSubPost] = useState([]);
-  const [formValues, setFormValues] = useState({});
+  // const [subPost, setSubPost] = useState([]);
+  // const [formValues, setFormValues] = useState({});
   const [itemsPerPage, setItemsPerPage] = useState(7);
-  const [updateField, setUpdateField] = useState({});
+  // const [updateField, setUpdateField] = useState({});
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("error");
-  useEffect(() => {
-    fetchDataFromService();
-  }, [
-    currentPage,
-    selectedCategory,
-    selectedPost,
-    selectedSubpost,
-    itemsPerPage,
-  ]);
+
 
   const fetchDataFromService = async () => {
     try {
@@ -62,26 +54,34 @@ function Reports() {
       setData(response.candidateappliedpostData);
       setCount(response);
 
-      const uniqueCategories = [
-        ...new Set(
-          response.candidateappliedpostData.map(
-            (candidate) => candidate.job_category_master?.category_name
-          )
-        ),
-      ];
-      setCategories(uniqueCategories);
-      setPosts(
-        response.candidateappliedpostData.map(
-          (candidate) => candidate.applied_post_master?.post_name
-        )
-      );
+      // const uniqueCategories = [
+      //   ...new Set(
+      //     response.candidateappliedpostData.map(
+      //       (candidate) => candidate.job_category_master?.category_name
+      //     )
+      //   ),
+      // ];
+      // setCategories(uniqueCategories);
+      // setPosts(
+      //   response.candidateappliedpostData.map(
+      //     (candidate) => candidate.applied_post_master?.post_name
+      //   )
+      // );
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);
     }
   };
-
+  useEffect(() => {
+    fetchDataFromService();
+  }, [
+    currentPage,
+    selectedCategory,
+    selectedPost,
+    selectedSubpost,
+    itemsPerPage,
+  ]);
   useEffect(() => {
     const fetchJobCategories = async () => {
       try {
@@ -142,36 +142,36 @@ function Reports() {
     setShowPdfDialog(false); // Close dialog
   };
 
-  const handleCandidateInfoClick = (candidate) => {
-    // console.log("Selected Candidate Data:", candidate);
-    setSelectedCandidate(candidate.id);
-  };
+  // const handleCandidateInfoClick = (candidate) => {
+  //   console.log("Selected Candidate Data:", candidate);
+  //   setSelectedCandidate(candidate.id);
+  // };
 
   const handleCategory = (fieldName, value) => {
     const selectedCategoryData = jobCategories.find(
       (category) => category.category_name === value
     );
     setSelectedCategory(value);
-    setUpdateField((prevValues) => ({
-      ...prevValues,
-      [fieldName]: value.toString(),
-      job_category_master_id: selectedCategoryData
-        ? selectedCategoryData.id
-        : "",
-    }));
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [fieldName]: value,
-      job_category_master_id: selectedCategoryData
-        ? selectedCategoryData.id
-        : "",
-    }));
+    // setUpdateField((prevValues) => ({
+    //   ...prevValues,
+    //   [fieldName]: value.toString(),
+    //   job_category_master_id: selectedCategoryData
+    //     ? selectedCategoryData.id
+    //     : "",
+    // }));
+    // setFormValues((prevValues) => ({
+    //   ...prevValues,
+    //   [fieldName]: value,
+    //   job_category_master_id: selectedCategoryData
+    //     ? selectedCategoryData.id
+    //     : "",
+    // }));
     const selectedPostData =
       selectedCategoryData &&
       selectedCategoryData.applied_post_masters.map((post) => post.post_name);
     setPost(selectedPostData || []);
     setSelectedPost("");
-    setSubPost([]);
+    // setSubPost([]);
   };
 
   const handlePost = (fieldName, value) => {
@@ -179,26 +179,26 @@ function Reports() {
       return;
     }
 
-    const selectedPostObject = jobCategories
-      .find((category) => category.category_name === selectedCategory)
-      .applied_post_masters.find((post) => post.post_name === value);
-    const selectedSubPostData =
-      selectedPostObject &&
-      selectedPostObject.applied_subpost_masters.map(
-        (subpost) => subpost.subpost_name
-      );
+    // const selectedPostObject = jobCategories
+    //   .find((category) => category.category_name === selectedCategory)
+    //   .applied_post_masters.find((post) => post.post_name === value);
+    // const selectedSubPostData =
+    //   selectedPostObject &&
+    //   selectedPostObject.applied_subpost_masters.map(
+    //     (subpost) => subpost.subpost_name
+    //   );
     setSelectedPost(value);
-    setUpdateField((prevValues) => ({
-      ...prevValues,
-      [fieldName]: value.toString(),
-      applied_post_masters_id: selectedPostObject ? selectedPostObject.id : "",
-    }));
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [fieldName]: value,
-      applied_post_masters_id: selectedPostObject ? selectedPostObject.id : "",
-    }));
-    setSubPost(selectedSubPostData || []);
+    // setUpdateField((prevValues) => ({
+    //   ...prevValues,
+    //   [fieldName]: value.toString(),
+    //   applied_post_masters_id: selectedPostObject ? selectedPostObject.id : "",
+    // }));
+    // setFormValues((prevValues) => ({
+    //   ...prevValues,
+    //   [fieldName]: value,
+    //   applied_post_masters_id: selectedPostObject ? selectedPostObject.id : "",
+    // }));
+    // setSubPost(selectedSubPostData || []);
   };
 
   const fetchCandidateDetails = async (candidateId, signal) => {
@@ -303,11 +303,8 @@ function Reports() {
                     }
                   >
                     <option value="">All</option>
-                    {jobCategories.map((category,index) => (
-                      <option
-                        key={index}
-                        value={category.category_name}
-                      >
+                    {jobCategories.map((category, index) => (
+                      <option key={index} value={category.category_name}>
                         {category.category_name}
                       </option>
                     ))}
@@ -341,7 +338,7 @@ function Reports() {
                     onChange={(e) => handlePost("post_name", e.target.value)}
                   >
                     <option value="">All</option>
-                    {post.map((post,index) => (
+                    {post.map((post, index) => (
                       <option key={index} value={post}>
                         {post}
                       </option>

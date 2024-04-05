@@ -252,7 +252,7 @@ function NonAcademicForm() {
     },
   });
   const [selectedComponent, setSelectedComponent] = useState();
-  const [formValuesToSend, setformValuesToSend] = useState();
+  // const [formValuesToSend, setformValuesToSend] = useState();
 
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -312,7 +312,7 @@ function NonAcademicForm() {
       };
       setOtpData(otpData);
   
-      const response = await apiService.generateOTP(otpData);
+     await apiService.generateOTP(otpData);
       // console.log("API Response:", response);
       setSelectedComponent("OTPVerification");
     } catch (error) {
@@ -331,11 +331,11 @@ function NonAcademicForm() {
     return skipped.has(step);
   };
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = (event, reason) => {
+  const handleClose = ( reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -447,7 +447,7 @@ function NonAcademicForm() {
       contact_1,
       title_first_name,
       first_name,
-      middle_name,
+      // middle_name,
       last_name,
       dob,
       gender,
@@ -458,26 +458,26 @@ function NonAcademicForm() {
       address_1,
       contact_2,
       country,
-      state_province,
+      // state_province,
       applied_post_masters_id,
       nature_of_job,
       department_master_id,
       pin_code,
-      exam_types_master_id,
+      // exam_types_master_id,
       specialization,
       // ----------------Qualificationf Form Values---------
-      year_start,
-      institute_name,
-      board_university_name,
-      year_end,
-      grade_division,
-      grade_percent,
-      stream,
-      candidate_cv,
+      // year_start,
+      // institute_name,
+      // board_university_name,
+      // year_end,
+      // grade_division,
+      // grade_percent,
+      // stream,
+      // candidate_cv,
       total_academic_exp,
       total_industrial_exp,
-      company_experience_name,
-      accept,
+      // company_experience_name,
+      // accept,
     } = formValues.UserDetails;
 
     let errors = {};

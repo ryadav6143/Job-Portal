@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -66,7 +66,7 @@ function AddCandidateResearchForm({ handleCloseResearchClick,fetchData,setNotifi
 
     if (!hasErrors) {
       try {
-        const response = await candidatesApiService.addCandidateResearch(formData);
+        await candidatesApiService.addCandidateResearch(formData);
         // console.log(response.data); 
         handleCloseResearchClick();
         fetchData();

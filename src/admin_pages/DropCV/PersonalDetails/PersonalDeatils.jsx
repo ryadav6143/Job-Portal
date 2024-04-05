@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./PersonalDeatils.css";
 import apiService from "../../../Services/ApiServices";
@@ -7,8 +7,7 @@ import {
   faUser,
   faEnvelope,
   faMobile,
-  faAngleDown
-
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 // import { checkEmailExistence } from "../../../Services/ApiServices";
 
@@ -49,7 +48,6 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
 
   // -------------for jobcategory, post applies , sub post  ---------------
 
-
   const [maxCharacters] = useState(40);
 
   useEffect(() => {
@@ -66,15 +64,15 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         // console.log("categoriesResponse.data>>>>>>",categoriesResponse.data)
         // console.log("formData.applied_post_masters_id>>>>>",formData.applied_post_masters_id)
         if (formData.job_category_master_id) {
-       
-          const selectedCategoryObject = categoriesResponse.data.find((category) => category.id == formData.job_category_master_id
+          const selectedCategoryObject = categoriesResponse.data.find(
+            (category) => category.id == formData.job_category_master_id
           );
           // console.log("selectedCategoryObject>>>>>",selectedCategoryObject)
           if (selectedCategoryObject) {
             setSelectedCategory(selectedCategoryObject.category_name);
           }
         }
-        // if (formData.applied_post_masters_id) {       
+        // if (formData.applied_post_masters_id) {
         //   const selectedPostObject = categoriesResponse.data.find((post) => post.applied_post_masters.id == formData.applied_post_masters_id
         //   );
         //   console.log("selectedPostObject>>>>>",selectedPostObject)
@@ -82,63 +80,63 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
         //     setSelectedPost(selectedPostObject.post_name);
         //   }
         // }
-        if (formData.applied_post_masters_id) {       
+        if (formData.applied_post_masters_id) {
           let selectedPostObject;
-          categoriesResponse.data.forEach(category => {
-            category.applied_post_masters.forEach(post => {
+          categoriesResponse.data.forEach((category) => {
+            category.applied_post_masters.forEach((post) => {
               if (post.id == formData.applied_post_masters_id) {
                 selectedPostObject = post;
                 return; // Break loop if post found
               }
             });
           });
-        
+
           // console.log("selectedPostObject>>>>>", selectedPostObject);
-        
+
           if (selectedPostObject) {
             setSelectedPost(selectedPostObject.post_name);
           }
         }
-        if (formData.applied_subpost_master_id) {       
+        if (formData.applied_subpost_master_id) {
           let selectedSubPostObject;
-          categoriesResponse.data.forEach(category => {
-            category.applied_post_masters.forEach(post => {
-              post.applied_subpost_masters.forEach(subpost => {
-              if (subpost.id == formData.applied_subpost_master_id) {
-                selectedSubPostObject = subpost;
-                return; 
-              }
+          categoriesResponse.data.forEach((category) => {
+            category.applied_post_masters.forEach((post) => {
+              post.applied_subpost_masters.forEach((subpost) => {
+                if (subpost.id == formData.applied_subpost_master_id) {
+                  selectedSubPostObject = subpost;
+                  return;
+                }
+              });
             });
-          })});
-        
+          });
+
           // console.log("selectedSubPostObject>>>>>", selectedSubPostObject);
-        
+
           if (selectedSubPostObject) {
             setSelectedSubpost(selectedSubPostObject.subpost_name);
           }
         }
-        
+
         const subjectRes = await apiService.getSubjectMaster(signal);
         setSubjects(subjectRes.data);
         if (formData.subjects_master_id) {
-       
-          const selectedSubjectObject = subjectRes.data.find((subject) => subject.id == formData.subjects_master_id
+          const selectedSubjectObject = subjectRes.data.find(
+            (subject) => subject.id == formData.subjects_master_id
           );
           // console.log("selectedSubjectObject>>>>>",selectedSubjectObject)
           if (selectedSubjectObject) {
             setSelectedSubject(selectedSubjectObject.subject_name);
           }
         }
-     
 
         const countriesRes = await apiService.getCountries(signal);
         setCountries(countriesRes.data.data);
-        if (formData.country) {                   
+        if (formData.country) {
           setSelectedCountry(formData.country);
-                }
-                if(formData.city){
-                  setSelectedCity(formData.city)
-                }
+        }
+        if (formData.city) {
+          setSelectedCity(formData.city);
+        }
       } catch (error) {
         if (error.name === "AbortError") {
           // Request was aborted, you can handle it if needed
@@ -365,14 +363,12 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     name="first_name"
                     placeholder="First Name"
                     id=""
-                    
                     onChange={handleInputChange}
                     value={formData.first_name}
                     required
                   ></input>
-            
-                <FontAwesomeIcon className="set-icon" icon={faUser} />
-          
+
+                  <FontAwesomeIcon className="set-icon" icon={faUser} />
                 </div>
                 <span className="error-message">{errors.first_name}</span>
               </div>
@@ -394,10 +390,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                     id=""
                     value={formData.last_name}
                     onChange={handleInputChange}
-                    
                   ></input>
                 </div>
-             
+
                 <span className="error-message">{errors.last_name}</span>
               </div>
               <div className="col-md-6">

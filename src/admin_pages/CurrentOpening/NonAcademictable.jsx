@@ -4,6 +4,7 @@ import Notification from "../../Notification/Notification";
 import "./CurrentOpening.css";
 
 function NonAcademictable() {
+  
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("info");
