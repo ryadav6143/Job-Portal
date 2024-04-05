@@ -801,8 +801,8 @@ function EditPersonalDetails({ token }) {
                         countries.find(
                           (country) => country.country === selectedCountry
                         )?.cities || []
-                      ).map((city) => (
-                        <option key={city} value={city}>
+                      ).map((city,index) => (
+                        <option key={index} value={city}>
                           {city}
                         </option>
                       ))}

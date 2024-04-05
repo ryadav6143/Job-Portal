@@ -144,7 +144,7 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
           // Request was aborted, you can handle it if needed
           console.error("Error fetching job categories:", error);
         } else {
-          console.error("Error fetching job categories:", error);
+          // console.error("Error fetching job categories:", error);
         }
       }
     };
@@ -545,8 +545,8 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                       countries.find(
                         (country) => country.country === selectedCountry
                       )?.cities || []
-                    ).map((city) => (
-                      <option key={city} value={city}>
+                    ).map((city,index) => (
+                      <option key={index} value={city}>
                         {city}
                       </option>
                     ))}
@@ -598,8 +598,8 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   >
                     {/* <option value="">Select a post</option> */}
                     <option value="">{selectedPost&&selectedPost?selectedPost: "Select a post"}</option>
-                    {posts.map((post) => (
-                      <option key={post.post_name} value={post.post_name}>
+                    {posts.map((post,index) => (
+                      <option key={index} value={post.post_name}>
                         {post.post_name}
                       </option>
                     ))}
@@ -623,9 +623,9 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   >
                   <option value="">{selectedSubpost&&selectedSubpost?selectedSubpost: "Select a subpost"}</option>
                  
-                    {subposts.map((subpost) => (
+                    {subposts.map((subpost,index) => (
                       <option
-                        key={subpost.subpost_name}
+                        key={index}
                         value={subpost.subpost_name}
                       >
                         {subpost.subpost_name}
@@ -652,8 +652,8 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
                   >
                     {/* <option value="">Select a subject</option> */}
                     <option value="">{selectedSubject&&selectedSubject?selectedSubject: "Select a subject"}</option>
-                    {subjects.map((subject) => (
-                      <option key={subject.id} value={subject.subject_name}>
+                    {subjects.map((subject,index) => (
+                      <option key={index} value={subject.subject_name}>
                         {subject.subject_name}
                       </option>
                     ))}

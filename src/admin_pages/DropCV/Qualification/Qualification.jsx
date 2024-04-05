@@ -37,7 +37,7 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
         // Check if formData already has selected exam and degree
         if (formData.educations && formData.educations.length > 0) {
           const selectedEducation = formData.educations[0];  
-          const selectedExamObject = response.data.find((exam) => exam.degree_types_master.exam_types_master_id === selectedEducation.exam_types_master_id);          
+          const selectedExamObject = response.data.find((exam) => exam?.degree_types_master?.exam_types_master_id === selectedEducation.exam_types_master_id);          
         //  console.log("selectedExamObject???",selectedExamObject.exam_name)
          
           if (selectedExamObject) {
@@ -48,7 +48,7 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
    
         if (formData.educations && formData.educations.length > 0) {
           const selectedEducation = formData.educations[0];  
-          const selectedDegreeObject = response.data.find((exam) => exam.degree_types_master.id === selectedEducation.degree_types_master_id);          
+          const selectedDegreeObject = response.data.find((exam) => exam?.degree_types_master?.id === selectedEducation.degree_types_master_id);          
           // console.log("selectedDegreeObject???",selectedDegreeObject.degree_types_master.degree_name)
           if (selectedDegreeObject) {
             setSelectedDegree(selectedDegreeObject.degree_types_master.degree_name);           
@@ -59,7 +59,7 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
         
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
       });
   
     return () => {

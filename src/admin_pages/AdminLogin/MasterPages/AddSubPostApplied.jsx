@@ -178,8 +178,8 @@ function AddSubPostApplied() {
                     onChange={(e) => handleSelectPost(e)} // Pass the event object directly
                   >
                     <option value="">Select Post</option>
-                    {postData.map((post) => (
-                      <option key={post.id} value={post.id}>
+                    {postData.map((post,index) => (
+                      <option key={index} value={post.id}>
                         {post.post_name}
                       </option>
                     ))}
@@ -244,7 +244,7 @@ function AddSubPostApplied() {
             </thead>
             <tbody>
               {data.map((subPost, index) => (
-                <tr key={subPost.id}>
+                <tr key={index}>
                   <td>{index + 1}</td>
                   {/* <td>{subPost.applied_post_master.post_name}</td> */}
                   <td>{subPost.subpost_name}</td>
@@ -310,8 +310,8 @@ function AddSubPostApplied() {
                           }}
                         >
                           <option value="">Select Post</option>
-                          {postData.map((post) => (
-                            <option key={post.id} value={post.id}>
+                          {postData.map((post,index) => (
+                            <option key={index} value={post.id}>
                               {post?.post_name}
                             </option>
                           ))}

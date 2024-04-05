@@ -303,9 +303,9 @@ function Reports() {
                     }
                   >
                     <option value="">All</option>
-                    {jobCategories.map((category) => (
+                    {jobCategories.map((category,index) => (
                       <option
-                        key={category.category_name}
+                        key={index}
                         value={category.category_name}
                       >
                         {category.category_name}
@@ -341,8 +341,8 @@ function Reports() {
                     onChange={(e) => handlePost("post_name", e.target.value)}
                   >
                     <option value="">All</option>
-                    {post.map((post) => (
-                      <option key={post} value={post}>
+                    {post.map((post,index) => (
+                      <option key={index} value={post}>
                         {post}
                       </option>
                     ))}
@@ -368,7 +368,7 @@ function Reports() {
                   </thead>
                   <tbody>
                     {data.map((candidate, index) => (
-                      <tr key={candidate.id}>
+                      <tr key={index}>
                         <td>
                           <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
                         </td>
