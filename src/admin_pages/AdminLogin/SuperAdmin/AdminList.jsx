@@ -195,8 +195,8 @@ function AdminList() {
             onChange={(e) => handleFieldChange('role_type_id', e.target.value)}
           >
             <option value="">Select Role Type</option>
-            {role.map((role) => (
-              <option key={role.id} value={role.id}>
+            {role.map((role,index) => (
+              <option key={index} value={role.id}>
                 {role.role_type_name}
               </option>
             ))}

@@ -323,9 +323,9 @@ function EditOpenings() {
                   }
                 >
                   <option value="">Select a category</option>
-                  {jobCategories.map((category) => (
+                  {jobCategories.map((category,index) => (
                     <option
-                      key={category.category_name}
+                      key={index}
                       value={category.category_name}
                     >
                       {category.category_name}
@@ -346,8 +346,8 @@ function EditOpenings() {
                   }
                 >
                   <option value="">Select Department</option>
-                  {departmant.map((department) => (
-                    <option key={department.id} value={department.dept_name}>
+                  {departmant.map((department,index) => (
+                    <option key={index} value={department.dept_name}>
                       {department.dept_name}
                     </option>
                   ))}
@@ -362,8 +362,8 @@ function EditOpenings() {
                   // value={selectedPost}
                 >
                   <option value="">{selectedPost} </option>
-                  {post.map((post) => (
-                    <option key={post} value={post}>
+                  {post.map((post,index) => (
+                    <option key={index} value={post}>
                       {post}
                     </option>
                   ))}
@@ -383,8 +383,8 @@ function EditOpenings() {
                   }
                 >
                   <option value="">{selectedSubPost}</option>
-                  {subPost.map((subpost) => (
-                    <option key={subpost} value={subpost}>
+                  {subPost.map((subpost,index) => (
+                    <option key={index} value={subpost}>
                       {subpost}
                     </option>
                   ))}

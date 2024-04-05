@@ -313,8 +313,8 @@ function CandidateUserQualification({ formValues, setFormValues, errors, setErro
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -478,8 +478,8 @@ function CandidateUserQualification({ formValues, setFormValues, errors, setErro
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -674,8 +674,8 @@ function CandidateUserQualification({ formValues, setFormValues, errors, setErro
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -853,8 +853,8 @@ function CandidateUserQualification({ formValues, setFormValues, errors, setErro
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -1036,8 +1036,8 @@ function CandidateUserQualification({ formValues, setFormValues, errors, setErro
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -1227,8 +1227,8 @@ function CandidateUserQualification({ formValues, setFormValues, errors, setErro
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}
@@ -1399,8 +1399,8 @@ function CandidateUserQualification({ formValues, setFormValues, errors, setErro
                     onChange={(e) => handlePhdChange("country", e.target.value)}
                   >
                     <option value="">Select country</option>
-                    {countries.map((country) => (
-                      <option key={country.country} value={country.country}>
+                    {countries.map((country,index) => (
+                      <option key={index} value={country.country}>
                         {country.country}
                       </option>
                     ))}

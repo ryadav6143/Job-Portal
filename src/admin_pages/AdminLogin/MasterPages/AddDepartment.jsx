@@ -174,7 +174,7 @@ function AddDepartment() {
             </thead>
             <tbody>
               {departments.map((department, index) => (
-                <tr key={department.id}>
+                <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{department.dept_name}</td>
                   <td>

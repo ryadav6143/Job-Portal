@@ -84,7 +84,7 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
         // Update the state with the fetched data
      
         const nonAcademicPosts = response.data.filter(post => post.job_category_master.category_name === "non-academic");
-        console.log("post by category",nonAcademicPosts)
+        // console.log("post by category",nonAcademicPosts)
         // setPosts(response.data);
         setPosts(nonAcademicPosts);
         if (formValues.applied_post_masters_id) {

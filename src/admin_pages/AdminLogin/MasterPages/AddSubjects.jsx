@@ -231,7 +231,7 @@ const handleDelete = (id) => {
             </thead>
             <tbody>
               {subject.map((subject, index) => (
-                <tr key={subject.id}>
+                <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{subject.subject_name}</td>
                   <td>{subject.subject_type}</td>

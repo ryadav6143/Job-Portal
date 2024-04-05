@@ -241,8 +241,8 @@ function AddExamType() {
                     self.findIndex((v) => v.exam_name === value.exam_name) ===
                     index
                 )
-                .map((exam) => (
-                  <tr key={exam.id}>
+                .map((exam,index) => (
+                  <tr key={index}>
                     <td>{exam.id}</td>
                     <td>{exam.exam_name}</td>
                     <td>
