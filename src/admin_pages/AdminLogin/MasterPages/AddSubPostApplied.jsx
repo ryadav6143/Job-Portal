@@ -7,7 +7,6 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
-// import { ADMIN_BASE_URL } from "../../../config/config";
 import adminApiService from "../../adminApiService";
 function AddSubPostApplied() {
   const [data, setData] = useState([]);

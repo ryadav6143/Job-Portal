@@ -248,7 +248,6 @@ function NonAcademicForm() {
       ref_person_1_contact: "",
       ref_person_2_contact: "",
       candidate_cv: "",
-      
     },
   });
   const [selectedComponent, setSelectedComponent] = useState();
@@ -258,7 +257,7 @@ function NonAcademicForm() {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("success");
   const [formDataToSend, setformDataToSend] = useState();
-  
+
   // const transferAllData = async () => {
   //   try {
   //     const formValuesToSend = { UserDetails: { ...formValues.UserDetails } };
@@ -284,12 +283,10 @@ function NonAcademicForm() {
   //   }
   // };
 
-
-
   const transferAllData = async () => {
     try {
       const formDataToSend = new FormData();
-  
+
       Object.entries(formValues.UserDetails).forEach(([key, value]) => {
         if (key === "educations" && Array.isArray(value)) {
           formDataToSend.append(key, JSON.stringify(value));
@@ -297,22 +294,22 @@ function NonAcademicForm() {
           formDataToSend.append(key, value);
         }
       });
-  
+
       setformDataToSend(formDataToSend);
       setOtpButtonclicked(true);
       setShowHeaderFooter(false);
-  
+
       // console.log("formDataToSend", formDataToSend);
       setformDataToSend(formDataToSend);
-  
+
       const otpData = {
         email: formValues.UserDetails.email,
         contact_1: formValues.UserDetails.contact_1,
         first_name: formValues.UserDetails.first_name,
       };
       setOtpData(otpData);
-  
-     await apiService.generateOTP(otpData);
+
+      await apiService.generateOTP(otpData);
       // console.log("API Response:", response);
       setSelectedComponent("OTPVerification");
     } catch (error) {
@@ -335,7 +332,7 @@ function NonAcademicForm() {
   //   setOpen(true);
   // };
 
-  const handleClose = ( reason) => {
+  const handleClose = (reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -490,20 +487,23 @@ function NonAcademicForm() {
         } else if (!/\S+@\S+\.\S+/.test(email)) {
           errors.email = "! Please enter a valid email address.";
         } else {
-          const apiUrl = `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${encodeURIComponent(
-            email
-          )}`;
-
-          fetch(apiUrl)
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.exists) {
-                setErrors({ email: "! This email is already registered." });
-              }
-            })
-            .catch((error) => {
-              console.error("Error checking email existence:", error);
-            });
+          try {
+            const apiUrl = `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${encodeURIComponent(
+              email
+            )}`;
+            fetch(apiUrl)
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.exists) {
+                  setErrors({ email: "! This email is already registered." });
+                }
+              })
+              .catch((error) => {
+                console.error("Error checking email existence:", error);
+              });
+          } catch (error) {
+            console.error("Error Checking Exisiting email and phone Number");
+          }
         }
         if (!contact_1) {
           errors.contact_1 = "! Contact number is Required.";
@@ -899,9 +899,6 @@ function NonAcademicForm() {
   }
   return (
     <>
-
-    
-    
       {showHeaderFooter && <Header />}
       <div
         className={

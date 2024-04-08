@@ -24,14 +24,18 @@ function AdminRegister() {
     getDepartment();
   }, []);
   function getDepartment() {
-    axios
-      .get(`${ADMIN_BASE_URL}/departmentMaster`)
-      .then((response) => {
-        setDepartments(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching departments:", error);
-      });
+    try {
+      axios
+        .get(`${ADMIN_BASE_URL}/departmentMaster`)
+        .then((response) => {
+          setDepartments(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching departments:", error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const handleChange = (e) => {
@@ -74,10 +78,7 @@ function AdminRegister() {
     e.preventDefault();
     try {
       // Make a request to register the admin
-      await axios.post(
-        `${ADMIN_BASE_URL}/admin/registerAdmin`,
-        formData
-      );
+      await axios.post(`${ADMIN_BASE_URL}/admin/registerAdmin`, formData);
 
       setFormData({
         title_first_name: "",
@@ -219,7 +220,7 @@ function AdminRegister() {
                   onChange={handleChange}
                 >
                   <option value="">Select Department</option>
-                  {departments.map((department,index) => (
+                  {departments.map((department, index) => (
                     <option key={index} value={department.id}>
                       {department.dept_name}
                     </option>

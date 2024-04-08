@@ -468,19 +468,23 @@ function ApplyNow() {
       } else if (!/\S+@\S+\.\S+/.test(email)) {
         errors.email = "! Please enter a valid email address.";
       } else {
-        const apiUrl = `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${encodeURIComponent(
-          email
-        )}`;
-        fetch(apiUrl)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.exists) {
-              setErrors({ email: "! This email is already registered." });
-            }
-          })
-          .catch((error) => {
-            console.error("Error checking email existence:", error);
-          });
+        try {
+          const apiUrl = `${CANDIDATE_BASE_URL}/register/isemail_contact_exist?data=${encodeURIComponent(
+            email
+          )}`;
+          fetch(apiUrl)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.exists) {
+                setErrors({ email: "! This email is already registered." });
+              }
+            })
+            .catch((error) => {
+              console.error("Error checking email existence:", error);
+            });
+        } catch (error) {
+          console.error("Error Fetching Registered Email:", error);
+        }
       }
       if (!contact_1) {
         errors.contact_1 = "! Contact number is Required.";

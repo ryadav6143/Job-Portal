@@ -4,54 +4,103 @@ import axios from "axios";
 import { CANDIDATE_BASE_URL } from "../config/config";
 
 const apiService = {
-  
   // -------------------
-  getJobCategories: (signal) => {
-    return axios.get(`${CANDIDATE_BASE_URL}/jobCategory`,{signal});
+  getJobCategories: async (signal) => {
+    try {
+      return axios.get(`${CANDIDATE_BASE_URL}/jobCategory`, { signal });
+    } catch (error) {
+      console.error("Error Fetching getJobCategories", error);
+    }
   },
 
-  getSubjectMaster: (signal) => {
-    return axios.get(`${CANDIDATE_BASE_URL}/subjectMaster`,{signal});
+  getSubjectMaster: async (signal) => {
+    try {
+      return axios.get(`${CANDIDATE_BASE_URL}/subjectMaster`, { signal });
+    } catch (error) {
+      console.error("Error Fetching getSubjectMaster", error);
+    }
   },
 
-  getCountries: (signal) => {
-    return axios.get("https://countriesnow.space/api/v0.1/countries",{signal});
+  getCountries: async (signal) => {
+    try {
+      return axios.get("https://countriesnow.space/api/v0.1/countries", {
+        signal,
+      });
+    } catch (error) {
+      console.error("Error Fetching getCountries", error);
+    }
   },
 
-  getCandidates: () => {
-    return axios.post(`${CANDIDATE_BASE_URL}/candidates`);
+  getCandidates: async () => {
+    try {
+      return axios.post(`${CANDIDATE_BASE_URL}/candidates`);
+    } catch (error) {
+      console.error("Error Fetching getCandidates", error);
+    }
   },
 
-  getExamTypes: (signal) => {
-    return axios.get(`${CANDIDATE_BASE_URL}/examTypeMaster`,{signal});
+  getExamTypes: async (signal) => {
+    try {
+      return axios.get(`${CANDIDATE_BASE_URL}/examTypeMaster`, { signal });
+    } catch (error) {
+      console.error("Error Fetching getExamTypes", error);
+    }
   },
 
-  generateOTP: (otpData) => {
-    return axios.post(`${CANDIDATE_BASE_URL}/otp/generateOTP`, otpData);
+  generateOTP: async (otpData) => {
+    try {
+      return axios.post(`${CANDIDATE_BASE_URL}/otp/generateOTP`, otpData);
+    } catch (error) {
+      console.error("Error Fetching generateOTP", error);
+    }
   },
-  verifyContactOTP: (verificationData) => {
-    return axios.post(
-      `${CANDIDATE_BASE_URL}/otp/verifyCandidateContactOTP`,
-      verificationData
-    );
+  verifyContactOTP: async (verificationData) => {
+    try {
+      return axios.post(
+        `${CANDIDATE_BASE_URL}/otp/verifyCandidateContactOTP`,
+        verificationData
+      );
+    } catch (error) {
+      console.error("Error Fetching verifyContactOTP", error);
+    }
   },
-  verifyEmailOTP: (emaildataOTP) => {
-    return axios.post(
-      `${CANDIDATE_BASE_URL}/otp/verifyCandidateEmailOTP`,
-      emaildataOTP
-    );
+  verifyEmailOTP: async (emaildataOTP) => {
+    try {
+      return axios.post(
+        `${CANDIDATE_BASE_URL}/otp/verifyCandidateEmailOTP`,
+        emaildataOTP
+      );
+    } catch (error) {
+      console.error("Error Fetching verifyEmailOTP", error);
+    }
   },
-  submitCandidateData: (formData) => {
-    return axios.post(`${CANDIDATE_BASE_URL}/candidates/drop_cv`, formData);
+  submitCandidateData: async (formData) => {
+    try {
+      return axios.post(`${CANDIDATE_BASE_URL}/candidates/drop_cv`, formData);
+    } catch (error) {
+      console.error("Error Fetching submitCandidateData", error);
+    }
   },
-  submitApplyNowData: (formData) => {
-    return axios.post(`${CANDIDATE_BASE_URL}/candidates/apply_now`, formData);
+  submitApplyNowData: async (formData) => {
+    try {
+      return axios.post(`${CANDIDATE_BASE_URL}/candidates/apply_now`, formData);
+    } catch (error) {
+      console.error("Error Fetching submitApplyNowData", error);
+    }
   },
-  getAppliedPosts: () => {
-    return axios.get(`${CANDIDATE_BASE_URL}/appliedPost`);
+  getAppliedPosts: async () => {
+    try {
+      return axios.get(`${CANDIDATE_BASE_URL}/appliedPost`);
+    } catch (error) {
+      console.error("Error Fetching getAppliedPosts", error);
+    }
   },
-  getDepartments: () => {
-    return axios.get(`${CANDIDATE_BASE_URL}/departmentMaster`);
+  getDepartments: async () => {
+    try {
+      return axios.get(`${CANDIDATE_BASE_URL}/departmentMaster`);
+    } catch (error) {
+      console.error("Error Fetching getDepartments", error);
+    }
   },
 };
 

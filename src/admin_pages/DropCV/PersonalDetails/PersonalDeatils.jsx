@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef} from "react";
 
 import "./PersonalDeatils.css";
 import apiService from "../../../Services/ApiServices";
@@ -44,17 +44,17 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   //   job_category_master_id: "",
   // });
 
-  // const hasMounted = useRef(false);
+  const hasMounted = useRef(false);
 
   // -------------for jobcategory, post applies , sub post  ---------------
 
   const [maxCharacters] = useState(40);
 
   useEffect(() => {
-    // if (!hasMounted.current) {
-    //   hasMounted.current = true;
-    //   return;
-    // }
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
     const controller = new AbortController();
     const signal = controller.signal;
     const fetchData = async () => {

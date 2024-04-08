@@ -224,10 +224,9 @@
 }
 
 .purpose {
-  /* max-width: 1500px; */
-  /* margin: auto; */
+  max-width: 1500px;
+  margin: auto;
   margin-block: 50px;
-  
 }
 .hr-corner-sub-container {
   max-width: 1500px;
@@ -506,7 +505,7 @@
 .active-card p {
   margin-top: 115% !important;
 }
-.staff-design{
+.staff-design {
   margin-block: 100px;
 }
 @media only screen and (max-width: 767px) {

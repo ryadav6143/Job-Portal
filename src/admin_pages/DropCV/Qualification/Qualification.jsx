@@ -13,6 +13,7 @@ function Qualification({ formData, setFormData, errors, setErrors }) {
   
   const [selectedDegree, setSelectedDegree] = useState("");
   const [data, setData] = useState([]);
+  const [apiCalled, setApiCalled] = useState(false);
   // const hasMounted = useRef(false);
 
   useEffect(() => {
