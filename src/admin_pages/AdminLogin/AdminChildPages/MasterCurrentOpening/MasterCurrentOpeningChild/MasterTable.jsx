@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {Link, useNavigate } from "react-router-dom";
-// import "./MasterCurrentOpening.css";
-// import Pagination from "@mui/material/Pagination";
+import {Link } from "react-router-dom";
 import { Pagination } from "react-bootstrap";
-// import Stack from "@mui/material/Stack";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import adminApiService from "../../../../adminApiService";
-// import EditOpenings from "../EditOpeningForm/EditOpenings";
 import updatebtn from "../../../../../assets/logos/update.png"
 import deletebtn from "../../../../../assets/logos/delete.png";
 
@@ -16,8 +13,10 @@ function MasterTable() {
   const [jobProfiles, setJobProfiles] = useState([]);
   const [counts, setCounts] = useState("");
   const [loading, setLoading] = useState(true);
-  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
-  const [selectedProfileId, setSelectedProfileId] = useState(null);
+  const [isEditFormOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
+  const [profileIdToDelete, setProfileIdToDelete] = useState(null);
+  // const [selectedProfileId, setSelectedProfileId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(7);
 
@@ -73,25 +72,41 @@ function MasterTable() {
   //   setIsEditFormOpen(true);
   //   setSelectedProfileId(profileId);
   // };
-
   const handleDelete = async (profileId) => {
+    setProfileIdToDelete(profileId); // Set the profileId to delete
+    setDeleteDialogOpen(true); // Open the delete dialog
+  };
+  const confirmDelete = async () => {
     try {
-      const confirmDelete = window.confirm(
-        "Are you sure you want to delete this job profile?"
-      );
-      if (confirmDelete) {
-        await adminApiService.deleteJobProfileById(profileId);
-
-        setJobProfiles(
-          jobProfiles.filter((profile) => profile.id !== profileId)
-        );
-        alert("Job profile deleted successfully");
-      }
+      await adminApiService.deleteJobProfileById(profileIdToDelete);
+      setJobProfiles(jobProfiles.filter((profile) => profile.id !== profileIdToDelete));      
+      setDeleteDialogOpen(false); 
     } catch (error) {
       console.error("Error deleting job profile:", error);
       alert("Failed to delete job profile. Please try again later.");
     }
   };
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogOpen(false);  
+  };
+  // const handleDelete = async (profileId) => {
+  //   try {
+  //     const confirmDelete = window.confirm(
+  //       "Are you sure you want to delete this job profile?"
+  //     );
+  //     if (confirmDelete) {
+  //       await adminApiService.deleteJobProfileById(profileId);
+
+  //       setJobProfiles(
+  //         jobProfiles.filter((profile) => profile.id !== profileId)
+  //       );
+  //       alert("Job profile deleted successfully");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error deleting job profile:", error);
+  //     alert("Failed to delete job profile. Please try again later.");
+  //   }
+  // };
 
   //-----------------------------------Adding Table-------------------------------
   // const [page, setPage] = useState(1);
@@ -129,7 +144,7 @@ function MasterTable() {
 
 
   // const itemsPerPage = 4;
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  // const startIndex = (currentPage - 1) * itemsPerPage;
   // const endIndex = startIndex + itemsPerPage;
 
 
@@ -326,11 +341,16 @@ function MasterTable() {
         
         </div>
       )}
-      {/* {isEditFormOpen && (
-        <div className="edit-form-container">
-          <EditOpenings profileId={selectedProfileId} />
-        </div>
-      )} */}
+         <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
+        <DialogTitle>Delete Current Opening</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this Current Opening?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
+          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

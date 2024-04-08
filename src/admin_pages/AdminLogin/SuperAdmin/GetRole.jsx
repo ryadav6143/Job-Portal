@@ -167,6 +167,7 @@ function GetRole() {
                       onClick={handleClose}
                       className="Examtype-close-btn"
                       src={close}
+                      alt=""
                     />
                     <label className="AC-SetLabel-Name" htmlFor="role_type_name">
                       Add Exam Type

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Link, useLocation } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Link,  } from "react-router-dom";
 
 import "./SideBar.css";
 import opening from "../../../assets/logos/book.png";
@@ -91,6 +91,18 @@ function SideBar() {
                         </Link>
                       </div>
                     </div>
+
+                    <Link
+                      to="/admin-dashboard/admin_visitors_reports"
+                      className="list-group-item border-end-0 d-inline-block text-truncate set-a"
+                    >
+                      <img
+                        src={interview}
+                        className="bi bi-bootstrap sidenav-icon"
+                        alt="Opening Icon"
+                      />
+                      <span>Visitors Report</span>
+                    </Link>
 
                     <div className="dropdown show">
                       <a

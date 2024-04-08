@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-// import { ADMIN_BASE_URL } from "../../../config/config";
 import updatebtn from "../../../assets/logos/update.png";
 // import deletebtn from "../../../assets/logos/delete.png";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
+import Notification from "../../../Notification/Notification";
 import adminApiService from "../../adminApiService";
 function AddExamType() {
   const [data, setData] = useState([]);
@@ -14,7 +13,11 @@ function AddExamType() {
   const [open, setOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [selectedExam, setSelectedExam] = useState(null);
-  const [setSelectedExamId] = useState(null);
+  const [selectedExamId, setSelectedExamId] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
+  const [notificationOpen, setNotificationOpen] = useState(false);
+
   // -----------------------------FETCHING EXAMTYPEMASTER API----------
   async function examType() {
     try {
@@ -63,11 +66,17 @@ function AddExamType() {
     adminApiService
       .addExamType(newExamType)
       .then((response) => {
+        setNotificationMessage("Added Successfully.");
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
         setData([...data, response]);
         setNewExamType("");
         setOpen(false);
       })
       .catch((error) => console.error(error));
+    setNotificationMessage("error during added ExamType");
+    setNotificationSeverity("error");
+    setNotificationOpen(true);
   };
 
   // --------------------ADD DATA TO API--------------------------------
@@ -122,6 +131,9 @@ function AddExamType() {
     await adminApiService
       .updateExamType(selectedExam)
       .then((response) => {
+        setNotificationMessage("updated Successfully.");
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
         setData(
           data.map((exam) => (exam.id === selectedExam.id ? response : exam))
         );
@@ -172,6 +184,12 @@ function AddExamType() {
 
   return (
     <>
+      <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div className="container-1">
         <div className="new-opening-btn">
           <button onClick={() => setOpen(true)}>Add Exam Type</button>
