@@ -6,11 +6,18 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import close from "../../../assets/logos/close.png";
 import adminApiService from "../../adminApiService";
+import Notification from "../../../Notification/Notification";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 function AddDepartment() {
   const [departments, setDepartments] = useState([]);
   const [newDepartmentName, setNewDepartmentName] = useState("");
   const [editingDepartmentId, setEditingDepartmentId] = useState(null);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [departmentToDelete, setDepartmentToDelete] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -28,35 +35,74 @@ function AddDepartment() {
   const handleAdd = async () => {
     try {
       const response = await adminApiService.addDepartment(newDepartmentName);
+      setNotificationMessage("Added Successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       setDepartments([...departments, response]);
+
       setNewDepartmentName("");
       setOpen(false);
     } catch (error) {
       console.error(error);
+      setNotificationMessage("error during added Department");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
 
-  const handleDelete = async (id) => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this department?"
-    );
+  // const handleDelete = async (id) => {
+  //   const isConfirmed = window.confirm(
+  //     "Are you sure you want to delete this department?"
+  //   );
+  //   if (isConfirmed) {
+  //     try {
+  //       await adminApiService.deleteDepartment(id);
+  //       setDepartments(departments.filter((dept) => dept.id !== id));
+  //       setNewDepartmentName("");
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // };
 
-    if (isConfirmed) {
-      try {
-        await adminApiService.deleteDepartment(id);
-        setDepartments(departments.filter((dept) => dept.id !== id));
-        setNewDepartmentName("");
-      } catch (error) {
-        console.error(error);
-      }
+
+  const handleDelete = async (departmentId) => {
+    setDepartmentToDelete(departmentId);
+    setDeleteDialogOpen(true);
+  };
+  const confirmDelete = async () => {
+    try {
+      await adminApiService.deleteDepartment(departmentToDelete);
+      setDepartments((prevData) =>
+        prevData.filter((department) => department.id !== departmentToDelete)
+      );
+      setNotificationMessage("Deleted Successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+      setDeleteDialogOpen(false);
+    } catch (error) {
+      console.error("Error deleting Department:", error);
+      setNotificationMessage("Failed to delete Department. Please try again");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogOpen(false);
+  };
+
+
+
+
   const handleSave = async () => {
     try {
       const response = await adminApiService.updateDepartment(
         newDepartmentName,
         editingDepartmentId
       );
+      setNotificationMessage("updated Successfully");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       setDepartments(
         departments.map((dept) =>
           dept.id === editingDepartmentId
@@ -70,6 +116,9 @@ function AddDepartment() {
       fetchData();
     } catch (error) {
       console.error(error);
+      setNotificationMessage("Failed to update Department. Please try again");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
 
@@ -107,6 +156,12 @@ function AddDepartment() {
 
   return (
     <>
+      <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div className="container-1">
         <div className="new-opening-btn">
           <button onClick={() => setOpen(true)}>Add Department</button>
@@ -241,6 +296,16 @@ function AddDepartment() {
           </div>
         </div>
       </div>
+      <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
+        <DialogTitle>Delete Catgeory</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this Department?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
+          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

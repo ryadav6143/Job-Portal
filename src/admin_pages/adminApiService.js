@@ -101,13 +101,13 @@ const adminApiService = {
       throw error;
     }
   },
-  updateDegree: async (selectedExamId, updateData) => {
+  updateDegree: async (payload) => {
     try {
-      const payload = {
-        exam_types_master_id: selectedExamId,
-        degree_name: updateData.degree_name,
-        degreetypes_id: updateData.id,
-      };
+      // const payload = {
+      //   exam_types_master_id: selectedExamId,
+      //   degree_name: updateData.degree_name,
+      //   degreetypes_id: updateData.id,
+      // };
       await axios.put(`${ADMIN_BASE_URL}/degreeTypeMaster`, payload, {
         headers: {
           "access-token": getAccessToken(),
@@ -385,8 +385,17 @@ const adminApiService = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-  deleteJobProfileById: (profileID) => {
-    return axios.delete(`${ADMIN_BASE_URL}/jobProfileMaster/${profileID}`);
+  deleteJobProfileById: async (profileID) => {
+    try {
+      await axios.delete(`${ADMIN_BASE_URL}/jobProfileMaster/${profileID}`, {
+        headers: {
+          "access-token": getAccessToken(),
+        },
+      });
+    } catch (error) {
+      throw new Error("Error deleting subpost:", error);
+    }
+    // return axios.delete(`${ADMIN_BASE_URL}/jobProfileMaster/${profileID}`);
   },
   updateJobProfile: async (profileID) => {
     try {

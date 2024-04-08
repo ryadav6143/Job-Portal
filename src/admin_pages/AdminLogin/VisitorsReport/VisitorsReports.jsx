@@ -32,7 +32,7 @@ function VisitorsReports() {
     const fetchVisitorData = async () => {
         try {
             const response = await adminApiService.getVisitor();
-           
+
             setVisitorData(response);
         } catch (error) {
             console.error("Error fetching visitor details:", error);
@@ -87,7 +87,7 @@ function VisitorsReports() {
                     ...prevValues,
                     [fieldName]: updatedValue,
                 }));
-                break; 
+                break;
             default:
                 break;
         }
@@ -125,36 +125,36 @@ function VisitorsReports() {
             setNotificationOpen(true);
         }
     };
-    const handleDeleteClick = async (visitorId) => {        
+    const handleDeleteClick = async (visitorId) => {
         setDeleteVisitorId(visitorId);
-      };
-    const handleConfirmDelete = async () => {        
-        try {          
-            await adminApiService.removeVisitor(deleteVisiotrId);    
+    };
+    const handleConfirmDelete = async () => {
+        try {
+            await adminApiService.removeVisitor(deleteVisiotrId);
             setVisitorData(
-              visitorData.filter((visitor) => visitor.id !== deleteVisiotrId)
-            );            
+                visitorData.filter((visitor) => visitor.id !== deleteVisiotrId)
+            );
             setNotificationMessage("Deleted Successfully.");
             setNotificationSeverity("success");
             setNotificationOpen(true);
-          
+
         } catch (error) {
-        //   console.error("Error deleting job profile:", error);          
-          setNotificationMessage("Failed to delete job profile. Please try again!");
+            //   console.error("Error deleting job profile:", error);          
+            setNotificationMessage("Failed to delete job profile. Please try again!");
             setNotificationSeverity("error");
             setNotificationOpen(true);
         } finally {
             setDeleteVisitorId(null);
-          }
-      };
+        }
+    };
     return (
         <>
- <Notification
-        open={notificationOpen}
-        handleClose={() => setNotificationOpen(false)}
-        alertMessage={notificationMessage}
-        alertSeverity={notificationSeverity}
-      />
+            <Notification
+                open={notificationOpen}
+                handleClose={() => setNotificationOpen(false)}
+                alertMessage={notificationMessage}
+                alertSeverity={notificationSeverity}
+            />
             <div className="admin-list">
                 <div className="master-table ">
                     <p className="SCA-heading">Visitors Report</p>
@@ -443,15 +443,15 @@ function VisitorsReports() {
                                 </Modal>
 
                                 <Dialog open={deleteVisiotrId !== null} onClose={() => setDeleteVisitorId(null)}>
-        <DialogTitle>Confirm Delete</DialogTitle>
-        <DialogContent>
-          Are you sure you want to delete this item?
-        </DialogContent>
-        <DialogActions>
-        <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
-          <Button onClick={() => setDeleteVisitorId(null)}>Cancel</Button>
-        </DialogActions>
-      </Dialog>
+                                    <DialogTitle>Confirm Delete</DialogTitle>
+                                    <DialogContent>
+                                        Are you sure you want to delete this item?
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button variant="contained" color="error" onClick={handleConfirmDelete} >Delete</Button>
+                                        <Button onClick={() => setDeleteVisitorId(null)} variant="text" color="primary">Cancel</Button>
+                                    </DialogActions>
+                                </Dialog>
                             </tbody>
                         </table>
                     </div>

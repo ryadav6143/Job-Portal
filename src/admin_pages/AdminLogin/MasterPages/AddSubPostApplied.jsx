@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 // import { BASE_URL } from "../../../config/config";
-
+import Notification from "../../../Notification/Notification";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 // import { ADMIN_BASE_URL } from "../../../config/config";
 import adminApiService from "../../adminApiService";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 function AddSubPostApplied() {
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
@@ -18,6 +19,13 @@ function AddSubPostApplied() {
 
   const [open, setOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
+
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
+  const [subPostToDelete, setSubPostToDelete] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  
   // -----------------------------Fetching data from applied_subpost------------------------------
   useEffect(() => {
     fetchData();
@@ -64,31 +72,68 @@ function AddSubPostApplied() {
     adminApiService
       .addSubPost(selectedPostId, newPost)
       .then((response) => {
+        setNotificationMessage("Added Successfully.");
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
         setData([...data, response]);
         setNewPost("");
         fetchData();
         setOpen(false);
       })
       .catch((error) => console.error(error));
+      setNotificationMessage("error during added SubPost");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
   };
 
   // -----------------------------Fetching data from applied_post------------------------------
 
-  const handleDeleteSubPost = (subPostId) => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this subpost?"
-    );
-    if (isConfirmed) {
-      adminApiService
-        .deleteSubPost(subPostId)
-        .then(() => {
-          fetchData();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+  // const handleDeleteSubPost = (subPostId) => {
+  //   const isConfirmed = window.confirm(
+  //     "Are you sure you want to delete this subpost?"
+  //   );
+  //   if (isConfirmed) {
+  //     adminApiService
+  //       .deleteSubPost(subPostId)
+  //       .then(() => {
+  //         fetchData();
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   }
+  // };
+
+
+
+  const handleDeleteSubPost = async (subPostId) => {
+    setSubPostToDelete(subPostId); 
+    setDeleteDialogOpen(true); 
+  };
+  const confirmDelete = async () => {
+    try {
+      await adminApiService.deleteSubPost(subPostToDelete);
+      setData((prevData) =>
+            prevData.filter((subpost) => subpost.id !== subPostToDelete)
+          );
+          setNotificationMessage("Deleted Successfully.");
+          setNotificationSeverity("success");
+          setNotificationOpen(true);
+      setDeleteDialogOpen(false); 
+    } catch (error) {
+      console.error("Error deleting job profile:", error);      
+      setNotificationMessage("Failed to delete SubPost. Please try again");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogOpen(false);  
+  };
+
+
+
+
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -126,17 +171,29 @@ function AddSubPostApplied() {
     adminApiService
       .updateSubPost(selectedPost, updatePost)
       .then(() => {
+        setNotificationMessage("Updated Successfully.");
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
         fetchData();
         setUpdatePost("");
         setUpdateModalOpen(false);
       })
       .catch((error) => {
         console.error(error);
+        setNotificationMessage("error during update SubPost");
+        setNotificationSeverity("error");
+        setNotificationOpen(true);
       });
   };
 
   return (
     <>
+       <Notification
+                open={notificationOpen}
+                handleClose={() => setNotificationOpen(false)}
+                alertMessage={notificationMessage}
+                alertSeverity={notificationSeverity}
+            />                                        
       <div className="container-1">
         <div>
           <button className="new-opening-btn" onClick={() => setOpen(true)}>
@@ -348,6 +405,16 @@ function AddSubPostApplied() {
           </table>
         </div>
       </div>
+      <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
+        <DialogTitle>Delete Catgeory</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this SubPost?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
+          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

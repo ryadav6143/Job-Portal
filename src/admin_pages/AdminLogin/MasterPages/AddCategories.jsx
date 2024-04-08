@@ -3,19 +3,23 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
-// import { ADMIN_BASE_URL } from "../../../config/config";
-import { ADMIN_BASE_URL } from "../../../config/config";
-import axios from "axios";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import adminApiService from "../../adminApiService";
-
+import Notification from "../../../Notification/Notification";
 function AddCategories() {
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null); // New state for tracking the selected category for update
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [open, setOpen] = React.useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  
   // ------------------GET DATA FROM API--------------------------------
 
   const getJobCategory = async () => {
@@ -34,11 +38,17 @@ function AddCategories() {
         category_name: newCategory,
       });
       setData([...data, response.data]);
+      setNotificationMessage("Adding NewCategory successfully");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       setNewCategory("");
       setOpen(false);
       getJobCategory();
     } catch (error) {
       console.error("Error adding newCategory:", error);
+      setNotificationMessage("Error adding newCategory");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
       if (
         error.response &&
         error.response.data &&
@@ -46,25 +56,41 @@ function AddCategories() {
       ) {
         alert(error.response.data.message);
       } else {
-        alert("An error occurred while adding newCategory.");
+        
+        setNotificationMessage("An error occurred while adding newCategory");
+        setNotificationSeverity("error");
+        setNotificationOpen(true);
       }
     }
   };
 
-  const handleDeleteCategory = (categoryId) => {
-    if (
-      window.confirm(
-        "Are you sure you want to delete this category? This action cannot be undone."
-      )
-    ) {
-      adminApiService.DeleteCategory(categoryId);
+
+
+  const handleDeleteCategory = async (categoryId) => {
+    setCategoryToDelete(categoryId); 
+    setDeleteDialogOpen(true); 
+  };
+  const confirmDelete = async () => {
+    try {
+      await adminApiService.DeleteCategory(categoryToDelete);
       setData((prevData) =>
-        prevData.filter((category) => category.id !== categoryId)
-      );
-    } else {
-      console.log("Category deletion canceled.");
+            prevData.filter((category) => category.id !== categoryToDelete)
+          );
+          setNotificationMessage("Deleted Successfully.");
+          setNotificationSeverity("success");
+          setNotificationOpen(true);
+      setDeleteDialogOpen(false); 
+    } catch (error) {
+      console.error("Error deleting job profile:", error);      
+      setNotificationMessage("Failed to delete job profile. Please try again");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogOpen(false);  
+  };
+
 
   const handleUpdateCategory = async () => {
     if (!selectedCategory) return;
@@ -78,11 +104,17 @@ function AddCategories() {
           category.id === selectedCategory.id ? response.data : category
         )
       );
+      setNotificationMessage("Updated Successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       setSelectedCategory(null);
       setUpdateModalOpen(false);
       getJobCategory();
     } catch (error) {
       console.error("Error updating category:", error);
+      setNotificationMessage("Error updating category!");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
 
@@ -135,6 +167,12 @@ function AddCategories() {
 
   return (
     <>
+     <Notification
+                open={notificationOpen}
+                handleClose={() => setNotificationOpen(false)}
+                alertMessage={notificationMessage}
+                alertSeverity={notificationSeverity}
+            />
       <div className="container-1">
         <div className="new-opening-btn">
           <button onClick={handleOpen}>Add Categories</button>
@@ -299,6 +337,18 @@ function AddCategories() {
           </div>
         </div>
       </div>
+
+
+      <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
+        <DialogTitle>Delete Catgeory</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this Category?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
+          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

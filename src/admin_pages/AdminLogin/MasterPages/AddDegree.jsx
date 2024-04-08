@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
 import updatebtn from "../../../assets/logos/update.png";
-// import deletebtn from "../../../assets/logos/delete.png";
-// import { ADMIN_BASE_URL } from "../../../config/config";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 import adminApiService from "../../adminApiService";
-
+import Notification from "../../../Notification/Notification";
 function AddDegree() {
   const [data, setData] = useState([]);
   const [examTypes, setExamTypes] = useState([]);
@@ -18,6 +15,9 @@ function AddDegree() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [updateData, setUpdateData] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
+  const [notificationOpen, setNotificationOpen] = useState(false);
   // ------------------GET DATA FROM API--------------------------------
 
   const fetchexamType = async () => {
@@ -54,29 +54,6 @@ function AddDegree() {
     }
   };
 
-  // const handleAddDegree = () => {
-  //   let accessToken = sessionStorage.getItem("Token");
-  //   accessToken = JSON.parse(accessToken);
-  //   axios
-  //     .post(
-  //       `${ADMIN_BASE_URL}/degreeTypeMaster`,
-  //       {
-  //         exam_types_master_id: selectedExamId,
-  //         degree_name: newDegree,
-  //       },
-  //       {
-  //         headers: {
-  //           "access-token": accessToken.token,
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       setData([...data, response.data]);
-  //       setIsModalOpen(false);
-  //       degreeTypeMaster();
-  //     })
-  //     .catch((error) => console.error("Error adding category:", error));
-  // };
 
   const handleAddDegree = async () => {
     try {
@@ -84,41 +61,33 @@ function AddDegree() {
         selectedExamId,
         newDegree
       );
+      setNotificationMessage("Added Successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       setData([...data, response]);
       setIsModalOpen(false);
       degreeTypeMaster();
     } catch (error) {
       console.error(error);
+      setNotificationMessage("error during added Degree");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
 
-  // const handleUpdateDegree = () => {
-  //   let accessToken = sessionStorage.getItem("Token");
-  //   accessToken = JSON.parse(accessToken);
-  //   const payload = {
-  //     exam_types_master_id: selectedExamId,
-  //     degree_name: updateData.degree_name,
-  //     degreetypes_id: updateData.id,
-  //   };
-  //   axios
-  //     .put(`${ADMIN_BASE_URL}/degreeTypeMaster`, payload, {
-  //       headers: {
-  //         "access-token": accessToken.token,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       // console.log("Degree updated successfully!");
-  //       setUpdateModalOpen(false);
-  //       degreeTypeMaster();
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error updating degree:", error);
-  //     });
-  // };
 
   const handleUpdateDegree = async () => {
+    console.log("",)
     try {
-      await adminApiService.updateDegree(selectedExamId, updateData);
+      const payload = {
+        exam_types_master_id: selectedExamId,
+        degree_name: updateData.degree_name,
+        degreetypes_id: updateData.id,
+      };
+      await adminApiService.updateDegree(payload);
+      setNotificationMessage("Updated Successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       setUpdateModalOpen(false);
       degreeTypeMaster();
     } catch (error) {
@@ -151,8 +120,9 @@ function AddDegree() {
   const handleOpenUpdateModal = (id) => {
     fetchUpdateData(id);
     const selectedExam = examTypes.find(
-      (exam) => exam.id === updateData?.exam_types_master_id
+      (exam) => exam.id == updateData?.exam_types_master_id
     );
+    console.log(selectedExam,"<<<")
     if (selectedExam) {
       setSelectedExamType(selectedExam.exam_name);
       setSelectedExamId(selectedExam.id);
@@ -179,6 +149,12 @@ function AddDegree() {
 
   return (
     <>
+     <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div className="container-1">
         <div className="new-opening-btn">
           <button onClick={handleOpenModal}>Add Degree</button>

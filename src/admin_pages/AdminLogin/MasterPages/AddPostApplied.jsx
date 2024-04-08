@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from "react";
 import "./Master.css";
-// import axios from "axios";
+
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
-// import { ADMIN_BASE_URL } from "../../../config/config";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import adminApiService from "../../adminApiService";
+import Notification from "../../../Notification/Notification";
 function AddPostApplied() {
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
   const [open, setOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
-
+  const [postToDelete, setPostToDelete] = useState(null);
   const [selectedPost, setSelectedPost] = useState(null);
-
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
+  const [notificationOpen, setNotificationOpen] = useState(false);
   // ------------------Fetching Data from job_category_master-id-------------------------------
 
   function getJobCategory() {
@@ -63,34 +66,68 @@ function AddPostApplied() {
     adminApiService
       .addPost(newCategory, selectedCategoryId)
       .then(() => {
+        setNotificationMessage("Added Successfully.");
+          setNotificationSeverity("success");
+          setNotificationOpen(true);
         setNewCategory("");
         setOpen(false);
         handleCloseModal();
         getPost();
       })
       .catch((error) => console.error(error));
+      setNotificationMessage("error during added Post");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
   };
 
   // ------------------DELETE DATA FROM API--------------------------------
 
-  const handleDeletePost = async (categoryId) => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this post?"
-    );
+  // const handleDeletePost = async (categoryId) => {
+  //   const isConfirmed = window.confirm(
+  //     "Are you sure you want to delete this post?"
+  //   );
+  //   if (isConfirmed) {
+  //     try {
+  //       const response = await adminApiService.deletePost(categoryId);
+  //       if (response && response.status === 200) {
+  //         setData(data.filter((category) => category.id !== categoryId));
+  //       } else {
+  //         console.error("Error deleting category");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error deleting category:", error.message);
+  //     }
+  //   }
+  // };
 
-    if (isConfirmed) {
-      try {
-        const response = await adminApiService.deletePost(categoryId);
-        if (response && response.status === 200) {
-          setData(data.filter((category) => category.id !== categoryId));
-        } else {
-          console.error("Error deleting category");
-        }
-      } catch (error) {
-        console.error("Error deleting category:", error.message);
-      }
+
+
+  const handleDeletePost = async (categoryId) => {
+    setPostToDelete(categoryId); 
+    setDeleteDialogOpen(true); 
+  };
+  const confirmDelete = async () => {
+    try {
+      await adminApiService.deletePost(postToDelete);
+      setData((prevData) =>
+            prevData.filter((category) => category.id !== postToDelete)
+          );
+          setNotificationMessage("Deleted Successfully.");
+          setNotificationSeverity("success");
+          setNotificationOpen(true);
+      setDeleteDialogOpen(false); 
+    } catch (error) {
+      console.error("Error deleting Post:", error);      
+      setNotificationMessage("Failed to delete Post. Please try again");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogOpen(false);  
+  };
+
+
 
   const handleSelectCategory = (e) => {
     const categoryId = e.target.value;
@@ -136,14 +173,28 @@ function AddPostApplied() {
   const handleUpdatePost = async () => {
     try {
       await adminApiService.updatePost(selectedPost);
+      setNotificationMessage("Updated Successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       handleCloseUpdateModal();
       getPost();
     } catch (error) {
-      console.error("Error updating post:", error);
+      // console.error("Error updating post:", error);
+      setNotificationMessage("Error updating post");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
+ 
+
   return (
     <>
+    <Notification
+                open={notificationOpen}
+                handleClose={() => setNotificationOpen(false)}
+                alertMessage={notificationMessage}
+                alertSeverity={notificationSeverity}
+            />
       <div className="container-1">
         <div>
           <button onClick={() => setOpen(true)}>Add Post Applied</button>
@@ -349,6 +400,17 @@ function AddPostApplied() {
           </div>
         </div>
       </div>
+
+      <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
+        <DialogTitle>Delete Catgeory</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this Post?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
+          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

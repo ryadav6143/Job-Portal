@@ -9,7 +9,8 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import close from "../../../assets/logos/close.png";
 import adminApiService from "../../adminApiService";
-
+import Notification from "../../../Notification/Notification";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 function AddSubjects() {
   const [subject, setSubject] = useState([]);
   const [newSubject, setNewSubjectName] = useState("");
@@ -22,7 +23,12 @@ function AddSubjects() {
   // const [categories] = useState([]);
   const [ setSelectedCategoryId] = useState("");
   const [setSelectedCategory] = useState(null);
-  const [ setNewCategory] = useState("");
+  const [newCategory,setNewCategory] = useState("");
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [subjectToDelete, setSubjectToDelete] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -56,6 +62,9 @@ function AddSubjects() {
   const handleAdd = () => {    
    adminApiService.addSubject(newSubject, newSubjectType, newSubjectDescription)
       .then((response) => {
+        setNotificationMessage("Added Successfully.");
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
         setSubject([...subject, response]);
         setNewSubjectName("");
         setOpen(false);
@@ -63,13 +72,15 @@ function AddSubjects() {
       })
       .catch((error) => {
         console.error(error);
+        setNotificationMessage("error during Update subject");
+        setNotificationSeverity("error");
+        setNotificationOpen(true);
       });
   };
 
 
 
   const handleUpdate = (subject) => {
-
     setEditingSubject(subject);
     setNewSubjectName(subject.subject_name);
     setNewSubjectType(subject.subject_type);
@@ -82,6 +93,9 @@ function AddSubjects() {
   const handleSubmitUpdate = () => {
  adminApiService.updateSubject(newSubject, editingSubject, newSubjectType, newSubjectDescription)
     .then((response) => {
+      setNotificationMessage("Updated Successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
       const updatedSubjects = subject.map((subj) =>
         subj.id === editingSubject.id ? response : subj
       );
@@ -95,23 +109,50 @@ function AddSubjects() {
     })
     .catch((error) => {
       console.error(error);
+      setNotificationMessage("error during Update subject");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     });
 };
 
 
-const handleDelete = (id) => {
-  const isConfirmed = window.confirm("Are you sure you want to delete this subject?");
-  if (isConfirmed) {
-   adminApiService.deleteSubject(id)
-      .then(() => {
-        setSubject(subject.filter((subj) => subj.id !== id));
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+// const handleDelete = (id) => {
+//   const isConfirmed = window.confirm("Are you sure you want to delete this subject?");
+//   if (isConfirmed) {
+//    adminApiService.deleteSubject(id)
+//       .then(() => {
+//         setSubject(subject.filter((subj) => subj.id !== id));
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//       });
+//   }
+// };
+
+const handleDelete = async (subjectId) => {
+  setSubjectToDelete(subjectId);
+  setDeleteDialogOpen(true);
+};
+const confirmDelete = async () => {
+  try {
+    await adminApiService.deleteSubject(subjectToDelete);
+    setSubject((prevData) =>
+      prevData.filter((subject) => subject.id !== subjectToDelete)
+    );
+    setNotificationMessage("Deleted Successfully.");
+    setNotificationSeverity("success");
+    setNotificationOpen(true);
+    setDeleteDialogOpen(false);
+  } catch (error) {
+    console.error("Error deleting Department:", error);
+    setNotificationMessage("Failed to delete Department. Please try again");
+    setNotificationSeverity("error");
+    setNotificationOpen(true);
   }
 };
-
+const handleCloseDeleteDialog = () => {
+  setDeleteDialogOpen(false);
+};
 
 
   // const handleSelectPostForUpdate = (categoryId) => {
@@ -151,6 +192,12 @@ const handleDelete = (id) => {
 
   return (
     <>
+       <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div className="container-1">
         <div className="new-opening-btn">
           <button onClick={() => setOpen(true)}>Add Subject</button>
@@ -329,7 +376,16 @@ const handleDelete = (id) => {
         </div>
       </div>
 </div>
-     
+<Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
+        <DialogTitle>Delete Catgeory</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this Department?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
+          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
