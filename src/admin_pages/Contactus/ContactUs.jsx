@@ -7,7 +7,11 @@ import emaillogo from "../../assets/logos/email.png";
 import locationlogo from "../../assets/logos/location.png";
 import adminApiService from "../adminApiService";
 import { useState } from "react";
+import Notification from "../../Notification/Notification";
 function ContactUs() {
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -32,13 +36,32 @@ console.log(formData,"<<<")
     try {
       const response = await adminApiService.registerVisitor(formData);
       console.log(response); 
+      setNotificationMessage("Submit successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+      setFormData({
+        first_name: "",
+        last_name: "",
+        email: "",
+        contact_1: "",
+        message: ""
+    });
     } catch (error) {
-      console.error(error); // Handle error
+      console.error(error);
+      setNotificationMessage("Error saving changes.");
+      setNotificationSeverity("error");
+      setNotificationOpen(true);
     }
   };
   return (
     <>
       <Header></Header>
+      <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div className="contact-container ">
         {/* <div style={{display:"flex", justifyContent:"space-evenly"}}> */}
         <div className="contact-detail">

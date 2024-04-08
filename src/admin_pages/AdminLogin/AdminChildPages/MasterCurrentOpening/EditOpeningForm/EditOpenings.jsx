@@ -43,7 +43,7 @@ function EditOpenings() {
         setInterviewSchedule(data.publish_to_schedule_interview);
         setPublishToJobProfile(data.publish_to_job_profile);
         setFormValues(data);
-        // console.log("Fetched data:", data);
+        console.log("Fetched data:", data);
         // console.log("CurrentOpening", data.publish_to_vacancy);
         // console.log("InterviewSchedule", data.publish_to_schedule_interview);
         // console.log("JobProfile", data.publish_to_job_profile);

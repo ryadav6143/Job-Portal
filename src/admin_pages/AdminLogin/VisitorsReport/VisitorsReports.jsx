@@ -5,12 +5,18 @@ import deletebtn from "../../../assets/logos/delete.png"
 import close from "../../../assets/logos/close.png"
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { FormControl } from "@mui/material";
+import Notification from "../../../Notification/Notification";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 function VisitorsReports() {
     const [visitorData, setVisitorData] = useState([]);
-    const [open, setOpen] = useState(false);
+    const [notificationOpen, setNotificationOpen] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState("");
+    const [notificationSeverity, setNotificationSeverity] = useState("success");
     const [selectedVisitor, setSelectedVisitor] = useState(null);
     const [updateModalOpen, setUpdateModalOpen] = useState(false);
+    const [isAttend, setIsAttend] = useState(false);
+    const [isClose, setIsClose] = useState(false);
+    const [deleteVisiotrId, setDeleteVisitorId] = useState(null);
     const [updateData, setUpdateData] = useState({
         first_name: "",
         last_name: "",
@@ -21,16 +27,17 @@ function VisitorsReports() {
         is_attend: false,
         is_close: false,
         assign_to: false,
-      });
+    });
+    const [updateNewField, setUpdateNewField] = useState({});
     const fetchVisitorData = async () => {
         try {
             const response = await adminApiService.getVisitor();
+           
             setVisitorData(response);
         } catch (error) {
             console.error("Error fetching visitor details:", error);
         }
     };
-
     useEffect(() => {
         fetchVisitorData();
     }, []);
@@ -48,32 +55,106 @@ function VisitorsReports() {
         boxShadow: 24,
         p: 4,
     };
-
-
     const handleSelectPostForUpdate = (visitorId) => {
-
         const selectedVisitor = visitorData.find((visitor) => visitor.id === visitorId);
         console.log("selectedVisitor>>>>>", selectedVisitor)
         setSelectedVisitor(selectedVisitor);
-        setUpdateData(selectedVisitor); 
+        setUpdateData(selectedVisitor);
+        setIsAttend(selectedVisitor.is_attend)
+        setIsClose(selectedVisitor.is_close)
         setUpdateModalOpen(true);
     };
+    const handleCheckboxChange = (fieldName, value) => {
+        let updatedValue = !value;
+        setUpdateData((prevValues) => ({
+            ...prevValues,
+            [fieldName]: updatedValue,
+        }));
 
-
-    const handleUpdateVisitor = async () => {
-        try {
-          const response = await adminApiService.updateVisitor(updateData);
-          console.log("Updated Visitor:", response);
-          // Refresh visitor data
-          fetchVisitorData();
-          setUpdateModalOpen(false);
-        } catch (error) {
-          console.error("Error updating visitor:", error);
+        switch (fieldName) {
+            case "is_attend":
+                setIsAttend(updatedValue);
+                // console.log("is_attend:", updatedValue);
+                setUpdateNewField((prevValues) => ({
+                    ...prevValues,
+                    [fieldName]: updatedValue,
+                }));
+                break;
+            case "is_close":
+                setIsClose(updatedValue);
+                // console.log("is_close:", updatedValue);
+                setUpdateNewField((prevValues) => ({
+                    ...prevValues,
+                    [fieldName]: updatedValue,
+                }));
+                break; 
+            default:
+                break;
         }
+    };
+    const formatDateForInput = (dateString) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+    };
+    const handleChange = (fieldName, value) => {
+        console.log("handlefild", fieldName, value, updateNewField);
+        setUpdateNewField((prev) => ({ ...prev, [fieldName]: value.toString() }));
+        setUpdateData((prev) => ({ ...prev, [fieldName]: value.toString() }));
+    };
+    const handleUpdateVisitor = async () => {
+        console.log("visitor id", updateData.id)
+        const newFormData = {
+            ...updateNewField,
+            visitor_id: updateData.id,
+        }
+        try {
+            const response = await adminApiService.updateVisitor(newFormData);
+            console.log("Updated Visitor:", response);
+            setNotificationMessage("Updated Successfully.");
+            setNotificationSeverity("success");
+            setNotificationOpen(true);
+            fetchVisitorData();
+            setUpdateModalOpen(false);
+        } catch (error) {
+            console.error("Error updating visitor:", error);
+            setNotificationMessage("Error Update Changes.");
+            setNotificationSeverity("error");
+            setNotificationOpen(true);
+        }
+    };
+    const handleDeleteClick = async (visitorId) => {        
+        setDeleteVisitorId(visitorId);
+      };
+    const handleConfirmDelete = async () => {        
+        try {          
+            await adminApiService.removeVisitor(deleteVisiotrId);    
+            setVisitorData(
+              visitorData.filter((visitor) => visitor.id !== deleteVisiotrId)
+            );            
+            setNotificationMessage("Deleted Successfully.");
+            setNotificationSeverity("success");
+            setNotificationOpen(true);
+          
+        } catch (error) {
+        //   console.error("Error deleting job profile:", error);          
+          setNotificationMessage("Failed to delete job profile. Please try again!");
+            setNotificationSeverity("error");
+            setNotificationOpen(true);
+        } finally {
+            setDeleteVisitorId(null);
+          }
       };
     return (
         <>
-
+ <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
             <div className="admin-list">
                 <div className="master-table ">
                     <p className="SCA-heading">Visitors Report</p>
@@ -123,7 +204,7 @@ function VisitorsReports() {
                                             <button
                                                 type="button"
                                                 id="table-btns"
-
+                                                onClick={() => handleDeleteClick(visitor.id)}
                                             >
                                                 <img className="up-del-btn" src={deletebtn} alt="" />
                                             </button>
@@ -158,7 +239,7 @@ function VisitorsReports() {
                                                         name="first_name"
                                                         placeholder="First Name"
                                                         value={selectedVisitor ? selectedVisitor.first_name : ''}
-                                                        
+
                                                     />
                                                 </div>
                                                 <div className="col-6">
@@ -172,10 +253,9 @@ function VisitorsReports() {
                                                         name="last_name"
                                                         placeholder="Last Name"
                                                         value={selectedVisitor ? selectedVisitor.last_name : ''}
+
                                                     />
                                                 </div>
-
-
                                             </div>
 
 
@@ -190,7 +270,8 @@ function VisitorsReports() {
                                                         id=""
                                                         name="email"
                                                         placeholder="Email"
-                                                        value={selectedVisitor ? selectedVisitor.Email : ''}
+                                                        value={selectedVisitor ? selectedVisitor.email : ''}
+
                                                     />
                                                 </div>
                                                 <div className="col-6">
@@ -203,7 +284,8 @@ function VisitorsReports() {
                                                         id=""
                                                         name="contact_1"
                                                         placeholder="Contact"
-                                                        value={selectedVisitor ? selectedVisitor.Contact : ''}
+                                                        value={selectedVisitor ? selectedVisitor.contact_1 : ''}
+
                                                     />
                                                 </div>
                                             </div>
@@ -220,26 +302,10 @@ function VisitorsReports() {
                                                         id=""
                                                         name="message"
                                                         placeholder="Message"
-                                                        value={selectedVisitor ? selectedVisitor.Message : ''}
+                                                        value={selectedVisitor ? selectedVisitor.message : ''}
+
                                                     />
                                                 </div>
-                                                <div className="col-6">
-
-                                                    <label htmlFor="action_discription">
-                                                        action_discription
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        className="select-jc"
-                                                        id=""
-                                                        name="action_discription"
-                                                        placeholder="action_discription"
-                                                        value={selectedVisitor ? selectedVisitor.action_discription : ''}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="row">                                               
                                                 <div className="col-6">
                                                     <label htmlFor="createdAt">
                                                         createdAt
@@ -250,57 +316,120 @@ function VisitorsReports() {
                                                         id=""
                                                         name="createdAt"
                                                         placeholder="createdAt"
-                                                        value={selectedVisitor ? selectedVisitor.createdAt : ''}
+                                                        value={formatDateForInput(selectedVisitor ? selectedVisitor.createdAt : '')}
+                                                    // onChange={(e) =>
+                                                    //     handleChange(
+                                                    //       "createdAt",
+                                                    //       e.target.value
+                                                    //     )
+                                                    //   }
                                                     />
 
                                                 </div>
+                                            </div>
+
+                                            <div className="row">
+
+                                                <div className="col-6">
+                                                    <label htmlFor="Comments">
+                                                        Comments
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        className="select-jc"
+                                                        id=""
+                                                        name="action_discription"
+                                                        placeholder="Comments"
+                                                        value={selectedVisitor ? selectedVisitor.action_discription : ''}
+                                                        onChange={(e) =>
+                                                            handleChange(
+                                                                "action_discription",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    />
                                                 </div>
-                                     
-                                                <div className="row">  
-                                                <div className="col-4">
+                                                <div className="col-6">
+                                                    <label htmlFor="Allotted">
+                                                        Allotted
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        className="select-jc"
+                                                        id=""
+                                                        name="assign_to"
+                                                        placeholder="Allotted "
+                                                        value={selectedVisitor ? selectedVisitor.assign_to : ''}
+                                                        onChange={(e) =>
+                                                            handleChange(
+                                                                "assign_to",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    />
+
+                                                </div>
+                                            </div>
+
+                                            <div className="row">
+                                                <div className="col-6">
                                                     <p>is_attend</p>
                                                     <label className="switch">
                                                         <input
                                                             type="checkbox"
                                                             id="checkbox3"
                                                             name="is_attend"
-                                                        // checked={}
-                                                        value={selectedVisitor ? selectedVisitor.is_attend : ''}
+                                                            checked={isAttend}
+                                                            onChange={() =>
+                                                                handleCheckboxChange(
+                                                                    "is_attend",
+                                                                    isAttend
+                                                                )
+                                                            }
 
                                                         />
                                                         <span className="slider round"></span>
                                                     </label>
                                                 </div>
-                                                <div className="col-4">
+                                                <div className="col-6">
                                                     <p>is_close</p>
                                                     <label className="switch">
                                                         <input
                                                             type="checkbox"
                                                             id="checkbox3"
                                                             name="is_close"
-                                                        // checked={}
-                                                        value={selectedVisitor ? selectedVisitor.is_close : ''}
-
+                                                            checked={isClose}
+                                                            onChange={() =>
+                                                                handleCheckboxChange(
+                                                                    "is_close",
+                                                                    isClose
+                                                                )
+                                                            }
                                                         />
                                                         <span className="slider round"></span>
                                                     </label>
-                                                </div>  
-                                            <div className="col-4">
+                                                </div>
+                                                {/* <div className="col-4">
                                                     <p>assign_to</p>
                                                     <label className="switch">
                                                         <input
                                                             type="checkbox"
                                                             id="checkbox3"
                                                             name="assign_to"
-                                                        // checked={}
-                                                        value={selectedVisitor ? selectedVisitor.assign_to : ''}
+                                                            checked={assignTo}
+                                                            onChange={() =>
+                                                                handleCheckboxChange(
+                                                                  "assign_to",
+                                                                  assignTo
+                                                                )
+                                                              }
                                                         />
                                                         <span className="slider round"></span>
                                                     </label>
-                                                </div>
+                                                </div> */}
 
 
-                                                </div>
+                                            </div>
 
                                             <button
                                                 id="set-btn"
@@ -313,7 +442,16 @@ function VisitorsReports() {
                                     </Box>
                                 </Modal>
 
-
+                                <Dialog open={deleteVisiotrId !== null} onClose={() => setDeleteVisitorId(null)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this item?
+        </DialogContent>
+        <DialogActions>
+        <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
+          <Button onClick={() => setDeleteVisitorId(null)}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
                             </tbody>
                         </table>
                     </div>
