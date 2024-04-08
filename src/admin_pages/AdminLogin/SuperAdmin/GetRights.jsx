@@ -273,18 +273,22 @@ function GetRights() {
                       src={close}
                       alt=""
                     />
-                    <label className="AC-SetLabel-Name" htmlFor="categoryInput">
-                      Add Exam Type
-                    </label>
-                    <input
+                 <div>
+                 <label htmlFor="categoryInput">Api Name:</label>
+                 <input
                       type="text"
                       id="categoryInput"
                       name="api_name"
                       className="Ac-set-input"
-                      placeholder="api_name"
+                      placeholder="Api Name"
                       onChange={handleChange}
                     />
-                    <select
+                 </div>
+                   
+                   <div>
+                   <label htmlFor="apiTypeInput">Select API Type:</label>
+                   <select
+                    
                       id="apiTypeInput"
                       name="api_type"
                       className="Ac-set-input"
@@ -297,6 +301,10 @@ function GetRights() {
                       <option value="DELETE">DELETE</option>
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+                  
+                   </div>
+                    <div>
+                    <label htmlFor="pathInput">Path:</label>
                     <input
                       type="text"
                       id="pathInput"
@@ -304,7 +312,11 @@ function GetRights() {
                       className="Ac-set-input"
                       placeholder="path"
                       onChange={handleChange}
+                      
                     />
+                    </div>
+                    <div>
+                    <label htmlFor="urlInput">URL:</label>
                     <input
                       type="text"
                       id="urlInput"
@@ -313,7 +325,11 @@ function GetRights() {
                       placeholder="url"
                       onChange={handleChange}
                     />
-                    <select
+                    </div>
+                
+                  <div>
+                  <label htmlFor="roleTypeInput">Select Role Type:</label>
+                  <select
                       id="roleTypeInput"
                       name="role_type_master_id"
                       className="Ac-set-input"
@@ -327,7 +343,9 @@ function GetRights() {
                       ))}
                     </select>
                     <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                    <button
+                  </div>
+                   
+                  <button
                       id="add-new-btn"
                       className="submit-btn"
                       type="submit"
@@ -336,7 +354,10 @@ function GetRights() {
                     </button>
                   </form>
                 </div>
+                 
+              
               </FormControl>
+              
             </Box>
           </Modal>
 
@@ -384,6 +405,7 @@ function GetRights() {
                 />
               </div>
               <form onSubmit={handleUpdate}>
+              <label className="AC-SetLabel-Name" htmlFor="categoryInput">Api Name:</label>
                 <input
                   type="text"
                   id="categoryInput"
@@ -395,6 +417,8 @@ function GetRights() {
                     handleFieldChange("api_name", e.target.value)
                   }
                 />
+                <div>
+                <label className="AC-SetLabel-Name" htmlFor="apiTypeInput">Select API Type:</label>
                 <select
                   id="apiTypeInput"
                   name="api_type"
@@ -410,16 +434,23 @@ function GetRights() {
                   <option value="POST">POST</option>
                   <option value="DELETE">DELETE</option>
                 </select>
-                <input
-                  type="text"
-                  id="pathInput"
-                  name="path"
-                  className="Ac-set-input"
-                  placeholder="path"
-                  value={modalData.path || ""}
-                  onChange={(e) => handleFieldChange("path", e.target.value)}
-                />
-                <input
+                </div>
+              
+                <div >
+        <label className="AC-SetLabel-Name" htmlFor="pathInput">Path:</label>
+        <input
+          type="text"
+          id="pathInput"
+          name="path"
+          className="Ac-set-input"
+          placeholder="path"
+          value={modalData.path || ""}
+          onChange={(e) => handleFieldChange("path", e.target.value)}
+        />
+      </div>
+      <div>
+      <label className="AC-SetLabel-Name" htmlFor="urlInput">URL:</label>
+      <input
                   type="text"
                   id="urlInput"
                   name="url"
@@ -428,7 +459,10 @@ function GetRights() {
                   value={modalData.url || ""}
                   onChange={(e) => handleFieldChange("url", e.target.value)}
                 />
-                <select
+      </div>
+             <div>
+             <label className="AC-SetLabel-Name" htmlFor="roleTypeInput">Select Role Type:</label>
+             <select
                   id="roleTypeInput"
                   name="role_type_master_id"
                   className="Ac-set-input"
@@ -444,6 +478,8 @@ function GetRights() {
                     </option>
                   ))}
                 </select>
+             </div>
+               
               </form>
               <button
                 style={{ marginTop: "20px" }}
