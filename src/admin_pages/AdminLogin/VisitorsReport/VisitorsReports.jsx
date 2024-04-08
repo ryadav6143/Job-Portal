@@ -6,7 +6,6 @@ import close from "../../../assets/logos/close.png";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Notification from "../../../Notification/Notification";
-import "./Visitor.css"
 import {
   Button,
   Dialog,
@@ -51,6 +50,7 @@ function VisitorsReports() {
   const handleCloseUpdateModal = () => {
     setUpdateModalOpen(false);
   };
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -155,7 +155,7 @@ function VisitorsReports() {
       setDeleteVisitorId(null);
     }
   };
-
+  // Function to truncate message to a specific number of words
   const truncateMessage = (message, wordCount) => {
     const words = message.split(" ");
     if (words.length > wordCount) {
@@ -163,6 +163,7 @@ function VisitorsReports() {
     }
     return message;
   };
+
   return (
     <>
       <Notification
@@ -202,6 +203,7 @@ function VisitorsReports() {
                     <td>{visitor.email}</td>
                     <td>{visitor.contact_1}</td>
                     <td>{truncateMessage(visitor.message, 2)}</td>
+
                     <td>{visitor.assign_to || "-"}</td>
                     <td>{visitor.is_attend ? "Yes" : "No"}</td>
                     <td>{visitor.is_close ? "Yes" : "No"}</td>
@@ -244,10 +246,15 @@ function VisitorsReports() {
                       />
                       <div className="row">
                         <div className="col-6">
-                          <label htmlFor="First Name">First Name</label>
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="First Name"
+                          >
+                            First Name
+                          </label>
                           <input
                             type="text"
-                            className="select-jc"
+                            className="Ac-set-input"
                             id=""
                             name="first_name"
                             placeholder="First Name"
@@ -257,10 +264,15 @@ function VisitorsReports() {
                           />
                         </div>
                         <div className="col-6">
-                          <label htmlFor="Last Name">Last Name</label>
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="Last Name"
+                          >
+                            Last Name
+                          </label>
                           <input
                             type="text"
-                            className="select-jc"
+                            className="Ac-set-input"
                             id=""
                             name="last_name"
                             placeholder="Last Name"
@@ -273,10 +285,12 @@ function VisitorsReports() {
 
                       <div className="row">
                         <div className="col-6">
-                          <label htmlFor="Email">Email</label>
+                          <label className="AC-SetLabel-Name" htmlFor="Email">
+                            Email
+                          </label>
                           <input
                             type="text"
-                            className="select-jc"
+                            className="Ac-set-input"
                             id=""
                             name="email"
                             placeholder="Email"
@@ -284,10 +298,12 @@ function VisitorsReports() {
                           />
                         </div>
                         <div className="col-6">
-                          <label htmlFor="Contact">Contact</label>
+                          <label className="AC-SetLabel-Name" htmlFor="Contact">
+                            Contact
+                          </label>
                           <input
                             type="text"
-                            className="select-jc"
+                            className="Ac-set-input"
                             id=""
                             name="contact_1"
                             placeholder="Contact"
@@ -298,12 +314,14 @@ function VisitorsReports() {
                         </div>
                       </div>
 
-                      <div className="row message-box">
+                      <div className="row">
                         <div className="col-6">
-                          <label htmlFor="Message">Message</label>
-                          <input
+                          <label className="AC-SetLabel-Name" htmlFor="Message">
+                            Message
+                          </label>
+                          <textarea
                             type="text"
-                            className="select-jc"
+                            className="Ac-set-input"
                             id=""
                             name="message"
                             placeholder="Message"
@@ -313,10 +331,15 @@ function VisitorsReports() {
                           />
                         </div>
                         <div className="col-6">
-                          <label htmlFor="createdAt">createdAt</label>
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="createdAt"
+                          >
+                            createdAt
+                          </label>
                           <input
                             type="text"
-                            className="select-jc"
+                            className="Ac-set-input"
                             id=""
                             name="createdAt"
                             placeholder="createdAt"
@@ -335,17 +358,20 @@ function VisitorsReports() {
 
                       <div className="row">
                         <div className="col-6">
-                          <label htmlFor="Comments">Comments</label>
-                          <input
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="Comments"
+                          >
+                            Comments
+                          </label>
+                          <textarea
                             type="text"
-                            className="select-jc"
+                            className="Ac-set-input"
                             id=""
                             name="action_discription"
                             placeholder="Comments"
                             value={
-                              selectedVisitor
-                                ? selectedVisitor.action_discription
-                                : ""
+                              updateData ? updateData.action_discription : ""
                             }
                             onChange={(e) =>
                               handleChange("action_discription", e.target.value)
@@ -353,16 +379,19 @@ function VisitorsReports() {
                           />
                         </div>
                         <div className="col-6">
-                          <label htmlFor="Allotted">Allotted</label>
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="Allotted"
+                          >
+                            Allotted
+                          </label>
                           <input
                             type="text"
-                            className="select-jc"
+                            className="Ac-set-input"
                             id=""
                             name="assign_to"
                             placeholder="Allotted "
-                            value={
-                              selectedVisitor ? selectedVisitor.assign_to : ""
-                            }
+                            value={updateData ? updateData.assign_to : ""}
                             onChange={(e) =>
                               handleChange("assign_to", e.target.value)
                             }
@@ -372,7 +401,7 @@ function VisitorsReports() {
 
                       <div className="row">
                         <div className="col-6">
-                          <p>is_attend</p>
+                          <p>Is Attend</p>
                           <label className="switch">
                             <input
                               type="checkbox"
@@ -387,7 +416,7 @@ function VisitorsReports() {
                           </label>
                         </div>
                         <div className="col-6">
-                          <p>is_close</p>
+                          <p>Is Close</p>
                           <label className="switch">
                             <input
                               type="checkbox"
@@ -443,16 +472,12 @@ function VisitorsReports() {
                   <DialogActions>
                     <Button
                       variant="contained"
-                      color="error"
+                      color="primary"
                       onClick={handleConfirmDelete}
                     >
                       Delete
                     </Button>
-                    <Button
-                      onClick={() => setDeleteVisitorId(null)}
-                      variant="text"
-                      color="primary"
-                    >
+                    <Button onClick={() => setDeleteVisitorId(null)}>
                       Cancel
                     </Button>
                   </DialogActions>
