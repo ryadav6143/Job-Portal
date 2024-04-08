@@ -129,6 +129,7 @@ function AddDepartment() {
                 Add Department
               </label>
               <input
+                  className="Ac-set-input"
                 type="text"
                 id="departmentName"
                 placeholder="Add Your Departments"
@@ -223,6 +224,7 @@ function AddDepartment() {
                         Update Department
                       </label>
                       <input
+                          className="Ac-set-input"
                         type="text"
                         id="departmentName"
                         placeholder="Add Your Departments"

@@ -124,3 +124,6 @@
 .hamburger {
   width: 14px;
 }
+.active-link {
+  color: maroon; /* Change color for active link */
+} 
