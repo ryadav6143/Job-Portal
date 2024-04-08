@@ -705,6 +705,79 @@ const adminApiService = {
       throw error;
     }
   },
+
+
+
+  getVisitor: async () => {
+    try {
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/visitor/getVisitor`,
+        {
+          headers: {
+            "access-token": getAccessToken()
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
+  registerVisitor: async (formData) => {
+    try {
+      const response = await axios.post(
+        `${ADMIN_BASE_URL}/visitor/registerVisitor`,
+        formData,
+        // {
+        //   headers: {
+        //     "access-token":getAccessToken() ,
+        //   },
+        // }
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
+  updateVisitor: async (updateField) => {
+    try {
+      const response = await axios.put(
+        `${ADMIN_BASE_URL}/visitor/updateVisitor`,
+        updateField,
+        {
+          headers: {
+            "access-token":getAccessToken() ,
+          },
+        }
+      );
+
+      console.log("Save Changes Response:", response);
+      return response.data;
+    } catch (error) {
+      console.error("Error saving changes:", error.message);
+      throw error;
+    }
+  },
+  removeVisitor: async (visitorId) => {
+    try {
+      const response = await axios.delete(
+        `${ADMIN_BASE_URL}/visitor/removeVisitor/${visitorId}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        
+        }
+      );
+
+      console.log("Save Changes Response:", response);
+      return response.data;
+    } catch (error) {
+      console.error("Error saving changes:", error.message);
+      throw error;
+    }
+  },
+
 };
 
 function getAccessToken() {

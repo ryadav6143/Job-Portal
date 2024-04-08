@@ -128,7 +128,7 @@ function AddPostApplied() {
   };
 
   const handleSelectPostForUpdate = (postId) => {
-    // Find the selected post from the data array
+    
     const selectedPost = data.find((post) => post.id === postId);
     setSelectedPost(selectedPost);
     setUpdateModalOpen(true);

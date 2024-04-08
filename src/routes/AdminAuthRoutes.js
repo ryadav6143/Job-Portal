@@ -22,6 +22,7 @@ import EditOpenings from "../admin_pages/AdminLogin/AdminChildPages/MasterCurren
 import MasterTable from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrentOpening/MasterCurrentOpeningChild/MasterTable.jsx";
 // import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin.jsx";
 import AdminRegister from "../admin_pages/AdminLogin/AdminChildPages/RegisterAdmin/AdminRegister.jsx";
+import VisitorsReports from "../admin_pages/AdminLogin/VisitorsReport/VisitorsReports.jsx";
 
 // console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
@@ -117,6 +118,12 @@ const AdminAuthRoutes = [
       key="admin_register"
       path="admin_register"
       element={<AdminAuthGaurd component={<AdminRegister />} />}
+    ></Route>
+    ,
+    <Route
+      key="admin_visitors_reports"
+      path="admin_visitors_reports"
+      element={<AdminAuthGaurd component={<VisitorsReports />} />}
     ></Route>
     ,
   </Route>,
