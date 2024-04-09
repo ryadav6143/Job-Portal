@@ -140,10 +140,15 @@ function VisitorsReports() {
   };
   const handleConfirmDelete = async () => {
     try {
-      await adminApiService.removeVisitor(deleteVisiotrId);
+      const payloadData = {
+        visitor_id: deleteVisiotrId 
+       }
+   
+    await adminApiService.removeVisitor(payloadData); 
       setVisitorData(
-        visitorData.filter((visitor) => visitor.id !== deleteVisiotrId)
+        visitorData.filter((visitor) => visitor.id !== payloadData)
       );
+      fetchVisitorData();
       setNotificationMessage("Deleted Successfully.");
       setNotificationSeverity("success");
       setNotificationOpen(true);
@@ -348,12 +353,12 @@ function VisitorsReports() {
                             value={formatDateForInput(
                               selectedVisitor ? selectedVisitor.createdAt : ""
                             )}
-                            // onChange={(e) =>
-                            //     handleChange(
-                            //       "createdAt",
-                            //       e.target.value
-                            //     )
-                            //   }
+                          // onChange={(e) =>
+                          //     handleChange(
+                          //       "createdAt",
+                          //       e.target.value
+                          //     )
+                          //   }
                           />
                         </div>
                       </div>

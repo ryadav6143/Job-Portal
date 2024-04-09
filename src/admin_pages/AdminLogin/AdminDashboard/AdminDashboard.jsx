@@ -93,12 +93,15 @@ function AdminDashboard() {
                   })}
                 </ol>
               </nav>
+              
             </main>
+   
           </div>
-
+         
           <div style={{ flexGrow: 1, overflowY: "auto" }}>
             <Outlet />
           </div>
+     
         </div>
       </div>
     </>

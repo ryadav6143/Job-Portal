@@ -11,7 +11,8 @@ function MasterInterviewSchedule() {
   // const [interviewSchedule, setInterviewSchedule] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(7);
-
+  const [sortBy, setSortBy] = useState(null);
+  const [sortOrder, setSortOrder] = useState("asc");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -125,6 +126,33 @@ function MasterInterviewSchedule() {
       setCurrentPage(currentPage - 1);
     }
   };
+
+
+  
+  const handleSort = (columnName) => {
+    if (sortBy === columnName) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortBy(columnName);
+      setSortOrder("asc");
+    }
+  };
+
+  const sortedJobProfiles = [...jobProfiles].sort((a, b) => {
+    if (sortBy === "department" || sortBy === "post") {
+      const fieldA = a[sortBy]?.toLowerCase();
+      const fieldB = b[sortBy]?.toLowerCase();
+      if (fieldA < fieldB) {
+        return sortOrder === "asc" ? -1 : 1;
+      }
+      if (fieldA > fieldB) {
+        return sortOrder === "asc" ? 1 : -1;
+      }
+      return 0;
+    }
+    // Add more cases for sorting other columns if needed
+    return 0;
+  });
 
   return (
     <>

@@ -20,7 +20,7 @@ const adminApiService = {
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
-    }
+    } 
   },
   DeleteCategory: async (categoryId) => {
     try {
@@ -370,7 +370,7 @@ const adminApiService = {
     } catch (error) {
       Notification({
         open: true,
-        handleClose: () => {}, // Define handleClose function if needed
+        handleClose: () => { }, // Define handleClose function if needed
         alertMessage: `Error posting job profile: ${error.message}`,
         alertSeverity: "error",
       });
@@ -738,12 +738,12 @@ const adminApiService = {
     try {
       const response = await axios.post(
         `${ADMIN_BASE_URL}/visitor/registerVisitor`,
-        formData
-        // {
-        //   headers: {
-        //     "access-token":getAccessToken() ,
-        //   },
-        // }
+        formData,
+        {
+          headers: {
+            "access-token":getAccessToken() ,
+          },
+        }
       );
       return response.data;
     } catch (error) {
@@ -769,17 +769,17 @@ const adminApiService = {
       throw error;
     }
   },
-  removeVisitor: async (visitorId) => {
+  removeVisitor: async (payloadData) => {
     try {
       const response = await axios.delete(
-        `${ADMIN_BASE_URL}/visitor/removeVisitor/${visitorId}`,
+        `${ADMIN_BASE_URL}/visitor/removeVisitor`,
         {
           headers: {
-            "access-token": getAccessToken(),
+            "access-token": getAccessToken()
           },
+          data: payloadData 
         }
       );
-
       console.log("Save Changes Response:", response);
       return response.data;
     } catch (error) {
