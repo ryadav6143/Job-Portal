@@ -34,6 +34,7 @@
   height: 22px;
   position: relative;
   width: 44px;
+
 }
 
 .switch input {
@@ -120,7 +121,6 @@ input:checked + .slider:before {
 }
 .new-opening-btn a {
   text-decoration: none;
-
 }
 .new-opening-btn button:hover {
   background-color: black;
@@ -128,13 +128,13 @@ input:checked + .slider:before {
   transition: ease-in-out 0.2s;
 }
 
-.new-opening-btn-link{
-color: black;
+.new-opening-btn-link {
+  color: black;
 }
 
-.new-opening-btn-link:hover{
+.new-opening-btn-link:hover {
   color: white;
-  }
+}
 /* --------------------- */
 .loader-container {
   position: fixed;

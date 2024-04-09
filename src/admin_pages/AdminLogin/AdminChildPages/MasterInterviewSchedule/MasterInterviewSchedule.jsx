@@ -159,7 +159,7 @@ function MasterInterviewSchedule() {
             </div>
           </div>
           <div className="table-responsive fixe-table">
-            <table className="table is-table">
+            <table className="table">
               <thead className="thead">
                 <tr>
                   <th scope="col">S.No&#x2193;</th>

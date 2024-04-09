@@ -17,7 +17,7 @@ function ContactUs() {
     last_name: "",
     email: "",
     contact_1: "",
-    message: ""
+    message: "",
   });
   var phoneNumber = "073131-11500 , 073131-11501";
   var email = "info@medicaps.ac.in";
@@ -27,15 +27,15 @@ function ContactUs() {
     const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-console.log(formData,"<<<")
+    console.log(formData, "<<<");
     try {
       const response = await adminApiService.registerVisitor(formData);
-      console.log(response); 
+      console.log(response);
       setNotificationMessage("Submit successfully.");
       setNotificationSeverity("success");
       setNotificationOpen(true);
@@ -44,8 +44,8 @@ console.log(formData,"<<<")
         last_name: "",
         email: "",
         contact_1: "",
-        message: ""
-    });
+        message: "",
+      });
     } catch (error) {
       console.error(error);
       setNotificationMessage("Error saving changes.");
@@ -91,7 +91,7 @@ console.log(formData,"<<<")
           </div>
         </div>
         <div className="contact-form">
-        <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-6">
                 <label htmlFor="first_name">First Name</label>

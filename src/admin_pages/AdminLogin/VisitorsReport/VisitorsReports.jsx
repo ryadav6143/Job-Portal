@@ -5,6 +5,7 @@ import deletebtn from "../../../assets/logos/delete.png";
 import close from "../../../assets/logos/close.png";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import "./Visitor.css";
 import Notification from "../../../Notification/Notification";
 import {
   Button,
@@ -235,6 +236,7 @@ function VisitorsReports() {
                   onClose={handleCloseUpdateModal}
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
+                  className="popup-modal"
                 >
                   <Box sx={style}>
                     <form>
@@ -315,11 +317,11 @@ function VisitorsReports() {
                       </div>
 
                       <div className="row">
-                        <div className="col-6">
+                        <div className="col-6 ">
                           <label className="AC-SetLabel-Name" htmlFor="Message">
                             Message
                           </label>
-                          <textarea
+                          <input
                             type="text"
                             className="Ac-set-input"
                             id=""
@@ -335,7 +337,7 @@ function VisitorsReports() {
                             className="AC-SetLabel-Name"
                             htmlFor="createdAt"
                           >
-                            createdAt
+                            CreatedAt
                           </label>
                           <input
                             type="text"
@@ -364,7 +366,7 @@ function VisitorsReports() {
                           >
                             Comments
                           </label>
-                          <textarea
+                          <input
                             type="text"
                             className="Ac-set-input"
                             id=""

@@ -38,14 +38,17 @@ const candidatesApiService = (() => {
     },
     loginCandidate: async (data) => {
       try {
-        return axios.post(`${CANDIDATE_BASE_URL}/login/candidate_login`, data);
+        return await axios.post(
+          `${CANDIDATE_BASE_URL}/login/candidate_login`,
+          data
+        );
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
       }
     },
     ForgetCandidatePassword: async (data) => {
       try {
-        return axios.put(
+        return await axios.put(
           `${CANDIDATE_BASE_URL}/candidates/candidate_forgot_password`,
           data
         );
@@ -162,7 +165,7 @@ const candidatesApiService = (() => {
     },
     getCandidatesCountries: async () => {
       try {
-        return axios.get("https://countriesnow.space/api/v0.1/countries");
+        return await axios.get("https://countriesnow.space/api/v0.1/countries");
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
       }
@@ -263,7 +266,7 @@ const candidatesApiService = (() => {
           }
         );
         console.log("Save Changes Response:", response);
-        return response.data; 
+        return response.data;
       } catch (error) {
         console.error("Error saving changes:", error.message);
         throw error;

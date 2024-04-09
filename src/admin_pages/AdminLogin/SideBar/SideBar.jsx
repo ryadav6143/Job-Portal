@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Link,  } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import "./SideBar.css";
 import opening from "../../../assets/logos/book.png";
@@ -10,7 +10,6 @@ import superadmin from "../../../assets/logos/superadmin.png";
 import list from "../../../assets/logos/list.png";
 import jobprofile from "../../../assets/logos/jobprofile.png";
 import Hamburgermenu from "../../../assets/logos/hamburger (1).png";
-
 
 function SideBar() {
   return (
@@ -114,14 +113,16 @@ function SideBar() {
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        <img src={list} className="bi bi-heart sidenav-icon"></img>{" "}
+                        <img
+                          src={list}
+                          className="bi bi-heart sidenav-icon"
+                        ></img>{" "}
                         <span>Master List</span>
                       </a>
 
                       <div
                         className="dropdown-menu master-dd"
                         aria-labelledby="dropdownMenuLink"
-                        
                       >
                         <Link
                           to="/admin-dashboard/add-post-applied"
