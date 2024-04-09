@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 import { Pagination } from "react-bootstrap";
+import "./GetRole.css"
 
 function GetRole() {
   const [Role, setRole] = useState([]);
@@ -165,18 +166,18 @@ function GetRole() {
                   <form onSubmit={handleSubmit}>
                     <img
                       onClick={handleClose}
-                      className="Examtype-close-btn"
+                      className="GR-close-btn"
                       src={close}
                       alt=""
                     />
                     <label className="AC-SetLabel-Name" htmlFor="role_type_name">
-                      Add Exam Type
+                    Role type name
                     </label>
                     <input
                       type="text"
                       id="role_type_name"
                       className="Ac-set-input"
-                      placeholder="role_type_name"
+                      placeholder="Role type name"
                       value={formData.role_type_name}
                       onChange={handleChange}
                     />
@@ -193,9 +194,17 @@ function GetRole() {
         {isOpen && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={closeModal}>&times;</span>
-            <h2>Enter Details</h2>
+            
             <form onSubmit={handleUpdate}>
+            <img
+                     onClick={closeModal}
+                      className="Ad-close-btn"
+                      src={close}
+                      alt=""
+                    />
+            <label className="AC-SetLabel-Name" >
+                    Role name
+                    </label>
               <input
                 type="text"
                 id="categoryInput"

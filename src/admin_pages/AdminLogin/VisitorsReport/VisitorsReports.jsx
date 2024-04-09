@@ -6,6 +6,7 @@ import close from "../../../assets/logos/close.png";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Notification from "../../../Notification/Notification";
+import "./Visitor.css"
 import {
   Button,
   Dialog,
@@ -236,6 +237,7 @@ function VisitorsReports() {
                 ))}
 
                 <Modal
+            
                   open={updateModalOpen}
                   onClose={handleCloseUpdateModal}
                   aria-labelledby="modal-modal-title"
@@ -254,7 +256,7 @@ function VisitorsReports() {
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="First Name"
-                          >
+                          ><span className="read-only-feilds">*</span>
                             First Name
                           </label>
                           <input
@@ -272,7 +274,7 @@ function VisitorsReports() {
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="Last Name"
-                          >
+                          ><span className="read-only-feilds">*</span>
                             Last Name
                           </label>
                           <input
@@ -291,6 +293,7 @@ function VisitorsReports() {
                       <div className="row">
                         <div className="col-6">
                           <label className="AC-SetLabel-Name" htmlFor="Email">
+                          <span className="read-only-feilds">*</span>
                             Email
                           </label>
                           <input
@@ -304,6 +307,7 @@ function VisitorsReports() {
                         </div>
                         <div className="col-6">
                           <label className="AC-SetLabel-Name" htmlFor="Contact">
+                          <span className="read-only-feilds">*</span>
                             Contact
                           </label>
                           <input
@@ -321,26 +325,11 @@ function VisitorsReports() {
 
                       <div className="row">
                         <div className="col-6">
-                          <label className="AC-SetLabel-Name" htmlFor="Message">
-                            Message
-                          </label>
-                          <textarea
-                            type="text"
-                            className="Ac-set-input"
-                            id=""
-                            name="message"
-                            placeholder="Message"
-                            value={
-                              selectedVisitor ? selectedVisitor.message : ""
-                            }
-                          />
-                        </div>
-                        <div className="col-6">
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="createdAt"
-                          >
-                            createdAt
+                          ><span className="read-only-feilds">*</span>
+                            CreatedAt
                           </label>
                           <input
                             type="text"
@@ -359,35 +348,13 @@ function VisitorsReports() {
                           //   }
                           />
                         </div>
-                      </div>
 
-                      <div className="row">
-                        <div className="col-6">
-                          <label
-                            className="AC-SetLabel-Name"
-                            htmlFor="Comments"
-                          >
-                            Comments
-                          </label>
-                          <textarea
-                            type="text"
-                            className="Ac-set-input"
-                            id=""
-                            name="action_discription"
-                            placeholder="Comments"
-                            value={
-                              updateData ? updateData.action_discription : ""
-                            }
-                            onChange={(e) =>
-                              handleChange("action_discription", e.target.value)
-                            }
-                          />
-                        </div>
                         <div className="col-6">
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="Allotted"
                           >
+                            {/* <span className="read-only-feilds">*</span> */}
                             Allotted
                           </label>
                           <input
@@ -404,9 +371,55 @@ function VisitorsReports() {
                         </div>
                       </div>
 
+                   
+
+                      <div className="row">
+                        <div className="col-12">
+                          <label className="AC-SetLabel-Name" htmlFor="Message">
+                          <span className="read-only-feilds">*</span>
+                            Message
+                          </label>
+                          <textarea
+                              style={{width:"100%"}}
+                            type="text"
+                            className="Ac-set-input"
+                            id=""
+                            name="message"
+                            placeholder="Message"
+                            value={
+                              selectedVisitor ? selectedVisitor.message : ""
+                            }
+                          />
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="Comments"
+                          >
+                            Comments
+                          </label>
+                          <textarea
+                          style={{width:"100%"}}
+                            type="text"
+                            className="Ac-set-input"
+                            id=""
+                            name="action_discription"
+                            placeholder="Comments"
+                            value={
+                              updateData ? updateData.action_discription : ""
+                            }
+                            onChange={(e) =>
+                              handleChange("action_discription", e.target.value)
+                            }
+                          />
+                        </div>
+                      </div>
+
                       <div className="row">
                         <div className="col-6">
-                          <p>Is Attend</p>
+                          <p  className="AC-SetLabel-Name">Is Attend</p>
                           <label className="switch">
                             <input
                               type="checkbox"
@@ -421,7 +434,7 @@ function VisitorsReports() {
                           </label>
                         </div>
                         <div className="col-6">
-                          <p>Is Close</p>
+                          <p className="AC-SetLabel-Name">Is Close</p>
                           <label className="switch">
                             <input
                               type="checkbox"
@@ -462,6 +475,7 @@ function VisitorsReports() {
                       >
                         UPDATE NOW
                       </button>
+                      <p >Note: <span className="read-only-feilds">*</span>These feilds are read only.</p>
                     </form>
                   </Box>
                 </Modal>

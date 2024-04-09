@@ -204,7 +204,7 @@ function AddDegree() {
                   </select>
                 </div>
 
-                <label className="AC-SetLabel-Name" htmlFor="">
+                <label style={{marginTop:"20px"}} className="AC-SetLabel-Name" htmlFor="">
                   Add Degree
                 </label>
                 <input
@@ -311,7 +311,7 @@ function AddDegree() {
                             </select>
                           </div>
 
-                          <label className="AC-SetLabel-Name" htmlFor="">
+                          <label style={{marginTop:"20px"}} className="AC-SetLabel-Name" htmlFor="">
                             Update Degree
                           </label>
                           <input
