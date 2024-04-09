@@ -16,16 +16,17 @@
   float: right;
   /* margin-top: 25px; */
 }
-.container-1 button:hover {
-  background-color: black;
-  color: white;
-  transition: 0.3s ease;
-}
 .container-1 input {
   font-size: 18px;
   border: none;
   border-bottom: 2px solid rgba(0, 0, 0, 0.799);
 }
+.container-1 button:hover {
+  background-color: black;
+  color: white;
+  transition: 0.3s ease;
+}
+
 .container-1 input:focus {
   outline: none;
 }
