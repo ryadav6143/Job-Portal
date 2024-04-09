@@ -70,9 +70,9 @@ function GetRights() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "400",
+    width: 500, 
+    height: "84%", 
     bgcolor: "background.paper",
-    border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   };
@@ -264,7 +264,7 @@ function GetRights() {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              <FormControl>
+              
                 <div>
                   <form onSubmit={handleSubmit}>
                     <img
@@ -273,79 +273,82 @@ function GetRights() {
                       src={close}
                       alt=""
                     />
-                 <div>
-                 <label htmlFor="categoryInput">Api Name:</label>
-                 <input
-                      type="text"
-                      id="categoryInput"
-                      name="api_name"
-                      className="Ac-set-input"
-                      placeholder="Api Name"
-                      onChange={handleChange}
-                    />
-                 </div>
                    
-                   <div>
-                   <label htmlFor="apiTypeInput">Select API Type:</label>
-                   <select
+                      <label className="AC-SetLabel-Name" htmlFor="categoryInput">Api Name</label>
+                      <input
+                        type="text"
+                        id="categoryInput"
+                        name="api_name"
+                        className="Ac-set-input"
+                        placeholder="Api Name"
+                        onChange={handleChange}
+                      />
                     
-                      id="apiTypeInput"
-                      name="api_type"
-                      className="Ac-set-input"
-                      onChange={handleChange}
-                    >
-                      <option value="">Select API Type</option>
-                      <option value="GET">GET</option>
-                      <option value="PUT">PUT</option>
-                      <option value="POST">POST</option>
-                      <option value="DELETE">DELETE</option>
-                    </select>
-                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
+
+                    
+                      <label className="AC-SetLabel-Name" htmlFor="apiTypeInput">Select API Type</label>
+                      <select
+                        id="apiTypeInput"
+                        name="api_type"
+                        className="Ac-set-input"
+                        onChange={handleChange}
+                      >
+                        <option value="">Select API Type</option>
+                        <option value="GET">GET</option>
+                        <option value="PUT">PUT</option>
+                        <option value="POST">POST</option>
+                        <option value="DELETE">DELETE</option>
+                      </select>
+                      <FontAwesomeIcon
+                        className="set-icon"
+                        icon={faAngleDown}
+                      />
+                    
+                    
+                      <label className="AC-SetLabel-Name" htmlFor="pathInput">Path</label>
+                      <input
+                        type="text"
+                        id="pathInput"
+                        name="path"
+                        className="Ac-set-input"
+                        placeholder="path"
+                        onChange={handleChange}
+                      />
                   
-                   </div>
-                    <div>
-                    <label htmlFor="pathInput">Path:</label>
-                    <input
-                      type="text"
-                      id="pathInput"
-                      name="path"
-                      className="Ac-set-input"
-                      placeholder="path"
-                      onChange={handleChange}
-                      
-                    />
-                    </div>
-                    <div>
-                    <label htmlFor="urlInput">URL:</label>
-                    <input
-                      type="text"
-                      id="urlInput"
-                      name="url"
-                      className="Ac-set-input"
-                      placeholder="url"
-                      onChange={handleChange}
-                    />
-                    </div>
-                
-                  <div>
-                  <label htmlFor="roleTypeInput">Select Role Type:</label>
-                  <select
-                      id="roleTypeInput"
-                      name="role_type_master_id"
-                      className="Ac-set-input"
-                      onChange={handleChange}
-                    >
-                      <option value="">Select Role Type</option>
-                      {role.map((role, index) => (
-                        <option key={index} value={role.id}>
-                          {role.role_type_name}
-                        </option>
-                      ))}
-                    </select>
-                    <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-                  </div>
                    
-                  <button
+                      <label className="AC-SetLabel-Name" htmlFor="urlInput">URL</label>
+                      <input
+                        type="text"
+                        id="urlInput"
+                        name="url"
+                        className="Ac-set-input"
+                        placeholder="url"
+                        onChange={handleChange}
+                      />
+                   
+
+                    
+                      <label className="AC-SetLabel-Name" htmlFor="roleTypeInput">Select Role Type</label>
+                      <select
+                        id="roleTypeInput"
+                        name="role_type_master_id"
+                        className="Ac-set-input"
+                        onChange={handleChange}
+                      >
+                        <option value="">Select Role Type</option>
+                        {role.map((role, index) => (
+                          <option key={index} value={role.id}>
+                            {role.role_type_name}
+                          </option>
+                        ))}
+                      </select>
+                      <FontAwesomeIcon
+                        className="set-icon"
+                        icon={faAngleDown}
+                      />
+                    
+
+                    <button
                       id="add-new-btn"
                       className="submit-btn"
                       type="submit"
@@ -354,10 +357,7 @@ function GetRights() {
                     </button>
                   </form>
                 </div>
-                 
-              
-              </FormControl>
-              
+             
             </Box>
           </Modal>
 
@@ -395,7 +395,7 @@ function GetRights() {
                   alignItems: "center",
                 }}
               >
-                <h2 id="modal-modal-title">Edit Details</h2>
+              
                 <img
                   src={close}
                   className="Examtype-close-btn"
@@ -405,7 +405,9 @@ function GetRights() {
                 />
               </div>
               <form onSubmit={handleUpdate}>
-              <label className="AC-SetLabel-Name" htmlFor="categoryInput">Api Name:</label>
+                <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+                  Api Name
+                </label>
                 <input
                   type="text"
                   id="categoryInput"
@@ -418,68 +420,75 @@ function GetRights() {
                   }
                 />
                 <div>
-                <label className="AC-SetLabel-Name" htmlFor="apiTypeInput">Select API Type:</label>
-                <select
-                  id="apiTypeInput"
-                  name="api_type"
-                  className="Ac-set-input"
-                  value={modalData.api_type || ""}
-                  onChange={(e) =>
-                    handleFieldChange("api_type", e.target.value)
-                  }
-                >
-                  <option value="">Select API Type</option>
-                  <option value="GET">GET</option>
-                  <option value="PUT">PUT</option>
-                  <option value="POST">POST</option>
-                  <option value="DELETE">DELETE</option>
-                </select>
+                  <label className="AC-SetLabel-Name" htmlFor="apiTypeInput">
+                    Select API Type
+                  </label>
+                  <select
+                    id="apiTypeInput"
+                    name="api_type"
+                    className="Ac-set-input"
+                    value={modalData.api_type || ""}
+                    onChange={(e) =>
+                      handleFieldChange("api_type", e.target.value)
+                    }
+                  >
+                    <option value="">Select API Type</option>
+                    <option value="GET">GET</option>
+                    <option value="PUT">PUT</option>
+                    <option value="POST">POST</option>
+                    <option value="DELETE">DELETE</option>
+                  </select>
                 </div>
-              
-                <div >
-        <label className="AC-SetLabel-Name" htmlFor="pathInput">Path:</label>
-        <input
-          type="text"
-          id="pathInput"
-          name="path"
-          className="Ac-set-input"
-          placeholder="path"
-          value={modalData.path || ""}
-          onChange={(e) => handleFieldChange("path", e.target.value)}
-        />
-      </div>
-      <div>
-      <label className="AC-SetLabel-Name" htmlFor="urlInput">URL:</label>
-      <input
-                  type="text"
-                  id="urlInput"
-                  name="url"
-                  className="Ac-set-input"
-                  placeholder="url"
-                  value={modalData.url || ""}
-                  onChange={(e) => handleFieldChange("url", e.target.value)}
-                />
-      </div>
-             <div>
-             <label className="AC-SetLabel-Name" htmlFor="roleTypeInput">Select Role Type:</label>
-             <select
-                  id="roleTypeInput"
-                  name="role_type_master_id"
-                  className="Ac-set-input"
-                  value={modalData.role_type_master_id || ""}
-                  onChange={(e) =>
-                    handleFieldChange("role_type_master_id", e.target.value)
-                  }
-                >
-                  <option value="">Select Role Type</option>
-                  {role.map((role, index) => (
-                    <option key={index} value={role.id}>
-                      {role.role_type_name}
-                    </option>
-                  ))}
-                </select>
-             </div>
-               
+
+                <div>
+                  <label className="AC-SetLabel-Name" htmlFor="pathInput">
+                    Path
+                  </label>
+                  <input
+                    type="text"
+                    id="pathInput"
+                    name="path"
+                    className="Ac-set-input"
+                    placeholder="path"
+                    value={modalData.path || ""}
+                    onChange={(e) => handleFieldChange("path", e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="AC-SetLabel-Name" htmlFor="urlInput">
+                    URL
+                  </label>
+                  <input
+                    type="text"
+                    id="urlInput"
+                    name="url"
+                    className="Ac-set-input"
+                    placeholder="url"
+                    value={modalData.url || ""}
+                    onChange={(e) => handleFieldChange("url", e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="AC-SetLabel-Name" htmlFor="roleTypeInput">
+                    Select Role Type
+                  </label>
+                  <select
+                    id="roleTypeInput"
+                    name="role_type_master_id"
+                    className="Ac-set-input"
+                    value={modalData.role_type_master_id || ""}
+                    onChange={(e) =>
+                      handleFieldChange("role_type_master_id", e.target.value)
+                    }
+                  >
+                    <option value="">Select Role Type</option>
+                    {role.map((role, index) => (
+                      <option key={index} value={role.id}>
+                        {role.role_type_name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </form>
               <button
                 style={{ marginTop: "20px" }}

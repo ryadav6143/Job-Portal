@@ -70,6 +70,7 @@
   padding: 3px 20px 3px 20px;
   font-weight: 600;
   border: 2px solid black;
+  float: inline-end;
 }
 #set-btn:hover {
   background-color: black;

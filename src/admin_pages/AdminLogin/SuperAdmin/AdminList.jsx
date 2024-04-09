@@ -101,13 +101,16 @@ function AdminList() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-
-    width: "900",
+    width: "40%", 
+    maxWidth: "600px", 
+    height: "72%", 
+    maxHeight: "600px", 
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   };
+
 
   const handleFieldChange = (fieldName, value) => {
     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
@@ -145,11 +148,11 @@ function AdminList() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <FormControl>
+         
             <div>
               <form onSubmit={handleSubmit}>
                 <img
-                  style={{ marginTop: "-30px", marginLeft: "30px" }}
+                  // style={{ marginTop: "-30px", marginLeft: "30px" }}
                   onClick={handleCloseModal}
                   className="Examtype-close-btn"
                   src={close}
@@ -195,8 +198,8 @@ function AdminList() {
                     handleFieldChange("contact_1", e.target.value)
                   }
                 />
-               
-                {/* <label className="AC-SetLabel-Name">Select Role Type</label> */}
+
+                <label className="AC-SetLabel-Name">Select Role Type</label>
                 <select
                   id="roleTypeInput"
                   name="role_type_master_id"
@@ -214,12 +217,14 @@ function AdminList() {
                   ))}
                 </select>
 
-                <button id="update-new-btn" onClick={handleSubmit}>
+<button id="update-new-btn" onClick={handleSubmit}>
                   UPDATE NOW
                 </button>
+
+                
               </form>
             </div>
-          </FormControl>
+         
         </Box>
       </Modal>
 

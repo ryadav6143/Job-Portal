@@ -6,6 +6,7 @@ import close from "../../../assets/logos/close.png";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Notification from "../../../Notification/Notification";
+import "./Visitor.css"
 import {
   Button,
   Dialog,
@@ -250,7 +251,7 @@ function VisitorsReports() {
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="First Name"
-                          >
+                          ><span className="read-only-feilds">*</span>
                             First Name
                           </label>
                           <input
@@ -268,7 +269,7 @@ function VisitorsReports() {
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="Last Name"
-                          >
+                          ><span className="read-only-feilds">*</span>
                             Last Name
                           </label>
                           <input
@@ -287,6 +288,7 @@ function VisitorsReports() {
                       <div className="row">
                         <div className="col-6">
                           <label className="AC-SetLabel-Name" htmlFor="Email">
+                          <span className="read-only-feilds">*</span>
                             Email
                           </label>
                           <input
@@ -300,6 +302,7 @@ function VisitorsReports() {
                         </div>
                         <div className="col-6">
                           <label className="AC-SetLabel-Name" htmlFor="Contact">
+                          <span className="read-only-feilds">*</span>
                             Contact
                           </label>
                           <input
@@ -320,7 +323,7 @@ function VisitorsReports() {
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="createdAt"
-                          >
+                          ><span className="read-only-feilds">*</span>
                             CreatedAt
                           </label>
                           <input
@@ -345,7 +348,7 @@ function VisitorsReports() {
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="Allotted"
-                          >
+                          ><span className="read-only-feilds">*</span>
                             Allotted
                           </label>
                           <input
@@ -390,6 +393,7 @@ function VisitorsReports() {
                       <div className="row">
                         <div className="col-12">
                           <label className="AC-SetLabel-Name" htmlFor="Message">
+                          <span className="read-only-feilds">*</span>
                             Message
                           </label>
                           <textarea
@@ -464,7 +468,7 @@ function VisitorsReports() {
                       >
                         UPDATE NOW
                       </button>
-                      <p>Note: *These feilds are read only.</p>
+                      <p >Note: <span className="read-only-feilds">*</span>These feilds are read only.</p>
                     </form>
                   </Box>
                 </Modal>
