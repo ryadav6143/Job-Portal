@@ -20,6 +20,9 @@ function GetRights() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const paginationRange = 0;
+  const [selectedRole, setSelectedRole] = useState("");
+  const [selectedApiType, setSelectedApiType] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [formData, setFormData] = useState({
     api_name: "",
     api_type: "",
@@ -27,9 +30,9 @@ function GetRights() {
     url: "",
     role_type_master_id: "",
   });
-  // useEffect(() => {
 
-  // }, []);
+
+
   useEffect(() => {
     fetchRoleList();
     fetchRights();
@@ -37,8 +40,9 @@ function GetRights() {
   const fetchRights = async () => {
     try {
       const response = await adminApiService.getRightsList();
-      // console.log("check rights data>>>>>", response);
+      // console.log("check rights data>>>>>", response);      
       setRights(response);
+
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -47,8 +51,9 @@ function GetRights() {
   const fetchRoleList = async () => {
     try {
       const response = await adminApiService.getRoleList();
-      // console.log("role data>>>>>>", response);
+      console.log("role data>>>>>>", response);
       setRole(response);
+
     } catch (error) {
       console.error("Error fetching admin list:", error.message);
     }
@@ -71,23 +76,20 @@ function GetRights() {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 500, 
-    height: "84%", 
+    height: "612px", 
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
   };
 
-  // const handleOpen = () => setOpen(true);
+
   const handleClose = () => setOpen(false);
   const handleAddModalClose = () => {
     setOpen(false);
-    // setSelectedRight(null);
+
   };
 
-  // const handleOpen = (right) => {
-  //   setSelectedRight(right);
-  //   setOpen(true);
-  // };
+
 
   const handleDelete = async (rightsID) => {
     const confirmDelete = window.confirm("Are you sure you want to delete?");
@@ -146,7 +148,9 @@ function GetRights() {
       const updatedAdminList = await adminApiService.updateRights(updateData);
       // console.log("updatedAdminList", updatedAdminList);
       setModalData(updatedAdminList);
-      closeModal(); // Close the modal after successful update
+      fetchRights();
+      fetchRoleList();
+      closeModal();
     } catch (error) {
       console.error("Error updating admin:", error.message);
     }
@@ -164,13 +168,43 @@ function GetRights() {
     // console.log("Updated selectedAdmin:", updateField);
   };
 
+  const handleRoleChange = (e) => {
+    setSelectedRole(e.target.value);
+  };
+
+  const handleApiTypeFilter = (e) => {
+    setSelectedApiType(e.target.value);
+  };
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredRights = selectedRole
+    ? rights.filter((right) => right.role_type_master_id == selectedRole)
+    : rights;
+
+  const filteredRightsByApiType = selectedApiType
+    ? filteredRights.filter((right) => right.api_type === selectedApiType)
+    : filteredRights;
+
+  const filteredRightsBySearch = searchQuery
+    ? filteredRightsByApiType.filter((right) =>
+        right.url.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : filteredRightsByApiType;
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = rights.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredRightsBySearch.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const nextPage = () => {
-    if (currentPage < Math.ceil(rights.length / itemsPerPage)) {
+    if (currentPage < Math.ceil(filteredRightsBySearch.length / itemsPerPage)) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -185,10 +219,57 @@ function GetRights() {
     <>
       <div className="center-container">
         <div className="admin-list">
+
+
           <div className="new-opening-btn">
             <button onClick={() => setOpen(true)}>ADD New Rights</button>
           </div>
+
           <p className="SCA-heading">Define rights to role </p>
+          <div className="row">
+            <div className="col-3">
+              <label htmlFor="roleFilter">Search by URL:</label>
+              <input
+                className="set-input"
+                type="text"
+                placeholder="Search by URL"
+                value={searchQuery}
+                onChange={handleSearch}
+              />
+            </div>
+            <div className="col-3">
+              <label htmlFor="roleFilter">Filter by Role:</label>
+              <select
+                id="roleFilter"
+                className="set-dropdown"
+                onChange={handleRoleChange}
+                value={selectedRole}
+              >
+                <option value="">All Roles</option>
+                {role.map((roleItem) => (
+                  <option key={roleItem.id} value={roleItem.id}>
+                    {roleItem.role_type_name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-3">
+              <label htmlFor="apiTypeFilter">Filter by API Type:</label>
+              <select
+                id="apiTypeFilter"
+                className="set-dropdown"
+                onChange={handleApiTypeFilter}
+                value={selectedApiType}
+              >
+                <option value="">All</option>
+                <option value="GET">GET</option>
+                <option value="PUT">PUT</option>
+                <option value="POST">POST</option>
+                <option value="DELETE">DELETE</option>
+              </select>
+            </div>
+          </div>
+
 
           <div>
             <table className="table table-responsive">
@@ -205,35 +286,43 @@ function GetRights() {
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((data, index) => (
-                  <tr key={index}>
-                    <td>{index + 1 + (currentPage - 1) * itemsPerPage}</td>
-                    <td>{data.api_name}</td>
-                    <td>{data.api_type}</td>
-                    <td>{data.path}</td>
-                    <td>{data.url}</td>
-                    <td>
-                      {data.role_types_master
-                        ? data.role_types_master.role_type_name
-                        : ""}
-                    </td>
-
-                    <td>
-                      <button id="table-btns" onClick={() => openModal(data)}>
-                        <img src={updatebtn} className="up-del-btn" alt="" />
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        id="table-btns"
-                        onClick={() => handleDelete(data.id)}
-                      >
-                        <img src={deletebtn} className="up-del-btn" alt="" />
-                      </button>
+                {currentItems.length === 0 ? (
+                  <tr>
+                    <td colSpan="12" style={{ color: "red" }}>
+                      No data found!
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  currentItems.map((data, index) => (
+                    <tr key={index}>
+                      <td>{index + 1 + (currentPage - 1) * itemsPerPage}</td>
+                      <td>{data.api_name}</td>
+                      <td>{data.api_type}</td>
+                      <td>{data.path}</td>
+                      <td>{data.url}</td>
+                      <td>
+                        {data.role_types_master
+                          ? data.role_types_master.role_type_name
+                          : ""}
+                      </td>
+                      <td>
+                        <button id="table-btns" onClick={() => openModal(data)}>
+                          <img src={updatebtn} className="up-del-btn" alt="" />
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          id="table-btns"
+                          onClick={() => handleDelete(data.id)}
+                        >
+                          <img src={deletebtn} className="up-del-btn" alt="" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
+
             </table>
           </div>
           <Pagination>
@@ -264,112 +353,104 @@ function GetRights() {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              
-                <div>
-                  <form onSubmit={handleSubmit}>
-                    <img
-                      onClick={handleAddModalClose}
-                      className="Examtype-close-btn"
-                      src={close}
-                      alt=""
-                    />
-                   
-                      <label className="AC-SetLabel-Name" htmlFor="categoryInput">Api Name</label>
-                      <input
-                        type="text"
-                        id="categoryInput"
-                        name="api_name"
-                        className="Ac-set-input"
-                        placeholder="Api Name"
-                        onChange={handleChange}
-                      />
-                    
 
-                    
-                      <label className="AC-SetLabel-Name" htmlFor="apiTypeInput">Select API Type</label>
-                      <select
-                        id="apiTypeInput"
-                        name="api_type"
-                        className="Ac-set-input"
-                        onChange={handleChange}
-                      >
-                        <option value="">Select API Type</option>
-                        <option value="GET">GET</option>
-                        <option value="PUT">PUT</option>
-                        <option value="POST">POST</option>
-                        <option value="DELETE">DELETE</option>
-                      </select>
-                      <FontAwesomeIcon
-                        className="set-icon"
-                        icon={faAngleDown}
-                      />
-                    
-                    
-                      <label className="AC-SetLabel-Name" htmlFor="pathInput">Path</label>
-                      <input
-                        type="text"
-                        id="pathInput"
-                        name="path"
-                        className="Ac-set-input"
-                        placeholder="path"
-                        onChange={handleChange}
-                      />
-                  
-                   
-                      <label className="AC-SetLabel-Name" htmlFor="urlInput">URL</label>
-                      <input
-                        type="text"
-                        id="urlInput"
-                        name="url"
-                        className="Ac-set-input"
-                        placeholder="url"
-                        onChange={handleChange}
-                      />
-                   
+              <div>
+                <form onSubmit={handleSubmit}>
+                  <img
+                    onClick={handleAddModalClose}
+                    className="Examtype-close-btn"
+                    src={close}
+                    alt=""
+                  />
 
-                    
-                      <label className="AC-SetLabel-Name" htmlFor="roleTypeInput">Select Role Type</label>
-                      <select
-                        id="roleTypeInput"
-                        name="role_type_master_id"
-                        className="Ac-set-input"
-                        onChange={handleChange}
-                      >
-                        <option value="">Select Role Type</option>
-                        {role.map((role, index) => (
-                          <option key={index} value={role.id}>
-                            {role.role_type_name}
-                          </option>
-                        ))}
-                      </select>
-                      <FontAwesomeIcon
-                        className="set-icon"
-                        icon={faAngleDown}
-                      />
-                    
+                  <label className="AC-SetLabel-Name" htmlFor="categoryInput">Api Name</label>
+                  <input
+                    type="text"
+                    id="categoryInput"
+                    name="api_name"
+                    className="Ac-set-input"
+                    placeholder="Api Name"
+                    onChange={handleChange}
+                  />
 
-                    <button
-                      id="add-new-btn"
-                      className="submit-btn"
-                      type="submit"
-                    >
-                      ADD NOW
-                    </button>
-                  </form>
-                </div>
-             
+
+
+                  <label className="AC-SetLabel-Name" htmlFor="apiTypeInput">Select API Type</label>
+                  <select
+                    id="apiTypeInput"
+                    name="api_type"
+                    className="Ac-set-input"
+                    onChange={handleChange}
+                  >
+                    <option value="">Select API Type</option>
+                    <option value="GET">GET</option>
+                    <option value="PUT">PUT</option>
+                    <option value="POST">POST</option>
+                    <option value="DELETE">DELETE</option>
+                  </select>
+                  <FontAwesomeIcon
+                    className="set-icon"
+                    icon={faAngleDown}
+                  />
+
+
+                  <label className="AC-SetLabel-Name" htmlFor="pathInput">Path</label>
+                  <input
+                    type="text"
+                    id="pathInput"
+                    name="path"
+                    className="Ac-set-input"
+                    placeholder="path"
+                    onChange={handleChange}
+                  />
+
+
+                  <label className="AC-SetLabel-Name" htmlFor="urlInput">URL</label>
+                  <input
+                    type="text"
+                    id="urlInput"
+                    name="url"
+                    className="Ac-set-input"
+                    placeholder="url"
+                    onChange={handleChange}
+                  />
+
+
+
+                  <label className="AC-SetLabel-Name" htmlFor="roleTypeInput">Select Role Type</label>
+                  <select
+                    id="roleTypeInput"
+                    name="role_type_master_id"
+                    className="Ac-set-input"
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Role Type</option>
+                    {role.map((role, index) => (
+                      <option key={index} value={role.id}>
+                        {role.role_type_name}
+                      </option>
+                    ))}
+                  </select>
+                  <FontAwesomeIcon
+                    className="set-icon"
+                    icon={faAngleDown}
+                  />
+
+
+                  <button
+                    id="add-new-btn"
+                    className="submit-btn"
+                    type="submit"
+                  >
+                    ADD NOW
+                  </button>
+                </form>
+              </div>
+
             </Box>
           </Modal>
 
-          {/* <Modal
-        open={isOpen}
-        onClose={closeModal}
-        
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
-          <h2 id="modal-modal-title">Edit Details</h2> */}
+
           <Modal
             open={isOpen}
             onClose={closeModal}
@@ -395,7 +476,7 @@ function GetRights() {
                   alignItems: "center",
                 }}
               >
-              
+
                 <img
                   src={close}
                   className="Examtype-close-btn"

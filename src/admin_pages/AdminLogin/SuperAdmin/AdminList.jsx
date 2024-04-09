@@ -112,7 +112,7 @@ function AdminList() {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "40%",
-    maxWidth: "600px",
+  
     height: "520px",
     maxHeight: "600px",
 
