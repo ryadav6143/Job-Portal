@@ -19,20 +19,76 @@ function ContactUs() {
     contact_1: "",
     message: "",
   });
+  const [formErrors, setFormErrors] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    contact_1: "",
+    message: "",
+  });
+
   var phoneNumber = "073131-11500 , 073131-11501";
   var email = "info@medicaps.ac.in";
   var location = "A.B.Road,pigdamber,Rau Indore 453331";
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    const truncatedValue =
+      name === "message" ? value.slice(0, 200) : value.slice(0, 40);
+
+    const errorMessage =
+      (name === "message" && value.length > 200) ||
+      (name !== "message" && value.length > 40)
+        ? `Maximum ${name === "message" ? "200" : "40"} characters allowed.`
+        : "";
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: truncatedValue,
+    });
+    setFormErrors({
+      ...formErrors,
+      [name]: errorMessage,
     });
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formData, "<<<");
+
+    // const newFormErrors = {};
+    // Object.keys(formData).forEach((key) => {
+    //   if (!formData[key]) {
+    //     newFormErrors[key] = "This field is required.";
+    //   }
+    // });
+
+    // if (Object.keys(newFormErrors).length > 0) {
+    //   setFormErrors(newFormErrors);
+    //   return;
+    // }
+
+    const newFormErrors = {};
+    Object.keys(formData).forEach((key) => {
+      if (!formData[key]) {
+        newFormErrors[key] = "This field is required.";
+      }
+    });
+
+    // Email validation
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newFormErrors.email = "Please enter a valid email address.";
+    }
+
+    // Contact number validation
+    if (formData.contact_1.length !== 10) {
+      newFormErrors.contact_1 =
+        "Please enter a valid  10-digit contact number.";
+    }
+
+    if (Object.keys(newFormErrors).length > 0) {
+      setFormErrors(newFormErrors);
+      return;
+    }
+
     try {
       const response = await adminApiService.registerVisitor(formData);
       console.log(response);
@@ -96,13 +152,17 @@ function ContactUs() {
               <div className="col-6">
                 <label htmlFor="first_name">First Name</label>
                 <input
+                  autoFocus
                   type="text"
                   placeholder="Enter First Name"
                   name="first_name"
                   value={formData.first_name}
                   onChange={handleInputChange}
-                  required
+                  // required
                 />
+                {formErrors.first_name && (
+                  <span className="error-message">{formErrors.first_name}</span>
+                )}
               </div>
               <div className="col-6">
                 <label htmlFor="last_name">Last Name</label>
@@ -112,8 +172,11 @@ function ContactUs() {
                   name="last_name"
                   value={formData.last_name}
                   onChange={handleInputChange}
-                  required
+                  // required
                 />
+                {formErrors.last_name && (
+                  <span className="error-message">{formErrors.last_name}</span>
+                )}
               </div>
             </div>
             <div className="row">
@@ -125,8 +188,12 @@ function ContactUs() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  required
+
+                  // required
                 />
+                {formErrors.email && (
+                  <span className="error-message">{formErrors.email}</span>
+                )}
               </div>
               <div className="col-6">
                 <label htmlFor="contact_1">Phone Number</label>
@@ -136,8 +203,11 @@ function ContactUs() {
                   name="contact_1"
                   value={formData.contact_1}
                   onChange={handleInputChange}
-                  required
+                  // required
                 />
+                {formErrors.contact_1 && (
+                  <span className="error-message">{formErrors.contact_1}</span>
+                )}
               </div>
             </div>
             <div className="row">
@@ -149,8 +219,11 @@ function ContactUs() {
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  required
+                  // required
                 />
+                {formErrors.message && (
+                  <span className="error-message">{formErrors.message}</span>
+                )}
               </div>
             </div>
             <button type="submit">Submit</button>
