@@ -67,4 +67,5 @@
 .cls-btn {
   width: 20px;
   float: right;
+  cursor: pointer;
 }

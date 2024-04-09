@@ -7,7 +7,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import "./Visitor.css";
 import Notification from "../../../Notification/Notification";
-import "./Visitor.css"
+import "./Visitor.css";
 import {
   Button,
   Dialog,
@@ -142,10 +142,10 @@ function VisitorsReports() {
   const handleConfirmDelete = async () => {
     try {
       const payloadData = {
-        visitor_id: deleteVisiotrId 
-       }
-   
-    await adminApiService.removeVisitor(payloadData); 
+        visitor_id: deleteVisiotrId,
+      };
+
+      await adminApiService.removeVisitor(payloadData);
       setVisitorData(
         visitorData.filter((visitor) => visitor.id !== payloadData)
       );
@@ -180,11 +180,11 @@ function VisitorsReports() {
         alertSeverity={notificationSeverity}
       />
       <div className="admin-list">
-        <div className="master-table ">
+        <div className="master-table">
           <p className="SCA-heading">Visitors Report</p>
           <div className="table-responsive ">
             <table className="table table-responsive">
-              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                 <tr>
                   <th scope="col">S.No.</th>
                   <th scope="col">First Name</th>
@@ -238,7 +238,6 @@ function VisitorsReports() {
                 ))}
 
                 <Modal
-            
                   open={updateModalOpen}
                   onClose={handleCloseUpdateModal}
                   aria-labelledby="modal-modal-title"
@@ -258,12 +257,13 @@ function VisitorsReports() {
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="First Name"
-                          ><span className="read-only-feilds">*</span>
+                          >
+                            <span className="read-only-feilds">*</span>
                             First Name
                           </label>
                           <input
                             type="text"
-                            className="Ac-set-input"
+                            className="visitor-set-input"
                             id=""
                             name="first_name"
                             placeholder="First Name"
@@ -276,12 +276,13 @@ function VisitorsReports() {
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="Last Name"
-                          ><span className="read-only-feilds">*</span>
+                          >
+                            <span className="read-only-feilds">*</span>
                             Last Name
                           </label>
                           <input
                             type="text"
-                            className="Ac-set-input"
+                            className="visitor-set-input"
                             id=""
                             name="last_name"
                             placeholder="Last Name"
@@ -295,12 +296,12 @@ function VisitorsReports() {
                       <div className="row">
                         <div className="col-6">
                           <label className="AC-SetLabel-Name" htmlFor="Email">
-                          <span className="read-only-feilds">*</span>
+                            <span className="read-only-feilds">*</span>
                             Email
                           </label>
                           <input
                             type="text"
-                            className="Ac-set-input"
+                            className="visitor-set-input"
                             id=""
                             name="email"
                             placeholder="Email"
@@ -309,12 +310,12 @@ function VisitorsReports() {
                         </div>
                         <div className="col-6">
                           <label className="AC-SetLabel-Name" htmlFor="Contact">
-                          <span className="read-only-feilds">*</span>
+                            <span className="read-only-feilds">*</span>
                             Contact
                           </label>
                           <input
                             type="text"
-                            className="Ac-set-input"
+                            className="visitor-set-input"
                             id=""
                             name="contact_1"
                             placeholder="Contact"
@@ -330,24 +331,19 @@ function VisitorsReports() {
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="createdAt"
-                          ><span className="read-only-feilds">*</span>
+                          >
+                            <span className="read-only-feilds">*</span>
                             CreatedAt
                           </label>
                           <input
                             type="text"
-                            className="Ac-set-input"
+                            className="visitor-set-input"
                             id=""
                             name="createdAt"
                             placeholder="createdAt"
                             value={formatDateForInput(
                               selectedVisitor ? selectedVisitor.createdAt : ""
                             )}
-                          // onChange={(e) =>
-                          //     handleChange(
-                          //       "createdAt",
-                          //       e.target.value
-                          //     )
-                          //   }
                           />
                         </div>
 
@@ -361,7 +357,7 @@ function VisitorsReports() {
                           </label>
                           <input
                             type="text"
-                            className="Ac-set-input"
+                            className="visitor-set-input"
                             id=""
                             name="assign_to"
                             placeholder="Allotted "
@@ -373,18 +369,16 @@ function VisitorsReports() {
                         </div>
                       </div>
 
-                   
-
                       <div className="row">
                         <div className="col-12">
                           <label className="AC-SetLabel-Name" htmlFor="Message">
-                          <span className="read-only-feilds">*</span>
+                            <span className="read-only-feilds">*</span>
                             Message
                           </label>
                           <textarea
-                              style={{width:"100%"}}
+                            style={{ width: "100%" }}
                             type="text"
-                            className="Ac-set-input"
+                            className="visitor-set-input"
                             id=""
                             name="message"
                             placeholder="Message"
@@ -402,10 +396,10 @@ function VisitorsReports() {
                           >
                             Comments
                           </label>
-                          <textarea
-                          style={{width:"100%"}}
+                          <input
+                            style={{ width: "100%" }}
                             type="text"
-                            className="Ac-set-input"
+                            className="visitor-set-input"
                             id=""
                             name="action_discription"
                             placeholder="Comments"
@@ -421,7 +415,7 @@ function VisitorsReports() {
 
                       <div className="row">
                         <div className="col-6">
-                          <p  className="AC-SetLabel-Name">Is Attend</p>
+                          <p className="AC-SetLabel-Name">Is Attend</p>
                           <label className="switch">
                             <input
                               type="checkbox"
@@ -477,7 +471,10 @@ function VisitorsReports() {
                       >
                         UPDATE NOW
                       </button>
-                      <p >Note: <span className="read-only-feilds">*</span>These feilds are read only.</p>
+                      <p>
+                        Note: <span className="read-only-feilds">*</span>These
+                        feilds are read only.
+                      </p>
                     </form>
                   </Box>
                 </Modal>

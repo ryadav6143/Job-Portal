@@ -8,7 +8,13 @@ import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 import adminApiService from "../../adminApiService";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
 function AddSubPostApplied() {
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
@@ -19,12 +25,12 @@ function AddSubPostApplied() {
   const [open, setOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [subPostToDelete, setSubPostToDelete] = useState(null);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("success");
   const [notificationOpen, setNotificationOpen] = useState(false);
-  
+
   // -----------------------------Fetching data from applied_subpost------------------------------
   useEffect(() => {
     fetchData();
@@ -80,9 +86,9 @@ function AddSubPostApplied() {
         setOpen(false);
       })
       .catch((error) => console.error(error));
-      setNotificationMessage("error during added SubPost");
-      setNotificationSeverity("error");
-      setNotificationOpen(true);
+    setNotificationMessage("error during added SubPost");
+    setNotificationSeverity("error");
+    setNotificationOpen(true);
   };
 
   // -----------------------------Fetching data from applied_post------------------------------
@@ -103,36 +109,30 @@ function AddSubPostApplied() {
   //   }
   // };
 
-
-
   const handleDeleteSubPost = async (subPostId) => {
-    setSubPostToDelete(subPostId); 
-    setDeleteDialogOpen(true); 
+    setSubPostToDelete(subPostId);
+    setDeleteDialogOpen(true);
   };
   const confirmDelete = async () => {
     try {
       await adminApiService.deleteSubPost(subPostToDelete);
       setData((prevData) =>
-            prevData.filter((subpost) => subpost.id !== subPostToDelete)
-          );
-          setNotificationMessage("Deleted Successfully.");
-          setNotificationSeverity("success");
-          setNotificationOpen(true);
-      setDeleteDialogOpen(false); 
+        prevData.filter((subpost) => subpost.id !== subPostToDelete)
+      );
+      setNotificationMessage("Deleted Successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+      setDeleteDialogOpen(false);
     } catch (error) {
-      console.error("Error deleting job profile:", error);      
+      console.error("Error deleting job profile:", error);
       setNotificationMessage("Failed to delete SubPost. Please try again");
       setNotificationSeverity("error");
       setNotificationOpen(true);
     }
   };
   const handleCloseDeleteDialog = () => {
-    setDeleteDialogOpen(false);  
+    setDeleteDialogOpen(false);
   };
-
-
-
-
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -187,12 +187,12 @@ function AddSubPostApplied() {
 
   return (
     <>
-       <Notification
-                open={notificationOpen}
-                handleClose={() => setNotificationOpen(false)}
-                alertMessage={notificationMessage}
-                alertSeverity={notificationSeverity}
-            />                                        
+      <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div className="container-1">
         <div>
           <button className="new-opening-btn" onClick={() => setOpen(true)}>
@@ -268,140 +268,137 @@ function AddSubPostApplied() {
             </FormControl>
           </Box>
         </Modal>
-
-        {/* <button type="button" onClick={handleAddSubPost}>
-          ADD NOW
-        </button> */}
       </div>
-
-      <div className="master-table ">
-        <p className="SCA-heading">CURRENT APPLIED SUB POST AVAILABLE</p>
-        <div className="table-responsive fixe-table">
-          <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
-              <tr>
-                <th scope="col">ID</th>
-                {/* <th scope="col">Post</th> */}
-                <th scope="col">Sub Post</th>
-                <th scope="col">Post</th>
-                <th scope="col">UPDATE</th>
-                <th scope="col">DELETE</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((subPost, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  {/* <td>{subPost.applied_post_master.post_name}</td> */}
-                  <td>{subPost.subpost_name}</td>
-                  <td>{subPost?.applied_post_master?.post_name}</td>
-                  <td>
-                    <button id="table-btns">
-                      <img
-                        onClick={() => handleOpenUpdateModal(subPost.id)}
-                        src={updatebtn}
-                        className="up-del-btn"
-                        alt=""
-                      />
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDeleteSubPost(subPost.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td>
+      <div className="new-admin-list">
+        <div className="master-table">
+          <p className="SCA-heading">CURRENT APPLIED SUB POST AVAILABLE</p>
+          <div className="table-responsive fixe-table">
+            <table className="table table-responsive">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                <tr>
+                  <th scope="col">ID</th>
+                  {/* <th scope="col">Post</th> */}
+                  <th scope="col">Sub Post</th>
+                  <th scope="col">Post</th>
+                  <th scope="col">UPDATE</th>
+                  <th scope="col">DELETE</th>
                 </tr>
-              ))}
-
-              <Modal
-                open={updateModalOpen}
-                onClose={handleCloseUpdateModal}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                  <FormControl>
-                    <div>
-                      <form>
+              </thead>
+              <tbody>
+                {data.map((subPost, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    {/* <td>{subPost.applied_post_master.post_name}</td> */}
+                    <td>{subPost.subpost_name}</td>
+                    <td>{subPost?.applied_post_master?.post_name}</td>
+                    <td>
+                      <button id="table-btns">
                         <img
-                          style={{ marginTop: "-30px", marginLeft: "18px" }}
-                          onClick={handleCloseUpdateModal}
-                          className="Examtype-close-btn"
-                          src={close}
+                          onClick={() => handleOpenUpdateModal(subPost.id)}
+                          src={updatebtn}
+                          className="up-del-btn"
                           alt=""
                         />
-                        <label
-                          className="AC-SetLabel-Name"
-                          htmlFor="postSelect"
-                        >
-                          Select Post:
-                        </label>
-                        <select
-                          id="postSelect"
-                          className="select-jc"
-                          value={
-                            selectedPost
-                              ? selectedPost.applied_post_master.id
-                              : ""
-                          }
-                          onChange={(e) => {
-                            const selectedPostId = parseInt(e.target.value);
-                            const selectedPostData = postData.find(
-                              (post) => post.id === selectedPostId
-                            );
-                            // console.log("selectedPost>>>>>>",selectedPostId)
-                            setSelectedPost((prevState) => ({
-                              ...prevState,
-                              applied_post_master: selectedPostData,
-                            }));
-                            setUpdatePost("");
-                          }}
-                        >
-                          <option value="">Select Post</option>
-                          {postData.map((post, index) => (
-                            <option key={index} value={post.id}>
-                              {post?.post_name}
-                            </option>
-                          ))}
-                        </select>
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        id="table-btns"
+                        onClick={() => handleDeleteSubPost(subPost.id)}
+                      >
+                        <img src={deletebtn} className="up-del-btn" alt="" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
 
-                        <label
-                          style={{ marginTop: "20px" }}
-                          className="AC-SetLabel-Name"
-                          htmlFor=""
-                        >
-                          Update Sub Post Applied For
-                        </label>
+                <Modal
+                  open={updateModalOpen}
+                  onClose={handleCloseUpdateModal}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <FormControl>
+                      <div>
+                        <form>
+                          <img
+                            style={{ marginTop: "-30px", marginLeft: "18px" }}
+                            onClick={handleCloseUpdateModal}
+                            className="Examtype-close-btn"
+                            src={close}
+                            alt=""
+                          />
+                          <label
+                            className="AC-SetLabel-Name"
+                            htmlFor="postSelect"
+                          >
+                            Select Post:
+                          </label>
+                          <select
+                            id="postSelect"
+                            className="select-jc"
+                            value={
+                              selectedPost
+                                ? selectedPost.applied_post_master.id
+                                : ""
+                            }
+                            onChange={(e) => {
+                              const selectedPostId = parseInt(e.target.value);
+                              const selectedPostData = postData.find(
+                                (post) => post.id === selectedPostId
+                              );
+                              // console.log("selectedPost>>>>>>",selectedPostId)
+                              setSelectedPost((prevState) => ({
+                                ...prevState,
+                                applied_post_master: selectedPostData,
+                              }));
+                              setUpdatePost("");
+                            }}
+                          >
+                            <option value="">Select Post</option>
+                            {postData.map((post, index) => (
+                              <option key={index} value={post.id}>
+                                {post?.post_name}
+                              </option>
+                            ))}
+                          </select>
 
-                        <input
-                          type="text"
-                          id=""
-                          value={updatePost}
-                          className="Ac-set-input"
-                          placeholder="Sub Post Applied For"
-                          onChange={(e) => {
-                            setUpdatePost(e.target.value);
-                            // console.log("Updated sub post:", e.target.value);
-                          }}
-                        />
+                          <label
+                            style={{ marginTop: "20px" }}
+                            className="AC-SetLabel-Name"
+                            htmlFor=""
+                          >
+                            Update Sub Post Applied For
+                          </label>
 
-                        <button
-                          id="set-btn"
-                          type="button"
-                          onClick={handleUpdateSubPost}
-                        >
-                          UPDATE NOW
-                        </button>
-                      </form>
-                    </div>
-                  </FormControl>
-                </Box>
-              </Modal>
-            </tbody>
-          </table>
+                          <input
+                            type="text"
+                            id=""
+                            value={updatePost}
+                            className="Ac-set-input"
+                            placeholder="Sub Post Applied For"
+                            onChange={(e) => {
+                              setUpdatePost(e.target.value);
+                              // console.log("Updated sub post:", e.target.value);
+                            }}
+                          />
+
+                          <button
+                            id="set-btn"
+                            type="button"
+                            onClick={handleUpdateSubPost}
+                          >
+                            UPDATE NOW
+                          </button>
+                        </form>
+                      </div>
+                    </FormControl>
+                  </Box>
+                </Modal>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
@@ -410,8 +407,16 @@ function AddSubPostApplied() {
           Are you sure you want to delete this SubPost?
         </DialogContent>
         <DialogActions>
-          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
-          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+          <Button onClick={confirmDelete} variant="contained" color="error">
+            Delete
+          </Button>
+          <Button
+            onClick={handleCloseDeleteDialog}
+            variant="text"
+            color="primary"
+          >
+            Cancel
+          </Button>
         </DialogActions>
       </Dialog>
     </>

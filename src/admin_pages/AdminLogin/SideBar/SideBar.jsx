@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Link, } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useApiData } from "../../../context/CandidateContext";
 import "./SideBar.css";
 import opening from "../../../assets/logos/book.png";
@@ -9,12 +9,12 @@ import admin from "../../../assets/logos/admin.png";
 import superadmin from "../../../assets/logos/superadmin.png";
 import list from "../../../assets/logos/list.png";
 import visitorsReport from "../../../assets/logos/visitors-report.png";
-import jobprofile from "../../../assets/logos/jobprofile.png"; 
+import jobprofile from "../../../assets/logos/jobprofile.png";
 import Hamburgermenu from "../../../assets/logos/hamburger (1).png";
 
 function SideBar() {
   const { userData } = useApiData();
-  console.log("check apidata",userData)
+  console.log("check apidata", userData);
   return (
     <>
       <div>
@@ -30,12 +30,11 @@ function SideBar() {
                     id="sidebar-nav"
                     className="list-group border-0 rounded-0 text-sm-start min-vh-100"
                   >
-                    <p>
-                      Role: {userData.roleName}
-                    </p>
-                    <p>
-                     Full Name: {userData.fullName}
-                    </p>
+                    <div className="admin-data">
+                      <p> {userData.fullName}</p>
+                      <p>{userData.roleName}</p>
+                    </div>
+
                     <Link
                       to="/admin-dashboard/current-openings"
                       className="list-group-item border-end-0 d-inline-block text-truncate set-a"
@@ -251,10 +250,6 @@ function SideBar() {
                 data-bs-toggle="collapse"
                 className="border rounded-3 p-1 text-decoration-none"
               >
-                <i
-                  style={{ color: "black" }}
-                  className="bi bi-list bi-lg py-2 p-1"
-                ></i>
                 <span>
                   <img className="hamburger" src={Hamburgermenu} />
                 </span>

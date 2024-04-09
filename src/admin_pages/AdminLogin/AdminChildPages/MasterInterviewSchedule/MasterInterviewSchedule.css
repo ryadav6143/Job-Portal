@@ -36,7 +36,7 @@ td[style*="color: red"] {
   font-size: 25px;
   font-family: "Open Sans", sans-serif;
   color: #901626;
-  margin-top: 7% ;
+  margin-top: 7%;
   font-weight: 600;
 }
 
@@ -54,7 +54,7 @@ td[style*="color: red"] {
 }
 
 .table-responsive {
-  max-height:386px;
+  max-height: 386px;
   overflow-y: scroll !important;
 }
 

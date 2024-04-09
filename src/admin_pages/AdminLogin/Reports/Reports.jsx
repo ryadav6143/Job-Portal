@@ -40,7 +40,6 @@ function Reports() {
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("error");
 
-
   const fetchDataFromService = async () => {
     try {
       const response = await adminApiService.fetchData(
@@ -269,282 +268,268 @@ function Reports() {
         alertMessage={notificationMessage}
         alertSeverity={notificationSeverity}
       />
-      <div style={{ marginTop: "50px" }}>
-        <div className="center-container">
-          <div className="admin-list">
-            <div>
-              {loading && (
-                <div className="loader-container">
-                  <div className="loader"></div>
-                </div>
-              )}
-              <div className="col-md-2 flex-container">
-                <label className="labelCount">
-                  Total Applications Received:
-                </label>
+
+      <div style={{ marginTop: "-15px" }}>
+        <div className="admin-list">
+          <div>
+            {loading && (
+              <div className="loader-container">
+                <div className="loader"></div>
+              </div>
+            )}
+            <div className="col-md-2 flex-container">
+              <label className="labelCount">Total Applications Received:</label>
+              <input
+                className="form-control totalCount"
+                disabled
+                value={count?.TotalApplicationCount || ""}
+              />
+            </div>
+            <p className="SCA-heading">Reports</p>
+            <div className="row">
+              <div className="col-md-4 ">
+                <label>Select Category:</label>
+                <select
+                  name="category_name"
+                  id="categoryDropdown"
+                  value={selectedCategory}
+                  className="form-control"
+                  onChange={(e) =>
+                    handleCategory("category_name", e.target.value)
+                  }
+                >
+                  <option value="">All</option>
+                  {jobCategories.map((category, index) => (
+                    <option key={index} value={category.category_name}>
+                      {category.category_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-1" style={{ width: "0px" }}>
                 <input
-                  className="form-control totalCount"
+                  className="form-control CategoryCount"
                   disabled
-                  value={count?.TotalApplicationCount || ""}
+                  value={count?.CategoryCount || ""}
                 />
               </div>
-              <p className="SCA-heading">Reports</p>
-              <div className="row">
-                <div className="col-md-4 ">
-                  <label>Select Category:</label>
-                  <select
-                    name="category_name"
-                    id="categoryDropdown"
-                    value={selectedCategory}
-                    className="form-control"
-                    // onChange={handleCategory}
-                    onChange={(e) =>
-                      handleCategory("category_name", e.target.value)
+
+              <div className="col-md-4 pl-0">
+                <label>Select Post:</label>
+                <select
+                  id="dropdown"
+                  name="post_name"
+                  className="form-control"
+                  onClick={() => {
+                    if (selectedCategory === "") {
+                      setNotificationMessage("Please select a category first");
+                      setNotificationSeverity("error");
+                      setShowNotification(true);
                     }
-                  >
-                    <option value="">All</option>
-                    {jobCategories.map((category, index) => (
-                      <option key={index} value={category.category_name}>
-                        {category.category_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-md-1" style={{ width: "0px" }}>
-                  {/* <label>Select Category:</label> */}
+                  }}
+                  onChange={(e) => handlePost("post_name", e.target.value)}
+                >
+                  <option value="">All</option>
+                  {post.map((post, index) => (
+                    <option key={index} value={post}>
+                      {post}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            {/* </div> */}
+
+            <div className="table-responsive ">
+              <table className="table table-responsive">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                  <tr>
+                    <th>S.No.</th>
+                    <th>First Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Post Name</th>
+                    <th>Category Name</th>
+                    <th>Specialization</th>
+                    <th>View Details</th>
+                    <th>Resume</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((candidate, index) => (
+                    <tr key={index}>
+                      <td>
+                        <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
+                      </td>
+                      <td>{candidate.candidate.first_name || "-"}</td>
+                      <td>{candidate.candidate.email || "-"}</td>
+                      <td>{candidate.candidate.contact_1 || "-"}</td>
+                      <td>{candidate.applied_post_master?.post_name || "-"}</td>
+                      <td>
+                        {candidate.job_category_master?.category_name || "-"}
+                      </td>
+                      <td>{candidate.candidate.specialization || "-"}</td>
+                      {/* <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}><img src={updatebtn} className="up-del-btn" alt=""/></td> */}
+                      <td
+                        onClick={() =>
+                          openCandidateDetails(candidate.candidate_id)
+                        }
+                        style={{ cursor: "pointer" }}
+                      >
+                        <img src={updatebtn} className="up-del-btn" alt="" />
+                      </td>
+
+                      <td
+                        variant="primary"
+                        onClick={() =>
+                          handleResumeClick(candidate.candidate_id)
+                        }
+                        style={{ cursor: "pointer" }}
+                      >
+                        <img src={viewbtn} className="up-del-btn" alt="" />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="row">
+                <div className="col-md-4">
+                  <label>Row:</label>
                   <input
-                    className="form-control CategoryCount"
-                    disabled
-                    value={count?.CategoryCount || ""}
+                    className="set-row-input "
+                    id="specific-input"
+                    type="number"
+                    value={itemsPerPage}
+                    onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
                   />
                 </div>
-
-                {/* <div className="row"> */}
-                <div className="col-md-4 pl-0">
-                  <label>Select Post:</label>
-                  <select
-                    id="dropdown"
-                    name="post_name"
-                    className="form-control"
-                    onClick={() => {
-                      if (selectedCategory === "") {
-                        setNotificationMessage(
-                          "Please select a category first"
-                        );
-                        setNotificationSeverity("error");
-                        setShowNotification(true);
-                      }
-                    }}
-                    onChange={(e) => handlePost("post_name", e.target.value)}
-                  >
-                    <option value="">All</option>
-                    {post.map((post, index) => (
-                      <option key={index} value={post}>
-                        {post}
-                      </option>
-                    ))}
-                  </select>
+                <div className="col-md-4"></div>
+                <div className="col-md-4">
+                  <Pagination>
+                    <Pagination.Prev onClick={prevPage} />
+                    <Pagination.Item>{currentPage}</Pagination.Item>
+                    <Pagination.Next onClick={nextPage} />
+                  </Pagination>
                 </div>
               </div>
-              {/* </div> */}
+            </div>
 
-              <div>
-                <table className="table ">
-                  <thead className="thead">
-                    <tr>
-                      <th>S.No.</th>
-                      <th>First Name</th>
-                      <th>Email</th>
-                      <th>Contact</th>
-                      <th>Post Name</th>
-                      <th>Category Name</th>
-                      <th>Specialization</th>
-                      <th>View Details</th>
-                      <th>Resume</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((candidate, index) => (
-                      <tr key={index}>
-                        <td>
-                          <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
-                        </td>
-                        <td>{candidate.candidate.first_name || "-"}</td>
-                        <td>{candidate.candidate.email || "-"}</td>
-                        <td>{candidate.candidate.contact_1 || "-"}</td>
-                        <td>
-                          {candidate.applied_post_master?.post_name || "-"}
-                        </td>
-                        <td>
-                          {candidate.job_category_master?.category_name || "-"}
-                        </td>
-                        <td>{candidate.candidate.specialization || "-"}</td>
-                        {/* <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}><img src={updatebtn} className="up-del-btn" alt=""/></td> */}
-                        <td
-                          onClick={() =>
-                            openCandidateDetails(candidate.candidate_id)
-                          }
-                          style={{ cursor: "pointer" }}
-                        >
-                          <img src={updatebtn} className="up-del-btn" alt="" />
-                        </td>
-
-                        <td
-                          variant="primary"
-                          onClick={() =>
-                            handleResumeClick(candidate.candidate_id)
-                          }
-                          style={{ cursor: "pointer" }}
-                        >
-                          <img src={viewbtn} className="up-del-btn" alt="" />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div className="row">
-                  <div className="col-md-4">
-                    <label>Row:</label>
-                    <input
-                      className="set-row-input "
-                      id="specific-input"
-                      type="number"
-                      value={itemsPerPage}
-                      onChange={(e) =>
-                        setItemsPerPage(parseInt(e.target.value))
-                      }
-                    />
-                  </div>
-                  <div className="col-md-4"></div>
-                  <div className="col-md-4">
-                    <Pagination>
-                      <Pagination.Prev onClick={prevPage} />
-                      <Pagination.Item>{currentPage}</Pagination.Item>
-                      <Pagination.Next onClick={nextPage} />
-                    </Pagination>
-                  </div>
+            {/* <Dialog open={selectedCandidate !== null} onClose={() => setSelectedCandidate(null)}> */}
+            <Dialog open={!!selectedCandidate}>
+              {loadingPopup && (
+                <div className="loaderPopupContainer">
+                  <p className="wait">Please wait</p>
+                  <div className="loaderPopup"></div>
                 </div>
-              </div>
+              )}
+              <DialogTitle>Personal Information</DialogTitle>
+              <DialogContent>
+                {selectedCandidate && (
+                  <div>
+                    <p>
+                      <strong>First Name:</strong>{" "}
+                      {selectedCandidate.first_name}
+                    </p>
+                    <p>
+                      <strong>Email:</strong> {selectedCandidate.email}
+                    </p>
+                    <p>
+                      <strong>Contact:</strong> {selectedCandidate.contact_1}
+                    </p>
+                    <p>
+                      <strong>City:</strong> {selectedCandidate.city}
+                    </p>
 
-              {/* <Dialog open={selectedCandidate !== null} onClose={() => setSelectedCandidate(null)}> */}
-              <Dialog open={!!selectedCandidate}>
-                {loadingPopup && (
-                  <div className="loaderPopupContainer">
-                    <p className="wait">Please wait</p>
-                    <div className="loaderPopup"></div>
-                  </div>
-                )}
-                <DialogTitle>Personal Information</DialogTitle>
-                <DialogContent>
-                  {selectedCandidate && (
-                    <div>
-                      <p>
-                        <strong>First Name:</strong>{" "}
-                        {selectedCandidate.first_name}
-                      </p>
-                      <p>
-                        <strong>Email:</strong> {selectedCandidate.email}
-                      </p>
-                      <p>
-                        <strong>Contact:</strong> {selectedCandidate.contact_1}
-                      </p>
-                      <p>
-                        <strong>City:</strong> {selectedCandidate.city}
-                      </p>
-
-                      <div className="lower-box">
-                        <div className="education-section">
-                          <h5 className="section-heading">Education</h5>
-                          {selectedCandidate.candidate_educations &&
-                            selectedCandidate.candidate_educations.map(
-                              (education, index) => (
-                                <p key={index}>
-                                  <strong></strong>{" "}
-                                  {education.exam_types_master.exam_name ||
-                                    "NULL"}
-                                  -({education.degree_types_name || "NULL"}){" "}
+                    <div className="lower-box">
+                      <div className="education-section">
+                        <h5 className="section-heading">Education</h5>
+                        {selectedCandidate.candidate_educations &&
+                          selectedCandidate.candidate_educations.map(
+                            (education, index) => (
+                              <p key={index}>
+                                <strong></strong>{" "}
+                                {education.exam_types_master.exam_name ||
+                                  "NULL"}
+                                -({education.degree_types_name || "NULL"}){" "}
+                              </p>
+                            )
+                          )}
+                      </div>
+                      <div className="experience-section">
+                        <h5 className="section-heading">Experience</h5>
+                        {selectedCandidate.candidate_experiences &&
+                          selectedCandidate.candidate_experiences.map(
+                            (experience, index) => (
+                              <div key={index}>
+                                <p>
+                                  <strong>Company name:</strong>{" "}
+                                  {experience.company_experience_name || "NULL"}
                                 </p>
-                              )
-                            )}
-                        </div>
-                        <div className="experience-section">
-                          <h5 className="section-heading">Experience</h5>
-                          {selectedCandidate.candidate_experiences &&
-                            selectedCandidate.candidate_experiences.map(
-                              (experience, index) => (
-                                <div key={index}>
-                                  <p>
-                                    <strong>Company name:</strong>{" "}
-                                    {experience.company_experience_name ||
-                                      "NULL"}
-                                  </p>
-                                  <p>
-                                    <strong>Designation:</strong>{" "}
-                                    {experience.designation || "NULL"}
-                                  </p>
-                                  <p>
-                                    <strong>From:</strong> (
-                                    {formatDateForInput(
-                                      experience.exp_work_from
-                                    ) || "NULL"}
-                                    )
-                                  </p>
-                                  <p>
-                                    <strong>To:</strong> (
-                                    {formatDateForInput(
-                                      experience.exp_work_to
-                                    ) || "NULL"}
-                                    )
-                                  </p>
-                                </div>
-                              )
-                            )}
-                        </div>
+                                <p>
+                                  <strong>Designation:</strong>{" "}
+                                  {experience.designation || "NULL"}
+                                </p>
+                                <p>
+                                  <strong>From:</strong> (
+                                  {formatDateForInput(
+                                    experience.exp_work_from
+                                  ) || "NULL"}
+                                  )
+                                </p>
+                                <p>
+                                  <strong>To:</strong> (
+                                  {formatDateForInput(experience.exp_work_to) ||
+                                    "NULL"}
+                                  )
+                                </p>
+                              </div>
+                            )
+                          )}
                       </div>
                     </div>
-                  )}
-                </DialogContent>
+                  </div>
+                )}
+              </DialogContent>
 
-                <DialogActions>
-                  <Button
-                    onClick={() => setSelectedCandidate(null)}
-                    style={{ position: "sticky" }}
-                    color="primary"
-                    id="set-btn"
-                    className="closebutton"
-                  >
-                    Close
-                  </Button>
-                </DialogActions>
-              </Dialog>
+              <DialogActions>
+                <Button
+                  onClick={() => setSelectedCandidate(null)}
+                  style={{ position: "sticky" }}
+                  color="primary"
+                  id="set-btn"
+                  className="closebutton"
+                >
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
 
-              <Dialog
-                open={showPdfDialog}
-                onClose={handleClosePdfDialog}
-                maxWidth="md"
-              >
-                <DialogTitle>Resume</DialogTitle>
-                <DialogContent>
-                  <embed
-                    src={pdfUrl}
-                    type="application/pdf"
-                    width="400px"
-                    height="500px"
-                  />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClosePdfDialog} color="primary">
-                    Close
-                  </Button>
-                </DialogActions>
-              </Dialog>
+            <Dialog
+              open={showPdfDialog}
+              onClose={handleClosePdfDialog}
+              maxWidth="md"
+            >
+              <DialogTitle>Resume</DialogTitle>
+              <DialogContent>
+                <embed
+                  src={pdfUrl}
+                  type="application/pdf"
+                  width="400px"
+                  height="500px"
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClosePdfDialog} color="primary">
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
 
-              {/* <Pagination>
+            {/* <Pagination>
           <Pagination.Prev onClick={prevPage} />
           <Pagination.Item>{currentPage}</Pagination.Item>
           <Pagination.Next onClick={nextPage} />
         </Pagination> */}
-            </div>
           </div>
         </div>
       </div>
