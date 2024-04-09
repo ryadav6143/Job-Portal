@@ -297,7 +297,7 @@ function AddCategories() {
                             src={close}
                           />
                           <label
-                            className="AC-SetLabel-Name"
+                         className="AC-SetLabel-Name"
                             htmlFor="categoryInput"
                           >
                             Update Job Category

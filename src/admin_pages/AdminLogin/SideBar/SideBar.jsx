@@ -8,7 +8,8 @@ import reports from "../../../assets/logos/report.png";
 import admin from "../../../assets/logos/admin.png";
 import superadmin from "../../../assets/logos/superadmin.png";
 import list from "../../../assets/logos/list.png";
-import jobprofile from "../../../assets/logos/jobprofile.png";
+import visitorsReport from "../../../assets/logos/visitors-report.png";
+import jobprofile from "../../../assets/logos/jobprofile.png"; 
 import Hamburgermenu from "../../../assets/logos/hamburger (1).png";
 
 function SideBar() {
@@ -104,7 +105,7 @@ function SideBar() {
                       className="list-group-item border-end-0 d-inline-block text-truncate set-a"
                     >
                       <img
-                        src={interview}
+                        src={visitorsReport}
                         className="bi bi-bootstrap sidenav-icon"
                         alt="Opening Icon"
                       />

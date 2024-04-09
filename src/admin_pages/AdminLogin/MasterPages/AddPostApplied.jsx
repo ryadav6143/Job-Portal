@@ -337,7 +337,7 @@ function AddPostApplied() {
                         alt=""
                       />
                       <div>
-                        <label>Select Category</label>
+                        <label className="AC-SetLabel-Name">Select Category</label>
                         <select
                           name="category"
                           className="select-jc"
@@ -366,7 +366,7 @@ function AddPostApplied() {
                         </select>
                       </div>
 
-                      <label htmlFor="categoryInput">
+                      <label style={{marginTop:"20px"}} className="AC-SetLabel-Name" htmlFor="categoryInput">
                         Add Post Applied For
                       </label>
                       <input
