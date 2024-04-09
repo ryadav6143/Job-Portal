@@ -118,6 +118,7 @@ function AddDegree() {
     setIsModalOpen(true);
   };
   const handleOpenUpdateModal = (id) => {
+    console.log("check data",id)
     fetchUpdateData(id);
     const selectedExam = examTypes.find(
       (exam) => exam.id == updateData?.exam_types_master_id

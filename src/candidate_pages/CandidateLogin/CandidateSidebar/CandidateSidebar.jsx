@@ -22,11 +22,11 @@ import CandidateOrganisedForm from "../CandidateChildPages/EditProgramsForm/Semi
 import candidatesApiService from "../../candidateService";
 import { ApiDataProvider } from "..//..//../context/CandidateContext";
 function CandidateSidebar() {
-  const [screen, setScreen] = useState(0);
+  // const [screen, setScreen] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const fileInputRef = useRef(null);
+  // const fileInputRef = useRef(null);
   const [uploadedImage, setUploadedImage] = useState(null);
 
   const handleImageUpload = (event) => {
@@ -83,38 +83,6 @@ function CandidateSidebar() {
     }
   };
 
-  // const renderComponent = () => {
-  //   switch (screen) {
-  //     // case 0:
-  //     //   return (<ApiDataProvider>
-  //     //     <EditPersonalDetails />;
-  //     //   </ApiDataProvider>)
-  //     //   break;
-  //     case 1:
-  //       return (<ApiDataProvider>
-  //       <EditQualificationForm />
-  //       </ApiDataProvider>);
-  //       break;
-  //     case 2:
-  //       return (<ApiDataProvider>
-  //         <EditExperience />
-  //         </ApiDataProvider>);
-  //       break;
-  //     case 3:
-  //       return <EditResearchForm />;
-  //       break;
-  //     case 4:
-  //       return <EditProgramsForm />;
-  //       break;
-  //     case 5:
-  //       return <EditReference />;
-  //       break;
-  //     // default:
-  //     //   return <EditPersonalDetails />;
-  //     //   break;
-  //   }
-  // };
-
   const handleLinkClick = (event) => {
     const allSpans = document.querySelectorAll(".set-menu span");
     allSpans.forEach((span) => {
@@ -129,7 +97,7 @@ function CandidateSidebar() {
 
   useEffect(() => {
     const defaultActiveSpan = document.querySelector(".set-menu span");
-    defaultActiveSpan.style.color = "maroon"; // Set color for default active span
+    defaultActiveSpan.style.color = "maroon";
   }, []);
   return (
     <>
@@ -146,36 +114,9 @@ function CandidateSidebar() {
         <div className={`col-md-2 set-col-2 ${isOpen ? "isClose" : ""}`}>
           <div className="set-sidebar">
             <div>
-              {/* <div style={{ paddingLeft: "50px" }}>
-              {selectedImage ? (
-                <img
-                  src={selectedImage}
-                  alt="Selected Profile"
-                  style={{
-                    width: "5rem",
-                    height: "5rem",
-                    borderRadius: "50%",
-                  }}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faUserTie}
-                  style={{
-                    fontSize: "5rem",
-                    borderRadius: "50%",
-                    backgroundColor: "#ddd",
-                    padding: "20px",
-                  }}
-                />
-              )}          
-            </div> */}
               <nav>
                 <ul className="set-menu" style={{ listStyle: "none" }}>
                   <li>
-                    {/* <FontAwesomeIcon
-                        className="set-menu-icon"
-                        icon={faIdCardClip}
-                      /> */}
                     {selectedImage ? (
                       <img
                         src={selectedImage}
@@ -214,19 +155,9 @@ function CandidateSidebar() {
                       to="/candidate-dashboard/personal-qualification"
                       onClick={handleLinkClick}
                     >
-                      {/* <span> &nbsp; Academic Professional Qualifications</span> */}
                       <span> &nbsp;Academic Qualifications</span>
                     </Link>
                   </li>
-                  {/* <li>
-                      <FontAwesomeIcon
-                        className="set-menu-icon"
-                        icon={faBriefcase}
-                      />
-                      <Link to="/candidate-dashboard/personal-experience">
-                        <span> &nbsp; Experience</span>
-                      </Link>
-                    </li> */}
 
                   <div className="dropdown show">
                     <a
@@ -266,17 +197,8 @@ function CandidateSidebar() {
                       </Link>
                     </div>
                   </div>
-                  {/* <li>
-                      <FontAwesomeIcon
-                        className="set-menu-icon"
-                        icon={faSearch}
-                      />
-                      <Link to="/candidate-dashboard/personal-research">
-                        <span>&nbsp; Research Work</span>
-                      </Link>
-                    </li> */}
 
-                  <div className="dropdown show">
+                  <div className="dropdown show ">
                     <a
                       className="btn dropdown-toggle set-a"
                       href="#"
@@ -335,16 +257,6 @@ function CandidateSidebar() {
                       </Link>
                     </div>
                   </div>
-
-                  {/* <li>
-                      <FontAwesomeIcon className="set-menu-icon" icon={faUsers} />
-                      <Link to="/candidate-dashboard/personal-programs ">
-                        <span>
-                          Seminars/Short Term Courses/Summer Schools/Winter
-                          Schools
-                        </span>
-                      </Link>
-                    </li> */}
 
                   <div className="dropdown show">
                     <a
@@ -421,7 +333,7 @@ function CandidateSidebar() {
                       style={{ textDecoration: "underline" }}
                       onClick={handleLinkClick}
                     >
-                      Current Openings
+                      <span> Current Openings</span>
                     </Link>
                   </li>
                 </ul>

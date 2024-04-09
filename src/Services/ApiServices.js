@@ -7,7 +7,7 @@ const apiService = {
   // -------------------
   getJobCategories: async (signal) => {
     try {
-      return axios.get(`${CANDIDATE_BASE_URL}/jobCategory`, { signal });
+      return await axios.get(`${CANDIDATE_BASE_URL}/jobCategory`, { signal });
     } catch (error) {
       console.error("Error Fetching getJobCategories", error);
     }
@@ -15,7 +15,7 @@ const apiService = {
 
   getSubjectMaster: async (signal) => {
     try {
-      return axios.get(`${CANDIDATE_BASE_URL}/subjectMaster`, { signal });
+      return await axios.get(`${CANDIDATE_BASE_URL}/subjectMaster`, { signal });
     } catch (error) {
       console.error("Error Fetching getSubjectMaster", error);
     }
@@ -23,7 +23,7 @@ const apiService = {
 
   getCountries: async (signal) => {
     try {
-      return axios.get("https://countriesnow.space/api/v0.1/countries", {
+      return await axios.get("https://countriesnow.space/api/v0.1/countries", {
         signal,
       });
     } catch (error) {
@@ -33,7 +33,7 @@ const apiService = {
 
   getCandidates: async () => {
     try {
-      return axios.post(`${CANDIDATE_BASE_URL}/candidates`);
+      return await axios.post(`${CANDIDATE_BASE_URL}/candidates`);
     } catch (error) {
       console.error("Error Fetching getCandidates", error);
     }
@@ -41,7 +41,9 @@ const apiService = {
 
   getExamTypes: async (signal) => {
     try {
-      return axios.get(`${CANDIDATE_BASE_URL}/examTypeMaster`, { signal });
+      return await axios.get(`${CANDIDATE_BASE_URL}/examTypeMaster`, {
+        signal,
+      });
     } catch (error) {
       console.error("Error Fetching getExamTypes", error);
     }
@@ -49,14 +51,14 @@ const apiService = {
 
   generateOTP: async (otpData) => {
     try {
-      return axios.post(`${CANDIDATE_BASE_URL}/otp/generateOTP`, otpData);
+      return await axios.post(`${CANDIDATE_BASE_URL}/otp/generateOTP`, otpData);
     } catch (error) {
       console.error("Error Fetching generateOTP", error);
     }
   },
   verifyContactOTP: async (verificationData) => {
     try {
-      return axios.post(
+      return await axios.post(
         `${CANDIDATE_BASE_URL}/otp/verifyCandidateContactOTP`,
         verificationData
       );
@@ -66,7 +68,7 @@ const apiService = {
   },
   verifyEmailOTP: async (emaildataOTP) => {
     try {
-      return axios.post(
+      return await axios.post(
         `${CANDIDATE_BASE_URL}/otp/verifyCandidateEmailOTP`,
         emaildataOTP
       );
@@ -76,28 +78,34 @@ const apiService = {
   },
   submitCandidateData: async (formData) => {
     try {
-      return axios.post(`${CANDIDATE_BASE_URL}/candidates/drop_cv`, formData);
+      return await axios.post(
+        `${CANDIDATE_BASE_URL}/candidates/drop_cv`,
+        formData
+      );
     } catch (error) {
       console.error("Error Fetching submitCandidateData", error);
     }
   },
   submitApplyNowData: async (formData) => {
     try {
-      return axios.post(`${CANDIDATE_BASE_URL}/candidates/apply_now`, formData);
+      return await axios.post(
+        `${CANDIDATE_BASE_URL}/candidates/apply_now`,
+        formData
+      );
     } catch (error) {
       console.error("Error Fetching submitApplyNowData", error);
     }
   },
   getAppliedPosts: async () => {
     try {
-      return axios.get(`${CANDIDATE_BASE_URL}/appliedPost`);
+      return await axios.get(`${CANDIDATE_BASE_URL}/appliedPost`);
     } catch (error) {
       console.error("Error Fetching getAppliedPosts", error);
     }
   },
   getDepartments: async () => {
     try {
-      return axios.get(`${CANDIDATE_BASE_URL}/departmentMaster`);
+      return await axios.get(`${CANDIDATE_BASE_URL}/departmentMaster`);
     } catch (error) {
       console.error("Error Fetching getDepartments", error);
     }
@@ -105,4 +113,4 @@ const apiService = {
 };
 
 export default apiService;
-// export { checkEmailExistence };
+

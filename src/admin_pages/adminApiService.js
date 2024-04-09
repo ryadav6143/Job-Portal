@@ -5,7 +5,7 @@ import { ADMIN_BASE_URL } from "../config/config";
 const adminApiService = {
   getJobCategories: async () => {
     try {
-      return axios.get(`${ADMIN_BASE_URL}/jobCategory`, {});
+      return await axios.get(`${ADMIN_BASE_URL}/jobCategory`, {});
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
@@ -20,11 +20,11 @@ const adminApiService = {
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
-    }
+    } 
   },
   DeleteCategory: async (categoryId) => {
     try {
-      const response = axios.delete(
+      const response = await axios.delete(
         `${ADMIN_BASE_URL}/jobCategory/${categoryId}`,
         {
           headers: {
@@ -55,14 +55,14 @@ const adminApiService = {
   },
   getExam: async () => {
     try {
-      return axios.get(`${ADMIN_BASE_URL}/examTypeMaster`);
+      return await axios.get(`${ADMIN_BASE_URL}/examTypeMaster`);
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
   getDegreeTypeMaster: async () => {
     try {
-      return axios.get(`${ADMIN_BASE_URL}/degreeTypeMaster`);
+      return await axios.get(`${ADMIN_BASE_URL}/degreeTypeMaster`);
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
@@ -350,7 +350,7 @@ const adminApiService = {
   getJobProfile: async () => {
     // return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster`);
     try {
-      return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster`);
+      return await axios.get(`${ADMIN_BASE_URL}/jobProfileMaster`);
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
@@ -370,7 +370,7 @@ const adminApiService = {
     } catch (error) {
       Notification({
         open: true,
-        handleClose: () => {}, // Define handleClose function if needed
+        handleClose: () => { }, // Define handleClose function if needed
         alertMessage: `Error posting job profile: ${error.message}`,
         alertSeverity: "error",
       });
@@ -380,7 +380,7 @@ const adminApiService = {
   getJobProfileById: async (profileId) => {
     // return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/${profileId}`);
     try {
-      return axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/${profileId}`);
+      return await axios.get(`${ADMIN_BASE_URL}/jobProfileMaster/${profileId}`);
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
@@ -580,7 +580,7 @@ const adminApiService = {
   },
   deleteAdminRoleById: async (roleID) => {
     try {
-      return axios.delete(
+      return await axios.delete(
         `${ADMIN_BASE_URL}/adminRole/removeRoleById/${roleID}`,
         {
           headers: {
@@ -594,7 +594,7 @@ const adminApiService = {
   },
   deleteRightsById: async (rightsID) => {
     try {
-      return axios.delete(
+      return await axios.delete(
         `${ADMIN_BASE_URL}/adminRights/removeRights/${rightsID}`,
         {
           headers: {
@@ -609,7 +609,7 @@ const adminApiService = {
   deleteAdminById: async (adminID) => {
     try {
       try {
-        return axios.get(`${ADMIN_BASE_URL}/degreeTypeMaster`);
+        return await axios.get(`${ADMIN_BASE_URL}/degreeTypeMaster`);
       } catch (error) {
         throw new Error(`Error fetching data: ${error.message}`);
       }
@@ -619,11 +619,15 @@ const adminApiService = {
   },
   updateRoleById: async (data) => {
     try {
-      return axios.put(`${ADMIN_BASE_URL}/adminRole/updateRoleById`, data, {
-        headers: {
-          "access-token": getAccessToken(),
-        },
-      });
+      return await axios.put(
+        `${ADMIN_BASE_URL}/adminRole/updateRoleById`,
+        data,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
@@ -646,12 +650,15 @@ const adminApiService = {
   },
   getCandidatesById: async (listID, signal) => {
     try {
-      return axios.get(`${ADMIN_BASE_URL}/admin/getCandidatesById/${listID}`, {
-        headers: {
-          "access-token": getAccessToken(),
-        },
-        signal,
-      });
+      return await axios.get(
+        `${ADMIN_BASE_URL}/admin/getCandidatesById/${listID}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+          signal,
+        }
+      );
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
@@ -715,18 +722,13 @@ const adminApiService = {
     }
   },
 
-
-
   getVisitor: async () => {
     try {
-      const response = await axios.get(
-        `${ADMIN_BASE_URL}/visitor/getVisitor`,
-        {
-          headers: {
-            "access-token": getAccessToken()
-          },
-        }
-      );
+      const response = await axios.get(`${ADMIN_BASE_URL}/visitor/getVisitor`, {
+        headers: {
+          "access-token": getAccessToken(),
+        },
+      });
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
@@ -737,11 +739,11 @@ const adminApiService = {
       const response = await axios.post(
         `${ADMIN_BASE_URL}/visitor/registerVisitor`,
         formData,
-        // {
-        //   headers: {
-        //     "access-token":getAccessToken() ,
-        //   },
-        // }
+        {
+          headers: {
+            "access-token":getAccessToken() ,
+          },
+        }
       );
       return response.data;
     } catch (error) {
@@ -755,27 +757,8 @@ const adminApiService = {
         updateField,
         {
           headers: {
-            "access-token":getAccessToken() ,
-          },
-        }
-      );
-
-      console.log("Save Changes Response:", response);
-      return response.data;
-    } catch (error) {
-      console.error("Error saving changes:", error.message);
-      throw error;
-    }
-  },
-  removeVisitor: async (visitorId) => {
-    try {
-      const response = await axios.delete(
-        `${ADMIN_BASE_URL}/visitor/removeVisitor/${visitorId}`,
-        {
-          headers: {
             "access-token": getAccessToken(),
           },
-        
         }
       );
 
@@ -786,7 +769,24 @@ const adminApiService = {
       throw error;
     }
   },
-
+  removeVisitor: async (payloadData) => {
+    try {
+      const response = await axios.delete(
+        `${ADMIN_BASE_URL}/visitor/removeVisitor`,
+        {
+          headers: {
+            "access-token": getAccessToken()
+          },
+          data: payloadData 
+        }
+      );
+      console.log("Save Changes Response:", response);
+      return response.data;
+    } catch (error) {
+      console.error("Error saving changes:", error.message);
+      throw error;
+    }
+  },
 };
 
 function getAccessToken() {

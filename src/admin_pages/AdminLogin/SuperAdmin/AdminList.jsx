@@ -47,8 +47,18 @@ function AdminList() {
   }, []);
 
   const handleOpenModal = (adminData) => {
-    // console.log(adminData,"adimin data")
+    console.log("check admin data", adminData);
+    const selectedRole = adminData["role_types_master.id"];
+
+    if (selectedRole) {
+      console.log(selectedRole, "selectedRole");
+    } else {
+      console.error("Role type name not found in admin data.");
+    }
+
+    console.log(adminData, "adimin data");
     setSelectedAdmin(adminData);
+
     setOpen(true);
   };
 
@@ -101,18 +111,19 @@ function AdminList() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "40%", 
-    
-    height: "520px", 
-    maxHeight: "600px", 
+    width: "40%",
+  
+    height: "520px",
+    maxHeight: "600px",
+
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   };
 
-
   const handleFieldChange = (fieldName, value) => {
+    console.log("check updated", fieldName, value, updateField);
     setUpdateField((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setSelectedAdmin((prev) => ({ ...prev, [fieldName]: value.toString() }));
 
@@ -148,83 +159,77 @@ function AdminList() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-         
-            <div>
-              <form onSubmit={handleSubmit}>
-                <img
-                  // style={{ marginTop: "-30px", marginLeft: "30px" }}
-                  onClick={handleCloseModal}
-                  className="Examtype-close-btn"
-                  src={close}
-                  alt="Close"
-                />
-                <label className="AC-SetLabel-Name" htmlFor="categoryInput">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="categoryInput"
-                  name="first_name"
-                  value={selectedAdmin ? selectedAdmin.first_name : ""}
-                  placeholder="Name"
-                  className="Ac-set-input"
-                  onChange={(e) =>
-                    handleFieldChange("first_name", e.target.value)
-                  }
-                />
-                <label className="AC-SetLabel-Name" htmlFor="categoryInput">
-                  Email
-                </label>
-                <input
-                  type="text"
-                  id="emailInput"
-                  name="email"
-                  value={selectedAdmin ? selectedAdmin.email : ""}
-                  className="Ac-set-input"
-                  placeholder="Email"
-                  onChange={(e) => handleFieldChange("email", e.target.value)}
-                />
-                <label className="AC-SetLabel-Name" htmlFor="categoryInput">
-                  Contact
-                </label>
-                <input
-                  type="text"
-                  id="contact_1Input"
-                  name="contact_1"
-                  value={selectedAdmin ? selectedAdmin.contact_1 : ""}
-                  className="Ac-set-input"
-                  placeholder="Contact"
-                  onChange={(e) =>
-                    handleFieldChange("contact_1", e.target.value)
-                  }
-                />
+          <div>
+            <form onSubmit={handleSubmit}>
+              <img
+                // style={{ marginTop: "-30px", marginLeft: "30px" }}
+                onClick={handleCloseModal}
+                className="Examtype-close-btn"
+                src={close}
+                alt="Close"
+              />
+              <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+                First Name
+              </label>
+              <input
+                type="text"
+                id="categoryInput"
+                name="first_name"
+                value={selectedAdmin ? selectedAdmin.first_name : ""}
+                placeholder="Name"
+                className="Ac-set-input"
+                onChange={(e) =>
+                  handleFieldChange("first_name", e.target.value)
+                }
+              />
+              <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+                Email
+              </label>
+              <input
+                type="text"
+                id="emailInput"
+                name="email"
+                value={selectedAdmin ? selectedAdmin.email : ""}
+                className="Ac-set-input"
+                placeholder="Email"
+                onChange={(e) => handleFieldChange("email", e.target.value)}
+              />
+              <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+                Contact
+              </label>
+              <input
+                type="text"
+                id="contact_1Input"
+                name="contact_1"
+                value={selectedAdmin ? selectedAdmin.contact_1 : ""}
+                className="Ac-set-input"
+                placeholder="Contact"
+                onChange={(e) => handleFieldChange("contact_1", e.target.value)}
+              />
 
-                <label className="AC-SetLabel-Name">Select Role Type</label>
-                <select
-                  id="roleTypeInput"
-                  name="role_type_master_id"
-                  // value={selectedAdmin["role_types_master.role_type_name"]}
-                  className="Ac-set-input"
-                  onChange={(e) =>
-                    handleFieldChange("role_type_id", e.target.value)
-                  }
-                >
-                  <option value="">Select Role Type</option>
-                  {role.map((role, index) => (
-                    <option key={index} value={role.id}>
-                      {role.role_type_name}
-                    </option>
-                  ))}
-                </select>
+              <label className="AC-SetLabel-Name">Select Role Type</label>
+              <select
+                id="roleTypeInput"
+                name="role_type_master_id"
+                // value={selectedAdmin["role_types_master.role_type_name"]}
+                className="Ac-set-input"
+                onChange={(e) =>
+                  handleFieldChange("role_type_id", e.target.value)
+                }
+              >
+                <option value="">Select Role Type</option>
+                {role.map((role, index) => (
+                  <option key={index} value={role.id}>
+                    {role.role_type_name}
+                  </option>
+                ))}
+              </select>
 
-<button id="update-new-btn" onClick={handleSubmit}>
-                  UPDATE NOW
-                </button>
-
-                
-              </form>
-            </div>
-         
+              <button id="update-new-btn" onClick={handleSubmit}>
+                UPDATE NOW
+              </button>
+            </form>
+          </div>
         </Box>
       </Modal>
 

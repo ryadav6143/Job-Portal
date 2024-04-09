@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Link,  } from "react-router-dom";
-
+import { BrowserRouter as Router, Link, } from "react-router-dom";
+import { useApiData } from "../../../context/CandidateContext";
 import "./SideBar.css";
 import opening from "../../../assets/logos/book.png";
 import interview from "../../../assets/logos/interview.png";
@@ -12,8 +12,9 @@ import visitorsReport from "../../../assets/logos/visitors-report.png";
 import jobprofile from "../../../assets/logos/jobprofile.png"; 
 import Hamburgermenu from "../../../assets/logos/hamburger (1).png";
 
-
 function SideBar() {
+  const { userData } = useApiData();
+  console.log("check apidata",userData)
   return (
     <>
       <div>
@@ -29,6 +30,12 @@ function SideBar() {
                     id="sidebar-nav"
                     className="list-group border-0 rounded-0 text-sm-start min-vh-100"
                   >
+                    <p>
+                      Role: {userData.roleName}
+                    </p>
+                    <p>
+                     Full Name: {userData.fullName}
+                    </p>
                     <Link
                       to="/admin-dashboard/current-openings"
                       className="list-group-item border-end-0 d-inline-block text-truncate set-a"
@@ -115,14 +122,16 @@ function SideBar() {
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        <img src={list} className="bi bi-heart sidenav-icon"></img>{" "}
+                        <img
+                          src={list}
+                          className="bi bi-heart sidenav-icon"
+                        ></img>{" "}
                         <span>Master List</span>
                       </a>
 
                       <div
                         className="dropdown-menu master-dd"
                         aria-labelledby="dropdownMenuLink"
-                        
                       >
                         <Link
                           to="/admin-dashboard/add-post-applied"

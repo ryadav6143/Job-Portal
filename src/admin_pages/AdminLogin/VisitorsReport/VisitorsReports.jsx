@@ -5,6 +5,7 @@ import deletebtn from "../../../assets/logos/delete.png";
 import close from "../../../assets/logos/close.png";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import "./Visitor.css";
 import Notification from "../../../Notification/Notification";
 import "./Visitor.css"
 import {
@@ -140,10 +141,15 @@ function VisitorsReports() {
   };
   const handleConfirmDelete = async () => {
     try {
-      await adminApiService.removeVisitor(deleteVisiotrId);
+      const payloadData = {
+        visitor_id: deleteVisiotrId 
+       }
+   
+    await adminApiService.removeVisitor(payloadData); 
       setVisitorData(
-        visitorData.filter((visitor) => visitor.id !== deleteVisiotrId)
+        visitorData.filter((visitor) => visitor.id !== payloadData)
       );
+      fetchVisitorData();
       setNotificationMessage("Deleted Successfully.");
       setNotificationSeverity("success");
       setNotificationOpen(true);
@@ -237,6 +243,7 @@ function VisitorsReports() {
                   onClose={handleCloseUpdateModal}
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
+                  className="popup-modal"
                 >
                   <Box sx={style}>
                     <form>
@@ -335,12 +342,12 @@ function VisitorsReports() {
                             value={formatDateForInput(
                               selectedVisitor ? selectedVisitor.createdAt : ""
                             )}
-                            // onChange={(e) =>
-                            //     handleChange(
-                            //       "createdAt",
-                            //       e.target.value
-                            //     )
-                            //   }
+                          // onChange={(e) =>
+                          //     handleChange(
+                          //       "createdAt",
+                          //       e.target.value
+                          //     )
+                          //   }
                           />
                         </div>
 
@@ -348,7 +355,8 @@ function VisitorsReports() {
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="Allotted"
-                          ><span className="read-only-feilds">*</span>
+                          >
+                            {/* <span className="read-only-feilds">*</span> */}
                             Allotted
                           </label>
                           <input
@@ -365,6 +373,27 @@ function VisitorsReports() {
                         </div>
                       </div>
 
+                   
+
+                      <div className="row">
+                        <div className="col-12">
+                          <label className="AC-SetLabel-Name" htmlFor="Message">
+                          <span className="read-only-feilds">*</span>
+                            Message
+                          </label>
+                          <textarea
+                              style={{width:"100%"}}
+                            type="text"
+                            className="Ac-set-input"
+                            id=""
+                            name="message"
+                            placeholder="Message"
+                            value={
+                              selectedVisitor ? selectedVisitor.message : ""
+                            }
+                          />
+                        </div>
+                      </div>
                       <div className="row">
                         <div className="col-12">
                           <label
@@ -391,28 +420,8 @@ function VisitorsReports() {
                       </div>
 
                       <div className="row">
-                        <div className="col-12">
-                          <label className="AC-SetLabel-Name" htmlFor="Message">
-                          <span className="read-only-feilds">*</span>
-                            Message
-                          </label>
-                          <textarea
-                              style={{width:"100%"}}
-                            type="text"
-                            className="Ac-set-input"
-                            id=""
-                            name="message"
-                            placeholder="Message"
-                            value={
-                              selectedVisitor ? selectedVisitor.message : ""
-                            }
-                          />
-                        </div>
-                      </div>
-
-                      <div className="row">
                         <div className="col-6">
-                          <p>Is Attend</p>
+                          <p  className="AC-SetLabel-Name">Is Attend</p>
                           <label className="switch">
                             <input
                               type="checkbox"
@@ -427,7 +436,7 @@ function VisitorsReports() {
                           </label>
                         </div>
                         <div className="col-6">
-                          <p>Is Close</p>
+                          <p className="AC-SetLabel-Name">Is Close</p>
                           <label className="switch">
                             <input
                               type="checkbox"
