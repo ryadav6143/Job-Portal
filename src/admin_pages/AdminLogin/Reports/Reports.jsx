@@ -36,8 +36,8 @@ function Reports() {
 
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("error");
+  const [notificationMessage, setNotificationMessage] = useState("");
 
   const fetchDataFromService = async () => {
     try {
