@@ -99,7 +99,7 @@ function AddAttendForm({ handleCloseAttendClick, fetchData,setNotificationOpen,s
     <>
 
       <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-        <DialogTitle className="HS-heading">Add Attendd Form</DialogTitle>
+        <DialogTitle className="candidate-form-heading">Add Attendd Form</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <div className="row">
@@ -165,10 +165,10 @@ function AddAttendForm({ handleCloseAttendClick, fetchData,setNotificationOpen,s
             </div>
 
             <DialogActions>
-              <Button variant="contained" color="primary" type="submit">
+              <button className="submitbtn"  type="submit">
                 Submit
-              </Button>
-              <Button onClick={handleCloseAttendClick}>Cancle</Button>
+              </button>
+              <button className="canclebtn" onClick={handleCloseAttendClick}>Cancle</button>
             </DialogActions>
           </form>
         </DialogContent>

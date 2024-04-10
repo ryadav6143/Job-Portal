@@ -101,7 +101,7 @@ function AddCandidateJournalForm({ handleCloseJournalClick,fetchData,setNotifica
 
     return (
         <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-            <DialogTitle className="HS-heading">Add Journal Publications Form</DialogTitle>
+            <DialogTitle className="candidate-form-heading">Add Journal Publications Form</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
@@ -238,10 +238,11 @@ function AddCandidateJournalForm({ handleCloseJournalClick,fetchData,setNotifica
 
 
                     <DialogActions>
-                        <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
+                        <button className="submitbtn" type="submit" onClick={handleSubmit}>
                             Submit
-                        </Button>
-                        <Button onClick={handleCloseJournalClick}>Cancle</Button>
+                        </button>
+                        <button
+                        className="canclebtn" onClick={handleCloseJournalClick}>Cancle</button>
                     </DialogActions>
                 </form>
             </DialogContent>
