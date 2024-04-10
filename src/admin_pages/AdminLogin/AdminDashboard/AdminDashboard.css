@@ -44,3 +44,8 @@
 .info p:nth-child(2) {
   font-size: 40px;
 }
+.graphChart{
+  float: right;
+    margin-top: 2rem;
+    margin-right: 2rem;
+}
