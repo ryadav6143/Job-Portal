@@ -10,7 +10,7 @@ import Notification from "../../../Notification/Notification";
 function CandidateLogin({ handleLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const [errorNotification, setErrorNotification] = useState({
@@ -25,7 +25,6 @@ function CandidateLogin({ handleLogin }) {
         login_field: username,
         password: password,
       });
-      // console.log("response", response);
       if (response && response.data && response.data.token) {
         navigate(`/candidate-dashboard/personal-details`);
         sessionStorage.setItem("Token", JSON.stringify(response.data));
@@ -35,17 +34,35 @@ function CandidateLogin({ handleLogin }) {
         });
         candidatesService.setAccessToken(response.data);
       } else {
-        // setErrorMessage("Invalid credentials");
+        // If response does not contain token (invalid credentials)
+        setErrorMessage("Invalid credentials");
+        setErrorNotification({
+          open: true,
+          message: "Invalid credentials",
+        });
       }
     } catch (error) {
       console.error("Error during login:", error);
-      setErrorNotification({
-        open: true,
-        message: error.response.data.message || "Invalid credentials",
-      });
-      // setErrorMessage("invalid username and password");
+      if (error.response && error.response.status === 400) {
+        // If status code is 400 (Bad Request), it indicates invalid credentials
+        setErrorMessage(error.response.data.message || "Invalid credentials");
+        setErrorNotification({
+          open: true,
+          message: error.response.data.message || "Invalid credentials",
+        });
+      } else {
+        // If any other error occurs, display a generic error message
+        setErrorMessage("An error occurred during login");
+        setErrorNotification({
+          open: true,
+          message: "Invalid credentials",
+        });
+      }
     }
   };
+  
+  
+
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
