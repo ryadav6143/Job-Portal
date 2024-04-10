@@ -21,6 +21,7 @@ function Reports() {
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [count, setCount] = useState([]);
+  const [page] = useState(1);
   // const [categories, setCategories] = useState([]);
   // const [posts, setPosts] = useState([]);
   // const [subposts, setSubposts] = useState([]);
@@ -32,13 +33,11 @@ function Reports() {
   const [loadingPopup, setLoadingPopup] = useState(true);
   const [jobCategories, setJobCategories] = useState([]);
   const [post, setPost] = useState([]);
-  // const [subPost, setSubPost] = useState([]);
-  // const [formValues, setFormValues] = useState({});
-  const [itemsPerPage, setItemsPerPage] = useState(7);
-  // const [updateField, setUpdateField] = useState({});
+
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("error");
+  const [notificationMessage, setNotificationMessage] = useState("");
 
   const fetchDataFromService = async () => {
     try {
@@ -228,6 +227,15 @@ function Reports() {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
+
+
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const ReportsData = data.slice(
+    startIndex,
+    endIndex
+  );
   const isNextPageAvailable = data.length === itemsPerPage;
   const nextPage = () => {
     if (isNextPageAvailable) {
@@ -356,7 +364,7 @@ function Reports() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((candidate, index) => (
+                  {ReportsData.map((candidate, index) => (
                     <tr key={index}>
                       <td>
                         <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
