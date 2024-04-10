@@ -79,7 +79,7 @@ function AddCandidateResearchForm({ handleCloseResearchClick,fetchData,setNotifi
 
   return (
     <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-      <DialogTitle className="HS-heading">Add Research Form</DialogTitle>
+      <DialogTitle className="candidate-form-heading">Add Research Form</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
           <div className="row">
@@ -138,10 +138,10 @@ function AddCandidateResearchForm({ handleCloseResearchClick,fetchData,setNotifi
  
 
           <DialogActions>
-            <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
+            <button className="submitbtn" type="submit" onClick={handleSubmit}>
               Submit
-            </Button>
-            <Button onClick={handleCloseResearchClick}>Cancle</Button>
+            </button>
+            <button className="canclebtn" onClick={handleCloseResearchClick}>Cancle</button>
           </DialogActions>
         </form>
       </DialogContent>

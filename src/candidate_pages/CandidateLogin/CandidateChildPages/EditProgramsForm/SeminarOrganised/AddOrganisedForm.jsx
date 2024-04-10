@@ -73,7 +73,7 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData,setNotificationO
 
   return (
     <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-      <DialogTitle className="HS-heading">Add Organised Form</DialogTitle>
+      <DialogTitle className="candidate-form-heading">Add Organised Form</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
           <div className="row">
@@ -195,15 +195,14 @@ function AddOrganisedForm({ handleCloseOrganizedClick,fetchData,setNotificationO
           </div>
 
           <DialogActions>
-            <Button
-              variant="contained"
-              color="primary"
+            <button
+             className="submitbtn"
               type="submit"
               onClick={handleSubmit}
             >
               Submit
-            </Button>
-            <Button onClick={handleCloseOrganizedClick}>Cancle</Button>
+            </button>
+            <button className="canclebtn" onClick={handleCloseOrganizedClick}>Cancle</button>
           </DialogActions>
         </form>
       </DialogContent>

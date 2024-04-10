@@ -119,7 +119,7 @@ function EditCandidateExperienceForm({ filteredItem, handleClose,fetchData,setNo
     };
     return (
         <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-            <DialogTitle className="HS-heading">Edit Attendd Form</DialogTitle>
+            <DialogTitle className="candidate-form-heading">Edit Attend Form</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleUpdate}>                 
                     <div className="row">
@@ -208,12 +208,12 @@ function EditCandidateExperienceForm({ filteredItem, handleClose,fetchData,setNo
                </div>
                  
                     <DialogActions>
-                        <Button variant="contained" color="primary" type="submit">
+                        <button className="submitbtn"  type="submit">
                             Update
-                        </Button>
-                        <Button onClick={handleClose}>
+                        </button>
+                        <button className="canclebtn" onClick={handleClose}>
                             Cancle
-                        </Button>
+                        </button>
                     </DialogActions>
                 </form>
             </DialogContent>

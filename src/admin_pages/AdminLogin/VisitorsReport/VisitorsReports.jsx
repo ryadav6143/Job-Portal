@@ -37,6 +37,11 @@ function VisitorsReports() {
     assign_to: false,
   });
   const [updateNewField, setUpdateNewField] = useState({});
+  const [allottedError, setAllottedError] = useState("");
+const [commentsError, setCommentsError] = useState("");
+
+  
+  
   const fetchVisitorData = async () => {
     try {
       const response = await adminApiService.getVisitor();
@@ -111,6 +116,23 @@ function VisitorsReports() {
     return `${year}-${month}-${day}`;
   };
   const handleChange = (fieldName, value) => {
+    const MAX_ASSIGN_TO_LENGTH = 40;
+    const MAX_ACTION_DESC_LENGTH = 200;
+  
+    if (fieldName === "assign_to" && value.length > MAX_ASSIGN_TO_LENGTH) {
+      setAllottedError("Maximum 40 characters allowed.");
+      return; // Ignore typing if limit exceeded
+    } else {
+      setAllottedError(""); // Clear the error if within limit
+    }
+  
+    if (fieldName === "action_discription" && value.length > MAX_ACTION_DESC_LENGTH) {
+      setCommentsError("Maximum 200 characters allowed.");
+      return; // Ignore typing if limit exceeded
+    } else {
+      setCommentsError(""); // Clear the error if within limit
+    }
+
     console.log("handlefild", fieldName, value, updateNewField);
     setUpdateNewField((prev) => ({ ...prev, [fieldName]: value.toString() }));
     setUpdateData((prev) => ({ ...prev, [fieldName]: value.toString() }));
@@ -214,7 +236,7 @@ function VisitorsReports() {
                     <td>{visitor.assign_to || "-"}</td>
                     <td>{visitor.is_attend ? "Yes" : "No"}</td>
                     <td>{visitor.is_close ? "Yes" : "No"}</td>
-                    <td>{visitor.action_discription || "-"}</td>
+                    <td>{truncateMessage(visitor.action_discription || "-", 4)}</td>
                     <td>{new Date(visitor.createdAt).toLocaleDateString()}</td>
                     <td>
                       <button
@@ -366,6 +388,7 @@ function VisitorsReports() {
                               handleChange("assign_to", e.target.value)
                             }
                           />
+                         {allottedError && <span className="error-message">{allottedError}</span>}
                         </div>
                       </div>
 
@@ -410,6 +433,7 @@ function VisitorsReports() {
                               handleChange("action_discription", e.target.value)
                             }
                           />
+                            {commentsError && <span className="error-message">{commentsError}</span>}
                         </div>
                       </div>
 

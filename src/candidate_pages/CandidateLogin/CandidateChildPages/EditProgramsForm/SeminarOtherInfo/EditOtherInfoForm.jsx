@@ -118,7 +118,7 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData,setNotificatio
 
   return (
     <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-      <DialogTitle className="HS-heading">
+      <DialogTitle className="candidate-form-heading">
         Edit Other Information Form
       </DialogTitle>
       <DialogContent>
@@ -212,10 +212,10 @@ function EditOtherInfoForm({ filteredItem, handleClose, fetchData,setNotificatio
           </div>
 
           <DialogActions>
-            <Button variant="contained" color="primary" type="submit">
+            <button className="submitbtn"  type="submit">
               Update
-            </Button>
-            <Button onClick={handleClose}>Cancle</Button>
+            </button>
+            <button className="canclebtn" onClick={handleClose}>Cancle</button>
           </DialogActions>
         </form>
       </DialogContent>

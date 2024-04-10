@@ -100,7 +100,7 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
 
     return (
         <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-            <DialogTitle className="HS-heading">Edit Journal Publication Form</DialogTitle>
+            <DialogTitle className="candidate-form-heading">Edit Journal Publication Form</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleUpdate}>
               
@@ -218,12 +218,12 @@ function EditCandidateJournalForm({ filteredItem, handleClose,fetchData,setNotif
                     </div>                               
                  
                     <DialogActions>
-                        <Button variant="contained" color="primary" type="submit">
+                        <button className="submitbtn" type="submit">
                             Update
-                        </Button>
-                        <Button onClick={handleClose}>
+                        </button>
+                        <button className="canclebtn" onClick={handleClose}>
                             Cancle
-                        </Button>
+                        </button>
                     </DialogActions>
                 </form>
             </DialogContent>

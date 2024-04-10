@@ -93,7 +93,7 @@ function AddCandidateExperienceForm({ handleCloseExperienceClick, fetchData,setN
 
   return (
     <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-      <DialogTitle className="HS-heading">Add Experience Form</DialogTitle>
+      <DialogTitle className="candidate-form-heading">Add Experience Form</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>   
 
@@ -181,10 +181,10 @@ function AddCandidateExperienceForm({ handleCloseExperienceClick, fetchData,setN
             </div>
           </div>
           <DialogActions>
-            <Button variant="contained" color="primary" type="submit">
+            <button className="submitbtn"  type="submit">
               Submit
-            </Button>
-            <Button onClick={handleCloseExperienceClick}>Cancle</Button>
+            </button>
+            <button className="canclebtn" onClick={handleCloseExperienceClick}>Cancle</button>
           </DialogActions>
         </form>
       </DialogContent>

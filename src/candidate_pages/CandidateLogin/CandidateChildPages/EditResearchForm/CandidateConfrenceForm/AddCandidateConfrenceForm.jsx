@@ -103,7 +103,7 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
 
     return (
         <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-            <DialogTitle className="HS-heading">Add Confrence Publications Form</DialogTitle>
+            <DialogTitle className="candidate-form-heading">Add Confrence Publications Form</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
@@ -240,10 +240,10 @@ function AddCandidateConfrenceForm({ handleCloseConfrenceClick,fetchData,setNoti
 
 
                     <DialogActions>
-                        <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
+                        <button className="submitbtn" type="submit" onClick={handleSubmit}>
                             Submit
-                        </Button>
-                        <Button onClick={handleCloseConfrenceClick}>Cancle</Button>
+                        </button>
+                        <button className="canclebtn" onClick={handleCloseConfrenceClick}>Cancle</button>
                     </DialogActions>
                 </form>
             </DialogContent>
