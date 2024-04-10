@@ -25,7 +25,7 @@ const AdminAuthGaurd = ({ component }) => {
         }
         if (!Token) {
             setStatus(false);
-            navigate(``);
+            navigate(`/`);
             sessionStorage.removeItem("Token");
             return;
         } else if (Token && !admin) {
