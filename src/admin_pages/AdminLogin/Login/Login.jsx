@@ -22,8 +22,8 @@ function Login(handleLogin) {
   const navigate = useNavigate();
 
   // const removeToken = (() => {
-    sessionStorage.removeItem("Token");
-    localStorage.removeItem("Token");
+  sessionStorage.removeItem("Token");
+  localStorage.removeItem("Token");
   // })();
 
   const handleFormSubmit = async (e) => {
@@ -41,7 +41,7 @@ function Login(handleLogin) {
       if (response && response.data.token) {
         sessionStorage.setItem("Token", JSON.stringify(response.data));
         // handleLogin();
-        navigate(`/admin-dashboard`);
+        navigate(`/admin-dashboard/dashboard`);
         setErrorNotification({
           open: true,
           message: "Login Successful",
