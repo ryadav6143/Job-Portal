@@ -1,0 +1,46 @@
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 50px;
+  /* flex-grow: 1; */
+  font-family: "Open Sans", sans-serif;
+}
+.detail-card {
+  width: 250px;
+  height: 150px;
+  background-color: #3c3c3c;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.detail-card:hover {
+  background-color: maroon;
+  scale: 1.1;
+}
+.info img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid white;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.detail-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.info p {
+  color: white;
+  text-align: right;
+  line-height: 1;
+}
+.info p:nth-child(1) {
+  font-size: 28px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+.info p:nth-child(2) {
+  font-size: 40px;
+}

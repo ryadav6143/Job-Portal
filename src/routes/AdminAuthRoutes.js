@@ -23,6 +23,7 @@ import MasterTable from "../admin_pages/AdminLogin/AdminChildPages/MasterCurrent
 // import RegisterAdmin from "../admin_pages/AdminRegister/RegisterAdmin.jsx";
 import AdminRegister from "../admin_pages/AdminLogin/AdminChildPages/RegisterAdmin/AdminRegister.jsx";
 import VisitorsReports from "../admin_pages/AdminLogin/VisitorsReport/VisitorsReports.jsx";
+import Dashboard from "../admin_pages/AdminLogin/AdminDashboard/Dashboard.jsx";
 
 // console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
@@ -32,7 +33,11 @@ const AdminAuthRoutes = [
     path="/admin-dashboard"
     element={<AdminAuthGaurd component={<AdminDashboard />} />}
   >
-    {/* <Route path="" element={<AdminDashboard />}/> */}
+    <Route
+      key="dashboard"
+      path="dashboard"
+      element={<AdminAuthGaurd component={<Dashboard />} />}
+    />
     <Route
       key="current-openings"
       path="current-openings"
