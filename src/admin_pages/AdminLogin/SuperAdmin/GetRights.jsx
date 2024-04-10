@@ -18,7 +18,7 @@ function GetRights() {
   const [updateField, setUpdateField] = useState({});
   const [modalData, setModalData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
   const paginationRange = 0;
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedApiType, setSelectedApiType] = useState("");
