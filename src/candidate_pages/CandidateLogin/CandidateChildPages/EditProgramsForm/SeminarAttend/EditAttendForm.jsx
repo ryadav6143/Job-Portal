@@ -116,7 +116,7 @@ function EditAttendForm({ filteredItem, handleClose,fetchData,setNotificationOpe
     };
     return (
         <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-            <DialogTitle className="candidate-form-heading">Edit Attendd Form</DialogTitle>
+            <DialogTitle className="candidate-form-heading">Edit Attend Form</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleUpdate}>
                     <div className="row">

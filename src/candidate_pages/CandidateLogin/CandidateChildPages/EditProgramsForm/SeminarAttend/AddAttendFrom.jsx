@@ -99,7 +99,7 @@ function AddAttendForm({ handleCloseAttendClick, fetchData,setNotificationOpen,s
     <>
 
       <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-        <DialogTitle className="candidate-form-heading">Add Attendd Form</DialogTitle>
+        <DialogTitle className="candidate-form-heading">Add Attend Form</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <div className="row">
