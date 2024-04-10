@@ -18,7 +18,7 @@ function GetRights() {
   const [updateField, setUpdateField] = useState({});
   const [modalData, setModalData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage =4;
   const paginationRange = 0;
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedApiType, setSelectedApiType] = useState("");
@@ -31,8 +31,6 @@ function GetRights() {
     role_type_master_id: "",
   });
 
-
-
   useEffect(() => {
     fetchRoleList();
     fetchRights();
@@ -40,9 +38,8 @@ function GetRights() {
   const fetchRights = async () => {
     try {
       const response = await adminApiService.getRightsList();
-      // console.log("check rights data>>>>>", response);      
+      // console.log("check rights data>>>>>", response);
       setRights(response);
-
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -53,7 +50,6 @@ function GetRights() {
       const response = await adminApiService.getRoleList();
       console.log("role data>>>>>>", response);
       setRole(response);
-
     } catch (error) {
       console.error("Error fetching admin list:", error.message);
     }
@@ -75,21 +71,17 @@ function GetRights() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500, 
-    height: "612px", 
+    width: 500,
+    height: "612px",
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
   };
 
-
   const handleClose = () => setOpen(false);
   const handleAddModalClose = () => {
     setOpen(false);
-
   };
-
-
 
   const handleDelete = async (rightsID) => {
     const confirmDelete = window.confirm("Are you sure you want to delete?");
@@ -217,10 +209,8 @@ function GetRights() {
 
   return (
     <>
-      <div className="center-container">
+      <div style={{ marginTop: "-15px" }}>
         <div className="admin-list">
-
-
           <div className="new-opening-btn">
             <button onClick={() => setOpen(true)}>ADD New Rights</button>
           </div>
@@ -270,10 +260,9 @@ function GetRights() {
             </div>
           </div>
 
-
-          <div>
+          <div className="table-responsive ">
             <table className="table table-responsive">
-              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Api Name</th>
@@ -322,7 +311,6 @@ function GetRights() {
                   ))
                 )}
               </tbody>
-
             </table>
           </div>
           <Pagination>
@@ -353,7 +341,6 @@ function GetRights() {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-
               <div>
                 <form onSubmit={handleSubmit}>
                   <img
@@ -363,7 +350,9 @@ function GetRights() {
                     alt=""
                   />
 
-                  <label className="AC-SetLabel-Name" htmlFor="categoryInput">Api Name</label>
+                  <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+                    Api Name
+                  </label>
                   <input
                     type="text"
                     id="categoryInput"
@@ -373,9 +362,9 @@ function GetRights() {
                     onChange={handleChange}
                   />
 
-
-
-                  <label className="AC-SetLabel-Name" htmlFor="apiTypeInput">Select API Type</label>
+                  <label className="AC-SetLabel-Name" htmlFor="apiTypeInput">
+                    Select API Type
+                  </label>
                   <select
                     id="apiTypeInput"
                     name="api_type"
@@ -388,13 +377,11 @@ function GetRights() {
                     <option value="POST">POST</option>
                     <option value="DELETE">DELETE</option>
                   </select>
-                  <FontAwesomeIcon
-                    className="set-icon"
-                    icon={faAngleDown}
-                  />
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
 
-
-                  <label className="AC-SetLabel-Name" htmlFor="pathInput">Path</label>
+                  <label className="AC-SetLabel-Name" htmlFor="pathInput">
+                    Path
+                  </label>
                   <input
                     type="text"
                     id="pathInput"
@@ -404,8 +391,9 @@ function GetRights() {
                     onChange={handleChange}
                   />
 
-
-                  <label className="AC-SetLabel-Name" htmlFor="urlInput">URL</label>
+                  <label className="AC-SetLabel-Name" htmlFor="urlInput">
+                    URL
+                  </label>
                   <input
                     type="text"
                     id="urlInput"
@@ -415,9 +403,9 @@ function GetRights() {
                     onChange={handleChange}
                   />
 
-
-
-                  <label className="AC-SetLabel-Name" htmlFor="roleTypeInput">Select Role Type</label>
+                  <label className="AC-SetLabel-Name" htmlFor="roleTypeInput">
+                    Select Role Type
+                  </label>
                   <select
                     id="roleTypeInput"
                     name="role_type_master_id"
@@ -431,25 +419,15 @@ function GetRights() {
                       </option>
                     ))}
                   </select>
-                  <FontAwesomeIcon
-                    className="set-icon"
-                    icon={faAngleDown}
-                  />
+                  <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
 
-
-                  <button
-                    id="add-new-btn"
-                    className="submit-btn"
-                    type="submit"
-                  >
+                  <button id="add-new-btn" className="submit-btn" type="submit">
                     ADD NOW
                   </button>
                 </form>
               </div>
-
             </Box>
           </Modal>
-
 
           <Modal
             open={isOpen}
@@ -476,7 +454,6 @@ function GetRights() {
                   alignItems: "center",
                 }}
               >
-
                 <img
                   src={close}
                   className="Examtype-close-btn"

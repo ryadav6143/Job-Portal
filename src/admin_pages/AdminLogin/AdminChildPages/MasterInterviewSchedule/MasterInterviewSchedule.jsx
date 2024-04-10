@@ -10,7 +10,7 @@ function MasterInterviewSchedule() {
   const [counts, setCounts] = useState([]);
   // const [interviewSchedule, setInterviewSchedule] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(7);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const [sortBy, setSortBy] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
   useEffect(() => {
@@ -57,7 +57,7 @@ function MasterInterviewSchedule() {
   // }, []);
 
   const [page] = useState(1);
-  const rowsPerPage = 10;
+  // const rowsPerPage = 10;
 
   const handleCheckboxChange = async (index, checked) => {
     try {
@@ -106,8 +106,8 @@ function MasterInterviewSchedule() {
     return dateObject < today;
   };
 
-  const startIndex = (page - 1) * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
   const ScheduledAcademicData = ScheduledAcademicsTable.slice(
     startIndex,
     endIndex
