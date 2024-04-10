@@ -2,9 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 50px;
-  /* flex-grow: 1; */
+  gap: 20px;
   font-family: "Open Sans", sans-serif;
+  margin: 20px;
 }
 .detail-card {
   width: 250px;
@@ -13,10 +13,11 @@
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s ease;
+  flex-grow: 1;
 }
 .detail-card:hover {
   background-color: maroon;
-  scale: 1.1;
+  scale: 1.05;
 }
 .info img {
   width: 50px;
