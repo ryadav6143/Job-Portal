@@ -5,13 +5,21 @@ import calanderlogo from "../.../../../../assets/logos/calendar-white.png";
 import Applylogo from "../.../../../../assets/logos/apply-white.png";
 import Userlogo from "../.../../../../assets/logos/user-white.png";
 import messagelogo from "../.../../../../assets/logos/email-white.png";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 function Dashboard() {
   const data = [
-    { week: 'Week 1', interviews: 10, candidates: 20 },
-    { week: 'Week 2', interviews: 15, candidates: 18 },
-    { week: 'Week 3', interviews: 20, candidates: 25 },
-    { week: 'Week 4', interviews: 18, candidates: 30 },
+    { week: "Week 1", interviews: 10, candidates: 20 },
+    { week: "Week 2", interviews: 15, candidates: 18 },
+    { week: "Week 3", interviews: 20, candidates: 25 },
+    { week: "Week 4", interviews: 18, candidates: 30 },
   ];
 
   return (
@@ -57,17 +65,27 @@ function Dashboard() {
         </div>
       </div>
       <div className="graphChart">
-      <h2>Interviews and Candidates</h2>
-      <LineChart width={1200} height={400} data={data}>
-        <XAxis dataKey="week" />
-        <YAxis /> 
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="interviews" name="First Interviews" stroke="#8884d8" />
-        <Line type="monotone" dataKey="candidates" name="Candidates Applied" stroke="#82ca9d" />
-      </LineChart>
-    </div>
+        <h2>Interviews and Candidates</h2>
+        <LineChart width={800} height={400} data={data}>
+          <XAxis dataKey="week" />
+          <YAxis />
+          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="interviews"
+            name="First Interviews"
+            stroke="#8884d8"
+          />
+          <Line
+            type="monotone"
+            dataKey="candidates"
+            name="Candidates Applied"
+            stroke="#82ca9d"
+          />
+        </LineChart>
+      </div>
     </>
   );
 }
