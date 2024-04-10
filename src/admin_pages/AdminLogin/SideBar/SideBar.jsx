@@ -10,7 +10,7 @@ import superadmin from "../../../assets/logos/superadmin.png";
 import list from "../../../assets/logos/list.png";
 import visitorsReport from "../../../assets/logos/visitors-report.png";
 import jobprofile from "../../../assets/logos/jobprofile.png";
-import Hamburgermenu from "../../../assets/logos/hamburger (1).png";
+import Hamburgermenu from "../../../assets/logos/hamburger.png";
 
 function SideBar() {
   const { userData } = useApiData();
@@ -34,7 +34,12 @@ function SideBar() {
                       <p> {userData.fullName}</p>
                       <p>{userData.roleName}</p>
                     </div>
-
+                    <Link
+                      to="/admin-dashboard/dashboard"
+                      className="list-group-item border-end-0 d-inline-block text-truncate set-a"
+                    >
+                      <span>Dashboard</span>
+                    </Link>
                     <Link
                       to="/admin-dashboard/current-openings"
                       className="list-group-item border-end-0 d-inline-block text-truncate set-a"

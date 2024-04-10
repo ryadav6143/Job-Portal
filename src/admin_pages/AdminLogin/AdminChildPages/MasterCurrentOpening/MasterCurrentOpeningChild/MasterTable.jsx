@@ -15,15 +15,16 @@ import deletebtn from "../../../../../assets/logos/delete.png";
 function MasterTable() {
   // const navigate = useNavigate();
   // const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
-  const [jobProfiles, setJobProfiles] = useState([]);
   const [counts, setCounts] = useState("");
+  const [jobProfiles, setJobProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isEditFormOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [profileIdToDelete, setProfileIdToDelete] = useState(null);
   // const [selectedProfileId, setSelectedProfileId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(7);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [page] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -165,9 +166,11 @@ function MasterTable() {
   //       : "No",
   //   }))
   //   .slice(startIndex, endIndex);
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const jobProfilesData = jobProfiles.slice(startIndex, endIndex);
 
   const isNextPageAvailable = jobProfiles.length === itemsPerPage;
-
   const nextPage = () => {
     if (isNextPageAvailable) {
       setCurrentPage(currentPage + 1);
@@ -190,7 +193,6 @@ function MasterTable() {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
-
   const toggleIsActive = async (jobProfileId, isActive) => {
     try {
       await adminApiService.changeJobProfileIsActive(jobProfileId, isActive);
@@ -256,6 +258,7 @@ function MasterTable() {
             <table className="table ">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                 <tr>
+                  <th scope="col">S.No.</th>
                   <th scope="col">Category</th>
                   <th scope="col">Department</th>
                   <th scope="col">Last Date</th>
@@ -268,8 +271,11 @@ function MasterTable() {
                 </tr>
               </thead>
               <tbody>
-                {jobProfiles.map((data, index) => (
+                {jobProfilesData.map((data, index) => (
                   <tr key={index}>
+                    <td>
+                      <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
+                    </td>
                     <td>{data.job_category_master?.category_name || "N/A"}</td>
                     <td>{data.department_master?.dept_name || "N/A"}</td>
                     <td>

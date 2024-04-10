@@ -5,6 +5,7 @@ import "./AdminDashboard.css";
 // import AdminAuthRoutes from "../../../routes/AdminAuthRoutes";
 // import Sidenav from "../../TestPages/Sidenav";
 import AdminHeader from "../admin_header/AdminHeader";
+import Dashboard from "./Dashboard";
 
 // import { Container, Row, Col, Card } from "react-bootstrap";
 
@@ -24,6 +25,9 @@ function AdminDashboard() {
 
   return (
     <>
+
+
+
       <div
         style={{
           display: "flex",
@@ -93,17 +97,15 @@ function AdminDashboard() {
                   })}
                 </ol>
               </nav>
-              
             </main>
-   
           </div>
-         
+
           <div style={{ flexGrow: 1, overflowY: "auto" }}>
             <Outlet />
           </div>
-     
         </div>
       </div>
+     
     </>
   );
 }
