@@ -211,9 +211,10 @@ function AddPostApplied() {
                 <div>
                   <form>
                     <img
+                   
                       alt=""
                       onClick={handleCloseModal}
-                      className="update-close-btn"
+                      className="postapplied-close-btn"
                       src={close}
                     />
                     <div>
