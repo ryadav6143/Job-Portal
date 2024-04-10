@@ -67,9 +67,9 @@ function MasterInterviewSchedule() {
         publish_to_schedule_interview: checked,
       };
       await adminApiService.updateJobProfile(updatedData);
-      // Update the jobProfiles state with the updated data
+
       const updatedJobProfiles = [...jobProfiles];
-      // Update only the specific job profile with the modified fields
+
       updatedJobProfiles[index].publish_to_schedule_interview = checked;
       setJobProfiles(updatedJobProfiles);
     } catch (error) {
@@ -87,7 +87,6 @@ function MasterInterviewSchedule() {
     schedule_interview_date_3: profile.schedule_interview_date_3 || "N/A",
     publish_to_schedule_interview: profile.publish_to_schedule_interview,
   }));
-  // console.log("ScheduledAcademicsTable", ScheduledAcademicsTable)
 
   const formatDateForInput = (dateString) => {
     const dateObject = new Date(dateString);
@@ -113,7 +112,6 @@ function MasterInterviewSchedule() {
     endIndex
   );
   const isNextPageAvailable = jobProfiles.length === itemsPerPage;
-  // console.log("jobprofiles>>", isNextPageAvailable)
 
   const nextPage = () => {
     if (isNextPageAvailable) {
@@ -127,8 +125,6 @@ function MasterInterviewSchedule() {
     }
   };
 
-
-  
   const handleSort = (columnName) => {
     if (sortBy === columnName) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -203,9 +199,6 @@ function MasterInterviewSchedule() {
               <tbody className="tbody">
                 {ScheduledAcademicData.map((data, index) => (
                   <tr key={index}>
-                    {/* <td>
-                    <b>{index + 1}</b>
-                  </td> */}
                     <td>
                       <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
                     </td>
