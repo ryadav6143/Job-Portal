@@ -81,7 +81,7 @@ function AddOtherInfoForm({ handleCloseOtherInfoClick, fetchData,setNotification
 
   return (
     <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-      <DialogTitle className="HS-heading">
+      <DialogTitle className="candidate-form-heading">
         Add Other Information Form
       </DialogTitle>
       <DialogContent>
@@ -169,10 +169,10 @@ function AddOtherInfoForm({ handleCloseOtherInfoClick, fetchData,setNotification
           </div>
 
           <DialogActions>
-            <Button variant="contained" color="primary" type="submit">
+            <button className="submitbtn"  type="submit">
               Submit
-            </Button>
-            <Button onClick={handleCloseOtherInfoClick}>Cancle</Button>
+            </button>
+            <button className="canclebtn" onClick={handleCloseOtherInfoClick}>Cancle</button>
           </DialogActions>
         </form>
       </DialogContent>

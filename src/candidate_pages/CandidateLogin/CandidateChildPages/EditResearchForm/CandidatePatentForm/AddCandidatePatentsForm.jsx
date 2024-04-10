@@ -91,7 +91,7 @@ function AddCandidatePatentsForm({ handleClosePatentClick,fetchData,setNotificat
 
     return (
         <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-            <DialogTitle className="HS-heading">Add Patents Form</DialogTitle>
+            <DialogTitle className="candidate-form-heading">Add Patents Form</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
@@ -183,10 +183,10 @@ function AddCandidatePatentsForm({ handleClosePatentClick,fetchData,setNotificat
 
 
                     <DialogActions>
-                        <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>
+                        <button className="submitbtn"  type="submit" onClick={handleSubmit}>
                             Submit
-                        </Button>
-                        <Button onClick={handleClosePatentClick}>Cancle</Button>
+                        </button>
+                        <button className="canclebtn" onClick={handleClosePatentClick}>Cancle</button>
                     </DialogActions>
                 </form>
             </DialogContent>

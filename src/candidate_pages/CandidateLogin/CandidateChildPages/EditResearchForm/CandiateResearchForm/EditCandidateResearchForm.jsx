@@ -86,7 +86,7 @@ function EditCandidateResearchForm({ filteredItem, handleClose,fetchData,setNoti
 
     return (
         <Dialog open={true} PaperProps={{ style: { width: "100%" } }}>
-            <DialogTitle className="HS-heading">Edit Research Form</DialogTitle>
+            <DialogTitle className="candidate-form-heading">Edit Research Form</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleUpdate}>
               
@@ -137,12 +137,12 @@ function EditCandidateResearchForm({ filteredItem, handleClose,fetchData,setNoti
                
                  
                     <DialogActions>
-                        <Button variant="contained" color="primary" type="submit">
+                        <button className="submitbtn" type="submit">
                             Update
-                        </Button>
-                        <Button onClick={handleClose}>
+                        </button>
+                        <button className="canclebtn" onClick={handleClose}>
                             Cancle
-                        </Button>
+                        </button>
                     </DialogActions>
                 </form>
             </DialogContent>
