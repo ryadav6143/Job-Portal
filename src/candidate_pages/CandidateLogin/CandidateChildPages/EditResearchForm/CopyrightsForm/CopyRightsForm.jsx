@@ -165,14 +165,15 @@ const CopyRightsForm = () => {
           Are you sure you want to delete this item?
         </DialogContent>
         <DialogActions>
-          <Button
+          <button
+          className="submitbtn"
             variant="contained"
             color="primary"
             onClick={handleConfirmDelete}
           >
             Delete
-          </Button>
-          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
+          </button>
+          <button className="canclebtn" onClick={() => setDeleteItemId(null)}>Cancel</button>
         </DialogActions>
       </Dialog>
       {isPopupOpen && (

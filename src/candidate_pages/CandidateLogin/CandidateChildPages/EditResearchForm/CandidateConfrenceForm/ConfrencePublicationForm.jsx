@@ -157,8 +157,8 @@ const ConfrencePublicationForm = () => {
           Are you sure you want to delete this item?
         </DialogContent>
         <DialogActions>
-        <Button variant="contained" color="primary" onClick={handleConfirmDelete} >Delete</Button>
-          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
+        <button className='submitbtn'  onClick={handleConfirmDelete} >Delete</button>
+          <button className='canclebtn' onClick={() => setDeleteItemId(null)}>Cancel</button>
        
         </DialogActions>
       </Dialog>
