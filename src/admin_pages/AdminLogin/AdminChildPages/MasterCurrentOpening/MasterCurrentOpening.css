@@ -107,7 +107,7 @@ input:checked + .slider:before {
 .new-opening-btn {
   /* position: absolute; */
   right: 30px;
-  margin: 1%;
+  margin: 3%;
   margin-top: 3%;
   float: right;
 }

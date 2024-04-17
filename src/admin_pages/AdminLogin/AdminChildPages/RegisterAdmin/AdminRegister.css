@@ -1,6 +1,6 @@
 .reg-container {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 100px 50px 100px 50px;
+    padding: 30px 50px 100px 50px;
     border-radius: 20px;
   }
   .reg-container input:focus {
@@ -45,6 +45,6 @@
     margin-bottom: 10px;
   }
   .reg-container-main {
-    margin: 2% 15% 2% 15%;
+    margin: 7% 15% 2% 15%;
   }
   

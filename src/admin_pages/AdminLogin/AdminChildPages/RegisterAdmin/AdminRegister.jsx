@@ -109,15 +109,14 @@ function AdminRegister() {
   return (
     <>
       <div className="reg-container-main">
-        <div className="form-heading">
-          {/* <div className="">
-            <img className="reg-ad-logo" src={medilogo} alt="Logo" />
-          </div> */}
-          <p>Register New Admin</p>
-        </div>
+       
         <form onSubmit={handleSubmit}>
+      
           <div className="reg-container">
-            <div className="row">
+          <div className="master-heading ">
+            <p>Register New Admin</p>
+          </div>
+            <div className="row" style={{marginTop:"45px"}}>
               <div className="col-6">
                 <label htmlFor="">Title</label>
                 <select
@@ -229,7 +228,7 @@ function AdminRegister() {
               </div>
             </div>
             <div>
-              <button type="submit" id="set-btn" className="reg-ad-btn">
+              <button type="submit"  className="reg-ad-btn savebtn">
                 Submit
               </button>
             </div>
