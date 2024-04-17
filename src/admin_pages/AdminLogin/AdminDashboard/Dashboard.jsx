@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AdminDashboard.css";
 // import { LineChart } from "@mui/x-charts/LineChart";
 import calanderlogo from "../.../../../../assets/logos/calendar-white.png";
 import Applylogo from "../.../../../../assets/logos/apply-white.png";
 import Userlogo from "../.../../../../assets/logos/user-white.png";
 import messagelogo from "../.../../../../assets/logos/email-white.png";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 function Dashboard() {
   const data = [
     { week: 'Week 1', interviews: 10, candidates: 20 },

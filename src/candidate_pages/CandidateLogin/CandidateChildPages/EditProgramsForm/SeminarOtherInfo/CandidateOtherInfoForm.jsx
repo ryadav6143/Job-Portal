@@ -152,8 +152,9 @@ const CandidateOtherInfoForm = () => {
           Are you sure you want to delete this item?
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDeleteItemId(null)}>Cancel</Button>
-          <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
+        <button className='submitbtn' onClick={handleConfirmDelete} autoFocus>Delete</button>
+          <button className='canclebtn' onClick={() => setDeleteItemId(null)}>Cancel</button>
+       
         </DialogActions>
       </Dialog>
 

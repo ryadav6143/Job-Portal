@@ -288,7 +288,6 @@ function EditProgramsForm() {
           className="container"
           style={{
             marginTop: "90px",
-           
             paddingRight: "50px",
           }}
         >

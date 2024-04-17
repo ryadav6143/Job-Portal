@@ -228,14 +228,9 @@ function Reports() {
     return `${day}-${month}-${year}`;
   };
 
-
-
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const ReportsData = data.slice(
-    startIndex,
-    endIndex
-  );
+  const ReportsData = data.slice(startIndex, endIndex);
   const isNextPageAvailable = data.length === itemsPerPage;
   const nextPage = () => {
     if (isNextPageAvailable) {
@@ -350,7 +345,10 @@ function Reports() {
 
             <div className="table-responsive ">
               <table className="table table-responsive">
-              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                <thead
+                  style={{ color: "rgba(0, 0, 0, 0.63)" }}
+                  className="thead"
+                >
                   <tr>
                     <th>S.No.</th>
                     <th>First Name</th>

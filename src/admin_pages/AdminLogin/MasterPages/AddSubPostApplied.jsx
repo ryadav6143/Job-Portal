@@ -212,7 +212,7 @@ function AddSubPostApplied() {
                 <form>
                   <img
                     onClick={handleCloseModal}
-                    className="Examtype-close-btn"
+                    className="postapplied-close-btn"
                     src={close}
                     alt=""
                   />

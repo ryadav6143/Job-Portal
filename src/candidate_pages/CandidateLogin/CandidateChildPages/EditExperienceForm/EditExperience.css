@@ -30,11 +30,11 @@
 background:none;
 }
 .candidate-form-heading{
-  font-size: 30px;
-    font-family: "Open Sans", sans-serif;
+  font-size: 24px !important;
+    font-family: "Open Sans", sans-serif !important;
     color: #901626;
-    font-weight: 600;
-    margin-bottom: -8px;
+    font-weight: 600 !important;
+    margin-bottom: -8px !important;
 }
 .plus-button{
     border-radius: 50%;

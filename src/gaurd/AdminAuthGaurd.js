@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { ApiDataProvider } from "../context/CandidateContext";
 
 const AdminAuthGaurd = ({ component }) => {
-    const [status, setStatus] = useState(false);
-    const navigate = useNavigate();
-    const [userData, setUserData] = useState(null);
+  const [status, setStatus] = useState(false);
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
 
     const checkToken = useCallback(() => {
         let Token = sessionStorage.getItem("Token");
@@ -39,23 +39,20 @@ const AdminAuthGaurd = ({ component }) => {
         }
     }, [navigate]);
 
-    useEffect(() => {
-        const userData = checkToken(); 
-        if (userData) {
-            setStatus(true);
-        }
-    }, [component, checkToken]);
+  useEffect(() => {
+    const userData = checkToken();
+    if (userData) {
+      setStatus(true);
+    }
+  }, [component, checkToken]);
 
-    return status ? (
-        <React.Fragment>
-                
-            <ApiDataProvider userData={userData}>
-            {component}
-            </ApiDataProvider>
-        </React.Fragment>
-    ) : (
-        <React.Fragment></React.Fragment>
-    );
+  return status ? (
+    <React.Fragment>
+      <ApiDataProvider userData={userData}>{component}</ApiDataProvider>
+    </React.Fragment>
+  ) : (
+    <React.Fragment></React.Fragment>
+  );
 };
 
 export default AdminAuthGaurd;

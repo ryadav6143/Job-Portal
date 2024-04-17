@@ -146,11 +146,14 @@
   top: 10px;
 }
 
+
+
 .postapplied-close-btn {
   width: 20px;
   float: right;
   position: absolute;
   cursor: pointer;
-  left: 92%;
-  top: 11px;
+  left: 100%;
+  top: -17px;
 }
+

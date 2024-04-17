@@ -10,6 +10,7 @@ import superadmin from "../../../assets/logos/superadmin.png";
 import list from "../../../assets/logos/list.png";
 import visitorsReport from "../../../assets/logos/visitors-report.png";
 import jobprofile from "../../../assets/logos/jobprofile.png";
+import dashboard from "../../../assets/logos/dashboard.png";
 import Hamburgermenu from "../../../assets/logos/hamburger.png";
 
 function SideBar() {
@@ -34,11 +35,17 @@ function SideBar() {
                       <p> {userData.fullName}</p>
                       <p>{userData.roleName}</p>
                     </div>
+                  
                     <Link
-                      to="/admin-dashboard/dashboard"
+                    to="/admin-dashboard/dashboard"
                       className="list-group-item border-end-0 d-inline-block text-truncate set-a"
                     >
-                      <span>Dashboard</span>
+                      <img
+                        src={dashboard}
+                        className="bi bi-bootstrap sidenav-icon"
+                        alt="Opening Icon"
+                      />
+                      <span> Dashboard</span>
                     </Link>
                     <Link
                       to="/admin-dashboard/current-openings"
