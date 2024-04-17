@@ -228,7 +228,7 @@ function AdminRegister() {
               </div>
             </div>
             <div>
-              <button type="submit"  className="reg-ad-btn savebtn">
+              <button type="submit"  className="reg-ad-btn " id="set-btn">
                 Submit
               </button>
             </div>
