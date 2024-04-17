@@ -4,7 +4,6 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import "./UserQualification.css";
 import apiService from "../../../../Services/ApiServices";
 function UserQualification({ formValues, setFormValues, errors, setErrors }) {
-
   // const [formValues, setFormValues] = useState({
   //   educations: [
   //     {
@@ -105,7 +104,6 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
       .getCountries()
       .then((response) => {
         setCountries(response.data.data);
-        
       })
       .catch((error) => {
         console.error("Error fetching countries:", error);
@@ -142,9 +140,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
     }));
   };
 
-  
   const handleHigherSecondaryChange = (field, value) => {
-     
     setErrors({
       ...errors,
       country: "",
@@ -154,7 +150,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
       year_end: "",
       grade_division: "",
       grade_percent: "",
-     stream: "",
+      stream: "",
     });
     setFormValues((prevFormValues) => ({
       UserDetails: {
@@ -314,7 +310,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
+                    {countries.map((country, index) => (
                       <option key={index} value={country.country}>
                         {country.country}
                       </option>
@@ -322,7 +318,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
-                <span  className="error-message">{errors.country}</span>
+                <span className="error-message">{errors.country}</span>
               </div>
               <div className="col-md-4">
                 {/* *Year of Joining */}
@@ -479,7 +475,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
+                    {countries.map((country, index) => (
                       <option key={index} value={country.country}>
                         {country.country}
                       </option>
@@ -675,7 +671,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
+                    {countries.map((country, index) => (
                       <option key={index} value={country.country}>
                         {country.country}
                       </option>
@@ -854,7 +850,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
+                    {countries.map((country, index) => (
                       <option key={index} value={country.country}>
                         {country.country}
                       </option>
@@ -1037,7 +1033,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
+                    {countries.map((country, index) => (
                       <option key={index} value={country.country}>
                         {country.country}
                       </option>
@@ -1228,7 +1224,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
+                    {countries.map((country, index) => (
                       <option key={index} value={country.country}>
                         {country.country}
                       </option>
@@ -1400,7 +1396,7 @@ function UserQualification({ formValues, setFormValues, errors, setErrors }) {
                     onChange={(e) => handlePhdChange("country", e.target.value)}
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
+                    {countries.map((country, index) => (
                       <option key={index} value={country.country}>
                         {country.country}
                       </option>

@@ -15,17 +15,13 @@ function EditQualificationForm() {
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("");
 
-
   const fetchData = async () => {
     try {
-
       setLoading(true);
-      const candidateResponse = await candidatesApiService.getEducationById(
-    
-      );
+      const candidateResponse = await candidatesApiService.getEducationById();
       // console.log("response-......", candidateResponse);
       setData(candidateResponse);
-      setLoading(false); 
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error.message);
       setLoading(false);
@@ -34,9 +30,9 @@ function EditQualificationForm() {
   useEffect(() => {
     const body = document.body;
     if (loading) {
-      body.style.overflow = 'hidden';
+      body.style.overflow = "hidden";
     } else {
-      body.style.overflow = 'auto';
+      body.style.overflow = "auto";
     }
   }, [loading]);
   useEffect(() => {
@@ -71,15 +67,17 @@ function EditQualificationForm() {
     });
     // ----------------------------------------------------------------------------
     if (educationType === "highSchoolData") {
-      const updatedData = data.map(item =>
+      const updatedData = data.map((item) =>
         item.exam_types_master_id === 7
           ? { ...item, [fieldName]: value.toString() }
           : item
       );
-    
+
       setData(updatedData);
 
-      const highSchoolData = data.find(item => item.exam_types_master_id === 7);
+      const highSchoolData = data.find(
+        (item) => item.exam_types_master_id === 7
+      );
       if (highSchoolData) {
         const additionalInfo = {
           exam_types_master_id: highSchoolData.exam_types_master_id,
@@ -96,7 +94,7 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "higherSecondaryData") {
-         const updatedData = data.map(item =>
+      const updatedData = data.map((item) =>
         item.exam_types_master_id === 8
           ? { ...item, [fieldName]: value.toString() }
           : item
@@ -104,7 +102,9 @@ function EditQualificationForm() {
 
       setData(updatedData);
 
-      const higherSecondaryData = data.find(item => item.exam_types_master_id === 8);
+      const higherSecondaryData = data.find(
+        (item) => item.exam_types_master_id === 8
+      );
 
       if (higherSecondaryData) {
         const additionalInfo = {
@@ -124,7 +124,7 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "diplomaData") {
-      const updatedData = data.map(item =>
+      const updatedData = data.map((item) =>
         item.exam_types_master_id === 1
           ? { ...item, [fieldName]: value.toString() }
           : item
@@ -132,7 +132,7 @@ function EditQualificationForm() {
       // console.log("diplomaData>>",updatedData)
       setData(updatedData);
 
-      const diplomaData = data.find(item => item.exam_types_master_id === 1);
+      const diplomaData = data.find((item) => item.exam_types_master_id === 1);
 
       if (diplomaData) {
         const additionalInfo = {
@@ -152,14 +152,16 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "graduationData") {
-      const updatedData = data.map(item =>
+      const updatedData = data.map((item) =>
         item.exam_types_master_id === 2
           ? { ...item, [fieldName]: value.toString() }
           : item
       );
       setData(updatedData);
 
-      const graduationData = data.find(item => item.exam_types_master_id === 2);   
+      const graduationData = data.find(
+        (item) => item.exam_types_master_id === 2
+      );
 
       if (graduationData) {
         const additionalInfo = {
@@ -179,14 +181,16 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "postGraduationData") {
-      const updatedData = data.map(item =>
+      const updatedData = data.map((item) =>
         item.exam_types_master_id === 3
           ? { ...item, [fieldName]: value.toString() }
           : item
       );
       setData(updatedData);
 
-      const postGraduationData = data.find(item => item.exam_types_master_id === 3);
+      const postGraduationData = data.find(
+        (item) => item.exam_types_master_id === 3
+      );
       if (postGraduationData) {
         const additionalInfo = {
           exam_types_master_id: postGraduationData.exam_types_master_id,
@@ -205,14 +209,14 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "mphilData") {
-      const updatedData = data.map(item =>
+      const updatedData = data.map((item) =>
         item.exam_types_master_id === 5
           ? { ...item, [fieldName]: value.toString() }
           : item
       );
       setData(updatedData);
 
-      const mphilData = data.find(item => item.exam_types_master_id === 5);
+      const mphilData = data.find((item) => item.exam_types_master_id === 5);
 
       if (mphilData) {
         const additionalInfo = {
@@ -232,14 +236,14 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "phdData") {
-      const updatedData = data.map(item =>
+      const updatedData = data.map((item) =>
         item.exam_types_master_id === 4
           ? { ...item, [fieldName]: value.toString() }
           : item
       );
       setData(updatedData);
 
-      const phdData = data.find(item => item.exam_types_master_id === 4);
+      const phdData = data.find((item) => item.exam_types_master_id === 4);
 
       if (phdData) {
         const additionalInfo = {
@@ -261,14 +265,14 @@ function EditQualificationForm() {
     let gateData;
 
     if (educationType === "gateData") {
-      const updatedData = data.map(item =>
+      const updatedData = data.map((item) =>
         item.exam_types_master_id === 11
           ? { ...item, [fieldName]: value.toString() }
           : item
       );
       setData(updatedData);
 
-      const gateData = data.find(item => item.exam_types_master_id === 11);
+      const gateData = data.find((item) => item.exam_types_master_id === 11);
 
       if (gateData && gateData.exam_types_master) {
         const additionalInfo = {
@@ -288,14 +292,14 @@ function EditQualificationForm() {
       }
     }
     if (educationType === "neetData") {
-      const updatedData = data.map(item =>
+      const updatedData = data.map((item) =>
         item.exam_types_master_id === 9
           ? { ...item, [fieldName]: value.toString() }
           : item
       );
       setData(updatedData);
 
-      const neetData = data.find(item => item.exam_types_master_id === 9);
+      const neetData = data.find((item) => item.exam_types_master_id === 9);
 
       if (neetData) {
         const additionalInfo = {
@@ -316,40 +320,88 @@ function EditQualificationForm() {
     }
   };
 
-
   // console.log("Data>>>>>",data)
-  const highSchoolData = data.find(item => item.exam_types_master_id === 7);
-  
-  
-const higherSecondaryData = data.find(item => item.exam_types_master_id === 8);
+  const highSchoolData = data.find((item) => item.exam_types_master_id === 7);
 
-const diplomaData = data.find(item => item.exam_types_master_id === 1);
+  const higherSecondaryData = data.find(
+    (item) => item.exam_types_master_id === 8
+  );
 
-const graduationData = data.find(item => item.exam_types_master_id === 2);   
-  
-const postGraduationData = data.find(item => item.exam_types_master_id === 3);
+  const diplomaData = data.find((item) => item.exam_types_master_id === 1);
 
-const mphilData = data.find(item => item.exam_types_master_id === 5);
+  const graduationData = data.find((item) => item.exam_types_master_id === 2);
 
-const phdData = data.find(item => item.exam_types_master_id === 4);
+  const postGraduationData = data.find(
+    (item) => item.exam_types_master_id === 3
+  );
 
-const neetData = data.find(item => item.exam_types_master_id === 9);
+  const mphilData = data.find((item) => item.exam_types_master_id === 5);
 
-const gateData = data.find(item => item.exam_types_master_id === 11);
+  const phdData = data.find((item) => item.exam_types_master_id === 4);
 
+  const neetData = data.find((item) => item.exam_types_master_id === 9);
 
-
+  const gateData = data.find((item) => item.exam_types_master_id === 11);
 
   const [countries, setCountries] = useState([]);
+  // const validateQualificationForm = () => {
+  //   const currentYear = new Date().getFullYear();
+  //   const minYear = currentYear - 100;
+  //   let errors = {};
 
+  //   if (!formData.country) {
+  //     errors.country = "! Country is Required ";
+  //   }
 
+  //   if (!formData.year_start) {
+  //     errors.year_start = "! Year of Joining is Required";
+  //   } else {
+  //     const enteredStartYear = parseInt(formData.year_start, 10);
 
+  //     if (
+  //       isNaN(enteredStartYear) ||
+  //       enteredStartYear > currentYear ||
+  //       enteredStartYear < minYear
+  //     ) {
+  //       errors.year_start =
+  //         "! Please enter a valid year within the last 100 years.";
+  //     }
+  //   }
+
+  //   if (!formData.year_end) {
+  //     errors.year_end = "! Passing Year is Required";
+  //   } else {
+  //     const enteredEndYear = parseInt(formData.year_end, 10);
+
+  //     if (
+  //       isNaN(enteredEndYear) ||
+  //       enteredEndYear > currentYear ||
+  //       enteredEndYear < minYear
+  //     ) {
+  //       errors.year_end =
+  //         "! Please enter a valid passing year within the last 100 years.";
+  //     }
+  //   }
+
+  //   if (!formData.institute_name) {
+  //     errors.institute_name = "! School Name is Required.";
+  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formData.institute_name)) {
+  //     errors.institute_name = "! Please enter a valid name.";
+  //   }
+  //   setErrors(errors);
+  //   return errors;
+  // };
   const handleSaveChanges = async (e) => {
     e.preventDefault();
+    // const errors = validateQualificationForm();
+    // if (Object.keys(errors).length > 0) {
+    //   setErrors(errors);
+    //   return false;
+    // }
     try {
-      await candidatesApiService.updateCandidateEducation(
-        { educations: [updateField] }
-      );
+      await candidatesApiService.updateCandidateEducation({
+        educations: [updateField],
+      });
       setUpdateField({});
       fetchData();
       setNotificationMessage("Changes saved successfully.");
@@ -360,60 +412,6 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
       setNotificationMessage("Error saving changes.");
       setNotificationSeverity("error");
       setNotificationOpen(true);
-    }
-
-    const currentYear = new Date().getFullYear();
-    const minYear = currentYear - 100;
-    let errors = {};
-
-    if (!formData.country) {
-      errors.country = "! Country is Required ";
-    }
-
-    if (!formData.year_start) {
-      errors.year_start = "! Year of Joining is Required";
-    } else {
-      const enteredStartYear = parseInt(formData.year_start, 10);
-
-      if (
-        isNaN(enteredStartYear) ||
-        enteredStartYear > currentYear ||
-        enteredStartYear < minYear
-      ) {
-        errors.year_start =
-          "! Please enter a valid year within the last 100 years.";
-      }
-    }
-
-    if (!formData.year_end) {
-      errors.year_end = "! Passing Year is Required";
-    } else {
-      const enteredEndYear = parseInt(formData.year_end, 10);
-
-      if (
-        isNaN(enteredEndYear) ||
-        enteredEndYear > currentYear ||
-        enteredEndYear < minYear
-      ) {
-        errors.year_end =
-          "! Please enter a valid passing year within the last 100 years.";
-      }
-    }
-
-    if (!formData.institute_name) {
-      errors.institute_name = "! School Name is Required.";
-    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formData.institute_name)) {
-      errors.institute_name = "! Please enter a valid name.";
-    }
-
-    setErrors(errors);
-
-    if (Object.keys(errors).length === 0) {
-      console.log("Form Submitted Successfully");
-      return false;
-    } else {
-      console.log("Form has errors");
-      return true;
     }
   };
 
@@ -437,10 +435,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
         </div>
       )}
       <form id="myForm" onSubmit={handleSaveChanges}>
-        <div
-          className="container"
-          style={{ marginTop: "90px",  }}
-        >
+        <div className="container" style={{ marginTop: "90px" }}>
           <div>
             <div>
               <h5 className="UD-heading">
@@ -479,8 +474,11 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
-                      <option key={`${country.country}-${index}`} value={country.country}>
+                    {countries.map((country, index) => (
+                      <option
+                        key={`${country.country}-${index}`}
+                        value={country.country}
+                      >
                         {country.country}
                       </option>
                     ))}
@@ -688,8 +686,11 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
-                      <option key={`${country.country}-${index}`} value={country.country}>
+                    {countries.map((country, index) => (
+                      <option
+                        key={`${country.country}-${index}`}
+                        value={country.country}
+                      >
                         {country.country}
                       </option>
                     ))}
@@ -919,8 +920,11 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
-                      <option key={`${country.country}-${index}`} value={country.country}>
+                    {countries.map((country, index) => (
+                      <option
+                        key={`${country.country}-${index}`}
+                        value={country.country}
+                      >
                         {country.country}
                       </option>
                     ))}
@@ -1130,8 +1134,11 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
-                      <option key={`${country.country}-${index}`} value={country.country}>
+                    {countries.map((country, index) => (
+                      <option
+                        key={`${country.country}-${index}`}
+                        value={country.country}
+                      >
                         {country.country}
                       </option>
                     ))}
@@ -1351,8 +1358,11 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
-                      <option key={`${country.country}-${index}`} value={country.country}>
+                    {countries.map((country, index) => (
+                      <option
+                        key={`${country.country}-${index}`}
+                        value={country.country}
+                      >
                         {country.country}
                       </option>
                     ))}
@@ -1578,8 +1588,11 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
-                      <option key={`${country.country}-${index}`} value={country.country}>
+                    {countries.map((country, index) => (
+                      <option
+                        key={`${country.country}-${index}`}
+                        value={country.country}
+                      >
                         {country.country}
                       </option>
                     ))}
@@ -1783,8 +1796,11 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     }
                   >
                     <option value="">Select country</option>
-                    {countries.map((country,index) => (
-                      <option key={`${country.country}-${index}`} value={country.country}>
+                    {countries.map((country, index) => (
+                      <option
+                        key={`${country.country}-${index}`}
+                        value={country.country}
+                      >
                         {country.country}
                       </option>
                     ))}
@@ -1965,7 +1981,7 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
             </div>
 
             <div className="row" style={{ marginTop: "-20px" }}>
-            <div className="col-md-4">
+              <div className="col-md-4">
                 {/* Year*/}
                 <div className="UD-form-section">
                   <label className="UD-SetLabel-Name">
@@ -1978,68 +1994,68 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     name=""
                     id=""
                     value={gateData ? gateData.year_end : ""}
-                    onChange={(e) => handleFieldChange('year_end', e.target.value, 'gateData')}
+                    onChange={(e) =>
+                      handleFieldChange("year_end", e.target.value, "gateData")
+                    }
                   ></input>
                 </div>
               </div>
               {/* <div className="col-md-4"> */}
-                {/* Gate*/}
-                <div className="UD-form-section"style={{ display: 'none' }}>
-                  <label className="UD-SetLabel-Name">
-                    <span></span>Gate
-                  </label>
-                  <select
-                    className="UD-set-dropdown"
-                    id="gateDropdown"
-                    name="exam_name"
-                    value={
-                      gateData ? (gateData.year_end !== "" ? "Yes" : "No") : ""
-                    }
-                    
-                    onChange={(e) =>
-                      handleFieldChange(
-                        "year_end",
-                        e.target.value === "Yes" ? "" : "",
-                        "gateData"
-                      )
-                    }
-                  >
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
-                </div>
+              {/* Gate*/}
+              <div className="UD-form-section" style={{ display: "none" }}>
+                <label className="UD-SetLabel-Name">
+                  <span></span>Gate
+                </label>
+                <select
+                  className="UD-set-dropdown"
+                  id="gateDropdown"
+                  name="exam_name"
+                  value={
+                    gateData ? (gateData.year_end !== "" ? "Yes" : "No") : ""
+                  }
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "year_end",
+                      e.target.value === "Yes" ? "" : "",
+                      "gateData"
+                    )
+                  }
+                >
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
               {/* </div>             */}
 
               {/* <div className="col-md-4"> */}
-                {/* NET*/}
-                <div className="UD-form-section" style={{ display: 'none' }}>
-                  <label className="UD-SetLabel-Name">
-                    <span></span>NET 
-                  </label>
+              {/* NET*/}
+              <div className="UD-form-section" style={{ display: "none" }}>
+                <label className="UD-SetLabel-Name">
+                  <span></span>NET
+                </label>
 
-                  <select
-                    className="UD-set-dropdown"
-                    id=""
-                    name="exam_name"
-                    value={
-                      neetData ? (neetData.year_end !== "" ? "Yes" : "No") : ""
-                    }
-                    onChange={(e) =>
-                      handleFieldChange(
-                        "year_end",
-                        e.target.value === "Yes" ? "" : "",
-                        "neetData"
-                      )
-                    }
-                  >
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
-                </div>
+                <select
+                  className="UD-set-dropdown"
+                  id=""
+                  name="exam_name"
+                  value={
+                    neetData ? (neetData.year_end !== "" ? "Yes" : "No") : ""
+                  }
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "year_end",
+                      e.target.value === "Yes" ? "" : "",
+                      "neetData"
+                    )
+                  }
+                >
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
               {/* </div> */}
-          
 
-            {/* <div className="row"> */}
+              {/* <div className="row"> */}
               <div className="col-md-4">
                 {/* Year*/}
                 <div className="UD-form-section">
@@ -2053,26 +2069,24 @@ const gateData = data.find(item => item.exam_types_master_id === 11);
                     name=""
                     id=""
                     value={neetData ? neetData.year_end : ""}
-                    onChange={(e) => handleFieldChange('year_end', e.target.value, 'neetData')}
+                    onChange={(e) =>
+                      handleFieldChange("year_end", e.target.value, "neetData")
+                    }
                   ></input>
                 </div>
               </div>
             </div>
-
-
-
-
-            </div>
-            <div className="edit-save-btn">
-              <button
-                className="savebtn"
-                type="button"
-                onClick={handleSaveChanges}
-              >
-                Save Changes
-              </button>
-            </div>
           </div>
+          <div className="edit-save-btn">
+            <button
+              className="savebtn"
+              type="button"
+              onClick={handleSaveChanges}
+            >
+              Save Changes
+            </button>
+          </div>
+        </div>
         {/* </div> */}
       </form>
       <Notification

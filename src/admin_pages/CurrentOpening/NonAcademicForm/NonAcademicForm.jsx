@@ -290,7 +290,14 @@ function NonAcademicForm() {
       Object.entries(formValues.UserDetails).forEach(([key, value]) => {
         if (key === "educations" && Array.isArray(value)) {
           formDataToSend.append(key, JSON.stringify(value));
-        } else {
+        } else if (key === "experiences" && Array.isArray(value)) {
+          value.forEach((experience, index) => {
+            Object.entries(experience).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
+        }
+         else {
           formDataToSend.append(key, value);
         }
       });

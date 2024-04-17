@@ -54,7 +54,6 @@ function AddDegree() {
     }
   };
 
-
   const handleAddDegree = async () => {
     try {
       const response = await adminApiService.addDegreeType(
@@ -75,9 +74,8 @@ function AddDegree() {
     }
   };
 
-
   const handleUpdateDegree = async () => {
-    console.log("",)
+    console.log("");
     try {
       const payload = {
         exam_types_master_id: selectedExamId,
@@ -118,12 +116,12 @@ function AddDegree() {
     setIsModalOpen(true);
   };
   const handleOpenUpdateModal = (id) => {
-    console.log("check data",id)
+    console.log("check data", id);
     fetchUpdateData(id);
     const selectedExam = examTypes.find(
-      (exam) => exam.id == updateData?.exam_types_master_id
+      (exam) => exam.id === updateData?.exam_types_master_id
     );
-    console.log(selectedExam,"<<<")
+    console.log(selectedExam, "<<<");
     if (selectedExam) {
       setSelectedExamType(selectedExam.exam_name);
       setSelectedExamId(selectedExam.id);
@@ -150,7 +148,7 @@ function AddDegree() {
 
   return (
     <>
-     <Notification
+      <Notification
         open={notificationOpen}
         handleClose={() => setNotificationOpen(false)}
         alertMessage={notificationMessage}
@@ -204,7 +202,11 @@ function AddDegree() {
                   </select>
                 </div>
 
-                <label style={{marginTop:"20px"}} className="AC-SetLabel-Name" htmlFor="">
+                <label
+                  style={{ marginTop: "20px" }}
+                  className="AC-SetLabel-Name"
+                  htmlFor=""
+                >
                   Add Degree
                 </label>
                 <input
@@ -311,7 +313,11 @@ function AddDegree() {
                             </select>
                           </div>
 
-                          <label style={{marginTop:"20px"}} className="AC-SetLabel-Name" htmlFor="">
+                          <label
+                            style={{ marginTop: "20px" }}
+                            className="AC-SetLabel-Name"
+                            htmlFor=""
+                          >
                             Update Degree
                           </label>
                           <input

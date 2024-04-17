@@ -88,50 +88,50 @@ function EditPersonalDetails({ token }) {
       }
     }
   };
-  const validatepersonalForm = () => {
-    let errors = {};
-    if (!formValues.first_name) {
-      errors.first_name = "! First Name is Required.";
-    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.first_name)) {
-      errors.first_name = "! Please enter a valid name.";
-    }
-    if (!formValues.last_name) {
-      errors.last_name = "! Last Name is Required.";
-    } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.last_name)) {
-      errors.last_name = "! Please enter a valid name.";
-    }
+  // const validatepersonalForm = () => {
+  //   let errors = {};
+  //   if (!formValues.first_name) {
+  //     errors.first_name = "! First Name is Required.";
+  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.first_name)) {
+  //     errors.first_name = "! Please enter a valid name.";
+  //   }
+  //   if (!formValues.last_name) {
+  //     errors.last_name = "! Last Name is Required.";
+  //   } else if (!/^[a-zA-Z]+(\s[a-zA-Z]+)?$/u.test(formValues.last_name)) {
+  //     errors.last_name = "! Please enter a valid name.";
+  //   }
 
-    if (!formValues.gender) {
-      errors.gender = "! Gender is Required";
-    }
-    if (!formValues.religion) {
-      errors.religion = "! Religion is Required";
-    }
-    if (!formValues.cast_category_name) {
-      errors.cast_category_name = "! Cast Category is Required";
-    }
-    if (!formValues.marital_status) {
-      errors.marital_status = "! Marital Status is Required";
-    }
-    if (!formValues.address_1) {
-      errors.address_1 = "! Current Address  is Required";
-    }
+  //   if (!formValues.gender) {
+  //     errors.gender = "! Gender is Required";
+  //   }
+  //   if (!formValues.religion) {
+  //     errors.religion = "! Religion is Required";
+  //   }
+  //   if (!formValues.cast_category_name) {
+  //     errors.cast_category_name = "! Cast Category is Required";
+  //   }
+  //   if (!formValues.marital_status) {
+  //     errors.marital_status = "! Marital Status is Required";
+  //   }
+  //   if (!formValues.address_1) {
+  //     errors.address_1 = "! Current Address  is Required";
+  //   }
 
-    if (!formValues.pin_code) {
-      errors.pin_code = "! Pin Code is Required";
-    }
+  //   if (!formValues.pin_code) {
+  //     errors.pin_code = "! Pin Code is Required";
+  //   }
 
-    setErrors(errors);
-    return errors;
-  };
+  //   setErrors(errors);
+  //   return errors;
+  // };
   const handleSaveChanges = async (e) => {
     e.preventDefault();
-    const errors = validatepersonalForm(); // Call validateForm function
+    // const errors = validatepersonalForm();
+    // if (Object.keys(errors).length > 0) {
+    //   setErrors(errors);
+    //   return false;
+    // }
 
-    if (Object.keys(errors).length > 0) {
-      setErrors(errors);
-      return false;
-    }
     try {
       await candidatesApiService.updateCandidatePersonalInfo(updateField);
 
