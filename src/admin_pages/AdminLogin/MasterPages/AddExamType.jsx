@@ -206,7 +206,7 @@ function AddExamType() {
                 <form>
                   <img
                     onClick={handleAddModalClose}
-                    className="Examtype-close-btn"
+                    className="postapplied-close-btn"
                     src={close}
                     alt=""
                   />
@@ -291,7 +291,7 @@ function AddExamType() {
                         <form>
                           <img
                             onClick={handleUpdateModalClose}
-                            className="update-close-btn"
+                            className="postapplied-close-btn"
                             src={close}
                             alt=""
                           />

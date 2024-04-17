@@ -312,7 +312,7 @@ const handleCloseDeleteDialog = () => {
                   <form>
                     <img
                       onClick={handleCloseUpdateModal}
-                      className="postapplied-close-btn"
+                      className="Ad-close-btn"
                       src={close}
                       alt=""
                     />

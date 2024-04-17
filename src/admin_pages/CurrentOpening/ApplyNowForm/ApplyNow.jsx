@@ -344,7 +344,7 @@ function ApplyNow() {
   };
 
   const handleNext = async () => {
-    console.log("Form formValues:", formValues);
+    // console.log("Form formValues:", formValues);
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());

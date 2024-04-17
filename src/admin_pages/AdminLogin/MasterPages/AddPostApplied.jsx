@@ -7,7 +7,13 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import adminApiService from "../../adminApiService";
 import Notification from "../../../Notification/Notification";
 function AddPostApplied() {
@@ -15,7 +21,7 @@ function AddPostApplied() {
   const [newCategory, setNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
@@ -67,17 +73,17 @@ function AddPostApplied() {
       .addPost(newCategory, selectedCategoryId)
       .then(() => {
         setNotificationMessage("Added Successfully.");
-          setNotificationSeverity("success");
-          setNotificationOpen(true);
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
         setNewCategory("");
         setOpen(false);
         handleCloseModal();
         getPost();
       })
       .catch((error) => console.error(error));
-      setNotificationMessage("error during added Post");
-      setNotificationSeverity("error");
-      setNotificationOpen(true);
+    setNotificationMessage("error during added Post");
+    setNotificationSeverity("error");
+    setNotificationOpen(true);
   };
 
   // ------------------DELETE DATA FROM API--------------------------------
@@ -100,34 +106,30 @@ function AddPostApplied() {
   //   }
   // };
 
-
-
   const handleDeletePost = async (categoryId) => {
-    setPostToDelete(categoryId); 
-    setDeleteDialogOpen(true); 
+    setPostToDelete(categoryId);
+    setDeleteDialogOpen(true);
   };
   const confirmDelete = async () => {
     try {
       await adminApiService.deletePost(postToDelete);
       setData((prevData) =>
-            prevData.filter((category) => category.id !== postToDelete)
-          );
-          setNotificationMessage("Deleted Successfully.");
-          setNotificationSeverity("success");
-          setNotificationOpen(true);
-      setDeleteDialogOpen(false); 
+        prevData.filter((category) => category.id !== postToDelete)
+      );
+      setNotificationMessage("Deleted Successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+      setDeleteDialogOpen(false);
     } catch (error) {
-      console.error("Error deleting Post:", error);      
+      console.error("Error deleting Post:", error);
       setNotificationMessage("Failed to delete Post. Please try again");
       setNotificationSeverity("error");
       setNotificationOpen(true);
     }
   };
   const handleCloseDeleteDialog = () => {
-    setDeleteDialogOpen(false);  
+    setDeleteDialogOpen(false);
   };
-
-
 
   const handleSelectCategory = (e) => {
     const categoryId = e.target.value;
@@ -165,7 +167,6 @@ function AddPostApplied() {
   };
 
   const handleSelectPostForUpdate = (postId) => {
-    
     const selectedPost = data.find((post) => post.id === postId);
     setSelectedPost(selectedPost);
     setUpdateModalOpen(true);
@@ -185,16 +186,15 @@ function AddPostApplied() {
       setNotificationOpen(true);
     }
   };
- 
 
   return (
     <>
-    <Notification
-                open={notificationOpen}
-                handleClose={() => setNotificationOpen(false)}
-                alertMessage={notificationMessage}
-                alertSeverity={notificationSeverity}
-            />
+      <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div className="container-1">
         <div>
           <button onClick={() => setOpen(true)}>Add Post Applied</button>
@@ -211,10 +211,17 @@ function AddPostApplied() {
                 <div>
                   <form>
                     <img
-                   
                       alt=""
                       onClick={handleCloseModal}
                       className="postapplied-close-btn"
+                      // style={{
+                      //   width: "20px",
+                      //   float: "right",
+                      //   position: "absolute",
+                      //   cursor: "pointer",
+                      //   left: "100%",
+                      //   top: "-17px",
+                      // }}
                       src={close}
                     />
                     <div>
@@ -333,12 +340,14 @@ function AddPostApplied() {
                     <form>
                       <img
                         onClick={handleCloseUpdateModal}
-                        className="postapplied-close-btn"
+                        className="Ad-close-btn"
                         src={close}
                         alt=""
                       />
                       <div>
-                        <label className="AC-SetLabel-Name">Select Category</label>
+                        <label className="AC-SetLabel-Name">
+                          Select Category
+                        </label>
                         <select
                           name="category"
                           className="select-jc"
@@ -367,7 +376,11 @@ function AddPostApplied() {
                         </select>
                       </div>
 
-                      <label style={{marginTop:"20px"}} className="AC-SetLabel-Name" htmlFor="categoryInput">
+                      <label
+                        style={{ marginTop: "20px" }}
+                        className="AC-SetLabel-Name"
+                        htmlFor="categoryInput"
+                      >
                         Add Post Applied For
                       </label>
                       <input
@@ -408,8 +421,16 @@ function AddPostApplied() {
           Are you sure you want to delete this Post?
         </DialogContent>
         <DialogActions>
-          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
-          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+          <Button onClick={confirmDelete} variant="contained" color="error">
+            Delete
+          </Button>
+          <Button
+            onClick={handleCloseDeleteDialog}
+            variant="text"
+            color="primary"
+          >
+            Cancel
+          </Button>
         </DialogActions>
       </Dialog>
     </>
