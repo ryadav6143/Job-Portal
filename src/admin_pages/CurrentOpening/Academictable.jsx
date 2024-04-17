@@ -122,7 +122,7 @@ function Academictable() {
                 <th scope="col">Last Date</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ textTransform: "capitalize" }}>
               {AcademicData.map((data, index) => (
                 <tr key={index} style={{ whiteSpace: "nowrap" }}>
                   <td>{data.category}</td>

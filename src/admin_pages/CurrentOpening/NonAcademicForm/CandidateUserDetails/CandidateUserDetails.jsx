@@ -8,7 +8,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./CandidateUserDetails.css";
 import apiService from "../../../../Services/ApiServices";
-function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) {
+function CandidateUserDetails({
+  formValues,
+  setFormValues,
+  errors,
+  setErrors,
+}) {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState("");
   const [departments, setDepartments] = useState([]);
@@ -74,24 +79,24 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
 
   // });
 
- 
-
   useEffect(() => {
     // Fetch data from the API using Axios
     apiService
       .getAppliedPosts()
       .then((response) => {
         // Update the state with the fetched data
-     
-        const nonAcademicPosts = response.data.filter(post => post.job_category_master.category_name === "non-academic");
+
+        const nonAcademicPosts = response.data.filter(
+          (post) => post.job_category_master.category_name === "non-academic"
+        );
         // console.log("post by category",nonAcademicPosts)
         // setPosts(response.data);
         setPosts(nonAcademicPosts);
         if (formValues.applied_post_masters_id) {
-     
-          const selectedPostObject = response.data.find((post) => post.id == formValues.applied_post_masters_id
+          const selectedPostObject = response.data.find(
+            (post) => post.id == formValues.applied_post_masters_id
           );
-                // console.log("final post check???",selectedPostObject)
+          // console.log("final post check???",selectedPostObject)
           if (selectedPostObject) {
             setSelectedPost(selectedPostObject.post_name);
           }
@@ -103,13 +108,13 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await apiService.getDepartments();        
+        const response = await apiService.getDepartments();
         setDepartments(response.data);
         if (formValues.department_master_id) {
-       
-          const selectedDepartmentObject = response.data.find((department) => department.id == formValues.department_master_id
+          const selectedDepartmentObject = response.data.find(
+            (department) => department.id == formValues.department_master_id
           );
-                // console.log("final department check???",selectedDepartmentObject)
+          // console.log("final department check???",selectedDepartmentObject)
           if (selectedDepartmentObject) {
             setSelectedDepartment(selectedDepartmentObject.dept_name);
           }
@@ -127,16 +132,14 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
       .getCountries()
       .then((response) => {
         setCountries(response.data.data);
-        if (formValues.country) {                   
+        if (formValues.country) {
           setSelectedCountry(formValues.country);
-                }
-                if(formValues.city){
-                  setSelectedCity(formValues.city)
-                }
+        }
+        if (formValues.city) {
+          setSelectedCity(formValues.city);
+        }
       })
 
-
-      
       .catch((error) => {
         console.error("Error fetching countries:", error);
       });
@@ -182,7 +185,8 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
     });
     const selectedDeptID = event.target.value;
     // console.log("selectedDeptID",selectedDeptID,departments)
-    const selectedDepartmentObject = departments.find((department) => department.id == selectedDeptID
+    const selectedDepartmentObject = departments.find(
+      (department) => department.id == selectedDeptID
     );
     // console.log("selectedDepartmentObject idf",selectedDepartmentObject);
 
@@ -191,7 +195,7 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
       setFormValues((prevValues) => ({
         UserDetails: {
           ...prevValues.UserDetails,
-          department_master_id:parseInt(selectedDeptID),
+          department_master_id: parseInt(selectedDeptID),
         },
       }));
     } else {
@@ -215,8 +219,8 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
       setFormValues((prevValues) => ({
         UserDetails: {
           ...prevValues.UserDetails,
-          applied_post_masters_id:  parseInt(selectedPostId),
-          job_category_master_id: jobCategoryId
+          applied_post_masters_id: parseInt(selectedPostId),
+          job_category_master_id: jobCategoryId,
         },
       }));
     } else {
@@ -332,9 +336,14 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                     value={selectedPost}
                     onChange={handlePostChange}
                     className="UD-set-dropdown"
+                    style={{ textTransform: "capitalize" }}
                   >
-                    <option value="">{selectedPost&&selectedPost?selectedPost: "Select a post"}</option>
-                    {posts.map((post,index) => (
+                    <option value="">
+                      {selectedPost && selectedPost
+                        ? selectedPost
+                        : "Select a post"}
+                    </option>
+                    {posts.map((post, index) => (
                       <option key={index} value={post.id}>
                         {post.post_name}
                       </option>
@@ -361,8 +370,12 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                     onChange={handleDepartmentChange}
                     className="UD-set-dropdown"
                   >
-                     <option value="">{selectedDepartment&&selectedDepartment?selectedDepartment: "Select a department"}</option>
-                    {departments.map((department,index) => (
+                    <option value="">
+                      {selectedDepartment && selectedDepartment
+                        ? selectedDepartment
+                        : "Select a department"}
+                    </option>
+                    {departments.map((department, index) => (
                       <option key={index} value={department.id}>
                         {department.dept_name}
                       </option>
@@ -670,12 +683,13 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                     value={selectedCountry}
                     onChange={handleCountryChange}
                   >
-                     <option value="">{selectedCountry&&selectedCountry?selectedCountry: "Select a country"}</option>
-                    {countries.map((countryData,index) => (
-                      <option
-                        key={index}
-                        value={countryData.country}
-                      >
+                    <option value="">
+                      {selectedCountry && selectedCountry
+                        ? selectedCountry
+                        : "Select a country"}
+                    </option>
+                    {countries.map((countryData, index) => (
+                      <option key={index} value={countryData.country}>
                         {countryData.country}
                       </option>
                     ))}
@@ -734,12 +748,16 @@ function CandidateUserDetails({ formValues, setFormValues, errors, setErrors }) 
                     value={selectedCity}
                     onChange={handleCityChange}
                   >
-                    <option value="">{selectedCity&&selectedCity?selectedCity: "Select a city"}</option>
+                    <option value="">
+                      {selectedCity && selectedCity
+                        ? selectedCity
+                        : "Select a city"}
+                    </option>
                     {(
                       countries.find(
                         (country) => country.country === selectedCountry
                       )?.cities || []
-                    ).map((city,index) => (
+                    ).map((city, index) => (
                       <option key={index} value={city}>
                         {city}
                       </option>

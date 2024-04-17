@@ -19,9 +19,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
   const [selectedCity, setSelectedCity] = useState("");
 
   const [maxCharacters] = useState(40);
- 
-  // console.log("formvalue",formValues)
 
+  // console.log("formvalue",formValues)
 
   useEffect(() => {
     // Fetch data from the API using Axios
@@ -31,16 +30,16 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
         // Update the state with the fetched data
         setPosts(response.data);
         // console.log(formValues.applied_post_masters_id,"<<<")
-      if (formValues.applied_post_masters_id) {
-     
-        const selectedPostObject = response.data.find((post) => post.id == formValues.applied_post_masters_id
-        );
-              // console.log("final post check???",selectedPostObject)
-        if (selectedPostObject) {
-          setSelectedPost(selectedPostObject.post_name);
+        if (formValues.applied_post_masters_id) {
+          const selectedPostObject = response.data.find(
+            (post) => post.id == formValues.applied_post_masters_id
+          );
+          // console.log("final post check???",selectedPostObject)
+          if (selectedPostObject) {
+            setSelectedPost(selectedPostObject.post_name);
+          }
         }
-      }
-    })
+      })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
@@ -52,15 +51,14 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
 
         // console.log(formValues.department_master_id,"<<<")
         if (formValues.department_master_id) {
-       
-          const selectedDepartmentObject = response.data.find((department) => department.id == formValues.department_master_id
+          const selectedDepartmentObject = response.data.find(
+            (department) => department.id == formValues.department_master_id
           );
-                // console.log("final department check???",selectedDepartmentObject)
+          // console.log("final department check???",selectedDepartmentObject)
           if (selectedDepartmentObject) {
             setSelectedDepartment(selectedDepartmentObject.dept_name);
           }
         }
-
       } catch (error) {
         console.error("Error fetching departments:", error);
       }
@@ -69,22 +67,19 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     fetchDepartments();
   }, []);
 
-
   useEffect(() => {
-   
     apiService
       .getCountries()
       .then((response) => {
         setCountries(response.data.data);
         // console.log("country >>>>",formValues.country)
-        if (formValues.country) {                   
-            setSelectedCountry(formValues.country);
-                  }
-                  if(formValues.city){
-                    setSelectedCity(formValues.city)
-                  }
+        if (formValues.country) {
+          setSelectedCountry(formValues.country);
+        }
+        if (formValues.city) {
+          setSelectedCity(formValues.city);
+        }
       })
-
 
       .catch((error) => {
         console.error("Error fetching countries:", error);
@@ -131,7 +126,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     });
     const selectedDeptID = event.target.value;
     // console.log("selectedDeptID",selectedDeptID,departments)
-    const selectedDepartmentObject = departments.find((department) => department.id == selectedDeptID
+    const selectedDepartmentObject = departments.find(
+      (department) => department.id == selectedDeptID
     );
     // console.log("selectedDepartmentObject idf",selectedDepartmentObject);
 
@@ -140,7 +136,7 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       setFormValues((prevValues) => ({
         UserDetails: {
           ...prevValues.UserDetails,
-          department_master_id:parseInt(selectedDeptID),
+          department_master_id: parseInt(selectedDeptID),
         },
       }));
     } else {
@@ -164,8 +160,8 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
       setFormValues((prevValues) => ({
         UserDetails: {
           ...prevValues.UserDetails,
-          applied_post_masters_id:  parseInt(selectedPostId),
-          job_category_master_id: jobCategoryId
+          applied_post_masters_id: parseInt(selectedPostId),
+          job_category_master_id: jobCategoryId,
         },
       }));
     } else {
@@ -277,23 +273,27 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                         &nbsp;(If Others, Please Specify)
                       </span> */}
                   </label>
-          
+
                   <select
                     id="postDropdown"
                     value={selectedPost}
                     onChange={handlePostChange}
                     className="UD-set-dropdown"
+                    style={{ textTransform: "capitalize" }}
                   >
-                   
-                    <option value="">{selectedPost&&selectedPost?selectedPost: "Select a post"}</option>
-                  
-                    {posts.map((post,index) => {
-                      
+                    <option value="">
+                      {selectedPost && selectedPost
+                        ? selectedPost
+                        : "Select a post"}
+                    </option>
+
+                    {posts.map((post, index) => {
                       // console.log("post",post)
-                    return  <option key={index} value={post.id}>
-                        {post.post_name}
-                      </option>
-                    
+                      return (
+                        <option key={index} value={post.id}>
+                          {post.post_name}
+                        </option>
+                      );
                     })}
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
@@ -316,9 +316,13 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     value={selectedDepartment}
                     onChange={handleDepartmentChange}
                     className="UD-set-dropdown"
-                  >                   
-                    <option value="">{selectedDepartment&&selectedDepartment?selectedDepartment: "Select a department"}</option>
-                    {departments.map((department,index) => (
+                  >
+                    <option value="">
+                      {selectedDepartment && selectedDepartment
+                        ? selectedDepartment
+                        : "Select a department"}
+                    </option>
+                    {departments.map((department, index) => (
                       <option key={index} value={department.id}>
                         {department.dept_name}
                       </option>
@@ -625,24 +629,25 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     className="set-dropdown"
                     value={selectedCountry}
                     onChange={handleCountryChange}
-                  >   
-                    <option value="">{selectedCountry&&selectedCountry?selectedCountry: "Select a country"}</option>
-                    {countries.map((countryData,index) => (
-                      <option
-                        key={index}
-                        value={countryData.country}
-                      >
+                  >
+                    <option value="">
+                      {selectedCountry && selectedCountry
+                        ? selectedCountry
+                        : "Select a country"}
+                    </option>
+                    {countries.map((countryData, index) => (
+                      <option key={index} value={countryData.country}>
                         {countryData.country}
                       </option>
                     ))}
-                  </select>               
+                  </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
                 </div>
                 <span className="error-message">{errors.country}</span>
               </div>
             </div>
 
-            <div className="row">             
+            <div className="row">
               <div className="col-md-4">
                 {/* *Current Job City */}
                 <div className="UD-form-section">
@@ -654,13 +659,17 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
                     className="set-dropdown"
                     value={selectedCity}
                     onChange={handleCityChange}
-                  >                    
-                    <option value="">{selectedCity&&selectedCity?selectedCity: "Select a city"}</option>
+                  >
+                    <option value="">
+                      {selectedCity && selectedCity
+                        ? selectedCity
+                        : "Select a city"}
+                    </option>
                     {(
                       countries.find(
                         (country) => country.country === selectedCountry
                       )?.cities || []
-                    ).map((city,index) => (
+                    ).map((city, index) => (
                       <option key={index} value={city}>
                         {city}
                       </option>
