@@ -17,7 +17,8 @@ import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
 import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
 import { CANDIDATE_BASE_URL } from "../../../config/config";
-// import apiService from "../../../Services/ApiServices";
+import apiService from "../../../Services/ApiServices";
+
 import Notification from "../../../Notification/Notification";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
@@ -292,16 +293,47 @@ function ApplyNow() {
       Object.entries(formValues.UserDetails).forEach(([key, value]) => {
         if (key === "educations" && Array.isArray(value)) {
           formDataToSend.append(key, JSON.stringify(value));
-        } else {
+        }
+        if (key === "experiences" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } 
+        if (key === "researches" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } 
+        if (key === "journal_publications" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } 
+        if (key === "conference_publications" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } 
+        if (key === "patents" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } 
+        if (key === "copyrights" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } 
+        if (key === "seminar_organised" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } 
+        if (key === "seminar_attend" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } 
+        if (key === "other_membership_info" && Array.isArray(value)) {
+          formDataToSend.append(key, JSON.stringify(value));
+        } 
+        
+        
+        else {
           formDataToSend.append(key, value);
         }
+      
       });
 
       setformDataToSend(formDataToSend);
       setOtpButtonclicked(true);
       setShowHeaderFooter(false);
 
-      // console.log("formDataToSend", formDataToSend);
+      console.log("formDataToSend", formDataToSend);
       setformDataToSend(formDataToSend);
 
       const otpData = {
@@ -311,8 +343,8 @@ function ApplyNow() {
       };
       setOtpData(otpData);
 
-      // const response = await apiService.generateOTP(otpData);
-      // console.log("API Response:", response);
+      const response = await apiService.generateOTP(otpData);
+      console.log("API Response:", response);
       setSelectedComponent("OTPVerification");
     } catch (error) {
       console.error(
@@ -344,7 +376,7 @@ function ApplyNow() {
   };
 
   const handleNext = async () => {
-    // console.log("Form formValues:", formValues);
+    console.log("Form formValues:", formValues);
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());

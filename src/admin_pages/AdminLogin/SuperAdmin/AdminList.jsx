@@ -9,6 +9,14 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import close from "../../../assets/logos/close.png";
 import { Pagination } from "react-bootstrap";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
+
 function AdminList() {
   const [admins, setAdmins] = useState([]);
   const [open, setOpen] = useState(false);
@@ -18,6 +26,8 @@ function AdminList() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
   const paginationRange = 0;
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+  const [adminToDeleteId, setAdminToDeleteId] = useState(null);
   const fetchAdminList = async () => {
     try {
       const response = await adminApiService.getAdminList();
@@ -88,19 +98,41 @@ function AdminList() {
     }
   };
 
+  // const handleDeleteAdmin = async (adminId) => {
+  //   try {
+
+  //     const confirmDelete = window.confirm(
+  //       "Are you sure you want to delete this admin?"
+  //     );
+  //     if (!confirmDelete) return; 
+
+
+  //     await adminApiService.deleteAdminById(adminId);
+
+
+  //     setAdmins(admins.filter((admin) => admin.id !== adminId));
+  //   } catch (error) {
+  //     console.error("Error deleting admin:", error.message);
+  //   }
+  // };
+
+  const handleOpenDeleteConfirmation = (adminId) => {
+    setAdminToDeleteId(adminId);
+    setDeleteConfirmationOpen(true);
+  };
+
+  const handleCloseDeleteConfirmation = () => {
+    setDeleteConfirmationOpen(false);
+    setAdminToDeleteId(null);
+  };
+
   const handleDeleteAdmin = async (adminId) => {
     try {
-      // Display confirmation dialog
-      const confirmDelete = window.confirm(
-        "Are you sure you want to delete this admin?"
-      );
-      if (!confirmDelete) return; // If user cancels, do nothing
-
-      // Call the delete API
       await adminApiService.deleteAdminById(adminId);
-
-      // Update the local state after successful deletion
       setAdmins(admins.filter((admin) => admin.id !== adminId));
+
+      // Close the delete confirmation dialog
+      handleCloseDeleteConfirmation();
     } catch (error) {
       console.error("Error deleting admin:", error.message);
     }
@@ -112,7 +144,7 @@ function AdminList() {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "40%",
-  
+
     height: "520px",
     maxHeight: "600px",
 
@@ -271,13 +303,30 @@ function AdminList() {
                   <td>
                     <button
                       id="table-btns"
-                      onClick={() => handleDeleteAdmin(data.id)}
+                      onClick={() => handleOpenDeleteConfirmation(data.id)}
                     >
                       <img src={deletebtn} className="up-del-btn" alt="" />
                     </button>
                   </td>
                 </tr>
               ))}
+
+              <Dialog
+                open={deleteConfirmationOpen}
+                onClose={handleCloseDeleteConfirmation}
+              >
+                <DialogTitle>Confirmation</DialogTitle>
+                <DialogContent>
+                  Are you sure you want to delete this admin?
+                </DialogContent>
+                <DialogActions>
+
+                  <Button onClick={() => handleDeleteAdmin(adminToDeleteId)} variant="contained" color="error"                >
+                    Delete
+                  </Button>
+                  <Button onClick={handleCloseDeleteConfirmation}>Cancel</Button>
+                </DialogActions>
+              </Dialog>
             </tbody>
           </table>
         </div>
@@ -301,7 +350,12 @@ function AdminList() {
           )}
           <Pagination.Next onClick={nextPage} />
         </Pagination>
+
+
+
       </div>
+
+
     </>
   );
 }

@@ -38,10 +38,10 @@ function VisitorsReports() {
   });
   const [updateNewField, setUpdateNewField] = useState({});
   const [allottedError, setAllottedError] = useState("");
-const [commentsError, setCommentsError] = useState("");
+  const [commentsError, setCommentsError] = useState("");
 
-  
-  
+
+
   const fetchVisitorData = async () => {
     try {
       const response = await adminApiService.getVisitor();
@@ -118,14 +118,14 @@ const [commentsError, setCommentsError] = useState("");
   const handleChange = (fieldName, value) => {
     const MAX_ASSIGN_TO_LENGTH = 40;
     const MAX_ACTION_DESC_LENGTH = 200;
-  
+
     if (fieldName === "assign_to" && value.length > MAX_ASSIGN_TO_LENGTH) {
       setAllottedError("Maximum 40 characters allowed.");
       return; // Ignore typing if limit exceeded
     } else {
       setAllottedError(""); // Clear the error if within limit
     }
-  
+
     if (fieldName === "action_discription" && value.length > MAX_ACTION_DESC_LENGTH) {
       setCommentsError("Maximum 200 characters allowed.");
       return; // Ignore typing if limit exceeded
@@ -237,10 +237,10 @@ const [commentsError, setCommentsError] = useState("");
                     <td>{visitor.is_attend ? "Yes" : "No"}</td>
                     <td>{visitor.is_close ? "Yes" : "No"}</td>
                     <td>{truncateMessage(visitor.action_discription || "-", 4)}</td>
-                    
+
                     <td>{new Date(visitor.createdAt).toLocaleString()}</td>
 
-                    
+
 
                     <td>
                       <button
@@ -392,7 +392,7 @@ const [commentsError, setCommentsError] = useState("");
                               handleChange("assign_to", e.target.value)
                             }
                           />
-                         {allottedError && <span className="error-message">{allottedError}</span>}
+                          {allottedError && <span className="error-message">{allottedError}</span>}
                         </div>
                       </div>
 
@@ -437,7 +437,7 @@ const [commentsError, setCommentsError] = useState("");
                               handleChange("action_discription", e.target.value)
                             }
                           />
-                            {commentsError && <span className="error-message">{commentsError}</span>}
+                          {commentsError && <span className="error-message">{commentsError}</span>}
                         </div>
                       </div>
 
@@ -517,8 +517,7 @@ const [commentsError, setCommentsError] = useState("");
                   </DialogContent>
                   <DialogActions>
                     <Button
-                      variant="contained"
-                      color="primary"
+                     variant="contained" color="error"
                       onClick={handleConfirmDelete}
                     >
                       Delete
