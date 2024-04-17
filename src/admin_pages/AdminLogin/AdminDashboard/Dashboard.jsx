@@ -16,10 +16,10 @@ import {
 } from "recharts";
 function Dashboard() {
   const data = [
-    { week: "Week 1", interviews: 10, candidates: 20 },
-    { week: "Week 2", interviews: 15, candidates: 18 },
-    { week: "Week 3", interviews: 20, candidates: 25 },
-    { week: "Week 4", interviews: 18, candidates: 30 },
+    { week: 'Week 1', interviews: 10, candidates: 20 },
+    { week: 'Week 2', interviews: 5, candidates: 6 },
+    { week: 'Week 3', interviews: 0, candidates: 10 },
+    { week: 'Week 4', interviews: 50, candidates: 1 },
   ];
 
   return (
@@ -64,28 +64,28 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <div className="graphChart">
-        <h2>Interviews and Candidates</h2>
-        <LineChart width={800} height={400} data={data}>
-          <XAxis dataKey="week" />
-          <YAxis />
-          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          <Tooltip />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="interviews"
-            name="First Interviews"
-            stroke="#8884d8"
-          />
-          <Line
-            type="monotone"
-            dataKey="candidates"
-            name="Candidates Applied"
-            stroke="#82ca9d"
-          />
-        </LineChart>
+      <div className="mainBody">       
+      <div className="cardGraph">
+        
+
+
+
+
+        
       </div>
+      <div className="graphChart">
+      <h2>Interviews and Candidates</h2>
+      <LineChart width={800} height={350} data={data}>
+        <XAxis dataKey="week" />
+        <YAxis /> 
+        <CartesianGrid strokeWidth={3} stroke="#eee" strokeDasharray="5 5" />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="interviews" name="First Interviews"   stroke="rgba(0, 0, 255, 0.8)"  strokeWidth={3} />
+        <Line type="monotone" dataKey="candidates" name="Candidates Applied" stroke="rgba(128, 0, 0, 0.8)"   strokeWidth={3}/>
+      </LineChart>
+    </div>
+    </div>
     </>
   );
 }

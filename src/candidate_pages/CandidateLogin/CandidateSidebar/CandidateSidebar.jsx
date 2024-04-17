@@ -131,10 +131,10 @@ function CandidateSidebar() {
                       <FontAwesomeIcon
                         icon={faUserTie}
                         style={{
-                          fontSize: "5rem",
+                          width: "1.5rem",
+                          height: "1.5rem",
                           borderRadius: "50%",
-                          backgroundColor: "#ddd",
-                          padding: "20px",
+                          // backgroundColor: "#ddd",
                         }}
                       />
                     )}

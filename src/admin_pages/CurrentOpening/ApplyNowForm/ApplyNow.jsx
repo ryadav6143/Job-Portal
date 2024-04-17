@@ -17,7 +17,7 @@ import Submitsuccess from "../../DropCV/OTPVerifivation/Submitsuccess";
 import Header from "../../../components/Header/Header";
 import Footers from "../../../components/Footer/Footers";
 import { CANDIDATE_BASE_URL } from "../../../config/config";
-// import apiService from "../../../Services/ApiServices";
+import apiService from "../../../Services/ApiServices";
 import Notification from "../../../Notification/Notification";
 const steps = ["", "", "", "", "", ""];
 function ApplyNow() {
@@ -289,14 +289,82 @@ function ApplyNow() {
     try {
       const formDataToSend = new FormData();
 
-      Object.entries(formValues.UserDetails).forEach(([key, value]) => {
+      // Object.entries(formValues.UserDetails).forEach(([key, value]) => {
+      //   if (key === "educations" && Array.isArray(value)) {
+      //     formDataToSend.append(key, JSON.stringify(value));
+      //   }
+      //   if (key === "experiences" && Array.isArray(value)) {
+      //     formDataToSend.append(key, JSON.stringify(value));
+      //   } else {
+      //     formDataToSend.append(key, value);
+      //   }
+      // });
+
+      for (const [key, value] of Object.entries(formValues.UserDetails)) {
         if (key === "educations" && Array.isArray(value)) {
-          formDataToSend.append(key, JSON.stringify(value));
+          value.forEach((education, index) => {
+            Object.entries(education).forEach(([eduKey, eduValue]) => {
+              formDataToSend.append(`${key}[${index}][${eduKey}]`, eduValue);
+            });
+          });
+        } else if (key === "experiences" && Array.isArray(value)) {
+          value.forEach((experience, index) => {
+            Object.entries(experience).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
+        } else if (key === "researches" && Array.isArray(value)) {
+          value.forEach((researche, index) => {
+            Object.entries(researche).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
+        } else if (key === "journal_publications" && Array.isArray(value)) {
+          value.forEach((journal_publication, index) => {
+            Object.entries(journal_publication).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
+        } else if (key === "conference_publications" && Array.isArray(value)) {
+          value.forEach((conference_publication, index) => {
+            Object.entries(conference_publication).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
+        } else if (key === "patents" && Array.isArray(value)) {
+          value.forEach((patent, index) => {
+            Object.entries(patent).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
+        } else if (key === "copyrights" && Array.isArray(value)) {
+          value.forEach((copyright, index) => {
+            Object.entries(copyright).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
+        } else if (key === "seminar_organised" && Array.isArray(value)) {
+          value.forEach((seminar_organiseds, index) => {
+            Object.entries(seminar_organiseds).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
+        } else if (key === "seminar_attend" && Array.isArray(value)) {
+          value.forEach((seminar_attends, index) => {
+            Object.entries(seminar_attends).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
+        } else if (key === "other_membership_info" && Array.isArray(value)) {
+          value.forEach((other_membership_infos, index) => {
+            Object.entries(other_membership_infos).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
         } else {
           formDataToSend.append(key, value);
         }
-      });
-
+      }
       setformDataToSend(formDataToSend);
       setOtpButtonclicked(true);
       setShowHeaderFooter(false);
@@ -311,8 +379,8 @@ function ApplyNow() {
       };
       setOtpData(otpData);
 
-      // const response = await apiService.generateOTP(otpData);
-      // console.log("API Response:", response);
+      const response = await apiService.generateOTP(otpData);
+      console.log("API Response:", response);
       setSelectedComponent("OTPVerification");
     } catch (error) {
       console.error(
@@ -344,7 +412,7 @@ function ApplyNow() {
   };
 
   const handleNext = async () => {
-    // console.log("Form formValues:", formValues);
+    console.log("Form formValues:", formValues);
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());

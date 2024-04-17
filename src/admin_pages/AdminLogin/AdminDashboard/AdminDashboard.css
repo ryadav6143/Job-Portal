@@ -45,8 +45,27 @@
 .info p:nth-child(2) {
   font-size: 40px;
 }
-.graphChart{
+.graphChart {
   float: right;
     margin-top: 2rem;
     margin-right: 2rem;
 }
+.mainBody{
+  display: flex;
+  align-items: center;
+}
+.cardGraph{
+  border-radius: 20px !important;
+  width: 25em !important;
+  height: 22em !important;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+  text-align: center !important;
+  margin: auto;
+  align-items: center;
+  padding-top: 60px;
+  border: 1px solid rgba(0, 0, 0, 0.082);
+}
+
+
+/* =========================== */
+

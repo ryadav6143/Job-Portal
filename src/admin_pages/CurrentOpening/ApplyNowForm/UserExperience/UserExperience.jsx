@@ -94,7 +94,7 @@ function UserExperience({ formValues, setFormValues, errors, setErrors }) {
             {formValues.experiences.map((experience, index) => (
               <div key={index}>
                 {" "}
-                {index > 0 && <hr style={{ margin: '24px 0' }} />}
+                {index > 0 && <hr style={{ margin: "24px 0" }} />}
                 <div className="row">
                   <div>
                     {formValues.experiences.length > 1 && (

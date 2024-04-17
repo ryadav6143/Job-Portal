@@ -70,8 +70,6 @@ function ScheduledAcademics() {
           <table className="table is-table">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
-                {/* &#x2193; */}
-
                 <th scope="col">S.No </th>
                 <th scope="col">Department </th>
                 <th scope="col">Post </th>
