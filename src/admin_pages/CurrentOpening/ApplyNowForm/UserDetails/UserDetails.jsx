@@ -28,8 +28,12 @@ function UserDetails({ formValues, setFormValues, errors, setErrors }) {
     apiService
       .getAppliedPosts()
       .then((response) => {
-        // Update the state with the fetched data
-        setPosts(response.data);
+        
+        const filteredPosts = response.data.filter(post => post.job_category_master.category_name !== "non-academic");
+
+        // Update the state with the filtered data
+        setPosts(filteredPosts);
+        
         // console.log(formValues.applied_post_masters_id,"<<<")
       if (formValues.applied_post_masters_id) {
      

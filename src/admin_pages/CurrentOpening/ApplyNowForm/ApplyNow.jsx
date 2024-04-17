@@ -307,7 +307,15 @@ function ApplyNow() {
               formDataToSend.append(`${key}[${index}][${eduKey}]`, eduValue);
             });
           });
-        } else if (key === "experiences" && Array.isArray(value)) {
+        }         
+        else if (key === "seminar_attend" && Array.isArray(value)) {
+          value.forEach((seminar_attends, index) => {
+            Object.entries(seminar_attends).forEach(([expKey, expValue]) => {
+              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
+            });
+          });
+        } 
+        else if (key === "experiences" && Array.isArray(value)) {
           value.forEach((experience, index) => {
             Object.entries(experience).forEach(([expKey, expValue]) => {
               formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
@@ -349,13 +357,7 @@ function ApplyNow() {
               formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
             });
           });
-        } else if (key === "seminar_attend" && Array.isArray(value)) {
-          value.forEach((seminar_attends, index) => {
-            Object.entries(seminar_attends).forEach(([expKey, expValue]) => {
-              formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
-            });
-          });
-        } else if (key === "other_membership_info" && Array.isArray(value)) {
+        }else if (key === "other_membership_info" && Array.isArray(value)) {
           value.forEach((other_membership_infos, index) => {
             Object.entries(other_membership_infos).forEach(([expKey, expValue]) => {
               formDataToSend.append(`${key}[${index}][${expKey}]`, expValue);
@@ -369,7 +371,7 @@ function ApplyNow() {
       setOtpButtonclicked(true);
       setShowHeaderFooter(false);
 
-      // console.log("formDataToSend", formDataToSend);
+      console.log("formDataToSend", formDataToSend);
       setformDataToSend(formDataToSend);
 
       const otpData = {

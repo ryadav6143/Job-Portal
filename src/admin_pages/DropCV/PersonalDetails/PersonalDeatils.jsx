@@ -51,10 +51,10 @@ function PersonalDeatils({ formData, setFormData, errors, setErrors }) {
   const [maxCharacters] = useState(40);
 
   useEffect(() => {
-    if (!hasMounted.current) {
-      hasMounted.current = true;
-      return;
-    }
+    // if (!hasMounted.current) {
+    //   hasMounted.current = true;
+    //   return;
+    // }
     const controller = new AbortController();
     const signal = controller.signal;
     const fetchData = async () => {

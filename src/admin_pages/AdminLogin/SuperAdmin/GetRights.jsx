@@ -10,6 +10,8 @@ import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 import "./GetRights.css";
 import { Pagination } from "react-bootstrap";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+
 function GetRights() {
   const [rights, setRights] = useState([]);
   const [role, setRole] = useState([]);
@@ -18,11 +20,13 @@ function GetRights() {
   const [updateField, setUpdateField] = useState({});
   const [modalData, setModalData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage =4;
+  const itemsPerPage = 4;
   const paginationRange = 0;
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedApiType, setSelectedApiType] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+  const [rightsToDeleteId, setRightsToDeleteId] = useState(null);
   const [formData, setFormData] = useState({
     api_name: "",
     api_type: "",
@@ -83,18 +87,45 @@ function GetRights() {
     setOpen(false);
   };
 
-  const handleDelete = async (rightsID) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete?");
-    if (confirmDelete) {
-      try {
-        await adminApiService.deleteRightsById(rightsID);
+  // const handleDelete = async (rightsID) => {
+  //   const confirmDelete = window.confirm("Are you sure you want to delete?");
+  //   if (confirmDelete) {
+  //     try {
+  //       await adminApiService.deleteRightsById(rightsID);
 
-        const updatedRights = rights.filter((right) => right.id !== rightsID);
-        setRights(updatedRights);
-      } catch (error) {
-        console.error("Error deleting rights:", error);
-        alert("An error occurred while deleting rights.");
-      }
+  //       const updatedRights = rights.filter((right) => right.id !== rightsID);
+  //       setRights(updatedRights);
+  //     } catch (error) {
+  //       console.error("Error deleting rights:", error);
+  //       alert("An error occurred while deleting rights.");
+  //     }
+  //   }
+  // };
+
+  const handleOpenDeleteConfirmation = (rightsID) => {
+    setRightsToDeleteId(rightsID);
+    setDeleteConfirmationOpen(true);
+  };
+
+  const handleCloseDeleteConfirmation = () => {
+    setDeleteConfirmationOpen(false);
+    setRightsToDeleteId(null);
+  };
+
+  const handleDelete = async (rightsID) => {
+    setRightsToDeleteId(rightsID);
+    setDeleteConfirmationOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await adminApiService.deleteRightsById(rightsToDeleteId);
+      const updatedRights = rights.filter((right) => right.id !== rightsToDeleteId);
+      setRights(updatedRights);
+      handleCloseDeleteConfirmation();
+    } catch (error) {
+      console.error("Error deleting rights:", error);
+      alert("An error occurred while deleting rights.");
     }
   };
 
@@ -182,8 +213,8 @@ function GetRights() {
 
   const filteredRightsBySearch = searchQuery
     ? filteredRightsByApiType.filter((right) =>
-        right.url.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+      right.url.toLowerCase().includes(searchQuery.toLowerCase())
+    )
     : filteredRightsByApiType;
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -310,6 +341,25 @@ function GetRights() {
                     </tr>
                   ))
                 )}
+
+                <Dialog
+                  open={deleteConfirmationOpen}
+                  onClose={handleCloseDeleteConfirmation}
+                >
+                  <DialogTitle>Delete Confirmation</DialogTitle>
+                  <DialogContent>
+                    Are you sure you want to delete this rights?
+                  </DialogContent>
+                  <DialogActions>
+
+                    <Button onClick={confirmDelete} variant="contained" color="error">
+                      Delete
+                    </Button>
+                    <Button onClick={handleCloseDeleteConfirmation} >
+                      Cancel
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </tbody>
             </table>
           </div>

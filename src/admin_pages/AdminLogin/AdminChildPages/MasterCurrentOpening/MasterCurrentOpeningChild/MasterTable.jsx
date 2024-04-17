@@ -33,7 +33,7 @@ function MasterTable() {
           currentPage,
           itemsPerPage
         );
-        // console.log(response, "<<<<<<<check data")
+        console.log(response, "<<<<<<<check data")
         setJobProfiles(response.jobprofileData);
         setCounts(response);
 
@@ -260,6 +260,7 @@ function MasterTable() {
                 <tr>
                   <th scope="col">S.No.</th>
                   <th scope="col">Category</th>
+                  <th scope="col">Post</th>
                   <th scope="col">Department</th>
                   <th scope="col">Last Date</th>
                   <th scope="col">isActive</th>
@@ -277,6 +278,7 @@ function MasterTable() {
                       <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
                     </td>
                     <td>{data.job_category_master?.category_name || "N/A"}</td>
+                    <td>{data.applied_post_master?.post_name || "N/A"}</td>
                     <td>{data.department_master?.dept_name || "N/A"}</td>
                     <td>
                       {formatDateForInput(data.last_date_to_apply) || "N/A"}
