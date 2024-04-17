@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faEnvelope,
-  faMobile,
+  faMobile, 
   faUserTie,
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";

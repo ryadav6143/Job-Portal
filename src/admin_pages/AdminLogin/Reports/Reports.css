@@ -13,7 +13,7 @@
   overflow: hidden;
   background-color: rgb(211, 211, 211);
   padding: 10px;
-  padding-left: 0;
+  padding-left: 14px;
 }
 .education-section {
   flex: 1;

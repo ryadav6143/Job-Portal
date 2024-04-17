@@ -236,7 +236,7 @@ const [commentsError, setCommentsError] = useState("");
                     <td>{visitor.assign_to || "-"}</td>
                     <td>{visitor.is_attend ? "Yes" : "No"}</td>
                     <td>{visitor.is_close ? "Yes" : "No"}</td>
-                    <td>{truncateMessage(visitor.action_discription || "-", 4)}</td>
+                    <td>{truncateMessage(visitor.action_discription || "-", 2)}</td>
                     <td>{new Date(visitor.createdAt).toLocaleDateString()}</td>
                     <td>
                       <button
