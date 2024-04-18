@@ -9,7 +9,8 @@
 .detail-card {
   width: 250px;
   height: 150px;
-  background-color: #3c3c3c;
+  /* background-color: #3c3c3c; */
+  background-color: #6a6a6a;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s ease;
