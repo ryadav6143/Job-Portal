@@ -5,6 +5,7 @@ import calanderlogo from "../.../../../../assets/logos/calendar-white.png";
 import Applylogo from "../.../../../../assets/logos/apply-white.png";
 import Userlogo from "../.../../../../assets/logos/user-white.png";
 import messagelogo from "../.../../../../assets/logos/email-white.png";
+import adminApiService from "../../adminApiService";
 import {
   LineChart,
   Line,
@@ -25,6 +26,21 @@ function Dashboard() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  const [allCounts, setAllCounts] = useState("");
+  const fetchAllCount = async () => {
+    try {
+      const response = await adminApiService.getAllCounts();
+      console.log("all counts>>", response);
+
+      setAllCounts(response);
+    } catch (error) {
+      console.error("Error fetching visitor details:", error);
+    }
+  };
+  useEffect(() => {
+    fetchAllCount();
+  }, []);
+
   const data = [
     { month: "January", interviews: 10, candidates: 20, visitors: 15 },
     { month: "February", interviews: 5, candidates: 6, visitors: 25 },
@@ -49,8 +65,8 @@ function Dashboard() {
               <img src={calanderlogo} alt="" />
             </div>
             <div className="info">
-              <p>Interviews</p>
-              <p>86</p>
+              <p>Interview Schedules</p>
+              <p>{allCounts.totalActiveIntervew}</p>
             </div>
           </div>
           <div className="detail-card">
@@ -58,8 +74,8 @@ function Dashboard() {
               <img src={Applylogo} alt="" />
             </div>
             <div className="info">
-              <p>Apply</p>
-              <p>75</p>
+              <p>Vacancy</p>
+              <p>{allCounts.totalActiveVacancy}</p>
             </div>
           </div>
           <div className="detail-card">
@@ -67,8 +83,8 @@ function Dashboard() {
               <img src={Userlogo} alt="" />
             </div>
             <div className="info">
-              <p>Profiles</p>
-              <p>116</p>
+              <p>No. Of Candidates</p>
+              <p>{allCounts.totalCandidate}</p>
             </div>
           </div>
           <div className="detail-card">
@@ -76,8 +92,8 @@ function Dashboard() {
               <img src={messagelogo} alt="" />
             </div>
             <div className="info">
-              <p>Visitors</p>
-              <p>110</p>
+              <p>Vacancy Type</p>
+              <p>{allCounts.totalActiveOpenings}</p>
             </div>
           </div>
         </div>
