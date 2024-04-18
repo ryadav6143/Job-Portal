@@ -134,7 +134,6 @@ function RegisterAdmin() {
               <div className="col-6">
                 <label htmlFor="">First Name</label>
                 <input
-                
                   name="first_name"
                   type="text"
                   placeholder="Enter Your Name"
@@ -220,7 +219,7 @@ function RegisterAdmin() {
                   onChange={handleChange}
                 >
                   <option value="">Select Department</option>
-                  {departments.map((department,index) => (
+                  {departments.map((department, index) => (
                     <option key={index} value={department.id}>
                       {department.dept_name}
                     </option>

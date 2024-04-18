@@ -26,10 +26,18 @@ function Dashboard() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   const data = [
-    { week: "Week 1", interviews: 10, candidates: 20, visitors: 15 },
-    { week: "Week 2", interviews: 5, candidates: 6, visitors: 25 },
-    { week: "Week 3", interviews: 5, candidates: 10, visitors: 5 },
-    { week: "Week 4", interviews: 50, candidates: 1, visitors: 10 },
+    { month: "January", interviews: 10, candidates: 20, visitors: 15 },
+    { month: "February", interviews: 5, candidates: 6, visitors: 25 },
+    { month: "March", interviews: 5, candidates: 10, visitors: 5 },
+    { month: "April", interviews: 50, candidates: 12, visitors: 10 },
+    { month: "May", interviews: 70, candidates: 8, visitors: 12 },
+    { month: "June", interviews: 40, candidates: 9, visitors: 8 },
+    { month: "July", interviews: 20, candidates: 25, visitors: 36 },
+    { month: "August", interviews: 5, candidates: 15, visitors: 16 },
+    { month: "September", interviews: 54, candidates: 18, visitors: 46 },
+    { month: "October", interviews: 4, candidates: 9, visitors: 6 },
+    { month: "November", interviews: 0, candidates: 85, visitors: 46 },
+    { month: "December", interviews: 40, candidates: 5, visitors: 6 },
   ];
 
   return (
@@ -81,7 +89,7 @@ function Dashboard() {
       >
         <h2>Interviews and Candidates</h2>
         <LineChart width={containerWidth} height={350} data={data}>
-          <XAxis dataKey="week" />
+          <XAxis dataKey="month" />
           <YAxis />
           <CartesianGrid strokeWidth={4} stroke="#eee" strokeDasharray="5 5" />
           <Tooltip />
@@ -91,7 +99,7 @@ function Dashboard() {
             dataKey="interviews"
             name="First Interviews"
             stroke="rgba(0, 0, 255, 0.8)"
-            strokeWidth={4}
+            strokeWidth={3}
             filter="url(#glow)"
           />
 
@@ -100,7 +108,7 @@ function Dashboard() {
             dataKey="candidates"
             name="Candidates Applied"
             stroke="rgba(128, 0, 0, 0.8)"
-            strokeWidth={4}
+            strokeWidth={3}
             filter="url(#glow)"
           />
 
@@ -108,8 +116,8 @@ function Dashboard() {
             type="monotone"
             dataKey="visitors"
             name="Total Visitors"
-            stroke="green"
-            strokeWidth={4}
+            stroke="yellow"
+            strokeWidth={3}
             filter="url(#glow)"
           />
 
@@ -121,7 +129,7 @@ function Dashboard() {
               width="10000%"
               height="10000%"
             >
-              <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+              <feGaussianBlur stdDeviation="1" result="coloredBlur" />
               <feMerge>
                 <feMergeNode in="coloredBlur" />
                 <feMergeNode in="SourceGraphic" />

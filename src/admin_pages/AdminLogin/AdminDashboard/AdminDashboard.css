@@ -6,6 +6,7 @@
   font-family: "Open Sans", sans-serif;
   margin: 20px;
 }
+
 .detail-card {
   width: 250px;
   height: 150px;
@@ -48,14 +49,14 @@
 }
 .graphChart {
   float: right;
-    margin-top: 2rem;
-    margin-right: 2rem;
+  margin-top: 2rem;
+  margin-right: 2rem;
 }
-.mainBody{
+.mainBody {
   display: flex;
   align-items: center;
 }
-.cardGraph{
+.cardGraph {
   border-radius: 20px !important;
   width: 25em !important;
   height: 22em !important;
@@ -67,6 +68,4 @@
   border: 1px solid rgba(0, 0, 0, 0.082);
 }
 
-
 /* =========================== */
-
