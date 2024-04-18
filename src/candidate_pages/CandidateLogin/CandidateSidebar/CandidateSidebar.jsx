@@ -3,15 +3,8 @@ import { Link } from "react-router-dom";
 import "./CandidateSidebar.css";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserTie } from "@fortawesome/free-solid-svg-icons";
 import {
-  faUser,
-  faEnvelope,
-  faMobile, 
-  faUserTie,
-  faAngleDown,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faIdCardClip,
   faBuildingColumns,
   faBriefcase,
   faSearch,
@@ -85,13 +78,16 @@ function CandidateSidebar() {
 
   const handleLinkClick = (event) => {
     const allSpans = document.querySelectorAll(".set-menu span");
+    const dropSpans = document.querySelectorAll(".dropdown-item");
     allSpans.forEach((span) => {
-      span.style.color = "inherit"; // Reset color for all spans
+      span.style.color = "inherit";
     });
-
-    event.target.style.color = "maroon"; // Change color for clicked span
+    dropSpans.forEach((span) => {
+      span.style.color = "inherit";
+    });
+    event.target.style.color = "maroon";
     if (isMobile) {
-      setIsOpen(true); // Close sidebar if it's open on mobile
+      setIsOpen(true);
     }
   };
 
@@ -134,7 +130,6 @@ function CandidateSidebar() {
                           width: "1.5rem",
                           height: "1.5rem",
                           borderRadius: "50%",
-                          // backgroundColor: "#ddd",
                         }}
                       />
                     )}

@@ -110,9 +110,6 @@ function AdminRegister() {
     <>
       <div className="reg-container-main">
         <div className="form-heading">
-          {/* <div className="">
-            <img className="reg-ad-logo" src={medilogo} alt="Logo" />
-          </div> */}
           <p>Register New Admin</p>
         </div>
         <form onSubmit={handleSubmit}>

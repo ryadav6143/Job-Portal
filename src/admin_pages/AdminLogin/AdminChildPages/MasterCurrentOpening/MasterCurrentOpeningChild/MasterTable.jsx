@@ -256,7 +256,7 @@ function MasterTable() {
           </div>
           <div className="table-responsive fixe-table">
             <table className="table ">
-              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)"}} className="thead">
                 <tr>
                   <th scope="col">S.No.</th>
                   <th scope="col">Category</th>
