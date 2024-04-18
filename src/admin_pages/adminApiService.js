@@ -787,6 +787,20 @@ const adminApiService = {
       throw error;
     }
   },
+
+
+  getAllCounts: async () => {
+    try {
+      const response = await axios.get(`${ADMIN_BASE_URL}/reports/getCountReport`, {
+        headers: {
+          "access-token": getAccessToken(),
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
 };
 
 function getAccessToken() {
