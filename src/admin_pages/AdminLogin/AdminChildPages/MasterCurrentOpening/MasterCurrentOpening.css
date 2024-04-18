@@ -6,6 +6,7 @@
   margin-inline: 0px;
   /* padding-right: 50px; */
   /* padding-left: 50px; */
+  margin-top: 90px;
 }
 #upd-btn {
   background-color: #0b6623e5;
@@ -105,11 +106,12 @@ input:checked + .slider:before {
   /* border-bottom: 2px solid red; */
 }
 .new-opening-btn {
-  /* position: absolute; */
-  right: 30px;
-  margin: 1%;
-  margin-top: 3%;
+  position: absolute;
+  right: 0;
+  margin: 3%;
+  margin-top: 6%;
   float: right;
+ 
 }
 .new-opening-btn button {
   font-family: "Open Sans", sans-serif;
@@ -118,6 +120,7 @@ input:checked + .slider:before {
   font-size: 15px;
   font-weight: 600;
   border: 2px solid black;
+  text-transform: uppercase;
 }
 .new-opening-btn a {
   text-decoration: none;

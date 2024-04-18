@@ -194,80 +194,75 @@ function AddSubPostApplied() {
         alertSeverity={notificationSeverity}
       />
       <div className="container-1">
-        <div>
-          <button className="new-opening-btn" onClick={() => setOpen(true)}>
-            Add Sub post
-          </button>
+        <div className="new-opening-btn">
+          <button onClick={() => setOpen(true)}>Add Sub post</button>
         </div>
 
-        <Modal
+        <Dialog
           open={open} // Control the open state of the modal
-          onClose={() => setOpen(false)} // Close the modal when onClose event occurs
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          onClose={() => setOpen(false)}
+          PaperProps={{ style: { width: "100%" } }}
         >
-          <Box sx={style}>
-            <FormControl>
-              <div>
-                <form>
-                  <img
-                    onClick={handleCloseModal}
-                    className="postapplied-close-btn"
-                    src={close}
-                    alt=""
-                  />
-                  <label className="AC-SetLabel-Name" htmlFor="postSelect">
-                    Select Post:
-                  </label>
-                  <select
-                    id="postSelect"
-                    value={selectedPostId}
-                    className="select-jc"
-                    onChange={(e) => handleSelectPost(e)} // Pass the event object directly
-                  >
-                    <option value="">Select Post</option>
-                    {postData.map((post, index) => (
-                      <option key={index} value={post.id}>
-                        {post.post_name}
-                      </option>
-                    ))}
-                  </select>
+          <DialogContent>
+            <form>
+              <label className="AC-SetLabel-Name" htmlFor="postSelect">
+                Select Post:
+              </label>
+              <select
+                id="postSelect"
+                value={selectedPostId}
+                className="select-jc"
+                onChange={(e) => handleSelectPost(e)} // Pass the event object directly
+              >
+                <option value="">Select Post</option>
+                {postData.map((post, index) => (
+                  <option key={index} value={post.id}>
+                    {post.post_name}
+                  </option>
+                ))}
+              </select>
 
-                  <label
-                    style={{ marginTop: "20px" }}
-                    className="AC-SetLabel-Name"
-                    htmlFor=""
-                  >
-                    Add Sub Post Applied For
-                  </label>
+              <label
+                style={{ marginTop: "20px" }}
+                className="AC-SetLabel-Name"
+                htmlFor=""
+              >
+                Add Sub Post Applied For
+              </label>
 
-                  <input
-                    type="text"
-                    id=""
-                    className="Ac-set-input"
-                    placeholder="Sub Post Applied For"
-                    value={selectedPost ? selectedPost.post_name : newPost}
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      if (selectedPost) {
-                        setSelectedPost((prev) => ({
-                          ...prev,
-                          subpost_name: newValue,
-                        }));
-                      } else {
-                        setNewPost(newValue);
-                      }
-                    }}
-                  />
-
-                  <button id="set-btn" type="button" onClick={handleAddSubPost}>
-                    ADD NOW
-                  </button>
-                </form>
-              </div>
-            </FormControl>
-          </Box>
-        </Modal>
+              <input
+                type="text"
+                id=""
+                className="Ac-set-input"
+                placeholder="Sub Post Applied For"
+                value={selectedPost ? selectedPost.post_name : newPost}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  if (selectedPost) {
+                    setSelectedPost((prev) => ({
+                      ...prev,
+                      subpost_name: newValue,
+                    }));
+                  } else {
+                    setNewPost(newValue);
+                  }
+                }}
+              />
+              <DialogActions>
+                <button
+                  className="submitbtn"
+                  type="button"
+                  onClick={handleAddSubPost}
+                >
+                  ADD NOW
+                </button>
+                <button onClick={handleCloseModal} className="canclebtn">
+                  Cancle
+                </button>
+              </DialogActions>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
       <div className="new-admin-list">
         <div className="master-table">
@@ -312,90 +307,83 @@ function AddSubPostApplied() {
                   </tr>
                 ))}
 
-                <Modal
+                <Dialog
                   open={updateModalOpen}
                   onClose={handleCloseUpdateModal}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
+                  PaperProps={{ style: { width: "100%" } }}
                 >
-                  <Box sx={style}>
-                    <FormControl>
-                      <div>
-                        <form>
-                          <img
-                            style={{ marginTop: "-30px", marginLeft: "18px" }}
-                            onClick={handleCloseUpdateModal}
-                            className="Examtype-close-btn"
-                            src={close}
-                            alt=""
-                          />
-                          <label
-                            className="AC-SetLabel-Name"
-                            htmlFor="postSelect"
-                          >
-                            Select Post:
-                          </label>
-                          <select
-                            id="postSelect"
-                            className="select-jc"
-                            value={
-                              selectedPost
-                                ? selectedPost.applied_post_master.id
-                                : ""
-                            }
-                            onChange={(e) => {
-                              const selectedPostId = parseInt(e.target.value);
-                              const selectedPostData = postData.find(
-                                (post) => post.id === selectedPostId
-                              );
-                              // console.log("selectedPost>>>>>>",selectedPostId)
-                              setSelectedPost((prevState) => ({
-                                ...prevState,
-                                applied_post_master: selectedPostData,
-                              }));
-                              setUpdatePost("");
-                            }}
-                          >
-                            <option value="">Select Post</option>
-                            {postData.map((post, index) => (
-                              <option key={index} value={post.id}>
-                                {post?.post_name}
-                              </option>
-                            ))}
-                          </select>
+                  <DialogContent>
+                    <form>
+                      <label className="AC-SetLabel-Name" htmlFor="postSelect">
+                        Select Post:
+                      </label>
+                      <select
+                        id="postSelect"
+                        className="select-jc"
+                        value={
+                          selectedPost
+                            ? selectedPost.applied_post_master.id
+                            : ""
+                        }
+                        onChange={(e) => {
+                          const selectedPostId = parseInt(e.target.value);
+                          const selectedPostData = postData.find(
+                            (post) => post.id === selectedPostId
+                          );
+                          // console.log("selectedPost>>>>>>",selectedPostId)
+                          setSelectedPost((prevState) => ({
+                            ...prevState,
+                            applied_post_master: selectedPostData,
+                          }));
+                          setUpdatePost("");
+                        }}
+                      >
+                        <option value="">Select Post</option>
+                        {postData.map((post, index) => (
+                          <option key={index} value={post.id}>
+                            {post?.post_name}
+                          </option>
+                        ))}
+                      </select>
 
-                          <label
-                            style={{ marginTop: "20px" }}
-                            className="AC-SetLabel-Name"
-                            htmlFor=""
-                          >
-                            Update Sub Post Applied For
-                          </label>
+                      <label
+                        style={{ marginTop: "20px" }}
+                        className="AC-SetLabel-Name"
+                        htmlFor=""
+                      >
+                        Update Sub Post Applied For
+                      </label>
 
-                          <input
-                            type="text"
-                            id=""
-                            value={updatePost}
-                            className="Ac-set-input"
-                            placeholder="Sub Post Applied For"
-                            onChange={(e) => {
-                              setUpdatePost(e.target.value);
-                              // console.log("Updated sub post:", e.target.value);
-                            }}
-                          />
+                      <input
+                        type="text"
+                        id=""
+                        value={updatePost}
+                        className="Ac-set-input"
+                        placeholder="Sub Post Applied For"
+                        onChange={(e) => {
+                          setUpdatePost(e.target.value);
+                          // console.log("Updated sub post:", e.target.value);
+                        }}
+                      />
 
-                          <button
-                            id="set-btn"
-                            type="button"
-                            onClick={handleUpdateSubPost}
-                          >
-                            UPDATE NOW
-                          </button>
-                        </form>
-                      </div>
-                    </FormControl>
-                  </Box>
-                </Modal>
+                      <DialogActions>
+                        <button
+                          className="submitbtn"
+                          type="button"
+                          onClick={handleUpdateSubPost}
+                        >
+                          UPDATE NOW
+                        </button>
+                        <button
+                          onClick={handleCloseUpdateModal}
+                          className="canclebtn"
+                        >
+                          Cancle
+                        </button>
+                      </DialogActions>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </tbody>
             </table>
           </div>
@@ -407,16 +395,12 @@ function AddSubPostApplied() {
           Are you sure you want to delete this SubPost?
         </DialogContent>
         <DialogActions>
-          <Button onClick={confirmDelete} variant="contained" color="error">
+          <button className="submitbtn" onClick={confirmDelete}>
             Delete
-          </Button>
-          <Button
-            onClick={handleCloseDeleteDialog}
-            variant="text"
-            color="primary"
-          >
+          </button>
+          <button className="canclebtn" onClick={handleCloseDeleteDialog}>
             Cancel
-          </Button>
+          </button>
         </DialogActions>
       </Dialog>
     </>

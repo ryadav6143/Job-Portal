@@ -184,22 +184,17 @@ function AdminList() {
 
   return (
     <>
-      <Modal
-        open={open}
-        onClose={handleCloseModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <div>
-            <form onSubmit={handleSubmit}>
-              <img
-                // style={{ marginTop: "-30px", marginLeft: "30px" }}
-                onClick={handleCloseModal}
-                className="Examtype-close-btn"
-                src={close}
-                alt="Close"
-              />
+
+
+
+<Dialog
+          open={open}
+          onClose={handleCloseModal}
+          PaperProps={{ style: { width: "100%" } }}
+        >
+          <DialogContent>
+          <form onSubmit={handleSubmit}>
+            
               <label className="AC-SetLabel-Name" htmlFor="categoryInput">
                 First Name
               </label>
@@ -256,14 +251,21 @@ function AdminList() {
                   </option>
                 ))}
               </select>
-
-              <button id="update-new-btn" onClick={handleSubmit}>
-                UPDATE NOW
-              </button>
+              <DialogActions>
+                <button  className="submitbtn" type="submit" onClick={handleSubmit}>
+                  UPDATE NOW
+                </button>
+                <button       onClick={handleCloseModal} className="canclebtn">
+                  Cancle
+                </button>
+              </DialogActions>
+           
             </form>
-          </div>
-        </Box>
-      </Modal>
+            
+       
+          </DialogContent>
+        </Dialog>
+
 
       <div className="admin-list ">
         <p className="SCA-heading">List Of Admins</p>
@@ -321,10 +323,10 @@ function AdminList() {
                 </DialogContent>
                 <DialogActions>
 
-                  <Button onClick={() => handleDeleteAdmin(adminToDeleteId)} variant="contained" color="error"                >
+                  <button className="submitbtn" onClick={() => handleDeleteAdmin(adminToDeleteId)} >
                     Delete
-                  </Button>
-                  <Button onClick={handleCloseDeleteConfirmation}>Cancel</Button>
+                  </button>
+                  <button className="canclebtn" onClick={handleCloseDeleteConfirmation}>Cancel</button>
                 </DialogActions>
               </Dialog>
             </tbody>

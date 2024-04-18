@@ -358,16 +358,15 @@ function MasterTable() {
           Are you sure you want to delete this Current Opening?
         </DialogContent>
         <DialogActions>
-          <Button onClick={confirmDelete} variant="contained" color="error">
+          <button onClick={confirmDelete} className="submitbtn">
             Delete
-          </Button>
-          <Button
+          </button>
+          <button
             onClick={handleCloseDeleteDialog}
-            variant="text"
-            color="primary"
+            className="canclebtn"
           >
             Cancel
-          </Button>
+          </button>
         </DialogActions>
       </Dialog>
     </>

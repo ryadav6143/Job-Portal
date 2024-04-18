@@ -3,23 +3,30 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import adminApiService from "../../adminApiService";
 import Notification from "../../../Notification/Notification";
+
 function AddCategories() {
   const [data, setData] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null); // New state for tracking the selected category for update
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [open, setOpen] = React.useState(false);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [categoryToDelete, setCategoryToDelete] = useState(null);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("success");
   const [notificationOpen, setNotificationOpen] = useState(false);
-  
+
   // ------------------GET DATA FROM API--------------------------------
 
   const getJobCategory = async () => {
@@ -56,7 +63,6 @@ function AddCategories() {
       ) {
         alert(error.response.data.message);
       } else {
-        
         setNotificationMessage("An error occurred while adding newCategory");
         setNotificationSeverity("error");
         setNotificationOpen(true);
@@ -64,33 +70,30 @@ function AddCategories() {
     }
   };
 
-
-
   const handleDeleteCategory = async (categoryId) => {
-    setCategoryToDelete(categoryId); 
-    setDeleteDialogOpen(true); 
+    setCategoryToDelete(categoryId);
+    setDeleteDialogOpen(true);
   };
   const confirmDelete = async () => {
     try {
       await adminApiService.DeleteCategory(categoryToDelete);
       setData((prevData) =>
-            prevData.filter((category) => category.id !== categoryToDelete)
-          );
-          setNotificationMessage("Deleted Successfully.");
-          setNotificationSeverity("success");
-          setNotificationOpen(true);
-      setDeleteDialogOpen(false); 
+        prevData.filter((category) => category.id !== categoryToDelete)
+      );
+      setNotificationMessage("Deleted Successfully.");
+      setNotificationSeverity("success");
+      setNotificationOpen(true);
+      setDeleteDialogOpen(false);
     } catch (error) {
-      console.error("Error deleting job profile:", error);      
+      console.error("Error deleting job profile:", error);
       setNotificationMessage("Failed to delete job profile. Please try again");
       setNotificationSeverity("error");
       setNotificationOpen(true);
     }
   };
   const handleCloseDeleteDialog = () => {
-    setDeleteDialogOpen(false);  
+    setDeleteDialogOpen(false);
   };
-
 
   const handleUpdateCategory = async () => {
     if (!selectedCategory) return;
@@ -167,84 +170,78 @@ function AddCategories() {
 
   return (
     <>
-     <Notification
-                open={notificationOpen}
-                handleClose={() => setNotificationOpen(false)}
-                alertMessage={notificationMessage}
-                alertSeverity={notificationSeverity}
-            />
+      <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div className="container-1">
         <div className="new-opening-btn">
           <button onClick={handleOpen}>Add Categories</button>
         </div>
 
-        <Modal
+        <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          PaperProps={{ style: { width: "100%" } }}
         >
-          <Box sx={style}>
-            <FormControl>
-              <div>
-                <form>
-                  <img
-                    onClick={handleXButtonClick}
-                    className="Ac-close-btn"
-                    src={close}
-                  />
-                  <label className="AC-SetLabel-Name" htmlFor="categoryInput">
-                    Add Job Category
+          <DialogContent>
+            <form>
+              <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+                Add Job Category
+              </label>
+
+              <input
+                className="Ac-set-input"
+                type="text"
+                id="categoryInput"
+                placeholder="Add Categories"
+                value={
+                  selectedCategory
+                    ? selectedCategory.category_name
+                    : newCategory
+                }
+                onChange={(e) => {
+                  if (selectedCategory) {
+                    setSelectedCategory({
+                      ...selectedCategory,
+                      category_name: e.target.value,
+                    });
+                  } else {
+                    setNewCategory(e.target.value);
+                  }
+                }}
+              />
+              <div className="">
+                <div className="category-publish-btn">
+                  <p>Publish To Job Profile</p>
+                  <label className="switch">
+                    <input type="checkbox" id="checkbox" />
+                    <div className="slider round"></div>
                   </label>
-
-                  <input
-                    className="Ac-set-input"
-                    type="text"
-                    id="categoryInput"
-                    placeholder="Add Categories"
-                    value={
-                      selectedCategory
-                        ? selectedCategory.category_name
-                        : newCategory
-                    }
-                    onChange={(e) => {
-                      if (selectedCategory) {
-                        setSelectedCategory({
-                          ...selectedCategory,
-                          category_name: e.target.value,
-                        });
-                      } else {
-                        setNewCategory(e.target.value);
-                      }
-                    }}
-                  />
-                  <div className="">
-                    <button
-                      id="set-btn"
-                      type="button"
-                      onClick={handleAddCategory}
-                    >
-                      ADD
-                    </button>
-
-                    <div className="category-publish-btn">
-                      <p>Publish To Job Profile</p>
-                      <label className="switch">
-                        <input type="checkbox" id="checkbox" />
-                        <div className="slider round"></div>
-                      </label>
-                    </div>
-                  </div>
-                </form>
+                </div>
               </div>
-            </FormControl>
-          </Box>
-        </Modal>
+
+              <DialogActions>
+                <button
+                  className="submitbtn"
+                  type="button"
+                  onClick={handleAddCategory}
+                >
+                  ADD NOW
+                </button>
+                <button onClick={handleXButtonClick} className="canclebtn">
+                  Cancle
+                </button>
+              </DialogActions>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
       {/* -------------------------update form ---------------------------------------- */}
-
       <div className="admin-list">
-        <div className="master-table ">
+        <div className="master-table">
           <p className="SCA-heading">CURRENT CATEGORIES AVAILABLE</p>
           <div className="table-responsive fixe-table">
             <table className="table table-responsive">
@@ -281,72 +278,73 @@ function AddCategories() {
                     </td>
                   </tr>
                 ))}
-                <Modal
+
+                <Dialog
                   open={updateModalOpen}
                   onClose={handleCloseUpdateModal}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
+                  PaperProps={{ style: { width: "100%" } }}
                 >
-                  <Box sx={style}>
-                    <FormControl>
-                      <div>
-                        <form>
-                          <img
-                            onClick={handleXButtonClick}
-                            className="update-close-btn"
-                            src={close}
-                          />
-                          <label
-                         className="AC-SetLabel-Name"
-                            htmlFor="categoryInput"
-                          >
-                            Update Job Category
-                          </label>
+                  <DialogContent>
+                    <form>
+                      <label
+                        className="AC-SetLabel-Name"
+                        htmlFor="categoryInput"
+                      >
+                        Update Job Category
+                      </label>
 
-                          <input
-                            className="Ac-set-input"
-                            type="text"
-                            id="categoryInput"
-                            placeholder="Update Category"
-                            value={
-                              selectedCategory
-                                ? selectedCategory?.category_name
-                                : ""
-                            }
-                            onChange={(e) =>
-                              setSelectedCategory({
-                                ...selectedCategory,
-                                category_name: e.target.value,
-                              })
-                            }
-                          />
-                          <button
-                            id="set-btn"
-                            type="button"
-                            onClick={handleUpdateCategory}
-                          >
-                            UPDATE NOW
-                          </button>
-                        </form>
-                      </div>
-                    </FormControl>
-                  </Box>
-                </Modal>
+                      <input
+                        className="Ac-set-input"
+                        type="text"
+                        id="categoryInput"
+                        placeholder="Update Category"
+                        value={
+                          selectedCategory
+                            ? selectedCategory?.category_name
+                            : ""
+                        }
+                        onChange={(e) =>
+                          setSelectedCategory({
+                            ...selectedCategory,
+                            category_name: e.target.value,
+                          })
+                        }
+                      />
+                    </form>
+                    <DialogActions>
+                      <button
+                        className="submitbtn"
+                        type="button"
+                        onClick={handleUpdateCategory}
+                      >
+                        UPDATE NOW
+                      </button>
+                      <button
+                        onClick={handleXButtonClick}
+                        className="canclebtn"
+                      >
+                        Cancle
+                      </button>
+                    </DialogActions>
+                  </DialogContent>
+                </Dialog>
               </tbody>
             </table>
           </div>
         </div>
       </div>
-
-
       <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
         <DialogTitle>Delete Catgeory</DialogTitle>
         <DialogContent>
           Are you sure you want to delete this Category?
         </DialogContent>
         <DialogActions>
-          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
-          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+          <button className="submitbtn" onClick={confirmDelete}>
+            Delete
+          </button>
+          <button onClick={handleCloseDeleteDialog} className="canclebtn">
+            Cancel
+          </button>
         </DialogActions>
       </Dialog>
     </>

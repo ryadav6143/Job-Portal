@@ -10,7 +10,13 @@ import Box from "@mui/material/Box";
 import close from "../../../assets/logos/close.png";
 import adminApiService from "../../adminApiService";
 import Notification from "../../../Notification/Notification";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
 function AddSubjects() {
   const [subject, setSubject] = useState([]);
   const [newSubject, setNewSubjectName] = useState("");
@@ -21,9 +27,9 @@ function AddSubjects() {
   const [open, setOpen] = React.useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   // const [categories] = useState([]);
-  const [ setSelectedCategoryId] = useState("");
+  const [setSelectedCategoryId] = useState("");
   const [setSelectedCategory] = useState(null);
-  const [newCategory,setNewCategory] = useState("");
+  const [newCategory, setNewCategory] = useState("");
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [subjectToDelete, setSubjectToDelete] = useState(null);
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -32,14 +38,12 @@ function AddSubjects() {
 
   useEffect(() => {
     fetchData();
-
   }, []);
-
 
   // const fetchData = () => {
   //   axios
   //     .get(`${ADMIN_BASE_URL}/subjectMaster`)
-  //     .then((response) => {        
+  //     .then((response) => {
   //       setSubject(response.data);
   //     })
   //     .catch((error) => {
@@ -47,11 +51,10 @@ function AddSubjects() {
   //     });
   // };
 
-
   const fetchData = () => {
-   adminApiService.fetchSubjects()
+    adminApiService
+      .fetchSubjects()
       .then((data) => {
-       
         setSubject(data);
       })
       .catch((error) => {
@@ -59,8 +62,9 @@ function AddSubjects() {
       });
   };
 
-  const handleAdd = () => {    
-   adminApiService.addSubject(newSubject, newSubjectType, newSubjectDescription)
+  const handleAdd = () => {
+    adminApiService
+      .addSubject(newSubject, newSubjectType, newSubjectDescription)
       .then((response) => {
         setNotificationMessage("Added Successfully.");
         setNotificationSeverity("success");
@@ -78,8 +82,6 @@ function AddSubjects() {
       });
   };
 
-
-
   const handleUpdate = (subject) => {
     setEditingSubject(subject);
     setNewSubjectName(subject.subject_name);
@@ -88,72 +90,74 @@ function AddSubjects() {
     setUpdateModalOpen(true);
   };
 
-
-
   const handleSubmitUpdate = () => {
- adminApiService.updateSubject(newSubject, editingSubject, newSubjectType, newSubjectDescription)
-    .then((response) => {
-      setNotificationMessage("Updated Successfully.");
+    adminApiService
+      .updateSubject(
+        newSubject,
+        editingSubject,
+        newSubjectType,
+        newSubjectDescription
+      )
+      .then((response) => {
+        setNotificationMessage("Updated Successfully.");
+        setNotificationSeverity("success");
+        setNotificationOpen(true);
+        const updatedSubjects = subject.map((subj) =>
+          subj.id === editingSubject.id ? response : subj
+        );
+        setSubject(updatedSubjects);
+        setEditingSubject(null);
+        setNewSubjectName("");
+        setNewSubjectType("");
+        setNewSubjectDescription("");
+        setUpdateModalOpen(false);
+        fetchData();
+      })
+      .catch((error) => {
+        console.error(error);
+        setNotificationMessage("error during Update subject");
+        setNotificationSeverity("error");
+        setNotificationOpen(true);
+      });
+  };
+
+  // const handleDelete = (id) => {
+  //   const isConfirmed = window.confirm("Are you sure you want to delete this subject?");
+  //   if (isConfirmed) {
+  //    adminApiService.deleteSubject(id)
+  //       .then(() => {
+  //         setSubject(subject.filter((subj) => subj.id !== id));
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   }
+  // };
+
+  const handleDelete = async (subjectId) => {
+    setSubjectToDelete(subjectId);
+    setDeleteDialogOpen(true);
+  };
+  const confirmDelete = async () => {
+    try {
+      await adminApiService.deleteSubject(subjectToDelete);
+      setSubject((prevData) =>
+        prevData.filter((subject) => subject.id !== subjectToDelete)
+      );
+      setNotificationMessage("Deleted Successfully.");
       setNotificationSeverity("success");
       setNotificationOpen(true);
-      const updatedSubjects = subject.map((subj) =>
-        subj.id === editingSubject.id ? response : subj
-      );
-      setSubject(updatedSubjects);
-      setEditingSubject(null);
-      setNewSubjectName("");
-      setNewSubjectType("");
-      setNewSubjectDescription("");
-      setUpdateModalOpen(false);
-      fetchData();
-    })
-    .catch((error) => {
-      console.error(error);
-      setNotificationMessage("error during Update subject");
+      setDeleteDialogOpen(false);
+    } catch (error) {
+      console.error("Error deleting Department:", error);
+      setNotificationMessage("Failed to delete Department. Please try again");
       setNotificationSeverity("error");
       setNotificationOpen(true);
-    });
-};
-
-
-// const handleDelete = (id) => {
-//   const isConfirmed = window.confirm("Are you sure you want to delete this subject?");
-//   if (isConfirmed) {
-//    adminApiService.deleteSubject(id)
-//       .then(() => {
-//         setSubject(subject.filter((subj) => subj.id !== id));
-//       })
-//       .catch((error) => {
-//         console.error(error);
-//       });
-//   }
-// };
-
-const handleDelete = async (subjectId) => {
-  setSubjectToDelete(subjectId);
-  setDeleteDialogOpen(true);
-};
-const confirmDelete = async () => {
-  try {
-    await adminApiService.deleteSubject(subjectToDelete);
-    setSubject((prevData) =>
-      prevData.filter((subject) => subject.id !== subjectToDelete)
-    );
-    setNotificationMessage("Deleted Successfully.");
-    setNotificationSeverity("success");
-    setNotificationOpen(true);
+    }
+  };
+  const handleCloseDeleteDialog = () => {
     setDeleteDialogOpen(false);
-  } catch (error) {
-    console.error("Error deleting Department:", error);
-    setNotificationMessage("Failed to delete Department. Please try again");
-    setNotificationSeverity("error");
-    setNotificationOpen(true);
-  }
-};
-const handleCloseDeleteDialog = () => {
-  setDeleteDialogOpen(false);
-};
-
+  };
 
   // const handleSelectPostForUpdate = (categoryId) => {
   //   setSelectedCategoryId(categoryId);
@@ -173,6 +177,7 @@ const handleCloseDeleteDialog = () => {
     setSelectedCategoryId("");
     setSelectedCategory(null);
     setNewCategory("");
+  
   };
   const style = {
     position: "absolute",
@@ -192,7 +197,7 @@ const handleCloseDeleteDialog = () => {
 
   return (
     <>
-       <Notification
+      <Notification
         open={notificationOpen}
         handleClose={() => setNotificationOpen(false)}
         alertMessage={notificationMessage}
@@ -202,20 +207,14 @@ const handleCloseDeleteDialog = () => {
         <div className="new-opening-btn">
           <button onClick={() => setOpen(true)}>Add Subject</button>
         </div>
-        <Modal
+
+        <Dialog
           open={open}
           onClose={handleCloseModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          PaperProps={{ style: { width: "100%" } }}
         >
-          <Box sx={style}>
+          <DialogContent>
             <form>
-              <img
-                onClick={handleCloseModal}
-                className="Ad-close-btn"
-                src={close}
-                alt=""
-              />
               <label
                 style={{ marginTop: "20px" }}
                 className="AC-SetLabel-Name"
@@ -253,137 +252,142 @@ const handleCloseDeleteDialog = () => {
                 value={newSubjectDescription}
                 onChange={(e) => setNewSubjectDescription(e.target.value)}
               />
-
-              <button id="set-btn" type="button" onClick={handleAdd}>
-                ADD
-              </button>
+              <DialogActions>
+                <button className="submitbtn" type="button" onClick={handleAdd}>
+                  ADD NOW
+                </button>
+                <button onClick={handleCloseModal} className="canclebtn">
+                  Cancle
+                </button>
+              </DialogActions>
             </form>
-          </Box>
-        </Modal>
+          </DialogContent>
+        </Dialog>
       </div>
 
-
-<div className="admin-list">
-<div className="master-table ">
-        <p className="SCA-heading">CURRENT SUBJECTS AVAILABLE</p>
-        <div className="table-responsive fixe-table">
-          <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">SUBJECT NAME</th>
-                <th scope="col">SUBJECT TYPE</th>
-                <th scope="col">UPDATE</th>
-                <th scope="col">DELETE</th>
-              </tr>
-            </thead>
-            <tbody>
-              {subject.map((subject, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{subject.subject_name}</td>
-                  <td>{subject.subject_type}</td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleUpdate(subject)}
-                    >
-                      <img src={updatebtn} className="up-del-btn" alt="" />
-                    </button>
-
-                  </td>
-                  <td>
-                    <button
-                      id="table-btns"
-                      onClick={() => handleDelete(subject.id)}
-                    >
-                      <img src={deletebtn} className="up-del-btn" alt="" />
-                    </button>
-                  </td>
+      <div className="admin-list">
+        <div className="master-table ">
+          <p className="SCA-heading">CURRENT SUBJECTS AVAILABLE</p>
+          <div className="table-responsive fixe-table">
+            <table className="table table-responsive">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">SUBJECT NAME</th>
+                  <th scope="col">SUBJECT TYPE</th>
+                  <th scope="col">UPDATE</th>
+                  <th scope="col">DELETE</th>
                 </tr>
-              ))}
-              <Modal
-                open={updateModalOpen}
-                onClose={handleCloseUpdateModal}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                  <form>
-                    <img
-                      onClick={handleCloseUpdateModal}
-                      className="Ad-close-btn"
-                      src={close}
-                      alt=""
-                    />
-                    <label
-                      className="AC-SetLabel-Name"
-                      htmlFor="SubjectName"
-                    >
-                      Add Subject Name
-                    </label>
-                    <input
-                      type="text"
-                      id="SubjectName"
-                      className="Ac-set-input"
-                      placeholder="Add Your Subject Name"
-                      value={newSubject}
-                      onChange={(e) => setNewSubjectName(e.target.value)}
-                    />
-                    <label
-                      className="AC-SetLabel-Name"
-                      htmlFor="SubjectType"
-                    >
-                      Add Subject Type
-                    </label>
-                    <input
-                      type="text"
-                      id="SubjectType"
-                      className="Ac-set-input"
-                      placeholder="Add Subject Type"
-                      value={newSubjectType}
-                      onChange={(e) => setNewSubjectType(e.target.value)}
-                    />
-                    <label
-                      className="AC-SetLabel-Name"
-                      htmlFor="SubjectDescription"
-                    >
-                      Add Subject Description
-                    </label>
-                    <input
-                      type="text"
-                      className="Ac-set-input"
-                      id="SubjectDescription"
-                      placeholder="Add Description"
-                      value={newSubjectDescription}
-                      onChange={(e) =>
-                        setNewSubjectDescription(e.target.value)
-                      }
-                    />
+              </thead>
+              <tbody>
+                {subject.map((subject, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{subject.subject_name}</td>
+                    <td>{subject.subject_type}</td>
+                    <td>
+                      <button
+                        id="table-btns"
+                        onClick={() => handleUpdate(subject)}
+                      >
+                        <img src={updatebtn} className="up-del-btn" alt="" />
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        id="table-btns"
+                        onClick={() => handleDelete(subject.id)}
+                      >
+                        <img src={deletebtn} className="up-del-btn" alt="" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
 
-                    <button
-                      id="set-btn"
-                      type="button"
-                      onClick={handleSubmitUpdate}
-                    >
-                      UPDATE
-                    </button>
-                  </form>
-                </Box>
-              </Modal>
-            </tbody>
-          </table>
+                <Dialog
+                  open={updateModalOpen}
+                  onClose={handleCloseUpdateModal}
+                  PaperProps={{ style: { width: "100%" } }}
+                >
+                  <DialogContent>
+                    <form>
+                      <label className="AC-SetLabel-Name" htmlFor="SubjectName">
+                        Add Subject Name
+                      </label>
+                      <input
+                        type="text"
+                        id="SubjectName"
+                        className="Ac-set-input"
+                        placeholder="Add Your Subject Name"
+                        value={newSubject}
+                        onChange={(e) => setNewSubjectName(e.target.value)}
+                      />
+                      <label className="AC-SetLabel-Name" htmlFor="SubjectType">
+                        Add Subject Type
+                      </label>
+                      <input
+                        type="text"
+                        id="SubjectType"
+                        className="Ac-set-input"
+                        placeholder="Add Subject Type"
+                        value={newSubjectType}
+                        onChange={(e) => setNewSubjectType(e.target.value)}
+                      />
+                      <label
+                        className="AC-SetLabel-Name"
+                        htmlFor="SubjectDescription"
+                      >
+                        Add Subject Description
+                      </label>
+                      <input
+                        type="text"
+                        className="Ac-set-input"
+                        id="SubjectDescription"
+                        placeholder="Add Description"
+                        value={newSubjectDescription}
+                        onChange={(e) =>
+                          setNewSubjectDescription(e.target.value)
+                        }
+                      />
+                    </form>
+                    <DialogActions>
+                      <button
+                        className="submitbtn"
+                        type="button"
+                        onClick={handleSubmitUpdate}
+                      >
+                        UPDATE NOW
+                      </button>
+                      <button
+                        onClick={handleCloseUpdateModal}
+                        className="canclebtn"
+                        type="button"
+                      >
+                        Cancle
+                      </button>
+                    </DialogActions>
+                  </DialogContent>
+                </Dialog>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-</div>
-<Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
+      <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
         <DialogTitle>Delete Catgeory</DialogTitle>
         <DialogContent>
           Are you sure you want to delete this Department?
         </DialogContent>
         <DialogActions>
-          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
-          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+          <button className="submitbtn" onClick={confirmDelete} >
+            Delete
+          </button>
+          <button
+            onClick={handleCloseDeleteDialog}
+           className="canclebtn"
+          >
+            Cancel
+          </button>
         </DialogActions>
       </Dialog>
     </>

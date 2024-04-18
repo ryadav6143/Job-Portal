@@ -159,7 +159,7 @@ function AddPostApplied() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "700",
+    width: "900",
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -196,93 +196,82 @@ function AddPostApplied() {
         alertSeverity={notificationSeverity}
       />
       <div className="container-1">
-        <div>
+        <div className="new-opening-btn">
           <button onClick={() => setOpen(true)}>Add Post Applied</button>
         </div>
         {open && (
-          <Modal
-            open={open}
+          <Dialog
             onClose={handleCloseModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            open={true}
+            PaperProps={{ style: { width: "100%" } }}
           >
-            <Box sx={style}>
-              <FormControl>
+            <DialogContent>
+              <form>
                 <div>
-                  <form>
-                    <img
-                      alt=""
-                      onClick={handleCloseModal}
-                      className="postapplied-close-btn"
-                      // style={{
-                      //   width: "20px",
-                      //   float: "right",
-                      //   position: "absolute",
-                      //   cursor: "pointer",
-                      //   left: "100%",
-                      //   top: "-17px",
-                      // }}
-                      src={close}
-                    />
-                    <div>
-                      <label className="AC-SetLabel-Name">
-                        Select Category
-                      </label>
-                      <select
-                        name="category"
-                        className="select-jc"
-                        value={selectedCategoryId}
-                        onChange={handleSelectCategory}
-                      >
-                        <option value="">Select Category</option>
-                        {categories &&
-                          categories.length > 0 &&
-                          categories.map((category, index) => (
-                            <option key={index} value={category.id}>
-                              {category?.category_name || ""}
-                            </option>
-                          ))}
-                      </select>
-                    </div>
-
-                    <label
-                      style={{ marginTop: "20px" }}
-                      className="AC-SetLabel-Name"
-                      htmlFor="categoryInput"
-                    >
-                      Add Post Applied For
-                    </label>
-                    <input
-                      type="text"
-                      className="Ac-set-input"
-                      id="categoryInput"
-                      placeholder="Add Post"
-                      value={
-                        selectedCategory
-                          ? selectedCategory.post_name
-                          : newCategory
-                      }
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        if (selectedCategory) {
-                          setSelectedCategory((prev) => ({
-                            ...prev,
-                            post_name: newValue,
-                          }));
-                        } else {
-                          setNewCategory(newValue);
-                        }
-                      }}
-                    />
-
-                    <button id="set-btn" type="button" onClick={handleAddPost}>
-                      ADD NOW
-                    </button>
-                  </form>
+                  <label className="AC-SetLabel-Name">Select Category</label>
+                  <select
+                    name="category"
+                    className="select-jc"
+                    value={selectedCategoryId}
+                    onChange={handleSelectCategory}
+                  >
+                    <option value="">Select Category</option>
+                    {categories &&
+                      categories.length > 0 &&
+                      categories.map((category, index) => (
+                        <option key={index} value={category.id}>
+                          {category?.category_name || ""}
+                        </option>
+                      ))}
+                  </select>
                 </div>
-              </FormControl>
-            </Box>
-          </Modal>
+
+                <label
+                  style={{ marginTop: "20px" }}
+                  className="AC-SetLabel-Name"
+                  htmlFor="categoryInput"
+                >
+                  Add Post Applied For
+                </label>
+                <input
+                  type="text"
+                  className="Ac-set-input"
+                  id="categoryInput"
+                  placeholder="Add Post"
+                  value={
+                    selectedCategory ? selectedCategory.post_name : newCategory
+                  }
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    if (selectedCategory) {
+                      setSelectedCategory((prev) => ({
+                        ...prev,
+                        post_name: newValue,
+                      }));
+                    } else {
+                      setNewCategory(newValue);
+                    }
+                  }}
+                />
+
+                {/* <button id="set-btn" type="button" onClick={handleAddPost}>
+                      ADD NOW
+                    </button> */}
+                <DialogActions>
+                  <button
+                    className="submitbtn"
+                    type="button"
+                    onClick={handleAddPost}
+                  >
+                    ADD NOW
+                  </button>
+                  <button onClick={handleCloseModal} className="canclebtn">
+                    Cancle
+                  </button>
+                </DialogActions>
+              </form>
+            </DialogContent>
+          </Dialog>
         )}
       </div>
       <div className="admin-list">
@@ -330,20 +319,13 @@ function AddPostApplied() {
                     </tr>
                   ))}
 
-                <Modal
-                  open={updateModalOpen}
+                <Dialog
                   onClose={handleCloseUpdateModal}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
+                  open={updateModalOpen}
+                  PaperProps={{ style: { width: "100%" } }}
                 >
-                  <Box sx={style}>
+                  <DialogContent>
                     <form>
-                      <img
-                        onClick={handleCloseUpdateModal}
-                        className="Ad-close-btn"
-                        src={close}
-                        alt=""
-                      />
                       <div>
                         <label className="AC-SetLabel-Name">
                           Select Category
@@ -398,17 +380,31 @@ function AddPostApplied() {
                           }));
                         }}
                       />
-
-                      <button
+                      <DialogActions>
+                        <button
+                          className="submitbtn"
+                          type="button"
+                          onClick={handleUpdatePost}
+                        >
+                          UPDATE NOW
+                        </button>
+                        <button
+                          onClick={handleCloseModal}
+                          className="canclebtn"
+                        >
+                          Cancle
+                        </button>
+                      </DialogActions>
+                      {/* <button
                         id="set-btn"
                         type="button"
                         onClick={handleUpdatePost}
                       >
                         UPDATE NOW
-                      </button>
+                      </button> */}
                     </form>
-                  </Box>
-                </Modal>
+                  </DialogContent>
+                </Dialog>
               </tbody>
             </table>
           </div>
@@ -421,16 +417,12 @@ function AddPostApplied() {
           Are you sure you want to delete this Post?
         </DialogContent>
         <DialogActions>
-          <Button onClick={confirmDelete} variant="contained" color="error">
+          <button className="submitbtn" onClick={confirmDelete}>
             Delete
-          </Button>
-          <Button
-            onClick={handleCloseDeleteDialog}
-            variant="text"
-            color="primary"
-          >
+          </button>
+          <button onClick={handleCloseDeleteDialog} className="canclebtn">
             Cancel
-          </Button>
+          </button>
         </DialogActions>
       </Dialog>
     </>

@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import "./Visitor.css";
 import Notification from "../../../Notification/Notification";
 import "./Visitor.css";
+
 import {
   Button,
   Dialog,
@@ -272,14 +273,14 @@ function VisitorsReports() {
                 >
                   <Box sx={style}>
                     <form>
-                      <img
+                      {/* <img
                         onClick={handleCloseUpdateModal}
                         className="postapplied-close-btn"
                         src={close}
                         alt=""
-                      />
+                      /> */}
                       <div className="row">
-                        <div className="col-6">
+                        <div className="col-4">
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="First Name"
@@ -298,7 +299,7 @@ function VisitorsReports() {
                             }
                           />
                         </div>
-                        <div className="col-6">
+                        <div className="col-4">
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="Last Name"
@@ -317,10 +318,7 @@ function VisitorsReports() {
                             }
                           />
                         </div>
-                      </div>
-
-                      <div className="row">
-                        <div className="col-6">
+                        <div className="col-4">
                           <label className="AC-SetLabel-Name" htmlFor="Email">
                             <span className="read-only-feilds">*</span>
                             Email
@@ -334,7 +332,11 @@ function VisitorsReports() {
                             value={selectedVisitor ? selectedVisitor.email : ""}
                           />
                         </div>
-                        <div className="col-6">
+                      </div>
+
+                      <div className="row">
+                        
+                        <div className="col-4">
                           <label className="AC-SetLabel-Name" htmlFor="Contact">
                             <span className="read-only-feilds">*</span>
                             Contact
@@ -350,10 +352,7 @@ function VisitorsReports() {
                             }
                           />
                         </div>
-                      </div>
-
-                      <div className="row">
-                        <div className="col-6">
+                        <div className="col-4">
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="createdAt"
@@ -372,8 +371,7 @@ function VisitorsReports() {
                             )}
                           />
                         </div>
-
-                        <div className="col-6">
+                        <div className="col-4">
                           <label
                             className="AC-SetLabel-Name"
                             htmlFor="Allotted"
@@ -394,6 +392,11 @@ function VisitorsReports() {
                           />
                           {allottedError && <span className="error-message">{allottedError}</span>}
                         </div>
+                      </div>
+
+                      <div className="row">
+                      
+                       
                       </div>
 
                       <div className="row">
@@ -491,18 +494,34 @@ function VisitorsReports() {
                                                     </label>
                                                 </div> */}
                       </div>
-
+                      <p>
+                        Note: <span className="read-only-feilds">*</span>These
+                        feilds are read only.
+                      </p>
+                      <DialogActions>
                       <button
+                 className="submitbtn" 
+                        type="button"
+                        onClick={handleUpdateVisitor}
+                      >
+                        UPDATE NOW
+                      </button> 
+                        <button    onClick={handleCloseUpdateModal}className="canclebtn" >
+                            Cancle
+                        </button>
+                        
+                        </DialogActions>
+                      {/* <button
                         id="set-btn"
                         type="button"
                         onClick={handleUpdateVisitor}
                       >
                         UPDATE NOW
-                      </button>
-                      <p>
+                      </button> 
+                       <p>
                         Note: <span className="read-only-feilds">*</span>These
                         feilds are read only.
-                      </p>
+                      </p> */}
                     </form>
                   </Box>
                 </Modal>
@@ -516,15 +535,16 @@ function VisitorsReports() {
                     Are you sure you want to delete this item?
                   </DialogContent>
                   <DialogActions>
-                    <Button
-                     variant="contained" color="error"
+                    <button
+                      className="submitbtn" 
                       onClick={handleConfirmDelete}
+
                     >
                       Delete
-                    </Button>
-                    <Button onClick={() => setDeleteVisitorId(null)}>
+                    </button>
+                    <button onClick={() => setDeleteVisitorId(null)} className="canclebtn">
                       Cancel
-                    </Button>
+                    </button>
                   </DialogActions>
                 </Dialog>
               </tbody>

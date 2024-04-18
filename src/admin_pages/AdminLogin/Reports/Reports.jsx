@@ -525,9 +525,9 @@ function Reports() {
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClosePdfDialog} color="primary">
+                <button id="set-btn"  onClick={handleClosePdfDialog} >
                   Close
-                </Button>
+                </button>
               </DialogActions>
             </Dialog>
 

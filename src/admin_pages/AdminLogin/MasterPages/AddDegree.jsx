@@ -6,6 +6,7 @@ import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 import adminApiService from "../../adminApiService";
 import Notification from "../../../Notification/Notification";
+import { Dialog, DialogContent, DialogActions } from "@mui/material";
 function AddDegree() {
   const [data, setData] = useState([]);
   const [examTypes, setExamTypes] = useState([]);
@@ -159,71 +160,71 @@ function AddDegree() {
           <button onClick={handleOpenModal}>Add Degree</button>
         </div>
 
-        <Modal
+        <Dialog
           open={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          PaperProps={{ style: { width: "100%" } }}
         >
-          <Box sx={style}>
-            <FormControl>
-              <form action="">
-                <div>
-                  <img
-                    onClick={() => setIsModalOpen(false)}
-                    className="Ac-close-btn"
-                    src={close}
-                    alt=""
-                  />
-                  <label className="AC-SetLabel-Name">Select Exam Type</label>
-                  <select
-                    name="examType"
-                    className="select-jc "
-                    value={selectedExamType}
-                    onChange={(e) => {
-                      const selectedId =
-                        examTypes.find(
-                          (exam) => exam.exam_name === e.target.value
-                        )?.id || "";
-                      setSelectedExamId(selectedId);
-                      setSelectedExamType(e.target.value);
-                    }}
-                  >
-                    <option value="">Select Exam Type</option>
-                    {[
-                      ...new Set(
-                        examTypes.map((examType) => examType.exam_name)
-                      ),
-                    ].map((uniqueExamName, index) => (
-                      <option key={index} value={uniqueExamName}>
-                        {uniqueExamName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <label
-                  style={{ marginTop: "20px" }}
-                  className="AC-SetLabel-Name"
-                  htmlFor=""
+          <DialogContent>
+            <form action="">
+              <div>
+                <label className="AC-SetLabel-Name">Select Exam Type</label>
+                <select
+                  name="examType"
+                  className="select-jc "
+                  value={selectedExamType}
+                  onChange={(e) => {
+                    const selectedId =
+                      examTypes.find(
+                        (exam) => exam.exam_name === e.target.value
+                      )?.id || "";
+                    setSelectedExamId(selectedId);
+                    setSelectedExamType(e.target.value);
+                  }}
                 >
-                  Add Degree
-                </label>
-                <input
-                  className="Ac-set-input"
-                  type="text"
-                  placeholder="Add Required Degree"
-                  value={newDegree}
-                  onChange={(e) => setNewDegree(e.target.value)}
-                />
+                  <option value="">Select Exam Type</option>
+                  {[
+                    ...new Set(examTypes.map((examType) => examType.exam_name)),
+                  ].map((uniqueExamName, index) => (
+                    <option key={index} value={uniqueExamName}>
+                      {uniqueExamName}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                <button id="set-btn" type="button" onClick={handleAddDegree}>
+              <label
+                style={{ marginTop: "20px" }}
+                className="AC-SetLabel-Name"
+                htmlFor=""
+              >
+                Add Degree
+              </label>
+              <input
+                className="Ac-set-input"
+                type="text"
+                placeholder="Add Required Degree"
+                value={newDegree}
+                onChange={(e) => setNewDegree(e.target.value)}
+              />
+              <DialogActions>
+                <button
+                  className="submitbtn"
+                  type="button"
+                  onClick={handleAddDegree}
+                >
                   ADD NOW
                 </button>
-              </form>
-            </FormControl>
-          </Box>
-        </Modal>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="canclebtn"
+                >
+                  Cancle
+                </button>
+              </DialogActions>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="admin-list">
@@ -264,23 +265,16 @@ function AddDegree() {
                   </td> */}
                   </tr>
                 ))}
-                <Modal
+
+                <Dialog
                   open={updateModalOpen}
                   onClose={() => setUpdateModalOpen(false)}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
+                  PaperProps={{ style: { width: "100%" } }}
                 >
-                  <Box sx={style}>
-                    <FormControl>
-                      <div>
-                        <form action="">
+                  <DialogContent>
+                  <form action="">
                           <div>
-                            <img
-                              onClick={() => setUpdateModalOpen(false)}
-                              className="Ac-close-btn"
-                              src={close}
-                              alt=""
-                            />
+                      
                             <label className="AC-SetLabel-Name">
                               Update Exam Type
                             </label>
@@ -334,18 +328,26 @@ function AddDegree() {
                               });
                             }}
                           />
-                          <button
-                            id="set-btn"
-                            type="button"
-                            onClick={handleUpdateDegree}
-                          >
-                            Update NOW
-                          </button>
+                            <DialogActions>
+                      <button
+                        className="submitbtn"
+                        type="button"
+                        onClick={handleUpdateDegree}
+                        >
+                          UPDATE NOW
+                      </button>
+                      <button
+                     onClick={() => setUpdateModalOpen(false)}
+                        className="canclebtn"
+                      >
+                        Cancle
+                      </button>
+                    </DialogActions>
                         </form>
-                      </div>
-                    </FormControl>
-                  </Box>
-                </Modal>
+               
+                  </DialogContent>
+                </Dialog>
+              
               </tbody>
             </table>
           </div>
