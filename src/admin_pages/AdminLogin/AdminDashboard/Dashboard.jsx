@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AdminDashboard.css";
 // import { LineChart } from "@mui/x-charts/LineChart";
 import calanderlogo from "../.../../../../assets/logos/calendar-white.png";
@@ -15,11 +15,21 @@ import {
   Legend,
 } from "recharts";
 function Dashboard() {
+  const [containerWidth, setContainerWidth] = useState(0);
+  useEffect(() => {
+    const handleResize = () => {
+      setContainerWidth(document.querySelector(".graphChart").clientWidth);
+    };
+
+    handleResize(); // Set initial width
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const data = [
-    { week: 'Week 1', interviews: 10, candidates: 20 , visitors:15},
-    { week: 'Week 2', interviews: 5, candidates: 6 , visitors:25},
-    { week: 'Week 3', interviews: 5, candidates: 10 , visitors:5},
-    { week: 'Week 4', interviews: 50, candidates: 1 , visitors:10},
+    { week: "Week 1", interviews: 10, candidates: 20, visitors: 15 },
+    { week: "Week 2", interviews: 5, candidates: 6, visitors: 25 },
+    { week: "Week 3", interviews: 5, candidates: 10, visitors: 5 },
+    { week: "Week 4", interviews: 50, candidates: 1, visitors: 10 },
   ];
 
   return (
@@ -65,32 +75,52 @@ function Dashboard() {
         </div>
       </div>
 
-
-      <div className="graphChart">
+      <div
+        className="graphChart"
+        style={{ width: "100%", maxWidth: "1100px", margin: "0 auto" }}
+      >
         <h2>Interviews and Candidates</h2>
-        <LineChart width={1200} height={350} data={data}>
+        <LineChart width={containerWidth} height={350} data={data}>
           <XAxis dataKey="week" />
           <YAxis />
           <CartesianGrid strokeWidth={4} stroke="#eee" strokeDasharray="5 5" />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="interviews" name="First Interviews"
-            stroke="rgba(0, 0, 255, 0.8)" strokeWidth={4}
-            filter="url(#glow)" />
-
-          <Line type="monotone" dataKey="candidates"
-            name="Candidates Applied" stroke="rgba(128, 0, 0, 0.8)"
+          <Line
+            type="monotone"
+            dataKey="interviews"
+            name="First Interviews"
+            stroke="rgba(0, 0, 255, 0.8)"
             strokeWidth={4}
-            filter="url(#glow)" />
+            filter="url(#glow)"
+          />
 
-          <Line type="monotone" dataKey="visitors"
-            name="Total Visitors" stroke="green"
+          <Line
+            type="monotone"
+            dataKey="candidates"
+            name="Candidates Applied"
+            stroke="rgba(128, 0, 0, 0.8)"
             strokeWidth={4}
-            filter="url(#glow)" />
+            filter="url(#glow)"
+          />
 
+          <Line
+            type="monotone"
+            dataKey="visitors"
+            name="Total Visitors"
+            stroke="green"
+            strokeWidth={4}
+            filter="url(#glow)"
+          />
 
           <defs>
-            <filter id="glow" x="-5000%" y="-5000%" width="10000%" height="10000%">
+            <filter
+              id="glow"
+              x="-5000%"
+              y="-5000%"
+              width="10000%"
+              height="10000%"
+            >
               <feGaussianBlur stdDeviation="2" result="coloredBlur" />
               <feMerge>
                 <feMergeNode in="coloredBlur" />
@@ -100,7 +130,6 @@ function Dashboard() {
           </defs>
         </LineChart>
       </div>
-
     </>
   );
 }
