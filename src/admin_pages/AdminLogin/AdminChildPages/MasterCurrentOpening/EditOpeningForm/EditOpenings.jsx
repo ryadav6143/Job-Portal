@@ -465,10 +465,9 @@ function EditOpenings() {
                 <label htmlFor="">Day-1</label>
                 <input
                   type="date"
+                  placeholder="dd/mm/yyyy"
                   name="schedule_interview_date_1"
-                  value={formatDateForInput(
-                    formValues.schedule_interview_date_1
-                  )}
+                  value={formValues.schedule_interview_date_1 ? formatDateForInput(formValues.schedule_interview_date_1) : ""}
                   onChange={(e) =>
                     handleInputChange(
                       "schedule_interview_date_1",
@@ -482,10 +481,9 @@ function EditOpenings() {
                 <input
                   type="date"
                   name="schedule_interview_date_2"
-                  value={formatDateForInput(
-                    formValues.schedule_interview_date_2
-                  )}
-                  onChange={(e) =>
+                  placeholder="dd/mm/yyyy"
+                  value={formValues.schedule_interview_date_2 ? formatDateForInput(formValues.schedule_interview_date_2) : ""}
+                    onChange={(e) =>
                     handleInputChange(
                       "schedule_interview_date_2",
                       e.target.value
@@ -498,9 +496,8 @@ function EditOpenings() {
                 <input
                   type="date"
                   name="schedule_interview_date_3"
-                  value={formatDateForInput(
-                    formValues.schedule_interview_date_3
-                  )}
+                  placeholder="dd/mm/yyyy"
+                  value={formValues.schedule_interview_date_3 ? formatDateForInput(formValues.schedule_interview_date_3) : ""}
                   onChange={(e) =>
                     handleInputChange(
                       "schedule_interview_date_3",

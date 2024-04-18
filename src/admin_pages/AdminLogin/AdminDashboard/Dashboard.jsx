@@ -16,10 +16,10 @@ import {
 } from "recharts";
 function Dashboard() {
   const data = [
-    { week: 'Week 1', interviews: 10, candidates: 20 },
-    { week: 'Week 2', interviews: 5, candidates: 6 },
-    { week: 'Week 3', interviews: 0, candidates: 10 },
-    { week: 'Week 4', interviews: 50, candidates: 1 },
+    { week: 'Week 1', interviews: 10, candidates: 20 , visitors:15},
+    { week: 'Week 2', interviews: 5, candidates: 6 , visitors:25},
+    { week: 'Week 3', interviews: 5, candidates: 10 , visitors:5},
+    { week: 'Week 4', interviews: 50, candidates: 1 , visitors:10},
   ];
 
   return (
@@ -64,28 +64,43 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <div className="mainBody">       
-      <div className="cardGraph">
-        
 
 
-
-
-        
-      </div>
       <div className="graphChart">
-      <h2>Interviews and Candidates</h2>
-      <LineChart width={800} height={350} data={data}>
-        <XAxis dataKey="week" />
-        <YAxis /> 
-        <CartesianGrid strokeWidth={3} stroke="#eee" strokeDasharray="5 5" />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="interviews" name="First Interviews"   stroke="rgba(0, 0, 255, 0.8)"  strokeWidth={3} />
-        <Line type="monotone" dataKey="candidates" name="Candidates Applied" stroke="rgba(128, 0, 0, 0.8)"   strokeWidth={3}/>
-      </LineChart>
-    </div>
-    </div>
+        <h2>Interviews and Candidates</h2>
+        <LineChart width={1200} height={350} data={data}>
+          <XAxis dataKey="week" />
+          <YAxis />
+          <CartesianGrid strokeWidth={4} stroke="#eee" strokeDasharray="5 5" />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="interviews" name="First Interviews"
+            stroke="rgba(0, 0, 255, 0.8)" strokeWidth={4}
+            filter="url(#glow)" />
+
+          <Line type="monotone" dataKey="candidates"
+            name="Candidates Applied" stroke="rgba(128, 0, 0, 0.8)"
+            strokeWidth={4}
+            filter="url(#glow)" />
+
+          <Line type="monotone" dataKey="visitors"
+            name="Total Visitors" stroke="green"
+            strokeWidth={4}
+            filter="url(#glow)" />
+
+
+          <defs>
+            <filter id="glow" x="-5000%" y="-5000%" width="10000%" height="10000%">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+        </LineChart>
+      </div>
+
     </>
   );
 }

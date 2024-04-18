@@ -343,7 +343,7 @@ function Reports() {
             </div>
             {/* </div> */}
 
-            <div className="table-responsive ">
+            <div className="table-responsive">
               <table className="table table-responsive">
                 <thead
                   style={{ color: "rgba(0, 0, 0, 0.63)" }}
