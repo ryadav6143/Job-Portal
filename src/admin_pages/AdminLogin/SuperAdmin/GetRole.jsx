@@ -8,6 +8,13 @@ import { FormControl } from "@mui/material";
 import close from "../../../assets/logos/close.png";
 import { Pagination } from "react-bootstrap";
 import "./GetRole.css"
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
 
 function GetRole() {
   const [Role, setRole] = useState([]);
@@ -142,34 +149,15 @@ function GetRole() {
           <div className="new-opening-btn">
             <button onClick={handleOpen}>ADD New Role</button>
           </div>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "400",
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                boxShadow: 24,
-                p: 4,
-              }}
-            >
-              <FormControl>
-                <div>
+          
+          <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  PaperProps={{ style: { width: "100%" } }}
+                >
+                  <DialogContent>
                   <form onSubmit={handleSubmit}>
-                    <img
-                      onClick={handleClose}
-                      className="GR-close-btn"
-                      src={close}
-                      alt=""
-                    />
+                 
                     <label className="AC-SetLabel-Name" htmlFor="role_type_name">
                     Role type name
                     </label>
@@ -181,27 +169,34 @@ function GetRole() {
                       value={formData.role_type_name}
                       onChange={handleChange}
                     />
-                    <button id="set-btn" type="submit">
-                      ADD NOW
-                    </button>
+                     <DialogActions>
+                        <button
+                          className="submitbtn"
+                          type="submit"
+                         
+                        >
+                          ADD NOW
+                        </button>
+                        <button   onClick={handleClose} className="canclebtn">
+                          Cancle
+                        </button>
+                      </DialogActions>
                   </form>
-                </div>
-              </FormControl>
-            </Box>
-          </Modal>
+                     
+                   
+                  </DialogContent>
+                </Dialog>
+
         </div>
 
         {isOpen && (
+
+          
         <div className="modal">
           <div className="modal-content">
             
             <form onSubmit={handleUpdate}>
-            <img
-                     onClick={closeModal}
-                      className="Ad-close-btn"
-                      src={close}
-                      alt=""
-                    />
+       
             <label className="AC-SetLabel-Name" >
                     Role name
                     </label>
@@ -214,7 +209,19 @@ function GetRole() {
                 value={modalData.role_type_name || ""}
                 onChange={(e) => handleFieldChange('role_type_name', e.target.value)}
               />    
-              <button id="set-btn" onClick={handleUpdate}>UPDATE NOW</button>
+              
+              <DialogActions>
+                        <button
+                          className="submitbtn"
+                          type="submit"
+                          onClick={handleUpdate}
+                        >
+                      UPDATE NOW
+                        </button>
+                        <button   onClick={handleClose} className="canclebtn">
+                          Cancle
+                        </button>
+                      </DialogActions>
             </form>
           </div>
         </div>

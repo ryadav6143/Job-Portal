@@ -90,7 +90,7 @@ const ExperienceForm = () => {
         handleClose={handleCloseNotification}
         alertMessage={notificationMessage}
         alertSeverity={notificationSeverity} />
-      <div className="master-table">
+      <div className="master-table" >
         <div className="flex-btns">
         <p className="candidate-table-heading">Experience</p>
         <button className="add-btn" onClick={handleOpenExperienceClick}>Add Experience</button>

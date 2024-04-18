@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 // import { ADMIN_BASE_URL } from "../../../config/config";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import close from "../../../assets/logos/close.png";
+
 import adminApiService from "../../adminApiService";
 import Notification from "../../../Notification/Notification";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
 function AddDepartment() {
   const [departments, setDepartments] = useState([]);
   const [newDepartmentName, setNewDepartmentName] = useState("");
@@ -65,7 +69,6 @@ function AddDepartment() {
   //   }
   // };
 
-
   const handleDelete = async (departmentId) => {
     setDepartmentToDelete(departmentId);
     setDeleteDialogOpen(true);
@@ -90,9 +93,6 @@ function AddDepartment() {
   const handleCloseDeleteDialog = () => {
     setDeleteDialogOpen(false);
   };
-
-
-
 
   const handleSave = async () => {
     try {
@@ -166,25 +166,19 @@ function AddDepartment() {
         <div className="new-opening-btn">
           <button onClick={() => setOpen(true)}>Add Department</button>
         </div>
-        <Modal
+
+        <Dialog
           open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          onClose={handleCloseModal}
+          PaperProps={{ style: { width: "100%" } }}
         >
-          <Box sx={style}>
+          <DialogContent>
             <form>
-              <img
-                onClick={handleCloseModal}
-                className="Ad-close-btn"
-                src={close}
-                alt=""
-              />
               <label className="AC-SetLabel-Name" htmlFor="departmentName">
                 Add Department
               </label>
               <input
-                  className="Ac-set-input"
+                className="Ac-set-input"
                 type="text"
                 id="departmentName"
                 placeholder="Add Your Departments"
@@ -192,12 +186,18 @@ function AddDepartment() {
                 onChange={(e) => setNewDepartmentName(e.target.value)}
               />
 
-              <button type="button" onClick={handleAdd} id="set-btn">
-                ADD
-              </button>
+              <DialogActions>
+                <button className="submitbtn" type="button" onClick={handleAdd}>
+                  ADD NOW
+                </button>
+                <button onClick={handleCloseModal} className="canclebtn">
+                  Cancle
+                </button>
+              </DialogActions>
             </form>
-          </Box>
-        </Modal>
+          </DialogContent>
+        </Dialog>
+
         {/* <form>
           <label htmlFor="departmentName">Add Department</label>
           <input
@@ -258,20 +258,13 @@ function AddDepartment() {
                   </tr>
                 ))}
 
-                <Modal
+                <Dialog
                   open={updateModalOpen}
                   onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
+                  PaperProps={{ style: { width: "100%" } }}
                 >
-                  <Box sx={style}>
+                  <DialogContent>
                     <form>
-                      <img
-                        onClick={handleClose}
-                        className="Ad-close-btn"
-                        src={close}
-                        alt=""
-                      />
                       <label
                         className="AC-SetLabel-Name"
                         htmlFor="departmentName"
@@ -279,7 +272,7 @@ function AddDepartment() {
                         Update Department
                       </label>
                       <input
-                          className="Ac-set-input"
+                        className="Ac-set-input"
                         type="text"
                         id="departmentName"
                         placeholder="Add Your Departments"
@@ -287,12 +280,21 @@ function AddDepartment() {
                         onChange={(e) => setNewDepartmentName(e.target.value)}
                       />
 
-                      <button type="button" onClick={handleSave} id="set-btn">
-                        UPDATE
-                      </button>
+                      <DialogActions>
+                        <button
+                          className="submitbtn"
+                          type="button"
+                          onClick={handleSave}
+                        >
+                          UPDATE NOW
+                        </button>
+                        <button onClick={handleClose} className="canclebtn">
+                          Cancle
+                        </button>
+                      </DialogActions>
                     </form>
-                  </Box>
-                </Modal>
+                  </DialogContent>
+                </Dialog>
               </tbody>
             </table>
           </div>
@@ -304,8 +306,15 @@ function AddDepartment() {
           Are you sure you want to delete this Department?
         </DialogContent>
         <DialogActions>
-          <Button onClick={confirmDelete} variant="contained" color="error">Delete</Button>
-          <Button onClick={handleCloseDeleteDialog} variant="text" color="primary">Cancel</Button>
+          <button className="submitbtn" onClick={confirmDelete} >
+            Delete
+          </button>
+          <button
+            onClick={handleCloseDeleteDialog}
+           className="canclebtn"
+          >
+            Cancel
+          </button>
         </DialogActions>
       </Dialog>
     </>

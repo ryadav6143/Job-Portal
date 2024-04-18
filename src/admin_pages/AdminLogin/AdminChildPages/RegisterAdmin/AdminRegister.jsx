@@ -121,7 +121,7 @@ function AdminRegister() {
                 <label htmlFor="">Title</label>
                 <select
                   id="dropdown"
-                  name="title_first_name"
+                  name="title_first_name" 
                   value={formData.title_first_name}
                   onChange={handleChange}
                 >
@@ -228,9 +228,10 @@ function AdminRegister() {
               </div>
             </div>
             <div>
-              <button type="submit"  className="reg-ad-btn " id="set-btn">
+              <button type="submit"  className="reg-ad-btn submitbtn">
                 Submit
               </button>
+            
             </div>
           </div>
         </form>

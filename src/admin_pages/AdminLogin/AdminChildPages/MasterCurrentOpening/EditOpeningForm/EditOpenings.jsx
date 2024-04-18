@@ -5,6 +5,7 @@ import adminApiService from "../../../../adminApiService";
 import { useParams } from "react-router-dom";
 import Notification from "../../../../../Notification/Notification";
 import close from "../../../../../assets/logos/close.png";
+import {  DialogActions } from "@mui/material";
 function EditOpenings() {
   const navigate = useNavigate();
   // console.log("Profile ID:", profileId);
@@ -281,12 +282,12 @@ function EditOpenings() {
   alertSeverity={notificationSeverity}
 />
       <div className="new-openings">
-        <img
+        {/* <img
           onClick={handleFormCloseAndShowTable}
           className="cls-btn"
           src={close}
           alt="Close Button"
-        />
+        /> */}
 
         {loading && (
           <div className="loader-container">
@@ -562,9 +563,17 @@ function EditOpenings() {
             </div>
 
             <div>
-              <button type="submit"  id="add-job">
+              {/* <button type="submit"  id="add-job">
                 SUBMIT
-              </button>
+              </button> */}
+               <DialogActions>
+                  <button  className="submitbtn"  type="submit">
+                  SUBMIT
+                        </button>
+                        <button    onClick={handleFormCloseAndShowTable} className="canclebtn" >
+                            Cancle
+                        </button>
+                        </DialogActions>
             </div>
  
           </form>

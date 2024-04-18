@@ -352,12 +352,12 @@ function GetRights() {
                   </DialogContent>
                   <DialogActions>
 
-                    <Button onClick={confirmDelete} variant="contained" color="error">
+                    <button className="submitbtn" onClick={confirmDelete} >
                       Delete
-                    </Button>
-                    <Button onClick={handleCloseDeleteConfirmation} >
+                    </button>
+                    <button className="canclebtn" onClick={handleCloseDeleteConfirmation} >
                       Cancel
-                    </Button>
+                    </button>
                   </DialogActions>
                 </Dialog>
               </tbody>
@@ -384,21 +384,18 @@ function GetRights() {
             <Pagination.Next onClick={nextPage} />
           </Pagination>
 
-          <Modal
-            open={open}
-            onClose={() => setOpen(false)}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <div>
-                <form onSubmit={handleSubmit}>
-                  <img
-                    onClick={handleAddModalClose}
-                    className="Examtype-close-btn"
-                    src={close}
-                    alt=""
-                  />
+
+
+
+          <Dialog
+                     open={open}
+                     onClose={() => setOpen(false)}
+                  PaperProps={{ style: { width: "100%" } }}
+                >
+                  <DialogContent>
+                  
+                  <form onSubmit={handleSubmit}>
+              
 
                   <label className="AC-SetLabel-Name" htmlFor="categoryInput">
                     Api Name
@@ -470,49 +467,37 @@ function GetRights() {
                     ))}
                   </select>
                   <FontAwesomeIcon className="set-icon" icon={faAngleDown} />
-
-                  <button id="add-new-btn" className="submit-btn" type="submit">
-                    ADD NOW
-                  </button>
+                  <DialogActions>
+                        <button
+                          className="submitbtn"
+                          type="submit"
+                         
+                        >
+                       ADD NOW
+                        </button>
+                        <button type="button"   onClick={handleAddModalClose} className="canclebtn">
+                          Cancle
+                        </button>
+                      </DialogActions>
+                
                 </form>
-              </div>
-            </Box>
-          </Modal>
+                      
+                    
+                  </DialogContent>
+                </Dialog>
 
-          <Modal
-            open={isOpen}
-            onClose={closeModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: 500,
-                bgcolor: "background.paper",
-                boxShadow: 24,
-                p: 4,
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  src={close}
-                  className="Examtype-close-btn"
-                  alt="Close"
-                  onClick={closeModal}
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-              <form onSubmit={handleUpdate}>
+
+
+
+
+                <Dialog
+                    open={isOpen}
+                    onClose={closeModal}
+                  PaperProps={{ style: { width: "100%" } }}
+                >
+                  <DialogContent>
+                   
+                  <form onSubmit={handleUpdate}>
                 <label className="AC-SetLabel-Name" htmlFor="categoryInput">
                   Api Name
                 </label>
@@ -597,16 +582,25 @@ function GetRights() {
                     ))}
                   </select>
                 </div>
+                
+                <DialogActions>
+                        <button
+                          className="submitbtn"
+                          type="button"
+                          onClick={handleUpdate}
+                        >
+                          UPDATE NOW
+                        </button>
+                        <button         onClick={closeModal} className="canclebtn">
+                          Cancle
+                        </button>
+                      </DialogActions>
               </form>
-              <button
-                style={{ marginTop: "20px" }}
-                id="set-btn"
-                onClick={handleUpdate}
-              >
-                Submit
-              </button>
-            </Box>
-          </Modal>
+           
+                   
+                  </DialogContent>
+                </Dialog>
+
         </div>
       </div>
     </>

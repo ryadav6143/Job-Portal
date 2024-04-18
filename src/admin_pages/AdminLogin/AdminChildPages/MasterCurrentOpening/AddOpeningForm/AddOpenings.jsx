@@ -5,6 +5,7 @@ import adminApiService from "../../../../adminApiService";
 import close from "../../../../../assets/logos/close.png";
 import MasterTable from "../MasterCurrentOpeningChild/MasterTable";
 import Notification from "../../../../../Notification/Notification";
+import {  DialogActions } from "@mui/material";
 function AddOpenings() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -268,12 +269,12 @@ function AddOpenings() {
       <div>
         {showForm ? (
           <div className="new-openings">
-            <img
+            {/* <img
               onClick={handleFormCloseAndShowTable}
               className="cls-btn"
               src={close}
               alt="Close Button"
-            />
+            /> */}
 
             <p className="master-heading">Add New Opening</p>
             <div className="new-openings-form">
@@ -502,9 +503,17 @@ function AddOpenings() {
                   </div>
                 </div>
                 <div>
-                  <button type="submit" id="add-job" onClick={handleSubmit}>
+                  {/* <button type="submit" id="add-job" onClick={handleSubmit}>
                     SUBMIT
-                  </button>
+                  </button> */}
+                   <DialogActions>
+                  <button onClick={handleSubmit} className="submitbtn"  type="submit">
+                  SUBMIT
+                        </button>
+                        <button    onClick={handleFormCloseAndShowTable} className="canclebtn" >
+                            Cancle
+                        </button>
+                        </DialogActions>
                 </div>
               </form>
             </div>

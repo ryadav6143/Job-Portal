@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import updatebtn from "../../../assets/logos/update.png";
 // import deletebtn from "../../../assets/logos/delete.png";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import { FormControl } from "@mui/material";
-import close from "../../../assets/logos/close.png";
+
 import Notification from "../../../Notification/Notification";
 import adminApiService from "../../adminApiService";
+import { Dialog, DialogContent, DialogActions } from "@mui/material";
 function AddExamType() {
   const [data, setData] = useState([]);
   const [newExamType, setNewExamType] = useState("");
@@ -194,45 +192,40 @@ function AddExamType() {
         <div className="new-opening-btn">
           <button onClick={() => setOpen(true)}>Add Exam Type</button>
         </div>
-        <Modal
+
+        <Dialog
           open={open} // Control the open state of the modal
-          onClose={() => setOpen(false)} // Close the modal when onClose event occurs
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          onClose={() => setOpen(false)}
+          PaperProps={{ style: { width: "100%" } }}
         >
-          <Box sx={style}>
-            <FormControl>
-              <div>
-                <form>
-                  <img
-                    onClick={handleAddModalClose}
-                    className="postapplied-close-btn"
-                    src={close}
-                    alt=""
-                  />
-                  <label className="AC-SetLabel-Name" htmlFor="categoryInput">
-                    Add Exam Type
-                  </label>
-                  <input
-                    type="text"
-                    id="categoryInput"
-                    className="Ac-set-input"
-                    placeholder="Add Your Exam Type"
-                    value={newExamType}
-                    onChange={(e) => setNewExamType(e.target.value)}
-                  />
-                  <button
-                    id="set-btn"
-                    type="button"
-                    onClick={handleAddExamType}
-                  >
-                    ADD NOW
-                  </button>
-                </form>
-              </div>
-            </FormControl>
-          </Box>
-        </Modal>
+          <DialogContent>
+            <form>
+              <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+                Add Exam Type
+              </label>
+              <input
+                type="text"
+                id="categoryInput"
+                className="Ac-set-input"
+                placeholder="Add Your Exam Type"
+                value={newExamType}
+                onChange={(e) => setNewExamType(e.target.value)}
+              />
+              <DialogActions>
+                <button
+                  className="submitbtn"
+                  type="button"
+                  onClick={handleAddExamType}
+                >
+                  ADD NOW
+                </button>
+                <button onClick={handleAddModalClose} className="canclebtn">
+                  Cancle
+                </button>
+              </DialogActions>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="admin-list">
@@ -279,54 +272,51 @@ function AddExamType() {
                     </tr>
                   ))}
 
-                <Modal
+                <Dialog
                   open={updateModalOpen}
                   onClose={handleUpdateModalClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
+                  PaperProps={{ style: { width: "100%" } }}
                 >
-                  <Box sx={style}>
-                    <FormControl>
-                      <div>
-                        <form>
-                          <img
-                            onClick={handleUpdateModalClose}
-                            className="postapplied-close-btn"
-                            src={close}
-                            alt=""
-                          />
-                          <label
-                            className="AC-SetLabel-Name"
-                            htmlFor="categoryInput"
-                          >
-                            Update Exam Type
-                          </label>
+                  <DialogContent>
+                    <form>
+                      <label
+                        className="AC-SetLabel-Name"
+                        htmlFor="categoryInput"
+                      >
+                        Update Exam Type
+                      </label>
 
-                          <input
-                            className="Ac-set-input"
-                            type="text"
-                            id="categoryInput"
-                            placeholder="Update Exam Type"
-                            value={selectedExam ? selectedExam.exam_name : ""}
-                            onChange={(e) =>
-                              setSelectedExam({
-                                ...selectedExam,
-                                exam_name: e.target.value,
-                              })
-                            }
-                          />
-                          <button
-                            id="set-btn"
-                            type="button"
-                            onClick={handleUpdateExamType}
-                          >
-                            UPDATE NOW
-                          </button>
-                        </form>
-                      </div>
-                    </FormControl>
-                  </Box>
-                </Modal>
+                      <input
+                        className="Ac-set-input"
+                        type="text"
+                        id="categoryInput"
+                        placeholder="Update Exam Type"
+                        value={selectedExam ? selectedExam.exam_name : ""}
+                        onChange={(e) =>
+                          setSelectedExam({
+                            ...selectedExam,
+                            exam_name: e.target.value,
+                          })
+                        }
+                      />
+                      <DialogActions>
+                        <button
+                          className="submitbtn"
+                          type="button"
+                          onClick={handleUpdateExamType}
+                        >
+                          UPDATE NOW
+                        </button>
+                        <button
+                          onClick={handleUpdateModalClose}
+                          className="canclebtn"
+                        >
+                          Cancle
+                        </button>
+                      </DialogActions>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </tbody>
             </table>
           </div>
