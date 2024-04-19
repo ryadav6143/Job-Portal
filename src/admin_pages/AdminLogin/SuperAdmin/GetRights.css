@@ -34,13 +34,6 @@
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .up-del-btn {
   width: 17px;
   height: 18px;
@@ -50,6 +43,15 @@
 #roleTypeInput {
   width: 100%;
 }
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
 
 #add-new-btn {
   /* position: absolute; */
