@@ -102,6 +102,9 @@ function CandidateSidebar() {
           <Button className="sidebar-btn" onClick={() => handleSideBar()}>
             ☰
           </Button>
+
+
+
         )}
       </div>
 
