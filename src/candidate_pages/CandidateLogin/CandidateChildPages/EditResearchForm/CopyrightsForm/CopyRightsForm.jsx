@@ -6,7 +6,7 @@ import AddCandidateCopyrights from "./AddCandidateCopyrights";
 import EditCandidateCopyrights from "./EditCandidateCopyrights";
 import Notification from "../../../../../Notification/Notification";
 import {
-  Button,
+  
   Dialog,
   DialogActions,
   DialogContent,

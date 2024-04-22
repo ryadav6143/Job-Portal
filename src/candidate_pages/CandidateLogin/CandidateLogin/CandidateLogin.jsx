@@ -12,6 +12,7 @@ function CandidateLogin({ handleLogin }) {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [errorCount, setErrorCount] = useState(0); // Track error count for triggering animation
 
   const [errorNotification, setErrorNotification] = useState({
     open: false,
@@ -40,6 +41,7 @@ function CandidateLogin({ handleLogin }) {
           open: true,
           message: "Invalid credentials",
         });
+        setErrorCount((prevCount) => prevCount + 1); // Increment error count
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -50,6 +52,7 @@ function CandidateLogin({ handleLogin }) {
           open: true,
           message: error.response.data.message || "Invalid credentials",
         });
+        setErrorCount((prevCount) => prevCount + 1); // Increment error count
       } else {
         // If any other error occurs, display a generic error message
         setErrorMessage("An error occurred during login");
@@ -57,12 +60,10 @@ function CandidateLogin({ handleLogin }) {
           open: true,
           message: "Invalid credentials",
         });
+        setErrorCount((prevCount) => prevCount + 1); // Increment error count
       }
     }
   };
-  
-  
-
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -71,7 +72,6 @@ function CandidateLogin({ handleLogin }) {
   const handleCloseNotification = () => {
     setErrorNotification({ ...errorNotification, open: false });
   };
-
   return (
     <>
       <div className="login-container">
@@ -97,7 +97,7 @@ function CandidateLogin({ handleLogin }) {
 
           <label htmlFor="password">Password:</label>
           <div className="password-input-container">
-            <input
+            {/* <input
               type={showPassword ? "text" : "password"}
               id="password"
               name=""
@@ -105,9 +105,19 @@ function CandidateLogin({ handleLogin }) {
               onChange={(e) => setPassword(e.target.value)}
               required
               className="password-input"
+            /> */}
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name=""
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              key={errorCount}
+              className={`password-input ${errorMessage ? "shake-animation input-error" : ""}`}
             />
 
-            <span className="password-toggle" onClick={handleTogglePassword}>
+            <span className="password-togglee" onClick={handleTogglePassword}>
               <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
             </span>
             <a className="forgot-pass" href="/forgetpassword">
