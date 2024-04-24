@@ -5,9 +5,7 @@ import deletebtn from "../../../assets/logos/delete.png";
 // import axios from "axios";
 // import { BASE_URL } from "../../../config/config";
 // import { ADMIN_BASE_URL } from "../../../config/config";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import close from "../../../assets/logos/close.png";
+
 import adminApiService from "../../adminApiService";
 import Notification from "../../../Notification/Notification";
 import {

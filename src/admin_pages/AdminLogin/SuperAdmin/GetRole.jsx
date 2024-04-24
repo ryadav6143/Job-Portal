@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import updatebtn from "../../../assets/logos/update.png";
 // import deletebtn from "../../../assets/logos/delete.png";
 import adminApiService from "../../adminApiService";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import { FormControl } from "@mui/material";
-import close from "../../../assets/logos/close.png";
+
 import { Pagination } from "react-bootstrap";
 import "./GetRole.css";
 import {
@@ -158,7 +155,7 @@ function GetRole() {
         </div>
 
         {isOpen && (
-          <div className="modal">
+          <div onClick={closeModal} className="modal">
             <div className="modal-content">
               <form onSubmit={handleUpdate}>
                 <label className="AC-SetLabel-Name">Role name</label>
@@ -182,7 +179,7 @@ function GetRole() {
                   >
                     UPDATE NOW
                   </button>
-                  <button onClick={handleClose} className="canclebtn">
+                  <button onClick={closeModal} className="canclebtn">
                     Cancle
                   </button>
                 </DialogActions>
