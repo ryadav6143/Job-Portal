@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AddOpenings.css";
 import adminApiService from "../../../../adminApiService";
-import close from "../../../../../assets/logos/close.png";
+
 import MasterTable from "../MasterCurrentOpeningChild/MasterTable";
 import Notification from "../../../../../Notification/Notification";
 import {  DialogActions } from "@mui/material";
