@@ -4,10 +4,14 @@
       #4a0c14 0%,
       #901626 50%,
       #4a0c14 97.92%);
-  background: radial-gradient(183.33% 183.33% at 52.5% -53.57%,
+  /* background: radial-gradient(183.33% 183.33% at 52.5% -53.57%,
       #4a0c14 0%,
       #901626 50%,
-      #4a0c14 97.92%);
+      #4a0c14 97.92%); */
+     background:  radial-gradient(33.33% 33.33% at 52.5% 53.57%,
+      #4a0c14 0%,
+      #901626 0%,
+      #4a0c14 200.92%);
   padding-top: 80px;
   padding-bottom: 40px;
   display: -webkit-box;
