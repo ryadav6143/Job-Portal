@@ -49,8 +49,9 @@ function Academics() {
   };
 
   useEffect(() => {
-    fetchJobCategories();
     fetchDepartments();
+    fetchJobCategories();
+  
   }, []);
 
   useEffect(() => {
@@ -66,6 +67,7 @@ function Academics() {
         </div>
         <div></div>
         <div></div>
+        
         <div className="apply-btn-jp">
           <button type="button">
             <a href="/apply-now">Apply Now</a>
@@ -76,8 +78,9 @@ function Academics() {
         <div className="col-md-4 ">
           <label>Select Category:</label>
           <select
-            name="category_name"
+           
             id="categoryDropdown"
+            name="category_name"
             className="form-control"
             value={selectedCategory}
             onChange={handleCategoryChange}
@@ -161,15 +164,22 @@ function Academics() {
               </td>
             </tr>
           </tbody> */}
-          <tbody>
-  {jobprofileData.map((data, index) => (
-    <tr key={index}>
-      <th scope="row">{data.applied_post_master.post_name}</th>
-      <td>{data.education_require}</td>
-      <td>{data.qualification_require}</td>
+        <tbody>
+  {jobprofileData.length === 0 ? (
+    <tr>
+      <td colSpan="3" style={{color:"red"}}>No data found!</td>
     </tr>
-  ))}
+  ) : (
+    jobprofileData.map((data, index) => (
+      <tr key={index}>
+        <th scope="row">{data.applied_post_master.post_name}</th>
+        <td>{data.education_require}</td>
+        <td>{data.qualification_require}</td>
+      </tr>
+    ))
+  )}
 </tbody>
+
         </table>
       </div>
       <Footers />
