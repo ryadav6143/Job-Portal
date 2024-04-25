@@ -14,7 +14,8 @@ function Login(handleLogin) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  // const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorCount, setErrorCount] = useState(0);
   const [errorNotification, setErrorNotification] = useState({
     open: false,
   });
@@ -47,17 +48,35 @@ function Login(handleLogin) {
           message: "Login Successful",
         });
       } else {
-        setError("Invalid credentials");
+        // If response does not contain token (invalid credentials)
+        setErrorMessage("Invalid credentials");
+        setErrorNotification({
+          open: true,
+          message: "Invalid credentials",
+        });
+        setErrorCount((prevCount) => prevCount + 1); // Increment error count
       }
     } catch (error) {
       console.error("Error during login:", error);
-      setErrorNotification({
-        open: true,
-        message: error.response.data.message || "Invalid credentials",
-      });
-      // setErrorMessage("invalid username and password");
+      if (error.response && error.response.status === 400) {
+        // If status code is 400 (Bad Request), it indicates invalid credentials
+        setErrorMessage(error.response.data.message || "Invalid credentials");
+        setErrorNotification({
+          open: true,
+          message: error.response.data.message || "Invalid credentials",
+        });
+        setErrorCount((prevCount) => prevCount + 1); // Increment error count
+      } else {
+        // If any other error occurs, display a generic error message
+        setErrorMessage("An error occurred during login");
+        setErrorNotification({
+          open: true,
+          message: "Invalid credentials",
+        });
+        setErrorCount((prevCount) => prevCount + 1); // Increment error count
+      }
     }
-  };
+  }
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -107,7 +126,9 @@ function Login(handleLogin) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="password-input"
+              key={errorCount}
+              className={`password-input ${errorMessage ? "shake-animation input-error" : ""}`}
+              
             />
             <span className="password-toggle" onClick={handleTogglePassword}>
               <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />

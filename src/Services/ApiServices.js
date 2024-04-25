@@ -110,6 +110,7 @@ const apiService = {
       console.error("Error Fetching getDepartments", error);
     }
   },
+ 
 };
 
 export default apiService;
