@@ -126,6 +126,8 @@ details[open] > summary {
   margin-top: -10px;
 }
 
+
+
 /* ......................................... */
 @media only screen and (max-width: 767px) {
   .my-table {
@@ -140,5 +142,8 @@ details[open] > summary {
 
   #my-dropdown {
     text-align: center;
+  }
+  .courses{
+    margin-left: 2%;
   }
 }
