@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import updatebtn from "../../../assets/logos/update.png";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import { FormControl } from "@mui/material";
-import close from "../../../assets/logos/close.png";
+
 import adminApiService from "../../adminApiService";
 import Notification from "../../../Notification/Notification";
 import { Dialog, DialogContent, DialogActions } from "@mui/material";

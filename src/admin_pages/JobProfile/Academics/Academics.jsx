@@ -164,15 +164,22 @@ function Academics() {
               </td>
             </tr>
           </tbody> */}
-          <tbody>
-  {jobprofileData.map((data, index) => (
-    <tr key={index}>
-      <th scope="row">{data.applied_post_master.post_name}</th>
-      <td>{data.education_require}</td>
-      <td>{data.qualification_require}</td>
+        <tbody>
+  {jobprofileData.length === 0 ? (
+    <tr>
+      <td colSpan="3" style={{color:"red"}}>No data found!</td>
     </tr>
-  ))}
+  ) : (
+    jobprofileData.map((data, index) => (
+      <tr key={index}>
+        <th scope="row">{data.applied_post_master.post_name}</th>
+        <td>{data.education_require}</td>
+        <td>{data.qualification_require}</td>
+      </tr>
+    ))
+  )}
 </tbody>
+
         </table>
       </div>
       <Footers />

@@ -4,10 +4,7 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import adminApiService from "../../adminApiService";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import { FormControl } from "@mui/material";
-import close from "../../../assets/logos/close.png";
+
 import "./GetRights.css";
 import { Pagination } from "react-bootstrap";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';

@@ -4,10 +4,7 @@ import adminApiService from "../../adminApiService";
 import { useState, useEffect } from "react";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import close from "../../../assets/logos/close.png";
+
 import { Pagination } from "react-bootstrap";
 import {
   Dialog,
