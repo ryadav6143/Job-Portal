@@ -254,6 +254,18 @@ function MasterTable() {
               />
             </div>
           </div>
+          <div className="col-md-4 ">
+          <label>Select Department:</label>
+          <select
+            name="dept_name"
+            id="departmentDropdown"
+            className="form-control"
+           
+          >
+            <option value="">All</option>
+           
+          </select>
+        </div>
           <div className="table-responsive fixe-table">
             <table className="table ">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)"}} className="thead">
@@ -263,7 +275,7 @@ function MasterTable() {
                   <th scope="col">Post</th>
                   <th scope="col">Department</th>
                   <th scope="col">Last Date</th>
-                  <th scope="col">isActive</th>
+                  <th scope="col">List to Job Profile</th>
                   <th scope="col">List to Current Opening</th>
                   <th scope="col">List to Interview Schedule</th>
                   <th scope="col">Edit</th>
@@ -283,7 +295,7 @@ function MasterTable() {
                     <td>
                       {formatDateForInput(data.last_date_to_apply) || "N/A"}
                     </td>
-                    <td>{data.is_active ? "Yes" : "No"}</td>
+                    <td>{data.publish_to_job_profile ? "Yes" : "No"}</td>
                     <td>{data.publish_to_vacancy ? "Yes" : "No"}</td>
                     <td>{data.publish_to_schedule_interview ? "Yes" : "No"}</td>
                     <td>
