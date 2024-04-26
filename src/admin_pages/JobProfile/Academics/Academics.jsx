@@ -6,15 +6,11 @@ import Accordion from "react-bootstrap/Accordion";
 import adminApiService from "../../adminApiService";
 
 function Academics() {
-  const [activeKey, setActiveKey] = useState(null);
-  
-  
+  // const [activeKey, setActiveKey] = useState(null);
+  const [activeKey, setActiveKey] = useState("0");
+
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [jobprofileData, setJobprofileData] = useState([]);
-
-
-
- 
 
   const fetchData = async () => {
     try {
@@ -29,7 +25,6 @@ function Academics() {
     }
   };
 
-
   useEffect(() => {
     fetchData();
   }, [selectedDepartment]);
@@ -39,7 +34,11 @@ function Academics() {
   };
 
   // Extract unique department names from jobprofileData
-  const uniqueDepartments = Array.from(new Set(jobprofileData.map(profile => profile.department_master.dept_name)));
+  const uniqueDepartments = Array.from(
+    new Set(
+      jobprofileData.map((profile) => profile.department_master.dept_name)
+    )
+  );
 
   return (
     <>
@@ -99,6 +98,68 @@ function Academics() {
             </Accordion.Item>
           ))}
         </Accordion>
+      </div> 
+
+      <div className="jd-dropdown">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          {uniqueDepartments.map((dept, index) => (
+            <div class="accordion-item" key={index}>
+              <h2 class="accordion-header" id={`flush-heading${index}`}>
+                <button
+                  class={`accordion-button collapsed dept-name`}
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target={`#flush-collapse${index}`}
+                  aria-expanded="false"
+                  aria-controls={`flush-collapse${index}`}
+                  onClick={() => handleAccordionToggle(index.toString())}
+                >
+                  {dept}
+                </button>
+              </h2>
+              <div
+                id={`flush-collapse${index}`}
+                class={`accordion-collapse collapse ${
+                  activeKey === index.toString() ? "show" : ""
+                }`}
+                aria-labelledby={`flush-heading${index}`}
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div class="accordion-body">
+                  <div className="table-dropdown">
+                    <div className="drp-table table-responsive">
+                      <table className="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Designation</th>
+                            <th scope="col">Qualification and experience</th>
+                            <th scope="col">Highly desirable</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {jobprofileData
+                            .filter(
+                              (profile) =>
+                                profile.department_master.dept_name === dept
+                            )
+                            .map((profile, profileIndex) => (
+                              <tr key={profileIndex}>
+                                <th scope="row">
+                                  {profile.applied_post_master.post_name}
+                                </th>
+                                <td>{profile.education_require}</td>
+                                <td>{profile.qualification_require}</td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <Footers />
