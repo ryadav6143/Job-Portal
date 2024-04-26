@@ -59,8 +59,8 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-left: 10.3%;
-  margin-right: 10.3%;
+  margin-left: 8.9%;
+  margin-right: 8.9%;
 }
 
 .table thead th,
@@ -117,11 +117,11 @@ details[open] #my-dropdown::before {
 details[open] > summary {
   background-color: white;
 }
-
+/* 
 .table-dropdown {
   margin-left: 10.3%;
   margin-right: 10.3%;
-}
+} */
 
 .drp-table {
   margin-top: -10px;
@@ -136,10 +136,10 @@ details[open] > summary {
     margin-right: 5%;
   }
 
-  .table-dropdown {
+  /* .table-dropdown {
     margin-left: 5%;
     margin-right: 5%;
-  }
+  } */
 
   #my-dropdown {
     text-align: center;
