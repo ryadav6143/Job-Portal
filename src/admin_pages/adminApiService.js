@@ -803,10 +803,10 @@ const adminApiService = {
   },
 
 
-  getJobProfileByCnD: async (categoryName, departmentName) => {
+  getJobProfileByCnD: async (departmentName) => {
     try {
       const response = await axios.get(
-        `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfileByCnD?category_name=${categoryName}&dept_name=${departmentName}`,
+        `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfileByCnD?dept_name=${departmentName}`,
         {
           headers: {
             "access-token": getAccessToken(),
