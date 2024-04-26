@@ -125,9 +125,9 @@ function Academictable() {
             <tbody style={{ textTransform: "capitalize" }}>
               {AcademicData.map((data, index) => (
                 <tr key={index} style={{ whiteSpace: "nowrap" }}>
-                  <td>{data?.category}</td>
-                  <td>{data?.post}</td>
-                  <td>{data?.department}</td>
+                  <td>{data.category}</td>
+                  <td>{data.post}</td>
+                  <td>{data.department}</td>
                   <td>
                     {!tokenFromsessionStorage && (
                       <button className="apn-btn">

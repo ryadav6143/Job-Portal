@@ -13,9 +13,6 @@ function Header() {
           {rbndata}
         </marquee>
       </div>
-
-
-      
       <div className="my-header">
         <nav
           className="navbar navbar-expand-lg navbar-light bg-light"

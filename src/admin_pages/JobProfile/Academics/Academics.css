@@ -13,9 +13,8 @@
   margin: auto;
   margin-top: 50px;
 }
-.dept-name{
+.dept-name {
   text-transform: capitalize;
-  
 }
 
 .apply-for-dean p {
@@ -84,7 +83,6 @@
   padding-right: 20px;
 }
 
-
 details {
   font-size: 16px;
   padding-bottom: 1%;
@@ -137,7 +135,6 @@ details[open] > summary {
 .drp-table {
   margin-top: 15px;
 }
-
 
 @media only screen and (max-width: 767px) {
   .my-table {

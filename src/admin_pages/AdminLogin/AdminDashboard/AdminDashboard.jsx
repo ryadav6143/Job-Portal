@@ -69,7 +69,7 @@ function AdminDashboard() {
             <SideBar />
           </div>
 
-          <div>
+          {/* <div>
             <main>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
@@ -95,7 +95,7 @@ function AdminDashboard() {
                 </ol>
               </nav>
             </main>
-          </div>
+          </div> */}
 
           <div style={{ flexGrow: 1, overflowY: "auto" }}>
             <Outlet />

@@ -36,9 +36,9 @@ function SideBar() {
                       <p>{userData.roleName}</p>
                     </div>
                   
-                    <Link
+                    {/* <Link
                     to="/admin-dashboard/dashboard"
-                      className="list-group-item border-end-0 d-inline-block text-truncate set-a"
+                      className="listf-group-item border-end-0 d-inline-block text-truncate set-a"
                     >
                       <img
                         src={dashboard}
@@ -46,6 +46,17 @@ function SideBar() {
                         alt="Opening Icon"
                       />
                       <span> Dashboard</span>
+                    </Link> */}
+                    <Link
+                       to="/admin-dashboard/dashboard"
+                      className="list-group-item border-end-0 d-inline-block text-truncate set-a"
+                    >
+                      <img
+                     src={dashboard}
+                        className="bi bi-bootstrap sidenav-icon"
+                        alt="Opening Icon"
+                      />
+                     <span>Dashboard</span>
                     </Link>
                     <Link
                       to="/admin-dashboard/current-openings"

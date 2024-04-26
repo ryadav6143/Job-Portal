@@ -14,8 +14,7 @@ function Academics() {
 
   const fetchData = async () => {
     try {
-      const response = await adminApiService.getJobProfile(
-     
+      const response = await adminApiService.getJobProfileByCnD(
         selectedDepartment
       );
       console.log("API response:", response.jobprofileData);
@@ -51,7 +50,7 @@ function Academics() {
         <div></div>
         <div className="apply-btn-jp">
           <button type="button">
-            <a href="/apply-now">Apply Now</a>{" "}
+            <a href="/apply-now">Apply Now</a>
           </button>
         </div>
       </div>
@@ -64,7 +63,7 @@ function Academics() {
         </p> */}
       </div>
 
-      <div className="my-table table-responsive">
+      {/* <div className="my-table table-responsive">
         <Accordion activeKey={activeKey} onSelect={handleAccordionToggle}>
           {uniqueDepartments.map((dept, index) => (
             <Accordion.Item key={index} eventKey={index.toString()}>
@@ -72,6 +71,7 @@ function Academics() {
               <Accordion.Body>
                 <div className="table-dropdown">
                   <div className="drp-table table-responsive">
+                    
                     <table className="table">
                       <thead>
                         <tr>
@@ -98,7 +98,7 @@ function Academics() {
             </Accordion.Item>
           ))}
         </Accordion>
-      </div> 
+      </div> */}
 
       <div className="jd-dropdown">
         <div class="accordion accordion-flush" id="accordionFlushExample">
