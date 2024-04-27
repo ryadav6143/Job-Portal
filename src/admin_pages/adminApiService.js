@@ -684,10 +684,10 @@ const adminApiService = {
       throw error;
     }
   },
-  getAllInterview: async (currentPage, itemsPerPage) => {
+  getAllInterview: async (currentPage,itemsPerPage,categoryValue,departValue,PostValue) => {
     try {
       const response = await axios.get(
-        `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}`,
+        `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}&category_name=${categoryValue}&dept_name=${departValue}&post_name=${PostValue}`,
         {
           headers: {
             "access-token": getAccessToken(),

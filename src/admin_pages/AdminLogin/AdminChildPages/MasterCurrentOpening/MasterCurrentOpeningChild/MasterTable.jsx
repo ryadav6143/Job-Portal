@@ -13,8 +13,7 @@ import updatebtn from "../../../../../assets/logos/update.png";
 import deletebtn from "../../../../../assets/logos/delete.png";
 
 function MasterTable() {
-  // const navigate = useNavigate();
-  // const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
+
   const [counts, setCounts] = useState("");
   const [jobProfiles, setJobProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,14 +24,28 @@ function MasterTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [page] = useState(1);
+  const [jobCategories, setJobCategories] = useState([]);
+  const [jobPosts, setJobPosts] = useState([]);
+  const [jobDepartment, setJobDepartment] = useState([]);
+
+
+
+  const [categoryValue, setCategoryValue] = useState("");
+  const [departValue, setDepartValue] = useState("");
+  const [postValue, setPostValue] = useState("");
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await adminApiService.getAllInterview(
           currentPage,
-          itemsPerPage
+          itemsPerPage,
+          categoryValue,
+          departValue,
+          postValue
         );
+
         console.log(response, "<<<<<<<check data")
         setJobProfiles(response.jobprofileData);
         setCounts(response);
@@ -45,38 +58,47 @@ function MasterTable() {
     };
 
     fetchData();
-  }, [currentPage, itemsPerPage]);
+  }, [currentPage, itemsPerPage, categoryValue,postValue, departValue]);
 
-  // useEffect(() => {
-  //   const fetchJobProfiles = async () => {
-  //     try {
-  //       const response = await adminApiService.getJobProfile();
-  //       console.log("response get", response.data);
-  //       setJobProfiles(response.data);
+  const fetchJobCategories = async () => {
+    try {
+      const response = await adminApiService.getJobCategories();
+      setJobCategories(response.data);
+      console.log("response.data", response.data);
+    } catch (error) {
+      console.error("Error fetching job categories:", error);
+    }
+  };
+  const fetchPosts = async () => {
+    try {
+      const response = await adminApiService.getPosts();
 
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching job profiles:", error);
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchJobProfiles();
-  // }, []);
+      setJobPosts(response);
 
-  // const handleNavigation = () => {
-  //   if (isAdminLoggedIn) {
-  //     navigate("/add-openings");
-  //   } else {
-  //     alert("Admin not logged in. Redirect to login.");
-  //   }
-  // };
+      console.log("response.data", response);
+    } catch (error) {
+      console.error("Error fetching job categories:", error);
+    }
+  };
+  const fetchDepartments = async () => {
+    try {
+      const response = await adminApiService.getDepartments();
+      setJobDepartment(response.data);
+      console.log("response.data", response.data);
+    } catch (error) {
+      console.error("Error fetching job categories:", error);
+    }
+  };
 
-  // const handleEditForm = (profileId) => {
-  //   console.log("Job Profile ID:", profileId);
-  //   navigate(`/edit-openings/${profileId}`); // Include the profileId in the URL
-  //   setIsEditFormOpen(true);
-  //   setSelectedProfileId(profileId);
-  // };
+
+  useEffect(() => {
+    fetchDepartments();
+    fetchPosts();
+    fetchJobCategories();
+  }, []);
+
+
+
   const handleDelete = async (profileId) => {
     setProfileIdToDelete(profileId); // Set the profileId to delete
     setDeleteDialogOpen(true); // Open the delete dialog
@@ -96,76 +118,7 @@ function MasterTable() {
   const handleCloseDeleteDialog = () => {
     setDeleteDialogOpen(false);
   };
-  // const handleDelete = async (profileId) => {
-  //   try {
-  //     const confirmDelete = window.confirm(
-  //       "Are you sure you want to delete this job profile?"
-  //     );
-  //     if (confirmDelete) {
-  //       await adminApiService.deleteJobProfileById(profileId);
 
-  //       setJobProfiles(
-  //         jobProfiles.filter((profile) => profile.id !== profileId)
-  //       );
-  //       alert("Job profile deleted successfully");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error deleting job profile:", error);
-  //     alert("Failed to delete job profile. Please try again later.");
-  //   }
-  // };
-
-  //-----------------------------------Adding Table-------------------------------
-  // const [page, setPage] = useState(1);
-  // const itemsPerPage = 5;
-
-  // const MasterTable = jobProfiles.map((profile) => ({
-  //   id: profile.id,
-  //   category: profile.job_category_master?.category_name || "N/A",
-  //   department: profile.department_master?.dept_name || "N/A",
-  //   applyLink: "/apply-now",
-  //   lastDate: profile.last_date_to_apply || "N/A",
-  //   isActive: profile.is_active ? "Yes" : "No",
-  //   listToCurrentOpening: profile.publish_to_vacancy ? "Yes" : "No",
-  //   listToInterviewSchedule: profile.publish_to_schedule_interview
-  //     ? "Yes"
-  //     : "No",
-  // }));
-  // console.log("MasterTable:", MasterTable);
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
-  // const startIndex = (page - 1) * itemsPerPage;
-  // const endIndex = startIndex + itemsPerPage;
-  // Debugging line to check MasterTable array
-
-  // const MasterData = MasterTable.slice(startIndex, endIndex);
-
-  // const [masterTable, setMasterTable] = useState([...MasterTable]);
-  // const handleDelete = (index) => {
-  //   const updatedMasterTable = [...masterTable];
-  //   updatedMasterTable.splice((page - 1) * itemsPerPage + index, 1);
-  //   setMasterTable(updatedMasterTable);
-  // };
-
-  // const itemsPerPage = 4;
-  // const startIndex = (currentPage - 1) * itemsPerPage;
-  // const endIndex = startIndex + itemsPerPage;
-
-  // const MasterData = jobProfiles
-  //   .map((profile) => ({
-  //     id: profile.id,
-  //     category: profile.job_category_master?.category_name || "N/A",
-  //     department: profile.department_master?.dept_name || "N/A",
-  //     applyLink: "/apply-now",
-  //     lastDate: profile.last_date_to_apply || "N/A",
-  //     isActive: profile.is_active ? "Yes" : "No",
-  //     listToCurrentOpening: profile.publish_to_vacancy ? "Yes" : "No",
-  //     listToInterviewSchedule: profile.publish_to_schedule_interview
-  //       ? "Yes"
-  //       : "No",
-  //   }))
-  //   .slice(startIndex, endIndex);
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const jobProfilesData = jobProfiles.slice(startIndex, endIndex);
@@ -254,16 +207,68 @@ function MasterTable() {
               />
             </div>
           </div>
+
+
+
+          <div className="row mb-2">
+            <div className="col-md-4 ">
+              <label>Select Category:</label>
+              <select
+                name="category_name"
+                className="form-control"
+                onChange={(e) => setCategoryValue(e.target.value)}
+              >
+                <option value="">All</option>
+                {jobCategories.map((category) => (
+            <option key={category.id} value={category.category_name}>
+              {category.category_name}
+            </option>
+          ))}
+              </select>
+            </div>
+            <div className="col-md-4">
+              <label>Select Post:</label>
+              <select
+                name="post_name"
+                className="form-control"
+                onChange={(e) => setPostValue(e.target.value)}               
+              >
+                <option value="">All</option>
+                {jobPosts.map((post) => (
+            <option key={post.id} value={post.post_name}>
+              {post.post_name}
+            </option>
+          ))}
+              </select>
+            </div>
+            <div className="col-md-4">
+              <label>Select Department:</label>
+              <select
+                name="depat_name"
+                className="form-control"
+                onChange={(e) => setDepartValue(e.target.value)}
+              >
+                <option value="">All</option>
+                {jobDepartment.map((depart) => (
+            <option key={depart.id} value={depart.dept_name}>
+              {depart.dept_name}
+            </option>
+          ))}
+              </select>
+            </div>
+          </div>
+
+
           <div className="table-responsive fixe-table">
             <table className="table ">
-              <thead style={{ color: "rgba(0, 0, 0, 0.63)"}} className="thead">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                 <tr>
                   <th scope="col">S.No.</th>
                   <th scope="col">Category</th>
                   <th scope="col">Post</th>
                   <th scope="col">Department</th>
                   <th scope="col">Last Date</th>
-                  <th scope="col">isActive</th>
+                  <th scope="col">List to Publish Profile</th>
                   <th scope="col">List to Current Opening</th>
                   <th scope="col">List to Interview Schedule</th>
                   <th scope="col">Edit</th>
@@ -283,14 +288,14 @@ function MasterTable() {
                     <td>
                       {formatDateForInput(data.last_date_to_apply) || "N/A"}
                     </td>
-                    <td>{data.is_active ? "Yes" : "No"}</td>
+                    <td>{data.publish_to_job_profile ? "Yes" : "No"}</td>
                     <td>{data.publish_to_vacancy ? "Yes" : "No"}</td>
                     <td>{data.publish_to_schedule_interview ? "Yes" : "No"}</td>
                     <td>
                       <button
                         type="button"
                         id="table-btns"
-                        // onClick={() => handleEditForm(data.id)}
+                      // onClick={() => handleEditForm(data.id)}
                       >
                         <Link
                           to={{
