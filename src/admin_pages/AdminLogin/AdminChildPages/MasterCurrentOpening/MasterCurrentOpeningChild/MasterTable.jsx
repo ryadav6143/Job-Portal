@@ -11,7 +11,7 @@ import {
 import adminApiService from "../../../../adminApiService";
 import updatebtn from "../../../../../assets/logos/update.png";
 import deletebtn from "../../../../../assets/logos/delete.png";
-
+import Notification from "../../../../../Notification/Notification";
 function MasterTable() {
 
   const [counts, setCounts] = useState("");
@@ -33,7 +33,9 @@ function MasterTable() {
   const [categoryValue, setCategoryValue] = useState("");
   const [departValue, setDepartValue] = useState("");
   const [postValue, setPostValue] = useState("");
-
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,6 +101,7 @@ function MasterTable() {
 
 
 
+  
   const handleDelete = async (profileId) => {
     setProfileIdToDelete(profileId); // Set the profileId to delete
     setDeleteDialogOpen(true); // Open the delete dialog
@@ -165,7 +168,18 @@ function MasterTable() {
     }
   };
   const handleCheckboxChange = async (jobProfileId, isActive) => {
-    await toggleIsActive(jobProfileId, isActive);
+   const response= await toggleIsActive(jobProfileId, isActive);
+    if (response.error) {
+      // Show error notification with the error message
+      setNotificationSeverity("error");
+      setNotificationMessage(response.error);
+      setNotificationOpen(true);
+    } else {
+      // Show success notification if no error
+      setNotificationSeverity("success");
+      setNotificationMessage("Job profile updated successfully");
+      setNotificationOpen(true);
+    }
   };
 
   return (
@@ -205,7 +219,7 @@ function MasterTable() {
                 disabled
                 value={counts?.TotalActiveVacancy || ""}
               />
-            </div>
+            </div> 
           </div>
 
 

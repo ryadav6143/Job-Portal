@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import "./MasterInterviewSchedule.css";
 import { Pagination } from "react-bootstrap";
 import adminApiService from "../../../adminApiService";
-
+import Notification from "../../../../Notification/Notification";
 function MasterInterviewSchedule() {
   const [jobProfiles, setJobProfiles] = useState([]);
   const [counts, setCounts] = useState([]);
@@ -13,10 +13,13 @@ function MasterInterviewSchedule() {
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [sortBy, setSortBy] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationSeverity, setNotificationSeverity] = useState("success");
+  const [notificationOpen, setNotificationOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await adminApiService.getAllInterview(
+        const response = await adminApiService.getInterviewMaster(
           currentPage,
           itemsPerPage
         );
@@ -66,15 +69,31 @@ function MasterInterviewSchedule() {
         jobprofile_id: jobId,
         publish_to_schedule_interview: checked,
       };
-      await adminApiService.updateJobProfile(updatedData);
+     const response= await adminApiService.updateJobProfile(updatedData);
 
       const updatedJobProfiles = [...jobProfiles];
 
       updatedJobProfiles[index].publish_to_schedule_interview = checked;
       setJobProfiles(updatedJobProfiles);
+      if (response.error) {
+        // Show error notification with the error message
+        setNotificationSeverity("error");
+        setNotificationMessage(response.error);
+        setNotificationOpen(true);
+      } else {
+        // Show success notification if no error
+        setNotificationSeverity("success");
+        setNotificationMessage("Job profile updated successfully");
+        setNotificationOpen(true);
+      }
     } catch (error) {
       console.error("Error updating job profile:", error);
+      // Show error notification
+      setNotificationSeverity("error");
+      setNotificationMessage("An error occurred while updating job profile");
+      setNotificationOpen(true);
     }
+   
   };
 
   const ScheduledAcademicsTable = jobProfiles.map((profile) => ({
@@ -152,6 +171,12 @@ function MasterInterviewSchedule() {
 
   return (
     <>
+      <Notification
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div className="admin-list">
         <div style={{ marginTop: "30px" }} className="master-table ">
           <p className="SCA-heading">Master Interview Schedule </p>
@@ -244,7 +269,7 @@ function MasterInterviewSchedule() {
                               index,
                               !data.publish_to_schedule_interview
                             )
-                          } // Toggle the value on change
+                          } 
                         />
 
                         <span className="slider round"></span>

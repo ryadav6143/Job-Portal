@@ -700,6 +700,22 @@ const adminApiService = {
       throw error;
     }
   },
+  getInterviewMaster: async (currentPage,itemsPerPage) => {
+    try {
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  },
   changeJobProfileIsActive: async (jobProfileId, isActive) => {
     try {
       const response = await axios.put(

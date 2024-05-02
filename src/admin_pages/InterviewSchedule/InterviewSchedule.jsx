@@ -74,7 +74,7 @@ function InterviewSchedule() {
               </button>
             </div>
             <div className="col-md-3">
-              <button className="a1" onClick={() => showComponent("Component2")}>
+              <button className="a1" onClick={() => showComponent("Component1")}>
                 <img
                   className="is-header-logo"
                   src={logo3}
@@ -84,7 +84,7 @@ function InterviewSchedule() {
               </button>
             </div>
             <div className="col-md-3">
-              <button onClick={() => showComponent("Component3")}>
+              <button onClick={() => showComponent("Component1")}>
                 <img
                   className="is-header-logo"
                   src={logo2}
@@ -94,7 +94,7 @@ function InterviewSchedule() {
               </button>
             </div>
             <div className="col-md-3">
-              <button className="a1" onClick={() => showComponent("Component4")}>
+              <button className="a1" onClick={() => showComponent("Component1")}>
                 <img
                   className="is-header-logo"
                   src={logo4}
@@ -118,7 +118,7 @@ function InterviewSchedule() {
               </button>
             </li>
             <li>
-              <button onClick={() => showComponent("Component2")}>
+              <button onClick={() => showComponent("Component1")}>
                 <img
                   className="is-header-logo"
                   src={logo3}
@@ -129,7 +129,7 @@ function InterviewSchedule() {
               </button>
             </li>
             <li>
-              <button onClick={() => showComponent("Component3")}>
+              <button onClick={() => showComponent("Component1")}>
                 <img
                   className="is-header-logo"
                   src={logo2}
@@ -139,7 +139,7 @@ function InterviewSchedule() {
               </button>
             </li>
             <li>
-              <button onClick={() => showComponent("Component4")}>
+              <button onClick={() => showComponent("Component1")}>
                 <img
                   className="is-header-logo"
                   src={logo4}
@@ -147,7 +147,7 @@ function InterviewSchedule() {
                 />
                 TECHNICAL
               </button>
-            </li>
+            </li> 
           </ul>
         </div>
         <div>{componentToShow}</div>
