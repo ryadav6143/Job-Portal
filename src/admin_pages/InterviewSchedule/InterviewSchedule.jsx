@@ -31,7 +31,7 @@ function InterviewSchedule() {
   switch (selectedComponent) {
     case "Component1":
       componentToShow = <ScheduledAcademics />;
-      break;
+      break; 
     case "Component2":
       componentToShow = <ScheduledResearch />;
       break;
